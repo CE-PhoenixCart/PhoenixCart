@@ -17,7 +17,7 @@
   $new_versions = [];
   $check_message = [];
 
-  $feed = Web::load_xml('https://feeds.feedburner.com/phoenixUpdate');
+  $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
 
   foreach ($feed->channel->item as $item) {
     $compared_version = preg_replace('/[^0-9.]/', '', $item->title);

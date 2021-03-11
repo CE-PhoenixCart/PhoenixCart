@@ -29,7 +29,7 @@
     function getOutput() {
       $current_version = tep_get_version();
       
-      $feed = Web::load_xml('https://feeds.feedburner.com/phoenixUpdate');
+      $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
       $compared_version = preg_replace('/[^0-9.]/', '', $feed->channel->item[0]->title);
      
       $output = '<table class="table table-striped mb-2">';
