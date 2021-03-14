@@ -27,7 +27,7 @@
 
       if ( tep_db_num_rows($check_query) > 0 ) {
         while ( $check = tep_db_fetch_array($check_query) ) {
-          if ( isset($check['Collation']) && ($check['Collation'] != 'utf8_unicode_ci') ) {
+          if ( isset($check['Collation']) && ($check['Collation'] !== 'utf8mb4_unicode_ci') ) {
             return false;
           }
         }

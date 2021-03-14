@@ -145,14 +145,14 @@
 
             $queries[] = sprintf(<<<'EOSQL'
 UPDATE %1$s
- SET %2$s = CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8)
- WHERE CHAR_LENGTH(%2$s) = LENGTH(CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8))
+ SET %2$s = CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8mb4)
+ WHERE CHAR_LENGTH(%2$s) = LENGTH(CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8mb4))
 EOSQL
               , tep_db_input(tep_db_prepare_input($table)), $cols['Field'], $old_charset);
           }
         }
 
-        $query = sprintf("ALTER TABLE %s CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci",
+        $query = sprintf("ALTER TABLE %s CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
           tep_db_input(tep_db_prepare_input($table)));
 
         if ( isset($_POST['dryrun']) ) {
