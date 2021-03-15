@@ -141,4 +141,37 @@
       return $results;
     }
 
+    /**
+     * Copy rows in the specified tables.
+     *
+     * @param array $db The columns for each table.
+     * @param string $key The column to use to select the row to be copied.
+     * @param string $value The value of the $key column.
+     * @return boolean|int The auto-increment ID or false.
+     */
+    public function copy($db, $key, $value) {
+      $key_value = false;
+      foreach ($db as $table => $columns) {
+        $values = [];
+        foreach ($columns as $name => $v) {
+          if (is_null($v) && $key_value && ($name === $key)) {
+            $v = $key_value;
+          }
+
+          $values[] = ($v ?? $name);
+        }
+
+        $this->query('INSERT INTO ' . $table
+          . ' (' . implode(', ', array_keys($columns))
+          . ') SELECT ' . implode(', ', $values)
+          . ' FROM ' . $table . ' WHERE ' . $key . ' = ' . $value);
+
+        if (!$key_value) {
+          $key_value = mysqli_insert_id($this);
+        }
+      }
+
+      return $key_value;
+    }
+
   }
