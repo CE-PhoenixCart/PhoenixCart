@@ -33,7 +33,7 @@
 <?php
   $tokens_query = tep_db_query("SELECT id, card_type, number_filtered, expiry_date FROM customers_sagepay_tokens WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_added");
 
-  if ( myslqi_num_rows($tokens_query) > 0 ) {
+  if ( mysqli_num_rows($tokens_query) > 0 ) {
     while ( $tokens = $tokens_query->fetch_assoc() ) {
 ?>
 
