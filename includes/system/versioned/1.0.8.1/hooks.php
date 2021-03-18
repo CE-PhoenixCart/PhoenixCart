@@ -12,13 +12,13 @@
 
   class hooks {
 
-    private $_site;
-    private $_hooks = [];
+    protected $_site;
+    protected $_hooks = [];
     const PREFIX = 'listen_';
-    private $prefix_length;
-    private $pipelines = [];
-    private $page;
-    private $hook_directories = [];
+    protected $prefix_length;
+    protected $pipelines = [];
+    protected $page;
+    protected $hook_directories = [];
 
     public function __construct($site) {
       $this->_site = basename($site);
@@ -30,17 +30,15 @@
       $this->hook_directories[] = $directory . $this->_site . '/';
     }
 
-    private function sort_hooks() {
-      foreach ( $this->_hooks as &$groups ) {
-        foreach ( $groups as &$actions ) {
-          foreach ( $actions as &$codes ) {
-            uksort($codes, 'strnatcmp');
-          }
+    protected function sort_hooks() {
+      foreach ( $this->_hooks as &$actions ) {
+        foreach ( $actions as &$codes ) {
+          uksort($codes, 'strnatcmp');
         }
       }
     }
 
-    private function build_callback($class, $method) {
+    protected function build_callback($class, $method) {
       if ('' === $class) {
         return $method;
       }
@@ -63,7 +61,7 @@
       return [Guarantor::ensure_global($class), $method];
     }
 
-    private function load($group, $alias) {
+    protected function load($group) {
       $hooks_query = tep_db_query(sprintf(<<<'EOSQL'
 SELECT hooks_action, hooks_code, hooks_class, hooks_method
  FROM hooks
@@ -77,7 +75,6 @@ EOSQL
           Guarantor::guarantee_all(
             $this->_hooks,
             $this->_site,
-            $alias,
             $hook['hooks_action']
           )[$hook['hooks_code']] = $callback;
         }
@@ -86,47 +83,42 @@ EOSQL
       $this->sort_hooks();
     }
 
-    protected function register_directory($directory, $group, $alias, &$files) {
-      if ( file_exists($directory) ) {
-        if ( $dir = @dir($directory) ) {
-          while ( $file = $dir->read() ) {
-            if ( !is_dir($directory . '/' . $file) ) {
-              $files[] = $file;
-            }
-          }
-
-          $dir->close();
-        }
-
-        foreach ($files as $file) {
-          $code = pathinfo($file, PATHINFO_FILENAME);
-          if ( 'php' === pathinfo($file, PATHINFO_EXTENSION) ) {
-            $class = "hook_{$this->_site}_{$group}_{$code}";
-
-            Guarantor::ensure_global($class);
-
-            foreach ( get_class_methods($GLOBALS[$class]) as $method ) {
-              if ( substr($method, 0, $this->prefix_length) === self::PREFIX ) {
-                $action = substr($method, $this->prefix_length);
-                Guarantor::guarantee_all($this->_hooks, $this->_site, $alias, $action)[$code]
-                  = [$GLOBALS[$class], $method];
-              }
-            }
+    protected function register_directory($directory, &$files) {
+      if ( file_exists($directory) && ( $dir = @dir($directory) ) ) {
+        while ( $file = $dir->read() ) {
+          if ( !is_dir("$directory/$file") ) {
+            $files[] = $file;
           }
         }
+
+        $dir->close();
       }
     }
 
-    public function register($group, $alias = null) {
+    public function register($group) {
       $group = basename($group);
-      $alias = is_null($alias) ? $group : basename($alias);
 
       $files = [];
       foreach ($this->hook_directories as $directory) {
-        $this->register_directory("$directory$group", $group, $alias, $files);
+        $this->register_directory("$directory$group", $files);
       }
 
-      $this->load($group, $alias);
+      foreach ($files as $file) {
+        $pathinfo = pathinfo($file);
+        if ( 'php' === $pathinfo['extension'] ) {
+          $class = "hook_{$this->_site}_{$group}_{$pathinfo['filename']}";
+
+          foreach ( get_class_methods(Guarantor::ensure_global($class)) as $method ) {
+            if ( substr($method, 0, $this->prefix_length) === self::PREFIX ) {
+              $action = substr($method, $this->prefix_length);
+              Guarantor::guarantee_all($this->_hooks, $this->_site, $action
+                )[$pathinfo['filename']] = [$GLOBALS[$class], $method];
+            }
+          }
+        }
+      }
+
+      $this->load($group);
     }
 
     public function register_page() {
@@ -137,18 +129,24 @@ EOSQL
     }
 
     public function register_pipeline($pipeline, &$parameters = null) {
-      $this->pipelines[] = $pipeline;
-      $this->register($pipeline, $this->page);
+      $this->register($pipeline);
       $this->call($this->page, "{$pipeline}Start", $parameters);
     }
 
-    public function call($group, $action, &$parameters = []) {
-      if (in_array($group, $this->pipelines)) {
-        $group = $this->page;
-      }
+    public function set($action, $code, $callable) {
+      $hooks =& Guarantor::guarantee_all($this->_hooks, $this->_site, $action);
+      $hooks[$code] = $callable;
 
+      uksort($hooks, 'strnatcmp');
+    }
+
+    public function call($group, $action, $parameters = []) {
+      return $this->cat($action, $parameters);
+    }
+
+    public function cat($action, $parameters = []) {
       $result = '';
-      foreach ( @(array)$this->_hooks[$this->_site][$group][$action] as $callback ) {
+      foreach ( @(array)$this->_hooks[$this->_site][$action] as $callback ) {
         $result .= call_user_func($callback, $parameters);
       }
 
@@ -157,10 +155,18 @@ EOSQL
       }
     }
 
-    public function generate($group = null, $action, $parameters = []) {
-      foreach ( @(array)$this->_hooks[$this->_site][$group ?? $this->page][$action] as $callback ) {
+    public function generate($action, $parameters = []) {
+      foreach ( @(array)$this->_hooks[$this->_site][$action] as $callback ) {
         yield call_user_func($callback, $parameters);
       }
+    }
+
+    public function chain($action, $parameters = []) {
+      foreach ( @(array)$this->_hooks[$this->_site][$action] as $callback ) {
+        $parameters = call_user_func($callback, $parameters);
+      }
+
+      return $parameters;
     }
 
     public function get_hook_directories() {
