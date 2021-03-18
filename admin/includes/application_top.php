@@ -31,7 +31,7 @@
 
   $OSCOM_Hooks = new hooks('admin');
   $OSCOM_Hooks->register('system');
-  $OSCOM_Hooks->generate('system', 'startApplication');
+  $OSCOM_Hooks->generate('startApplication');
 
   // Define the project version --- obsolete, now retrieved with tep_get_version()
   define('PROJECT_VERSION', 'CE Phoenix');

@@ -30,7 +30,7 @@
   $hooks = new hooks('shop');
   $OSCOM_Hooks =& $hooks;
   $hooks->register('system');
-  foreach ($hooks->generate('system', 'startApplication') as $result) {
+  foreach ($hooks->generate('startApplication') as $result) {
     if (!isset($result)) {
       continue;
     }
