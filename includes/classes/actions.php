@@ -10,12 +10,12 @@
   Released under the GNU General Public License
 */
 
-  class osC_Actions {
+  class Actions {
 
     public static function parse($action) {
       $action = basename($action);
 
-      if ( $action && class_exists($class = 'osC_Actions_' . $action) ) {
+      if ( $action && class_exists($class = "\\Phoenix\\Actions\\$action") ) {
         call_user_func([$class, 'execute']);
       }
     }

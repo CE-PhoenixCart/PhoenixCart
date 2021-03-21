@@ -10,24 +10,38 @@
   Released under the GNU General Public License
 */
 
-  class osC_Actions_notify {
+  namespace Phoenix\Actions;
+
+  class notify {
 
     public static function execute() {
       if (!isset($_SESSION['customer_id'])) {
         $_SESSION['navigation']->set_snapshot();
 
-        tep_redirect(tep_href_link('login.php', '', 'SSL'));
+        \Href::redirect(\Guarantor::ensure_global('Linker')
+          ->build('login.php'));
       }
 
       $notify = $_GET['products_id'] ?? $_GET['notify'] ?? $_POST['notify'];
-      if (!is_null($notify)) {
+      if (isset($notify)) {
         foreach ((array)$notify as $product_id) {
-          tep_db_query("INSERT IGNORE INTO products_notifications (products_id, customers_id, date_added) VALUES (" . (int)$product_id . ", " . (int)$_SESSION['customer_id'] . ", NOW())");
-          $GLOBALS['messageStack']->add_session('product_action', sprintf(PRODUCT_SUBSCRIBED, tep_get_products_name((int)$product_id)), 'success');
+          $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+INSERT IGNORE INTO products_notifications
+        (products_id, customers_id, date_added)
+ VALUES (%d, %d, NOW())
+EOSQL
+            , (int)$product_id, (int)$_SESSION['customer_id']));
+
+          $GLOBALS['messageStack']->add_session(
+            'product_action',
+            sprintf(PRODUCT_SUBSCRIBED, \Product::fetch_name((int)$product_id)),
+            'success');
         }
       }
 
-      tep_redirect(tep_href_link($GLOBALS['PHP_SELF'], tep_get_all_get_params(['action', 'notify'])));
+      \Href::redirect(\Guarantor::ensure_global('Linker')
+        ->build($GLOBALS['PHP_SELF'])
+        ->retain_parameters(['action', 'notify']));
     }
 
   }

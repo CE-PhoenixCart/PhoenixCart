@@ -29,6 +29,11 @@
   }
 
   function tep_normalize_class_name($original_class) {
+    $class_position = strrpos($original_class, "\\");
+    if (is_int($class_position)) {
+      $original_class = substr($original_class, $class_position + 1);
+    }
+
     return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $original_class));
   }
 
@@ -73,7 +78,7 @@
   function tep_find_all_actions_under($directory, &$files) {
     foreach (scandir($directory, SCANDIR_SORT_ASCENDING) as $file) {
       if (is_file($path = "$directory/$file")) {
-        $files[tep_normalize_class_name('osC_Actions_' . pathinfo($file, PATHINFO_FILENAME))] = $path;
+        $files[tep_normalize_class_name(pathinfo($file, PATHINFO_FILENAME))] = $path;
       }
     }
   }
@@ -92,16 +97,6 @@
     $overrides_directory = DIR_FS_CATALOG . 'includes/system/override';
     if (is_dir($overrides_directory)) {
       tep_find_all_files_under($overrides_directory, $class_files);
-    }
-
-    // some classes do not follow either naming standard relating the class name and file name
-    $exception_mappings = [
-      'os_c__actions' => 'actions',
-    ];
-
-    foreach ($exception_mappings as $class_name => $path) {
-      $class_files[$class_name] = $class_files[$path];
-      unset($class_files[$path]);
     }
 
     return $class_files;
