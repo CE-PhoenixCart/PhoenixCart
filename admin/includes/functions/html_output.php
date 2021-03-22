@@ -310,7 +310,7 @@
 ////
 // Output a Bootstrap Button
   function tep_draw_bootstrap_button($title = '', $icon = null, $link = null, $priority = 'secondary', $params = [], $style = null) {
-    return (string)(new Button($title, $icon, $style, $params ?? [], $link));
+    return (string)(new Button($title ?? '', $icon, $style, $params ?? [], $link));
   }
 
   // review stars
