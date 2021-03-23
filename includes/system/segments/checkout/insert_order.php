@@ -102,7 +102,7 @@ EOSQL;
   $sql_data['orders_products_download'] = [];
   foreach ($order->products as $i => $product) {
     $sql_data['orders_products'][$i] = [
-      'products_id' => tep_get_prid($product['id']),
+      'products_id' => Product::build_prid($product['id']),
       'products_model' => $product['model'],
       'products_name' => $product['name'],
       'products_price' => $product['price'],
@@ -114,8 +114,8 @@ EOSQL;
     $sql_data['orders_products_attributes'][$i] = [];
     $sql_data['orders_products_download'][$i] = [];
     foreach (($product['attributes'] ?? []) as $attribute) {
-      $attributes_query = tep_db_query(sprintf($attributes_sql, (int)$product['id'], (int)$attribute['option_id'], (int)$attribute['value_id'], (int)$_SESSION['languages_id']));
-      $attributes_values = tep_db_fetch_array($attributes_query);
+      $attributes_query = $db->query(sprintf($attributes_sql, (int)$product['id'], (int)$attribute['option_id'], (int)$attribute['value_id'], (int)$_SESSION['languages_id']));
+      $attributes_values = $attributes_query->fetch_assoc();
 
       $sql_data['orders_products_attributes'][$i][] = [
         'products_options' => $attributes_values['products_options_name'],
@@ -125,7 +125,7 @@ EOSQL;
       ];
 
 
-      if ((DOWNLOAD_ENABLED == 'true') && isset($attributes_values['products_attributes_filename']) && tep_not_null($attributes_values['products_attributes_filename'])) {
+      if (('true' === DOWNLOAD_ENABLED) && isset($attributes_values['products_attributes_filename']) && !Text::is_empty($attributes_values['products_attributes_filename'])) {
         $sql_data['orders_products_download'][$i][] = [
           'orders_products_filename' => $attributes_values['products_attributes_filename'],
           'download_maxdays' => $attributes_values['products_attributes_maxdays'],
@@ -136,31 +136,32 @@ EOSQL;
   }
 
   $parameters = [ 'sql_data' => &$sql_data ];
-  $GLOBALS['OSCOM_Hooks']->call('siteWide', 'insertOrder', $parameters);
+  $GLOBALS['hooks']->call('siteWide', 'insertOrder', $parameters);
+  $db =& $GLOBALS['db'];
 
-  tep_db_perform('orders', $sql_data['orders']);
-  $GLOBALS['order_id'] = tep_db_insert_id();
+  $db->perform('orders', $sql_data['orders']);
+  $GLOBALS['order_id'] = $db->insert_id();
   $order->set_id($GLOBALS['order_id']);
 
   foreach ($sql_data['orders_total'] as $order_total) {
     $order_total['orders_id'] = $order->get_id();
-    tep_db_perform('orders_total', $order_total);
+    $db->perform('orders_total', $order_total);
   }
 
   foreach ($sql_data['orders_products'] as $i => $product) {
     $product['orders_id'] = $order->get_id();
-    tep_db_perform('orders_products', $product);
-    $order_products_id = tep_db_insert_id();
+    $db->perform('orders_products', $product);
+    $order_products_id = $db->insert_id();
 
     foreach ($sql_data['orders_products_attributes'][$i] as $attribute) {
       $attribute['orders_id'] = $order->get_id();
       $attribute['orders_products_id'] = $order_products_id;
-      tep_db_perform('orders_products_attributes', $attribute);
+      $db->perform('orders_products_attributes', $attribute);
     }
 
     foreach ($sql_data['orders_products_download'][$i] as $download) {
       $download['orders_id'] = $order->get_id();
       $download['orders_products_id'] = $order_products_id;
-      tep_db_perform('orders_products_download', $download);
+      $db->perform('orders_products_download', $download);
     }
   }

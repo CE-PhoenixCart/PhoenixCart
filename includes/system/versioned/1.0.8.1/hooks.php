@@ -62,12 +62,12 @@
     }
 
     protected function load($group) {
-      $hooks_query = tep_db_query(sprintf(<<<'EOSQL'
+      $hooks_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT hooks_action, hooks_code, hooks_class, hooks_method
  FROM hooks
  WHERE hooks_site = '%s' AND hooks_group = '%s'
 EOSQL
-, tep_db_input($this->_site), tep_db_input($group)));
+, $GLOBALS['db']->escape($this->_site), $GLOBALS['db']->escape($group)));
 
       while ($hook = $hooks_query->fetch_assoc()) {
         $callback = $this->build_callback($hook['hooks_class'], $hook['hooks_method']);

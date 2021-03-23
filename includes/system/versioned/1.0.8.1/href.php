@@ -106,7 +106,7 @@
         'link' => &$link,
         'href' => $this,
       ];
-      $chain = $GLOBALS['OSCOM_Hooks']->chain('hrefLink', $chain);
+      $chain = $GLOBALS['all_hooks']->chain('hrefLink', $chain);
       return $chain['link'] ?? $this->real_link();
     }
 
