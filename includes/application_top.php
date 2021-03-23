@@ -24,11 +24,12 @@
   require 'includes/functions/database.php';
 
 // make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
+  $db = new Database() or die('Unable to connect to database server!');
 
   // hooks
   $hooks = new hooks('shop');
   $OSCOM_Hooks =& $hooks;
+  $all_hooks =& $hooks;
   $hooks->register('system');
   foreach ($hooks->generate('startApplication') as $result) {
     if (!isset($result)) {
