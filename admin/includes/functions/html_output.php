@@ -219,19 +219,14 @@
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $class = 'class="form-control"') {
     $select = new Select($name, $values, phoenix_normalize($parameters));
 
-    if (!Text::is_empty($class)) {
+    if (isset($class) && !Text::is_empty($class)) {
       $pair = explode('=', $class, 2);
       if (isset($pair[1]) && ('class' === $pair[0])) {
         $select->append_css(trim($pair[1], '"'));
       }
     }
 
-    if ( empty($default) ) {
-      $request = Request::value($name);
-      if (is_string($request)) {
-       $select->set_selection($request);
-      }
-    } else {
+    if ( !empty($default) ) {
       $select->set_selection($default);
     }
 

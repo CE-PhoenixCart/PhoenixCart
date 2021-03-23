@@ -153,14 +153,8 @@
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
     $select = new Select($name, $values, phoenix_normalize($parameters));
-    $select->append_css('form-control');
 
-    if ( empty($default) ) {
-      $request = Request::value($name);
-      if (is_string($request)) {
-        $select->set_selection($request);
-      }
-    } else {
+    if ( !empty($default) ) {
       $select->set_selection($default);
     }
 

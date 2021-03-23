@@ -26,12 +26,16 @@
     /**
      *
      * @param string $name
+     * @param array $options
      * @param array $parameters
-     * @param string $css
      */
     public function __construct(string $name, array $options = [], array $parameters = []) {
       parent::__construct($name, $parameters, null);
       $this->options = $options;
+
+      if (!isset($this->parameters['value']) && is_string($request = Request::value($this->get('name')))) {
+        $this->selection = $request;
+      }
     }
 
     /**
@@ -113,6 +117,14 @@
 
     /**
      *
+     * @return boolean|bool
+     */
+    public function get_required() {
+      return $this->required;
+    }
+
+    /**
+     *
      * @param bool $required
      * @return Select
      */
@@ -123,11 +135,32 @@
 
     /**
      *
+     * @return string
+     */
+    public function get_selection() {
+      return $this->selection;
+    }
+
+    /**
+     *
      * @param string $selection
      * @return Select
      */
-    public function set_selection(string $selection) {
+    public function set_selection(string $selection = null) {
       $this->selection = $selection;
+      return $this;
+    }
+
+    /**
+     *
+     * @param string $default
+     * @return Select
+     */
+    public function set_default_selection(string $default = null) {
+      if (!isset($default)) {
+        $this->selection = $default;
+      }
+
       return $this;
     }
 
