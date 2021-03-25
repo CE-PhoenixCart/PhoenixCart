@@ -98,6 +98,5 @@
   }
 
   function tep_db_get_server_info($link = 'db') {
-    trigger_error('The tep_db_get_server_info function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->server_info;
   }
