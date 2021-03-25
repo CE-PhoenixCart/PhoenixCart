@@ -114,8 +114,8 @@
 
 // alt is added as the img title even if  null to prevent browsers from outputting
 // the image filename as default
-      if (!isset($this->parameters['title']) && !Text::is_empty($this->get('alt'))) {
-        $this->set('title', $this->get('alt'));
+      if (!isset($this->parameters['title'])) {
+        $this->set('title', $this->parameters['alt'] ?? '');
       }
 
       return '<img' . $this->stringify_parameters() . ' />';
