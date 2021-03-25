@@ -140,7 +140,7 @@ EOSQL;
   $db =& $GLOBALS['db'];
 
   $db->perform('orders', $sql_data['orders']);
-  $GLOBALS['order_id'] = $db->insert_id();
+  $GLOBALS['order_id'] = mysqli_insert_id($db);
   $order->set_id($GLOBALS['order_id']);
 
   foreach ($sql_data['orders_total'] as $order_total) {
@@ -151,7 +151,7 @@ EOSQL;
   foreach ($sql_data['orders_products'] as $i => $product) {
     $product['orders_id'] = $order->get_id();
     $db->perform('orders_products', $product);
-    $order_products_id = $db->insert_id();
+    $order_products_id = mysqli_insert_id($db);
 
     foreach ($sql_data['orders_products_attributes'][$i] as $attribute) {
       $attribute['orders_id'] = $order->get_id();
