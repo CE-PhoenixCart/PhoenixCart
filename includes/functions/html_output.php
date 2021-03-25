@@ -107,13 +107,6 @@
     $textarea = new Textarea($name, phoenix_normalize($parameters));
     $textarea->set('cols', $width)->set('rows', $height);
 
-    if (!Text::is_empty($class)) {
-      $pair = explode('=', $class, 2);
-      if (isset($pair[1]) && ('class' === $pair[0])) {
-        $textarea->append_css();
-      }
-    }
-
     if ( $reinsert_value && is_string(Request::value($name)) ) {
       $textarea->retain_text();
     } elseif (!Text::is_empty($text)) {
