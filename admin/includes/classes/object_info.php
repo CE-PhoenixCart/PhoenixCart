@@ -12,15 +12,15 @@
 
   class objectInfo {
 
-// class constructor
-    function __construct($object_array) {
-		  $this->objectInfo($object_array);
-		}
+    public function __construct($object_data) {
+      $this->objectInfo($object_data);
+    }
 
-    function objectInfo($object_array) {
-      foreach($object_array as $key => $value) {
-        $this->$key = tep_db_prepare_input($value);
+    public function objectInfo($object_data) {
+      foreach($object_data as $key => $value) {
+        $this->$key = is_null($value) ? null
+          : filter_var($value, FILTER_CALLBACK, ['options' => 'Text::prepare']);
       }
     }
+
   }
-?>
