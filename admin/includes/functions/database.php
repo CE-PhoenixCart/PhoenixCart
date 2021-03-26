@@ -94,7 +94,7 @@
   }
 
   function tep_db_affected_rows($link = 'db') {
-    return $GLOBALS[$link]->affected_rows();
+    return mysqli_affected_rows($GLOBALS[$link]);
   }
 
   function tep_db_get_server_info($link = 'db') {
