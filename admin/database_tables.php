@@ -213,8 +213,8 @@ EOSQL
     <?php
     if ( isset($action) ) {
       echo '<div class="col-sm-4 text-right align-self-center">';
-        echo (new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light'))->set_link(
-          Guarantor::ensure_global('Admin')->link('database_tables.php'));
+        echo (new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light'))->set(
+          'href', Guarantor::ensure_global('Admin')->link('database_tables.php'));
       echo '</div>';
     }
     ?>
