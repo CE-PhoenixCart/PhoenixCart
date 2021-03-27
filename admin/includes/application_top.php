@@ -26,14 +26,31 @@
 // include the database functions
   require 'includes/functions/database.php';
 
-// make a connection to the database... now
-  tep_db_connect() or die('Unable to connect to database server!');
+  $db = new Database() or die('Unable to connect to database server!');
 
-  $OSCOM_Hooks = new hooks('admin');
-  $OSCOM_Hooks->register('system');
-  $OSCOM_Hooks->generate('system', 'startApplication');
+  $admin_hooks = new hooks('admin');
+  $OSCOM_Hooks =& $admin_hooks;
+  $all_hooks =& $admin_hooks;
+  $admin_hooks->register('system');
+  foreach ($admin_hooks->generate('startApplication') as $result) {
+    if (!isset($result)) {
+      continue;
+    }
 
-  // Define the project version --- obsolete, now retrieved with tep_get_version()
+    if (is_string($result)) {
+      $result = [ $result ];
+    }
+
+    if (is_array($result)) {
+      foreach ($result as $path) {
+        if (is_string($path ?? null) && file_exists($path)) {
+          require $path;
+        }
+      }
+    }
+  }
+
+// Define the project version --- obsolete, now retrieved with Versions::get('Phoenix')
   define('PROJECT_VERSION', 'CE Phoenix');
 
   // set the type of request (secure or not)
@@ -44,10 +61,11 @@
   $PHP_SELF = substr($req['path'], strlen(DIR_WS_ADMIN));
 
 // set application wide parameters
-  $configuration_query = tep_db_query('SELECT configuration_key, configuration_value FROM configuration');
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    define($configuration['configuration_key'], $configuration['configuration_value']);
-  }
+  array_walk(...[
+    $db->fetch_all('SELECT configuration_key, configuration_value FROM configuration'),
+    function ($v) {
+      define($v['configuration_key'], $v['configuration_value']);
+    }]);
 
 // define our general functions used application-wide
   require 'includes/functions/general.php';
@@ -100,8 +118,8 @@
 // try to automatically log in with the HTTP Authentication values if it exists
       if (!isset($_SESSION['auth_ignore'])) {
         if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
-          $redirect_origin['auth_user'] = $_SERVER['PHP_AUTH_USER'];
-          $redirect_origin['auth_pw'] = $_SERVER['PHP_AUTH_PW'];
+          $_SESSION['redirect_origin']['auth_user'] = $_SERVER['PHP_AUTH_USER'];
+          $_SESSION['redirect_origin']['auth_pw'] = $_SERVER['PHP_AUTH_PW'];
         }
       }
 
@@ -109,7 +127,7 @@
     }
 
     if ($redirect || !isset($login_request) || isset($_GET['login_request']) || isset($_POST['login_request']) || isset($_COOKIE['login_request']) || isset($_SESSION['login_request']) || isset($_FILES['login_request']) || isset($_SERVER['login_request'])) {
-      tep_redirect(tep_href_link('login.php', (isset($redirect_origin['auth_user']) ? 'action=process' : '')));
+      Href::redirect(Guarantor::ensure_global('Admin')->link('login.php', (isset($_SESSION['redirect_origin']['auth_user']) ? ['action' => 'process'] : [])));
     }
 
     unset($redirect);
@@ -117,14 +135,14 @@
 
 // include the language translations
   $_system_locale_numeric = setlocale(LC_NUMERIC, 0);
-  if (!file_exists("includes/languages/$language.php")) {
-    $language = 'english';
+  if (!file_exists("includes/languages/{$_SESSION['language']}.php")) {
+    $_SESSION['language'] = 'english';
   }
-  require "includes/languages/$language.php";
+  require "includes/languages/{$_SESSION['language']}.php";
   setlocale(LC_NUMERIC, $_system_locale_numeric); // Prevent LC_ALL from setting LC_NUMERIC to a locale with 1,0 float/decimal values instead of 1.0 (see bug #634)
 
   $current_page = basename($PHP_SELF);
-  $current_page_language_file = "includes/languages/$language/$current_page";
+  $current_page_language_file = "includes/languages/{$_SESSION['language']}/$current_page";
   if (file_exists($current_page_language_file)) {
     include $current_page_language_file;
   }
@@ -141,4 +159,4 @@
   $cfgModules = new cfg_modules();
 
 
-  $OSCOM_Hooks->register_page();
+  $admin_hooks->register_page();

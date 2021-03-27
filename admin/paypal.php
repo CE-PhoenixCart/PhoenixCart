@@ -10,10 +10,10 @@
   Released under the GNU General Public License
 */
 
-  require('includes/application_top.php');
+  require 'includes/application_top.php';
 
-  if ( tep_db_num_rows(tep_db_query("show tables like 'oscom_app_paypal_log'")) != 1 ) {
-    $sql = <<<EOD
+  if ( mysqli_num_rows($db->query("SHOW TABLES LIKE 'oscom_app_paypal_log'")) != 1 ) {
+    $db->query(<<<'EOSQL'
 CREATE TABLE oscom_app_paypal_log (
   id int unsigned NOT NULL auto_increment,
   customers_id int NOT NULL,
@@ -27,14 +27,13 @@ CREATE TABLE oscom_app_paypal_log (
   date_added datetime,
   PRIMARY KEY (id),
   KEY idx_oapl_module (module)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-EOD;
-
-    tep_db_query($sql);
+EOSQL
+      );
   }
 
-  require(DIR_FS_CATALOG . 'includes/apps/paypal/OSCOM_PayPal.php');
+  require DIR_FS_CATALOG . 'includes/apps/paypal/OSCOM_PayPal.php';
   $OSCOM_PayPal = new OSCOM_PayPal();
 
   $content = 'start.php';
@@ -47,9 +46,9 @@ EOD;
     $action = basename($_GET['action']);
   }
 
-  $OSCOM_PayPal->loadLanguageFile('admin/' . $action . '.php');
+  $OSCOM_PayPal->loadLanguageFile("admin/$action.php");
 
-  if ( $action == 'start' ) {
+  if ( 'start' === $action ) {
     if ( $OSCOM_PayPal->migrate() ) {
       if ( defined('MODULE_ADMIN_DASHBOARD_INSTALLED') ) {
         $admin_dashboard_modules = explode(';', MODULE_ADMIN_DASHBOARD_INSTALLED);
@@ -57,27 +56,27 @@ EOD;
         if ( !in_array('d_paypal_app.php', $admin_dashboard_modules) ) {
           $admin_dashboard_modules[] = 'd_paypal_app.php';
 
-          tep_db_query("update configuration set configuration_value = '" . tep_db_input(implode(';', $admin_dashboard_modules)) . "' where configuration_key = 'MODULE_ADMIN_DASHBOARD_INSTALLED'");
+          $db->query("UPDATE configuration SET configuration_value = '" . $db->escape(implode(';', $admin_dashboard_modules)) . "' WHERE configuration_key = 'MODULE_ADMIN_DASHBOARD_INSTALLED'");
           $d_paypal_app = new d_paypal_app();
           $d_paypal_app->install();
         }
       }
 
-      tep_redirect(tep_href_link('paypal.php', tep_get_all_get_params()));
+      Href::redirect(Guarantor::ensure_global('Admin')->link('paypal.php')->retain_parameters());
     }
   }
 
-  include(DIR_FS_CATALOG . 'includes/apps/paypal/admin/actions/' . $action . '.php');
+  include DIR_FS_CATALOG . "includes/apps/paypal/admin/actions/$action.php";
 
-  if ( isset($_GET['subaction']) && file_exists(DIR_FS_CATALOG . 'includes/apps/paypal/admin/actions/' . $action . '/' . basename($_GET['subaction']) . '.php') ) {
+  if ( isset($_GET['subaction']) && file_exists(DIR_FS_CATALOG . "includes/apps/paypal/admin/actions/$action/" . basename($_GET['subaction']) . '.php') ) {
     $subaction = basename($_GET['subaction']);
   }
 
   if ( !empty($subaction) ) {
-    include(DIR_FS_CATALOG . 'includes/apps/paypal/admin/actions/' . $action . '/' . $subaction . '.php');
+    include DIR_FS_CATALOG . "includes/apps/paypal/admin/actions/$action/$subaction.php";
   }
 
-  include(DIR_FS_ADMIN . 'includes/template_top.php');
+  include DIR_FS_ADMIN . 'includes/template_top.php';
 ?>
 
 <script>
@@ -95,17 +94,17 @@ var OSCOM = {
   },
   APP: {
     PAYPAL: {
-      version: '<?php echo $OSCOM_PayPal->getVersion(); ?>',
-      versionCheckResult: <?php echo (defined('OSCOM_APP_PAYPAL_VERSION_CHECK')) ? '"' . OSCOM_APP_PAYPAL_VERSION_CHECK . '"' : 'undefined'; ?>,
-      action: '<?php echo $action; ?>',
+      version: '<?= $OSCOM_PayPal->getVersion() ?>',
+      versionCheckResult: <?= (defined('OSCOM_APP_PAYPAL_VERSION_CHECK')) ? '"' . OSCOM_APP_PAYPAL_VERSION_CHECK . '"' : 'undefined' ?>,
+      action: '<?= $action ?>',
       doOnlineVersionCheck: false,
       canApplyOnlineUpdates: false,
       accountTypes: {
-        live: <?php echo ($OSCOM_PayPal->hasApiCredentials('live') === true) ? 'true' : 'false'; ?>,
-        sandbox: <?php echo ($OSCOM_PayPal->hasApiCredentials('sandbox') === true) ? 'true' : 'false'; ?>
+        live: <?= ($OSCOM_PayPal->hasApiCredentials('live') === true) ? 'true' : 'false' ?>,
+        sandbox: <?= ($OSCOM_PayPal->hasApiCredentials('sandbox') === true) ? 'true' : 'false' ?>
       },
       versionCheck: function() {
-        $.get('<?php echo tep_href_link('paypal.php', 'action=checkVersion'); ?>', function (data) {
+        $.get('<?= Guarantor::ensure_global('Admin')->link('paypal.php', ['action' => 'checkVersion']) ?>', function (data) {
           var versions = [];
 
           if ( OSCOM.APP.PAYPAL.canApplyOnlineUpdates == true ) {
@@ -160,18 +159,18 @@ if ( typeof OSCOM.APP.PAYPAL.versionCheckResult != 'undefined' ) {
 <div class="pp-container">
   <div class="row">
     <div class="col">
-      <a href="<?= tep_href_link('paypal.php'); ?>"><img src="<?= tep_catalog_href_link('images/apps/paypal/paypal.png', '', 'SSL'); ?>" /></a>
+      <a href="<?= Guarantor::ensure_global('Admin')->link('paypal.php') ?>"><img src="<?= Guarantor::ensure_global('Admin')->catalog('images/apps/paypal/paypal.png') ?>" /></a>
     </div>
     <div class="col" id="ppAppInfo">
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <p class="navbar-text"><?= $OSCOM_PayPal->getTitle() . ' v' . $OSCOM_PayPal->getVersion(); ?></p>
+          <p class="navbar-text"><?= $OSCOM_PayPal->getTitle() . ' v' . $OSCOM_PayPal->getVersion() ?></p>
         </li>
         <li class="nav-item">
-          <?= '<a class="nav-link" href="' . tep_href_link('paypal.php', 'action=info') . '">' . $OSCOM_PayPal->getDef('app_link_info') . '</a>'; ?>
+          <?= '<a class="nav-link" href="' . Guarantor::ensure_global('Admin')->link('paypal.php', ['action' => 'info']) . '">' . $OSCOM_PayPal->getDef('app_link_info') . '</a>' ?>
         </li>
         <li class="nav-item">
-          <?= '<a class="nav-link" href="' . tep_href_link('paypal.php', 'action=privacy') . '">' . $OSCOM_PayPal->getDef('app_link_privacy') . '</a>'; ?>
+          <?= '<a class="nav-link" href="' . Guarantor::ensure_global('Admin')->link('paypal.php', ['action' => 'privacy']) . '">' . $OSCOM_PayPal->getDef('app_link_privacy') . '</a>' ?>
         </li>
       </ul>
     </div>
@@ -184,7 +183,7 @@ if ( typeof OSCOM.APP.PAYPAL.versionCheckResult != 'undefined' ) {
 ?>
 
   <div>
-    <?php include(DIR_FS_CATALOG . 'includes/apps/paypal/admin/content/' . basename($content)); ?>
+    <?php include DIR_FS_CATALOG . 'includes/apps/paypal/admin/content/' . basename($content) ?>
   </div>
 </div>
 

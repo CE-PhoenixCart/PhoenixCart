@@ -2,136 +2,59 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2020 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  function tep_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $password = DB_SERVER_PASSWORD, $database = DB_DATABASE, $link = 'db_link') {
-    global $$link;
+  function tep_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $password = DB_SERVER_PASSWORD, $database = DB_DATABASE, $link = 'db') {
+    $GLOBALS[$link] = new Database($server, $username, $password, $database);
 
-    $$link = mysqli_connect($server, $username, $password, $database);
-
-    if ( !mysqli_connect_errno() ) {
-      mysqli_set_charset($$link, 'utf8');
-    }
-
-    @mysqli_query($$link, 'SET SESSION sql_mode=""');
-
-    return $$link;
+    return $GLOBALS[$link];
   }
 
-  function tep_db_close($link = 'db_link') {
-    global $$link;
-
-    return mysqli_close($$link);
+  function tep_db_close($link = 'db') {
+    return $GLOBALS[$link]->close();
   }
 
   function tep_db_error($query, $errno, $error) {
+    trigger_error('The tep_db_error function has been deprecated.', E_USER_DEPRECATED);
     global $logger;
 
     if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
       $logger->write('[' . $errno . '] ' . $error, 'ERROR');
     }
 
-    die('<font color="#000000"><strong>' . $errno . ' - ' . $error . '<br /><br />' . $query . '<br /><br /><small><font color="#ff0000">[TEP STOP]</font></small><br /><br /></strong></font>');
+    die('<font color="#000000"><strong>' . $errno . ' - ' . $error . '<br /><br />' . $query . '<br /><br /><small><font color="#ff0000">[Phoenix STOP]</font></small><br /><br /></strong></font>');
   }
 
-  function tep_db_query($query, $link = 'db_link') {
-    global $$link, $logger;
-
-    if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
-      if (!is_object($logger)) $logger = new logger();
-      $logger->write($query, 'QUERY');
-    }
-
-    $result = mysqli_query($$link, $query) or tep_db_error($query, mysqli_errno($$link), mysqli_error($$link));
-
-    return $result;
+  function tep_db_query($query, $link = 'db') {
+    return $GLOBALS[$link]->query($query);
   }
 
-  function tep_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db_link') {
-    if ($action == 'insert') {
-      $query = 'INSERT INTO ' . $table . ' (' . implode(', ', array_keys($data)) . ') VALUES (';
-
-      foreach ($data as $value) {
-        switch ((string)$value) {
-          case 'NOW()':
-          case 'now()':
-            $query .= 'NOW(), ';
-            break;
-          case 'NULL':
-          case 'null':
-            $query .= 'NULL, ';
-            break;
-          default:
-            $query .= '\'' . tep_db_input($value) . '\', ';
-            break;
-        }
-      }
-      $query = substr($query, 0, -strlen(', ')) . ')';
-    } elseif ($action == 'update') {
-      $query = 'UPDATE ' . $table . ' SET ';
-      foreach ($data as $column => $value) {
-        switch ((string)$value) {
-          case 'NOW()':
-          case 'now()':
-            $query .= $column . ' = NOW(), ';
-            break;
-          case 'NULL':
-          case 'null':
-            $query .= $column . ' = NULL, ';
-            break;
-          default:
-            $query .= $column . ' = \'' . tep_db_input($value) . '\', ';
-            break;
-        }
-      }
-      $query = substr($query, 0, -strlen(', ')) . ' WHERE ' . $parameters;
-    }
-
-    return tep_db_query($query, $link);
+  function tep_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db') {
+    return $GLOBALS[$link]->perform($table, $data, $action, $parameters);
   }
 
   function tep_db_copy($db, $key, $value) {
-    $key_value = false;
-    foreach ($db as $table => $columns) {
-      $values = [];
-      foreach ($columns as $name => $v) {
-        if ($key_value && ($name === $key) && is_null($v)) {
-          $v = $key_value;
-        }
-
-        $values[] = ($v ?? $name);
-      }
-
-      tep_db_query('INSERT INTO ' . $table
-        . ' (' . implode(', ', array_keys($columns))
-        . ') SELECT ' . implode(', ', $values)
-        . ' FROM ' . $table . ' WHERE ' . $key . ' = ' . $value);
-
-      if (!$key_value) {
-        $key_value = tep_db_insert_id();
-      }
-    }
-
-    return $key_value;
+    return $GLOBALS['db']->copy($db, $key, $value);
   }
 
   function tep_db_fetch_array($db_query) {
-    return mysqli_fetch_array($db_query, MYSQLI_ASSOC);
+    return $db_query->fetch_assoc();
   }
 
   function tep_db_result($result, $row, $field = '') {
+    trigger_error('The tep_db_result function has been deprecated.', E_USER_DEPRECATED);
     if ( $field === '' ) {
       $field = 0;
     }
 
-    tep_db_data_seek($result, $row);
-    $data = tep_db_fetch_array($result);
+    $result->data_seek($row);
+    $data = $result->fetch_assoc();
 
     return $data[$field];
   }
@@ -141,55 +64,39 @@
   }
 
   function tep_db_data_seek($db_query, $row_number) {
-    return mysqli_data_seek($db_query, $row_number);
+    return $db_query->data_seek($row_number);
   }
 
-  function tep_db_insert_id($link = 'db_link') {
-    global $$link;
-
-    return mysqli_insert_id($$link);
+  function tep_db_insert_id($link = 'db') {
+    return $GLOBALS[$link]->insert_id;
   }
 
   function tep_db_free_result($db_query) {
-    return mysqli_free_result($db_query);
+    trigger_error('The tep_db_free_result function has been deprecated.', E_USER_DEPRECATED);
+    return $db_query->free_result();
   }
 
   function tep_db_fetch_fields($db_query) {
-    return mysqli_fetch_field($db_query);
+    trigger_error('The tep_db_fetch_fields function has been deprecated.', E_USER_DEPRECATED);
+    return $db_query->fetch_field();
   }
 
   function tep_db_output($string) {
     return htmlspecialchars($string);
   }
 
-  function tep_db_input($string, $link = 'db_link') {
-    global $$link;
-
-    return mysqli_real_escape_string($$link, $string);
+  function tep_db_input($string, $link = 'db') {
+    return $GLOBALS[$link]->real_escape_string($string);
   }
 
-  function tep_db_prepare_input($string) {
-    if (is_string($string)) {
-      return trim(stripslashes($string));
-    }
-
-    if (is_array($string)) {
-      foreach ($string as $key => $value) {
-        $string[$key] = tep_db_prepare_input($value);
-      }
-    }
-
-    return $string;
+  function tep_db_prepare_input($input) {
+    return Text::prepare($input);
   }
 
-  function tep_db_affected_rows($link = 'db_link') {
-    global $$link;
-
-    return mysqli_affected_rows($$link);
+  function tep_db_affected_rows($link = 'db') {
+    return mysqli_affected_rows($GLOBALS[$link]);
   }
 
-  function tep_db_get_server_info($link = 'db_link') {
-    global $$link;
-
-    return mysqli_get_server_info($$link);
+  function tep_db_get_server_info($link = 'db') {
+    return $GLOBALS[$link]->server_info;
   }

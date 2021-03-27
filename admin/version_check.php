@@ -1,23 +1,23 @@
 <?php
 /*
   $Id$
-  
+
   CE Phoenix, E-Commerce Made Easy
   https://phoenixcart.org
-  
+
   Copyright (c) 2021 Phoenix Cart
-  
+
   Released under the GNU General Public License
 */
 
-  require('includes/application_top.php');
+  require 'includes/application_top.php';
 
-  $current_version = tep_get_version();
+  $current_version = Versions::get('Phoenix');
 
   $new_versions = [];
   $check_message = [];
 
-  $feed = Web::load_xml('https://feeds.feedburner.com/phoenixUpdate');
+  $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
 
   foreach ($feed->channel->item as $item) {
     $compared_version = preg_replace('/[^0-9.]/', '', $item->title);
@@ -27,18 +27,23 @@
     }
   }
 
-  if (!empty($new_versions)) {
-    $check_message = ['class' => 'alert alert-danger', 'message' => sprintf(VERSION_UPGRADES_AVAILABLE, $new_versions[0]->title)];
-  } else {
+  if (empty($feed->channel->item)) {
+    $check_message = ['class' => 'alert alert-warning', 'message' => VERSION_SERVER_FAILURE];
+  } elseif (empty($new_versions)) {
     $check_message = ['class' => 'alert alert-success', 'message' => VERSION_RUNNING_LATEST];
+  } else {
+    $check_message = [
+      'class' => 'alert alert-danger',
+      'message' => sprintf(VERSION_UPGRADES_AVAILABLE, $new_versions[0]->title),
+    ];
   }
 
-  require('includes/template_top.php');
+  require 'includes/template_top.php';
 ?>
 
   <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
 
-  <p class="lead"><?= sprintf(TITLE_INSTALLED_VERSION, $current_version) ?></p>
+  <p class="lead"><?php printf(TITLE_INSTALLED_VERSION, $current_version); ?></p>
 
   <div class="<?= $check_message['class'] ?>">
     <p class="lead"><?= $check_message['message'] ?></p>
@@ -75,6 +80,6 @@
   <?php
   }
 
-  require('includes/template_bottom.php');
-  require('includes/application_bottom.php');
+  require 'includes/template_bottom.php';
+  require 'includes/application_bottom.php';
 ?>

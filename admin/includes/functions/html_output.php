@@ -2,329 +2,244 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2020 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
+  function phoenix_parameterize($query, $delimiter = '&', $joiner = '=') {
+    $parameters = [];
+    foreach (explode($delimiter, $query) as $parameter) {
+      $pair = explode($joiner, $parameter, 2);
+      if (!empty($pair[0])) {
+        $parameters[$pair[0]] = $pair[1] ?? null;
+      }
+    }
+
+    return $parameters;
+  }
+
+  function phoenix_normalize($attributes) {
+    $parameters = [];
+    foreach (preg_split('{"[^"]*"(*SKIP)(*FAIL)|\s+}', $attributes) as $parameter) {
+      $pair = explode('=', $parameter, 2);
+      if (!empty($pair[0])) {
+        $parameters[$pair[0]] = isset($pair[1]) ? trim($pair[1], '"') : null;
+      }
+    }
+
+    return $parameters;
+  }
+
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'SSL', $add_session_id = true) {
-    $page = tep_output_string($page);
-
-    if ($page == '') {
-      die(<<<EOERROR
-<h5>Error!</h5>
-<p>Unable to determine the page link!</p>
-<p>Function used:</p>
-<p>tep_href_link('$page', '$parameters', '$connection', '$add_session_id')</p>
-EOERROR
-);
-    }
-
-    $link = HTTP_SERVER . DIR_WS_ADMIN . $page;
-
-    if (tep_not_null($parameters)) {
-      $link .= '?' . tep_output_string($parameters);
-      $separator = '&';
-    } else {
-      $separator = '?';
-    }
-
-    $link = rtrim($link, '&?');
-
-// Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
-    if ( $add_session_id && isset($SID) && (SESSION_FORCE_COOKIE_USE == 'False') && tep_not_null($SID) ) {
-      $_sid = $SID;
-    }
-
-    if (isset($_sid)) {
-      $link .= $separator . tep_output_string($_sid);
-    }
-
-    while (strpos($link, '&&') !== false) {
-      $link = str_replace('&&', '&', $link);
-    }
-
-    return $link;
+    return Guarantor::ensure_global('Admin')->link($page, phoenix_parameterize($parameters), $add_session_id);
   }
 
-  function tep_catalog_href_link($page = '', $parameters = '', $connection = 'NONSSL') {
-    $link = HTTP_CATALOG_SERVER . DIR_WS_CATALOG . $page;
-
-    if ('' !== $parameters) {
-      $link .= '?' . $parameters;
-    }
-
-    return rtrim($link, '&?');
+  function tep_catalog_href_link($page = '', $parameters = '') {
+    return Guarantor::ensure_global('Admin')->catalog($page, phoenix_parameterize($parameters));
   }
 
 ////
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '', $responsive = true, $bootstrap_css = '') {
-    $image = '<img src="' . tep_output_string($src) . '" border="0" alt="' . tep_output_string($alt) . '"';
+    $image = new Image($src, phoenix_normalize($parameters));
 
-    if (tep_not_null($alt)) {
-      $image .= ' title="' . tep_output_string($alt) . '"';
+    if (!Text::is_empty($alt)) {
+      $image->set('alt', $alt);
     }
 
-    if (tep_not_null($width) && tep_not_null($height)) {
-      $image .= ' width="' . tep_output_string($width) . '" height="' . tep_output_string($height) . '"';
+    if (!Text::is_empty($width)) {
+      $image->set('width', $width);
     }
 
-    $image .= ' class="';
+    if (!Text::is_empty($height)) {
+      $image->set('height', $height);
+    }
 
     if ($responsive === true) {
-      $image .= 'img-fluid';
+      $image->set_responsive();
     }
 
-    if (tep_not_null($bootstrap_css)) {
-      $image .= ' ' . $bootstrap_css;
+    if (!Text::is_empty($bootstrap_css)) {
+      $image->append_css($bootstrap_css);
     }
 
-    $image .= '"';
-
-    if (tep_not_null($parameters)) {
-      $image .= ' ' . $parameters;
-    }
-
-    $image .= ' />';
-
-    return $image;
+    return "$image";
   }
 
 ////
-// Draw a 1 pixel black line
 // DEPRECATE THIS ASAP
   function tep_black_line() {
+    trigger_error('The tep_black_line function has been deprecated.', E_USER_DEPRECATED);
     return null;
-    //return tep_image('images/pixel_black.gif', '', '100%', '1', null, false);
   }
 
 ////
-// Output a separator either through whitespace, or with an image
 // DEPRECATE THIS ASAP
   function tep_draw_separator($image = 'pixel_black.gif', $width = '100%', $height = '1') {
+    trigger_error('The tep_draw_separator function has been deprecated.', E_USER_DEPRECATED);
     return null;
-    //return tep_image('images/' . $image, '', $width, $height, null, false);
   }
 
 ////
 // javascript to dynamically update the states/provinces list when the country is changed
 // TABLES: zones
   function tep_js_zone_list($country, $form, $field) {
-    $countries_query = tep_db_query("select distinct zone_country_id from zones order by zone_country_id");
-    $num_country = 1;
-    $output_string = '';
-    while ($countries = tep_db_fetch_array($countries_query)) {
-      if ($num_country == 1) {
-        $output_string .= '  if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      } else {
-        $output_string .= '  } else if (' . $country . ' == "' . $countries['zone_country_id'] . '") {' . "\n";
-      }
-
-      $states_query = tep_db_query("select zone_name, zone_id from zones where zone_country_id = '" . $countries['zone_country_id'] . "' order by zone_name");
-
-      $num_state = 1;
-      while ($states = tep_db_fetch_array($states_query)) {
-        if ($num_state == '1') $output_string .= '    ' . $form . '.' . $field . '.options[0] = new Option("' . PLEASE_SELECT . '", "");' . "\n";
-        $output_string .= '    ' . $form . '.' . $field . '.options[' . $num_state . '] = new Option("' . $states['zone_name'] . '", "' . $states['zone_id'] . '");' . "\n";
-        $num_state++;
-      }
-      $num_country++;
-    }
-    $output_string .= '  } else {' . "\n" .
-                      '    ' . $form . '.' . $field . '.options[0] = new Option("' . TYPE_BELOW . '", "");' . "\n" .
-                      '  }' . "\n";
-
-    return $output_string;
+    return (string)(new zone_js($country, $form, $field));
   }
 
 ////
 // Output a form
   function tep_draw_form($name, $action, $parameters = '', $method = 'post', $params = '') {
-    $form = '<form name="' . tep_output_string($name) . '" action="';
-    if (tep_not_null($parameters)) {
-      $form .= tep_href_link($action, $parameters);
-    } else {
-      $form .= tep_href_link($action);
-    }
-    $form .= '" method="' . tep_output_string($method) . '"';
-    if (tep_not_null($params)) {
-      $form .= ' ' . $params;
-    }
-    $form .= '>';
-
-    return $form;
+    return new Form(
+      $name,
+      Guarantor::ensure_global('Admin')->link($action, phoenix_parameterize($parameters)),
+      $method,
+      phoenix_normalize($params));
   }
 
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true, $class = 'class="form-control"') {
-    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+    $parameters = phoenix_normalize($parameters);
 
-    if ( $reinsert_value ) {
-      $request = $_GET[$name] ?? $_POST[$name] ?? null;
-      if (is_string($request)) {
-        $value = stripslashes($request);
+    if (isset($class)) {
+      $pair = explode('=', $class, 2);
+      if (isset($pair[1]) && ('class' === $pair[0])) {
+        $parameters['class'] = trim($pair[1], '"');
       }
     }
 
-    if (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
+    $input = new Input($name, $parameters, $type);
+
+    if (is_null($value)) {
+    } elseif ($reinsert_value) {
+      $input->default_value($value);
+    } elseif (!Text::is_empty($value)) {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) $field .= " $parameters";
-    if (tep_not_null($class) && (false === strpos($parameters, 'class="'))) $field .= " $class";
-
-    $field .= ' />';
-
-    return $field;
+    return "$input";
   }
 
 ////
 // Output a form filefield
   function tep_draw_file_field($name) {
-    $field = tep_draw_input_field($name, '', '', 'file');
-
-    return $field;
+    return (string)(new Input($name, [], 'file'));
   }
 
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
-  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = null) {
-    $selection = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+  function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
+    $input = new Tickable($name, phoenix_normalize($parameters), $type);
 
-    if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
-
-    $request = $_GET[$name] ?? $_POST[$name] ?? null;
-    if ( $checked || (is_string($request) && (('on' === $request) || (stripslashes($request) == $value))) ) {
-      $selection .= ' checked="checked"';
+    if (!Text::is_empty($value)) {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) $selection .= ' ' . $parameters;
+    if ( $checked ) {
+      $input->tick();
+    } else {
+      $input->tick_if_requested();
+    }
 
-    $selection .= ' />';
-
-    return $selection;
+    return "$input";
   }
 
 ////
 // Output a form checkbox field
 // DEPRECATE this from Phoenix over time.
   function tep_draw_checkbox_field($name, $value = '', $checked = false, $compare = '') {
-    return tep_draw_selection_field($name, 'checkbox', $value, ($checked || (tep_not_null($compare) && ($value == $compare))));
+    return tep_draw_selection_field($name, 'checkbox', $value, ($checked || (!Text::is_empty($compare) && ($value == $compare))));
   }
 
 ////
-// Output a form radio field
-// DEPRECATE this from Phoenix over time.
+// DEPRECATE this from Phoenix.
   function tep_draw_radio_field($name, $value = '', $checked = false, $compare = '') {
-    return tep_draw_selection_field($name, 'radio', $value, ($checked || (tep_not_null($compare) && ($value == $compare))));
+    trigger_error('The tep_draw_radio_field function has been deprecated.', E_USER_DEPRECATED);
+    return tep_draw_selection_field($name, 'radio', $value, ($checked || (!Text::is_empty($compare) && ($value == $compare))));
   }
 
 ////
 // Output a form textarea field
 // The $wrap parameter is no longer used in the core xhtml template
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true, $class = 'class="form-control"') {
-    $field = '<textarea name="' . tep_output_string($name) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
+    $textarea = new Textarea($name, phoenix_normalize($parameters));
+    $textarea->set('cols', $width)->set('rows', $height);
 
-    if (tep_not_null($parameters)) $field .= " $parameters";
-    if (tep_not_null($class) && (false === strpos($parameters, 'class="'))) $field .= " $class";
-
-    $field .= '>';
-
-    if ( $reinsert_value && is_string($requested_value = $_GET[$name] ?? $_POST[$name] ?? null) ) {
-      $field .= htmlspecialchars(stripslashes($requested_value));
-    } elseif (tep_not_null($text)) {
-      $field .= htmlspecialchars($text);
+    if (!Text::is_empty($class)) {
+      $pair = explode('=', $class, 2);
+      if (isset($pair[1]) && ('class' === $pair[0])) {
+        $textarea->append_css($pair[1]);
+      }
     }
 
-    $field .= '</textarea>';
+    if ( $reinsert_value && is_string(Request::value($name)) ) {
+      $textarea->retain_text();
+    } elseif (!Text::is_empty($text)) {
+      $textarea->set_text($text);
+    }
 
-    return $field;
+    return "$textarea";
   }
 
 ////
 // Output a form hidden field
   function tep_draw_hidden_field($name, $value = '', $parameters = '') {
-    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+    $input = new Input($name, phoenix_normalize($parameters), 'hidden');
 
-    if (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
-    } else {
-      $requested_value = $_GET[$name] ?? $_POST[$name] ?? null;
-      if ( is_string($requested_value) ) {
-        $field .= ' value="' . tep_output_string(stripslashes($requested_value)) . '"';
+    if (Text::is_empty($value)) {
+      if ( is_string($requested_value = Request::value($name)) ) {
+        $input->set('value', $requested_value);
       }
+    } else {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) {
-      $field .= " $parameters";
-    }
-
-    $field .= ' />';
-
-    return $field;
+    return "$input";
   }
 
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    $string = '';
-
-    if (defined('SID') && tep_not_null(SID)) {
-      $string = tep_draw_hidden_field(session_name(), session_id());
+    if (defined('SID') && !Text::is_empty(SID)) {
+      return new Input(session_name(), ['type' => 'hidden', 'value' => session_id()]);
     }
 
-    return $string;
+    return '';
   }
 
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $class = 'class="form-control"') {
-    $field = '<select name="' . tep_output_string($name) . '"';
+    $select = new Select($name, $values, phoenix_normalize($parameters));
 
-    if (tep_not_null($parameters)) $field .= " $parameters";
-    if (tep_not_null($class)) $field .= " $class";
-
-    $field .= '>';
-
-    if ( empty($default) ) {
-      $request = $_GET[$name] ?? $_POST[$name] ?? null;
-      if (is_string($request)) {
-        $default = stripslashes($request);
+    if (isset($class) && !Text::is_empty($class)) {
+      $pair = explode('=', $class, 2);
+      if (isset($pair[1]) && ('class' === $pair[0])) {
+        $select->append_css(trim($pair[1], '"'));
       }
     }
 
-    foreach ($values as $value) {
-      $field .= '<option value="' . tep_output_string($value['id']) . '"';
-      if ($default == $value['id']) {
-        $field .= ' selected="selected"';
-      }
-
-      $field .= '>' . tep_output_string($value['text'], ['"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;']) . '</option>';
+    if ( !empty($default) ) {
+      $select->set_selection($default);
     }
-    $field .= '</select>';
 
-    return $field;
+    return $select;
   }
 
 ////
 // Output a jQuery UI Button
   function tep_draw_button($title = null, $icon = null, $link = null, $priority = null, $params = null) {
+    trigger_error('The tep_draw_button function has been deprecated.', E_USER_DEPRECATED);
     static $button_counter = 1;
 
-    $types = ['submit', 'button', 'reset'];
-
-    if ( !isset($params['type']) ) {
-      $params['type'] = 'submit';
-    }
-
-    if ( !in_array($params['type'], $types) ) {
+    if ( !isset($params['type']) || !in_array($params['type'], ['submit', 'button', 'reset']) ) {
       $params['type'] = 'submit';
     }
 
@@ -344,21 +259,17 @@ EOERROR
       if ( isset($params['newwindow']) ) {
         $button .= ' target="_blank" rel="noreferrer"';
       }
+      $close = '</a>';
     } else {
-      $button .= '<button id="tdb' . $button_counter . '" type="' . tep_output_string($params['type']) . '"';
+      $button .= '<button id="tdb' . $button_counter . '" type="' . Text::output($params['type']) . '"';
+      $close = '</button>';
     }
 
     if ( isset($params['params']) ) {
       $button .= ' ' . $params['params'];
     }
 
-    $button .= '>' . $title;
-
-    if ( ($params['type'] == 'button') && isset($link) ) {
-      $button .= '</a>';
-    } else {
-      $button .= '</button>';
-    }
+    $button .= ">$title$close";
 
     $button .= '</span><script>$("#tdb' . $button_counter . '").button(';
 
@@ -393,51 +304,12 @@ EOERROR
 
 ////
 // Output a Bootstrap Button
-  function tep_draw_bootstrap_button($title = null, $icon = null, $link = null, $priority = 'secondary', $params = [], $style = null) {
-    if ( !isset($params['type']) || !in_array($params['type'], ['submit', 'button', 'reset']) ) {
-      $params['type'] = 'submit';
-    }
-
-    if ( ($params['type'] == 'submit') && isset($link) ) {
-      $params['type'] = 'button';
-    }
-
-    if ( ($params['type'] == 'button') && isset($link) ) {
-      $button = '<a href="' . $link . '"';
-
-      if ( isset($params['newwindow']) ) {
-        $button .= ' target="_blank" rel="noreferrer"';
-      }
-      $closing_tag = '</a>';
-    } else {
-      $button = '<button type="' . tep_output_string($params['type']) . '"';
-      $closing_tag = '</button>';
-    }
-
-    if ( isset($params['params']) ) {
-      $button .= ' ' . $params['params'];
-    }
-
-    $button .= ' class="btn ';
-    $button .= (isset($style)) ? $style : 'btn-outline-secondary';
-    $button .= '">';
-
-    if (isset($icon) && tep_not_null($icon)) {
-      $button .= ' <span class="' . $icon . '" aria-hidden="true"></span> ';
-    }
-
-    $button .= $title;
-    $button .= $closing_tag;
-
-    return $button;
+  function tep_draw_bootstrap_button($title = '', $icon = null, $link = null, $priority = 'secondary', $params = [], $style = null) {
+    return (string)(new Button($title ?? '', $icon, $style, $params ?? [], $link));
   }
 
   // review stars
   function tep_draw_stars($rating = 0) {
-    $star_rating = round($rating, 0, PHP_ROUND_HALF_UP);
-    $stars = str_repeat('<i class="fas fa-star"></i>', $star_rating);
-    $stars .= str_repeat('<i class="far fa-star"></i>', 5-$star_rating);
-
-    return '<span class="text-warning" title="' . $rating . '">' . $stars . '</span>';
+    return (string)(new star_rating((float)$rating));
   }
 

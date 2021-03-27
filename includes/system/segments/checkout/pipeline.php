@@ -11,11 +11,11 @@
 */
 
   $hooks->register_pipeline('checkout');
-  foreach ($hooks->generate(null, 'startApplication') as $result) {
+  foreach ($hooks->generate('startCheckout') as $result) {
     if (is_string($result)) {
       $result = [ $result ];
     }
-    
+
     if (is_array($result)) {
       foreach ($result as $path) {
         if (is_string($path ?? null) && file_exists($path)) {

@@ -14,8 +14,8 @@
 
   $mysql_charsets = [['id' => 'auto', 'text' => ACTION_UTF8_CONVERSION_FROM_AUTODETECT]];
 
-  $charsets_query = tep_db_query("SHOW CHARACTER SET");
-  while ( $charsets = tep_db_fetch_array($charsets_query) ) {
+  $charsets_query = $db->query("SHOW CHARACTER SET");
+  while ( $charsets = $charsets_query->fetch_assoc() ) {
     $mysql_charsets[] = ['id' => $charsets['Charset'], 'text' => sprintf(ACTION_UTF8_CONVERSION_FROM, $charsets['Charset'])];
   }
 
@@ -48,8 +48,8 @@
   {
     $tables = [];
 
-    $tables_query = tep_db_query('show table status');
-    while ( $table = tep_db_fetch_array($tables_query) ) {
+    $tables_query = $db->query('SHOW TABLE STATUS');
+    while ( $table = $tables_query->fetch_assoc() ) {
       $tables[] = $table['Name'];
     }
 
@@ -75,48 +75,42 @@
         TABLE_HEADING_TABLE,
         TABLE_HEADING_MSG_TYPE,
         TABLE_HEADING_MSG,
-        tep_draw_checkbox_field('masterblaster'),
+        new Tickable('masterblaster', ['type' => 'checkbox']),
       ];
 
       $table_data = [];
 
       foreach ( $_POST['id'] as $table ) {
-        $current_table = null;
-        $table = tep_db_input(tep_db_prepare_input($table));
+        $table = Text::input($table);
+        $tickable = new Tickable('id[]', ['type' => 'checkbox'])-set('value', $table);
+        if (isset($_POST['id']) && in_array($table, $_POST['id'])) {
+          $tickable->tick();
+        }
 
-        $sql_query = tep_db_query("$action table $table");
-        while ( $sql = tep_db_fetch_array($sql_query) ) {
+        $table = $db->escape($table);
+        $sql_query = $db->query("$action TABLE $table");
+        $table = htmlspecialchars($table);
+        while ( $sql = $sql_query->fetch_assoc() ) {
           $table_data[] = [
-            ($table === $current_table) ? '' : htmlspecialchars($table),
+            $table,
             htmlspecialchars($sql['Msg_type']),
             htmlspecialchars($sql['Msg_text']),
-            ($table === $current_table) ? '' : tep_draw_checkbox_field('id[]', $table, isset($_POST['id']) && in_array($table, $_POST['id'])),
+            $tickable,
           ];
 
-          $current_table = $table;
+          $table = $tickable = '';
         }
       }
 
       break;
 
     case 'utf8':
-      $charset_pass = false;
-
-      if ( isset($_POST['from_charset']) ) {
-        if ( $_POST['from_charset'] == 'auto' ) {
-          $charset_pass = true;
-        } else {
-          foreach ( $mysql_charsets as $c ) {
-            if ( $_POST['from_charset'] == $c['id'] ) {
-              $charset_pass = true;
-              break;
-            }
-          }
-        }
-      }
+      $charset_pass = isset($_POST['from_charset'])
+                   && (( 'auto' === $_POST['from_charset'] )
+                     || in_array($_POST['from_charset'], array_column($mysql_charsets, 'id')));
 
       if ( $charset_pass === false ) {
-        tep_redirect(tep_href_link('database_tables.php'));
+        Href::redirect(Guarantor::ensure_global('Admin')->link('database_tables.php'));
       }
 
       tep_set_time_limit(0);
@@ -124,7 +118,7 @@
       if ( isset($_POST['dryrun']) ) {
         $table_headers = [TABLE_HEADING_QUERIES];
       } else {
-        $table_headers = [TABLE_HEADING_TABLE, TABLE_HEADING_MSG, tep_draw_checkbox_field('masterblaster')];
+        $table_headers = [TABLE_HEADING_TABLE, TABLE_HEADING_MSG, new Tickable('masterblaster', ['type' => 'checkbox'])];
       }
 
       $table_data = [];
@@ -134,26 +128,26 @@
 
         $queries = [];
 
-        $cols_query = tep_db_query("SHOW FULL COLUMNS FROM " . tep_db_input(tep_db_prepare_input($table)));
-        while ( $cols = tep_db_fetch_array($cols_query) ) {
+        $cols_query = $db->query("SHOW FULL COLUMNS FROM " . $db->escape(Text::input($table)));
+        while ( $cols = $cols_query->fetch_assoc() ) {
           if ( !empty($cols['Collation']) ) {
-            if ( $_POST['from_charset'] == 'auto' ) {
-              $old_charset = tep_db_prepare_input(substr($cols['Collation'], 0, strpos($cols['Collation'], '_')));
+            if ( 'auto' === $_POST['from_charset'] ) {
+              $old_charset = Text::input(substr($cols['Collation'], 0, strpos($cols['Collation'], '_')));
             } else {
-              $old_charset = tep_db_prepare_input($_POST['from_charset']);
+              $old_charset = Text::input($_POST['from_charset']);
             }
 
             $queries[] = sprintf(<<<'EOSQL'
 UPDATE %1$s
- SET %2$s = CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8)
- WHERE CHAR_LENGTH(%2$s) = LENGTH(CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8))
+ SET %2$s = CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8mb4)
+ WHERE CHAR_LENGTH(%2$s) = LENGTH(CONVERT(BINARY CONVERT(%2$s USING %3$s) USING utf8mb4))
 EOSQL
-              , tep_db_input(tep_db_prepare_input($table)), $cols['Field'], $old_charset);
+              , $db->escape(Text::input($table)), $cols['Field'], $old_charset);
           }
         }
 
-        $query = sprintf("ALTER TABLE %s CONVERT TO CHARACTER SET utf8 COLLATE utf8_unicode_ci",
-          tep_db_input(tep_db_prepare_input($table)));
+        $query = sprintf("ALTER TABLE %s CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
+          $db->escape(Text::input($table)));
 
         if ( isset($_POST['dryrun']) ) {
           $table_data[] = [$query];
@@ -162,24 +156,22 @@ EOSQL
             $table_data[] = [$q];
           }
         } else {
-// mysqli_query() is directly called as tep_db_query() dies when an error occurs
-          if ( mysqli_query($db_link, $query) ) {
+// mysqli_query() is directly called as $db->query() dies when an error occurs
+          if ( mysqli_query($db, $query) ) {
             foreach ( $queries as $q ) {
-              if ( !mysqli_query($db_link, $q) ) {
-                $result = mysqli_error($db_link);
+              if ( !mysqli_query($db, $q) ) {
+                $result = $db->error;
                 break;
               }
             }
           } else {
-            $result = mysqli_error($db_link);
+            $result = $db->error;
           }
-        }
 
-        if ( !isset($_POST['dryrun']) ) {
           $table_data[] = [
             htmlspecialchars($table),
             htmlspecialchars($result),
-            tep_draw_checkbox_field('id[]', $table, true),
+            (new Tickable('id[]', ['type' => 'checkbox']))->set('value', $table)->tick(),
           ];
         }
       }
@@ -193,20 +185,20 @@ EOSQL
         TABLE_HEADING_SIZE,
         TABLE_HEADING_ENGINE,
         TABLE_HEADING_COLLATION,
-        tep_draw_checkbox_field('masterblaster'),
+        new Tickable('masterblaster', ['type' => 'checkbox']),
       ];
 
       $table_data = [];
 
-      $sql_query = tep_db_query('SHOW TABLE STATUS');
-      while ( $sql = tep_db_fetch_array($sql_query) ) {
+      $sql_query = $db->query('SHOW TABLE STATUS');
+      while ( $sql = $sql_query->fetch_assoc() ) {
         $table_data[] = [
           htmlspecialchars($sql['Name']),
           htmlspecialchars($sql['Rows']),
           round(($sql['Data_length'] + $sql['Index_length']) / 1024 / 1024, 2) . 'M',
           htmlspecialchars($sql['Engine']),
           htmlspecialchars($sql['Collation']),
-          tep_draw_checkbox_field('id[]', $sql['Name']),
+          (new Tickable('id[]', ['type' => 'checkbox']))->set('value', $sql['Name']),
         ];
       }
   }
@@ -221,20 +213,21 @@ EOSQL
     <?php
     if ( isset($action) ) {
       echo '<div class="col-sm-4 text-right align-self-center">';
-        echo tep_draw_bootstrap_button(IMAGE_BACK, 'fas fa-angle-left', tep_href_link('database_tables.php'), null, null, 'btn-light');
+        echo (new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light'))->set_link(
+          Guarantor::ensure_global('Admin')->link('database_tables.php'));
       echo '</div>';
     }
     ?>
   </div>
 
-  <?= tep_draw_form('sql', 'database_tables.php') ?>
+  <?= new Form('sql', Guarantor::ensure_global('Admin')->link('database_tables.php')) ?>
   <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>
           <?php
           foreach ( $table_headers as $th ) {
-            echo '<th>' . $th . '</th>';
+            echo '<th>', $th, '</th>';
           }
           ?>
         </tr>
@@ -245,7 +238,7 @@ EOSQL
           echo '<tr>';
 
           foreach ( $td as $data ) {
-            echo '<td>' . $data . '</td>';
+            echo '<td>', $data, '</td>';
           }
 
           echo '</tr>';
@@ -261,15 +254,13 @@ if ( !isset($_POST['dryrun']) ) {
 
   <div class="row">
     <div class="col">
-      <?php
-      echo tep_draw_pull_down_menu('action', $actions, '', 'id="sqlActionsMenu"');
-      echo tep_draw_bootstrap_button(BUTTON_ACTION_GO, 'fas fa-cogs', null, null, null, 'btn-success btn-block mt-2');
+      <?=
+        new Select('action', $actions, ['id' => 'sqlActionsMenu'])
+      . new Button(BUTTON_ACTION_GO, 'fas fa-cogs', 'btn-success btn-block mt-2')
       ?>
     </div>
     <div class="col">
-      <?php
-      echo '<span class="runUtf8" style="display: none;">' . tep_draw_pull_down_menu('from_charset', $mysql_charsets) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, tep_draw_checkbox_field('dryrun')) . '</span>';
-      ?>
+      <span class="runUtf8" style="display: none;"><?= new Select('from_charset', $mysql_charsets) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', ['type' => 'checkbox'])) ?></span>
     </div>
   </div>
 

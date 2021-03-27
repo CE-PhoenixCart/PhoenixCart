@@ -14,21 +14,20 @@
   if (isset($_GET['action'])) {
 // redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled
     if (!$session_started) {
-      tep_redirect(tep_href_link('cookie_usage.php'));
+      Guarantor::ensure_global('Linker')->build('cookie_usage.php')->redirect();
     }
 
-    if (DISPLAY_CART == 'true') {
+    if ('true' === DISPLAY_CART) {
       $goto = 'shopping_cart.php';
       $parameters = ['action', 'cPath', 'products_id', 'pid'];
     } else {
       $goto = $PHP_SELF;
-      if ($_GET['action'] == 'buy_now') {
+      if ('buy_now' === $_GET['action']) {
         $parameters = ['action', 'pid', 'products_id'];
       } else {
         $parameters = ['action', 'pid'];
       }
     }
 
-    include 'includes/classes/actions.php';
-    osC_Actions::parse($_GET['action']);
+    Actions::parse($_GET['action']);
   }

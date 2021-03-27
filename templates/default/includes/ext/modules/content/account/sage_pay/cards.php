@@ -10,8 +10,19 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_1, tep_href_link('account.php'));
-  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_2, tep_href_link('ext/modules/content/account/sage_pay/cards.php'));
+  $account_link = $Linker->build('account.php');
+  $cards_link = $Linker->build('ext/modules/content/account/sage_pay/cards.php');
+
+  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_1, "$account_link");
+  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_2, "$cards_link");
+
+  $delete_button = new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash');
+  $delete_button->set('href', (string)$cards_link->add_parameters([
+    'action' => 'delete',
+    'id' => (int)$tokens['id'],
+    'formid' => md5($_SESSION['sessiontoken']),
+  ]));
+  $back_button = (new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left'))->set('href', "$account_link");
 
   require $oscTemplate->map_to_template('template_top.php', 'component');
 ?>
@@ -31,15 +42,15 @@
   <div class="contentText row align-items-center">
 
 <?php
-  $tokens_query = tep_db_query("SELECT id, card_type, number_filtered, expiry_date FROM customers_sagepay_tokens WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_added");
+  $tokens_query = $db->query("SELECT id, card_type, number_filtered, expiry_date FROM customers_sagepay_tokens WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_added");
 
-  if ( myslqi_num_rows($tokens_query) > 0 ) {
+  if ( mysqli_num_rows($tokens_query) > 0 ) {
     while ( $tokens = $tokens_query->fetch_assoc() ) {
 ?>
 
     <div>
       <div class="col-sm-6"><strong><?= htmlspecialchars($tokens['card_type']) ?></strong>&nbsp;&nbsp;****<?= htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2)) ?></div>
-      <div class="col-sm-6 text-right"><?= tep_draw_button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash', tep_href_link('ext/modules/content/account/sage_pay/cards.php', 'action=delete&id=' . (int)$tokens['id'] . '&formid=' . md5($_SESSION['sessiontoken']))) ?></div>
+      <div class="col-sm-6 text-right"><?= $delete_button ?></div>
     </div>
 
 <?php
@@ -56,7 +67,7 @@
   </div>
 
   <div class="buttonSet">
-    <?= tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('account.php')) ?>
+    <?= $back_button ?>
   </div>
 
 <?php

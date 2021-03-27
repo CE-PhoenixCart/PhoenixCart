@@ -25,7 +25,13 @@ const TEXT_INFO_VERTICAL_SORT_ORDER = 'Vertical Sort Order: %s';
 const TEXT_INFO_HORIZONTAL_SORT_ORDER = 'Horizontal Sort Order: %s';
 const TEXT_INFO_WIDTH = 'Width (1-12 twelfths of the screen): %s';
 const TEXT_INFO_INSERT_INTRO = 'Please enter the new customer data group with its related data';
-const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this customer data group?';
+const TEXT_INFO_DELETE_INTRO = <<<'EOT'
+<p>Are you sure you want to delete this customer data group?</p>
+
+<p class="alert alert-warning">Warning:  if any customer data modules are using this group, deleting the group will leave them orphaned!
+Consider if you would be better off just editing this group rather than deleting it and making a new one.
+To translate, you would typically edit it instead.</p>
+EOT;
 const TEXT_INFO_HEADING_NEW_CUSTOMER_DATA_GROUP = 'New Customer Data Group';
 const TEXT_INFO_HEADING_EDIT_CUSTOMER_DATA_GROUP = 'Edit Customer Data Group';
 const TEXT_INFO_HEADING_DELETE_CUSTOMER_DATA_GROUP = 'Delete Customer Data Group';

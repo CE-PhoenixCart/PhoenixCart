@@ -27,11 +27,11 @@
     }
 
     function getOutput() {
-      $current_version = tep_get_version();
-      
-      $feed = Web::load_xml('https://feeds.feedburner.com/phoenixUpdate');
+      $current_version = Versions::get('Phoenix');
+
+      $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
       $compared_version = preg_replace('/[^0-9.]/', '', $feed->channel->item[0]->title);
-     
+
       $output = '<table class="table table-striped mb-2">';
         $output .= '<thead class="thead-dark">';
           $output .= '<tr>';
@@ -40,17 +40,17 @@
         $output .= '</thead>';
         $output .= '<tbody>';
         if (version_compare($current_version, $compared_version, '<')) {
+          $link = Guarantor::ensure_global('Admin')->link('version_check.php');
           $output .= '<tr>';
             $output .= '<td class="bg-danger text-white">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE . '</td>';
-            $output .= '<td class="bg-danger text-right"><a class="btn btn-info btn-sm" href="' . tep_href_link('version_check.php') . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
+            $output .= '<td class="bg-danger text-right"><a class="btn btn-info btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
           $output .= '</tr>';
-        }
-        else {
+        } else {
           $output .= '<tr>';
             $output .= '<td class="bg-success text-white" colspan="2">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_IS_LATEST . '</td>';
           $output .= '</tr>';
         }
-        $output .= '</tbody>';      
+        $output .= '</tbody>';
       $output .= '</table>';
 
       return $output;
@@ -79,4 +79,3 @@
     }
 
   }
-  

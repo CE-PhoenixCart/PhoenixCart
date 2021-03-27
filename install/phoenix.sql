@@ -26,7 +26,7 @@ CREATE TABLE action_recorder (
   KEY idx_action_recorder_user_id (user_id),
   KEY idx_action_recorder_identifier (identifier),
   KEY idx_action_recorder_date_added (date_added)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS address_book;
 CREATE TABLE address_book (
@@ -45,7 +45,7 @@ CREATE TABLE address_book (
    entry_zone_id int DEFAULT '0' NOT NULL,
    PRIMARY KEY (address_book_id),
    KEY idx_address_book_customers_id (customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS address_format;
 CREATE TABLE address_format (
@@ -53,7 +53,7 @@ CREATE TABLE address_format (
   address_format varchar(128) NOT NULL,
   address_summary varchar(48) NOT NULL,
   PRIMARY KEY (address_format_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS administrators;
 CREATE TABLE administrators (
@@ -62,7 +62,7 @@ CREATE TABLE administrators (
   user_password varchar(60) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_administrator_user_name (user_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS advert;
 CREATE TABLE advert (
@@ -78,7 +78,7 @@ CREATE TABLE advert (
   status int(1) DEFAULT '1' NOT NULL,
   PRIMARY KEY (advert_id),
   KEY idx_advert_group (advert_group)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS advert_info;
 CREATE TABLE advert_info (
@@ -86,7 +86,7 @@ CREATE TABLE advert_info (
   languages_id int NOT NULL,
   advert_html_text text,
   PRIMARY KEY (advert_id, languages_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE categories (
@@ -98,7 +98,7 @@ CREATE TABLE categories (
    last_modified datetime,
    PRIMARY KEY (categories_id),
    KEY idx_categories_parent_id (parent_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS categories_description;
 CREATE TABLE categories_description (
@@ -110,7 +110,7 @@ CREATE TABLE categories_description (
    categories_seo_title VARCHAR(255) NULL,
    PRIMARY KEY (categories_id, language_id),
    KEY idx_categories_name (categories_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
@@ -127,7 +127,7 @@ CREATE TABLE configuration (
   set_function varchar(255) NULL,
   PRIMARY KEY (configuration_id),
   UNIQUE KEY uq_configuration_key (configuration_key)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS configuration_group;
 CREATE TABLE configuration_group (
@@ -137,7 +137,7 @@ CREATE TABLE configuration_group (
   sort_order int(5) NULL,
   visible int(1) DEFAULT '1' NULL,
   PRIMARY KEY (configuration_group_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS countries;
 CREATE TABLE countries (
@@ -148,7 +148,7 @@ CREATE TABLE countries (
   address_format_id int NOT NULL,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS currencies;
 CREATE TABLE currencies (
@@ -164,7 +164,7 @@ CREATE TABLE currencies (
   last_updated datetime NULL,
   PRIMARY KEY (currencies_id),
   KEY idx_currencies_code (code)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
@@ -181,7 +181,7 @@ CREATE TABLE customers (
    customers_newsletter char(1),
    PRIMARY KEY (customers_id),
    UNIQUE KEY uq_customers_email_address (customers_email_address)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customers_basket;
 CREATE TABLE customers_basket (
@@ -193,7 +193,7 @@ CREATE TABLE customers_basket (
   customers_basket_date_added char(8),
   PRIMARY KEY (customers_basket_id),
   KEY idx_customers_basket_customers_id (customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customers_basket_attributes;
 CREATE TABLE customers_basket_attributes (
@@ -204,7 +204,7 @@ CREATE TABLE customers_basket_attributes (
   products_options_value_id int NOT NULL,
   PRIMARY KEY (customers_basket_attributes_id),
   KEY idx_customers_basket_att_customers_id (customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customer_data_groups;
 CREATE TABLE customer_data_groups (
@@ -215,13 +215,13 @@ CREATE TABLE customer_data_groups (
   cdg_horizontal_sort_order int(11) NOT NULL,
   customer_data_groups_width int(11) NOT NULL,
   PRIMARY KEY (language_id, customer_data_groups_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customer_data_groups_sequence;
 CREATE TABLE customer_data_groups_sequence (
   customer_data_groups_id int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY(customer_data_groups_id)
-)  CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+)  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS customers_info;
 CREATE TABLE customers_info (
@@ -234,7 +234,7 @@ CREATE TABLE customers_info (
   password_reset_key char(40),
   password_reset_date datetime,
   PRIMARY KEY (customers_info_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS geo_zones;
 CREATE TABLE geo_zones (
@@ -244,7 +244,7 @@ CREATE TABLE geo_zones (
   last_modified datetime NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (geo_zone_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS hooks;
 CREATE TABLE hooks (
@@ -257,7 +257,7 @@ CREATE TABLE hooks (
   hooks_method VARCHAR(255) NOT NULL,
   PRIMARY KEY (hooks_id),
   KEY idx_hooks_site_group (hooks_site, hooks_group)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
@@ -269,7 +269,7 @@ CREATE TABLE languages (
   sort_order int(3),
   PRIMARY KEY (languages_id),
   KEY IDX_LANGUAGES_NAME (name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS manufacturers;
 CREATE TABLE manufacturers (
@@ -280,7 +280,7 @@ CREATE TABLE manufacturers (
   last_modified datetime NULL,
   PRIMARY KEY (manufacturers_id),
   KEY IDX_MANUFACTURERS_NAME (manufacturers_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS manufacturers_info;
 CREATE TABLE manufacturers_info (
@@ -293,7 +293,7 @@ CREATE TABLE manufacturers_info (
   manufacturers_seo_description TEXT NULL,
   manufacturers_seo_title VARCHAR(255) NULL,
   PRIMARY KEY (manufacturers_id, languages_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS newsletters;
 CREATE TABLE newsletters (
@@ -306,7 +306,7 @@ CREATE TABLE newsletters (
   status int(1),
   locked int(1) DEFAULT '0',
   PRIMARY KEY (newsletters_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
@@ -320,6 +320,7 @@ CREATE TABLE orders (
   customers_postcode varchar(255) NOT NULL,
   customers_state varchar(255),
   customers_country varchar(255) NOT NULL,
+  customers_country_id int NOT NULL,
   customers_telephone varchar(255) NOT NULL,
   customers_email_address varchar(255) NOT NULL,
   customers_address_format_id int(5) NOT NULL,
@@ -331,6 +332,7 @@ CREATE TABLE orders (
   delivery_postcode varchar(255) NOT NULL,
   delivery_state varchar(255),
   delivery_country varchar(255) NOT NULL,
+  delivery_country_id int NOT NULL,
   delivery_address_format_id int(5) NOT NULL,
   billing_name varchar(255) NOT NULL,
   billing_company varchar(255),
@@ -340,6 +342,7 @@ CREATE TABLE orders (
   billing_postcode varchar(255) NOT NULL,
   billing_state varchar(255),
   billing_country varchar(255) NOT NULL,
+  billing_country_id int NOT NULL,
   billing_address_format_id int(5) NOT NULL,
   payment_method varchar(255) NOT NULL,
   cc_type varchar(20),
@@ -354,7 +357,7 @@ CREATE TABLE orders (
   currency_value decimal(14,6),
   PRIMARY KEY (orders_id),
   KEY idx_orders_customers_id (customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_products;
 CREATE TABLE orders_products (
@@ -370,7 +373,7 @@ CREATE TABLE orders_products (
   PRIMARY KEY (orders_products_id),
   KEY idx_orders_products_orders_id (orders_id),
   KEY idx_orders_products_products_id (products_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_status;
 CREATE TABLE orders_status (
@@ -381,7 +384,7 @@ CREATE TABLE orders_status (
    downloads_flag int DEFAULT '0',
    PRIMARY KEY (orders_status_id, language_id),
    KEY idx_orders_status_name (orders_status_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_status_history;
 CREATE TABLE orders_status_history (
@@ -393,7 +396,7 @@ CREATE TABLE orders_status_history (
    comments text,
    PRIMARY KEY (orders_status_history_id),
    KEY idx_orders_status_history_orders_id (orders_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_products_attributes;
 CREATE TABLE orders_products_attributes (
@@ -406,7 +409,7 @@ CREATE TABLE orders_products_attributes (
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (orders_products_attributes_id),
   KEY idx_orders_products_att_orders_id (orders_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_products_download;
 CREATE TABLE orders_products_download (
@@ -418,7 +421,7 @@ CREATE TABLE orders_products_download (
   download_count int(2) NOT NULL default '0',
   PRIMARY KEY  (orders_products_download_id),
   KEY idx_orders_products_download_orders_id (orders_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_total;
 CREATE TABLE orders_total (
@@ -431,7 +434,7 @@ CREATE TABLE orders_total (
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
   KEY idx_orders_total_orders_id (orders_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS pages;
 CREATE TABLE pages (
@@ -443,7 +446,7 @@ CREATE TABLE pages (
   sort_order int(11) NULL,
   PRIMARY KEY (pages_id),
   UNIQUE KEY uq_slug (slug)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS pages_description;
 CREATE TABLE pages_description (
@@ -453,7 +456,7 @@ CREATE TABLE pages_description (
   pages_text text NOT NULL,
   navbar_title varchar(255) NOT NULL,
   PRIMARY KEY (pages_id, languages_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE products (
@@ -474,7 +477,7 @@ CREATE TABLE products (
   PRIMARY KEY (products_id),
   KEY idx_products_model (products_model),
   KEY idx_products_date_added (products_date_added)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_attributes;
 CREATE TABLE products_attributes (
@@ -486,7 +489,7 @@ CREATE TABLE products_attributes (
   price_prefix char(1) NOT NULL,
   PRIMARY KEY (products_attributes_id),
   KEY idx_products_attributes_products_id (products_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_attributes_download;
 CREATE TABLE products_attributes_download (
@@ -495,7 +498,7 @@ CREATE TABLE products_attributes_download (
   products_attributes_maxdays int(2) default '0',
   products_attributes_maxcount int(2) default '0',
   PRIMARY KEY  (products_attributes_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_description;
 CREATE TABLE products_description (
@@ -510,7 +513,7 @@ CREATE TABLE products_description (
   products_seo_title varchar(255) NULL,
   PRIMARY KEY  (products_id,language_id),
   KEY products_name (products_name)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_images;
 CREATE TABLE products_images (
@@ -521,7 +524,7 @@ CREATE TABLE products_images (
   sort_order int NOT NULL,
   PRIMARY KEY (id),
   KEY products_images_prodid (products_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_notifications;
 CREATE TABLE products_notifications (
@@ -529,7 +532,7 @@ CREATE TABLE products_notifications (
   customers_id int NOT NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (products_id, customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_options;
 CREATE TABLE products_options (
@@ -538,7 +541,7 @@ CREATE TABLE products_options (
   products_options_name varchar(255) NOT NULL default '',
   sort_order int(3),
   PRIMARY KEY  (products_options_id,language_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_options_values;
 CREATE TABLE products_options_values (
@@ -547,7 +550,7 @@ CREATE TABLE products_options_values (
   products_options_values_name varchar(255) NOT NULL default '',
   sort_order int(3),
   PRIMARY KEY  (products_options_values_id,language_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_options_values_to_products_options;
 CREATE TABLE products_options_values_to_products_options (
@@ -555,14 +558,14 @@ CREATE TABLE products_options_values_to_products_options (
   products_options_id int NOT NULL,
   products_options_values_id int NOT NULL,
   PRIMARY KEY (products_options_values_to_products_options_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS products_to_categories;
 CREATE TABLE products_to_categories (
   products_id int NOT NULL,
   categories_id int NOT NULL,
   PRIMARY KEY (products_id,categories_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
@@ -578,7 +581,7 @@ CREATE TABLE reviews (
   PRIMARY KEY (reviews_id),
   KEY idx_reviews_products_id (products_id),
   KEY idx_reviews_customers_id (customers_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS reviews_description;
 CREATE TABLE reviews_description (
@@ -586,14 +589,14 @@ CREATE TABLE reviews_description (
   languages_id int NOT NULL,
   reviews_text text NOT NULL,
   PRIMARY KEY (reviews_id, languages_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS sec_directory_whitelist;
 CREATE TABLE sec_directory_whitelist (
   id int NOT NULL auto_increment,
   directory varchar(255) NOT NULL,
   PRIMARY KEY (id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS sessions;
 CREATE TABLE sessions (
@@ -601,7 +604,7 @@ CREATE TABLE sessions (
   expiry int(11) unsigned NOT NULL,
   value text NOT NULL,
   PRIMARY KEY (sesskey)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS specials;
 CREATE TABLE specials (
@@ -615,7 +618,7 @@ CREATE TABLE specials (
   status int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (specials_id),
   KEY idx_specials_products_id (products_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS tax_class;
 CREATE TABLE tax_class (
@@ -625,7 +628,7 @@ CREATE TABLE tax_class (
   last_modified datetime NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (tax_class_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS tax_rates;
 CREATE TABLE tax_rates (
@@ -638,7 +641,7 @@ CREATE TABLE tax_rates (
   last_modified datetime NULL,
   date_added datetime NOT NULL,
   PRIMARY KEY (tax_rates_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS testimonials;
 CREATE TABLE testimonials (
@@ -649,7 +652,7 @@ CREATE TABLE testimonials (
   last_modified datetime,
   testimonials_status tinyint(1) NOT NULL default '1',
   PRIMARY KEY (testimonials_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS testimonials_description;
 CREATE TABLE testimonials_description (
@@ -657,7 +660,7 @@ CREATE TABLE testimonials_description (
   languages_id int NOT NULL,
   testimonials_text text NOT NULL,
   PRIMARY KEY (testimonials_id, languages_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS whos_online;
 CREATE TABLE whos_online (
@@ -669,7 +672,7 @@ CREATE TABLE whos_online (
   time_last_click varchar(14) NOT NULL,
   last_page_url text NOT NULL,
   PRIMARY KEY (session_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS zones;
 CREATE TABLE zones (
@@ -679,7 +682,7 @@ CREATE TABLE zones (
   zone_name varchar(255) NOT NULL,
   PRIMARY KEY (zone_id),
   KEY idx_zones_country_id (zone_country_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS zones_to_geo_zones;
 CREATE TABLE zones_to_geo_zones (
@@ -691,7 +694,7 @@ CREATE TABLE zones_to_geo_zones (
    date_added datetime NOT NULL,
    PRIMARY KEY (association_id),
    KEY idx_zones_to_geo_zones_country_id (zone_country_id)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 # data
 
@@ -1107,6 +1110,9 @@ INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer
 INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, cdg_horizontal_sort_order, customer_data_groups_width) VALUES (5, 1, 'Options', 50, 10, 12);
 INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, cdg_horizontal_sort_order, customer_data_groups_width) VALUES (6, 1, 'Your Password', 60, 10, 12);
 
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'system', 'hrefLink', '_01_href_link', '', 'Href::hook');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'hrefLink', '_01_href_link', '', 'Href::hook');
+
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_01_project_version', 'application_surface', 'project_version');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_02_request', 'application_surface', 'request');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_03_read_configuration', 'application_surface', 'read_configuration');
@@ -1138,41 +1144,41 @@ INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_clas
 
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'checkoutStart', '_01_register_stages', 'Checkout', 'register_stages');
 
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startApplication', '_01_require_login', '', 'tep_require_login');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startApplication', '_01_require_login', 'Checkout', 'require_login');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startApplication', '_02_guarantee_cart', 'Checkout', 'guarantee_cart');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startApplication', '_03_guarantee_cart_id', 'Checkout', 'guarantee_cart_id');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startApplication', '_04_validate', 'Checkout', 'validate_sendto');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment_stage', 'startApplication', '_04_validate', 'Checkout', 'validate');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment', 'startApplication', '_05_validate_payment', 'Checkout', 'validate_billto');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'startApplication', '_05_validate_payment', 'Checkout', 'guarantee_payment');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_05_validate_payment', 'Checkout', 'validate_payment');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startApplication', '_06_initialize_payment_module', 'Checkout', 'initialize_payment_module');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startApplication', '_07_initialize_shipping_module', 'Checkout', 'initialize_shipping_module');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startApplication', '_08_order', 'Loader', 'order');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment_stage', 'startApplication', '_09_check_stock', 'checkout_surface', 'check_stock');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startApplication', '_10_virtual_shipping', 'Checkout', 'skip_shipping');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping_address', 'startApplication', '_10_virtual_shipping', 'Checkout', 'skip_shipping');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment', 'startApplication', '_10_initialize_payment_modules', 'Checkout', 'initialize_payment_modules');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startApplication', '_10_update_payment_modules', 'Checkout', 'update_payment_module');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startApplication', '_11_set_order_totals', 'Checkout', 'set_order_totals');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'startApplication', '_12_prepare_payment', 'Checkout', 'preconfirm_payment');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_12_prepare_payment', 'Checkout', 'prepare_payment');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_14_insert_order', 'checkout_surface', 'insert_order');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_20_after', 'pipeline_surface', 'after');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startCheckout', '_01_require_login', '', 'tep_require_login');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startCheckout', '_01_require_login', 'Checkout', 'require_login');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startCheckout', '_02_guarantee_cart', 'Checkout', 'guarantee_cart');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startCheckout', '_03_guarantee_cart_id', 'Checkout', 'guarantee_cart_id');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startCheckout', '_04_validate', 'Checkout', 'validate_sendto');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment_stage', 'startCheckout', '_04_validate', 'Checkout', 'validate');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment', 'startCheckout', '_05_validate_payment', 'Checkout', 'validate_billto');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'startCheckout', '_05_validate_payment', 'Checkout', 'guarantee_payment');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_05_validate_payment', 'Checkout', 'validate_payment');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startCheckout', '_06_initialize_payment_module', 'Checkout', 'initialize_payment_module');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startCheckout', '_07_initialize_shipping_module', 'Checkout', 'initialize_shipping_module');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout', 'startCheckout', '_08_order', 'Loader', 'order');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment_stage', 'startCheckout', '_09_check_stock', 'checkout_surface', 'check_stock');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping', 'startCheckout', '_10_virtual_shipping', 'Checkout', 'skip_shipping');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_shipping_address', 'startCheckout', '_10_virtual_shipping', 'Checkout', 'skip_shipping');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_payment', 'startCheckout', '_10_initialize_payment_modules', 'Checkout', 'initialize_payment_modules');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startCheckout', '_10_update_payment_modules', 'Checkout', 'update_payment_module');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation_stage', 'startCheckout', '_11_set_order_totals', 'Checkout', 'set_order_totals');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'startCheckout', '_12_prepare_payment', 'Checkout', 'preconfirm_payment');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_12_prepare_payment', 'Checkout', 'prepare_payment');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_14_insert_order', 'checkout_surface', 'insert_order');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_20_after', 'pipeline_surface', 'after');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'after', 'afterStart', '_21_update_stock', 'Checkout', 'update_stock');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'after', 'afterStart', '_22_update_products_ordered', 'Checkout', 'update_products_ordered');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'after', 'afterStart', '_23_notify', 'Checkout', 'notify');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_30_insert_history', 'checkout_surface', 'insert_history');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_31_conclude_payment', 'Checkout', 'conclude_payment');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', '_40_reset', 'pipeline_surface', 'reset');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_30_insert_history', 'checkout_surface', 'insert_history');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_31_conclude_payment', 'Checkout', 'conclude_payment');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', '_40_reset', 'pipeline_surface', 'reset');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_41_reset_cart', 'Checkout', 'reset_cart');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_42_unset_sendto', 'session_eraser', 'sendto');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_43_unset_billto', 'session_eraser', 'billto');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_44_unset_shipping', 'session_eraser', 'shipping');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_45_unset_payment', 'session_eraser', 'payment');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reset', 'resetStart', '_46_unset_comments', 'session_eraser', 'comments');
-INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startApplication', 'zz_redirect_success', 'Checkout', 'redirect_success');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_process', 'startCheckout', 'zz_redirect_success', 'Checkout', 'redirect_success');
 
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'siteWide', 'postRegistration', '_01_post_login', 'Login', 'hook');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'siteWide', 'postLogin', '_01_recreate_session', '', 'tep_session_recreate');

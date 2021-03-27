@@ -11,25 +11,22 @@
 */
 
   class securityCheckExtended_mysql_utf8 {
-    var $type = 'warning';
-    var $has_doc = true;
+
+    public $type = 'warning';
+    public $has_doc = true;
 
     function __construct() {
-      global $language;
-
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended/mysql_utf8.php');
+      include DIR_FS_ADMIN . "includes/languages/{$_SESSION['language']}/modules/security_check/extended/mysql_utf8.php";
 
       $this->title = MODULE_SECURITY_CHECK_EXTENDED_MYSQL_UTF8_TITLE;
     }
 
     function pass() {
-      $check_query = tep_db_query('show table status');
+      $check_query = $GLOBALS['db']->query('SHOW TABLE STATUS');
 
-      if ( tep_db_num_rows($check_query) > 0 ) {
-        while ( $check = tep_db_fetch_array($check_query) ) {
-          if ( isset($check['Collation']) && ($check['Collation'] != 'utf8_unicode_ci') ) {
-            return false;
-          }
+      while ( $check = $check_query->fetch_assoc() ) {
+        if ( isset($check['Collation']) && ($check['Collation'] !== 'utf8mb4_unicode_ci') ) {
+          return false;
         }
       }
 
@@ -37,7 +34,7 @@
     }
 
     function getMessage() {
-      return '<a href="' . tep_href_link('database_tables.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_MYSQL_UTF8_ERROR . '</a>';
+      return '<a href="' . Guarantor::ensure_global('Admin')->link('database_tables.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_MYSQL_UTF8_ERROR . '</a>';
     }
+
   }
-?>

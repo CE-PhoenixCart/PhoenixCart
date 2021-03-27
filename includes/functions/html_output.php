@@ -10,65 +10,82 @@
   Released under the GNU General Public License
 */
 
+  function phoenix_parameterize($query, $delimiter = '&', $joiner = '=') {
+    $parameters = [];
+    foreach (explode($delimiter, $query) as $parameter) {
+      $pair = explode($joiner, $parameter, 2);
+      if (!empty($pair[0])) {
+        $parameters[$pair[0]] = $pair[1] ?? null;
+      }
+    }
+
+    return $parameters;
+  }
+
+  function phoenix_normalize($attributes) {
+    $parameters = [];
+    foreach (preg_split('{"[^"]*"(*SKIP)(*FAIL)|\s+}', $attributes) as $parameter) {
+      $pair = explode('=', $parameter, 2);
+      if (!empty($pair[0])) {
+        $parameters[$pair[0]] = isset($pair[1]) ? trim($pair[1], '"') : null;
+      }
+    }
+
+    return $parameters;
+  }
+
 ////
 // Output a form
   function tep_draw_form($name, $action, $method = 'post', $parameters = '', $tokenize = false) {
-    $form = '<form name="' . tep_output_string($name) . '" action="' . tep_output_string($action) . '" method="' . tep_output_string($method) . '"';
-
-    if (tep_not_null($parameters)) $form .= ' ' . $parameters;
-
-    $form .= '>';
+    $form = new Form($name, $action, $method, phoenix_normalize($parameters));
 
     if ( $tokenize && isset($_SESSION['sessiontoken']) ) {
-      $form .= '<input type="hidden" name="formid" value="' . tep_output_string($_SESSION['sessiontoken']) . '" />';
+      $form->hide('formid', Text::output($_SESSION['sessiontoken']));
     }
 
-    return $form;
+    return "$form";
   }
 
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true, $class = 'class="form-control"') {
-    $field = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+    $parameters = phoenix_normalize($parameters);
 
-    if ( $reinsert_value && is_string($request_value = $_GET[$name] ?? $_POST[$name] ?? null) ) {
-      $value = stripslashes($request_value);
+    if (isset($class)) {
+      $pair = explode('=', $class, 2);
+      if (isset($pair[1]) && ('class' === $pair[0])) {
+        $parameters['class'] = trim($pair[1], '"');
+      }
     }
 
-    if (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
+    $input = new Input($name, $parameters, $type);
+
+    if (is_null($value)) {
+    } elseif ($reinsert_value) {
+      $input->default_value($value);
+    } elseif (!Text::is_empty($value)) {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) {
-      $field .= " $parameters";
-    }
-
-    if (tep_not_null($class)) {
-      $field .= " $class";
-    }
-
-    $field .= ' />';
-
-    return $field;
+    return "$input";
   }
 
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
   function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
-    $selection = '<input type="' . tep_output_string($type) . '" name="' . tep_output_string($name) . '"';
+    $input = new Tickable($name, phoenix_normalize($parameters), $type);
 
-    if (tep_not_null($value)) $selection .= ' value="' . tep_output_string($value) . '"';
-
-    $request_value = $_GET[$name] ?? $_POST[$name] ?? null;
-    if ( $checked || ('on' === $request_value) || (is_string($request_value) && (stripslashes($request_value) == $value)) ) {
-      $selection .= ' checked="checked"';
+    if (!Text::is_empty($value)) {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) $selection .= ' ' . $parameters;
+    if ( $checked ) {
+      $input->tick();
+    } else {
+      $input->tick_if_requested();
+    }
 
-    $selection .= ' />';
-
-    return $selection;
+    return "$input";
   }
 
 ////
@@ -87,158 +104,75 @@
 // Output a form textarea field
 // The $wrap parameter is no longer used in the core xhtml template
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
-    $field = '<textarea class="form-control" name="' . tep_output_string($name) . '" cols="' . tep_output_string($width) . '" rows="' . tep_output_string($height) . '"';
+    $textarea = new Textarea($name, phoenix_normalize($parameters));
+    $textarea->set('cols', $width)->set('rows', $height);
 
-    if (tep_not_null($parameters)) {
-      $field .= ' ' . $parameters;
+    if ( $reinsert_value && is_string(Request::value($name)) ) {
+      $textarea->retain_text();
+    } elseif (!Text::is_empty($text)) {
+      $textarea->set_text($text);
     }
 
-    $field .= '>';
-
-    if ( $reinsert_value && is_string($request_value = $_GET[$name] ?? $_POST[$name] ?? null) ) {
-      $field .= htmlspecialchars(stripslashes($request_value));
-    } elseif (tep_not_null($text)) {
-      $field .= htmlspecialchars($text);
-    }
-
-    $field .= '</textarea>';
-
-    return $field;
+    return "$textarea";
   }
 
 ////
 // Output a form hidden field
   function tep_draw_hidden_field($name, $value = '', $parameters = '') {
-    $field = '<input type="hidden" name="' . tep_output_string($name) . '"';
+    $input = new Input($name, phoenix_normalize($parameters), 'hidden');
 
-    if (tep_not_null($value)) {
-      $field .= ' value="' . tep_output_string($value) . '"';
-    } elseif ( is_string($request_value = $_GET[$name] ?? $_POST[$name] ?? null) ) {
-      $field .= ' value="' . tep_output_string(stripslashes($request_value)) . '"';
+    if (Text::is_empty($value)) {
+      if ( is_string($requested_value = Request::value($name)) ) {
+        $input->set('value', $requested_value);
+      }
+    } else {
+      $input->set('value', $value);
     }
 
-    if (tep_not_null($parameters)) {
-      $field .= ' ' . $parameters;
-    }
-
-    $field .= ' />';
-
-    return $field;
+    return "$input";
   }
 
 ////
 // Hide form elements
   function tep_hide_session_id() {
-    global $session_started, $SID;
-
-    if ($session_started && tep_not_null($SID)) {
-      return tep_draw_hidden_field(session_name(), session_id());
+    if (defined('SID') && !Text::is_empty(SID)) {
+      return new Input(session_name(), ['type' => 'hidden', 'value' => session_id()]);
     }
+
+    return '';
   }
 
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
-    $field = '<select name="' . tep_output_string($name) . '"';
+    $select = new Select($name, $values, phoenix_normalize($parameters));
 
-    if (tep_not_null($parameters)) $field .= ' ' . $parameters;
-
-    $field .= ' class="form-control">';
-
-    if (empty($default)) {
-      if (is_string($_GET[$name] ?? null)) {
-        $default = stripslashes($_GET[$name]);
-      } elseif (is_string($_POST[$name] ?? null)) {
-        $default = stripslashes($_POST[$name]);
-      }
+    if ( !empty($default) ) {
+      $select->set_selection($default);
     }
 
-    foreach ($values as $value) {
-      $field .= '<option value="' . tep_output_string($value['id']) . '"';
-      if ($default == $value['id']) {
-        $field .= ' selected="selected"';
-      }
-
-      $field .= '>' . tep_output_string($value['text'], ['"' => '&quot;', '\'' => '&#039;', '<' => '&lt;', '>' => '&gt;']) . '</option>';
+    if ($required) {
+      $select->set_required($required);
     }
-    $field .= '</select>';
 
-    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
-
-    return $field;
+    return $select;
   }
 
 ////
 // Creates a pull-down list of countries
   function tep_get_country_list($name, $selected = '', $parameters = '') {
-    $countries = [['id' => '', 'text' => PULL_DOWN_DEFAULT]];
-
-    foreach (tep_get_countries() as $country) {
-      $countries[] = ['id' => $country['countries_id'], 'text' => $country['countries_name']];
-    }
-
-    return tep_draw_pull_down_menu($name, $countries, $selected, $parameters);
+    trigger_error('The tep_get_country_list function has been deprecated.', E_USER_DEPRECATED);
+    return Country::draw_menu($name, $selected, phoenix_normalize($parameters));
   }
 
 ////
 // Output a jQuery UI Button
   function tep_draw_button($title = null, $icon = null, $link = null, $priority = null, $params = [], $style = null) {
-    static $button_counter = 1;
-
-    if ( !isset($params['type']) || !in_array($params['type'], ['submit', 'button', 'reset']) ) {
-      $params['type'] = 'submit';
-    }
-
-    if ( ($params['type'] == 'submit') && isset($link) ) {
-      $params['type'] = 'button';
-    }
-
-    if (!isset($priority)) {
-      $priority = 'secondary';
-    }
-
-    if ( ($params['type'] == 'button') && isset($link) ) {
-      $button = '<a id="btn' . $button_counter . '" href="' . $link . '"';
-
-      if ( isset($params['newwindow']) ) {
-        $button .= ' target="_blank" rel="noreferrer"';
-      }
-
-      $closing_tag = '</a>';
-    } else {
-      $button = '<button ';
-      $button .= ' type="' . tep_output_string($params['type']) . '"';
-      $closing_tag = '</button>';
-    }
-
-    if ( isset($params['params']) ) {
-      $button .= ' ' . $params['params'];
-    }
-
-    $button .= ' class="btn ';
-
-    $button .= $style ?? 'btn-light mt-2';
-
-    $button .= '">';
-
-    if (tep_not_null($icon ?? '')) {
-      $button .= ' <span class="' . $icon . '" aria-hidden="true"></span> ';
-    }
-
-    $button .= $title;
-    $button .= $closing_tag;
-
-    $button_counter++;
-
-    return $button;
+    return (string)(new Button($title, $icon, $style, $params ?? [], $link));
   }
 
-  // review stars
+// review stars
   function tep_draw_stars($rating = 0) {
-    $star_rating = round($rating, 0, PHP_ROUND_HALF_UP);
-    $stars = str_repeat('<i class="fas fa-star"></i>', $star_rating);
-    $stars .= str_repeat('<i class="far fa-star"></i>', 5-$star_rating);
-
-    return '<span class="text-warning" title="' . $rating . '">' . $stars . '</span>';
+    return (string)(new star_rating((float)$rating));
   }
 
