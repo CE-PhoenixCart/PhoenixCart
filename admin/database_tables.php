@@ -82,7 +82,7 @@
 
       foreach ( $_POST['id'] as $table ) {
         $table = Text::input($table);
-        $tickable = new Tickable('id[]', ['type' => 'checkbox'])-set('value', $table);
+        $tickable = (new Tickable('id[]', ['type' => 'checkbox']))->set('value', $table);
         if (isset($_POST['id']) && in_array($table, $_POST['id'])) {
           $tickable->tick();
         }
