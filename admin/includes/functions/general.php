@@ -42,13 +42,6 @@
     exit();
   }
 
-////
-// Parse the data used in the html tags to ensure the tags will not break
-  function tep_parse_input_field_data($data, $parse) {
-    trigger_error('The tep_parse_input_field_data function has been deprecated.', E_USER_DEPRECATED);
-    return strtr(trim($data), $parse);
-  }
-
   function tep_output_string($string, $translate = false, $protected = false) {
     if ($protected) {
       trigger_error('Calling the tep_output_string function with $protected true has been deprecated.', E_USER_DEPRECATED);
@@ -56,11 +49,6 @@
     }
 
     return Text::output($string, $translate);
-  }
-
-  function tep_output_string_protected($string) {
-    trigger_error('The tep_output_string_protected function has been deprecated.', E_USER_DEPRECATED);
-    return htmlspecialchars($string);
   }
 
   function tep_sanitize_string($string) {
@@ -326,18 +314,6 @@
     return $zone['geo_zone_name'] ?? $geo_zone_id;
   }
 
-  function tep_address_format($address_format_id, $address, $html, $boln, $eoln) {
-    trigger_error('The tep_address_format function has been deprecated.', E_USER_DEPRECATED);
-
-    $module = Guarantor::ensure_global('customer_data')->get_module('address');
-
-    if (!isset($address['format_id'])) {
-      $address['format_id'] = $address_format_id;
-    }
-
-    return $module->format($address, $html, $boln, $eoln);
-  }
-
   ////////////////////////////////////////////////////////////////////////////////////////////////
   //
   // Function    : tep_get_zone_code
@@ -358,16 +334,6 @@
     return $state_prov_values['zone_code'] ?? $default_state;
   }
 
-  function tep_get_uprid($prid, $params) {
-    trigger_error('The tep_get_uprid function has been deprecated.', E_USER_DEPRECATED);
-    return Product::build_uprid($prid, $params);
-  }
-
-  function tep_get_prid($uprid) {
-    trigger_error('The tep_get_prid function has been deprecated.', E_USER_DEPRECATED);
-    return Product::build_prid($uprid);
-  }
-
   function tep_get_languages() {
     $languages = [];
 
@@ -377,14 +343,6 @@
     }
 
     return $languages;
-  }
-
-  function tep_get_category_name($category_id, $language_id) {
-    trigger_error('The tep_get_category_name function has been deprecated.', E_USER_DEPRECATED);
-    $category_query = tep_db_query("SELECT categories_name FROM categories_description WHERE categories_id = " . (int)$category_id . " AND language_id = " . (int)$language_id);
-    $category = $category_query->fetch_assoc();
-
-    return $category['categories_name'];
   }
 
   function tep_get_orders_status_name($orders_status_id, $language_id = '') {
@@ -406,23 +364,6 @@
     }
 
     return $order_statuses;
-  }
-
-  function tep_get_products_name($product_id, $language_id = 0) {
-    trigger_error('The tep_get_products_name function has been deprecated.', E_USER_DEPRECATED);
-    return Product::fetch_name($product_id, $language_id);
-  }
-
-  function tep_get_products_description($product_id, $language_id) {
-    trigger_error('The tep_get_products_description function has been deprecated.', E_USER_DEPRECATED);
-
-    return product_by_id::build($product_id)->get('translations')[$language_id]['description'];
-  }
-
-  function tep_get_products_url($product_id, $language_id) {
-    trigger_error('The tep_get_products_url function has been deprecated.', E_USER_DEPRECATED);
-
-    return product_by_id::build($product_id)->get('translations')[$language_id]['url'];
   }
 
 ////
@@ -1019,15 +960,6 @@ EOSQL
     return tep_get_tax_rate($class_id, -1, -1);
   }
 
-  function tep_call_function($function, $parameter, $object = '') {
-    trigger_error('The tep_call_function function has been deprecated.', E_USER_DEPRECATED);
-    if ($object == '') {
-      return call_user_func($function, $parameter);
-    } else {
-      return call_user_func([$object, $function], $parameter);
-    }
-  }
-
   function tep_get_zone_class_title($zone_class_id) {
     if ($zone_class_id == '0') {
       return TEXT_NONE;
@@ -1166,39 +1098,11 @@ EOSQL
     }
   }
 
-  function tep_get_category_description($category_id, $language_id) {
-    trigger_error('The tep_get_category_description function has been deprecated.', E_USER_DEPRECATED);
-    $category_query = tep_db_query("SELECT categories_description FROM categories_description WHERE categories_id = " . (int)$category_id . " AND language_id = " . (int)$language_id);
-    $category = $category_query->fetch_assoc();
-
-    return $category['categories_description'];
-  }
-
   function tep_get_manufacturer_description($manufacturer_id, $language_id) {
     $manufacturer_query = tep_db_query("SELECT manufacturers_description FROM manufacturers_info WHERE manufacturers_id = " . (int)$manufacturer_id . " AND languages_id = " . (int)$language_id);
     $manufacturer = $manufacturer_query->fetch_assoc();
 
     return $manufacturer['manufacturers_description'];
-  }
-
-  function tep_get_category_seo_description($category_id, $language_id) {
-    trigger_error('The tep_get_category_seo_description function has been deprecated.', E_USER_DEPRECATED);
-    $category_query = tep_db_query("SELECT categories_seo_description FROM categories_description WHERE categories_id = " . (int)$category_id . " AND language_id = " . (int)$language_id);
-    $category = $category_query->fetch_assoc();
-
-    return $category['categories_seo_description'];
-  }
-
-  function tep_get_category_seo_title($category_id, $language_id = 0) {
-    trigger_error('The tep_get_category_seo_title function has been deprecated.', E_USER_DEPRECATED);
-    if ($language_id == 0) {
-      $language_id = $_SESSION['languages_id'];
-    }
-
-    $category_query = tep_db_query("SELECT categories_seo_title FROM categories_description WHERE categories_id = " . (int)$category_id . " AND language_id = " . (int)$language_id);
-    $category = $category_query->fetch_assoc();
-
-    return $category['categories_seo_title'];
   }
 
   function tep_get_manufacturer_seo_description($manufacturer_id, $language_id) {
@@ -1213,24 +1117,6 @@ EOSQL
     $manufacturer = $manufacturer_query->fetch_assoc();
 
     return $manufacturer['manufacturers_seo_title'];
-  }
-
-  function tep_get_products_seo_description($product_id, $language_id = 0) {
-    trigger_error('The tep_get_products_seo_description function has been deprecated.', E_USER_DEPRECATED);
-
-    return product_by_id::build($product_id)->get('translations')[$language_id]['seo_description'];
-  }
-
-  function tep_get_products_seo_keywords($product_id, $language_id = 0) {
-    trigger_error('The tep_get_products_seo_keywords function has been deprecated.', E_USER_DEPRECATED);
-
-    return product_by_id::build($product_id)->get('translations')[$language_id]['seo_keywords'];
-  }
-
-  function tep_get_products_seo_title($product_id, $language_id = 0) {
-    trigger_error('The tep_get_products_seo_title function has been deprecated.', E_USER_DEPRECATED);
-
-    return product_by_id::build($product_id)->get('translations')[$language_id]['seo_title'];
   }
 
   function tep_draw_products($name, $parameters = '', $exclude = [], $class = 'class="form-control"') {
@@ -1322,9 +1208,4 @@ EOSQL
 
   function tep_form_processing_is_valid() {
     return !($GLOBALS['error'] ?? false);
-  }
-
-  function tep_ltrim_once($s, $prefix) {
-    trigger_error('The tep_ltrim_once function has been deprecated.', E_USER_DEPRECATED);
-    return Text::ltrim_once($s, $prefix);
   }

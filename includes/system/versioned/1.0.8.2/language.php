@@ -194,9 +194,4 @@
                      ?? $this->catalog_languages[DEFAULT_LANGUAGE];
     }
 
-    public function get_browser_language() {
-      trigger_error('The get_browser_language function has been deprecated.', E_USER_DEPRECATED);
-      $this->language = $this->catalog_languages[static::negotiate($this->catalog_languages)];
-    }
-
   }

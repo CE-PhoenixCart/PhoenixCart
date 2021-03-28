@@ -39,13 +39,6 @@
     exit();
   }
 
-////
-// Deprecated:  replace with strtr(trim($data), $parse)
-  function tep_parse_input_field_data($data, $parse) {
-    trigger_error('The tep_parse_input_field_data function has been deprecated.', E_USER_DEPRECATED);
-    return strtr(trim($data), $parse);
-  }
-
   function tep_output_string($string, $translate = false, $protected = false) {
     if ($protected) {
       trigger_error('Calling the tep_output_string function with $protected true has been deprecated.', E_USER_DEPRECATED);
@@ -55,32 +48,10 @@
     return Text::output($string, $translate);
   }
 
-  function tep_output_string_protected($string) {
-    trigger_error('The tep_output_string_protected function has been deprecated.', E_USER_DEPRECATED);
-    return htmlspecialchars($string);
-  }
-
   function tep_sanitize_string($string) {
     $patterns = ['/ +/', '/[<>]/'];
     $replace = [' ', '_'];
     return preg_replace($patterns, $replace, trim($string));
-  }
-
-////
-// Return a random row from a database query
-  function tep_random_select($query) {
-    trigger_error('The tep_random_select function has been deprecated.', E_USER_DEPRECATED);
-    $random_product = '';
-    $random_query = tep_db_query($query);
-    $last_row = mysqli_num_rows($random_query);
-    if ($last_row > 0) {
-      $last_row--;
-      $random_row = ($last_row > 0) ? mt_rand(0, $last_row) : 0;
-      $random_query->data_seek($random_row);
-      $random_product = $random_query->fetch_assoc();
-    }
-
-    return $random_product;
   }
 
 ////
@@ -931,12 +902,6 @@
     return $orders_check['total'];
   }
 
-// nl2br() prior PHP 4.2.0 did not convert linefeeds on all OSs (it only converted \n)
-  function tep_convert_linefeeds($from, $to, $string) {
-    trigger_error('The tep_convert_linefeeds function has been deprecated.', E_USER_DEPRECATED);
-    return str_replace($from, $to, $string);
-  }
-
   function tep_delete_order($order_id) {
     tep_db_query('DELETE FROM orders WHERE orders_id = ' . (int)$order_id);
     tep_db_query('DELETE FROM orders_total WHERE orders_id = ' . (int)$order_id);
@@ -980,9 +945,4 @@
       $_SESSION['navigation']->set_snapshot($parameters);
       tep_redirect(tep_href_link('login.php'));
     }
-  }
-
-  function tep_ltrim_once($s, $prefix) {
-    trigger_error('The tep_ltrim_once function has been deprecated.', E_USER_DEPRECATED);
-    return Text::ltrim_once($s, $prefix);
   }
