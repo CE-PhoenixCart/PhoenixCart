@@ -116,17 +116,12 @@
         });
     }
 
-    public static function load_languages() {
+    public static function load_all() {
       $languages = [];
 
-      $languages_query = tep_db_query("SELECT languages_id, name, code, image, directory FROM languages ORDER BY sort_order");
+      $languages_query = $GLOBALS['db']->query("SELECT languages_id AS id, name, code, image, directory FROM languages ORDER BY sort_order");
       while ($language = $languages_query->fetch_assoc()) {
-        $languages[$language['code']] = [
-          'id' => $language['languages_id'],
-          'name' => $language['name'],
-          'image' => $language['image'],
-          'directory' => $language['directory'],
-        ];
+        $languages[$language['code']] = $language;
       }
 
       return $languages;
@@ -149,13 +144,10 @@
     }
 
     public static function build() {
-      $languages = static::load_languages();
-
-      if (empty($_GET['language'])) {
-        $locale = static::negotiate($languages);
-      } else {
-        $locale = $_GET['language'];
-      }
+      $languages = static::load_all();
+      $locale = empty($_GET['language'])
+              ? static::negotiate($languages)
+              : $_GET['language'];
 
       $language = new static($locale, $languages);
 
@@ -184,7 +176,7 @@
     public $language;
 
     public function __construct($selection = null, $languages = null) {
-      $this->catalog_languages = $languages ?? static::load_languages();
+      $this->catalog_languages = $languages ?? static::load_all();
 
       $this->set_language($selection);
     }
