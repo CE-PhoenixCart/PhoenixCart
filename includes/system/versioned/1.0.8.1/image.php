@@ -99,9 +99,9 @@
      * @return string
      */
     public function __toString() {
-      if (defined('DEFAULT_IMAGE') && !Text::is_empty(DEFAULT_IMAGE) && !is_file("{$this->prefix}$src")) {
-        $src = DEFAULT_IMAGE;
-      } elseif ( (empty($src) || ($src === 'images/')) && (IMAGE_REQUIRED === 'false') ) {
+      if (defined('DEFAULT_IMAGE') && !Text::is_empty(DEFAULT_IMAGE) && !is_file($this->prefix . $this->get('src'))) {
+        $this->set('src', DEFAULT_IMAGE);
+      } elseif ( (empty($this->parameters['src']) || ($this->get('src') === 'images/')) && (IMAGE_REQUIRED === 'false') ) {
         return '';
       }
 
