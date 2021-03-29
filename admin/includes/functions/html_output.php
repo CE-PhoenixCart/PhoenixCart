@@ -48,6 +48,7 @@
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '', $responsive = true, $bootstrap_css = '') {
     $image = new Image($src, phoenix_normalize($parameters));
+    $image->set_prefix(DIR_FS_ADMIN);
 
     if (!Text::is_empty($alt)) {
       $image->set('alt', $alt);
@@ -117,10 +118,9 @@
 
     $input = new Input($name, $parameters, $type);
 
-    if (is_null($value)) {
-    } elseif ($reinsert_value) {
-      $input->default_value($value);
-    } elseif (!Text::is_empty($value)) {
+    if ($reinsert_value) {
+      $input->default_value($value ?? '');
+    } elseif (isset($value) && !Text::is_empty($value)) {
       $input->set('value', $value);
     }
 
