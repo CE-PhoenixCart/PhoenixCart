@@ -11,7 +11,7 @@
 * [Installation](https://github.com/CE-PhoenixCart/PhoenixCart#installation)
   - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart#requirements)
   - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart#user-checklist)
-  - [Softaculous](https://github.com/CE-PhoenixCart/PhoenixCart#softaculous)
+  - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart#one-click)
   - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart#language-packs)
 * [Certified Service Providers](https://github.com/CE-PhoenixCart/PhoenixCart#certified-service-providers)
 * [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart#how-to-support-the-phoenix-project)
@@ -27,7 +27,8 @@ Phoenix is packed with many first class utilities as standard but its modular so
 
 ### Demo Site
 
-https://template.me.uk/index.php
+Core:  https://phoenixcart.org/demo/  
+Pro:  https://template.me.uk/index.php
 
 ## Installation
 
@@ -39,7 +40,7 @@ Software | Minimum | Maximum (tested)
 -------- | ------- | ----------------
 PHP | 7.0 | 7.4
 MariaDB | 1.0.2.2 | 10.5
-MySQL | 5.7 | 8.0
+MySQL | 5.7.7 | 8.0
 
 Only one of MySQL or MariaDB is needed.  
 
@@ -67,22 +68,22 @@ PHP setting | file_uploads | ON
 - [ ] perform a test checkout
 - [ ] load your categories and products
 
-### Installation via Softaculous
+### One-click
 
-<img align="left" src="http://www.softaculous.com/website/images/softac_products.gif"><br>CE Phoenix can now be installed easily with just one click via [Softaculous](http://www.softaculous.com/apps/ecommerce/CE_Phoenix)<br><br>
+<img align="left" src="http://www.softaculous.com/website/images/softac_products.gif" alt="Installatron"><br>CE Phoenix can now be installed easily with just one click via [Softaculous](http://www.softaculous.com/apps/ecommerce/CE_Phoenix)<br><br>
+
+<img align="left" src="https://user-images.githubusercontent.com/104613/112981416-27a8e980-9129-11eb-97e7-a015f95d35b9.png" alt="Installatron"><br>CE Phoenix can now be installed easily with just one click via [Installatron](https://installatron.com/cephoenixcart/)<br><br>
 
 ### Language Packs
 
 Language | URL | Credit & Thanks 
 ------------ | ------------- | ------------- 
-DE | https://apps.oscommerce.com/zXxXN&german-language-deutsches-sprachpaket&v=cephoenix10 | cupidare
+DE | https://github.com/cupidare/PhoenixCart-German-Language/ | cupidare
 DK | https://phoenixcart.org/forum/app.php/addons/free_addon/danish_language_pack/ | Kofod 
 ES | https://github.com/raiwa/OSCOM-CE-Phoenix-Spanish-language-idioma-espanol | raiwa 
 FR | https://phoenixcart.org/forum/app.php/addons/free_addon/french_language_pack/ | artfulweb 
 IT | https://github.com/bitit-it/phoenix-italian | bitit.it
 NL | https://phoenixcart.org/forum/app.php/addons/free_addon/dutch_language_pack/ | Fiber 
-NO | https://apps.oscommerce.com/ecntZ&norwegian-language-pack-phoenix | ra92 
-PT (BR) | https://apps.oscommerce.com/yLxsO&oscom2ce-phoenix-pt-brasil-v1-0-5-0 | josmar 
 RU | https://github.com/Agrosheriff/CE-Phoenix_RU | Fredi 
 SE | https://phoenixcart.org/forum/app.php/addons/free_addon/swedish_language_pack/ | Bertil
 
@@ -101,6 +102,7 @@ Preston<br>[@zipurman](https://forums.oscommerce.com/profile/406830-zipurman/) |
 Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to sponsor forward movement in the code-base. Phoenix needs you as much as you need Phoenix... 
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
+
 
 ### Join the Phoenix Club
 
