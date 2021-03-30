@@ -305,6 +305,11 @@
 ////
 // Output a Bootstrap Button
   function tep_draw_bootstrap_button($title = '', $icon = null, $link = null, $priority = 'secondary', $params = [], $style = null) {
+    if (isset($params['params'])) {
+      $params = array_merge($params, phoenix_normalize($params['params']));
+      unset($params['params']);
+    }
+
     return (string)(new Button($title ?? '', $icon, $style, $params ?? [], $link));
   }
 
