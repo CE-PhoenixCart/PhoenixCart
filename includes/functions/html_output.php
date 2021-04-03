@@ -168,6 +168,11 @@
 ////
 // Output a jQuery UI Button
   function tep_draw_button($title = null, $icon = null, $link = null, $priority = null, $params = [], $style = null) {
+    if (isset($params['params'])) {
+      $params = array_merge($params, phoenix_normalize($params['params']));
+      unset($params['params']);
+    }
+
     return (string)(new Button($title, $icon, $style, $params ?? [], $link));
   }
 
