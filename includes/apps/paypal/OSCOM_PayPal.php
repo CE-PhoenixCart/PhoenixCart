@@ -605,17 +605,7 @@
     }
 
     function formatCurrencyRaw($total, $currency_code = null, $currency_value = null) {
-      global $currencies;
-
-      if ( !isset($currency_code) ) {
-        $currency_code = $_SESSION['currency'] ?? DEFAULT_CURRENCY;
-      }
-
-      if ( !isset($currency_value) || !is_numeric($currency_value) ) {
-        $currency_value = $currencies->currencies[$currency_code]['value'];
-      }
-
-      return number_format(tep_round($total * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
+      return $GLOBALS['currencies']->format_raw($total, true, $currency_code, $currency_value);
     }
 
     function getCode() {
