@@ -54,4 +54,4 @@ define('ERROR_PRICE_TO_LESS_THAN_PRICE_FROM', 'Price To must be greater than or 
 define('ERROR_INVALID_KEYWORDS', 'Invalid keywords.');
 
 // text for date of birth example
-define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
+define('DATE_FORMAT_STRING', 'mm/dd/yyyy');
