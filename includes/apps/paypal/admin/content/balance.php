@@ -13,41 +13,46 @@
 
 <div class="card" id="ppAccountBalanceLive">
   <div class="card-header">
-    <?= $OSCOM_PayPal->getDef('heading_live_account', array('account' => str_replace('_api1.', '@', $OSCOM_PayPal->getApiCredentials('live', 'username')))); ?>
+    <?= $OSCOM_PayPal->getDef('heading_live_account', ['account' => str_replace('_api1.', '@', $OSCOM_PayPal->getApiCredentials('live', 'username'))]) ?>
   </div>
   <div class="card-body">
     <div id="ppBalanceLiveInfo">
-      <p><?= $OSCOM_PayPal->getDef('retrieving_balance_progress'); ?></p>
+      <p><?= $OSCOM_PayPal->getDef('retrieving_balance_progress') ?></p>
     </div>
   </div>
 </div>
 
 <div class="card" id="ppAccountBalanceSandbox">
   <div class="card-header">
-    <?= $OSCOM_PayPal->getDef('heading_sandbox_account', array('account' => str_replace('_api1.', '@', $OSCOM_PayPal->getApiCredentials('sandbox', 'username')))); ?>
+    <?= $OSCOM_PayPal->getDef('heading_sandbox_account', ['account' => str_replace('_api1.', '@', $OSCOM_PayPal->getApiCredentials('sandbox', 'username'))]) ?>
   </div>
   <div class="card-body">
     <div id="ppBalanceSandboxInfo">
-      <p><?= $OSCOM_PayPal->getDef('retrieving_balance_progress'); ?></p>
+      <p><?= $OSCOM_PayPal->getDef('retrieving_balance_progress') ?></p>
     </div>
   </div>
 </div>
 
 <div class="card" id="ppAccountBalanceNone" style="display: none;">
   <div class="card-body">
-    <p><?= $OSCOM_PayPal->getDef('error_no_accounts_configured'); ?></p>
+    <p><?= $OSCOM_PayPal->getDef('error_no_accounts_configured') ?></p>
   </div>
 </div>
 
 <script>
 OSCOM.APP.PAYPAL.getBalance = function(type) {
   var def = {
-    'error_balance_retrieval': '<?php echo addslashes($OSCOM_PayPal->getDef('error_balance_retrieval')); ?>'
+    'error_balance_retrieval': '<?= addslashes($OSCOM_PayPal->getDef('error_balance_retrieval')) ?>'
   };
 
   var divId = 'ppBalance' + type.charAt(0).toUpperCase() + type.slice(1) + 'Info';
 
-  $.get('<?php echo tep_href_link('paypal.php', 'action=balance&subaction=retrieve&type=PPTYPE'); ?>'.replace('PPTYPE', type), function (data) {
+  $.get('<?= Guarantor::ensure_global('Admin')->link(
+               'paypal.php', [
+                 'action' => 'balance',
+                 'subaction' => 'retrieve',
+                 'type' => 'PPTYPE'])->set_separator_encoding(false)
+         ?>'.replace('PPTYPE', type), function (data) {
     var balance = {};
 
     $('#' + divId).empty();
