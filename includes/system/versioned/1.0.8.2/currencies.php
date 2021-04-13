@@ -10,17 +10,13 @@
   Released under the GNU General Public License
 */
 
-////
-// Class to handle currencies
-// TABLES: currencies
   class currencies {
 
     public $currencies;
 
-// class constructor
     public function __construct() {
       $this->currencies = [];
-      $currencies_query = tep_db_query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
+      $currencies_query = $GLOBALS['db']->query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
       while ($currencies = $currencies_query->fetch_assoc()) {
         $this->currencies[$currencies['code']] = [
           'title' => $currencies['title'],
@@ -34,7 +30,6 @@
       }
     }
 
-// class methods
     public function format($number, $calculate_currency_value = true, $currency_type = null, $currency_value = null) {
       if (empty($currency_type)) {
         $currency_type = $_SESSION['currency'] ?? DEFAULT_CURRENCY;
