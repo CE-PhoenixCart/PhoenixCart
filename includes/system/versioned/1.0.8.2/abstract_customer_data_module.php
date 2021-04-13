@@ -13,22 +13,26 @@
   abstract class abstract_customer_data_module extends abstract_module {
 
     const REQUIRED_ATTRIBUTE = 'required aria-required="true" ';
+    const REQUIRED_ATTRIBUTES = [
+      'required' => null,
+      'aria-required' => 'true',
+    ];
 
     protected $pages;
 
     public function __construct() {
       parent::__construct();
 
-      $pages_string = self::get_constant(static::CONFIG_KEY_BASE . 'PAGES');
+      $pages_string = $this->base_constant('PAGES');
       $this->pages = empty($pages_string) ? [] : explode(';', $pages_string);
     }
 
     public function get_group() {
-      return self::get_constant(static::CONFIG_KEY_BASE . 'GROUP');
+      return $this->base_constant('GROUP');
     }
 
     public function get_template() {
-      return self::get_constant(static::CONFIG_KEY_BASE . 'TEMPLATE');
+      return $this->base_constant('TEMPLATE');
     }
 
     public function has_page($page) {
@@ -36,7 +40,7 @@
     }
 
     public function is_required() {
-      return (('True' === $this->get_constant(static::CONFIG_KEY_BASE . 'REQUIRED'))
+      return (('True' === $this->base_constant('REQUIRED'))
         && ('customers.php' !== $GLOBALS['PHP_SELF']));
     }
 
