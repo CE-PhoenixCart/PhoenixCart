@@ -107,7 +107,7 @@
     function encode() {
       $encoded = $this->_encoded;
 
-      if (Text::is_empty($this->_subparts)) {
+      if ([] === $this->_subparts) {
         $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding) . $this->lf;
       } else {
         $boundary = '=_' . md5(uniqid(mt_rand()) . microtime());
