@@ -23,26 +23,24 @@
     function login() {
       global $customer_data;
 
-      // Check if email exists
-      $email_address = tep_db_prepare_input($_POST['email_address']);
+      $email_address = Text::input($_POST['email_address']);
 
-      $customer_query = tep_db_query($customer_data->build_read(['id', 'password'], 'customers', ['email_address' => $email_address]) . ' LIMIT 1');
-      $customer_details = tep_db_fetch_array($customer_query);
+      $customer_query = $GLOBALS['db']->query($customer_data->build_read(['id', 'password'], 'customers', ['email_address' => $email_address]) . ' LIMIT 1');
+      $customer_details = $customer_query->fetch_assoc();
       if (!$customer_details) {
         return false;
       }
 
-      // Check that password is good
-      $password = tep_db_prepare_input($_POST['password']);
-      if (!tep_validate_password($password, $customer_data->get('password', $customer_details))) {
+      $password = Text::input($_POST['password']);
+      if (!Password::validate($password, $customer_data->get('password', $customer_details))) {
         return false;
       }
 
-      // set $login_customer_id globally and perform post login code in catalog/login.php
+// set $login_customer_id globally and perform post login code in catalog/login.php
       $GLOBALS['login_customer_id'] = (int)$customer_data->get('id', $customer_details);
 
-      // migrate old hashed password to new phpass password
-      if (tep_password_type($customer_data->get('password', $customer_details)) != 'phpass') {
+// if stored under an older password hashing method, save with the current method
+      if (Password::needs_rehash($customer_data->get('password', $customer_details))) {
         $customer_data->update(['password' => $password], ['id' => (int)$GLOBALS['login_customer_id']], 'customers');
       }
 
@@ -50,7 +48,7 @@
     }
 
     public function execute() {
-      if ((tep_validate_form_action_is('process')) && (!$this->login())) {
+      if ((Form::validate_action_is('process')) && (!$this->login())) {
         $GLOBALS['messageStack']->add('login', MODULE_CONTENT_LOGIN_TEXT_LOGIN_ERROR);
       }
 

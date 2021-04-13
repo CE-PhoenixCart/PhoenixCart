@@ -78,27 +78,34 @@
       $label_text = constant($entry_base);
 
       $input_id = 'inputPassword';
-      $attribute = 'id="' . $input_id . '" autocapitalize="none" placeholder="' . constant($entry_base . '_TEXT') . '"';
-      $postInput = '';
+      $attributes = [
+        'id' => $input_id,
+        'autocapitalize' => 'none',
+      ];
+
+      if (defined($entry_base . '_TEXT') && !Text::is_empty(constant($entry_base . '_TEXT'))) {
+        $attributes['placeholder'] = constant($entry_base . '_TEXT');
+      }
+
       if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
+        $attributes = array_merge(static::REQUIRED_ATTRIBUTES, $attributes);
         $postInput = FORM_REQUIRED_INPUT;
-      }
-
-      if (isset($customer_details['password'])) {
-        $attribute .= ' autocomplete="current-password"';
       } else {
-        $attribute .= ' autocomplete="new-password"';
+        $postInput = '';
       }
 
-      $input = tep_draw_input_field('password', null, $attribute, 'password')
+      $attributes['autocomplete'] = isset($customer_details['password'])
+                                  ? 'current-password'
+                                  : 'new-password';
+
+      $input = new Input('password', $attributes, 'password')
              . $postInput;
 
       include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details, $entry_base = 'ENTRY_PASSWORD') {
-      $customer_details['password'] = tep_db_prepare_input($_POST['password']);
+      $customer_details['password'] = Text::input($_POST['password']);
 
       if (strlen($customer_details['password']) < $this->base_constant('MIN_LENGTH')
         && ($this->is_required()
@@ -122,7 +129,7 @@
       }
 
       Guarantor::guarantee_subarray($db_tables, 'customers');
-      $db_tables['customers']['customers_password'] = tep_encrypt_password($customer_details['password']);
+      $db_tables['customers']['customers_password'] = Password::hash($customer_details['password']);
     }
 
     public function build_db_aliases(&$db_tables, $table = 'both') {

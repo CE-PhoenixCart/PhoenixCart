@@ -13,40 +13,40 @@
   $login_request = true;
 
   require 'includes/application_top.php';
-  require 'includes/functions/password_funcs.php';
 
+  Guarantor::ensure_global('Admin');
   $action = $_GET['action'] ?? '';
 
-  $OSCOM_Hooks->call('login', 'preAction');
+  $admin_hooks->cat('preAction');
 
-// prepare to logout an active administrator if the login page is accessed again
+// prepare to log out an active administrator if the login page is accessed again
   if (isset($_SESSION['admin'])) {
     $action = 'logoff';
   }
 
-  if (tep_not_null($action)) {
+  if (!Text::is_empty($action)) {
     switch ($action) {
       case 'process':
-        if (isset($_SESSION['redirect_origin']) && isset($redirect_origin['auth_user']) && !isset($_POST['username'])) {
-          $username = tep_db_prepare_input($redirect_origin['auth_user']);
-          $password = tep_db_prepare_input($redirect_origin['auth_pw']);
+        if (isset($_SESSION['redirect_origin']['auth_user']) && !isset($_POST['username'])) {
+          $username = Text::input($_SESSION['redirect_origin']['auth_user']);
+          $password = Text::input($_SESSION['redirect_origin']['auth_pw']);
         } else {
-          $username = tep_db_prepare_input($_POST['username']);
-          $password = tep_db_prepare_input($_POST['password']);
+          $username = Text::input($_POST['username']);
+          $password = Text::input($_POST['password']);
         }
 
         $actionRecorder = new actionRecorderAdmin('ar_admin_login', null, $username);
 
         if ($actionRecorder->canPerform()) {
-          $check_query = tep_db_query("SELECT id, user_name, user_password FROM administrators WHERE user_name = '" . tep_db_input($username) . "'");
+          $check_query = $db->query("SELECT id, user_name, user_password FROM administrators WHERE user_name = '" . $db->escape($username) . "'");
 
-          if (tep_db_num_rows($check_query) == 1) {
-            $check = tep_db_fetch_array($check_query);
+          if (mysqli_num_rows($check_query) === 1) {
+            $check = $check_query->fetch_assoc();
 
-            if (tep_validate_password($password, $check['user_password'])) {
-// migrate old hashed password to new phpass password
-              if (tep_password_type($check['user_password']) != 'phpass') {
-                tep_db_query("UPDATE administrators SET user_password = '" . tep_encrypt_password($password) . "' WHERE id = '" . (int)$check['id'] . "'");
+            if (Password::validate($password, $check['user_password'])) {
+// migrate password if using an older hashing method
+              if (Password::needs_rehash($check['user_password'])) {
+                $db->query("UPDATE administrators SET user_password = '" . Password::hash($password) . "' WHERE id = " . (int)$check['id']);
               }
 
               $_SESSION['admin'] = [
@@ -57,21 +57,19 @@
               $actionRecorder->_user_id = $_SESSION['admin']['id'];
               $actionRecorder->record();
 
-              $OSCOM_Hooks->call('login', 'processActionSuccess');
+              $admin_hooks->cat('processActionSuccess');
 
               if (isset($_SESSION['redirect_origin'])) {
-                $page = $redirect_origin['page'];
-                $get_string = http_build_query($redirect_origin['get']);
-
+                $link = $Admin->link($_SESSION['redirect_origin']['page'], $_SESSION['redirect_origin']['get']);
                 unset($_SESSION['redirect_origin']);
 
-                tep_redirect(tep_href_link($page, $get_string));
+                Href::redirect($link);
               } else {
-                tep_redirect(tep_href_link('index.php'));
+                Href::redirect($Admin->link('index.php'));
               }
             }
 
-            $OSCOM_Hooks->call('login', 'processActionFail');
+            $admin_hooks->cat('processActionFail');
           }
 
           if (isset($_POST['username'])) {
@@ -85,7 +83,7 @@
           $actionRecorder->record(false);
         }
 
-        $OSCOM_Hooks->call('login', 'processAction');
+        $admin_hooks->cat('processAction');
 
         break;
 
@@ -96,57 +94,52 @@
           $_SESSION['auth_ignore'] = true;
         }
 
-        $OSCOM_Hooks->call('login', 'logoffAction');
+        $admin_hooks->cat('logoffAction');
 
-        tep_redirect(tep_href_link('index.php'));
-
-        break;
+        Href::redirect($Admin->link('index.php'));
 
       case 'create':
-        $check_query = tep_db_query("SELECT id FROM administrators LIMIT 1");
+        $check_query = $db->query("SELECT id FROM administrators LIMIT 1");
 
-        if (tep_db_num_rows($check_query) == 0) {
-          $username = tep_db_prepare_input($_POST['username']);
-          $password = tep_db_prepare_input($_POST['password']);
+        if (mysqli_num_rows($check_query) === 0) {
+          $username = Text::input($_POST['username']);
+          $password = Text::input($_POST['password']);
 
-          if ( !empty($username) ) {
-            tep_db_query("INSERT INTO administrators (user_name, user_password) VALUES ('" . tep_db_input($username) . "', '" . tep_db_input(tep_encrypt_password($password)) . "')");
+          if ( $username ) {
+            $db->query("INSERT INTO administrators (user_name, user_password) VALUES ('" . $db->escape($username) . "', '" . $db->escape(Password::hash($password)) . "')");
           }
         }
 
-        $OSCOM_Hooks->call('login', 'createAction');
+        $admin_hooks->cat('createAction');
 
-        tep_redirect(tep_href_link('login.php'));
-
-        break;
+        Href::redirect($Admin->link('login.php'));
     }
   }
 
-  $OSCOM_Hooks->call('login', 'postAction');
+  $admin_hooks->cat('postAction');
 
   $languages = [];
   $language_selected = DEFAULT_LANGUAGE;
-  foreach (tep_get_languages() as $l) {
+  foreach (language::load_all() as $l) {
     $languages[] = [
       'id' => $l['code'],
       'text' => $l['name'],
     ];
 
-    if ($l['directory'] == $language) {
+    if ($l['directory'] === $_SESSION['language']) {
       $language_selected = $l['code'];
     }
   }
 
-  $admins_check_query = tep_db_query("SELECT id FROM administrators LIMIT 1");
-  if (tep_db_num_rows($admins_check_query) < 1) {
+  if (mysqli_num_rows($db->query("SELECT id FROM administrators LIMIT 1")) < 1) {
     $messageStack->add(TEXT_CREATE_FIRST_ADMINISTRATOR, 'warning');
     $button_text = BUTTON_CREATE_ADMINISTRATOR;
     $intro_text = TEXT_CREATE_FIRST_ADMINISTRATOR;
-    $parameter_string = 'action=create';
+    $parameters = ['action' => 'create'];
   } else {
     $button_text = BUTTON_LOGIN;
-    $intro_text = null;
-    $parameter_string = 'action=process';
+    $intro_text = '';
+    $parameters = ['action' => 'process'];
   }
 
   require 'includes/template_top.php';
@@ -154,16 +147,16 @@
 
   <div class="mx-auto w-75 w-md-25">
     <div class="card text-center shadow mt-5">
-      <div class="card-header text-white bg-dark"><?= HEADING_TITLE; ?></div>
+      <div class="card-header text-white bg-dark"><?= HEADING_TITLE ?></div>
       <div class="px-5 py-2">
-        <?= tep_image('images/CE-Phoenix.png', 'CE Phoenix',  null, null, 'class="card-img-top"'); ?>
+        <?= $Admin->image('images/CE-Phoenix.png', ['alt' => 'CE PhoenixCart', 'class' => 'card-img-top']) ?>
       </div>
 
-      <?= tep_draw_form('login', 'login.php', $parameter_string); ?>
+      <?= new Form('login', $Admin->link('login.php', $parameters)) ?>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border-top"><?= tep_draw_input_field('username', null, 'required autocapitalize="none" aria-required="true" placeholder="' . TEXT_USERNAME . '"', 'text', null, 'class="form-control text-muted border-0 text-muted"'); ?></li>
-          <li class="list-group-item"><?= tep_draw_input_field('password', null, 'required autocapitalize="none" aria-required="true" placeholder="' . TEXT_PASSWORD . '"', 'password', null, 'class="form-control text-muted border-0 text-muted"'); ?></li>
-          <li class="list-group-item border-bottom-0"><?= tep_draw_bootstrap_button($button_text, 'fas fa-key', null, null, null, 'btn-success btn-block'); ?></li>
+          <li class="list-group-item border-top"><?= new Input('username', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true', 'placeholder' => TEXT_USERNAME, 'class' => 'form-control text-muted border-0 text-muted']) ?></li>
+          <li class="list-group-item"><?= new Input('password', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true', 'placeholder' => TEXT_PASSWORD, 'class' => 'form-control text-muted border-0 text-muted'], 'password') ?></li>
+          <li class="list-group-item border-bottom-0"><?= new Button($button_text, 'fas fa-key', 'btn-success btn-block') ?></li>
         </ul>
       </form>
 
@@ -172,7 +165,11 @@
   if (count($languages) > 1) {
 ?>
       <div class="card-footer">
-        <?= tep_draw_form('adminlanguage', 'index.php', '', 'get') . tep_draw_pull_down_menu('language', $languages, $language_selected, 'onchange="this.form.submit();"') . tep_hide_session_id() . '</form>'; ?>
+        <?=
+          (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
+          new Select('language', $languages, $language_selected, ['onchange' => 'this.form.submit();']),
+          '</form>'
+        ?>
       </div>
 <?php
   }
