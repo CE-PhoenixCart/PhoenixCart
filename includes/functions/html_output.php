@@ -15,7 +15,7 @@
     foreach (explode($delimiter, $query) as $parameter) {
       $pair = explode($joiner, $parameter, 2);
       if (!empty($pair[0])) {
-        $parameters[$pair[0]] = $pair[1] ?? null;
+        $parameters[$pair[0]] = isset($pair[1]) ? rawurldecode($pair[1]) : null;
       }
     }
 
