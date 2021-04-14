@@ -12,8 +12,13 @@
 
   class Text {
 
+    /**
+     * Sanitize and normalize HTTP input.
+     * @param string $s
+     * @return string
+     */
     public static function input(string $s) {
-      return trim(static::sanitize(stripslashes($s)));
+      return trim(static::sanitize($s));
     }
 
     public static function is_empty(string $s = null) {
@@ -42,7 +47,7 @@
     }
 
     public static function prepare(string $s) {
-      return trim(stripslashes($s));
+      return trim($s);
     }
 
     public static function rtrim_once(string $s, string $suffix) {
