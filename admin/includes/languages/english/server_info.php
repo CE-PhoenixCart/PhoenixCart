@@ -2,35 +2,31 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Server Information');
+const HEADING_TITLE = 'Server Information';
 
-define('TABLE_HEADING_KEY', 'Key');
-define('TABLE_HEADING_VALUE', 'Value');
+const TABLE_HEADING_KEY = 'Key';
+const TABLE_HEADING_VALUE = 'Value';
 
-define('TITLE_SERVER_HOST', 'Server Host');
-define('TITLE_SERVER_OS', 'Server OS');
-define('TITLE_SERVER_DATE', 'Server Date');
-define('TITLE_SERVER_UP_TIME', 'Server Up Time');
-define('TITLE_HTTP_SERVER', 'HTTP Server');
-define('TITLE_PHP_VERSION', 'PHP Version');
-define('TITLE_ZEND_VERSION', 'Zend');
-define('TITLE_DATABASE_HOST', 'Database Host');
-define('TITLE_DATABASE', 'Database');
-define('TITLE_DATABASE_DATE', 'Database Date');
+const TITLE_SERVER_HOST = 'Server Host';
+const TITLE_SERVER_OS = 'Server OS';
+const TITLE_SERVER_DATE = 'Server Date';
+const TITLE_SERVER_UP_TIME = 'Server Uptime';
+const TITLE_HTTP_SERVER = 'HTTP Server';
+const TITLE_PHP_VERSION = 'PHP Version';
+const TITLE_ZEND_VERSION = 'Zend';
+const TITLE_DATABASE_HOST = 'Database Host';
+const TITLE_DATABASE = 'Database';
+const TITLE_DATABASE_DATE = 'Database Date';
 
-define('TEXT_EXPORT_INTRO', 'The following information can be submitted to osCommerce by clicking on the Send button. You can also save the information to a file by clicking Save. This information is totally anonymous and cannot be used to identify an individual system. It will be used for support and development purposes only.');
-define('TEXT_EXPORT_INFO', 'Export Server Information');
+const TEXT_EXPORT_INTRO = 'You can save the information to a file by clicking Save.';
+const TEXT_EXPORT_INFO = 'Export Server Information';
 
-define('SUCCESS_INFO_SUBMIT', 'Your information has been submitted sucessfully.');
-define('ERROR_INFO_SUBMIT', 'Could not connect to the osCommerce website to submit your configuration. Please try again later');
-
-define('BUTTON_SAVE_TO_DISK', 'Save to your Hard Drive');
-define('BUTTON_SEND_TO_OSCOMMERCE', 'Send to osCommerce');
+const BUTTON_SAVE_TO_DISK = 'Save to your Hard Drive';
