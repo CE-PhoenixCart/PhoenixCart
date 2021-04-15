@@ -24,6 +24,7 @@
       exit();
   }
   $admin_hooks->cat('postAction');
+  Guarantor::ensure_global('Admin');
 
   require 'includes/template_top.php';
 ?>
@@ -41,12 +42,11 @@
     echo (new Textarea('server configuration',
       ['cols' => '100', 'rows' => '15']))->set_text("$system_info");
 
-    echo new Button(
+    echo Admin::button(
       BUTTON_SAVE_TO_DISK,
       'fas fa-save',
-      'btn-success btn-block btn-lg my-2', [],
-      $Admin->link(
-        'server_info.php', ['action' => 'save']));
+      'btn-success btn-block btn-lg my-2',
+      $Admin->link('server_info.php', ['action' => 'save']));
   } else {
     $server = parse_url(HTTP_SERVER);
 ?>
@@ -101,8 +101,8 @@
   </div>
 
   <?php
-    echo new Button(
-      IMAGE_EXPORT, 'fas fa-save', 'btn-danger', [],
+    echo Admin::button(
+      IMAGE_EXPORT, 'fas fa-save', 'btn-danger',
       $Admin->link('server_info.php', ['action' => 'export']));
 
   }
