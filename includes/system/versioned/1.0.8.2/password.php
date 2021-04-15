@@ -29,7 +29,7 @@
     }
 
     public static function get_algorithm() {
-      return defined('PHOENIX_ENCRYPTION') 
+      return defined('PHOENIX_ENCRYPTION')
            ? PHOENIX_ENCRYPTION
            : PASSWORD_DEFAULT;
     }
