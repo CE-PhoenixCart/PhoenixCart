@@ -14,109 +14,12 @@
 
   require 'includes/application_top.php';
 
-  Guarantor::ensure_global('Admin');
-  $action = $_GET['action'] ?? '';
-
-  $admin_hooks->cat('preAction');
-
 // prepare to log out an active administrator if the login page is accessed again
   if (isset($_SESSION['admin'])) {
-    $action = 'logoff';
+    $_GET['action'] = 'logoff';
   }
 
-  if (!Text::is_empty($action)) {
-    switch ($action) {
-      case 'process':
-        if (isset($_SESSION['redirect_origin']['auth_user']) && !isset($_POST['username'])) {
-          $username = Text::input($_SESSION['redirect_origin']['auth_user']);
-          $password = Text::input($_SESSION['redirect_origin']['auth_pw']);
-        } else {
-          $username = Text::input($_POST['username']);
-          $password = Text::input($_POST['password']);
-        }
-
-        $actionRecorder = new actionRecorderAdmin('ar_admin_login', null, $username);
-
-        if ($actionRecorder->canPerform()) {
-          $check_query = $db->query("SELECT id, user_name, user_password FROM administrators WHERE user_name = '" . $db->escape($username) . "'");
-
-          if (mysqli_num_rows($check_query) === 1) {
-            $check = $check_query->fetch_assoc();
-
-            if (Password::validate($password, $check['user_password'])) {
-// migrate password if using an older hashing method
-              if (Password::needs_rehash($check['user_password'])) {
-                $db->query("UPDATE administrators SET user_password = '" . Password::hash($password) . "' WHERE id = " . (int)$check['id']);
-              }
-
-              $_SESSION['admin'] = [
-                'id' => $check['id'],
-                'username' => $check['user_name'],
-              ];
-
-              $actionRecorder->_user_id = $_SESSION['admin']['id'];
-              $actionRecorder->record();
-
-              $admin_hooks->cat('processActionSuccess');
-
-              if (isset($_SESSION['redirect_origin'])) {
-                $link = $Admin->link($_SESSION['redirect_origin']['page'], $_SESSION['redirect_origin']['get']);
-                unset($_SESSION['redirect_origin']);
-
-                Href::redirect($link);
-              } else {
-                Href::redirect($Admin->link('index.php'));
-              }
-            }
-
-            $admin_hooks->cat('processActionFail');
-          }
-
-          if (isset($_POST['username'])) {
-            $messageStack->add(ERROR_INVALID_ADMINISTRATOR, 'error');
-          }
-        } else {
-          $messageStack->add(sprintf(ERROR_ACTION_RECORDER, (defined('MODULE_ACTION_RECORDER_ADMIN_LOGIN_MINUTES') ? (int)MODULE_ACTION_RECORDER_ADMIN_LOGIN_MINUTES : 5)));
-        }
-
-        if (isset($_POST['username'])) {
-          $actionRecorder->record(false);
-        }
-
-        $admin_hooks->cat('processAction');
-
-        break;
-
-      case 'logoff':
-        unset($_SESSION['admin']);
-
-        if (!empty($_SERVER['PHP_AUTH_USER']) && !empty($_SERVER['PHP_AUTH_PW'])) {
-          $_SESSION['auth_ignore'] = true;
-        }
-
-        $admin_hooks->cat('logoffAction');
-
-        Href::redirect($Admin->link('index.php'));
-
-      case 'create':
-        $check_query = $db->query("SELECT id FROM administrators LIMIT 1");
-
-        if (mysqli_num_rows($check_query) === 0) {
-          $username = Text::input($_POST['username']);
-          $password = Text::input($_POST['password']);
-
-          if ( $username ) {
-            $db->query("INSERT INTO administrators (user_name, user_password) VALUES ('" . $db->escape($username) . "', '" . $db->escape(Password::hash($password)) . "')");
-          }
-        }
-
-        $admin_hooks->cat('createAction');
-
-        Href::redirect($Admin->link('login.php'));
-    }
-  }
-
-  $admin_hooks->cat('postAction');
+  require 'includes/segments/process_action.php';
 
   $languages = [];
   $language_selected = DEFAULT_LANGUAGE;
@@ -142,6 +45,13 @@
     $parameters = ['action' => 'process'];
   }
 
+  $input_parameters = [
+    'required' => null,
+    'autocapitalize' => 'none',
+    'aria-required' => 'true',
+    'class' => 'form-control text-muted border-0 text-muted',
+  ];
+
   require 'includes/template_top.php';
 ?>
 
@@ -154,8 +64,8 @@
 
       <?= new Form('login', $Admin->link('login.php', $parameters)) ?>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border-top"><?= new Input('username', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true', 'placeholder' => TEXT_USERNAME, 'class' => 'form-control text-muted border-0 text-muted']) ?></li>
-          <li class="list-group-item"><?= new Input('password', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true', 'placeholder' => TEXT_PASSWORD, 'class' => 'form-control text-muted border-0 text-muted'], 'password') ?></li>
+          <li class="list-group-item border-top"><?= new Input('username', $input_parameters + ['placeholder' => TEXT_USERNAME]) ?></li>
+          <li class="list-group-item"><?= new Input('password', $input_parameters + ['placeholder' => TEXT_PASSWORD], 'password') ?></li>
           <li class="list-group-item border-bottom-0"><?= new Button($button_text, 'fas fa-key', 'btn-success btn-block') ?></li>
         </ul>
       </form>
