@@ -15,7 +15,7 @@
     $password = Text::input($_POST['password']);
 
     if ( $username ) {
-      $db->query("INSERT INTO administrators (user_name, user_password) VALUES ('" . $db->escape($username) . "', '" . $db->escape(Password::encrypt($password)) . "')");
+      $db->query("INSERT INTO administrators (user_name, user_password) VALUES ('" . $db->escape($username) . "', '" . $db->escape(Password::hash($password)) . "')");
     }
   }
 

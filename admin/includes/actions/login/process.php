@@ -29,7 +29,7 @@
       if (Password::validate($password, $check['user_password'])) {
 // migrate password if using an older hashing method
         if (Password::needs_rehash($check['user_password'])) {
-          $db->query("UPDATE administrators SET user_password = '" . Password::encrypt($password) . "' WHERE id = " . (int)$check['id']);
+          $db->query("UPDATE administrators SET user_password = '" . Password::hash($password) . "' WHERE id = " . (int)$check['id']);
         }
 
         $_SESSION['admin'] = [
