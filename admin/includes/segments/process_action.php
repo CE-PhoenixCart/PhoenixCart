@@ -24,3 +24,6 @@
   }
 
   $admin_hooks->cat('postAction');
+  if (!isset($_SESSION['sessiontoken'])) {
+    Form::reset_session_token();
+  }
