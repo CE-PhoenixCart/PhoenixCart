@@ -706,8 +706,8 @@
         return;
       }
 
-      foreach ( array_filter(array_map(file($pathname), 'trim'), function ($v) {
-        return isset($line[0]) && ($line[0] !== '#');
+      foreach ( array_filter(array_map('trim', file($pathname) ?: []), function ($v) {
+        return isset($v[0]) && ($v[0] !== '#');
       }) as $line )
       {
         $position = strpos($line, ' =');
