@@ -12,7 +12,7 @@
 
   require 'includes/application_top.php';
 
-  $shop_hooks->register_pipeline('loginRequired');
+  $hooks->register_pipeline('loginRequired');
 
   // if password is not enabled, then no reason to be on this page
   if (!$customer_data->has(['password'])) {

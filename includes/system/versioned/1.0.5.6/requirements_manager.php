@@ -20,7 +20,7 @@
 
     public function get_module($field) {
       if (is_string($field)) {
-        return $this->providers[$field];
+        return $this->providers[$field] ?? null;
       }
 
       if ($field instanceof abstract_module) {
