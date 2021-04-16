@@ -13,6 +13,7 @@
   class Image extends html_element {
 
     public $prefix = DIR_FS_CATALOG;
+    protected $responsive = true;
 
     /**
      *
@@ -66,8 +67,8 @@
     /**
      * Set the correct CSS class for responsive images.
      */
-    public function set_responsive() {
-      $this->append_css('img-fluid');
+    public function set_responsive(bool $responsive) {
+      $this->responsive = $responsive;
       return $this;
     }
 
@@ -110,6 +111,10 @@
         && (false === $this->size()) )
       {
         return '';
+      }
+
+      if ($this->responsive) {
+        $this->append_css('img-fluid');
       }
 
 // alt is added as the img title even if  null to prevent browsers from outputting

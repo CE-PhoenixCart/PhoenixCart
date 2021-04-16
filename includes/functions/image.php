@@ -35,8 +35,8 @@
       $image->set('height', $height);
     }
 
-    if ($responsive === true) {
-      $image->set_responsive();
+    if ($responsive !== true) {
+      $image->set_responsive(false);
     }
 
     if (!Text::is_empty($bootstrap_css)) {
