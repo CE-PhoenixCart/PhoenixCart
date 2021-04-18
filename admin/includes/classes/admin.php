@@ -52,7 +52,10 @@
     }
 
     public static function locate_action($action) {
-      if (empty($action) || !Form::validate_action_is($action)) {
+      if (empty($action)
+       || (!Form::validate_action_is($action)
+        && !in_array($action, $GLOBALS['always_valid_actions'])))
+      {
         return;
       }
 

@@ -11,6 +11,7 @@
 */
 
   $login_request = true;
+  $always_valid_actions = ['logoff'];
 
   require 'includes/application_top.php';
 
