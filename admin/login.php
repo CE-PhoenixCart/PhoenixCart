@@ -78,7 +78,7 @@
       <div class="card-footer">
         <?=
           (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
-          new Select('language', $languages, $language_selected, ['onchange' => 'this.form.submit();']),
+          (new Select('language', $languages, ['onchange' => 'this.form.submit();']))->set_selection($language_selected),
           '</form>'
         ?>
       </div>
