@@ -137,7 +137,7 @@ EOSQL;
   }
 
   $parameters = [ 'sql_data' => &$sql_data ];
-  $GLOBALS['hooks']->call('siteWide', 'insertOrder', $parameters);
+  $GLOBALS['hooks']->cat('insertOrder', $parameters);
 
   $db->perform('orders', $sql_data['orders']);
   $GLOBALS['order_id'] = mysqli_insert_id($db);
