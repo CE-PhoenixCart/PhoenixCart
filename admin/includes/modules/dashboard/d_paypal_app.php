@@ -21,7 +21,7 @@
     public $content_width = 6;
     protected $_app;
 
-    function __construct() {
+    public function __construct() {
       parent::__construct();
 
       $this->_app = new OSCOM_PayPal();
@@ -38,7 +38,7 @@
       }
     }
 
-    function getOutput() {
+    public function getOutput() {
       $Admin =& Guarantor::ensure_global('Admin');
 
       $version = $this->_app->getVersion();
