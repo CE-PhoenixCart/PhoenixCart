@@ -22,7 +22,7 @@
     protected $_app;
 
     function __construct() {
-      parent::construct();
+      parent::__construct();
 
       $this->_app = new OSCOM_PayPal();
       $this->_app->loadLanguageFile('admin/balance.php');
