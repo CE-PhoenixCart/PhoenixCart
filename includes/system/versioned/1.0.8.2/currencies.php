@@ -97,6 +97,7 @@
     }
 
     public static function round($number, $precision) {
+      $number = "$number";
       $location = strpos($number, '.');
 // if there's a decimal point, increment the location to point after it
       if ((false === $location) || (strlen(substr($number, ++$location)) <= $precision)) {
