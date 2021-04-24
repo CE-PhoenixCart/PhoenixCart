@@ -88,50 +88,6 @@
     return session_start();
   }
 
-  function tep_session_register($variable) {
-    trigger_error('The tep_session_register function has been deprecated.', E_USER_DEPRECATED);
-    if (!isset($GLOBALS[$variable])) {
-      $GLOBALS[$variable] = null;
-    }
-
-    $_SESSION[$variable] =& $GLOBALS[$variable];
-
-    return false;
-  }
-
-  function tep_session_is_registered($variable) {
-    trigger_error('The tep_session_is_registered function has been deprecated.', E_USER_DEPRECATED);
-    return isset($_SESSION) && array_key_exists($variable, $_SESSION);
-  }
-
-  function tep_session_unregister($variable) {
-    trigger_error('The tep_session_unregister function has been deprecated.', E_USER_DEPRECATED);
-    unset($_SESSION[$variable]);
-  }
-
-  function tep_session_id($sessid = '') {
-    trigger_error('The tep_session_id function has been deprecated.', E_USER_DEPRECATED);
-    if ($sessid != '') {
-      return session_id($sessid);
-    } else {
-      return session_id();
-    }
-  }
-
-  function tep_session_name($name = '') {
-    trigger_error('The tep_session_name function has been deprecated.', E_USER_DEPRECATED);
-    if ($name != '') {
-      return session_name($name);
-    } else {
-      return session_name();
-    }
-  }
-
-  function tep_session_close() {
-    trigger_error('The tep_session_close function has been deprecated.', E_USER_DEPRECATED);
-    return session_write_close();
-  }
-
   function tep_session_destroy() {
     if ( isset($_COOKIE[session_name()]) ) {
       $session_data = session_get_cookie_params();

@@ -107,8 +107,10 @@
     function encode() {
       $encoded = $this->_encoded;
 
-      if (tep_not_null($this->_subparts)) {
-        $boundary = '=_' . md5(uniqid(tep_rand()) . microtime());
+      if ([] === $this->_subparts) {
+        $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding) . $this->lf;
+      } else {
+        $boundary = '=_' . md5(uniqid(mt_rand()) . microtime());
         $this->_headers['Content-Type'] .= ';' . $this->lf . chr(9) . 'boundary="' . $boundary . '"';
 
 // Add body parts to $subparts
@@ -124,8 +126,6 @@
         }
 
         $encoded['body'] = '--' . $boundary . $this->lf . implode('--' . $boundary . $this->lf, $subparts) . '--' . $boundary.'--' . $this->lf;
-      } else {
-        $encoded['body'] = $this->_getEncodedData($this->_body, $this->_encoding) . $this->lf;
       }
 
 // Add headers to $encoded

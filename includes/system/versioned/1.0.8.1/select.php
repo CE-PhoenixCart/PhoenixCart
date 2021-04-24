@@ -157,7 +157,7 @@
      * @return Select
      */
     public function set_default_selection(string $default = null) {
-      if (!isset($default)) {
+      if (!isset($this->selection)) {
         $this->selection = $default;
       }
 

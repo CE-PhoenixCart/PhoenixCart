@@ -15,7 +15,7 @@
     foreach (explode($delimiter, $query) as $parameter) {
       $pair = explode($joiner, $parameter, 2);
       if (!empty($pair[0])) {
-        $parameters[$pair[0]] = $pair[1] ?? null;
+        $parameters[$pair[0]] = isset($pair[1]) ? rawurldecode($pair[1]) : null;
       }
     }
 
@@ -168,6 +168,11 @@
 ////
 // Output a jQuery UI Button
   function tep_draw_button($title = null, $icon = null, $link = null, $priority = null, $params = [], $style = null) {
+    if (isset($params['params'])) {
+      $params = array_merge($params, phoenix_normalize($params['params']));
+      unset($params['params']);
+    }
+
     return (string)(new Button($title, $icon, $style, $params ?? [], $link));
   }
 

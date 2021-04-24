@@ -66,7 +66,7 @@
       $messageStack->add_session('search', ERROR_PRICE_TO_LESS_THAN_PRICE_FROM);
     }
 
-    if (!Text::is_empty($keywords) && !tep_parse_search_string($keywords, $search_keywords)) {
+    if (!Text::is_empty($keywords) && is_null($search_keywords = Search::build($keywords))) {
       $error = true;
 
       $messageStack->add_session('search', ERROR_INVALID_KEYWORDS);
@@ -104,7 +104,7 @@
 
   $from_str .= ", products_description pd, categories c, products_to_categories p2c";
 
-  $where_str = " WHERE p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = " . (int)$languages_id . " AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id ";
+  $where_str = " WHERE p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id ";
 
   if (isset($_GET['categories_id']) && !Text::is_empty($_GET['categories_id'])) {
     if (isset($_GET['inc_subcat']) && ($_GET['inc_subcat'] == '1')) {
@@ -119,7 +119,7 @@
 
       $where_str .= ")";
     } else {
-      $where_str .= " AND p2c.products_id = p.products_id AND p2c.products_id = pd.products_id AND pd.language_id = " . (int)$languages_id . " AND p2c.categories_id = " . (int)$_GET['categories_id'];
+      $where_str .= " AND p2c.products_id = p.products_id AND p2c.products_id = pd.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " AND p2c.categories_id = " . (int)$_GET['categories_id'];
     }
   }
 
@@ -141,10 +141,10 @@
           $keyword = Text::input($search_keyword);
           $where_str .= "(";
           if ( (defined('MODULE_HEADER_TAGS_PRODUCT_META_KEYWORDS_STATUS')) && (MODULE_HEADER_TAGS_PRODUCT_META_KEYWORDS_STATUS == 'True') ) {
-            $where_str .= "pd.products_seo_keywords LIKE '%" . tep_db_input($keyword) . "%' OR ";
+            $where_str .= "pd.products_seo_keywords LIKE '%" . $db->escape($keyword) . "%' OR ";
           }
-          $where_str .= "pd.products_name LIKE '%" . tep_db_input($keyword) . "%' OR p.products_model LIKE '%" . tep_db_input($keyword) . "%' OR m.manufacturers_name LIKE '%" . tep_db_input($keyword) . "%'";
-          if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . tep_db_input($keyword) . "%'";
+          $where_str .= "pd.products_name LIKE '%" . $db->escape($keyword) . "%' OR p.products_model LIKE '%" . $db->escape($keyword) . "%' OR m.manufacturers_name LIKE '%" . $db->escape($keyword) . "%'";
+          if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " OR pd.products_description LIKE '%" . $db->escape($keyword) . "%'";
           $where_str .= ')';
           break;
       }

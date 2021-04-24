@@ -14,7 +14,7 @@
   if (isset($_GET['action'])) {
 // redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled
     if (!$session_started) {
-      Guarantor::ensure_global('Linker')->build('cookie_usage.php')->redirect();
+      Href::redirect(Guarantor::ensure_global('Linker')->build('cookie_usage.php'));
     }
 
     if ('true' === DISPLAY_CART) {

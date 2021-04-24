@@ -12,101 +12,82 @@
 
   require 'includes/application_top.php';
 
-  $htaccess_array = null;
-  $htpasswd_array = null;
   $is_iis = stripos($_SERVER['SERVER_SOFTWARE'], 'iis');
+  Guarantor::ensure_global('Admin');
 
-  $authuserfile_array = ['##### Phoenix ADMIN PROTECTION - BEGIN #####',
-                         'AuthType Basic',
-                         'AuthName "CE Phoenix Administration Tool"',
-                         'AuthUserFile ' . DIR_FS_ADMIN . '.htpasswd_oscommerce',
-                         'Require valid-user',
-                         '##### Phoenix ADMIN PROTECTION - END #####'];
+  $htaccess_path = DIR_FS_ADMIN . '.htaccess';
+  $htpasswd_path = DIR_FS_ADMIN . '.htpasswd_phoenix';
+  $authuserfile_lines = [
+    '##### Phoenix ADMIN PROTECTION - BEGIN #####',
+    'AuthType Basic',
+    'AuthName "CE Phoenix Administration Tool"',
+    "AuthUserFile $htpasswd_path",
+    'Require valid-user',
+    '##### Phoenix ADMIN PROTECTION - END #####',
+  ];
 
-  if (!$is_iis && file_exists(DIR_FS_ADMIN . '.htpasswd_oscommerce') && tep_is_writable(DIR_FS_ADMIN . '.htpasswd_oscommerce') && file_exists(DIR_FS_ADMIN . '.htaccess') && tep_is_writable(DIR_FS_ADMIN . '.htaccess')) {
-    $htaccess_array = [];
-    $htpasswd_array = [];
-
-    if (filesize(DIR_FS_ADMIN . '.htaccess') > 0) {
-      $fg = fopen(DIR_FS_ADMIN . '.htaccess', 'rb');
-      $data = fread($fg, filesize(DIR_FS_ADMIN . '.htaccess'));
-      fclose($fg);
-
-      $htaccess_array = explode("\n", $data);
+  $htaccess_lines = [];
+  if (!$is_iis && file_exists($htpasswd_path) && tep_is_writable($htpasswd_path) && file_exists($htaccess_path) && tep_is_writable($htaccess_path)) {
+    if (filesize($htaccess_path) > 0) {
+      $htaccess_lines = explode("\n", file_get_contents($htaccess_path));
     }
 
-    if (filesize(DIR_FS_ADMIN . '.htpasswd_oscommerce') > 0) {
-      $fg = fopen(DIR_FS_ADMIN . '.htpasswd_oscommerce', 'rb');
-      $data = fread($fg, filesize(DIR_FS_ADMIN . '.htpasswd_oscommerce'));
-      fclose($fg);
-
-      $htpasswd_array = explode("\n", $data);
-    }
+    $htpasswd_lines = (filesize($htpasswd_path) > 0) ? explode("\n", file_get_contents($htpasswd_path)) : [];
+  } else {
+    $htpasswd_lines = false;
   }
 
   $action = $_GET['action'] ?? '';
 
-  $OSCOM_Hooks->call('administrators', 'preAction');
+  $admin_hooks->cat('preAction');
 
   if (!Text::is_empty($action)) {
     switch ($action) {
       case 'insert':
-        require('includes/functions/password_funcs.php');
+        $username = Text::input($_POST['username']);
+        $password = Text::input($_POST['password']);
 
-        $username = Text::prepare($_POST['username']);
-        $password = Text::prepare($_POST['password']);
-
-        $check_query = tep_db_query("SELECT id FROM administrators WHERE user_name = '" . tep_db_input($username) . "' LIMIT 1");
+        $check_query = $db->query("SELECT id FROM administrators WHERE user_name = '" . $db->escape($username) . "' LIMIT 1");
 
         if (mysqli_num_rows($check_query) < 1) {
-          tep_db_query("INSERT INTO administrators (user_name, user_password) VALUES ('" . tep_db_input($username) . "', '" . tep_db_input(tep_encrypt_password($password)) . "')");
+          $db->query("INSERT INTO administrators (user_name, user_password) VALUES ('" . $db->escape($username) . "', '" . $db->escape(Password::hash($password)) . "')");
 
-          if (is_array($htpasswd_array)) {
-            for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-              list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+          if (is_array($htpasswd_lines)) {
+            foreach ($htpasswd_lines as $i => $htpasswd_line) {
+              list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
               if ($ht_username == $username) {
-                unset($htpasswd_array[$i]);
+                unset($htpasswd_lines[$i]);
               }
             }
 
-            if (isset($_POST['htaccess']) && ($_POST['htaccess'] == 'true')) {
-              $htpasswd_array[] = $username . ':' . tep_crypt_apr_md5($password);
+            if (isset($_POST['htaccess']) && ($_POST['htaccess'] === 'true')) {
+              $htpasswd_lines[] = $username . ':' . apache_password::hash($password);
             }
 
-            $fp = fopen(DIR_FS_ADMIN . '.htpasswd_oscommerce', 'w');
-            fwrite($fp, implode("\n", $htpasswd_array));
-            fclose($fp);
+            file_put_contents($htpasswd_path, implode("\n", $htpasswd_lines));
 
-            if (empty($htpasswd_array)) {
-              for ($i=0, $n=count($htaccess_array); $i<$n; $i++) {
-                if (in_array($htaccess_array[$i], $authuserfile_array)) {
-                  unset($htaccess_array[$i]);
-                }
-              }
-            } elseif (!in_array('AuthUserFile ' . DIR_FS_ADMIN . '.htpasswd_oscommerce', $htaccess_array)) {
-              array_splice($htaccess_array, count($htaccess_array), 0, $authuserfile_array);
+            if (empty($htpasswd_lines)) {
+              $htaccess_lines = array_diff($htaccess_lines, $authuserfile_lines);
+            } elseif (!in_array('AuthUserFile ' . DIR_FS_ADMIN . '.htpasswd_phoenix', $htaccess_lines)) {
+              array_splice($htaccess_lines, count($htaccess_lines), 0, $authuserfile_lines);
             }
 
-            $fp = fopen(DIR_FS_ADMIN . '.htaccess', 'w');
-            fwrite($fp, implode("\n", $htaccess_array));
-            fclose($fp);
+            file_put_contents($htaccess_path, implode("\n", $htaccess_lines));
           }
         } else {
           $messageStack->add_session(ERROR_ADMINISTRATOR_EXISTS, 'error');
         }
 
-        $OSCOM_Hooks->call('administrators', 'insertAction');
+        $admin_hooks->cat('insertAction');
 
-        tep_redirect(tep_href_link('administrators.php'));
+        Href::redirect($Admin->link('administrators.php'));
         break;
       case 'save':
-        require('includes/functions/password_funcs.php');
+        $username = Text::input($_POST['username']);
+        $password = Text::input($_POST['password']);
 
-        $username = Text::prepare($_POST['username']);
-        $password = Text::prepare($_POST['password']);
-
-        $check_query = tep_db_query("SELECT id, user_name FROM administrators WHERE id = " . (int)$_GET['aID']);
+        $check_query = $db->query("SELECT id, user_name FROM administrators WHERE id = " . (int)$_GET['aID']);
         $check = $check_query->fetch_assoc();
 
 // update username in current session if changed
@@ -115,133 +96,124 @@
         }
 
 // update username in htpasswd if changed
-        if (is_array($htpasswd_array)) {
-          for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-            if (false === strpos($htpasswd_array[$i], ':')) {
+        if (is_array($htpasswd_lines)) {
+          foreach ($htpasswd_lines as $i => $htpasswd_line) {
+            if (false === strpos($htpasswd_line, ':')) {
               continue;
             }
 
-            list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+            list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
-            if ( ($check['user_name'] == $ht_username) && ($check['user_name'] != $username) ) {
-              $htpasswd_array[$i] = $username . ':' . $ht_password;
+            if ( ($check['user_name'] == $ht_username) && ($check['user_name'] !== $username) ) {
+              $htpasswd_lines[$i] = $username . ':' . $ht_password;
             }
           }
         }
 
-        tep_db_query("UPDATE administrators SET user_name = '" . tep_db_input($username) . "' WHERE id = " . (int)$_GET['aID']);
+        $db->query("UPDATE administrators SET user_name = '" . $db->escape($username) . "' WHERE id = " . (int)$_GET['aID']);
 
         if (!Text::is_empty($password)) {
 // update password in htpasswd
-          if (is_array($htpasswd_array)) {
-            for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-              list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+          if (is_array($htpasswd_lines)) {
+            foreach ($htpasswd_lines as $i => $htpasswd_line) {
+              list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
               if ($ht_username == $username) {
-                unset($htpasswd_array[$i]);
+                unset($htpasswd_lines[$i]);
               }
             }
 
-            if (isset($_POST['htaccess']) && ($_POST['htaccess'] == 'true')) {
-              $htpasswd_array[] = $username . ':' . tep_crypt_apr_md5($password);
+            if (isset($_POST['htaccess']) && ($_POST['htaccess'] === 'true')) {
+              $htpasswd_lines[] = $username . ':' . apache_password::hash($password);
             }
           }
 
-          tep_db_query("UPDATE administrators SET user_password = '" . tep_db_input(tep_encrypt_password($password)) . "' WHERE id = " . (int)$_GET['aID']);
-        } elseif (!isset($_POST['htaccess']) || ($_POST['htaccess'] != 'true')) {
-          if (is_array($htpasswd_array)) {
-            for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-              list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+          $db->query("UPDATE administrators SET user_password = '" . $db->escape(Password::hash($password)) . "' WHERE id = " . (int)$_GET['aID']);
+        } elseif (!isset($_POST['htaccess']) || ($_POST['htaccess'] !== 'true')) {
+          if (is_array($htpasswd_lines)) {
+            foreach ($htpasswd_lines as $i => $htpasswd_line) {
+              list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
               if ($ht_username == $username) {
-                unset($htpasswd_array[$i]);
+                unset($htpasswd_lines[$i]);
               }
             }
           }
         }
 
 // write new htpasswd file
-        if (is_array($htpasswd_array)) {
-          $fp = fopen(DIR_FS_ADMIN . '.htpasswd_oscommerce', 'w');
-          fwrite($fp, implode("\n", $htpasswd_array));
-          fclose($fp);
+        if (is_array($htpasswd_lines)) {
+          file_put_contents($htpasswd_path, implode("\n", $htpasswd_lines));
 
-          if (!in_array('AuthUserFile ' . DIR_FS_ADMIN . '.htpasswd_oscommerce', $htaccess_array) && !empty($htpasswd_array)) {
-            array_splice($htaccess_array, count($htaccess_array), 0, $authuserfile_array);
-          } elseif (empty($htpasswd_array)) {
-            for ($i=0, $n=count($htaccess_array); $i<$n; $i++) {
-              if (in_array($htaccess_array[$i], $authuserfile_array)) {
-                unset($htaccess_array[$i]);
-              }
-            }
+          if (empty($htpasswd_lines)) {
+            $htaccess_lines = array_diff($htaccess_lines, $authuserfile_lines);
+          } elseif (!in_array('AuthUserFile ' . DIR_FS_ADMIN . '.htpasswd_phoenix', $htaccess_lines)) {
+            array_splice($htaccess_lines, count($htaccess_lines), 0, $authuserfile_lines);
           }
 
-          $fp = fopen(DIR_FS_ADMIN . '.htaccess', 'w');
-          fwrite($fp, implode("\n", $htaccess_array));
-          fclose($fp);
+          file_put_contents($htaccess_path, implode("\n", $htaccess_lines));
         }
 
-        $OSCOM_Hooks->call('administrators', 'saveAction');
+        $admin_hooks->cat('saveAction');
 
-        tep_redirect(tep_href_link('administrators.php', 'aID=' . (int)$_GET['aID']));
+        Href::redirect($Admin->link('administrators.php', 'aID=' . (int)$_GET['aID']));
         break;
       case 'deleteconfirm':
         $id = Text::input($_GET['aID']);
 
-        $check_query = tep_db_query("SELECT id, user_name FROM administrators WHERE id = " . (int)$id);
+        $check_query = $db->query("SELECT id, user_name FROM administrators WHERE id = " . (int)$id);
         $check = $check_query->fetch_assoc();
 
         if ($admin['id'] == $check['id']) {
           unset($_SESSION['admin']);
         }
 
-        tep_db_query("DELETE FROM administrators WHERE id = " . (int)$id);
+        $db->query("DELETE FROM administrators WHERE id = " . (int)$id);
 
-        if (is_array($htpasswd_array)) {
-          for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-            list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+        if (is_array($htpasswd_lines)) {
+          foreach ($htpasswd_lines as $i => $htpasswd_line) {
+            list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
             if ($ht_username == $check['user_name']) {
-              unset($htpasswd_array[$i]);
+              unset($htpasswd_lines[$i]);
             }
           }
 
-          $fp = fopen(DIR_FS_ADMIN . '.htpasswd_oscommerce', 'w');
-          fwrite($fp, implode("\n", $htpasswd_array));
-          fclose($fp);
+          file_put_contents($htpasswd_path, implode("\n", $htpasswd_lines));
 
-          if (empty($htpasswd_array)) {
-            for ($i=0, $n=count($htaccess_array); $i<$n; $i++) {
-              if (in_array($htaccess_array[$i], $authuserfile_array)) {
-                unset($htaccess_array[$i]);
-              }
-            }
-
-            $fp = fopen(DIR_FS_ADMIN . '.htaccess', 'w');
-            fwrite($fp, implode("\n", $htaccess_array));
-            fclose($fp);
+          if (empty($htpasswd_lines)) {
+            file_put_contents($htaccess_path, implode("\n",
+              array_diff($htaccess_lines, $authuserfile_lines)) . "\n");
           }
         }
 
-        $OSCOM_Hooks->call('administrators', 'deleteConfirmAction');
+        $admin_hooks->cat('deleteConfirmAction');
 
-        tep_redirect(tep_href_link('administrators.php'));
+        Href::redirect($Admin->link('administrators.php'));
         break;
     }
   }
 
-  $OSCOM_Hooks->call('administrators', 'postAction');
+  $admin_hooks->cat('postAction');
 
   $secMessageStack = new messageStack();
 
-  if (is_array($htpasswd_array)) {
-    if (empty($htpasswd_array)) {
-      $secMessageStack->add(sprintf(HTPASSWD_INFO, implode('<br>', $authuserfile_array)), 'error');
+  $apache_users = [];
+  if (is_array($htpasswd_lines)) {
+    if (empty($htpasswd_lines)) {
+      $secMessageStack->add(sprintf(HTPASSWD_INFO, $htaccess_path, implode('<br>', $authuserfile_lines), $htpasswd_path), 'error');
     } else {
       $secMessageStack->add(HTPASSWD_SECURED, 'success');
+
+      foreach ($htpasswd_lines as $htpasswd_line) {
+        $end = strpos($htpasswd_line, ':');
+        if (false !== $end) {
+          $apache_users[] = substr($htpasswd_line, 0, $end);
+        }
+      }
     }
   } else if (!$is_iis) {
-    $secMessageStack->add(HTPASSWD_PERMISSIONS, 'error');
+    $secMessageStack->add(sprintf(HTPASSWD_PERMISSIONS, $htaccess_path, $htpasswd_path), 'error');
   }
 
   require 'includes/template_top.php';
@@ -252,12 +224,10 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col text-right align-self-center">
-      <?php
-      if (empty($action)) {
-        echo tep_draw_bootstrap_button(IMAGE_INSERT_NEW_ADMIN, 'fas fa-users', tep_href_link('administrators.php', 'action=new'), null, null, 'btn-danger');
-      } else {
-        echo tep_draw_bootstrap_button(IMAGE_BACK, 'fas fa-angle-left', tep_href_link('administrators.php'), null, null, 'btn-light');
-      }
+      <?=
+        empty($action)
+      ? new Button(IMAGE_INSERT_NEW_ADMIN, 'fas fa-users', 'btn-danger', [], $Admin->link('administrators.php', ['action' => 'new']))
+      : new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', [], $Admin->link('administrators.php'))
       ?>
     </div>
   </div>
@@ -275,42 +245,29 @@
           </thead>
           <tbody>
             <?php
-            $admins_query = tep_db_query("SELECT id, user_name FROM administrators ORDER BY user_name");
-            while ($admins = $admins_query->fetch_assoc()) {
-              if (!isset($aInfo) && (!isset($_GET['aID']) || ($_GET['aID'] == $admins['id'])) && (substr($action, 0, 3) != 'new')) {
-                $aInfo = new objectInfo($admins);
+            $admins_query = $db->query("SELECT id, user_name FROM administrators ORDER BY user_name");
+            while ($administrator = $admins_query->fetch_assoc()) {
+              if (!isset($aInfo) && (!isset($_GET['aID']) || ($_GET['aID'] == $administrator['id'])) && (substr($action, 0, 3) != 'new')) {
+                $aInfo = new objectInfo($administrator);
               }
-
-              $htpasswd_secured = '<i class="fas fa-times-circle text-danger"></i>';
 
               if ($is_iis) {
-                $htpasswd_secured = 'N/A';
+                $htpasswd_secured = TEXT_HTPASSWRD_NA_IIS;
+              } elseif (in_array($administrator['user_name'], $apache_users)) {
+                $htpasswd_secured = '<i class="fas fa-check-circle text-success"></i>';
+              } else {
+                $htpasswd_secured = '<i class="fas fa-times-circle text-danger"></i>';
               }
 
-              if (is_array($htpasswd_array)) {
-                for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-                  if (false === strpos($htpasswd_array[$i], ':')) {
-                    continue;
-                  }
-
-                  list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
-
-                  if ($ht_username == $admins['user_name']) {
-                    $htpasswd_secured = '<i class="fas fa-check-circle text-success"></i>';
-                    break;
-                  }
-                }
-              }
-
-              if ( isset($aInfo->id) && ($admins['id'] == $aInfo->id) ) {
-                echo '<tr class="table-active" onclick="document.location.href=\'' . tep_href_link('administrators.php', 'aID=' . $aInfo->id . '&action=edit') . '\'">' . "\n";
+              if ( isset($aInfo->id) && ($administrator['id'] == $aInfo->id) ) {
+                echo '<tr class="table-active" onclick="document.location.href=\'' . $Admin->link('administrators.php', ['aID' => $aInfo->id, 'action' => 'edit']) . '\'">' . PHP_EOL;
                 $icon = '<i class="fas fa-chevron-circle-right text-info"></i>';
               } else {
-                echo '<tr onclick="document.location.href=\'' . tep_href_link('administrators.php', 'aID=' . $admins['id']) . '\'">' . "\n";
-                $icon = '<a href="' . tep_href_link('administrators.php', 'aID=' . $admins['id']) . '"><i class="fas fa-info-circle text-muted"></i></a>';
+                echo '<tr onclick="document.location.href=\'' . $Admin->link('administrators.php', ['aID' => $administrator['id']]) . '\'">' . PHP_EOL;
+                $icon = '<a href="' . $Admin->link('administrators.php', ['aID' => $administrator['id']]) . '"><i class="fas fa-info-circle text-muted"></i></a>';
               }
               ?>
-                <td><?= $admins['user_name'] ?></td>
+                <td><?= $administrator['user_name'] ?></td>
                 <td class="text-center"><?= $htpasswd_secured ?></td>
                 <td class="text-right"><?= $icon ?></td>
               </tr>
@@ -321,9 +278,7 @@
         </table>
       </div>
 
-      <?php
-      echo $secMessageStack->output();
-      ?>
+      <?= $secMessageStack->output() ?>
 
     </div>
 
@@ -335,55 +290,77 @@
     case 'new':
       $heading[] = ['text' => TEXT_INFO_HEADING_NEW_ADMINISTRATOR];
 
-      $contents = ['form' => tep_draw_form('administrator', 'administrators.php', 'action=insert', 'post', 'autocomplete="off"')];
+      $contents = ['form' => new Form('administrator', $Admin->link('administrators.php', ['action' => 'insert']), 'post', ['autocomplete' => 'off'])];
       $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-      $contents[] = ['text' => TEXT_INFO_USERNAME . tep_draw_input_field('username', null, 'required autocapitalize="none" aria-required="true"')];
-      $contents[] = ['text' => TEXT_INFO_PASSWORD . tep_draw_input_field('password', null, 'required autocapitalize="none" aria-required="true"', 'password')];
+      $contents[] = ['text' => TEXT_INFO_USERNAME . new Input('username', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true'])];
+      $contents[] = ['text' => TEXT_INFO_PASSWORD . new Input('password', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true'], 'password')];
 
-      if (is_array($htpasswd_array)) {
-        $contents[] = ['text' => '<div class="custom-control custom-switch">' . tep_draw_selection_field('htaccess', 'checkbox', 'true', null, 'class="custom-control-input" id="aHtpasswd"') . '<label for="aHtpasswd" class="custom-control-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>'];
+      if (is_array($htpasswd_lines)) {
+        $contents[] = [
+          'text' => '<div class="custom-control custom-switch">'
+                  . new Tickable('htaccess', ['class' => 'custom-control-input', 'id' => 'aHtpasswd', 'value' => 'true'], 'checkbox')
+                  . '<label for="aHtpasswd" class="custom-control-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>'];
       }
 
-      $contents[] = ['class' => 'text-center', 'text' => tep_draw_bootstrap_button(IMAGE_SAVE, 'fas fa-save', null, 'primary', null, 'btn-success mr-2') . tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-times', tep_href_link('administrators.php'), null, null, 'btn-light')];
+      $contents[] = [
+        'class' => 'text-center',
+        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+                . new Button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', [], $Admin->link('administrators.php')),
+      ];
       break;
     case 'edit':
       $heading[] = ['text' => $aInfo->user_name];
 
-      $contents = ['form' => tep_draw_form('administrator', 'administrators.php', 'aID=' . $aInfo->id . '&action=save', 'post', 'autocomplete="off"')];
+      $contents = ['form' => new Form('administrator', $Admin->link('administrators.php', ['aID' => $aInfo->id, 'action' => 'save']), 'post', ['autocomplete' => 'off'])];
       $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-      $contents[] = ['text' => TEXT_INFO_USERNAME . tep_draw_input_field('username', $aInfo->user_name, 'required autocapitalize="none" aria-required="true"')];
-      $contents[] = ['text' => TEXT_INFO_NEW_PASSWORD . tep_draw_input_field('password', null, 'required autocapitalize="none" aria-required="true"', 'password')];
+      $contents[] = ['text' => TEXT_INFO_USERNAME . new Input('username', ['value' => $aInfo->user_name, 'required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true'])];
+      $contents[] = ['text' => TEXT_INFO_NEW_PASSWORD . new Input('password', ['required' => null, 'autocapitalize' => 'none', 'aria-required' => 'true'], 'password')];
 
-      if (is_array($htpasswd_array)) {
-        $default_flag = false;
+      if (is_array($htpasswd_lines)) {
+        $checkbox = new Tickable('htaccess', ['class' => 'custom-control-input', 'id' => 'aHtpasswd', 'value' => 'true'], 'checkbox');
 
-        for ($i=0, $n=count($htpasswd_array); $i<$n; $i++) {
-          list($ht_username, $ht_password) = explode(':', $htpasswd_array[$i], 2);
+        foreach ($htpasswd_lines as $htpasswd_line) {
+          list($ht_username, $ht_password) = explode(':', $htpasswd_line, 2);
 
           if ($ht_username == $aInfo->user_name) {
-            $default_flag = true;
+            $checkbox->tick();
             break;
           }
         }
 
-        $contents[] = ['text' => '<div class="custom-control custom-switch">' . tep_draw_selection_field('htaccess', 'checkbox', 'true', $default_flag, 'class="custom-control-input" id="aHtpasswd"') . '<label for="aHtpasswd" class="custom-control-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>'];
+        $contents[] = [
+          'text' => '<div class="custom-control custom-switch">' . $checkbox
+                  . '<label for="aHtpasswd" class="custom-control-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>',
+        ];
       }
 
-      $contents[] = ['class' => 'text-center', 'text' => tep_draw_bootstrap_button(IMAGE_SAVE, 'fas fa-save', null, 'primary', null, 'btn-success mr-2') . tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-times',  tep_href_link('administrators.php', 'aID=' . $aInfo->id), null, null, 'btn-light')];
+      $contents[] = [
+        'class' => 'text-center',
+        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+                . new Button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', [], $Admin->link('administrators.php', ['aID' => $aInfo->id])),
+      ];
       break;
     case 'delete':
       $heading[] = ['text' => $aInfo->user_name];
 
-      $contents = ['form' => tep_draw_form('administrator', 'administrators.php', 'aID=' . $aInfo->id . '&action=deleteconfirm')];
+      $contents = ['form' => new Form('administrator', $Admin->link('administrators.php', ['aID' => $aInfo->id, 'action' => 'deleteconfirm']))];
       $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
       $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $aInfo->user_name];
-      $contents[] = ['class' => 'text-center', 'text' => tep_draw_bootstrap_button(IMAGE_DELETE, 'fas fa-trash', null, 'primary', null, 'btn-danger mr-2') . tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-times',  tep_href_link('administrators.php', 'aID=' . $aInfo->id), null, null, 'btn-light')];
+      $contents[] = [
+        'class' => 'text-center',
+        'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')
+                . new Button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', [], $Admin->link('administrators.php', ['aID' => $aInfo->id])),
+      ];
       break;
     default:
       if (isset($aInfo) && is_object($aInfo)) {
         $heading[] = ['text' => $aInfo->user_name];
 
-        $contents[] = ['class' => 'text-center', 'text' => tep_draw_bootstrap_button(IMAGE_EDIT, 'fas fa-cogs', tep_href_link('administrators.php', 'aID=' . $aInfo->id . '&action=edit'), null, null, 'btn-warning mr-2') . tep_draw_bootstrap_button(IMAGE_DELETE, 'fas fa-trash', tep_href_link('administrators.php', 'aID=' . $aInfo->id . '&action=delete'), null, null, 'btn-danger')];
+        $contents[] = [
+          'class' => 'text-center',
+          'text' => new Button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', [], $Admin->link('administrators.php', ['aID' => $aInfo->id, 'action' => 'edit']))
+                  . new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', [], $Admin->link('administrators.php', ['aID' => $aInfo->id, 'action' => 'delete'])),
+        ];
       }
       break;
   }

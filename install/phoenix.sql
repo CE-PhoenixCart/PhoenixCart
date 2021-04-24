@@ -22,10 +22,8 @@ CREATE TABLE action_recorder (
   success char(1),
   date_added datetime NOT NULL,
   PRIMARY KEY (id),
-  KEY idx_action_recorder_module (module),
-  KEY idx_action_recorder_user_id (user_id),
-  KEY idx_action_recorder_identifier (identifier),
-  KEY idx_action_recorder_date_added (date_added)
+  KEY idx_action_recorder_module_date (module, date_added),
+  KEY idx_action_recorder_user_id (user_id)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS address_book;
@@ -58,8 +56,8 @@ CREATE TABLE address_format (
 DROP TABLE IF EXISTS administrators;
 CREATE TABLE administrators (
   id int NOT NULL auto_increment,
-  user_name varchar(255) binary NOT NULL,
-  user_password varchar(60) NOT NULL,
+  user_name varchar(127) NOT NULL,
+  user_password varchar(255) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_administrator_user_name (user_name)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -177,7 +175,7 @@ CREATE TABLE customers (
    customers_default_address_id int,
    customers_telephone varchar(255) NOT NULL,
    customers_fax varchar(255),
-   customers_password varchar(60) NOT NULL,
+   customers_password varchar(255) NOT NULL,
    customers_newsletter char(1),
    PRIMARY KEY (customers_id),
    UNIQUE KEY uq_customers_email_address (customers_email_address)
@@ -1117,6 +1115,7 @@ INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_clas
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_02_request', 'application_surface', 'request');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_03_read_configuration', 'application_surface', 'read_configuration');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_04_general', 'function_surface', 'general');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_04_linker', 'Loader', 'Linker');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_05_href_link', 'function_surface', 'href_link');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_06_image', 'function_surface', 'image');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'startApplication', '_07_html_output', 'function_surface', 'html_output');

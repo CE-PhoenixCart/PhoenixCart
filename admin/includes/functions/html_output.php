@@ -48,6 +48,7 @@
 // The HTML image wrapper function
   function tep_image($src, $alt = '', $width = '', $height = '', $parameters = '', $responsive = true, $bootstrap_css = '') {
     $image = new Image($src, phoenix_normalize($parameters));
+    $image->set_prefix(DIR_FS_ADMIN);
 
     if (!Text::is_empty($alt)) {
       $image->set('alt', $alt);
@@ -61,8 +62,8 @@
       $image->set('height', $height);
     }
 
-    if ($responsive === true) {
-      $image->set_responsive();
+    if ($responsive !== true) {
+      $image->set_responsive(false);
     }
 
     if (!Text::is_empty($bootstrap_css)) {
@@ -117,10 +118,9 @@
 
     $input = new Input($name, $parameters, $type);
 
-    if (is_null($value)) {
-    } elseif ($reinsert_value) {
-      $input->default_value($value);
-    } elseif (!Text::is_empty($value)) {
+    if ($reinsert_value) {
+      $input->default_value($value ?? '');
+    } elseif (isset($value) && !Text::is_empty($value)) {
       $input->set('value', $value);
     }
 
@@ -305,6 +305,11 @@
 ////
 // Output a Bootstrap Button
   function tep_draw_bootstrap_button($title = '', $icon = null, $link = null, $priority = 'secondary', $params = [], $style = null) {
+    if (isset($params['params'])) {
+      $params = array_merge($params, phoenix_normalize($params['params']));
+      unset($params['params']);
+    }
+
     return (string)(new Button($title ?? '', $icon, $style, $params ?? [], $link));
   }
 

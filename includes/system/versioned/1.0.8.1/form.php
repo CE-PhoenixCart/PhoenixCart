@@ -65,20 +65,6 @@
       return '</form>';
     }
 
-////
-// Output a form hidden field
-    public function draw_hidden($name, $value = '', $parameters = []) {
-      $input = new Input($name, ['type' => 'hidden'] + $parameters);
-
-      if (!Text::is_empty($value)) {
-        $input->set('value', $value);
-      } elseif ( is_string($request_value = Request::value($name)) ) {
-        $input->set('value', $request_value);
-      }
-
-      return "$input";
-    }
-
     /**
      *
      * @param string $name
@@ -86,6 +72,7 @@
      */
     public function hide(string $name, string $value) {
       $this->stash[$name] = $value;
+      return $this;
     }
 
     /**
@@ -95,6 +82,8 @@
       if ($GLOBALS['session_started'] && !Text::is_empty($GLOBALS['SID'])) {
         $this->hide(session_name(), session_id());
       }
+
+      return $this;
     }
 
     /**

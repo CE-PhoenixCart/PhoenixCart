@@ -10,105 +10,103 @@
   Released under the GNU General Public License
 */
 
-  require('includes/application_top.php');
+  require 'includes/application_top.php';
 
+  $system_info = new system_info();
   $action = $_GET['action'] ?? '';
+  $admin_hooks->cat('preAction');
 
   switch ($action) {
-    case 'export':
-      $info = tep_get_system_information();
-    break;
-
-   case 'save':
-      $info = tep_get_system_information();
-      $info_file = 'server_info-' . date('YmdHis') . '.txt';
+    case 'save':
       header('Content-type: text/plain');
-      header('Content-disposition: attachment; filename=' . $info_file);
-      echo tep_format_system_info_array($info);
-      exit;
-
-    break;
-
-    default:
-      $info = tep_get_system_information();
-      break;
+      header('Content-disposition: attachment; filename=server_info-' . date('YmdHis') . '.txt');
+      echo $system_info;
+      exit();
   }
+  $admin_hooks->cat('postAction');
+  Guarantor::ensure_global('Admin');
 
-  require('includes/template_top.php');
+  require 'includes/template_top.php';
 ?>
 
-  <h1 class="display-4 mb-2"><?php echo HEADING_TITLE; ?></h1>
+  <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
 
 <?php
-  if ($action == 'export') {
+  if ('export' === $action) {
 ?>
     <div class="alert alert-info">
-      <?php echo TEXT_EXPORT_INTRO; ?>
+      <?= TEXT_EXPORT_INTRO ?>
     </div>
-    
-    <?php 
-    echo tep_draw_textarea_field('server configuration', 'soft', '100', '15', tep_format_system_info_array($info)); 
-    
-    echo tep_draw_bootstrap_button(BUTTON_SAVE_TO_DISK, 'fas fa-save', tep_href_link('server_info.php', 'action=save'), 'primary', null, 'btn-success btn-block btn-lg my-2');
 
+    <?php
+    echo (new Textarea('server configuration',
+      ['cols' => '100', 'rows' => '15']))->set_text("$system_info");
+
+    echo Admin::button(
+      BUTTON_SAVE_TO_DISK,
+      'fas fa-save',
+      'btn-success btn-block btn-lg my-2',
+      $Admin->link('server_info.php', ['action' => 'save']));
   } else {
     $server = parse_url(HTTP_SERVER);
 ?>
-      
+
   <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th><?php echo TABLE_HEADING_KEY; ?></th>
-          <th><?php echo TABLE_HEADING_VALUE; ?></th>
+          <th><?= TABLE_HEADING_KEY ?></th>
+          <th><?= TABLE_HEADING_VALUE ?></th>
         </tr>
       </thead>
-      <tbody>      
+      <tbody>
         <tr>
-          <td><?php echo TITLE_SERVER_HOST; ?></td>
-          <td><?php echo $server['host'] . ' (' . gethostbyname($server['host']) . ')'; ?></td>
-        </tr>
-        <tr>        
-          <td><?php echo TITLE_DATABASE_HOST; ?></td>
-          <td><?php echo DB_SERVER . ' (' . gethostbyname(DB_SERVER) . ')'; ?></td>
+          <td><?= TITLE_SERVER_HOST ?></td>
+          <td><?= $server['host'] . ' (' . gethostbyname($server['host']) . ')' ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_SERVER_OS; ?></td>
-          <td><?php echo $info['system']['os'] . ' ' . $info['system']['kernel']; ?></td>
+          <td><?= TITLE_DATABASE_HOST ?></td>
+          <td><?= DB_SERVER . ' (' . gethostbyname(DB_SERVER) . ')' ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_DATABASE; ?></td>
-          <td><?php echo 'MySQL ' . $info['mysql']['version']; ?></td>
+          <td><?= TITLE_SERVER_OS ?></td>
+          <td><?= $system_info->get('system', 'os') . ' ' . $system_info->get('system', 'kernel') ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_SERVER_DATE; ?></td>
-          <td><?php echo $info['system']['date']; ?></td>
+          <td><?= TITLE_DATABASE ?></td>
+          <td><?= 'MySQL ' . $system_info->get('mysql', 'version') ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_DATABASE_DATE; ?></td>
-          <td><?php echo $info['mysql']['date']; ?></td>
+          <td><?= TITLE_SERVER_DATE ?></td>
+          <td><?= $system_info->get('system', 'date') ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_SERVER_UP_TIME; ?></td>
-          <td><?php echo $info['system']['uptime']; ?></td>
+          <td><?= TITLE_DATABASE_DATE ?></td>
+          <td><?= $system_info->get('mysql', 'date') ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_HTTP_SERVER; ?></td>
-          <td><?php echo $info['system']['http_server']; ?></td>
+          <td><?= TITLE_SERVER_UP_TIME ?></td>
+          <td><?= $system_info->get('system', 'uptime') ?></td>
         </tr>
         <tr>
-          <td><?php echo TITLE_PHP_VERSION; ?></td>
-          <td><?php echo $info['php']['version'] . ' (' . TITLE_ZEND_VERSION . ' ' . $info['php']['zend'] . ')'; ?></td>
-        </tr>              
+          <td><?= TITLE_HTTP_SERVER ?></td>
+          <td><?= $system_info->get('system', 'http_server') ?></td>
+        </tr>
+        <tr>
+          <td><?= TITLE_PHP_VERSION ?></td>
+          <td><?= $system_info->get('php', 'version') . ' (' . TITLE_ZEND_VERSION . ' ' . $system_info->get('php', 'zend') . ')' ?></td>
+        </tr>
       </tbody>
     </table>
   </div>
-  
-  <?php 
-  echo tep_draw_bootstrap_button(IMAGE_EXPORT, 'fas fa-save', tep_href_link('server_info.php', 'action=export'), null, null, 'btn-danger');
+
+  <?php
+    echo Admin::button(
+      IMAGE_EXPORT, 'fas fa-save', 'btn-danger',
+      $Admin->link('server_info.php', ['action' => 'export']));
 
   }
 
-  require('includes/template_bottom.php');
-  require('includes/application_bottom.php');
+  require 'includes/template_bottom.php';
+  require 'includes/application_bottom.php';
 ?>

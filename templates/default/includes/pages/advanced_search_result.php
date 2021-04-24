@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('advanced_search.php'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('advanced_search_result.php', tep_get_all_get_params(), 'NONSSL', true, false));
+  $breadcrumb->add(NAVBAR_TITLE_1, Guarantor::ensure_global('Linker')->build('advanced_search.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('advanced_search_result.php')->retain_parameters());
 
   require $oscTemplate->map_to_template('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE_2; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE_2 ?></h1>
 
 <?php
   require 'includes/system/segments/sortable_product_listing.php';
@@ -25,7 +25,7 @@
   <br>
 
   <div class="buttonSet">
-    <?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('advanced_search.php', tep_get_all_get_params(['sort', 'page']), 'NONSSL', true, false)); ?>
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', null, [], $Linker->build('advanced_search.php')->retain_parameters(['sort', 'page'])) ?>
   </div>
 
 <?php

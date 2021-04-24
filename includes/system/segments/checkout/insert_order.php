@@ -97,6 +97,7 @@ SELECT popt.products_options_name, poval.products_options_values_name, pa.option
 EOSQL;
   }
 
+  $db =& $GLOBALS['db'];
   $sql_data['orders_products'] = [];
   $sql_data['orders_products_attributes'] = [];
   $sql_data['orders_products_download'] = [];
@@ -136,8 +137,7 @@ EOSQL;
   }
 
   $parameters = [ 'sql_data' => &$sql_data ];
-  $GLOBALS['hooks']->call('siteWide', 'insertOrder', $parameters);
-  $db =& $GLOBALS['db'];
+  $GLOBALS['hooks']->cat('insertOrder', $parameters);
 
   $db->perform('orders', $sql_data['orders']);
   $GLOBALS['order_id'] = mysqli_insert_id($db);
