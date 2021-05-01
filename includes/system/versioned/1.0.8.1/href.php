@@ -85,7 +85,7 @@
 
 // Add the session ID when SID is defined
       if ( $this->include_session
-        && ($GLOBALS['session_started'] ?? defined('DIR_WS_ADMIN'))
+        && Session::is_started()
         && isset($GLOBALS['SID'])
         && !Text::is_empty($GLOBALS['SID']))
       {
