@@ -31,26 +31,26 @@
       $table_definition['page'] = $this->current_page_number;
       $offset = ($this->table_definition['rows_per_page'] * ($this->current_page_number - 1));
       $table_definition['sql'] .= " LIMIT " . max($offset, 0) . ", " . $this->table_definition['rows_per_page'];
-      $this->query = tep_db_query($table_definition['sql']);
+      $this->query = $GLOBALS['db']->query($table_definition['sql']);
     }
 
-    public function draw_pages_form() {
+    public function draw_pages_form($parameters = []) {
       $pages = [];
       for ($i = 1; $i <= $this->page_count; $i++) {
         $pages[] = ['id' => $i, 'text' => $i];
       }
 
-      $form = tep_draw_form('pages', $GLOBALS['PHP_SELF'], '', 'get')
-            . tep_draw_pull_down_menu($page_name, $pages,
-                $this->current_page_number, 'onchange="this.form.submit();"');
-      if (strpos($parameters, '=')) {
-        foreach (explode('&', trim($parameters, '&')) as $pair) {
-          list($key, $value) = explode('=', $v);
-          $form .= tep_draw_hidden_field(rawurldecode($key), rawurldecode($value));
-        }
+      $form = new Form('pages', $GLOBALS['Admin']->link($GLOBALS['PHP_SELF']), 'get');
+
+      foreach ($parameters as $key => $value) {
+        $form->hide($key, $value);
       }
 
-      return $form . tep_hide_session_id() . '</form>';
+      return $form->hide_session_id()
+           . new Select($page_name, $pages, [
+               'value' => $this->current_page_number,
+               'onchange' => 'this.form.submit();',
+             ]) . '</form>';
     }
 
     public function display_count() {

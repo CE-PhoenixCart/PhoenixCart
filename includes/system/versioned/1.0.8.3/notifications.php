@@ -28,15 +28,11 @@
     public static function notify($trigger, $subject) {
       $notified = false;
 
-      if (defined('MODULE_NOTIFICATIONS_INSTALLED') && tep_not_null(MODULE_NOTIFICATIONS_INSTALLED)) {
+      if (defined('MODULE_NOTIFICATIONS_INSTALLED') && !Text::is_empty(MODULE_NOTIFICATIONS_INSTALLED)) {
         foreach ((array)explode(';', MODULE_NOTIFICATIONS_INSTALLED) as $basename) {
           $class = pathinfo($basename, PATHINFO_FILENAME);
 
-          if (!isset($GLOBALS[$class])) {
-            $GLOBALS[$class] = new $class();
-          }
-
-          if (!$GLOBALS[$class]->isEnabled()) {
+          if (!Guarantor::ensure_global($class)->isEnabled()) {
             continue;
           }
 

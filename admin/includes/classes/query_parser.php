@@ -38,7 +38,7 @@
     }
 
     public function count() {
-      $count_query = tep_db_query("SELECT COUNT(*) AS total "
+      $count_query = $GLOBALS['db']->query("SELECT COUNT(*) AS total "
         . substr($this->sql_query, $this->from, ($this->to - $this->from)));
       return $count_query->fetch_assoc()['total'];
     }

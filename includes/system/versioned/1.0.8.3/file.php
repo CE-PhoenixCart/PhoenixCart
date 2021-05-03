@@ -13,7 +13,7 @@
   class File {
 
     /**
-     * Windows compatibility function.  
+     * Windows compatibility function.
      * @param string $file
      * @return boolean
      */
@@ -37,7 +37,7 @@
     }
 
     /**
-     * 
+     *
      * @param string $file
      * @return boolean
      */

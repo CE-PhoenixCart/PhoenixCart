@@ -72,7 +72,7 @@
       ?></div>
       </div>
 
-      <?= $GLOBALS['OSCOM_Hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
+      <?= $GLOBALS['admin_hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
 
 
     </div>
