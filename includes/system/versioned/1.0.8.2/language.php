@@ -20,6 +20,7 @@
       'ar' => 'ar([-_][[:alpha:]]{2})?|arabic',
       'be' => 'be|belarusian',
       'bg' => 'bg|bulgarian',
+      'bn' => 'bn|bangla',
       'br' => 'pt[-_]br|brazilian portuguese',
       'ca' => 'ca|catalan',
       'cs' => 'cs|czech',
@@ -106,6 +107,10 @@
       return array_filter(
         array_map('strtolower', array_column($acceptable_locales, 'locale')),
         function ($v) {
+          if (isset(static::LANGUAGES[$v])) {
+            return true;
+          }
+
           foreach (static::LANGUAGES as $language) {
             if (preg_match("{\A(?:$v)\z}", $language)) {
               return true;
