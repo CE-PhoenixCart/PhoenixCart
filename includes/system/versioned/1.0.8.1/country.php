@@ -45,10 +45,17 @@
       return static::$countries;
     }
 
-    public static function draw_menu($name, $selected = '', $parameters = []) {
-      $countries = array_merge(
-        [['id' => '', 'text' => PULL_DOWN_DEFAULT]],
-        $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries ORDER BY countries_name"));
+    public static function fetch_options() {
+      return $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries ORDER BY countries_name");
+    }
+
+    public static function draw_menu($name, $selected = '', $parameters = [], $default = PULL_DOWN_DEFAULT) {
+      $countries = static::fetch_options();
+      if ($default) {
+        $countries = array_merge(
+          [['id' => '', 'text' => $default]],
+          $countries);
+      }
 
       return (new Select($name, $countries, $parameters))->set_selection($selected);
     }

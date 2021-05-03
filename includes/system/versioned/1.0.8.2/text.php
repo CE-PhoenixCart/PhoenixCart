@@ -13,6 +13,20 @@
   class Text {
 
     /**
+     * Break words longer than maximum.
+     * @param string $s
+     * @param int $maximum
+     * @param string $break_marker
+     */
+    public static function break(string $s, int $maximum, string $break_marker = '-') {
+      return array_reduce(
+        explode(' ', $s),
+        function ($carry, $word) use ($maximum, $break_marker) {
+          return $carry . chunk_split($word, $maximum, $break_marker);
+        }, '');
+    }
+
+    /**
      * Sanitize and normalize HTTP input.
      * @param string $s
      * @return string
