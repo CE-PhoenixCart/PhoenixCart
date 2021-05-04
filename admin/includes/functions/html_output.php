@@ -34,6 +34,15 @@
     return $parameters;
   }
 
+  function phoenix_append_css($parameter, $input) {
+    if (isset($parameter)) {
+      $pair = explode('=', $parameter, 2);
+      if (isset($pair[1]) && ('class' === $pair[0])) {
+        $input->append_css(trim($pair[1], '"'));
+      }
+    }
+  }
+
 ////
 // The HTML href link wrapper function
   function tep_href_link($page = '', $parameters = '', $connection = 'SSL', $add_session_id = true) {
@@ -107,16 +116,8 @@
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true, $class = 'class="form-control"') {
-    $parameters = phoenix_normalize($parameters);
-
-    if (isset($class)) {
-      $pair = explode('=', $class, 2);
-      if (isset($pair[1]) && ('class' === $pair[0])) {
-        $parameters['class'] = trim($pair[1], '"');
-      }
-    }
-
-    $input = new Input($name, $parameters, $type);
+    $input = new Input($name, phoenix_normalize($parameters), $type);
+    phoenix_append_css($class, $input);
 
     if ($reinsert_value) {
       $input->default_value($value ?? '');
@@ -172,12 +173,7 @@
     $textarea = new Textarea($name, phoenix_normalize($parameters));
     $textarea->set('cols', $width)->set('rows', $height);
 
-    if (!Text::is_empty($class)) {
-      $pair = explode('=', $class, 2);
-      if (isset($pair[1]) && ('class' === $pair[0])) {
-        $textarea->append_css($pair[1]);
-      }
-    }
+    phoenix_append_css($class, $textarea);
 
     if ( $reinsert_value && is_string(Request::value($name)) ) {
       $textarea->retain_text();
@@ -219,12 +215,7 @@
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $class = 'class="form-control"') {
     $select = new Select($name, $values, phoenix_normalize($parameters));
 
-    if (isset($class) && !Text::is_empty($class)) {
-      $pair = explode('=', $class, 2);
-      if (isset($pair[1]) && ('class' === $pair[0])) {
-        $select->append_css(trim($pair[1], '"'));
-      }
-    }
+    phoenix_append_css($class, $select);
 
     if ( !empty($default) ) {
       $select->set_selection($default);
