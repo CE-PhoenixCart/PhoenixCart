@@ -42,7 +42,7 @@ EOSQL
       Href::redirect($GLOBALS['Linker']->build('create_account_success.php'));
     }
 
-    public static function require() {
+    public static function require($parameters = null) {
       if (!isset($_SESSION['customer_id'])) {
         $_SESSION['navigation']->set_snapshot($parameters);
         Href::redirect($GLOBALS['Linker']->build('login.php'));
