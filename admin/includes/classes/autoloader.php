@@ -12,7 +12,7 @@
 
   class admin_autoloader {
 
-    public function index($index) {
+    public static function index($index) {
       $index->find_all_files_under(DIR_FS_ADMIN . 'includes/modules');
       $index->find_all_files_under(DIR_FS_ADMIN . 'includes/classes');
 
@@ -24,7 +24,7 @@
       return $index;
     }
 
-    public function register($directory = null, $translate = null) {
+    public static function register($directory = null) {
       if (!class_exists('class_index')) {
         require DIR_FS_CATALOG . 'includes/system/class_index.php';
       }
