@@ -23,7 +23,6 @@
   }
 
   function tep_output_string($string, $translate = false, $protected = false) {
-    trigger_error('The tep_output_string function has been deprecated.', E_USER_DEPRECATED);
     return $protected ? htmlspecialchars($string) : Text::output($string, $translate);
   }
 
@@ -86,7 +85,6 @@
   }
 
   function tep_draw_products_pull_down($name, $parameters = '', $exclude = [], $class = 'class="form-control"') {
-    trigger_error('The tep_draw_products_pull_down function has been deprecated.', E_USER_DEPRECATED);
     // replaced by Products::select_discountable
     global $currencies;
 
@@ -368,7 +366,6 @@
   }
 
   function tep_remove($source) {
-    trigger_error('The tep_remove function has been deprecated.', E_USER_DEPRECATED);
     global $messageStack, $tep_remove_error;
 
     if (isset($tep_remove_error)) {
@@ -484,14 +481,12 @@
   }
 
   function tep_get_ip_address() {
-    trigger_error('The tep_get_ip_address function has been deprecated.', E_USER_DEPRECATED);
     return Request::get_ip();
   }
 
 ////
 // Windows compatible is_writable()
   function tep_is_writable($file) {
-    trigger_error('The tep_is_writable function has been deprecated.', E_USER_DEPRECATED);
     return Path::is_writable($file);
   }
 
