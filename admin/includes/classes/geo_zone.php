@@ -13,7 +13,7 @@
   class geo_zone {
 
     public static function fetch_name($geo_zone_id) {
-      if ($zone_class_id == '0') {
+      if ($geo_zone_id == '0') {
         return TEXT_NONE;
       }
 
