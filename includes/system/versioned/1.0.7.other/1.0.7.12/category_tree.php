@@ -48,7 +48,7 @@ EOSQL
     }
 
     public function build_path_link($path) {
-      return Guarantor::ensure_globale('Linker')->build('index.php', ['cPath' => $path]);
+      return Guarantor::ensure_global('Linker')->build('index.php', ['cPath' => $path]);
     }
 
     public function get_selections($categories = [], $parent_id = '0', $indent = '') {
