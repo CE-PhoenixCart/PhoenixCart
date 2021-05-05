@@ -37,7 +37,7 @@
 
     public static function select($name, $parameters = [], $selected = '', $class = 'form-control') {
       return (new Select($name, array_merge(
-        ['id' => '', 'text' => '--- ' . IMAGE_SELECT . ' ---'],
+        [['id' => '', 'text' => '--- ' . IMAGE_SELECT . ' ---']],
         iterator_to_array(static::generate(), false)
       ), $parameters))->append_css($class)->set_selection($selected);
     }
