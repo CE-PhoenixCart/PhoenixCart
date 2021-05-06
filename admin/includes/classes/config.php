@@ -46,7 +46,7 @@
         }
       }
 
-      $key_name = static::name($key_name);
+      $key_name = static::name($key_name) . '[]';
       $checkbox = new Tickable($key_name, ['class' => ' '], 'checkbox');
 
       $string = '';
@@ -55,7 +55,7 @@
           $key = $text;
         }
 
-        if ($key_values[$key]) {
+        if (isset($key_values[$key]) || array_key_exists($key_values[$key])) {
           $checkbox->tick();
         } else {
           $checkbox->delete('checked');
