@@ -23,7 +23,7 @@
           'title' => 'Enable Password Reset module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_option(['True', 'False'], ",
         ],
       ];
     }
