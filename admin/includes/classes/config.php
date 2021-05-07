@@ -55,7 +55,7 @@
           $key = $text;
         }
 
-        if (isset($key_values[$key]) || array_key_exists($key_values[$key])) {
+        if (isset($key_values[$key]) || array_key_exists($key, $key_values)) {
           $checkbox->tick();
         } else {
           $checkbox->delete('checked');
