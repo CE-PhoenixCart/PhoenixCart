@@ -13,20 +13,16 @@
 // start the timer for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
-// load server configuration parameters
   include 'includes/configure.php';
 
-// autoload classes in the classes or modules directories
-  require 'includes/functions/autoloader.php';
-  spl_autoload_register('tep_autoload_catalog');
+  require 'includes/system/autoloader.php';
+  $class_index = catalog_autoloader::register();
 
-// include the database functions
   require 'includes/functions/database.php';
 
 // make a connection to the database... now
   $db = new Database() or die('Unable to connect to database server!');
 
-  // hooks
   $hooks = new hooks('shop');
   $OSCOM_Hooks =& $hooks;
   $all_hooks =& $hooks;

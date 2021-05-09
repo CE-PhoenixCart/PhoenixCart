@@ -14,46 +14,22 @@
 
     public function check_ssl_session_id() {
 // verify the ssl_session_id if the feature is enabled
-      if ( ($GLOBALS['request_type'] === 'SSL') && (SESSION_CHECK_SSL_SESSION_ID === 'True') && $GLOBALS['session_started'] ) {
-        $ssl_session_id = getenv('SSL_SESSION_ID');
-        if (!isset($_SESSION['SSL_SESSION_ID'])) {
-          $_SESSION['SSL_SESSION_ID'] = $ssl_session_id;
-        }
-
-        if ($_SESSION['SSL_SESSION_ID'] !== $ssl_session_id) {
-          tep_session_destroy();
-          tep_redirect(tep_href_link('ssl_check.php'));
-        }
+      if (SESSION_CHECK_SSL_SESSION_ID === 'True') {
+        Request::check_ssl_session_id();
       }
     }
 
     public function check_user_agent() {
 // verify the browser user agent if the feature is enabled
-      if (SESSION_CHECK_USER_AGENT == 'True') {
-        $http_user_agent = getenv('HTTP_USER_AGENT');
-        if (!isset($_SESSION['SESSION_USER_AGENT'])) {
-          $_SESSION['SESSION_USER_AGENT'] = $http_user_agent;
-        }
-
-        if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
-          tep_session_destroy();
-          tep_redirect(tep_href_link('login.php'));
-        }
+      if (SESSION_CHECK_USER_AGENT === 'True') {
+        Request::check_user_agent();
       }
     }
 
     public function check_ip() {
 // verify the IP address if the feature is enabled
-      if (SESSION_CHECK_IP_ADDRESS == 'True') {
-        $ip_address = tep_get_ip_address();
-        if (!isset($_SESSION['SESSION_IP_ADDRESS'])) {
-          $_SESSION['SESSION_IP_ADDRESS'] = $ip_address;
-        }
-
-        if ($_SESSION['SESSION_IP_ADDRESS'] != $ip_address) {
-          tep_session_destroy();
-          tep_redirect(tep_href_link('login.php'));
-        }
+      if (SESSION_CHECK_IP_ADDRESS === 'True') {
+        Request::check_ip();
       }
     }
 
@@ -71,19 +47,22 @@
     }
 
     public function set_session_language() {
-      if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+      if (empty($_SESSION['language']) || isset($_GET['language'])) {
         $GLOBALS['lng'] = language::build();
 
         $GLOBALS['languages_id'] =& $_SESSION['languages_id'];
         $GLOBALS['language'] =& $_SESSION['language'];
       }
 
+      class_exists('Text');
+      Guarantor::ensure_global('oscTemplate');
+      $GLOBALS['class_index']->set_translator('language::map_to_translation');
       $this->fix_numeric_locale();
       return language::map_to_translation('.php');
     }
 
     public function set_template_title() {
-      $GLOBALS['oscTemplate']->setTitle(TITLE);
+      Guarantor::ensure_global('oscTemplate')->setTitle(TITLE);
     }
 
     public function ensure_navigation_history() {

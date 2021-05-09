@@ -25,9 +25,9 @@
       $hooks =& Guarantor::ensure_global('hooks', 'shop');
       foreach ($this->_base_hook_directories as $directory) {
         $hooks->add_directory($directory);
+        $GLOBALS['class_index']->find_all_hooks_under($directory);
       }
 
-      spl_autoload_register([$this, 'autoload_hooks'], true, true);
       $GLOBALS['breadcrumb'] = new breadcrumb();
     }
 
@@ -63,23 +63,6 @@
                     ?? static::_get_template_mapping_for($file, $type);
 
       return file_exists($template_file) ? $template_file : null;
-    }
-
-    public function autoload_hooks($requested_class) {
-      static $class_files;
-
-      if (is_null($class_files)) {
-        $class_files = [];
-        foreach ($this->_base_hook_directories as $directory) {
-          tep_find_all_hooks_under($directory, $class_files);
-        }
-      }
-
-      $class = tep_normalize_class_name($requested_class);
-
-      if (isset($class_files[$class])) {
-        require $class_files[$class];
-      }
     }
 
     public function setGridContentWidth($width) {

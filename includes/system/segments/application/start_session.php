@@ -10,21 +10,17 @@
   Released under the GNU General Public License
 */
 
-// set the session name and save path
   session_name('ceid');
+  Session::set_save_location();
 
 // set the session cookie parameters
   Cookie::save_session_parameters();
 
-// set the session ID if it exists
   if ( SESSION_FORCE_COOKIE_USE == 'False' ) {
     @ini_set('session.use_only_cookies', 0);
 
-    if ( isset($_GET[session_name()]) && (($_COOKIE[session_name()] ?? null) !== $_GET[session_name()]) ) {
-      tep_session_id($_GET[session_name()]);
-    } elseif ( isset($_POST[session_name()]) && (($_COOKIE[session_name()] ?? null) !== $_POST[session_name()]) ) {
-      tep_session_id($_POST[session_name()]);
-    }
+// set the session ID if it exists in the request parameters
+    Session::request_id();
   }
 
 // start the session
@@ -35,16 +31,15 @@
     Cookie::save('cookie_test', 'please_accept_for_session');
 
     if (isset($_COOKIE['cookie_test'])) {
-      tep_session_start();
-      $session_started = true;
+      $session_started = Session::start();
     }
   } elseif (SESSION_BLOCK_SPIDERS == 'True') {
     $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
     $spider_flag = false;
 
-    if (tep_not_null($user_agent)) {
+    if (!Text::is_empty($user_agent)) {
       foreach (file('includes/spiders.txt') as $spider) {
-        if (tep_not_null($spider) && is_integer(strpos($user_agent, trim($spider)))) {
+        if (!Text::is_empty($spider) && is_integer(strpos($user_agent, trim($spider)))) {
           $spider_flag = true;
           break;
         }
@@ -52,22 +47,20 @@
     }
 
     if (!$spider_flag) {
-      tep_session_start();
-      $session_started = true;
+      $session_started = Session::start();
     }
   } else {
-    tep_session_start();
-    $session_started = true;
+    $session_started = Session::start();
   }
 
-  if ($session_started) {
-    // register session variables globally
+  if (Session::is_started()) {
+// register session variables globally
     extract($_SESSION, EXTR_OVERWRITE+EXTR_REFS);
   }
 
 // initialize a session token
   if (!isset($_SESSION['sessiontoken'])) {
-    tep_reset_session_token();
+    Form::reset_session_token();
   }
 
 // set SID once, even if empty

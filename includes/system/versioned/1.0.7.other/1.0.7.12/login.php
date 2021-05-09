@@ -18,24 +18,39 @@
       $GLOBALS['customer_id'] =& $_SESSION['customer_id'];
     }
 
-    public static function set_customer_id() {
-      $_SESSION['customer_id'] = $GLOBALS['login_customer_id'];
+    public static function hook() {
+      $GLOBALS['hooks']->cat('postLogin');
     }
 
     public static function log() {
-      tep_db_query("UPDATE customers_info SET customers_info_date_of_last_logon = NOW(), customers_info_number_of_logons = customers_info_number_of_logons+1, password_reset_key = null, password_reset_date = null WHERE customers_info_id = " . (int)$_SESSION['customer_id']);
+      $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+UPDATE customers_info
+ SET customers_info_date_of_last_logon = NOW(),
+     customers_info_number_of_logons = customers_info_number_of_logons + 1,
+     password_reset_key = null,
+     password_reset_date = null
+ WHERE customers_info_id = %d
+EOSQL
+        , (int)$_SESSION['customer_id']));
     }
 
     public static function notify() {
-      tep_notify('create_account', $GLOBALS['customer']);
+      Notifications::notify('create_account', $GLOBALS['customer']);
     }
 
     public static function redirect_success() {
-      tep_redirect(tep_href_link('create_account_success.php'));
+      Href::redirect($GLOBALS['Linker']->build('create_account_success.php'));
     }
 
-    public static function hook() {
-      $GLOBALS['hooks']->call('siteWide', 'postLogin');
+    public static function require($parameters = null) {
+      if (!isset($_SESSION['customer_id'])) {
+        $_SESSION['navigation']->set_snapshot($parameters);
+        Href::redirect($GLOBALS['Linker']->build('login.php'));
+      }
+    }
+
+    public static function set_customer_id() {
+      $_SESSION['customer_id'] = $GLOBALS['login_customer_id'];
     }
 
   }

@@ -29,8 +29,8 @@
       }
 
       foreach (static::IP_KEYS as $key) {
-        if (isset($_SERVER['$key'])) {
-          yield $_SERVER['$key'];
+        if (isset($_SERVER[$key])) {
+          yield $_SERVER[$key];
         }
       }
     }
@@ -64,15 +64,15 @@
 
     public static function check_ssl_session_id() {
 // verify the ssl_session_id is the same as previously recorded
-      if ( static::is_ssl() && $GLOBALS['session_started'] ) {
+      if ( static::is_ssl() && Session::is_started() ) {
         $ssl_session_id = getenv('SSL_SESSION_ID');
         if (!isset($_SESSION['SSL_SESSION_ID'])) {
           $_SESSION['SSL_SESSION_ID'] = $ssl_session_id;
         }
 
         if ($_SESSION['SSL_SESSION_ID'] !== $ssl_session_id) {
-          tep_session_destroy();
-          tep_redirect(tep_href_link('ssl_check.php'));
+          Session::destroy();
+          Href::redirect($GLOBALS['Linker']->build('ssl_check.php'));
         }
       }
     }
@@ -85,8 +85,8 @@
       }
 
       if ($_SESSION['SESSION_USER_AGENT'] !== $http_user_agent) {
-        tep_session_destroy();
-        tep_redirect(tep_href_link('login.php'));
+        Session::destroy();
+        Href::redirect($GLOBALS['Linker']->build('login.php'));
       }
     }
 
@@ -98,8 +98,8 @@
       }
 
       if ($_SESSION['SESSION_IP_ADDRESS'] !== $ip_address) {
-        tep_session_destroy();
-        tep_redirect(tep_href_link('login.php'));
+        Session::destroy();
+        Href::redirect($GLOBALS['Linker']->build('login.php'));
       }
     }
 

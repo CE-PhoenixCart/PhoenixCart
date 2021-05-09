@@ -33,6 +33,8 @@
       } else {
         $this->set('class', $css);
       }
+
+      return $this;
     }
 
     /**
@@ -41,6 +43,7 @@
      */
     public function delete(string $name) {
       unset($this->parameters[$name]);
+      return $this;
     }
 
     /**
@@ -57,7 +60,7 @@
      * @param string $name
      * @param string $value
      */
-    public function set(string $name, string $value) {
+    public function set(string $name, string $value = null) {
       $this->parameters[$name] = $value;
       return $this;
     }

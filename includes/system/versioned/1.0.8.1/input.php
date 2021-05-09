@@ -33,6 +33,23 @@
      */
     public function default_value(string $value) {
       $this->set('value', Request::value($this->parameters['name']) ?? $value);
+      return $this;
+    }
+
+    /**
+     * Mark the input as required.
+     * @param boolean $require
+     */
+    public function require(bool $require = true) {
+      if ($require) {
+        $this->set('required', null);
+        $this->set('aria-required', 'true');
+      } else {
+        $this->delete('required');
+        $this->delete('aria-required');
+      }
+
+      return $this;
     }
 
     public function __toString() {

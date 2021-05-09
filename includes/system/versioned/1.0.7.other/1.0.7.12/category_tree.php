@@ -20,7 +20,7 @@
       if ( isset($_category_tree_data) ) {
         $this->_data = $_category_tree_data;
       } else {
-        $categories_query = tep_db_query(sprintf(<<<'EOSQL'
+        $categories_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT c.categories_id, c.parent_id, c.categories_image, cd.categories_name, cd.categories_description, cd.categories_seo_description, cd.categories_seo_title
  FROM categories c INNER JOIN categories_description cd ON c.categories_id = cd.categories_id
  WHERE cd.language_id = %d
@@ -48,7 +48,7 @@ EOSQL
     }
 
     public function build_path_link($path) {
-      return tep_href_link('index.php', 'cPath=' . $path);
+      return Guarantor::ensure_global('Linker')->build('index.php', ['cPath' => $path]);
     }
 
     public function get_selections($categories = [], $parent_id = '0', $indent = '') {
@@ -56,11 +56,12 @@ EOSQL
         $categories = [];
       }
 
-      foreach ($this->get_descendants($parent_id) as $category_id) {
+      foreach ($this->get_children($parent_id) as $category_id) {
         $categories[] = [
           'id' => $category_id,
           'text' => $indent . $this->get($category_id, 'name'),
         ];
+        $this->get_selections($categories, $category_id, "$indent&nbsp;&nbsp;&nbsp;");
       }
 
       return $categories;

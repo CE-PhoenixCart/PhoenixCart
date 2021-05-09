@@ -33,7 +33,6 @@
 // if the customer is not logged on, redirect to the login page
       $parameters = [
         'page' => 'checkout_payment.php',
-        'mode' => 'SSL',
       ];
       $GLOBALS['hooks']->register_pipeline('loginRequired', $parameters);
     }
@@ -41,7 +40,7 @@
     public static function guarantee_cart() {
 // if there is nothing in the customer's cart, redirect to the shopping cart page
       if ($_SESSION['cart']->count_contents() <= 0) {
-        tep_redirect(tep_href_link('shopping_cart.php'));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php'));
       }
     }
 
@@ -51,7 +50,7 @@
       if (isset($_SESSION['cartID']) && ($_SESSION['cartID'] != $_SESSION['cart']->cartID)) {
         unset($_SESSION['shipping']);
       }
-      
+
       $_SESSION['cartID'] = $_SESSION['cart']->cartID = $_SESSION['cart']->generate_cart_id();
     }
 
@@ -75,7 +74,7 @@
       if (!isset($_SESSION['shipping'], $_SESSION['sendto'], $_SESSION['cart']->cartID, $_SESSION['cartID'])
         || ($_SESSION['cart']->cartID !== $_SESSION['cartID']))
       {
-        tep_redirect(tep_href_link('checkout_shipping.php', '', 'SSL'));
+        Href::redirect($GLOBALS['Linker']->build('checkout_shipping.php'));
       }
     }
 
@@ -85,9 +84,9 @@
       if (isset($_SESSION['billto'])) {
 // verify the selected billing address
         if ( is_numeric($_SESSION['billto']) || ([] === $_SESSION['billto']) ) {
-          $check_address_query = tep_db_query("SELECT COUNT(*) AS total FROM address_book WHERE customers_id = " . (int)$_SESSION['customer_id'] . " AND address_book_id = " . (int)$_SESSION['billto']);
-          $check_address = tep_db_fetch_array($check_address_query);
-          
+          $check_address_query = $GLOBALS['db']->query("SELECT COUNT(*) AS total FROM address_book WHERE customers_id = " . (int)$_SESSION['customer_id'] . " AND address_book_id = " . (int)$_SESSION['billto']);
+          $check_address = $check_address_query->fetch_assoc();
+
           if ($check_address['total'] != '1') {
             $_SESSION['billto'] = $customer->get('default_billto');
             unset($_SESSION['payment']);
@@ -100,8 +99,8 @@
     }
 
     public static function validate_payment() {
-      if ( (tep_not_null(MODULE_PAYMENT_INSTALLED)) && (!isset($_SESSION['payment'])) ) {
-        tep_redirect(tep_href_link('checkout_payment.php', '', 'SSL'));
+      if ( (!Text::is_empty(MODULE_PAYMENT_INSTALLED)) && (!isset($_SESSION['payment'])) ) {
+        Href::redirect($GLOBALS['Linker']->build('checkout_payment.php'));
       }
     }
 
@@ -112,8 +111,8 @@
         $_SESSION['payment'] = null;
       }
 
-      if (isset($_POST['comments']) && tep_not_null($_POST['comments'])) {
-        $_SESSION['comments'] = tep_db_prepare_input($_POST['comments']);
+      if (isset($_POST['comments']) && !Text::is_empty($_POST['comments'])) {
+        $_SESSION['comments'] = Text::input($_POST['comments']);
       } elseif (!array_key_exists('comments', $_SESSION)) {
         $_SESSION['comments'] = null;
       }
@@ -127,7 +126,7 @@
       if ('virtual' === $GLOBALS['order']->content_type) {
         $_SESSION['shipping'] = false;
         $_SESSION['sendto'] = false;
-        tep_redirect(tep_href_link('checkout_payment.php', '', 'SSL'));
+        Href::redirect($GLOBALS['Linker']->build('checkout_payment.php'));
       }
     }
 
@@ -154,7 +153,7 @@
         || ( is_array($payment_modules->modules) && (count($payment_modules->modules) > 1) && !is_object($payment_module) )
         || (is_object($payment_module) && (!$payment_module->enabled)) )
       {
-        tep_redirect(tep_href_link('checkout_payment.php', 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
+        Href::redirect($GLOBALS['Linker']->build('checkout_payment.php', ['error_message' => ERROR_NO_PAYMENT_MODULE_SELECTED]));
       }
     }
 
@@ -182,7 +181,7 @@
     }
 
     public static function notify() {
-      $GLOBALS['customer_notification'] = tep_notify('checkout', $GLOBALS['order']) ? 1 : 0;
+      $GLOBALS['customer_notification'] = Notifications::notify('checkout', $GLOBALS['order']) ? 1 : 0;
     }
 
     public static function conclude_payment() {
@@ -194,7 +193,7 @@
     }
 
     public static function redirect_success() {
-      tep_redirect(tep_href_link('checkout_success.php', '', 'SSL'));
+      Href::redirect($GLOBALS['Linker']->build('checkout_success.php'));
     }
 
   }

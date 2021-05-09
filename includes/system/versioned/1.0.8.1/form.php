@@ -79,7 +79,7 @@
      * Add the session ID to the values to be hidden.
      */
     public function hide_session_id() {
-      if ($GLOBALS['session_started'] && !Text::is_empty($GLOBALS['SID'])) {
+      if (Session::is_started() && !Text::is_empty($GLOBALS['SID'] ?? SID)) {
         $this->hide(session_name(), session_id());
       }
 

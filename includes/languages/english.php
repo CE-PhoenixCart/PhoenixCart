@@ -96,8 +96,6 @@ const TEXT_DESCENDINGLY = 'descendingly';
 const TEXT_ASCENDINGLY = 'ascendingly';
 const TEXT_BY = ' by ';
 
-const TEXT_UNKNOWN_TAX_RATE = 'Unknown tax rate';
-
 const TEXT_CCVAL_ERROR_INVALID_DATE = 'The expiry date entered for the credit card is invalid. Please check the date and try again.';
 const TEXT_CCVAL_ERROR_INVALID_NUMBER = 'The credit card number entered is invalid. Please check the number and try again.';
 const TEXT_CCVAL_ERROR_UNKNOWN_CARD = 'The first four digits of the number entered are: %s. If that number is correct, we do not accept that type of credit card. If it is wrong, please try again.';

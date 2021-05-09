@@ -18,7 +18,6 @@
      *
      * @param string $name
      * @param array $parameters
-     * @param string $css
      */
     public function __construct(string $name, array $parameters = []) {
       parent::__construct($name, $parameters, null);

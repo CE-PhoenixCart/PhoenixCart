@@ -13,15 +13,14 @@
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
-
 // load server configuration parameters
   include 'includes/configure.php';
 
-  // autoload classes in the classes or modules directories
-  require DIR_FS_CATALOG . 'includes/functions/autoloader.php';
-  require 'includes/functions/autoloader.php';
-  spl_autoload_register('tep_autoload_admin');
-  spl_autoload_register('tep_autoload_catalog');
+// autoload classes in the classes or modules directories
+  require DIR_FS_CATALOG . 'includes/system/autoloader.php';
+  require 'includes/classes/autoloader.php';
+  $admin_index = admin_autoloader::register();
+  $class_index = catalog_autoloader::register();
 
 // include the database functions
   require 'includes/functions/database.php';
@@ -31,6 +30,7 @@
   $admin_hooks = new hooks('admin');
   $OSCOM_Hooks =& $admin_hooks;
   $all_hooks =& $admin_hooks;
+  Guarantor::ensure_global('Admin');
   $admin_hooks->register('system');
   foreach ($admin_hooks->generate('startApplication') as $result) {
     if (!isset($result)) {
@@ -53,10 +53,10 @@
 // Define the project version --- obsolete, now retrieved with Versions::get('Phoenix')
   define('PROJECT_VERSION', 'CE Phoenix');
 
-  // set the type of request (secure or not)
+// set the type of request (secure or not)
   $request_type = (getenv('HTTPS') === 'on') ? 'SSL' : 'NONSSL';
 
-  // set php_self in the local scope
+// set php_self globally
   $req = parse_url($_SERVER['SCRIPT_NAME']);
   $PHP_SELF = substr($req['path'], strlen(DIR_WS_ADMIN));
 
@@ -70,20 +70,17 @@
 // define our general functions used application-wide
   require 'includes/functions/general.php';
   require 'includes/functions/html_output.php';
-
-// define how the session functions will be used
   require 'includes/functions/sessions.php';
 
-// set the session name
-  session_name('osCAdminID');
+  session_name('cepcAdminID');
+  Session::set_save_location();
 
 // set the session cookie parameters
   Cookie::save_session_parameters();
 
   @ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'True') ? 1 : 0);
 
-// let's start our session
-  tep_session_start();
+  Session::start();
 
 // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {

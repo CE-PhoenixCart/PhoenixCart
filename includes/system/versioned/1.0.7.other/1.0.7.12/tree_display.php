@@ -98,12 +98,6 @@
     }
 
 /**
- * Magic function; return a formated string representation of the category structure relationship data
- *
- * This is used when echoing the class object, eg:
- *
- * echo $tree;
- *
  * @access public
  * @return string
  */

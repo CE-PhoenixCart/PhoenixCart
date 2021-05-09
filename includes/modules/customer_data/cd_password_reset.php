@@ -23,7 +23,7 @@
           'title' => 'Enable Password Reset module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_option(['True', 'False'], ",
         ],
       ];
     }
@@ -32,8 +32,14 @@
       switch ($field) {
         case 'password_reset_key':
         case 'password_reset_date':
-          return $customer_details[$field];
+          return $customer_details[$field] ?? null;
       }
+    }
+
+    public function build_db_values(&$db_tables, $customer_details, $table = 'both') {
+      Guarantor::guarantee_subarray($db_tables, 'customers_info');
+      $db_tables['customers_info']['password_reset_key'] = $customer_details['password_reset_key'];
+      $db_tables['customers_info']['password_reset_date'] = $customer_details['password_reset_date'];
     }
 
     public function build_db_aliases(&$db_tables, $table = 'both') {
