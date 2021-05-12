@@ -170,8 +170,8 @@
       $page = ('.php' === $page)
             ? "includes/languages/$language.php"
             : "includes/languages/$language/$page";
-      $template =& Guarantor::ensure_global('oscTemplate');
-      $translation = $template->map_to_template($page, 'translation')
+      $Template =& Guarantor::ensure_global('Template');
+      $translation = $Template->map($page, 'translation')
                   ?? DIR_FS_CATALOG . $page;
 
       return file_exists($translation) ? $translation : DIR_FS_CATALOG . $page;
