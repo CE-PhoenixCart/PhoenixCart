@@ -23,18 +23,8 @@
       $this->id = $customer_id;
     }
 
-    protected function guarantee_customer_data() {
-      global $customer_data;
-
-      if (!isset($customer_data) || !($customer_data instanceof customer_data)) {
-        $customer_data = new customer_data();
-      }
-
-      return $customer_data;
-    }
-
     public function preload_columns(&$to) {
-      $customer_data = $this->guarantee_customer_data();
+      $customer_data = Guarantor::ensure_global('customer_data');
 
       $customer_data->get('state', $to);
       $customer_data->get('zone_id', $to);
@@ -51,15 +41,15 @@
         return;
       }
 
-      $customer_data = $this->guarantee_customer_data();
+      $customer_data = Guarantor::ensure_global('customer_data');
 
       if ($to > 0) {
-        $address_query = tep_db_query($customer_data->build_read(['id', 'address'], 'address_book', ['id' => (int)$this->id, 'address_book_id' => (int)$to]));
+        $address_query = $GLOBALS['db']->query($customer_data->build_read(['id', 'address'], 'address_book', ['id' => (int)$this->id, 'address_book_id' => (int)$to]));
       } else {
-        $address_query = tep_db_query($customer_data->build_read($customer_data->list_all_capabilities(), 'both', ['id' => (int)$this->id]));
+        $address_query = $GLOBALS['db']->query($customer_data->build_read($customer_data->list_all_capabilities(), 'both', ['id' => (int)$this->id]));
       }
 
-      $this->data[$to] = array_filter(tep_db_fetch_array($address_query), function ($v) { return tep_not_null($v); });
+      $this->data[$to] = array_filter($address_query->fetch_assoc(), function ($v) { return !Text::is_empty($v); });
       if (!is_null($this->data[$to])) {
         $this->preload_columns($this->data[$to]);
       }
@@ -89,7 +79,7 @@
         $this->fetch_address($to);
       } else {
         if (!isset($this->data[0])) {
-          $customer_data = $this->guarantee_customer_data();
+          $customer_data = Guarantor::ensure_global('customer_data');
           $this->data[0] = array_fill_keys($customer_data->list_all_capabilities(), null);
           $customer_data->get('country', $this->data[0]);
         }
@@ -104,8 +94,9 @@
     }
 
     public function get($key, $to = 0) {
-      if (!isset($this->fetch_to_address($to)[$key])) {
-        $this->guarantee_customer_data()->get($key, $this->data[$to]);
+      $this->fetch_to_address($to);
+      if (!isset($this->data[$to][$key])) {
+        Guarantor::ensure_global('customer_data')->get($key, $this->data[$to]);
       }
 
       return $this->data[$to][$key] ?? null;
@@ -114,7 +105,7 @@
     public function set($key, $value, $to = 0) {
       $customer_details = $this->fetch_to_address($to);
       if (!isset($customer_details[$key])) {
-        $this->guarantee_customer_data()->get($key, $customer_details);
+        Guarantor::ensure_global('customer_data')->get($key, $customer_details);
       }
 
       if (!isset($customer_details[$key]) || $customer_details[$key] !== $value) {
@@ -125,12 +116,12 @@
 
     public function persist($to = 0) {
       if ($to > 0) {
-        $this->guarantee_customer_data()->update(
+        Guarantor::ensure_global('customer_data')->update(
           $this->unpersisted,
           ['id' => $this->id, 'address_book_id' => (int)$to],
           'address_book');
       } else {
-        $this->guarantee_customer_data()->update(
+        Guarantor::ensure_global('customer_data')->update(
           $this->unpersisted,
           ['id' => $this->id, 'address_book_id' => (int)$this->data[0]['default_address_id']],
           'both');
@@ -159,23 +150,31 @@
     }
 
     public function get_all_addresses_query() {
-      return tep_db_query($this->guarantee_customer_data()->build_read(['address'], 'address_book', ['id' => (int)$this->id]));
-//      return tep_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from address_book where customers_id = '" . (int)$customer_id . "'");
+      return $GLOBALS['db']->query(Guarantor::ensure_global('customer_data')->build_read(['address'], 'address_book', ['id' => (int)$this->id]));
     }
 
     public function get_all_addresses() {
       $addresses_query = $this->get_all_addresses_query();
-      while ($address = tep_db_fetch_array($addresses_query)) {
+      while ($address = $addresses_query->fetch_assoc()) {
         yield $address;
       }
     }
 
     public function count_addresses() {
-      return tep_db_num_rows($this->get_all_addresses_query());
+      return mysqli_num_rows($this->get_all_addresses_query());
     }
 
     public function make_address_label($to = 0, $html = false, $boln = '', $eoln = "\n") {
-      return $this->guarantee_customer_data()->get_module('address')->format($this->fetch_to_address($to), $html, $boln, $eoln);
+      return Guarantor::ensure_global('customer_data')->get_module('address')->format($this->fetch_to_address($to), $html, $boln, $eoln);
+    }
+
+    public function count_orders() {
+      return $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT COUNT(*) AS total
+ FROM orders o INNER JOIN orders_status s ON o.orders_status = s.orders_status_id
+ WHERE o.customers_id = %d AND s.language_id = %d AND s.public_flag = 1
+EOSQL
+        , (int)$this->id, (int)$_SESSION['languages_id']))->fetch_assoc()['total'];
     }
 
   }
