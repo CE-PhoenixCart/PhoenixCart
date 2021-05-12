@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class oscTemplate {
+  class Template extends oscTemplate {
 
     protected $_title;
     protected $_blocks = [];
@@ -35,37 +35,37 @@
       return $this->_template;
     }
 
-    public function setTitle($title) {
+    public function set_title($title) {
       $this->_title = $title;
     }
 
-    public function getTitle() {
+    public function get_title() {
       return $this->_title;
     }
 
-    public function addBlock($block, $group) {
+    public function add_block($block, $group) {
       $this->_blocks[$group][] = $block;
     }
 
-    public function hasBlocks($group) {
+    public function has_blocks($group) {
       return !empty($this->_blocks[$group]);
     }
 
-    public function getBlocks($group) {
-      if ($this->hasBlocks($group)) {
+    public function get_blocks($group) {
+      if ($this->has_blocks($group)) {
         return implode("\n", $this->_blocks[$group]);
       }
     }
 
-    public function buildBlocks() {
-      if ( !defined('TEMPLATE_BLOCK_GROUPS') || !tep_not_null(TEMPLATE_BLOCK_GROUPS) ) {
+    public function build_blocks() {
+      if ( !defined('TEMPLATE_BLOCK_GROUPS') || Text::is_empty(TEMPLATE_BLOCK_GROUPS) ) {
         return;
       }
 
       foreach (explode(';', TEMPLATE_BLOCK_GROUPS) as $group) {
         $module_key = 'MODULE_' . strtoupper($group) . '_INSTALLED';
 
-        if ( !defined($module_key) || !tep_not_null(constant($module_key)) ) {
+        if ( !defined($module_key) || Text::is_empty(constant($module_key)) ) {
           continue;
         }
 
@@ -83,22 +83,22 @@
       }
     }
 
-    public function addContent($content, $group) {
+    public function add_content($content, $group) {
       $this->_content[$group][] = $content;
     }
 
-    public function hasContent($group) {
+    public function has_content($group) {
       return !empty($this->_content[$group]);
     }
 
-    public function getContent($group) {
-      $template_page_class = 'tp_' . $group;
+    public function get_content($group) {
+      $template_page_class = "tp_$group";
       if ( class_exists($template_page_class) ) {
         $template_page = new $template_page_class();
         $template_page->prepare();
       }
 
-      foreach ( $this->getContentModules($group) as $module ) {
+      foreach ( $this->get_content_modules($group) as $module ) {
         if ( class_exists($module) ) {
           $mb = new $module();
 
@@ -116,13 +116,13 @@
         'group' => $group,
         'content' => &$this->_content[$group],
       ];
-      $GLOBALS['OSCOM_Hooks']->call('siteWide', 'getContent', $parameters);
-      if ($this->hasContent($group)) {
+      $GLOBALS['all_hooks']->cat('getContent', $parameters);
+      if ($this->has_content($group)) {
         return implode("\n", $this->_content[$group]);
       }
     }
 
-    public function getContentModules($group) {
+    public function get_content_modules($group) {
       $result = [];
 
       foreach ( explode(';', MODULE_CONTENT_INSTALLED) as $m ) {
@@ -134,11 +134,11 @@
       }
 
       $parameters = [ 'results' => &$results ];
-      $GLOBALS['OSCOM_Hooks']->call('siteWide', 'getContentModules', $parameters);
+      $GLOBALS['all_hooks']->cat('getContentModules', $parameters);
       return $result;
     }
 
-    public function map_to_template($file, $type = 'module') {
+    public function map($file, $type = 'module') {
       return $this->_template->get_template_mapping_for($file, $type)
           ?? default_template::_get_template_mapping_for($file, $type);
     }
