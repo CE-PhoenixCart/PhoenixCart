@@ -9,137 +9,112 @@
 
   Released under the GNU General Public License
 */
+
+  $unwritable_files = Installer::find_unwritable_files(dirname(__FILE__, 4));
+
+  $errors = [];
+  $warnings = [];
+
+  if (!extension_loaded('mysqli')) {
+    $errors['mysql'] = TEXT_MYSQLI_REQUIRED;
+  }
+
+  $php_version_thumb = ICON_THUMB_SUCCESS;
+
+  if (version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')) {
+    $errors['php_version'] = sprintf(TEXT_MINIMUM_VERSION, PHP_VERSION_MIN, PHP_VERSION);
+    $php_version_thumb = ICON_THUMB_DANGER;
+  }
+
+  if (version_compare(PHP_VERSION, PHP_VERSION_MAX, '>=')) {
+    $warnings['php_version'] = sprintf(TEXT_MAXIMUM_VERSION, PHP_VERSION_MAX, PHP_VERSION);
+    $php_version_thumb = ICON_THUMB_WARNING;
+  }
+
+  if ((int)ini_get('allow_url_fopen') == 0) {
+    $warnings['allow_url_fopen'] = TEXT_FOPEN_WRAPPERS_REQUIRED;
+  }
+
+  if (!extension_loaded('cURL')) {
+    $warnings['curl'] = TEXT_CURL_REQUIRED;
+  }
 ?>
 
 <div class="alert alert-info" role="alert">
-  <h1>Welcome to CE Phoenix</h1>
+  <h1><?= TEXT_WELCOME_TO ?></h1>
 
-  <p>CE Phoenix helps you sell products worldwide with your own online store. Its Administration Tool manages products, customers, orders, newsletters, specials and more to successfully build your online business.</p>
-  <p>Phoenix has attracted a community of store owners and developers who support each other and have provided many free and paid-for add-ons that will extend the features and potential of your online store.</p>
+  <?= TEXT_HELPS_YOU_SELL ?>
 </div>
 
 <div class="row">
   <div class="col-sm-12 col-md-9 order-last">
 
-    <h1 class="dislay-4">New Phoenix v<?php echo osc_get_version(); ?> Installation</h1>
+    <h2 class="display-4"><?= sprintf(TEXT_NEW_INSTALLATION_OF, Versions::get('Phoenix')) ?></h2>
 
 <?php
-    $configfile_array = [];
-
-    if (file_exists(osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php') && !osc_is_writable(osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php')) {
-      @chmod(osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php', 0777);
-    }
-
-    if (file_exists(osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php') && !osc_is_writable(osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php')) {
-      @chmod(osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php', 0777);
-    }
-
-    if (file_exists(osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php') && !osc_is_writable(osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php')) {
-      $configfile_array[] = osc_realpath(dirname(__FILE__) . '/../../../includes') . '/configure.php';
-    }
-
-    if (file_exists(osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php') && !osc_is_writable(osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php')) {
-      $configfile_array[] = osc_realpath(dirname(__FILE__) . '/../../../admin/includes') . '/configure.php';
-    }
-
-    $error_array = [];
-    $warning_array = [];
-
-    if (!extension_loaded('mysqli')) {
-      $error_array['mysql'] = 'The MySQLi extension is required but is not installed. Please enable the extension to continue installation.';
-    }
-
-    $php_version_thumb = '<i class="fas fa-thumbs-up text-success"></i>';
-
-    if (version_compare(PHP_VERSION, PHP_VERSION_MIN, '<')) {
-      $error_array['php_version'] = sprintf('The version of PHP must be at least <strong>%s</strong>.  The version here is %s.', PHP_VERSION_MIN, PHP_VERSION);
-      $php_version_thumb = '<i class="fas fa-thumbs-down text-danger"></i>';
-    }
-    
-    if (version_compare(PHP_VERSION, PHP_VERSION_MAX, '>=')) {
-      $warning_array['php_version'] = sprintf('Performance on versions <strong>higher than %s has not been tested</strong>.  The version here is %s.', PHP_VERSION_MAX, PHP_VERSION);
-      $php_version_thumb = '<i class="fas fa-thumbs-up text-warning"></i>';
-    }
-    
-    if ((int)ini_get('allow_url_fopen') == 0) {
-      $warning_array['allow_url_fopen'] = 'Fopen Wrappers should be turned on.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
-    }
-    
-    if (!extension_loaded('cURL')) {
-      $warning_array['curl'] = 'cURL should be turned on.  This is a <em>hosting</em> which you or your host may be able to turn on.';
-    }
-
-    if (!empty($configfile_array) || !empty($error_array) || !empty($warning_array)) {
-        ?>
-        
-        <table class="table table-condensed table-striped">
-          <?php
-          if (!empty($error_array)) {
-            foreach ( $error_array as $key => $value ) {
-              echo '<tr class="table-danger">';
-                echo '<th>' . $key . '</th>';
-                echo '<td>' . $value . '</td>';
-              echo '</tr>';
-            }
-          }
-          if (!empty($warning_array)) {
-            foreach ( $warning_array as $key => $value ) {
-              echo '<tr class="table-warning">';
-                echo '<th>' . $key . '</th>';
-                echo '<td>' . $value . '</td>';
-              echo '</tr>';
-            }
-          }
-          ?>
-        </table>
-<?php
-
-      if (!empty($configfile_array)) {
+  if (!empty($unwritable_files) || !empty($errors) || !empty($warnings)) {
 ?>
 
-        <div class="alert alert-danger" role="alert">
-          <p>The webserver is not able to save the installation parameters to its configuration files.</p>
-          <p>The following files need to have their file permissions set to world-writeable (chmod 777):</p>
-          <p>
-
+    <table class="table table-condensed table-striped">
 <?php
-        echo implode("<br>\n", $configfile_array);
-?>
-
-          </p>
-        </div>
-
-<?php
+    if (!empty($errors)) {
+      foreach ( $errors as $key => $value ) {
+        echo '<tr class="table-danger">';
+          echo '<th>' . $key . '</th>';
+          echo '<td>' . $value . '</td>';
+        echo '</tr>';
       }
     }
 
-    if (!empty($configfile_array) || !empty($error_array)) {
-?>
-
-      
-
-<?php
-      if (!empty($error_array)) {
-        echo '<div class="alert alert-info" role="alert"><i>Changing webserver configuration parameters may require the webserver service to be restarted before the changes take affect.</i></div>' . "\n";
+    if (!empty($warnings)) {
+      foreach ( $warnings as $key => $value ) {
+        echo '<tr class="table-warning">';
+          echo '<th>' . $key . '</th>';
+          echo '<td>' . $value . '</td>';
+        echo '</tr>';
       }
+    }
 ?>
 
-      <p><a href="index.php" class="btn btn-danger btn-block" role="button">Retry</a></p>
+    </table>
 
 <?php
-    } else {
+    if (!empty($unwritable_files)) {
 ?>
 
-      <div class="alert alert-success" role="alert">Please proceed with the installation and configuration of your online store.</div>
+    <div class="alert alert-danger" role="alert">
+      <?= TEXT_CONFIGURATION_NOT_WRITABLE ?>
+      <ul>
+        <li><?= implode("</li>\n<li>", $unwritable_files) ?></li>
+      </ul>
+    </div>
 
-      <div id="jsOn" style="display: none;">
-        <p><a href="install.php" class="btn btn-success btn-block" role="button">Start the installation procedure</a></p>
-      </div>
+<?php
+    }
+  }
 
-      <div id="jsOff">
-        <p class="text-danger">Please enable Javascript in your browser to be able to start the installation procedure.</p>
-        <p><a href="index.php" class="btn btn-danger btn-block" role="button">Retry</a></p>
-      </div>
+  if (!empty($unwritable_files) || !empty($errors)) {
+    if (!empty($errors)) {
+      echo '<div class="alert alert-info" role="alert"><i>' . TEXT_CHANGE_MAY_NEED_REBOOT . "</i></div>\n";
+    }
+?>
+
+    <p><a href="index.php" class="btn btn-danger btn-block" role="button"><?= BUTTON_RETRY ?></a></p>
+
+<?php
+  } else {
+?>
+
+    <div class="alert alert-success" role="alert"><?= TEXT_PLEASE_PROCEED ?></div>
+
+    <div id="jsOn" style="display: none;">
+      <p><a href="install.php" class="btn btn-success btn-block" role="button"><?= BUTTON_START_INSTALL ?></a></p>
+    </div>
+
+    <div id="jsOff">
+      <p class="text-danger"><?= TEXT_ENABLE_JS ?></p>
+      <p><a href="index.php" class="btn btn-danger btn-block" role="button"><?= BUTTON_RETRY ?></a></p>
+    </div>
 
 <script>
 $(function() {
@@ -151,69 +126,64 @@ $(function() {
 <?php
   }
 ?>
+
   </div>
   <div class="col-sm-12 col-md-3 order-first">
-    <h4>Server Capabilities</h4>
+    <h3><?= TEXT_SERVER_CAPABILITIES ?></h3>
 
     <table class="table table-condensed table-striped">
       <tr>
-        <th colspan="3">PHP Version</th>
+        <th colspan="3"><?= TEXT_PHP_VERSION ?></th>
       </tr>
       <tr>
-        <th><?php echo implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]); ?></th>
-        <td colspan="2" class="text-right"><?php echo $php_version_thumb; ?></td>
+        <th><?= implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]) ?></th>
+        <td colspan="2" class="text-right"><?= $php_version_thumb ?></td>
       </tr>
-<?php
-  if (function_exists('ini_get')) {
-?>
       <tr>
-        <th colspan="3">PHP Settings</th>
+        <th colspan="3"><?= TEXT_PHP_SETTINGS ?></th>
       </tr>
       <tr>
         <th>file_uploads</th>
-        <td class="text-right"><?php echo (((int)ini_get('file_uploads') == 0) ? 'Off' : 'On'); ?></td>
-        <td class="text-right"><?php echo (((int)ini_get('file_uploads') == 1) ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-danger"></i>'); ?></td>
+        <td class="text-right"><?= ((int)ini_get('file_uploads') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-right"><?= ((int)ini_get('file_uploads') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>auto_start</th>
-        <td class="text-right"><?php echo (((int)ini_get('session.auto_start') == 0) ? 'Off' : 'On'); ?></td>
-        <td class="text-right"><?php echo (((int)ini_get('session.auto_start') == 0) ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-danger"></i>'); ?></td>
+        <td class="text-right"><?= ((int)ini_get('session.auto_start') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-right"><?= ((int)ini_get('session.auto_start') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>use_trans_sid</th>
-        <td class="text-right"><?php echo (((int)ini_get('session.use_trans_sid') == 0) ? 'Off' : 'On'); ?></td>
-        <td class="text-right"><?php echo (((int)ini_get('session.use_trans_sid') == 0) ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-danger"></i>'); ?></td>
+        <td class="text-right"><?= ((int)ini_get('session.use_trans_sid') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-right"><?= ((int)ini_get('session.use_trans_sid') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
-        <th colspan="3">Required Extensions</th>
+        <th colspan="3"><?= TEXT_REQUIRED_EXTENSIONS ?></th>
       </tr>
       <tr>
-        <th>MySQL<?php echo extension_loaded('mysqli') ? 'i' : ''; ?></th>
-        <td colspan="2" class="text-right"><?php echo (extension_loaded('mysqli') ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-danger"></i>'); ?></td>
+        <th>MySQLi</th>
+        <td colspan="2" class="text-right"><?= extension_loaded('mysqli') ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>allow_url_fopen</th>
-        <td class="text-right"><?php echo (((int)ini_get('allow_url_fopen') == 0) ? 'Off' : 'On'); ?></td>
-        <td class="text-right"><?php echo (((int)ini_get('allow_url_fopen') == 1) ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-danger"></i>'); ?></td>
+        <td class="text-right"><?= ((int)ini_get('allow_url_fopen') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-right"><?= ((int)ini_get('allow_url_fopen') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
-        <th colspan="3">Recommended Extensions</th>
+        <th colspan="3"><?= TEXT_RECOMMENDED_EXTENSIONS ?></th>
       </tr>
       <tr>
         <th>GD</th>
-        <td colspan="2" class="text-right"><?php echo (extension_loaded('gd') ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-warning"></i>'); ?></td>
+        <td colspan="2" class="text-right"><?= extension_loaded('gd') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
       <tr>
         <th>cURL</th>
-        <td colspan="2" class="text-right"><?php echo (extension_loaded('curl') ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-warning"></i>'); ?></td>
+        <td colspan="2" class="text-right"><?= extension_loaded('curl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
       <tr>
         <th>OpenSSL</th>
-        <td colspan="2" class="text-right"><?php echo (extension_loaded('openssl') ? '<i class="fas fa-thumbs-up text-success"></i>' : '<i class="fas fa-thumbs-down text-warning"></i>'); ?></td>
+        <td colspan="2" class="text-right"><?= extension_loaded('openssl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
     </table>
-<?php
-  }
-?>
   </div>
 </div>
