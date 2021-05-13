@@ -106,7 +106,7 @@
     return currencies::round($number, $precision);
   }
 
-  function tep_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
+  function tep_get_tax_rate($class_id, $country_id = null, $zone_id = null) {
     return Tax::get_rate($class_id, $country_id, $zone_id);
   }
 
