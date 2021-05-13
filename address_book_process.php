@@ -36,7 +36,7 @@
     $customer_details = $customer_data->process($customer_data->get_fields_for_page('address_book'));
     $hooks->cat('injectFormVerify');
     if (Form::processing_is_valid()) {
-      if ($_POST['action'] == 'update') {
+      if ('update' === $_POST['action']) {
         $check_query = $db->query("SELECT * FROM address_book WHERE address_book_id = '" . (int)$_GET['edit'] . "' AND customers_id = " . (int)$_SESSION['customer_id'] . " LIMIT 1");
         if (mysqli_num_rows($check_query) === 1) {
           if ( 'on' === ($_POST['primary'] ?? null) ) {
@@ -113,6 +113,6 @@
     $back_link = $_SESSION['navigation']->link_snapshot('address_book.php');
   }
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

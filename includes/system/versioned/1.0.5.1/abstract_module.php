@@ -12,8 +12,6 @@
 
   abstract class abstract_module {
 
-    const CONFIG_KEY_BASE = self::CONFIG_KEY_BASE;
-
     public $code;
     public $title;
     public $description;
@@ -48,8 +46,8 @@
 
     public function check() {
       if (!isset($this->_check)) {
-        $check_query = tep_db_query("SELECT configuration_value FROM configuration WHERE configuration_key = '" . $this->status_key . "'");
-        $this->_check = tep_db_num_rows($check_query);
+        $check_query = $GLOBALS['db']->query("SELECT configuration_value FROM configuration WHERE configuration_key = '" . $this->status_key . "'");
+        $this->_check = mysqli_num_rows($check_query);
       }
 
       return $this->_check;
@@ -76,7 +74,7 @@
           $sql_data['use_function'] = $data['use_func'];
         }
 
-        tep_db_perform('configuration', $sql_data);
+        $GLOBALS['db']->perform('configuration', $sql_data);
         $sort_order++;
       }
     }
@@ -95,7 +93,7 @@
     }
 
     public function remove() {
-      tep_db_query("DELETE FROM configuration WHERE configuration_key IN ('" . implode("', '", $this->keys()) . "')");
+      $GLOBALS['db']->query("DELETE FROM configuration WHERE configuration_key IN ('" . implode("', '", $this->keys()) . "')");
     }
 
     public function keys() {
