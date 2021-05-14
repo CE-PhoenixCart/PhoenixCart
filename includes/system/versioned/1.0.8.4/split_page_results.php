@@ -151,7 +151,7 @@
       return $display_links_string;
     }
 
-    function display_count($text_output) {
+    public function display_count($text_output) {
       $to_num = ($this->number_of_rows_per_page * $this->current_page_number);
       if ($to_num > $this->number_of_rows) {
         $to_num = $this->number_of_rows;
@@ -166,6 +166,22 @@
       }
 
       return sprintf($text_output, $from_num, $to_num, $this->number_of_rows);
+    }
+
+    public static function create_sort_heading($sortby, $colnum, $heading, $class = 'dropdown-item') {
+      if (!$sortby) {
+        return $heading;
+      }
+
+      $link = $GLOBALS['Linker']->build()->retain_parameters(['info', 'page']);
+      $link->set_parameter('sort', $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a'));
+
+      $selected = substr($sortby, 0, -1) == $colnum;
+      $ascending = substr($sortby, -1) === 'a';
+      $title = sprintf(($selected && $ascending) ? TEXT_DESCENDINGLY : TEXT_ASCENDINGLY, $heading);
+      $text = sprintf(($selected ? ($ascending ? LISTING_SORT_DOWN : LISTING_SORT_UP) : LISTING_SORT_UNSELECTED), $heading);
+
+      return '<a href="' . $link. '" title="' . Text::output($title) . '" class="' . $class . '">' . $text . '</a>';
     }
 
   }

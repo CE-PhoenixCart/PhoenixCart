@@ -10,52 +10,53 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('account.php', '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('account_history.php', '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('account_history.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
 <?php
-  if (tep_count_customer_orders() > 0) {
-    $history_query_raw = sprintf(<<<'EOSQL'
-SELECT o.*, ot.text as order_total, s.orders_status_name
+  if ($customer->count_orders() > 0) {
+    $history_sql = sprintf(<<<'EOSQL'
+SELECT o.*, ot.text AS order_total, s.orders_status_name
  FROM orders o INNER JOIN orders_total ot ON o.orders_id = ot.orders_id INNER JOIN orders_status s ON o.orders_status = s.orders_status_id
  WHERE ot.class = 'ot_total' AND s.public_flag = 1 AND s.language_id = %d AND o.customers_id = %d
  ORDER BY orders_id DESC
 EOSQL
-      , (int)$languages_id, (int)$customer_id);
-    $history_split = new splitPageResults($history_query_raw, MAX_DISPLAY_ORDER_HISTORY);
-    $history_query = tep_db_query($history_split->sql_query);
+      , (int)$_SESSION['languages_id'], (int)$_SESSION['customer_id']);
+    $history_split = new splitPageResults($history_sql, MAX_DISPLAY_ORDER_HISTORY);
+    $history_query = $db->query($history_split->sql_query);
 ?>
     <div class="table-responsive">
       <table class="table table-hover table-striped">
-        <caption class="sr-only"><?php echo $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS); ?></caption>
+        <caption class="sr-only"><?= $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS) ?></caption>
         <thead class="thead-dark">
           <tr>
-            <th scope="col"><?php echo TEXT_ORDER_NUMBER; ?></th>
-            <th scope="col" class="d-none d-md-table-cell"><?php echo TEXT_ORDER_STATUS; ?></th>
-            <th scope="col"><?php echo TEXT_ORDER_DATE; ?></th>
-            <th scope="col" class="d-none d-md-table-cell"><?php echo TEXT_ORDER_PRODUCTS; ?></th>
-            <th scope="col"><?php echo TEXT_ORDER_COST; ?></th>
-            <th class="text-right" scope="col"><?php echo TEXT_VIEW_ORDER; ?></th>
+            <th scope="col"><?= TEXT_ORDER_NUMBER ?></th>
+            <th scope="col" class="d-none d-md-table-cell"><?= TEXT_ORDER_STATUS ?></th>
+            <th scope="col"><?= TEXT_ORDER_DATE ?></th>
+            <th scope="col" class="d-none d-md-table-cell"><?= TEXT_ORDER_PRODUCTS ?></th>
+            <th scope="col"><?= TEXT_ORDER_COST ?></th>
+            <th class="text-right" scope="col"><?= TEXT_VIEW_ORDER ?></th>
           </tr>
         </thead>
         <tbody>
           <?php
-          while ($history = tep_db_fetch_array($history_query)) {
-            $products_query = tep_db_query("select sum(products_quantity) as count from orders_products where orders_id = '" . (int)$history['orders_id'] . "'");
-            $products = tep_db_fetch_array($products_query);
+          $order_link = $Linker->build('account_history_info.php')->retain_parameters();
+          while ($history = $history_query->fetch_assoc()) {
+            $products = $db->query("SELECT SUM(products_quantity) AS count FROM orders_products WHERE orders_id = " . (int)$history['orders_id'])->fetch_assoc();
+            $order_link->set_parameter('order_id', (int)$history['orders_id'])
             ?>
             <tr>
-              <th scope="row"><?php echo $history['orders_id']; ?></th>
-              <td class="d-none d-md-table-cell"><?php echo $history['orders_status_name']; ?></td>
-              <td><?php echo tep_date_short($history['date_purchased']); ?></td>
-              <td class="d-none d-md-table-cell"><?php echo $products['count']; ?></td>
-              <td><?php echo strip_tags($history['order_total']); ?></td>
-              <td class="text-right"><?php echo tep_draw_button(BUTTON_VIEW_ORDER, null, tep_href_link('account_history_info.php', tep_get_all_get_params(['order_id']) . 'order_id=' . (int)$history['orders_id'], 'SSL'), 'primary', NULL, 'btn-primary btn-sm'); ?></td>
+              <th scope="row"><?= $history['orders_id'] ?></th>
+              <td class="d-none d-md-table-cell"><?= $history['orders_status_name'] ?></td>
+              <td><?= Date::abridge($history['date_purchased']) ?></td>
+              <td class="d-none d-md-table-cell"><?= $products['count'] ?></td>
+              <td><?= strip_tags($history['order_total']) ?></td>
+              <td class="text-right"><?= new Button(BUTTON_VIEW_ORDER, '', 'btn-primary btn-sm', [], $order_link) ?></td>
             </tr>
             <?php
           }
@@ -66,10 +67,10 @@ EOSQL
 
     <div class="row align-items-center">
       <div class="col-sm-6 d-none d-sm-block">
-        <?php echo $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS); ?>
+        <?= $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS) ?>
       </div>
       <div class="col-sm-6">
-        <?php echo $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, tep_get_all_get_params(['page', 'info', 'x', 'y'])); ?>
+        <?= $history_split->display_links(MAX_DISPLAY_PAGE_LINKS) ?>
       </div>
     </div>
 
@@ -78,7 +79,7 @@ EOSQL
 ?>
 
   <div class="alert alert-info" role="alert">
-    <p><?php echo TEXT_NO_PURCHASES; ?></p>
+    <p><?= TEXT_NO_PURCHASES ?></p>
   </div>
 
 <?php
@@ -86,9 +87,9 @@ EOSQL
 ?>
 
   <div class="buttonSet my-2">
-    <?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('account.php', '', 'SSL'), null, null, 'btn-light'); ?>
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>
