@@ -28,6 +28,7 @@
   }
 
   function tep_sanitize_string($string) {
+    trigger_error('The tep_sanitize_string function has been deprecated.', E_USER_DEPRECATED);
     return Text::sanitize($string);
   }
 
@@ -123,43 +124,18 @@
   }
 
   function tep_get_categories($categories_array = '', $parent_id = '0', $indent = '') {
-    if (!is_array($categories_array)) $categories_array = [];
-
-    $categories_query = $GLOBALS['db']->query("SELECT c.categories_id, cd.categories_name FROM categories c, categories_description cd WHERE parent_id = " . (int)$parent_id . " AND c.categories_id = cd.categories_id AND cd.language_id = " . (int)$_SESSION['languages_id'] . " ORDER BY sort_order, cd.categories_name");
-    while ($categories = $categories_query->fetch_assoc()) {
-      $categories_array[] = [
-        'id' => $categories['categories_id'],
-        'text' => $indent . $categories['categories_name'],
-      ];
-
-      if ($categories['categories_id'] != $parent_id) {
-        $categories_array = tep_get_categories($categories_array, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
-      }
-    }
-
-    return $categories_array;
+    trigger_error('The tep_get_categories function has been deprecated.', E_USER_DEPRECATED);
+    return Guarantor::ensure_global('category_tree')->get_selections($categories_array, $parent_id, $indent);
   }
 
   function tep_get_manufacturers($manufacturers = []) {
-    $manufacturers_query = $GLOBALS['db']->query("SELECT manufacturers_id, manufacturers_name FROM manufacturers ORDER BY manufacturers_name");
-    while ($manufacturer = $manufacturers_query->fetch_assoc()) {
-      $manufacturers[] = ['id' => $manufacturer['manufacturers_id'], 'text' => $manufacturer['manufacturers_name']];
-    }
-
-    return $manufacturers;
+    trigger_error('The tep_get_manufacturers function has been deprecated.', E_USER_DEPRECATED);
+    return array_merge($manufacturers, $GLOBALS['db']->fetch_all("SELECT manufacturers_id AS id, manufacturers_name AS text FROM manufacturers ORDER BY manufacturers_name"));
   }
 
-////
-// Return all subcategory IDs
-// TABLES: categories
-  function tep_get_subcategories(&$subcategories_array, $parent_id = 0) {
-    $subcategories_query = $GLOBALS['db']->query("SELECT categories_id FROM categories WHERE parent_id = " . (int)$parent_id);
-    while ($subcategories = $subcategories_query->fetch_assoc()) {
-      $subcategories_array[] = $subcategories['categories_id'];
-      if ($subcategories['categories_id'] != $parent_id) {
-        tep_get_subcategories($subcategories_array, $subcategories['categories_id']);
-      }
-    }
+  function tep_get_subcategories(&$subcategories, $parent_id = 0) {
+    trigger_error('The tep_get_subcategories function has been deprecated.', E_USER_DEPRECATED);
+    $subcategories = array_merge($subcategories, Guarantor::ensure_global('category_tree')->get_descendants($parent_id));
   }
 
   function tep_date_long($raw_date) {
@@ -172,7 +148,7 @@
 
   function tep_parse_search_string($search_str = '', &$objects = []) {
     trigger_error('The tep_parse_search_string function has been deprecated.', E_USER_DEPRECATED);
-    $search = new Search($search_string);
+    $search = new Search($search_str);
     $objects = $search->ensure_operator_separated();
     return Search::is_balanced($objects);
   }
@@ -180,17 +156,8 @@
 ////
 // Return table heading with sorting capabilities
   function tep_create_sort_heading($sortby, $colnum, $heading) {
-    global $PHP_SELF;
-
-    $sort_prefix = '';
-    $sort_suffix = '';
-
-    if ($sortby) {
-	  $sort_prefix = '<a href="' . tep_href_link($PHP_SELF, tep_get_all_get_params(['info', 'sort', 'page']) . 'sort=' . $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a')) . '" title="' . Text::output(TEXT_SORT_PRODUCTS . ($sortby == $colnum . 'd' || substr($sortby, 0, 1) != $colnum ? TEXT_ASCENDINGLY : TEXT_DESCENDINGLY) . TEXT_BY . $heading) . '" class="dropdown-item">' ;
-      $sort_suffix = (substr($sortby, 0, 1) == $colnum ? (substr($sortby, 1, 1) == 'a' ? LISTING_SORT_DOWN : LISTING_SORT_UP) : LISTING_SORT_UNSELECTED) . '</a>';
-    }
-
-    return $sort_prefix . $heading . $sort_suffix;
+    trigger_error('The tep_create_sort_heading function has been deprecated.', E_USER_DEPRECATED);
+    return splitPageResult::create_sort_heading($sortby, $colnum, $heading);
   }
 
   function tep_get_parent_categories(&$categories, $categories_id) {
@@ -242,11 +209,12 @@
   }
 
   function tep_notify($trigger, $subject) {
+    trigger_error('The tep_notify function has been deprecated.', E_USER_DEPRECATED);
     return Notifications::notify($trigger, $subject);
   }
 
   function tep_has_product_attributes($products_id) {
-    return product_by_id::build($products_id)->get('has_attributes');
+    return product_by_id::build($products_id)->get('has_attributes') === '1';
   }
 
   function tep_count_modules($modules = '') {
@@ -271,7 +239,7 @@
   }
 
   function tep_count_shipping_modules() {
-    return tep_count_modules(MODULE_SHIPPING_INSTALLED);
+    return $GLOBALS['shipping_modules']->count();
   }
 
   function tep_create_random_value($length, $type = 'mixed') {
@@ -284,6 +252,7 @@
   }
 
   function tep_array_to_string($array, $excludes = [], $equals = '=', $separator = '&') {
+    trigger_error('The tep_array_to_string function has been deprecated.', E_USER_DEPRECATED);
     $get_string = '';
     foreach (array_diff($array, array_unique(array_merge($excludes, ['x', 'y']))) as $key => $value) {
       $get_string .= "$key$equals$value$separator";
@@ -343,27 +312,24 @@
   }
 
   function tep_count_customer_orders($id = '', $check_session = true) {
+    trigger_error('The tep_count_customer_orders function has been deprecated.', E_USER_DEPRECATED);
     if (!is_numeric($id)) {
       $id = $_SESSION['customer_id'] ?? 0;
+    }
+
+    if (isset($GLOBALS['customer']) && ($GLOBALS['customer'] instanceof customer) && ($GLOBALS['customer']->get_id() == $id)) {
+      return $GLOBALS['customer']->count_orders();
     }
 
     if ($check_session && ($id !== ($_SESSION['customer_id'] ?? null)) ) {
       return 0;
     }
 
-    $orders_check_query = $GLOBALS['db']->query("SELECT COUNT(*) AS total FROM orders o, orders_status s WHERE o.customers_id = " . (int)$id . " AND o.orders_status = s.orders_status_id AND s.language_id = " . (int)$_SESSION['languages_id'] . " AND s.public_flag = 1");
-    $orders_check = $orders_check_query->fetch_assoc();
-
-    return $orders_check['total'];
+    return (new customer($id))->count_orders();
   }
 
   function tep_delete_order($order_id) {
-    $GLOBALS['db']->query('DELETE FROM orders WHERE orders_id = ' . (int)$order_id);
-    $GLOBALS['db']->query('DELETE FROM orders_total WHERE orders_id = ' . (int)$order_id);
-    $GLOBALS['db']->query('DELETE FROM orders_status_history WHERE orders_id = ' . (int)$order_id);
-    $GLOBALS['db']->query('DELETE FROM orders_products WHERE orders_id = ' . (int)$order_id);
-    $GLOBALS['db']->query('DELETE FROM orders_products_attributes WHERE orders_id = ' . (int)$order_id);
-    $GLOBALS['db']->query('DELETE FROM orders_products_download WHERE orders_id = ' . (int)$order_id);
+    order::remove($order_id, false);
   }
 
   function tep_validate_form_action_is($action = 'process', $level = 1) {
@@ -382,8 +348,6 @@
   }
 
   function tep_require_login($parameters = null) {
-    if (!isset($_SESSION['customer_id'])) {
-      $_SESSION['navigation']->set_snapshot($parameters);
-      Href::redirect($GLOBALS['Linker']->build('login.php'));
-    }
+    trigger_error('The tep_require_login function has been deprecated.', E_USER_DEPRECATED);
+    Login::require($parameters);
   }
