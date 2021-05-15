@@ -12,8 +12,8 @@
 
   $listing_split = new splitPageResults($listing_sql, $num_list, 'p.products_id');
 
-  if ($messageStack->size('product_action') > 0) {
-    echo $messageStack->output('product_action');
+  if ($GLOBALS['messageStack']->size('product_action') > 0) {
+    echo $GLOBALS['messageStack']->output('product_action');
   }
 ?>
 
@@ -59,7 +59,7 @@
     $prod_list_contents = '';
 
     while ($listing = $listing_query->fetch_assoc()) {
-      $listing['link'] = Product::build_link($listing['products_id'], tep_get_all_get_params(['products_id']));
+      $listing['link'] = Product::build_link($listing['products_id'], null);
       $product = new Product($listing);
       $card = [
         'show_buttons' => true,

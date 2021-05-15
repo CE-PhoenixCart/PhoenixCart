@@ -23,12 +23,16 @@ pd.*, p.*,
 EOSQL;
 
     public static function build_link($product, $parameters = []) {
-      if (is_string($parameters)) {
-        $parameters = phoenix_parameterize($parameters);
+      if (is_array($parameters)) {
+        $link = $GLOBALS['Linker']->build('product_info.php', $parameters);
+      } elseif (is_string($parameters)) {
+        $link = $GLOBALS['Linker']->build('product_info.php', phoenix_parameterize($parameters));
+      } else {
+        $link = $GLOBALS['Linker']->build('product_info.php')->retain_parameters();
       }
 
       $product_id = is_numeric($product) ? $product : $product->get('id');
-      return $GLOBALS['Linker']->build('product_info.php', $parameters)->set_parameter('products_id', (int)$product_id);
+      return $link->set_parameter('products_id', (int)$product_id);
     }
 
     public static function build_data_attributes($product, $data = []) {

@@ -14,6 +14,7 @@
     $default_column = 'PRODUCT_LIST_NAME';
   }
 
+  class_exists('splitPageResults');
   $column_specifications = array_filter([
     'PRODUCT_LIST_MODEL' => [
       'order_by' => " ORDER BY p.products_model%s, pd.products_name",
