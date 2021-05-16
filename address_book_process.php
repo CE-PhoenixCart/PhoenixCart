@@ -35,7 +35,7 @@
   if (Form::validate_action_is(['process', 'update'])) {
     $customer_details = $customer_data->process($customer_data->get_fields_for_page('address_book'));
     $hooks->cat('injectFormVerify');
-    if (Form::processing_is_valid()) {
+    if (Form::is_valid()) {
       if ('update' === $_POST['action']) {
         $check_query = $db->query("SELECT * FROM address_book WHERE address_book_id = '" . (int)$_GET['edit'] . "' AND customers_id = " . (int)$_SESSION['customer_id'] . " LIMIT 1");
         if (mysqli_num_rows($check_query) === 1) {
