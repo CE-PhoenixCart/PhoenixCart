@@ -43,7 +43,7 @@
   </div>
 
   <div class="buttonSet">
-    <div class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', tep_href_link('address_book_process.php', 'delete=' . $_GET['delete'] . '&action=deleteconfirm&formid=' . md5($_SESSION['sessiontoken']), 'SSL'), 'primary', NULL, 'btn-danger btn-lg btn-block'); ?></div>
+    <div class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', tep_href_link('address_book_process.php', 'delete=' . $_GET['delete'] . '&action=deleteconfirm&formid=' . $_SESSION['sessiontoken'], 'SSL'), 'primary', NULL, 'btn-danger btn-lg btn-block'); ?></div>
     <p><?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('address_book.php', '', 'SSL')); ?></p>
   </div>
 
