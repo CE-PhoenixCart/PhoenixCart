@@ -35,10 +35,7 @@
       }
       $other_img .= '</div>';
     }
-  ?>
-</div>
 
-<?php
     $swipe_arrows = '';
     if (MODULE_CONTENT_PI_GALLERY_SWIPE_ARROWS == 'True') {
       $swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>';
@@ -84,7 +81,11 @@ mc;
 
   echo $pi_image;
   echo $pi_thumb;
+  ?>
 
+</div>
+
+<?php
 /*
   $Id$
 
