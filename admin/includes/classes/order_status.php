@@ -12,7 +12,7 @@
 
   class order_status {
 
-    public static function fetch_name($orders_status_id, $language_id = '') {
+    public static function fetch_name($order_status_id, $language_id = false) {
       if ($order_status_id < 1) {
         return TEXT_DEFAULT;
       }
@@ -21,7 +21,7 @@
         $language_id = $_SESSION['languages_id'];
       }
 
-      $orders_status_query = $GLOBALS['db']->query("SELECT orders_status_name FROM orders_status WHERE orders_status_id = " . (int)$orders_status_id . " AND language_id = " . (int)$language_id);
+      $orders_status_query = $GLOBALS['db']->query("SELECT orders_status_name FROM orders_status WHERE orders_status_id = " . (int)$order_status_id . " AND language_id = " . (int)$language_id);
       $orders_status = $orders_status_query->fetch_assoc();
 
       return $orders_status['orders_status_name'];
