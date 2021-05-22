@@ -11,7 +11,7 @@
 */
 ?>
 
-  <p class="text-right"><?php echo FORM_REQUIRED_INFORMATION; ?></p>
+  <p class="text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
 
   <div class="contentText">
 
@@ -30,10 +30,10 @@
 ?>
 
       <div class="form-group row">
-        <label for="primary" class="col-form-label col-sm-3 text-left text-sm-right"><?php echo SET_AS_PRIMARY; ?></label>
+        <label for="primary" class="col-form-label col-sm-3 text-left text-sm-right"><?= SET_AS_PRIMARY ?></label>
         <div class="col-sm-9">
           <div class="checkbox">
-            <label><?php echo tep_draw_checkbox_field('primary', 'on', false, 'id="primary"'); ?></label>
+            <label><?= new Tickable('primary', ['value' => 'on', 'id' => 'primary', 'class' => ''], 'checkbox') ?></label>
           </div>
         </div>
       </div>
