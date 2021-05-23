@@ -23,12 +23,13 @@ pd.*, p.*,
 EOSQL;
 
     public static function build_link($product, $parameters = []) {
+      $Linker = Guarantor::ensure_global('Linker');
       if (is_array($parameters)) {
-        $link = $GLOBALS['Linker']->build('product_info.php', $parameters);
+        $link = $Linker->build('product_info.php', $parameters);
       } elseif (is_string($parameters)) {
-        $link = $GLOBALS['Linker']->build('product_info.php', phoenix_parameterize($parameters));
+        $link = $Linker->build('product_info.php', phoenix_parameterize($parameters));
       } else {
-        $link = $GLOBALS['Linker']->build('product_info.php')->retain_parameters();
+        $link = $Linker->build('product_info.php')->retain_parameters();
       }
 
       $product_id = is_numeric($product) ? $product : $product->get('id');
