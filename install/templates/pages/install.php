@@ -32,7 +32,7 @@
 
     $('.mBox').show();
 
-    $('.mBoxContents').html('<div class="alert alert-warning"><?= TEXT_TESTING_DB ?></div>');
+    $('.mBoxContents').html('<div class="alert alert-warning">' + <?= json_encode(TEXT_TESTING_DB) ?> + '</div>');
 
     dbServer = $('#DB_SERVER').val();
     dbUsername = $('#DB_SERVER_USERNAME').val();
@@ -45,14 +45,14 @@
       result.shift();
 
       if (result[0] == '1') {
-        $('.mBoxContents').html('<div class="alert alert-success"><?= TEXT_IMPORTING_DB ?></div>');
+        $('.mBoxContents').html('<div class="alert alert-success">' + <?= json_encode(TEXT_IMPORTING_DB) ?> + '</div>');
 
         $.get('rpc.php?action=dbImport&server=' + encodeURIComponent(dbServer) + '&username=' + encodeURIComponent(dbUsername) + '&password='+ encodeURIComponent(dbPassword) + '&name=' + encodeURIComponent(dbName) + '&importsample=' + encodeURIComponent(dbImportSample), function (response2) {
           var result2 = /\[\[([^|]*?)(?:\|([^|]*?)){0,1}\]\]/.exec(response2);
           result2.shift();
 
           if (result2[0] == '1') {
-            $('.mBoxContents').html('<div class="alert alert-success"><?= TEXT_DB_SUCCESS ?></div>');
+            $('.mBoxContents').html('<div class="alert alert-success">' + <?= json_encode(TEXT_DB_SUCCESS) ?> + '</div>');
 
             formSuccess = true;
 
@@ -62,7 +62,7 @@
           } else {
             var result2_error = result2[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-            $('.mBoxContents').html('<div class="alert alert-danger"><?= TEXT_DB_PROBLEM ?></div>'.replace('%s', result2_error));
+            $('.mBoxContents').html('<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_PROBLEM) ?>.replace('%s', result2_error) + '</div>');
 
             formSubmited = false;
           }
@@ -72,7 +72,7 @@
       } else {
         var result_error = result[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-        $('.mBoxContents').html('<div class="alert alert-danger"><?= TEXT_DB_CONNECTION_PROBLEM ?></div>'.replace('%s', result_error));
+        $('.mBoxContents').html('<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_CONNECTION_PROBLEM) ?>.replace('%s', result_error) + '</div>');
 
         formSubmited = false;
       }
@@ -138,7 +138,7 @@
       <div class="form-group row">
         <label for="dbServer" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_SERVER ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_SERVER', ['id' => 'dbServer', 'placeholder' => 'localhost']))->require(),
+          <?= (new Input('DB_SERVER', ['id' => 'DB_SERVER', 'placeholder' => 'localhost']))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_DATABASE_ADDRESS ?>
         </div>
@@ -147,7 +147,7 @@
       <div class="form-group row">
         <label for="userName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_USERNAME ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_SERVER_USERNAME', ['id' => 'userName', 'placeholder' => TEXT_USERNAME]))->require(),
+          <?= (new Input('DB_SERVER_USERNAME', ['id' => 'DB_SERVER_USERNAME', 'placeholder' => TEXT_USERNAME]))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_USERNAME_DESCRIPTION ?>
         </div>
@@ -156,7 +156,7 @@
       <div class="form-group row">
         <label for="passWord" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PASSWORD ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_SERVER_PASSWORD', ['id' => TEXT_PASSWORD], 'password'))->require(),
+          <?= (new Input('DB_SERVER_PASSWORD', ['id' => 'DB_SERVER_PASSWORD'], 'password'))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_PASSWORD_DESCRIPTION ?>
         </div>
@@ -165,7 +165,7 @@
       <div class="form-group row">
         <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_NAME ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_DATABASE', ['id' => 'dbName"', 'placeholder' => TEXT_DATABASE]))->require(),
+          <?= (new Input('DB_DATABASE', ['id' => 'DB_DATABASE', 'placeholder' => TEXT_DATABASE]))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_NAME_DESCRIPTION ?>
         </div>
@@ -174,7 +174,10 @@
       <div class="form-group row">
         <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_IMPORT_SAMPLE_DATA ?></label>
         <div class="col-sm-9">
-          <?= (new Select('DB_IMPORT_SAMPLE', [['id' => '0', 'text' => TEXT_SKIP_SAMPLE_DATA], ['id' => '1', 'text' => TEXT_IMPORT_SAMPLE_DATA]]))->set_selection('1'),
+          <?= (new Select('DB_IMPORT_SAMPLE', [
+                 ['id' => '0', 'text' => TEXT_SKIP_SAMPLE_DATA],
+                 ['id' => '1', 'text' => TEXT_IMPORT_SAMPLE_DATA]
+               ], ['id' => 'DB_IMPORT_SAMPLE']))->set_selection('1'),
               TEXT_REQUIRED_INFORMATION,
               TEXT_SAMPLE_IMPORT_DESCRIPTION ?>
         </div>

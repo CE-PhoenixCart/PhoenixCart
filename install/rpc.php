@@ -33,8 +33,11 @@
           exit("[[0|{$db->error}]]");
         }
 
-        $version = $db->real_query("SELECT VERSION() AS `v`")->fetch_assoc()['v'];
-        list($number) = explode('-', $version);
+        if ($version_query = mysqli_query($db, "SELECT VERSION() AS `v`")) {
+          list($number) = explode('-', $version_query->fetch_assoc()['v']);
+        } else {
+          exit("[[0|{$db->error}]]");
+        }
 
         if (version_compare($number, '5.7.7', '<')) {
           exit("[[-5|$version]]");
@@ -72,10 +75,10 @@
           }
         }
 
-        installer::load_sql(__DIR__ . '/phoenix.sql');
+        installer::load_sql($db, __DIR__ . '/phoenix.sql');
 
         if (!$db->errno && (trim($_GET['importsample']) === '1')) {
-          installer::load_sql(__DIR__ . '/phoenix_data_sample.sql');
+          installer::load_sql($db, __DIR__ . '/phoenix_data_sample.sql');
         }
 
         if ($db->errno) {

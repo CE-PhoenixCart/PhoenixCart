@@ -64,14 +64,14 @@
         explode(";\n",
           trim(implode('',
               array_filter(
-                file($file),
+                file($sql_file),
                 function ($s) {
                   $s = trim($s);
                   return ('' !== $s) && ('#' !== $s[0]);
                 })), "; \n\r\t\v\0")
         ) as $sql)
       {
-        if (!$this->query($sql)) {
+        if (!$db->query($sql)) {
           return false;
         }
       }
