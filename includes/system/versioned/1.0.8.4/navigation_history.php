@@ -97,14 +97,24 @@
       ];
     }
 
-    public function pop_snapshot_as_link() {
+    public function link_snapshot($default = null) {
       if (empty($this->snapshot)) {
-        return tep_href_link('index.php');
+        return $GLOBALS['Linker']->build($default ?? 'index.php');
       }
 
-      $origin_href = tep_href_link(
+      $origin_href = $GLOBALS['Linker']->build(
         $this->snapshot['page'],
-        tep_array_to_string($this->snapshot['get'], [session_name()]));
+        array_diff_key($this->snapshot['get'], array_flip([session_name()])));
+
+      return $origin_href;
+    }
+
+    public function pop_snapshot_as_link() {
+      if (empty($this->snapshot)) {
+        return $GLOBALS['Linker']->build('index.php');
+      }
+
+      $origin_href = $this->link_snapshot();
 
       $this->clear_snapshot();
       return $origin_href;
@@ -129,7 +139,10 @@
       if (count($this->snapshot) > 0) {
         echo '<br><br>';
 
-        echo $this->snapshot['page'] . '?' . tep_array_to_string($this->snapshot['get'], [session_name()]) . '<br>';
+        echo $GLOBALS['Linker']->build(
+          $this->snapshot['page'],
+          array_diff_key($this->snapshot['get'], array_flip([session_name()]))
+        ) . '<br>';
       }
     }
 

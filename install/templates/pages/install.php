@@ -32,7 +32,7 @@
 
     $('.mBox').show();
 
-    $('.mBoxContents').html('<div class="alert alert-warning"><i class="fas fa-spinner fa-spin fa-2x"></i> Testing database connection..</div>');
+    $('.mBoxContents').html('<div class="alert alert-warning">' + <?= json_encode(TEXT_TESTING_DB) ?> + '</div>');
 
     dbServer = $('#DB_SERVER').val();
     dbUsername = $('#DB_SERVER_USERNAME').val();
@@ -45,14 +45,14 @@
       result.shift();
 
       if (result[0] == '1') {
-        $('.mBoxContents').html('<div class="alert alert-success"><i class="fas fa-spinner fa-spin fa-2x"></i> The database structure is now being imported. Please be patient during this procedure.</div>');
+        $('.mBoxContents').html('<div class="alert alert-success">' + <?= json_encode(TEXT_IMPORTING_DB) ?> + '</div>');
 
-        $.get('rpc.php?action=dbImport&server=' + encodeURIComponent(dbServer) + '&username=' + encodeURIComponent(dbUsername) + '&password='+ encodeURIComponent(dbPassword) + '&name=' + encodeURIComponent(dbName) + '&importsample=' + encodeURIComponent(dbImportSample), function (response2) {      
+        $.get('rpc.php?action=dbImport&server=' + encodeURIComponent(dbServer) + '&username=' + encodeURIComponent(dbUsername) + '&password='+ encodeURIComponent(dbPassword) + '&name=' + encodeURIComponent(dbName) + '&importsample=' + encodeURIComponent(dbImportSample), function (response2) {
           var result2 = /\[\[([^|]*?)(?:\|([^|]*?)){0,1}\]\]/.exec(response2);
           result2.shift();
 
           if (result2[0] == '1') {
-            $('.mBoxContents').html('<div class="alert alert-success"><i class="fas fa-thumbs-up fa-2x"></i> Database imported successfully.</div>');
+            $('.mBoxContents').html('<div class="alert alert-success">' + <?= json_encode(TEXT_DB_SUCCESS) ?> + '</div>');
 
             formSuccess = true;
 
@@ -62,7 +62,7 @@
           } else {
             var result2_error = result2[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-            $('.mBoxContents').html('<div class="alert alert-danger"><p><i class="fas fa-thumbs-down fa-2x text-danger"></i> There was a problem importing the database. The following error had occured:</p><p  class="text-danger"><strong>%s</strong></p><p class="text-danger">Please verify the connection parameters and try again.</p></div>'.replace('%s', result2_error));
+            $('.mBoxContents').html('<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_PROBLEM) ?>.replace('%s', result2_error) + '</div>');
 
             formSubmited = false;
           }
@@ -72,7 +72,7 @@
       } else {
         var result_error = result[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-        $('.mBoxContents').html('<div class="alert alert-danger"><p><i class="fas fa-thumbs-down fa-2x text-danger"></i> There was a problem connecting to the database server. The following error had occured:</p><p class="text-danger"><strong>%s</strong></p><p class="text-danger">Please verify the connection parameters and try again.</p></div>'.replace('%s', result_error));
+        $('.mBoxContents').html('<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_CONNECTION_PROBLEM) ?>.replace('%s', result_error) + '</div>');
 
         formSubmited = false;
       }
@@ -96,20 +96,19 @@
 <div class="row">
   <div class="col-sm-9">
     <div class="alert alert-info" role="alert">
-      <h1>New Installation</h1>
+      <h1><?= TEXT_NEW_INSTALLATION ?></h1>
 
-      <p>This web-based installation routine will setup and configure <strong>Phoenix v<?php echo osc_get_version(); ?></strong> to run on this server.</p>
-      <p>Please follow the on-screen instructions that will take you through the database server, web server, and store configuration options. If help is needed at any stage, please consult the documentation or seek help in the Phoenix Club.</p>
+      <?= sprintf(TEXT_WEB_INSTALL, Versions::get('Phoenix')) ?>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="card mb-2">
       <div class="card-body">
         <ol>
-          <li class="text-success"><strong>Database Server</strong></li>
-          <li class="text-muted">Web Server</li>
-          <li class="text-muted">Online Store Settings</li>
-          <li class="text-muted">Finished!</li>
+          <li class="text-success"><strong><?= TEXT_DATABASE_SERVER ?></strong></li>
+          <li class="text-muted"><?= TEXT_WEB_SERVER ?></li>
+          <li class="text-muted"><?= TEXT_STORE_SETTINGS ?></li>
+          <li class="text-muted"><?= TEXT_FINISHED ?></li>
         </ol>
       </div>
       <div class="card-footer">
@@ -118,10 +117,10 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>
-  
+
 <div class="w-100"></div>
 
 <div class="row">
@@ -130,71 +129,73 @@
     <div class="mBox">
       <div class="mBoxContents"></div>
     </div>
-    
-    <h4>Database Server</h4>
-    <p class="text-danger pull-right text-right"><i class="fas fa-asterisk text-danger"></i> Required information</p>
+
+    <h2 class="display-4"><?= TEXT_DATABASE_SERVER ?></h2>
+    <p class="text-danger pull-right text-right"><?= TEXT_REQUIRED_INFORMATION ?></p>
 
     <form name="install" id="installForm" action="install.php?step=2" method="post" role="form">
-    
+
       <div class="form-group row">
-        <label for="dbServer" class="col-form-label col-sm-3 text-left text-sm-right">Database Server</label>
+        <label for="dbServer" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_SERVER ?></label>
         <div class="col-sm-9">
-          <?php echo osc_draw_input_field('DB_SERVER', NULL, 'required aria-required="true" id="dbServer" placeholder="localhost"'); ?>
-          <i class="fas fa-asterisk form-control-feedback text-danger"></i>
-          <small class="form-text text-muted">The address of the database server in the form of a hostname or IP address.</small>
+          <?= (new Input('DB_SERVER', ['id' => 'DB_SERVER', 'placeholder' => 'localhost']))->require(),
+              TEXT_REQUIRED_INFORMATION,
+              TEXT_DATABASE_ADDRESS ?>
         </div>
       </div>
-    
+
       <div class="form-group row">
-        <label for="userName" class="col-form-label col-sm-3 text-left text-sm-right">Username</label>
+        <label for="userName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_USERNAME ?></label>
         <div class="col-sm-9">
-          <?php echo osc_draw_input_field('DB_SERVER_USERNAME', NULL, 'required aria-required="true" id="userName" placeholder="Username"'); ?>
-          <i class="fas fa-asterisk form-control-feedback text-danger"></i>
-          <small class="form-text text-muted">The username used to connect to the database server.</small>
+          <?= (new Input('DB_SERVER_USERNAME', ['id' => 'DB_SERVER_USERNAME', 'placeholder' => TEXT_USERNAME]))->require(),
+              TEXT_REQUIRED_INFORMATION,
+              TEXT_USERNAME_DESCRIPTION ?>
         </div>
       </div>
-    
+
       <div class="form-group row">
-        <label for="passWord" class="col-form-label col-sm-3 text-left text-sm-right">Password</label>
+        <label for="passWord" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PASSWORD ?></label>
         <div class="col-sm-9">
-          <?php echo osc_draw_password_field('DB_SERVER_PASSWORD', NULL, 'required aria-required="true" id="passWord"'); ?>
-          <i class="fas fa-asterisk form-control-feedback text-danger"></i>
-          <small class="form-text text-muted">The password that is used together with the username to connect to the database server.</small>
+          <?= (new Input('DB_SERVER_PASSWORD', ['id' => 'DB_SERVER_PASSWORD'], 'password'))->require(),
+              TEXT_REQUIRED_INFORMATION,
+              TEXT_PASSWORD_DESCRIPTION ?>
         </div>
       </div>
-    
+
       <div class="form-group row">
-        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right">Database Name</label>
+        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_NAME ?></label>
         <div class="col-sm-9">
-          <?php echo osc_draw_input_field('DB_DATABASE', NULL, 'required aria-required="true" id="dbName" placeholder="Database"'); ?>
-          <i class="fas fa-asterisk form-control-feedback text-danger"></i>
-          <small class="form-text text-muted">The name of the database to hold the data in.</small>
+          <?= (new Input('DB_DATABASE', ['id' => 'DB_DATABASE', 'placeholder' => TEXT_DATABASE]))->require(),
+              TEXT_REQUIRED_INFORMATION,
+              TEXT_NAME_DESCRIPTION ?>
         </div>
       </div>
-      
+
       <div class="form-group row">
-        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right">Import Sample Data</label>
+        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_IMPORT_SAMPLE_DATA ?></label>
         <div class="col-sm-9">
-          <?php echo osc_draw_select_menu('DB_IMPORT_SAMPLE', [['id' => '0', 'text' => 'Skip sample data'], ['id' => '1', 'text' => 'Import sample data']], '1'); ?>
-          <i class="fas fa-asterisk form-control-feedback text-danger"></i>
-          <small class="form-text text-muted">Import sample product and category data?</small>
+          <?= (new Select('DB_IMPORT_SAMPLE', [
+                 ['id' => '0', 'text' => TEXT_SKIP_SAMPLE_DATA],
+                 ['id' => '1', 'text' => TEXT_IMPORT_SAMPLE_DATA]
+               ], ['id' => 'DB_IMPORT_SAMPLE']))->set_selection('1'),
+              TEXT_REQUIRED_INFORMATION,
+              TEXT_SAMPLE_IMPORT_DESCRIPTION ?>
         </div>
       </div>
-      
+
       <div class="mBox">
         <div class="mBoxContents"></div>
       </div>
-      
-      <p><?php echo osc_draw_button('Continue To Step 2', '<i class="fas fa-angle-right mr-2"></i>', null, 'primary', null, 'btn-success btn-block'); ?></p>
 
-    </form>    
+      <p><?= new Button(TEXT_CONTINUE_STEP_2, 'fas fa-angle-right mr-2', 'btn-success btn-block') ?></p>
+
+    </form>
   </div>
   <div class="col-12 col-sm-3">
-    <h4>Step 1</h4>
-    <div class="card card-body">      
-      <p>The database server stores data such as product information, customer information, and the orders that have been made.</p>
-      <p>Please consult your server administrator (host) if your database server parameters are not yet known.</p>
+    <h2><?= TEXT_STEP_1 ?></h2>
+    <div class="card card-body">
+      <?= TEXT_DB_EXPLANATION ?>
     </div>
   </div>
-  
+
 </div>

@@ -2,17 +2,16 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2014 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  require('includes/application.php');
+  $page_contents = basename(__FILE__);
 
-  $page_contents = 'index.php';
-
-  require('templates/main_page.php');
+  require 'includes/application.php';
+  require 'templates/main_page.php';
 ?>

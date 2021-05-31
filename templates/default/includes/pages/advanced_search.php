@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('advanced_search.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('advanced_search.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <script src="includes/general.js"></script>
@@ -83,21 +83,19 @@ function check_form() {
   }
 ?>
 
-<?= tep_draw_form('advanced_search', tep_href_link('advanced_search_result.php', '', 'NONSSL', false), 'get', 'onsubmit="return check_form(this);"') . tep_hide_session_id() ?>
+<?= (new Form('advanced_search', $Linker->build('advanced_search_result.php', [], false), 'get', ['onsubmit' => 'return check_form(this);']))->hide_session_id()->hide('search_in_description', '1') ?>
 
   <div class="form-group row">
     <label for="inputKeywords" class="col-form-label col-sm-3 text-left text-sm-right"><?= HEADING_SEARCH_CRITERIA ?></label>
     <div class="col-sm-9">
-      <?php
-      echo tep_draw_input_field('keywords', '', 'required aria-required="true" id="inputKeywords" placeholder="' . TEXT_SEARCH_PLACEHOLDER . '"', 'search');
-      echo FORM_REQUIRED_INPUT;
-      echo tep_draw_hidden_field('search_in_description', '1');
+      <?= (new Input('keywords', ['id' => 'inputKeywords', 'placeholder' => TEXT_SEARCH_PLACEHOLDER], 'search'))->require(),
+          FORM_REQUIRED_INPUT
       ?>
     </div>
   </div>
 
   <div class="buttonSet">
-    <div class="text-right"><?= tep_draw_button(IMAGE_BUTTON_SEARCH, 'fas fa-search', null, 'primary', null, 'btn-success btn-lg btn-block') ?></div>
+    <div class="text-right"><?= new Button(IMAGE_BUTTON_SEARCH, 'fas fa-search', 'btn-success btn-lg btn-block') ?></div>
     <p><a data-toggle="modal" href="#helpSearch" class="btn btn-light"><?= TEXT_SEARCH_HELP_LINK ?></a></p>
   </div>
 
@@ -122,9 +120,7 @@ function check_form() {
   <div class="form-group row">
     <label for="entryCategories" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_CATEGORIES ?></label>
     <div class="col-sm-9">
-      <?php
-      echo tep_draw_pull_down_menu('categories_id', tep_get_categories([['id' => '', 'text' => TEXT_ALL_CATEGORIES]]), null, 'id="entryCategories"');
-      ?>
+      <?= new Select('categories_id', Guarantor::ensure_global('category_tree')->get_selections([['id' => '', 'text' => TEXT_ALL_CATEGORIES]]), ['id' => 'entryCategories']) ?>
     </div>
   </div>
   <div class="form-group row">
@@ -132,7 +128,7 @@ function check_form() {
     <div class="col-sm-9">
       <div class="checkbox">
         <label>
-          <?= tep_draw_selection_field('inc_subcat', 'checkbox', '1', true, 'id="entryIncludeSubs"') ?>
+          <?= (new Tickable('inc_subcat', ['value' => '1', 'id' => 'entryIncludeSubs'], 'checkbox'))->tick() ?>
         </label>
       </div>
     </div>
@@ -140,7 +136,11 @@ function check_form() {
   <div class="form-group row">
     <label for="entryManufacturers" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_MANUFACTURERS ?></label>
     <div class="col-sm-9">
-      <?= tep_draw_pull_down_menu('manufacturers_id', tep_get_manufacturers([['id' => '', 'text' => TEXT_ALL_MANUFACTURERS]]), null, 'id="entryManufacturers"') ?>
+      <?= new Select('manufacturers_id', array_merge(
+        [['id' => '', 'text' => TEXT_ALL_MANUFACTURERS]],
+        $db->fetch_all("SELECT manufacturers_id AS id, manufacturers_name AS text FROM manufacturers ORDER BY manufacturers_name")
+        ), ['id' => 'entryManufacturers'])
+      ?>
     </div>
   </div>
 
@@ -149,15 +149,15 @@ function check_form() {
   <div class="row">
     <label for="PriceTo" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_PRICE ?></label>
     <div class="col">
-      <?= tep_draw_input_field('pfrom', '', 'id="PriceFrom" placeholder="' . ENTRY_PRICE_FROM_TEXT . '"') ?>
+      <?= new Input('pfrom', ['id' => 'PriceFrom', 'placeholder' => ENTRY_PRICE_FROM_TEXT]) ?>
     </div>
     <div class="col">
-      <?= tep_draw_input_field('pto', '', 'id="PriceTo" placeholder="' . ENTRY_PRICE_TO_TEXT . '"') ?>
+      <?= new Input('pto', ['id' => 'PriceTo', 'placeholder' => ENTRY_PRICE_TO_TEXT]) ?>
     </div>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -3,19 +3,15 @@
 ?>
 
 <div class="filter-list">
-  <?php
-    echo tep_draw_form('filter', 'index.php', 'get') . PHP_EOL;
-    echo $output;
-?>
+  <?= implode(PHP_EOL, $output) ?>
 
-  </form>
 </div><br class="d-block d-sm-none">
 
 <?php
   }
 ?>
-<div class="col-sm-<?php echo $content_width; ?> cm-ip-product-listing">
-  <?php include $GLOBALS['oscTemplate']->map_to_template('product_listing.php', 'component'); ?>
+<div class="col-sm-<?= (int)MODULE_CONTENT_IP_PRODUCT_LISTING_CONTENT_WIDTH ?> cm-ip-product-listing">
+  <?php include $GLOBALS['Template']->map('product_listing.php', 'component'); ?>
 </div>
 
 <?php

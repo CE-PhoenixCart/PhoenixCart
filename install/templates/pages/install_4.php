@@ -10,37 +10,37 @@
   Released under the GNU General Public License
 */
 
-  osc_db_connect(trim($_POST['DB_SERVER']), trim($_POST['DB_SERVER_USERNAME']), trim($_POST['DB_SERVER_PASSWORD']));
-  osc_db_select_db(trim($_POST['DB_DATABASE']));
+  $db_server = trim($_POST['DB_SERVER']);
+  $db_username = trim($_POST['DB_SERVER_USERNAME']);
+  $db_password = trim($_POST['DB_SERVER_PASSWORD']);
+  $db_database = trim($_POST['DB_DATABASE']);
+  $db = new Database($db_server, $db_username, $db_password, $db_database)
+    or die('No database connection');
 
-  osc_db_query("UPDATE configuration SET configuration_value = '" . trim($_POST['CFG_STORE_NAME']) . "' WHERE configuration_key = 'STORE_NAME'");
-  osc_db_query("UPDATE configuration SET configuration_value = '" . trim($_POST['CFG_STORE_OWNER_NAME']) . "' WHERE configuration_key = 'STORE_OWNER'");
-  osc_db_query("UPDATE configuration SET configuration_value = '" . trim($_POST['CFG_STORE_OWNER_EMAIL_ADDRESS']) . "' WHERE configuration_key = 'STORE_OWNER_EMAIL_ADDRESS'");
+  installer::configure('STORE_NAME', Text::sanitize($_POST['CFG_STORE_NAME']));
+  installer::configure('STORE_OWNER', Text::sanitize($_POST['CFG_STORE_OWNER_NAME']));
+  installer::configure('STORE_OWNER_EMAIL_ADDRESS', Text::sanitize($_POST['CFG_STORE_OWNER_EMAIL_ADDRESS']));
+
+  $dir_fs_document_root = rtrim($_POST['DIR_FS_DOCUMENT_ROOT'], '/\\');
 
   if ( !empty($_POST['CFG_ADMINISTRATOR_USERNAME']) ) {
-    osc_db_query(sprintf(<<<'EOSQL'
+    $db->query(sprintf(<<<'EOSQL'
 INSERT INTO administrators (user_name, user_password) VALUES ('%s', '%s')
  ON DUPLICATE KEY UPDATE user_password = VALUES(user_password)
 EOSQL
-      , trim($_POST['CFG_ADMINISTRATOR_USERNAME']), osc_encrypt_password(trim($_POST['CFG_ADMINISTRATOR_PASSWORD']))));
+      , $db->escape(Text::sanitize($_POST['CFG_ADMINISTRATOR_USERNAME'])),
+        Password::hash(trim($_POST['CFG_ADMINISTRATOR_PASSWORD']))));
   }
 
-  $dir_fs_document_root = $_POST['DIR_FS_DOCUMENT_ROOT'];
-  if ((substr($dir_fs_document_root, -1) != '\\') && (substr($dir_fs_document_root, -1) != '/')) {
-    if (false === strrpos($dir_fs_document_root, '\\')) {
-      $dir_fs_document_root .= '/';
-    } else {
-      $dir_fs_document_root .= '\\';
-    }
-  }
 
-  osc_db_query("UPDATE configuration SET configuration_value = '" . $dir_fs_document_root . "includes/work/' WHERE configuration_key = 'DIR_FS_CACHE'");
-  osc_db_query("UPDATE configuration SET configuration_value = '" . $dir_fs_document_root . "includes/work/' WHERE configuration_key = 'SESSION_WRITE_DIRECTORY'");
+  $writable_directory = "$dir_fs_document_root/includes/work/";
+  installer::configure('DIR_FS_CACHE', Text::sanitize($writable_directory));
+  installer::configure('SESSION_WRITE_DIRECTORY', Text::sanitize($writable_directory));
 
-  if ($handle = opendir($dir_fs_document_root . 'includes/work/')) {
+  if ($handle = opendir($writable_directory)) {
     while (false !== ($filename = readdir($handle))) {
       if ('cache' === pathinfo($filename, PATHINFO_EXTENSION)) {
-        @unlink($dir_fs_document_root . 'includes/work/' . $filename);
+        @unlink("$writable_directory$filename");
       }
     }
 
@@ -54,57 +54,43 @@ EOSQL
     $http_server .= ':' . $http_url['port'];
   }
 
-  if (substr($http_catalog, -1) != '/') {
+  if (substr($http_catalog, -1) !== '/') {
     $http_catalog .= '/';
   }
 
-  $http_cookie_domain = $http_url['host'];
-  if ('on' === getenv('HTTPS')) {
-    $secure = "\n    'secure' => true,";
-  } else {
-    $secure = '';
-  }
+  $secure = ('on' === getenv('HTTPS'))
+          ? "\n    'secure' => true,"
+          : '';
 
   $admin_folder = 'admin';
-  if (!empty($_POST['CFG_ADMIN_DIRECTORY']) && osc_is_writable($dir_fs_document_root) && osc_is_writable($dir_fs_document_root . 'admin')) {
-    $admin_folder = preg_replace('/[^a-zA-Z0-9]/', '', trim($_POST['CFG_ADMIN_DIRECTORY']));
-
-    if (empty($admin_folder)) {
-      $admin_folder = 'admin';
-    }
+  if (!empty($_POST['CFG_ADMIN_DIRECTORY']) && Path::is_writable($dir_fs_document_root) && Path::is_writable("$dir_fs_document_root/admin")) {
+    $admin_folder = preg_replace('{[^a-zA-Z0-9]}', '', trim($_POST['CFG_ADMIN_DIRECTORY'])) ?: 'admin';
   }
 
-  if (isset($_POST['CFG_TIME_ZONE'])) {
-    $time_zone = "'" . trim($_POST['CFG_TIME_ZONE']) . "'";
-  } else {
-    $time_zone = 'date_default_timezone_get()';
-  }
+  $time_zone = isset($_POST['CFG_TIME_ZONE'])
+             ? "'" . trim($_POST['CFG_TIME_ZONE']) . "'"
+             : 'date_default_timezone_get()';
 
-  $db_server = trim($_POST['DB_SERVER']);
-  $db_username = trim($_POST['DB_SERVER_USERNAME']);
-  $db_password = trim($_POST['DB_SERVER_PASSWORD']);
-  $db_database = trim($_POST['DB_DATABASE']);
+  $sharing_warning = TEXT_SHARING_WARNING;
 
   $file_contents = <<<"EOPHP"
 <?php
-// set the level of error reporting
   error_reporting(E_ALL);
 
   const HTTP_SERVER = '$http_server';
   const COOKIE_OPTIONS = [
     'lifetime' => 0,
-    'domain' => '$http_cookie_domain',
+    'domain' => '{$http_url['host']}',
     'path' => '$http_catalog',
     'samesite' => 'Lax',$secure
   ];
   const DIR_WS_CATALOG = '$http_catalog';
 
-  const DIR_FS_CATALOG = '$dir_fs_document_root';
-
   date_default_timezone_set($time_zone);
 
-// If you are asked to provide configure.php details
-// please remove the data below before sharing
+$sharing_warning
+  const DIR_FS_CATALOG = '$dir_fs_document_root/';
+
   const DB_SERVER = '$db_server';
   const DB_SERVER_USERNAME = '$db_username';
   const DB_SERVER_PASSWORD = '$db_password';
@@ -112,38 +98,35 @@ EOSQL
 
 EOPHP;
 
-  $fp = fopen($dir_fs_document_root . 'includes/configure.php', 'w');
-  fputs($fp, $file_contents);
-  fclose($fp);
+  Installer::burn("$dir_fs_document_root/includes/configure.php", $file_contents);
 
-  @chmod($dir_fs_document_root . 'includes/configure.php', 0644);
+  $sharing_warning = TEXT_SHARING_WARNING_ADMIN;
 
   $file_contents = <<<"EOPHP"
 <?php
-// set the level of error reporting
   error_reporting(E_ALL);
 
   const HTTP_SERVER = '$http_server';
   const COOKIE_OPTIONS = [
     'lifetime' => 0,
-    'domain' => '$http_cookie_domain',
+    'domain' => '{$http_url['host']}',
     'path' => '$http_catalog$admin_folder',
     'samesite' => 'Lax',$secure
   ];
   const DIR_WS_ADMIN = '$http_catalog$admin_folder/';
 
-  const DIR_FS_DOCUMENT_ROOT = '$dir_fs_document_root';
-  const DIR_FS_ADMIN = '$dir_fs_document_root$admin_folder/';
-  const DIR_FS_BACKUP = DIR_FS_ADMIN . 'backups/';
-
   const HTTP_CATALOG_SERVER = '$http_server';
   const DIR_WS_CATALOG = '$http_catalog';
-  const DIR_FS_CATALOG = '$dir_fs_document_root';
 
   date_default_timezone_set($time_zone);
 
-// If you are asked to provide configure.php details
-// please remove the data below before sharing
+  const DIR_FS_CATALOG = '$dir_fs_document_root/';
+
+  const DIR_FS_DOCUMENT_ROOT = '$dir_fs_document_root/';
+  const DIR_FS_ADMIN = '$dir_fs_document_root/$admin_folder/';
+  const DIR_FS_BACKUP = DIR_FS_ADMIN . 'backups/';
+
+$sharing_warning
   const DB_SERVER = '$db_server';
   const DB_SERVER_USERNAME = '$db_username';
   const DB_SERVER_PASSWORD = '$db_password';
@@ -151,33 +134,29 @@ EOPHP;
 
 EOPHP;
 
-  $fp = fopen($dir_fs_document_root . 'admin/includes/configure.php', 'w');
-  fputs($fp, $file_contents);
-  fclose($fp);
+  Installer::burn("$dir_fs_document_root/admin/includes/configure.php", $file_contents);
 
-  @chmod($dir_fs_document_root . 'admin/includes/configure.php', 0644);
-
-  if ($admin_folder != 'admin') {
-    @rename($dir_fs_document_root . 'admin', $dir_fs_document_root . $admin_folder);
+  if ($admin_folder !== 'admin') {
+    @rename("$dir_fs_document_root/admin", "$dir_fs_document_root/$admin_folder");
   }
 ?>
 
 <div class="row">
   <div class="col-sm-9">
     <div class="alert alert-info" role="alert">
-      <h1>Finished!</h1>
+      <h1><?= TEXT_FINISHED ?></h1>
 
-      <p>The installation of your online store was successful! Click on either button to start your online selling experience:</p>
+      <p><?= TEXT_FINISHED_EXPLANATION ?></p>
     </div>
   </div>
   <div class="col-sm-3">
     <div class="card mb-2">
       <div class="card-body">
         <ol>
-          <li class="text-muted">Database Server</li>
-          <li class="text-muted">Web Server</li>
-          <li class="text-muted">Online Store Settings</li>
-          <li class="text-success"><strong>Finished!</strong></li>
+          <li class="text-muted"><?= TEXT_DATABASE_SERVER ?></li>
+          <li class="text-muted"><?= TEXT_WEB_SERVER ?></li>
+          <li class="text-muted"><?= TEXT_STORE_SETTINGS ?></li>
+          <li class="text-success"><strong><?= TEXT_FINISHED ?></strong></li>
         </ol>
       </div>
       <div class="text-footer">
@@ -194,22 +173,21 @@ EOPHP;
 <div class="row">
   <div class="col-12 col-sm-9">
     <div class="row">
-      <div class="col"><?= osc_draw_button('Admin (Backend)', '<i class="fas fa-lock mr-2"></i>', $http_server . $http_catalog . $admin_folder . '/index.php', 'primary', ['newwindow' => 1], 'btn-info btn-block') ?></div>
-      <div class="col"><?= osc_draw_button('Store (Frontend)', '<i class="fas fa-shopping-cart mr-2"></i>', $http_server . $http_catalog . 'index.php', 'primary', ['newwindow' => 1], 'btn-success btn-block') ?></div>
-      <div class="col"><?= osc_draw_button('Phoenix Club', '<img src="images/icon_phoenix.png" class="mr-2">', 'https://phoenixcart.org/forum/', 'primary', ['newwindow' => 1], 'btn-dark btn-block') ?></div>
+      <div class="col"><?= new Button(TEXT_ADMIN, 'fas fa-lock mr-2', 'btn-info btn-block', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
+      <div class="col"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart mr-2', 'btn-success btn-block', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
+      <div class="col"><?= new Button('<img src="images/icon_phoenix.png" class="mr-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
     </div>
   </div>
 
   <div class="col-12 col-sm-3">
-    <h4>Step 4</h4>
+    <h3 class="display-4"><?= TEXT_STEP_4 ?></h3>
     <div class="card mb-2">
       <div class="card-body">
-        <p>Congratulations on installing and configuring CE Phoenix as your online store solution!</p>
-        <p>We wish you all the best with the success of your online store.  Please join and participate in our community.</p>
-        <p><?= osc_draw_button('Phoenix Club', '<img src="images/icon_phoenix.png" class="mr-2">', 'https://phoenixcart.org/forum/', 'primary', ['newwindow' => 1], 'btn-dark btn-block') ?></p>
+        <?= TEXT_STEP_4_EXPLANATION ?>
+        <p><?= new Button('<img src="images/icon_phoenix.png" class="mr-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></p>
       </div>
       <div class="card-footer">
-        - <a class="card-link" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer">The Phoenix Team</a>
+        - <a class="card-link" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer"><?= TEXT_TEAM ?></a>
       </div>
     </div>
   </div>

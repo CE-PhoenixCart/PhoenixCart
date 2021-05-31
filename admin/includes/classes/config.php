@@ -118,7 +118,9 @@ EOSQL
     }
 
     public static function select_zone_by($country_id = STORE_COUNTRY, $zone_id = '') {
-      return (new Select('configuration_value', Zone::fetch_by_country($country_id)))->set_selection($zone_id);
+      return ($zones = Zone::fetch_by_country($country_id))
+           ? (new Select('configuration_value', $zones))->set_selection($zone_id)
+           : new Input('configuration_value', $zone_id);
     }
 
   }

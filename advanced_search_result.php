@@ -80,7 +80,7 @@
   }
 
   if ($error) {
-    tep_redirect(tep_href_link('advanced_search.php', tep_get_all_get_params(), 'NONSSL', true, false));
+    Href::redirect($Linker->build('advanced_search.php')->retain_parameters());
   }
 
   $select_str = "SELECT DISTINCT p.products_id, m.*, p.*, pd.*, p.products_quantity AS in_stock, IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) AS final_price, IF(s.status, 1, 0) AS is_special ";
@@ -92,9 +92,9 @@
   $from_str = "FROM products p LEFT JOIN manufacturers m using(manufacturers_id) LEFT JOIN specials s ON p.products_id = s.products_id";
 
   if ( (DISPLAY_PRICE_WITH_TAX == 'true') && (!Text::is_empty($pfrom) || !Text::is_empty($pto)) ) {
-    if (isset($_SESSION['customer_id'])) {
-      $country_id = $customer->get_country_id();
-      $zone_id = $customer->get_zone_id();
+    if (isset($customer) && ($customer instanceof customer)) {
+      $country_id = $customer->get('country_id');
+      $zone_id = $customer->get('zone_id');
     } else {
       $country_id = STORE_COUNTRY;
       $zone_id = STORE_ZONE;
@@ -108,12 +108,9 @@
 
   if (isset($_GET['categories_id']) && !Text::is_empty($_GET['categories_id'])) {
     if (isset($_GET['inc_subcat']) && ($_GET['inc_subcat'] == '1')) {
-      $subcategories_array = [];
-      tep_get_subcategories($subcategories_array, $_GET['categories_id']);
-
       $where_str .= " AND p2c.products_id = p.products_id AND p2c.products_id = pd.products_id AND (p2c.categories_id = " . (int)$_GET['categories_id'];
 
-      foreach ($subcategories_array as $subcategory_id) {
+      foreach (Guarantor::ensure_global('category_tree')->get_descendants($_GET['categories_id']) as $subcategory_id) {
         $where_str .= " OR p2c.categories_id = " . (int)$subcategory_id;
       }
 
@@ -180,6 +177,6 @@
 
   $listing_sql = $select_str . $from_str . $where_str;
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

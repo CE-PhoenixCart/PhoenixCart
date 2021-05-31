@@ -2,10 +2,10 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2020 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -13,66 +13,79 @@
   header('Cache-Control: no-cache, must-revalidate');
   header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 
-  require('includes/application.php');
+  require 'includes/application.php';
 
-  $dir_fs_www_root = dirname(__FILE__);
-
-  if (isset($_GET['action']) && !empty($_GET['action'])) {
+  if (!empty($_GET['action'])) {
     switch ($_GET['action']) {
       case 'dbCheck':
-        $db = ['DB_SERVER' => trim(rawurldecode($_GET['server'])),
-               'DB_SERVER_USERNAME' => trim(rawurldecode($_GET['username'])),
-               'DB_SERVER_PASSWORD' => trim(rawurldecode($_GET['password'])),
-               'DB_DATABASE' => trim(rawurldecode($_GET['name']))
-              ];
+        $db = new Database(
+          trim($_GET['server']),
+          trim($_GET['username']),
+          trim($_GET['password']), '');
 
-        $db_error = false;
-        osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
-
-        if ($db_error == false) {
-          osc_db_select_db($db['DB_DATABASE']);
+        if ($db->connect_errno) {
+          exit("[[0|{$db->connect_error}]]");
         }
 
-        if ($db_error != false) {
-          echo '[[0|' . $db_error . ']]';
+        $db->select_db(trim($_GET['name']));
+
+        if ($db->errno) {
+          exit("[[0|{$db->error}]]");
+        }
+
+        if ($version_query = mysqli_query($db, "SELECT VERSION() AS `v`")) {
+          list($number) = explode('-', $version_query->fetch_assoc()['v']);
         } else {
-          echo '[[1]]';
+          exit("[[0|{$db->error}]]");
         }
 
-        exit;
-        break;
+        if (version_compare($number, '5.7.7', '<')) {
+          exit("[[-5|$version]]");
+        }
+
+        if (version_compare($number, '10.2.2', '>=')
+         || version_compare($number, '10', '<'))
+        {
+          exit('[[1]]');
+        }
+
+        exit("[[-10|$version]]");
 
       case 'dbImport':
-        $db = ['DB_SERVER' => trim(rawurldecode($_GET['server'])),
-               'DB_SERVER_USERNAME' => trim(rawurldecode($_GET['username'])),
-               'DB_SERVER_PASSWORD' => trim(rawurldecode($_GET['password'])),
-               'DB_DATABASE' => trim(rawurldecode($_GET['name'])),
-               'DB_IMPORT_SAMPLE' => trim(rawurldecode($_GET['importsample'])),
-              ];
+        $db = new Database(
+          trim($_GET['server']),
+          trim($_GET['username']),
+          trim($_GET['password']), '');
 
-        osc_db_connect($db['DB_SERVER'], $db['DB_SERVER_USERNAME'], $db['DB_SERVER_PASSWORD']);
+        if ($db->connect_errno) {
+          exit("[[0|{$db->connect_error}]]");
+        }
 
-        $db_error = false;
-        $sql_file = $dir_fs_www_root . '/phoenix.sql';
-        $sql_sample_file = $dir_fs_www_root . '/phoenix_data_sample.sql';
+        installer::set_time_limit(0);
 
-        osc_set_time_limit(0);
-        osc_db_install($db['DB_DATABASE'], $sql_file);
-        
-        if ($db_error == false) {
-          if ($db['DB_IMPORT_SAMPLE'] == '1') {
-            osc_db_install($db['DB_DATABASE'], $sql_sample_file);
+        $db_name = trim($_GET['name']);
+        if (!$db->select_db($db_name)) {
+          $db->query("CREATE DATABASE " . $db->escape($db_name));
+          if ($db->errno) {
+            exit("[[0|{$db->error}]]");
+          }
+
+          if (!$db->select_db($db_name)) {
+            exit('[[0|dbSelectError]]');
           }
         }
 
-        if ($db_error != false) {
-          echo '[[0|' . $db_error . ']]';
-        } else {
-          echo '[[1]]';
+        installer::load_sql($db, __DIR__ . '/phoenix.sql');
+
+        if (!$db->errno && (trim($_GET['importsample']) === '1')) {
+          installer::load_sql($db, __DIR__ . '/phoenix_data_sample.sql');
         }
 
-        exit;
-        break;
+        if ($db->errno) {
+          exit("[[0|$db_error]]");
+        }
+
+        exit('[[1]]');
     }
   }
 

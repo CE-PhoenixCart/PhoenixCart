@@ -55,14 +55,14 @@
       }
 
       class_exists('Text');
-      Guarantor::ensure_global('oscTemplate');
+      $GLOBALS['oscTemplate'] =& Guarantor::ensure_global('Template');
       $GLOBALS['class_index']->set_translator('language::map_to_translation');
       $this->fix_numeric_locale();
       return language::map_to_translation('.php');
     }
 
     public function set_template_title() {
-      Guarantor::ensure_global('oscTemplate')->setTitle(TITLE);
+      Guarantor::ensure_global('Template')->set_title(TITLE);
     }
 
     public function ensure_navigation_history() {

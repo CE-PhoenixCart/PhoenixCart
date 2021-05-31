@@ -22,9 +22,18 @@ pd.*, p.*,
     IF(COALESCE(a.attribute_count, 0) > 0, 1, 0) AS has_attributes
 EOSQL;
 
-    public static function build_link($product, $parameters = '') {
+    public static function build_link($product, $parameters = []) {
+      $Linker = Guarantor::ensure_global('Linker');
+      if (is_array($parameters)) {
+        $link = $Linker->build('product_info.php', $parameters);
+      } elseif (is_string($parameters)) {
+        $link = $Linker->build('product_info.php', phoenix_parameterize($parameters));
+      } else {
+        $link = $Linker->build('product_info.php')->retain_parameters();
+      }
+
       $product_id = is_numeric($product) ? $product : $product->get('id');
-      return tep_href_link('product_info.php', "{$parameters}products_id=" . (int)$product_id);
+      return $link->set_parameter('products_id', (int)$product_id);
     }
 
     public static function build_data_attributes($product, $data = []) {
@@ -85,10 +94,8 @@ EOSQL;
         $language_id = $_SESSION['languages_id'];
       }
 
-      $product_query = tep_db_query("SELECT products_name FROM products_description WHERE products_id = " . (int)$product_id . " AND language_id = " . (int)$language_id);
-      $product = tep_db_fetch_array($product_query);
-
-      return $product['products_name'];
+      $sql = sprintf("SELECT products_name FROM products_description WHERE products_id = %d AND language_id = %d", (int)$product_id, (int)$language_id);
+      return $GLOBALS['db']->query($sql)->fetch_assoc()['products_name'];
     }
 
   }
