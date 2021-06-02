@@ -57,9 +57,9 @@
 
       $output = '';
       foreach ($files_array as $file) {
-        $output .= '<br>' . tep_draw_checkbox_field('p_file[]', $file, in_array($file, $values_array)) . '&nbsp;' . tep_output_string($file);
+        $output .= '<br>' . tep_draw_checkbox_field('p_file[]', $file, in_array($file, $values_array), 'class=""') . '&nbsp;' . tep_output_string($file);
       }
-      $output .= '<br>' . tep_draw_checkbox_field('p_all') . '&nbsp;' . TEXT_ALL;
+      $output .= '<br>' . tep_draw_checkbox_field('p_all', 'on', false, 'class=""') . '&nbsp;' . TEXT_ALL;
 
       $output .= tep_draw_hidden_field('configuration[' . $key . ']', '', 'id="p_files"');
 
