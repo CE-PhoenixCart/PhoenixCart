@@ -38,9 +38,7 @@
         <tr>
           <th><?= TABLE_CERTIFIED_ADDONS_TITLE ?></th>
           <th><?= TABLE_CERTIFIED_ADDONS_OWNER ?></th>
-          <th><?= TABLE_CERTIFIED_ADDONS_RATING ?></th>
           <th><?= TABLE_CERTIFIED_ADDONS_REMARKS ?></th>
-          <th class="text-right d-none d-md-table-cell"><?= TABLE_CERTIFIED_ADDONS_DATE ?></th>
         </tr>
       </thead>
       <tbody>
@@ -49,12 +47,10 @@
           $num++;
           $filter = implode(',', explode(' ', $item->title));
 
-          echo '<tr data-owner="' . strtolower($item->owner) . '" data-filter="' . strtolower($filter) . '" data-tags="' . strtolower($item->tags) . '">';
-            echo '<td class="w-50"><a href="' . $item->link . '" target="_blank" rel="noreferrer"><i class="fas fa-external-link-alt mr-2"></i>' . $item->title . '</a></td>';
-            echo '<td>' . $item->owner . '</td>';
-            echo '<td>' . tep_draw_stars($item->rating) . '</td>';
+          echo '<tr data-owner="' . strtolower($item->title) . '" data-filter="' . strtolower($filter) . '" data-tags="' . strtolower($item->tags) . '">';
+            echo '<td><a href="' . $item->link . '" target="_blank" rel="noreferrer"><i class="fas fa-external-link-alt mr-2"></i>' . $item->link . '</a></td>';
+            echo '<td>' . $item->title . '</td>';
             echo '<td>' . $item->remarks ?? '&nbsp;' . '</td>';
-            echo '<td class="text-right d-none d-md-table-cell">' . date("j/m/Y", strtotime($item->pubDate)) . '</td>';
           echo '</tr>';
         }
         ?>
