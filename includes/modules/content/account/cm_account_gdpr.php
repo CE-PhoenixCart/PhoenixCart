@@ -14,10 +14,9 @@
 
     const CONFIG_KEY_BASE = 'MODULE_CONTENT_ACCOUNT_GDPR_';
 
-    protected $public_title = MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE;
-
     public function __construct() {
       parent::__construct(__FILE__);
+      $this->public_title = MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE;
     }
 
     public function execute() {
