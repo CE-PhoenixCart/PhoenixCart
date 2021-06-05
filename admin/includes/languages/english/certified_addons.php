@@ -18,8 +18,3 @@ const TABLE_CERTIFIED_ADDONS_REMARKS = 'Remarks';
 
 const TEXT_CERTIFIED_ADDONS = '<p class="m-0 lead">All Providers listed here have been <strong>certified</strong> by a Phoenix Core Team member.</p>%s';
 const NUM_CERTIFIED_ADDONS = 'There are currently <b>%d</b> Certified Providers.';
-
-const TEXT_CERTIFIED_SEARCH_LABEL = 'Search:';
-const TEXT_CERTIFIED_SEARCH_PLACEHOLDER = 'start typing...';
-
-const NUM_FILTERED_ADDONS = '<span class="filtered-result"><br>Filtered to <b>{X}</b> Addon(s).</span>';
