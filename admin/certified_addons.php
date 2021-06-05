@@ -15,7 +15,6 @@
   require 'includes/template_top.php';
 
   $feed = Web::load_xml('https://feeds.feedburner.com/PhoenixAddons');
-  $num = 0;
 ?>
 
   <div class="row">
@@ -25,7 +24,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><?= TEXT_CERTIFIED_SEARCH_LABEL ?></span>
         </div>
-        <?= tep_draw_input_field('filter', null, 'placeholder="' . TEXT_CERTIFIED_SEARCH_PLACEHOLDER . '" id="input-filter"') ?>
+        <?= new Input('filter', ['placeholder' => TEXT_CERTIFIED_SEARCH_PLACEHOLDER, 'id' => 'input-filter']) ?>
       </div>
     </div>
   </div>
@@ -44,7 +43,6 @@
       <tbody>
         <?php
         foreach ($feed->channel->item as $item) {
-          $num++;
           $filter = implode(',', explode(' ', $item->title));
 
           echo '<tr data-owner="' . strtolower($item->title) . '" data-filter="' . strtolower($filter) . '" data-tags="' . strtolower($item->tags) . '">';
@@ -58,7 +56,7 @@
     </table>
   </div>
 
-  <p id="count"><?php printf(NUM_CERTIFIED_ADDONS, $num) ?></p>
+  <p id="count"><?php printf(NUM_CERTIFIED_ADDONS, count($feed->channel->item)) ?></p>
 
   <script>var tr = $('.table-filter > tbody > tr:visible').length; i_empty();$('#input-filter').on('keyup', function() {i_empty();var keyword = $(this).val().toLowerCase(); $('.table-filter > tbody > tr').each( function() { $(this).toggle(keyword.length < 1 || $(this).attr('data-filter').indexOf(keyword) > -1 || $(this).attr('data-tags').indexOf(keyword) > -1 || $(this).attr('data-owner').indexOf(keyword) > -1); }); var tr_filtered = $('.table-filter > tbody > tr:visible').length; if (tr_filtered != tr) {i_empty(); var str = '<?= NUM_FILTERED_ADDONS ?>'; var res = str.replace('{X}', tr_filtered); $('#count').append(res); } });function i_empty() {$('.filtered-result').detach();}</script>
 

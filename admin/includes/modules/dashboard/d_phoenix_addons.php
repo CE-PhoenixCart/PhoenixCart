@@ -26,12 +26,13 @@
 
     function getOutput() {
       $feed = Web::load_xml('https://feeds.feedburner.com/PhoenixAddons');
+      $Admin = Guarantor::ensure_global('Admin');
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-0">';
           $output .= '<thead class="thead-dark">';
             $output .= '<tr>';
-              $output .= '<th colspan="2">' . tep_image('images/icon_phoenix.png', 'Phoenix') . ' ' . MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_TITLE . '</th>';
+              $output .= '<th colspan="2">' . $Admin->image('images/icon_phoenix.png', ['alt' => 'Phoenix']) . ' ' . MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_TITLE . '</th>';
             $output .= '</tr>';
           $output .= '</thead>';
           $output .= '<tbody>';
@@ -49,7 +50,7 @@
         $output .= '</table>';
       $output .= '</div>';
 
-      $output .= tep_draw_bootstrap_button(MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL, 'far fa-list-alt', tep_href_link('certified_addons.php'), null, null, 'btn btn-success btn-block my-2');
+      $output .= $Admin->button(MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL, 'far fa-list-alt', 'btn btn-success btn-block my-2', $Admin->link('certified_addons.php'));
 
       return $output;
     }
@@ -60,13 +61,13 @@
           'title' => 'Enable Latest Add-Ons Module',
           'value' => 'True',
           'desc' => 'Do you want to show the latest Phoenix Club Add-Ons on the dashboard?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_SORT_ORDER' => [
           'title' => 'Sort Order',
