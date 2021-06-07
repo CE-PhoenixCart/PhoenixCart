@@ -358,8 +358,14 @@
       return $xtra_headers;
     }
 
+    public function ensure_encoding($s) {
+      return preg_match('{[\x80-\xFF]}', $s)
+           ? '=?utf-8?B?' . base64_encode($s) . '?='
+           : $s;
+    }
+
     public function format_address($address, $name = '') {
-      return (('' == $name) ? $address : '"' . $name . '" <' . $address . '>');
+      return (('' == $name) ? $address : '"' . $this->ensure_encoding($name) . '" <' . $address . '>');
     }
 
 /**
@@ -387,7 +393,7 @@
 
       $headers = array_merge($this->headers, $sender_headers, $this->normalize_headers($headers));
 
-      return mail($to, $subject, $this->output, implode($this->lf, $headers), "-f$from_addr");
+      return mail($to, $this->ensure_encoding($subject), $this->output, implode($this->lf, $headers), "-f$from_addr");
     }
 
 /**
