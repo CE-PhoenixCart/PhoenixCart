@@ -29,7 +29,7 @@
       return $this->catalog_linker;
     }
 
-    public function set_processor($processor = null) {
+    public function set_processor(string $processor = null) {
       $this->processor = $processor;
     }
 
@@ -58,7 +58,7 @@
       }
 
       return (new Image("images/$image", ...$arguments))
-        ->set_web_prefix(HTTP_SERVER . DIR_WS_CATALOG)
+        ->set_web_prefix(HTTP_CATALOG_SERVER . DIR_WS_CATALOG)
         ->set_default(false);
     }
 
@@ -66,26 +66,43 @@
       return (new Image(...$arguments))->set_prefix(DIR_FS_ADMIN);
     }
 
+    public function build_action_directory() {
+      $page = $this->processor
+           ?? pathinfo(Request::get_page(), PATHINFO_FILENAME);
+
+      return rtrim(realpath(DIR_FS_ADMIN . "includes/actions/$page"),
+               DIRECTORY_SEPARATOR);
+    }
+
+    protected static function locate_in($action, $d) {
+      $f = realpath("$d/$action.php");
+      if (($f || ($f = realpath("$d/default.php")))
+        && (dirname($f) === $d))
+      {
+        return $f;
+      }
+    }
+
     public function locate_action($action) {
-      if (empty($action) || (!Form::validate_action_is($action)
-        && !in_array($action, $GLOBALS['always_valid_actions'])))
+      if ( !is_dir($d = $this->build_action_directory()) ) {
+        return;
+      } elseif (empty($action)) {
+        $action = 'default';
+      } elseif ((!in_array($action, $GLOBALS['always_valid_actions'])
+              && !Form::validate_action_is($action) ) )
       {
         return;
       }
 
-      $page = $this->processor
-           ?? pathinfo(Request::get_page(), PATHINFO_FILENAME);
+      return static::locate_in($action, $d);
+    }
 
-      $d = rtrim(realpath(DIR_FS_ADMIN . "includes/actions/$page"),
-             DIRECTORY_SEPARATOR);
-      if (!is_dir($d)) {
+    public function locate_infobox($action) {
+      if (!is_dir($d = $this->build_action_directory() . '/infoboxes')) {
         return;
       }
 
-      $f = realpath("$d/$action.php");
-      if ((dirname($f) === $d) && is_file($f)) {
-        return $f;
-      }
+      return static::locate_in($action, $d);
     }
 
   }
