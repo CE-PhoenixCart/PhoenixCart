@@ -76,6 +76,7 @@
     }
 
     public function retain_parameters(array $excludes = []) {
+      trigger_error('The retain_parameters method has been deprecated.', E_USER_DEPRECATED);
       return $this->retain_query_except($excludes);
     }
 
