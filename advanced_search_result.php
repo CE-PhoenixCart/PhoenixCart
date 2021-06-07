@@ -80,7 +80,7 @@
   }
 
   if ($error) {
-    Href::redirect($Linker->build('advanced_search.php')->retain_parameters());
+    Href::redirect($Linker->build('advanced_search.php')->retain_query_except());
   }
 
   $select_str = "SELECT DISTINCT p.products_id, m.*, p.*, pd.*, p.products_quantity AS in_stock, IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) AS final_price, IF(s.status, 1, 0) AS is_special ";

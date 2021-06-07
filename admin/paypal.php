@@ -62,7 +62,7 @@ EOSQL
         }
       }
 
-      Href::redirect(Guarantor::ensure_global('Admin')->link('paypal.php')->retain_parameters());
+      Href::redirect(Guarantor::ensure_global('Admin')->link('paypal.php')->retain_query_except());
     }
   }
 

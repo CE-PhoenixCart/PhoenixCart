@@ -76,7 +76,7 @@
 
     public function display_links($max_page_links, $link = null) {
       if (is_null($link)) {
-        $link = $GLOBALS['Linker']->build()->retain_parameters(['page', 'info']);
+        $link = $GLOBALS['Linker']->build()->retain_query_except(['page', 'info']);
       } else if (is_string($link)) {
         $link = $GLOBALS['Linker']->build($GLOBALS['PHP_SELF'], phoenix_parameterize(rtrim($link, '&')));
       }
@@ -173,7 +173,7 @@
         return $heading;
       }
 
-      $link = $GLOBALS['Linker']->build()->retain_parameters(['info', 'page']);
+      $link = $GLOBALS['Linker']->build()->retain_query_except(['info', 'page']);
       $link->set_parameter('sort', $colnum . ($sortby == $colnum . 'a' ? 'd' : 'a'));
 
       $selected = substr($sortby, 0, -1) == $colnum;

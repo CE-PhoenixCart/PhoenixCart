@@ -29,7 +29,7 @@ EOSQL;
       } elseif (is_string($parameters)) {
         $link = $Linker->build('product_info.php', phoenix_parameterize($parameters));
       } else {
-        $link = $Linker->build('product_info.php')->retain_parameters();
+        $link = $Linker->build('product_info.php')->retain_query_except();
       }
 
       $product_id = is_numeric($product) ? $product : $product->get('id');

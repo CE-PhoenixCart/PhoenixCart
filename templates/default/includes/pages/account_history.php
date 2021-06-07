@@ -45,7 +45,7 @@ EOSQL
         </thead>
         <tbody>
           <?php
-          $order_link = $Linker->build('account_history_info.php')->retain_parameters();
+          $order_link = $Linker->build('account_history_info.php')->retain_query_except();
           while ($history = $history_query->fetch_assoc()) {
             $products = $db->query("SELECT SUM(products_quantity) AS count FROM orders_products WHERE orders_id = " . (int)$history['orders_id'])->fetch_assoc();
             $order_link->set_parameter('order_id', (int)$history['orders_id'])
