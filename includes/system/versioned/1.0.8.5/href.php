@@ -54,6 +54,11 @@
       return $this;
     }
 
+    public function delete_parameter($name) {
+      unset($this->parameters[$name]);
+      return $this;
+    }
+
     public function get_include_session() {
       return $this->include_session;
     }
@@ -71,6 +76,10 @@
     }
 
     public function retain_parameters(array $excludes = []) {
+      return $this->retain_query_except($excludes);
+    }
+
+    public function retain_query_except(array $excludes = []) {
       $excludes = array_merge($excludes, ['x', 'y', 'error', session_name()]);
       $this->parameters += array_diff_key(array_filter($_GET, function ($k) {
         return rawurlencode($k) === $k;
