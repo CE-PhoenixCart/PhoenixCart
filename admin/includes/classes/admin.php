@@ -88,7 +88,7 @@
         return;
       } elseif (empty($action)) {
         $action = 'default';
-      } elseif ((!in_array($action, $GLOBALS['always_valid_actions'])
+      } elseif ((!in_array($action, $GLOBALS['always_valid_actions'] ?? [])
               && !Form::validate_action_is($action) ) )
       {
         return;
