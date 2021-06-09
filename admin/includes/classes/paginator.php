@@ -24,6 +24,10 @@
 
       $this->row_count = (new query_parser($table_definition['sql']))->count();
 
+      if (!isset($this->table_definition['rows_per_page'])) {
+        $this->table_definition['rows_per_page'] = MAX_DISPLAY_SEARCH_RESULTS;
+      }
+
       $this->page_count = (int)ceil($this->row_count / $this->table_definition['rows_per_page']);
       if ($this->current_page_number > $this->page_count) {
         $this->current_page_number = $this->page_count;
@@ -47,7 +51,7 @@
       }
 
       return $form->hide_session_id()
-           . new Select($page_name, $pages, [
+           . new Select($this->table_definition['page_name'] ?? 'page', $pages, [
                'value' => $this->current_page_number,
                'onchange' => 'this.form.submit();',
              ]) . '</form>';
