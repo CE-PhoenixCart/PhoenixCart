@@ -81,7 +81,7 @@
     </div>
 
 <?php
-  if ($action_file = $GLOBALS['Admin']->locate_infobox($GLOBALS['action'])) {
+  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'])) {
     require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>

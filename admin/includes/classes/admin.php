@@ -14,11 +14,14 @@
 
     protected $linker;
     protected $catalog_linker;
-    protected $processor = null;
+    protected $processor;
+    protected $action_directory;
 
-    public function __construct() {
+    public function __construct($processor = null) {
       $this->linker = new Linker(HTTP_SERVER . DIR_WS_ADMIN);
       $this->catalog_linker = new Linker(HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
+      $this->set_processor($processor
+        ?? pathinfo(Request::get_page(), PATHINFO_FILENAME));
     }
 
     public function get_linker() {
@@ -31,6 +34,9 @@
 
     public function set_processor(string $processor = null) {
       $this->processor = $processor;
+      $this->action_directory = rtrim(
+        realpath(DIR_FS_ADMIN . "includes/actions/{$this->processor}"),
+        DIRECTORY_SEPARATOR);
     }
 
     public function link($page = null, $parameters = [], $add_session_id = true) {
@@ -66,15 +72,11 @@
       return (new Image(...$arguments))->set_prefix(DIR_FS_ADMIN);
     }
 
-    public function build_action_directory() {
-      $page = $this->processor
-           ?? pathinfo(Request::get_page(), PATHINFO_FILENAME);
+    public function locate($subdirectory, $action) {
+      if (!is_dir($d = "{$this->action_directory}$subdirectory")) {
+        return;
+      }
 
-      return rtrim(realpath(DIR_FS_ADMIN . "includes/actions/$page"),
-               DIRECTORY_SEPARATOR);
-    }
-
-    protected static function locate_in($action, $d) {
       $f = realpath("$d/$action.php");
       if (($f || ($f = realpath("$d/default.php")))
         && (dirname($f) === $d))
@@ -84,25 +86,14 @@
     }
 
     public function locate_action($action) {
-      if ( !is_dir($d = $this->build_action_directory()) ) {
-        return;
-      } elseif (empty($action)) {
-        $action = 'default';
-      } elseif ((!in_array($action, $GLOBALS['always_valid_actions'] ?? [])
-              && !Form::validate_action_is($action) ) )
+      if ( $action
+        && !in_array($action, $GLOBALS['always_valid_actions'] ?? [])
+        && !Form::validate_action_is($action) )
       {
         return;
       }
 
-      return static::locate_in($action, $d);
-    }
-
-    public function locate_infobox($action) {
-      if (!is_dir($d = $this->build_action_directory() . '/infoboxes')) {
-        return;
-      }
-
-      return static::locate_in($action, $d);
+      return static::locate('', $action);
     }
 
   }
