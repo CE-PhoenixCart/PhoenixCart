@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-class hook_admin_categories_focusRequiredTab {
+class hook_admin_catalog_focusRequiredTab {
 
   public function listen_injectSiteEnd() {
     $focusTab = <<<'ft'

@@ -36,9 +36,9 @@
         while ($products = tep_db_fetch_array($products_query)) {
           $rows++;
           ?>
-          <tr onclick="document.location.href='<?php echo tep_href_link('categories.php', 'action=new_product_preview&read=only&pID=' . (int)$products['products_id'] . '&origin=stats_products_viewed.php?page=' . (int)$_GET['page']); ?>'">
+          <tr onclick="document.location.href='<?php echo tep_href_link('catalog.php', 'action=new_product_preview&read=only&pID=' . (int)$products['products_id'] . '&origin=stats_products_viewed.php?page=' . (int)$_GET['page']); ?>'">
             <td><?php echo str_pad($rows, 2, '0', STR_PAD_LEFT); ?>.</td>
-            <td><?php echo '<a href="' . tep_href_link('categories.php', 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=stats_products_viewed.php?page=' . (int)$_GET['page']) . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
+            <td><?php echo '<a href="' . tep_href_link('catalog.php', 'action=new_product_preview&read=only&pID=' . $products['products_id'] . '&origin=stats_products_viewed.php?page=' . (int)$_GET['page']) . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
             <td class="text-right"><?php echo $products['products_viewed']; ?></td>
           </tr>
           <?php

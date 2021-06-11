@@ -48,7 +48,7 @@ EOSQL
               }
 
               if (isset($pInfo->products_id) && ($products['products_id'] == $pInfo->products_id)) {
-                echo '<tr class="table-active" onclick="document.location.href=\'' . tep_href_link('categories.php', 'pID=' . (int)$products['products_id'] . '&action=new_product') . '\'">';
+                echo '<tr class="table-active" onclick="document.location.href=\'' . tep_href_link('catalog.php', 'pID=' . (int)$products['products_id'] . '&action=new_product') . '\'">';
                 $action_icon = '<i class="fas fa-chevron-circle-right text-info"></i>';
               } else {
                 echo '<tr onclick="document.location.href=\'' . tep_href_link('products_expected.php', 'page=' . (int)$_GET['page'] . '&pID=' . $products['products_id']) . '\'">';
@@ -82,7 +82,7 @@ EOSQL
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => tep_draw_bootstrap_button(IMAGE_EDIT, 'fas fa-cogs', tep_href_link('categories.php', 'pID=' . (int)$pInfo->products_id . '&action=new_product'), null, null, 'btn-warning'),
+      'text' => tep_draw_bootstrap_button(IMAGE_EDIT, 'fas fa-cogs', tep_href_link('catalog.php', 'pID=' . (int)$pInfo->products_id . '&action=new_product'), null, null, 'btn-warning'),
     ];
     $contents[] = ['text' => sprintf(TEXT_INFO_DATE_EXPECTED, tep_date_short($pInfo->products_date_available))];
   }
