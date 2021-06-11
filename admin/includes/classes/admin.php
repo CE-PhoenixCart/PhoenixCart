@@ -53,11 +53,11 @@
     }
 
     public static function catalog_image($image, ...$arguments) {
-      if (Text::is_empty($image) || !file_exists(DIR_FS_CATALOG . "images/$image") ) {
+      if (Text::is_empty($image) || !is_file(DIR_FS_CATALOG . $image) ) {
         return TEXT_IMAGE_NON_EXISTENT;
       }
 
-      return (new Image("images/$image", ...$arguments))
+      return (new Image($image, ...$arguments))
         ->set_web_prefix(HTTP_CATALOG_SERVER . DIR_WS_CATALOG)
         ->set_default(false);
     }
