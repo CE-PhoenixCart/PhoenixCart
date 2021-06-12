@@ -61,7 +61,7 @@ EOSQL
           'id' => $category_id,
           'text' => $indent . $this->get($category_id, 'name'),
         ];
-        $this->get_selections($categories, $category_id, "$indent&nbsp;&nbsp;&nbsp;");
+        $categories = $this->get_selections($categories, $category_id, "$indent&nbsp;&nbsp;&nbsp;");
       }
 
       return $categories;
