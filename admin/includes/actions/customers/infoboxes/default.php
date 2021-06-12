@@ -16,7 +16,7 @@
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', $link->set_parameter('action', 'edit'))
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
               . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', $link->set_parameter('action', 'confirm'))
               . $GLOBALS['Admin']->button(IMAGE_ORDERS, 'fas fa-shopping-cart', 'btn-info mr-2', $GLOBALS['Admin']->link('orders.php', ['cID' => $table_definition['info']->id]))
               . $GLOBALS['Admin']->button(IMAGE_EMAIL, 'fas fa-at', 'btn-info', $GLOBALS['Admin']->link('mail.php', ['customer' => $table_definition['info']->email_address])),
