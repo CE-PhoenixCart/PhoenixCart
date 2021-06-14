@@ -34,7 +34,7 @@
     <div class="col text-right align-self-center">
       <?=
       isset($_GET['action'])
-      ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $Admin->link('customers.php')->retain_parameters(['action']))
+      ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $Admin->link('customers.php')->retain_query_except(['action']))
       : (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
         . '<div class="input-group">'
           . '<div class="input-group-prepend">'
@@ -52,7 +52,7 @@
     $hooks =& $admin_hooks;
     $Template = new Template();
     $oscTemplate =& $Template;
-    echo (new Form('customers', $Admin->link('customers.php')->retain_parameters()->set_parameter('action', 'update'), 'post'))
+    echo (new Form('customers', $Admin->link('customers.php')->retain_query_except()->set_parameter('action', 'update'), 'post'))
       ->hide('default_address_id', $customer_data->get('default_address_id', $customer_details));
 
     $cwd = getcwd();
@@ -152,7 +152,7 @@ EOSQL
     ];
     $table_definition['split'] = new Paginator($table_definition);
     $table_definition['function'] = function (&$row) use ($customer_data, &$table_definition) {
-      $link = $GLOBALS['Admin']->link('customers.php')->retain_parameters(['action'])->set_parameter('cID', $customer_data->get('id', $row));
+      $link = $GLOBALS['Admin']->link('customers.php')->retain_query_except(['action'])->set_parameter('cID', $customer_data->get('id', $row));
       if (!isset($table_definition['info']) && (!isset($_GET['cID']) || ($_GET['cID'] === $customer_data->get('id', $row)))) {
         $reviews_query = $GLOBALS['db']->query("SELECT COUNT(*) AS number_of_reviews FROM reviews WHERE customers_id = " . (int)$customer_data->get('id', $customers));
         $reviews = $reviews_query->fetch_assoc();

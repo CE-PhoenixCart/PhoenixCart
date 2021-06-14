@@ -115,7 +115,7 @@
       $row['module'] = $GLOBALS[$row['module']]->title;
     }
 
-    $link = $GLOBALS['Admin']->link()->retain_parameters(['action'])->set_parameter('aID', $row['id']);
+    $link = $GLOBALS['Admin']->link()->retain_query_except(['action'])->set_parameter('aID', $row['id']);
     if (!isset($table_definition['info']) && (!isset($_GET['aID']) || ($_GET['aID'] === $row['id']))) {
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
