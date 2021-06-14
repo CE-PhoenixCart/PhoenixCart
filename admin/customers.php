@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $always_valid_actions = ['default'];
+  $always_valid_actions = ['edit'];
   require 'includes/application_top.php';
 
   if (!$customer_data->has([ 'sortable_name', 'name', 'email_address', 'country_id', 'id' ])) {
@@ -58,6 +58,7 @@
     $cwd = getcwd();
     chdir(DIR_FS_CATALOG);
 
+    $page_fields = $customer_data->get_fields_for_page('customers');
     $grouped_modules = $customer_data->get_grouped_modules();
     $customer_data_group_query = $db->query(sprintf(<<<'EOSQL'
 SELECT customer_data_groups_id, customer_data_groups_name
