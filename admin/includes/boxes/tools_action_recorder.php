@@ -12,9 +12,11 @@
 
   foreach ( $cl_box_groups as &$group ) {
     if ( $group['heading'] == BOX_HEADING_TOOLS ) {
-      $group['apps'][] = array('code' => 'action_recorder.php',
-                               'title' => MODULES_ADMIN_MENU_TOOLS_ACTION_RECORDER,
-                               'link' => tep_href_link('action_recorder.php'));
+      $group['apps'][] = [
+        'code' => 'action_recorder.php',
+        'title' => MODULES_ADMIN_MENU_TOOLS_ACTION_RECORDER,
+        'link' => $GLOBALS['Admin']->link('action_recorder.php'),
+      ];
 
       break;
     }
