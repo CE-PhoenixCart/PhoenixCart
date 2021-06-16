@@ -98,6 +98,10 @@ EOSQL
         foreach ( $modules['installed'] as $m ) {
           if ( $m['code'] == $class ) {
             foreach ($_POST['configuration'] as $key => $value) {
+              if (is_array($value)) {
+                $value = implode(';', array_map('Text::prepare', $value));
+              }
+
               $key = tep_db_prepare_input($key);
               $value = tep_db_prepare_input($value);
 

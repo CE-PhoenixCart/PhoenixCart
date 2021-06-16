@@ -52,14 +52,15 @@
       $string = '';
       foreach ($selections as $key => $text) {
         if (is_int($key)) {
-          $key = $text;
+          if (is_array($text)) {
+            $key = $text['id'];
+            $text = $text['text'];
+          } else {
+            $key = $text;
+          }
         }
 
-        if (isset($key_values[$key]) || array_key_exists($key, $key_values)) {
-          $checkbox->tick();
-        } else {
-          $checkbox->delete('checked');
-        }
+        $checkbox->tick(isset($key_values[$key]) || array_key_exists($key, $key_values));
 
         $string .= PHP_EOL . '<br><label>' . $checkbox->set('value', $key) . ' ' . $text . '</label>';
       }
