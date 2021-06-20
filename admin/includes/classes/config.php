@@ -16,6 +16,12 @@
       return (new Textarea('configuration_value', ['cols' => '35', 'rows' => 5]))->set_text($text);
     }
 
+    public static function get_zone_name($zone_id, $country_id = null) {
+      return is_numeric($zone_id)
+           ? Zone::fetch_name($zone_id, $country_id ?? STORE_COUNTRY, CLASS_CONFIG_TEXT_INVALID_ZONE)
+           : $zone_id;
+    }
+
     public static function name($key) {
       return $key ? "configuration[$key]" : 'configuration_value';
     }
@@ -119,9 +125,10 @@ EOSQL
     }
 
     public static function select_zone_by($country_id = STORE_COUNTRY, $zone_id = '') {
-      return ($zones = Zone::fetch_by_country($country_id))
+      $zones = Zone::fetch_by_country($country_id);
+      return (is_array($zones) && count($zones))
            ? (new Select('configuration_value', $zones))->set_selection($zone_id)
-           : new Input('configuration_value', $zone_id);
+           : new Input('configuration_value', ['value' => $zone_id]);
     }
 
   }
