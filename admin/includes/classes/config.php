@@ -12,27 +12,29 @@
 
   class Config {
 
-    public static function name($key) {
-      return $key ? "configuration[$key]" : 'configuration_value';
-    }
-
     public static function draw_textarea($text = '') {
       return (new Textarea('configuration_value', ['cols' => '35', 'rows' => 5]))->set_text($text);
     }
 
-    public static function select_one($select_options, $key_value, $key = '') {
-      $string = '';
-      foreach ($select_options as $select_option) {
-        $radio = new Tickable(static::name($key), ['value' => $select_option, 'class' => ''], 'radio');
+    public static function name($key) {
+      return $key ? "configuration[$key]" : 'configuration_value';
+    }
 
-        if ($key_value == $select_option) {
-          $radio->tick();
-        }
+    public static function select_country($country_id) {
+      return (new Select('configuration_value', Country::fetch_options()))->set_selection($country_id);
+    }
 
-        $string .= "<br><label>$radio $select_option</label>";
-      }
+    public static function select_customer_data_group($id, $key = '') {
+      return (new Select(static::name($key), customer_data_group::fetch_options()))->set_selection($id);
+    }
 
-      return $string;
+    public static function select_geo_zone($zone_class_id, $key) {
+      return (new Select(
+        static::name($key),
+        array_merge(
+          [['id' => '0', 'text' => TEXT_NONE]],
+          geo_zone::fetch_options()
+        )))->set_selection($zone_class_id);
     }
 
     public static function select_multiple($selections, $key_values, $key_name = null) {
@@ -68,21 +70,19 @@
       return $string;
     }
 
-    public static function select_country($country_id) {
-      return (new Select('configuration_value', Country::fetch_options()))->set_selection($country_id);
-    }
+    public static function select_one($select_options, $key_value, $key = '') {
+      $string = '';
+      foreach ($select_options as $select_option) {
+        $radio = new Tickable(static::name($key), ['value' => $select_option, 'class' => ''], 'radio');
 
-    public static function select_customer_data_group($id, $key = '') {
-      return (new Select(static::name($key), customer_data_group::fetch_options()))->set_selection($id);
-    }
+        if ($key_value == $select_option) {
+          $radio->tick();
+        }
 
-    public static function select_geo_zone($zone_class_id, $key) {
-      return (new Select(
-        static::name($key),
-        array_merge(
-          [['id' => '0', 'text' => TEXT_NONE]],
-          geo_zone::fetch_options()
-        )))->set_selection($zone_class_id);
+        $string .= "<br><label>$radio $select_option</label>";
+      }
+
+      return $string;
     }
 
     public static function select_order_status($order_status_id, $key = '') {
