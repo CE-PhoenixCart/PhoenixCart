@@ -35,7 +35,7 @@
     })));
 
   require "includes/translations/$locale/translations.php";
-  if (file_exists("includes/translations/$locale/$page_contents")) {
+  if (isset($page_contents) && is_file("includes/translations/$locale/$page_contents")) {
     include "includes/translations/$locale/$page_contents";
   }
 
