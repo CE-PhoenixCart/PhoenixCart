@@ -20,6 +20,6 @@
             . (new Select('move_to_category_id', $category_tree->get_selections([['id' => '0', 'text' => TEXT_TOP]])))->set_selection($current_category_id)];
   $contents[] = [
     'class' => 'text-center',
-    'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-success btn-block btn-lg mb-1')
+    'text' => new Button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-success btn-block btn-lg mb-1')
             . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => $product->get('id')])),
   ];

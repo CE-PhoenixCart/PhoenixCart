@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $heading[] = ['text' => TEXT_INFO_HEADING_COPY_TO];
+  $heading = TEXT_INFO_HEADING_COPY_TO;
 
-  $contents = ['form' => new Form('copy_to', $Admin->link('catalog.php', ['action' => 'copy_to_confirm', 'cPath' => $cPath])->hide('products_id', $product->get('id')))];
+  $contents = ['form' => (new Form('copy_to', $Admin->link('catalog.php', ['action' => 'copy_to_confirm', 'cPath' => $cPath])))->hide('products_id', $product->get('id'))];
   $contents[] = ['text' => TEXT_INFO_COPY_TO_INTRO];
   $contents[] = ['text' => TEXT_INFO_CURRENT_CATEGORIES . '<br><i>' . Categories::draw_breadcrumbs($product->get('categories')) . '</i>'];
   $contents[] = ['text' => TEXT_CATEGORIES . '<br>' . (new Select('categories_id', $category_tree->get_selections([['id' => '0', 'text' => TEXT_TOP]])))->set_selection($current_category_id)];
@@ -27,6 +27,6 @@
   ];
   $contents[] = [
     'class' => 'text-center',
-    'text' => $Admin->button(IMAGE_COPY, 'fas fa-copy', 'btn-success btn-block btn-lg mb-1')
+    'text' => new Button(IMAGE_COPY, 'fas fa-copy', 'btn-success btn-block btn-lg mb-1')
             . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => $product->get('id')])),
   ];

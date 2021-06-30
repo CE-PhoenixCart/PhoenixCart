@@ -56,7 +56,7 @@
       $contents[] = [
         'class' => 'text-center',
         'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-light mr-2', (clone $link)->set_parameter('action', 'move_product'))
-                . $Admin->button(IMAGE_COPY_TO, 'fas fa-copy', 'btn-light', $link->set_parameter('action', 'action=copy_to')),
+                . $Admin->button(IMAGE_COPY_TO, 'fas fa-copy', 'btn-light', $link->set_parameter('action', 'copy_to')),
       ];
     }
   } else {
