@@ -35,8 +35,8 @@
     public function set_processor(string $processor = null) {
       $this->processor = $processor;
       $this->action_directory = rtrim(
-        realpath(DIR_FS_ADMIN . "includes/actions/{$this->processor}"),
-        DIRECTORY_SEPARATOR);
+        Path::normalize(DIR_FS_ADMIN . "includes/actions/{$this->processor}"),
+        '\/');
     }
 
     public function link($page = null, $parameters = [], $add_session_id = true) {
@@ -77,8 +77,8 @@
         return;
       }
 
-      $f = realpath("$d/$action.php");
-      if (($f || ($f = realpath("$d/default.php")))
+      $f = Path::normalize("$d/$action.php");
+      if (($f || ($f = Path::normalize("$d/default.php")))
         && (dirname($f) === $d))
       {
         return $f;
@@ -93,7 +93,7 @@
         return;
       }
 
-      return static::locate('', $action);
+      return $this->locate('', $action);
     }
 
   }
