@@ -32,3 +32,9 @@
 
 // if we reach here, we did not redirect, so there was some kind of error
   $action = 'edit';
+  if (!$customer_details) {
+    $customer_details = [];
+  }
+  $customer_details += $db->query($customer_data->build_read(
+      $customer_data->list_all_capabilities(), 'both',
+      [ 'id' => (int)$_GET['cID'] ]))->fetch_assoc();
