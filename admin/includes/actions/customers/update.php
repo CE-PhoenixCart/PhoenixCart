@@ -11,7 +11,7 @@
 */
 
   $_SESSION['customer_id'] = (int)Text::input($_GET['cID']);
-  $customer_details = $customer_data->process($page_fields);
+  $customer_details = $customer_data->process($customer_data->get_fields_for_page('customers'));
   unset($_SESSION['customer_id']);
 
   $admin_hooks->cat('injectFormVerify');
