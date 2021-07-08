@@ -47,7 +47,7 @@
       'sortable' => true,
     ],
     'PRODUCT_LIST_PRICE' => [
-      'order_by' => " ORDER BY final_price%s, pd.products_name",
+      'order_by' => " ORDER BY base_price%s, pd.products_name",
       'heading' => TABLE_HEADING_PRICE,
       'sortable' => true,
     ],
