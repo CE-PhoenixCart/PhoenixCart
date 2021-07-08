@@ -204,7 +204,7 @@
       return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
     }
 
-    function getCurrencies($value, $key = '') {
+    public static function getCurrencies($value, $key = '') {
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
       $currencies_array = [];
