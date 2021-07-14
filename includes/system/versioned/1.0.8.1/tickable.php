@@ -34,4 +34,14 @@
       return $this;
     }
 
+    public function __toString() {
+// default if not already set
+      $this->parameters += [
+        'type' => 'checkbox',
+        'class' => '',
+      ];
+
+      return parent::__toString();
+    }
+
   }
