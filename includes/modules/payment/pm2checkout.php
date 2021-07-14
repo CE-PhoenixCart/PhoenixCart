@@ -163,7 +163,7 @@
         ],
         'MODULE_PAYMENT_2CHECKOUT_CURRENCY' => [
           'title' => 'Processing Currency',
-          'value' => '" . DEFAULT_CURRENCY . "',
+          'value' => DEFAULT_CURRENCY,
           'desc' => 'The currency to process transactions in. (Must be the same as defined on the Vendor Admin interface)',
           'set_func' => 'pm2checkout::getCurrencies(',
         ],
