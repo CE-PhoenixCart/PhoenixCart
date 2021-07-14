@@ -1,4 +1,4 @@
-<div class="col-sm-<?php echo $content_width; ?> pi-gallery">
+<div class="col-sm-<?= $content_width; ?> pi-gallery">
   <?php
   $pi_image .= '<a href="#lightbox" class="lb" data-toggle="modal" data-slide="0">';
     $pi_image .= new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])]);
@@ -36,7 +36,7 @@
       $other_img .= '</div>';
     }
   }
-  
+
   $swipe_arrows = '';
   if (PI_GALLERY_SWIPE_ARROWS == 'True') {
     $swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>';
@@ -49,7 +49,7 @@
       $indicators .= $other_img_indicator;
     $indicators .= '</ol>';
   }
-  
+
   $modal_gallery_footer = <<<"EOHTML"
 <div id="lightbox" class="modal fade" role="dialog">
   <div class="modal-dialog {$modal_size}" role="document">
@@ -72,14 +72,14 @@
 </div>
 EOHTML;
 
-  $GLOBALS['Template']->addBlock($modal_gallery_footer, 'footer_scripts');
-  
+  $GLOBALS['Template']->add_block($modal_gallery_footer, 'footer_scripts');
+
   $modal_clicker = <<<'EOJS'
 <script>$(document).ready(function() { $('a.lb').click(function(e) { var s = $(this).data('slide'); $('#lightbox').carousel(s); }); });</script>
 EOJS;
 
-  $GLOBALS['Template']->addBlock($modal_clicker, 'footer_scripts');
-  
+  $GLOBALS['Template']->add_block($modal_clicker, 'footer_scripts');
+
   echo $pi_image;
   echo $pi_thumb;
   ?>
