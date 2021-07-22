@@ -18,7 +18,7 @@
     public $api_version;
     public $group;
 
-    function __construct() {
+    public function __construct() {
       parent::__construct();
       $this->group = basename(dirname(__FILE__));
 
@@ -31,25 +31,25 @@
       }
     }
 
-    function getOutput() {
-      global $product_info;
+    public function getOutput() {
+      global $product;
 
       $content_width = $this->content_width;
       $thumbnail_width = PI_GALLERY_CONTENT_WIDTH_EACH;
 
       $pi_image = $pi_thumb = '';
 
-      if (Text::is_empty($product_info['products_image'])) {
+      if (Text::is_empty($product->get('image'))) {
         return;
       }
 
-      $album_name = sprintf(PI_GALLERY_ALBUM_NAME, $product_info['products_name']);
+      $album_name = sprintf(PI_GALLERY_ALBUM_NAME, $product->get('name'));
       $album_exit = PI_GALLERY_ALBUM_CLOSE;
 
       $pi_html = [];
-      $pi_html[0] = ['image' => $product_info['products_image'], 'htmlcontent' => $product_info['products_name']];
+      $pi_html[0] = ['image' => $product->get('image'), 'htmlcontent' => $product->get('name')];
 
-      $pi_query = tep_db_query("SELECT image, htmlcontent FROM products_images WHERE products_id = " . (int)$product_info['products_id'] . " ORDER BY sort_order");
+      $pi_query = $GLOBALS['db']->query("SELECT image, htmlcontent FROM products_images WHERE products_id = " . (int)$product->get('id') . " ORDER BY sort_order");
       $pi_total = mysqli_num_rows($pi_query);
 
       if ($pi_total > 0) {
@@ -71,7 +71,7 @@
       include 'includes/modules/block_template.php';
     }
 
-    function display_layout() {
+    public function display_layout() {
       return cm_pi_modular::display_layout();
     }
 
@@ -81,19 +81,19 @@
           'title' => 'Enable Gallery Module',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'PI_GALLERY_GROUP' => [
           'title' => 'Module Display',
           'value' => 'B',
           'desc' => 'Where should this module display on the product info page?',
-          'set_func' => "tep_cfg_select_option(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
+          'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
         'PI_GALLERY_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'PI_GALLERY_CONTENT_WIDTH_EACH' => [
           'title' => 'Thumbnail Width',
@@ -104,19 +104,19 @@
           'title' => 'Modal Popup Size',
           'value' => 'modal-md',
           'desc' => 'Choose the size of the Popup.  sm = small, md = medium etc.',
-          'set_func' => "tep_cfg_select_option(['modal-sm', 'modal-md', 'modal-lg', 'modal-xl'], ",
+          'set_func' => "Config::select_one(['modal-sm', 'modal-md', 'modal-lg', 'modal-xl'], ",
         ],
         'PI_GALLERY_SWIPE_ARROWS' => [
           'title' => 'Show Swipe Arrows',
           'value' => 'True',
           'desc' => 'Swipe Arrows make for a better User Experience in some cases.',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'PI_GALLERY_INDICATORS' => [
           'title' => 'Show Indicators',
           'value' => 'True',
           'desc' => 'Indicators allow users to jump from image to image without having to swipe.',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'PI_GALLERY_SORT_ORDER' => [
           'title' => 'Sort Order',
