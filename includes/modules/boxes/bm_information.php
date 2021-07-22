@@ -32,11 +32,6 @@
 
     function execute() {
       global $oscTemplate;
-      
-      $bm_information_links = null;      
-      foreach (MODULE_BOXES_INFORMATION_BOX_DATA as $a => $b) {
-        $bm_information_links .= '<a class="list-group-item list-group-item-action" href="' . tep_href_link($a) . '">' . $b . '</a>' . PHP_EOL; 
-      }
 
       $tpl_data = ['group' => $this->group, 'file' => __FILE__];
       include 'includes/modules/block_template.php';
