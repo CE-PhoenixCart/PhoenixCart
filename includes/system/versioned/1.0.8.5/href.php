@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class Href {
+  class Href implements \JsonSerializable {
 
     protected $include_session = true;
     protected $page;
@@ -134,6 +134,10 @@
 
     public function __toString() {
       return $this->link();
+    }
+
+    public function jsonSerialize() {
+      return "$this";
     }
 
     public static function hook($chain) {
