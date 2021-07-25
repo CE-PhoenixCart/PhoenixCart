@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $always_valid_actions = ['set_flag'];
   require 'includes/application_top.php';
 
   $currencies = new currencies();
