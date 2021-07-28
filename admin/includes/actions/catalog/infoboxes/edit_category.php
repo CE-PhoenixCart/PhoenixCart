@@ -29,7 +29,7 @@ SELECT l.*, cd.*
 EOSQL
     , $cInfo->categories_id));
   while ($l = $translations_query->fetch_assoc()) {
-    $language_icon = new Image($Admin->catalog("includes/languages/{$l['directory']}/images/{$l['image']}"), $l['name']);
+    $language_icon = new Image($Admin->catalog("includes/languages/{$l['directory']}/images/{$l['image']}"), ['alt' => $l['name']]);
 
     $category_inputs_string .= '<div class="input-group mb-1">';
       $category_inputs_string .= '<div class="input-group-prepend">';
