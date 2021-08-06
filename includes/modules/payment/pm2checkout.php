@@ -163,7 +163,7 @@
         ],
         'MODULE_PAYMENT_2CHECKOUT_CURRENCY' => [
           'title' => 'Processing Currency',
-          'value' => '" . DEFAULT_CURRENCY . "',
+          'value' => DEFAULT_CURRENCY,
           'desc' => 'The currency to process transactions in. (Must be the same as defined on the Vendor Admin interface)',
           'set_func' => 'pm2checkout::getCurrencies(',
         ],
@@ -204,7 +204,7 @@
       return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
     }
 
-    function getCurrencies($value, $key = '') {
+    public static function getCurrencies($value, $key = '') {
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
       $currencies_array = [];

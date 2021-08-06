@@ -12,8 +12,14 @@
 
   class Tickable extends Input {
 
-    public function tick() {
+    public function tick(bool $tick = true) {
+      if ($tick) {
         $this->set('checked', 'checked');
+      } else {
+        $this->delete('checked');
+      }
+
+      return $this;
     }
 
     /**
@@ -24,6 +30,18 @@
       if (is_string($requested) && (('on' === $requested) || ($this->get('value') == $requested))) {
         $this->tick();
       }
+
+      return $this;
+    }
+
+    public function __toString() {
+// default if not already set
+      $this->parameters += [
+        'type' => 'checkbox',
+        'class' => '',
+      ];
+
+      return parent::__toString();
     }
 
   }

@@ -12,27 +12,35 @@
 
   class Config {
 
-    public static function name($key) {
-      return $key ? "configuration[$key]" : 'configuration_value';
-    }
-
     public static function draw_textarea($text = '') {
       return (new Textarea('configuration_value', ['cols' => '35', 'rows' => 5]))->set_text($text);
     }
 
-    public static function select_one($select_options, $key_value, $key = '') {
-      $string = '';
-      foreach ($select_options as $select_option) {
-        $radio = new Tickable(static::name($key), ['value' => $select_option, 'class' => ''], 'radio');
+    public static function get_zone_name($zone_id, $country_id = null) {
+      return is_numeric($zone_id)
+           ? Zone::fetch_name($zone_id, $country_id ?? STORE_COUNTRY, CLASS_CONFIG_TEXT_INVALID_ZONE)
+           : $zone_id;
+    }
 
-        if ($key_value == $select_option) {
-          $radio->tick();
-        }
+    public static function name($key) {
+      return $key ? "configuration[$key]" : 'configuration_value';
+    }
 
-        $string .= "<br><label>$radio $select_option</label>";
-      }
+    public static function select_country($country_id) {
+      return (new Select('configuration_value', Country::fetch_options()))->set_selection($country_id);
+    }
 
-      return $string;
+    public static function select_customer_data_group($id, $key = '') {
+      return (new Select(static::name($key), customer_data_group::fetch_options()))->set_selection($id);
+    }
+
+    public static function select_geo_zone($zone_class_id, $key) {
+      return (new Select(
+        static::name($key),
+        array_merge(
+          [['id' => '0', 'text' => TEXT_NONE]],
+          geo_zone::fetch_options()
+        )))->set_selection($zone_class_id);
     }
 
     public static function select_multiple($selections, $key_values, $key_name = null) {
@@ -52,14 +60,15 @@
       $string = '';
       foreach ($selections as $key => $text) {
         if (is_int($key)) {
-          $key = $text;
+          if (is_array($text)) {
+            $key = $text['id'];
+            $text = $text['text'];
+          } else {
+            $key = $text;
+          }
         }
 
-        if (isset($key_values[$key]) || array_key_exists($key, $key_values)) {
-          $checkbox->tick();
-        } else {
-          $checkbox->delete('checked');
-        }
+        $checkbox->tick(isset($key_values[$key]) || array_key_exists($key, $key_values));
 
         $string .= PHP_EOL . '<br><label>' . $checkbox->set('value', $key) . ' ' . $text . '</label>';
       }
@@ -67,21 +76,19 @@
       return $string;
     }
 
-    public static function select_country($country_id) {
-      return (new Select('configuration_value', Country::fetch_options()))->set_selection($country_id);
-    }
+    public static function select_one($select_options, $key_value, $key = '') {
+      $string = '';
+      foreach ($select_options as $select_option) {
+        $radio = new Tickable(static::name($key), ['value' => $select_option, 'class' => ''], 'radio');
 
-    public static function select_customer_data_group($id, $key = '') {
-      return (new Select(static::name($key), customer_data_group::fetch_options()))->set_selection($id);
-    }
+        if ($key_value == $select_option) {
+          $radio->tick();
+        }
 
-    public static function select_geo_zone($zone_class_id, $key) {
-      return (new Select(
-        static::name($key),
-        array_merge(
-          [['id' => '0', 'text' => TEXT_NONE]],
-          geo_zone::fetch_options()
-        )))->set_selection($zone_class_id);
+        $string .= "<br><label>$radio $select_option</label>";
+      }
+
+      return $string;
     }
 
     public static function select_order_status($order_status_id, $key = '') {
@@ -118,9 +125,10 @@ EOSQL
     }
 
     public static function select_zone_by($country_id = STORE_COUNTRY, $zone_id = '') {
-      return ($zones = Zone::fetch_by_country($country_id))
+      $zones = Zone::fetch_by_country($country_id);
+      return (is_array($zones) && count($zones))
            ? (new Select('configuration_value', $zones))->set_selection($zone_id)
-           : new Input('configuration_value', $zone_id);
+           : new Input('configuration_value', ['value' => $zone_id]);
     }
 
   }

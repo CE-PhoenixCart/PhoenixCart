@@ -26,12 +26,14 @@
     echo '>', $column['name'], '</th>';
   }
 ?>
+
             </tr>
           </thead>
           <tbody>
 <?php
   foreach ($table_definition['split']->fetch() as $row) {
 ?>
+
             <tr<?= $row['css'] ?> onclick="document.location.href='<?= $row['onclick'] ?>'">
 <?php
     foreach ($table_definition['columns'] as $column) {
@@ -50,10 +52,12 @@
       echo '>', $column['function']($row), $close, PHP_EOL;
     }
 ?>
+
             </tr>
 <?php
   }
 ?>
+
           </tbody>
         </table>
       </div>
@@ -74,16 +78,11 @@
 
       <?= $GLOBALS['admin_hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
 
-
     </div>
 
 <?php
-  $table_definition['box']();
-  if ( ([] !== $table_definition['heading']) && ([] !== $table_definition['contents']) ) {
-    echo '<div class="col-12 col-sm-4">';
-      $box = new box();
-      echo $box->infoBox($table_definition['heading'], $table_definition['contents']);
-    echo '</div>';
+  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'])) {
+    require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>
 

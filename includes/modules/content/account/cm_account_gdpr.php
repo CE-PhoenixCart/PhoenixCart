@@ -14,10 +14,10 @@
 
     const CONFIG_KEY_BASE = 'MODULE_CONTENT_ACCOUNT_GDPR_';
 
-    protected $public_title = MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE;
-
     public function __construct() {
       parent::__construct(__FILE__);
+
+      $this->public_title = MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE;
     }
 
     public function execute() {
@@ -69,52 +69,4 @@
 
   function gdpr_show_countries($text) {
     return implode("<br />\n", array_map('Country::fetch_name', explode(';', $text)));
-  }
-
-  function gdpr_select_countries($values, $key) {
-    $values_array = explode(';', $values);
-
-    $output = '';
-    foreach (Country::fetch_options() as $country) {
-      $tickable = new Tickable('gdpr_selected_countries[]', ['value' => $country['id']], 'checkbox');
-      if (in_array($country['id'], $values_array)) {
-        $tickable->tick();
-      }
-      $output .= '<br />' . $tickable . '&nbsp;' . Text::output($country['text']) . PHP_EOL;
-    }
-
-    $output .= new Input('configuration[' . $key . ']', ['id' => 'gdpr_countrys'], 'hidden') . PHP_EOL;
-
-    $output .= <<<'EOSQL'
-<script>
-  function gdpr_update_cfg_value() {
-    var gdpr_selected_countries = '';
-
-    if ($('input[name="gdpr_selected_countries[]"]').length > 0) {
-      $('input[name="gdpr_selected_countries[]"]:checked').each(function() {
-        gdpr_selected_countries += $(this).attr('value') + ';';
-      });
-
-      if (gdpr_selected_countries.length > 0) {
-        gdpr_selected_countries = gdpr_selected_countries.substring(0, gdpr_selected_countries.length - 1);
-      }
-    }
-
-    $('#gdpr_countrys').val(gdpr_selected_countries);
-  }
-
-  $(function() {
-    gdpr_update_cfg_value();
-
-    if ($('input[name="gdpr_selected_countries[]"]').length > 0) {
-      $('input[name="gdpr_selected_countries[]"]').change(function() {
-        gdpr_update_cfg_value();
-      });
-    }
-  });
-</script>
-
-EOSQL;
-
-    return $output;
   }

@@ -154,7 +154,7 @@
 
   function tep_info_image($image, $alt, $width = '', $height = '') {
     return Guarantor::ensure_global('Admin')->catalog_image(
-      $image, [], $alt, $width, $height);
+      "images/$image", [], $alt, $width, $height);
   }
 
   function tep_break_string($string, $len, $break_char = '-') {

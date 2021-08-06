@@ -18,7 +18,7 @@
     $action_redirect = require $action_file;
     $admin_hooks->cat(Admin::camel_case($action) . 'Action');
 
-    if (!is_null($action_redirect)) {
+    if (is_string($action_redirect) || ($action_redirect instanceof Href)) {
       Href::redirect($action_redirect);
     }
   }

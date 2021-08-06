@@ -1,7 +1,7 @@
 <div class="col-sm-<?= (int)MODULE_CONTENT_PI_GALLERY_CONTENT_WIDTH ?> cm-pi-gallery">
   <?php
   $pi_image .= '<a href="#lightbox" class="lb" data-toggle="modal" data-slide="0">';
-  $pi_image .= new Image('images/' . $active_image['image'], htmlspecialchars( $active_image['htmlcontent']));
+  $pi_image .= new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])]);
   $pi_image .= '</a>';
 
   $first_img_indicator = '<li data-target="#carousel" data-slide-to="0" class="pointer active"></li>';

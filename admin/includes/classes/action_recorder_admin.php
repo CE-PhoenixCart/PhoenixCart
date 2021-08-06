@@ -12,12 +12,12 @@
 
   class actionRecorderAdmin extends actionRecorder {
 
-    function __construct($module, $user_id = null, $user_name = null) {
-      $module = tep_sanitize_string(str_replace(' ', '', $module));
+    public function __construct($module, $user_id = null, $user_name = null) {
+      $module = Text::sanitize(str_replace(' ', '', $module));
 
       if (!defined('MODULE_ACTION_RECORDER_INSTALLED')
-        || !tep_not_null(MODULE_ACTION_RECORDER_INSTALLED)
-        || !tep_not_null($module)
+        || Text::is_empty(MODULE_ACTION_RECORDER_INSTALLED)
+        || Text::is_empty($module)
         || !in_array("$module.php", explode(';', MODULE_ACTION_RECORDER_INSTALLED))
         || !class_exists($module))
       {
@@ -36,6 +36,12 @@
 
       $GLOBALS[$this->_module] = new $module();
       $GLOBALS[$this->_module]->setIdentifier();
+    }
+
+    public static function notify_expiration() {
+      $GLOBALS['messageStack']->add_session(
+        sprintf(SUCCESS_EXPIRED_ENTRIES, $GLOBALS['expired_entries']),
+        'success');
     }
 
   }

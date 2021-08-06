@@ -32,7 +32,7 @@
 
       \Href::redirect(\Guarantor::ensure_global('Linker')
         ->build($GLOBALS['goto'])
-        ->retain_parameters($GLOBALS['parameters']));
+        ->retain_query_except($GLOBALS['parameters']));
     }
 
   }
