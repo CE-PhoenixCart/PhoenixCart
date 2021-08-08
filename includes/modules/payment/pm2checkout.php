@@ -36,69 +36,70 @@
     }
 
     public function process_button() {
-      global $order;
+      global $order, $customer_data, $currencies;
 
-      $process_button_string = tep_draw_hidden_field('sid', MODULE_PAYMENT_2CHECKOUT_LOGIN)
-                             . tep_draw_hidden_field('total', $this->format_raw($order->info['total'], MODULE_PAYMENT_2CHECKOUT_CURRENCY))
-                             . tep_draw_hidden_field('cart_order_id', date('YmdHis') . '-' . $_SESSION['customer_id'] . '-' . $_SESSION['cartID'])
-                             . tep_draw_hidden_field('fixed', 'Y')
-                             . tep_draw_hidden_field('first_name', $order->billing['firstname'])
-                             . tep_draw_hidden_field('last_name', $order->billing['lastname'])
-                             . tep_draw_hidden_field('street_address', $order->billing['street_address'])
-                             . tep_draw_hidden_field('city', $order->billing['city'])
-                             . tep_draw_hidden_field('state', $order->billing['state'])
-                             . tep_draw_hidden_field('zip', $order->billing['postcode'])
-                             . tep_draw_hidden_field('country', $order->billing['country']['title'])
-                             . tep_draw_hidden_field('email', $order->customer['email_address'])
-                             . tep_draw_hidden_field('phone', $order->customer['telephone'])
-                             . tep_draw_hidden_field('ship_name', $order->delivery['name'])
-                             . tep_draw_hidden_field('ship_street_address', $order->delivery['street_address'])
-                             . tep_draw_hidden_field('ship_city', $order->delivery['city'])
-                             . tep_draw_hidden_field('ship_state', $order->delivery['state'])
-                             . tep_draw_hidden_field('ship_zip', $order->delivery['postcode'])
-                             . tep_draw_hidden_field('ship_country', $order->delivery['country']['title']);
+      $process_button = new Input('sid', ['type' => 'hidden', 'value' => MODULE_PAYMENT_2CHECKOUT_LOGIN])
+                      . new Input('total', ['type' => 'hidden', 'value' => $currencies->format_raw($order->info['total'], true, MODULE_PAYMENT_2CHECKOUT_CURRENCY)])
+                      . new Input('cart_order_id', ['type' => 'hidden', 'value' => date('YmdHis') . '-' . $_SESSION['customer_id'] . '-' . $_SESSION['cartID']])
+                      . new Input('fixed', ['type' => 'hidden', 'value' => 'Y'])
+                      . new Input('first_name', ['type' => 'hidden', 'value' => $customer_data->get('firstname', $order->billing)])
+                      . new Input('last_name', ['type' => 'hidden', 'value' => $customer_data->get('lastname', $order->billing)])
+                      . new Input('street_address', ['type' => 'hidden', 'value' => $customer_data->get('street_address', $order->billing)])
+                      . new Input('city', ['type' => 'hidden', 'value' => $customer_data->get('city', $order->billing)])
+                      . new Input('state', ['type' => 'hidden', 'value' => $customer_data->get('state', $order->billing)])
+                      . new Input('zip', ['type' => 'hidden', 'value' => $customer_data->get('postcode', $order->billing)])
+                      . new Input('country', ['type' => 'hidden', 'value' => $customer_data->get('country_name', $order->billing)])
+                      . new Input('email', ['type' => 'hidden', 'value' => $customer_data->get('email_address', $order->customer)])
+                      . new Input('phone', ['type' => 'hidden', 'value' => $customer_data->get('telephone', $order->customer)])
+                      . new Input('ship_name', ['type' => 'hidden', 'value' => $customer_data->get('name', $order->delivery)])
+                      . new Input('ship_street_address', ['type' => 'hidden', 'value' => $customer_data->get('street_address', $order->delivery)])
+                      . new Input('ship_city', ['type' => 'hidden', 'value' => $customer_data->get('city', $order->delivery)])
+                      . new Input('ship_state', ['type' => 'hidden', 'value' => $customer_data->get('state', $order->delivery)])
+                      . new Input('ship_zip', ['type' => 'hidden', 'value' => $customer_data->get('postcode', $order->delivery)])
+                      . new Input('ship_country', ['type' => 'hidden', 'value' => $customer_data->get('country_name', $order->delivery)]);
 
-      foreach ($order->products as $product) {
-        $process_button_string .= tep_draw_hidden_field('c_prod_' . ($i+1), (int)$product['id'] . ',' . (int)$product['qty'])
-                                . tep_draw_hidden_field('c_name_' . ($i+1), $product['name'])
-                                . tep_draw_hidden_field('c_description_' . ($i+1), $product['name'])
-                                . tep_draw_hidden_field('c_price_' . ($i+1), $this->format_raw(tep_add_tax($product['final_price'], $product['tax']), MODULE_PAYMENT_2CHECKOUT_CURRENCY));
+      foreach ($order->products as $i => $product) {
+        $i++;
+        $process_button .= new Input("c_prod_$i", ['type' => 'hidden', 'value' => (int)$product['id'] . ',' . (int)$product['qty']])
+                         . new Input("c_name_$i", ['type' => 'hidden', 'value' => $product['name']])
+                         . new Input("c_description_$i", ['type' => 'hidden', 'value' => $product['name']])
+                         . new Input("c_price_$i", ['type' => 'hidden', 'value' => $currencies->format_raw(Tax::price($product['final_price'], $product['tax']), true, MODULE_PAYMENT_2CHECKOUT_CURRENCY)]);
       }
 
-      $process_button_string .= tep_draw_hidden_field('id_type', '1')
-                              . tep_draw_hidden_field('skip_landing', '1');
+      $process_button .= new Input('id_type', ['type' => 'hidden', 'value' => '1'])
+                       . new Input('skip_landing', ['type' => 'hidden', 'value' => '1']);
 
-      if (MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') {
-        $process_button_string .= tep_draw_hidden_field('demo', 'Y');
+      if ('Test' === MODULE_PAYMENT_2CHECKOUT_TESTMODE) {
+        $process_button .= new Input('demo', ['type' => 'hidden', 'value' => 'Y']);
       }
 
-      $process_button_string .= tep_draw_hidden_field('return_url', tep_href_link('shopping_cart.php'));
+      $process_button .= new Input('return_url', ['type' => 'hidden', 'value' => Guarantor::ensure_global('Linker')->build('shopping_cart.php')]);
 
-      $lang_query = tep_db_query("SELECT code FROM languages WHERE languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-      $lang = tep_db_fetch_array($lang_query);
+      $lang_query = $GLOBALS['db']->query("SELECT code FROM languages WHERE languages_id = " . (int)$_SESSION['languages_id']);
+      $lang = $lang_query->fetch_assoc();
 
       switch (strtolower($lang['code'])) {
         case 'es':
-          $process_button_string .= tep_draw_hidden_field('lang', 'sp');
+          $process_button .= new Input('lang', ['type' => 'hidden', 'value' => 'sp']);
           break;
       }
 
-      $process_button_string .= tep_draw_hidden_field('cart_brand_name', PROJECT_VERSION)
-                              . tep_draw_hidden_field('cart_version_name', tep_get_version());
+      $process_button .= new Input('cart_brand_name', ['type' => 'hidden', 'value' => PROJECT_VERSION])
+                       . new Input('cart_version_name', ['type' => 'hidden', 'value' => Versions::get()]);
 
-      return $process_button_string;
+      return $process_button;
     }
 
     public function before_process() {
       if ( ($_POST['credit_card_processed'] != 'Y') && ($_POST['credit_card_processed'] != 'K') ){
-        tep_redirect(tep_href_link('checkout_payment.php', 'payment_error=' . $this->code, 'SSL', true, false));
+        Href::redirect(Guarantor::ensure_global('Linker')->build('checkout_payment.php', ['payment_error' => $this->code]));
       }
     }
 
     public function after_process() {
       global $order;
 
-      if (MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Test') {
+      if ('Test' === MODULE_PAYMENT_2CHECKOUT_TESTMODE) {
         $sql_data = [
           'orders_id' => (int)$order->get_id(),
           'orders_status_id' => (int)$order->info['order_status'],
@@ -107,8 +108,8 @@
           'comments' => MODULE_PAYMENT_2CHECKOUT_TEXT_WARNING_DEMO_MODE,
         ];
 
-        tep_db_perform('orders_status_history', $sql_data);
-      } elseif (tep_not_null(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD) && (MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Production')) {
+        $GLOBALS['db']->perform('orders_status_history', $sql_data);
+      } elseif (!Text::is_empty(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD) && (MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Production')) {
 // The KEY value returned from the gateway is intentionally broken for Test transactions so it is only checked in Production mode
         if (strtoupper(md5(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD . MODULE_PAYMENT_2CHECKOUT_LOGIN . $_POST['order_number'] . $this->order_format($order->info['total'], MODULE_PAYMENT_2CHECKOUT_CURRENCY))) != strtoupper($_POST['key'])) {
           $sql_data = [
@@ -119,7 +120,7 @@
             'comments' => MODULE_PAYMENT_2CHECKOUT_TEXT_WARNING_TRANSACTION_ORDER,
           ];
 
-          tep_db_perform('orders_status_history', $sql_data);
+          $GLOBALS['db']->perform('orders_status_history', $sql_data);
         }
       }
     }
@@ -137,7 +138,7 @@
           'title' => 'Enable 2Checkout',
           'value' => 'False',
           'desc' => 'Do you want to accept 2CheckOut payments?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_PAYMENT_2CHECKOUT_LOGIN' => [
           'title' => 'Vendor Account',
@@ -148,7 +149,7 @@
           'title' => 'Transaction Mode',
           'value' => 'Test',
           'desc' => 'Transaction mode used for the 2Checkout gateway.',
-          'set_func' => "tep_cfg_select_option(['Test', 'Production'], ",
+          'set_func' => "Config::select_one(['Test', 'Production'], ",
         ],
         'MODULE_PAYMENT_2CHECKOUT_SECRET_WORD' => [
           'title' => 'Secret Word',
@@ -159,7 +160,7 @@
           'title' => 'Payment Routine',
           'value' => 'Multi-Page',
           'desc' => 'The payment routine to use on the 2Checkout gateway.',
-          'set_func' => "tep_cfg_select_option(['Multi-Page', 'Single-Page'], ",
+          'set_func' => "Config::select_one(['Multi-Page', 'Single-Page'], ",
         ],
         'MODULE_PAYMENT_2CHECKOUT_CURRENCY' => [
           'title' => 'Processing Currency',
@@ -176,48 +177,24 @@
           'title' => 'Payment Zone',
           'value' => '0',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
-          'use_func' => 'tep_get_zone_class_title',
-          'set_func' => 'tep_cfg_pull_down_zone_classes(',
+          'use_func' => 'geo_zone::fetch_name',
+          'set_func' => 'Config::select_geo_zone(',
         ],
         'MODULE_PAYMENT_2CHECKOUT_ORDER_STATUS_ID' => [
           'title' => 'Set Order Status',
           'value' => '0',
           'desc' => 'Set the status of orders made with this payment module to this value.',
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
-          'use_func' => 'tep_get_order_status_name',
+          'set_func' => 'Config::select_order_status(',
+          'use_func' => 'order_status::fetch_name',
         ],
       ];
     }
 
-// format prices without currency formatting
-    function format_raw($number, $currency_code = '', $currency_value = '') {
-      global $currencies;
-
-      if (empty($currency_code) || !$currencies->is_set($currency_code)) {
-        $currency_code = $_SESSION['currency'];
-      }
-
-      if (empty($currency_value) || !is_numeric($currency_value)) {
-        $currency_value = $currencies->currencies[$currency_code]['value'];
-      }
-
-      return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
-    }
-
     public static function getCurrencies($value, $key = '') {
-      $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-
-      $currencies_array = [];
-
-      $currencies_query = tep_db_query("SELECT code, title FROM currencies ORDER BY title");
-      while ($currencies = tep_db_fetch_array($currencies_query)) {
-        $currencies_array[] = [
-          'id' => $currencies['code'],
-          'text' => $currencies['title'],
-        ];
-      }
-
-      return tep_draw_pull_down_menu($name, $currencies_array, $value);
+      return new Select(
+        ($key ? 'configuration[' . $key . ']' : 'configuration_value'),
+        $GLOBALS['db']->fetch_all("SELECT code AS id, title AS text FROM currencies ORDER BY title"),
+        ['value' => $value]);
     }
 
   }
