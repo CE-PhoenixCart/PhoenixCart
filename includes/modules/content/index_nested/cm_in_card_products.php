@@ -19,30 +19,28 @@
     }
 
     public function execute() {
-      global $current_category_id, $currencies, $PHP_SELF;
-
-      $content_width = MODULE_CONTENT_IN_CARD_PRODUCTS_CONTENT_WIDTH;
-      $card_layout = IS_PRODUCT_PRODUCTS_DISPLAY_ROW;
-
-      $card_products_query = tep_db_query(<<<'EOSQL'
-SELECT DISTINCT p.*, pd.*,
-  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
-  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price,
-  p.products_quantity AS in_stock,
-  IF(s.status, 1, 0) AS is_special
+      $card_products_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT DISTINCT %s
  FROM products p
   LEFT JOIN specials s ON p.products_id = s.products_id
   INNER JOIN products_description pd ON p.products_id = pd.products_id
   INNER JOIN products_to_categories p2c ON p.products_id = p2c.products_id
   INNER JOIN categories c ON p2c.categories_id = c.categories_id
- WHERE p.products_status = 1 AND c.parent_id = 
+  LEFT JOIN (SELECT products_id, COUNT(*) AS attribute_count FROM products_attributes GROUP BY products_id) a ON p.products_id = a.products_id
+ WHERE p.products_status = 1 AND c.parent_id = %d AND pd.language_id = %d
+ ORDER BY p.products_id DESC LIMIT %d
 EOSQL
-        . (int)$current_category_id . " AND pd.language_id = " . (int)$_SESSION['languages_id']
-        . " ORDER BY p.products_id DESC LIMIT " . (int)MODULE_CONTENT_IN_CARD_PRODUCTS_MAX_DISPLAY);
+        , Product::COLUMNS,
+          (int)$GLOBALS['current_category_id'],
+          (int)$_SESSION['languages_id'],
+          (int)MODULE_CONTENT_IN_CARD_PRODUCTS_MAX_DISPLAY));
 
-      $num_card_products = tep_db_num_rows($card_products_query);
-
+      $num_card_products = mysqli_num_rows($card_products_query);
       if ($num_card_products > 0) {
+        $card = [
+          'show_buttons' => true,
+        ];
+
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }
@@ -54,13 +52,13 @@ EOSQL
           'title' => 'Enable New Products Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_IN_CARD_PRODUCTS_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_IN_CARD_PRODUCTS_MAX_DISPLAY' => [
           'title' => 'Maximum Display',
