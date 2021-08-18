@@ -16,6 +16,7 @@
     protected $responsive = true;
     protected $web_prefix = '';
     protected $default = false;
+    protected $relative_path = null;
 
     /**
      *
@@ -102,11 +103,36 @@
     }
 
     /**
+     * Normalize the src parameter and relative_path property.
+     * $this->relative_path will be the path relative to the prefixes
+     * $this->parameters['src'] will be the web path, as should appear in the img src
+     * @return Image
+     */
+    public function normalize_paths() {
+      $this->relative_path = $this->get('src');
+      if ($this->web_prefix) {
+        if (Text::is_prefixed_by($this->relative_path, $this->web_prefix)) {
+          $this->relative_path = Text::ltrim_once($this->relative_path, $this->web_prefix);
+        } else {
+          $this->set('src', "{$this->web_prefix}{$this->relative_path}");
+        }
+      }
+
+      return $this;
+    }
+
+    /**
      * Calculate and parameterize the image size.
+     * @param string $file_path
      * @return boolean
      */
-    public function size() {
-      if ($image_size = @getimagesize($this->get('src'))) {
+    public function size(string $file_path = null) {
+      if (is_null($file_path)) {
+        $this->normalize_paths();
+        $file_path = "{$this->path_prefix}{$this->relative_path}";
+      }
+
+      if ($image_size = @getimagesize($file_path)) {
         if (empty($this->parameters['width']) && empty($this->parameters['height'])) {
           $this->set('width', "{$image_size[0]}");
           $this->set('height', "{$image_size[1]}");
@@ -129,21 +155,13 @@
      * @return string
      */
     public function __toString() {
-      $relative_path = $this->get('src');
-      if ($this->web_prefix) {
-        if (Text::is_prefixed_by($relative_path, $this->web_prefix)) {
-          $relative_path = Text::ltrim_once($relative_path, $this->web_prefix);
-        } else {
-          $this->set('src', "{$this->web_prefix}$relative_path");
-        }
-// $relative_path is the path relative to the prefixes
-// $this->parameters['src'] is the web path, as should appear in the img src
-      }
+      $this->normalize_paths();
 
-      if ($this->default && !is_file("{$this->path_prefix}$relative_path")) {
+      $file_path = "{$this->path_prefix}{$this->relative_path}";
+      if ($this->default && !is_file($file_path)) {
         $this->set('src', $this->default);
       } elseif ( (empty($this->parameters['src'])
-               || ('images/' === $relative_path))
+               || ('images/' === $this->relative_path))
               && ('false' === IMAGE_REQUIRED) )
       {
         return '';
@@ -152,7 +170,7 @@
       if ( empty($this->parameters['width'])
         && empty($this->parameters['height'])
         && ('true' === CONFIG_CALCULATE_IMAGE_SIZE)
-        && (false === $this->size()) )
+        && (false === $this->size($file_path)) )
       {
         return '';
       }
