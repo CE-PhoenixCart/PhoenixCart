@@ -22,6 +22,8 @@
       $this->table_definition =& $table_definition;
       $this->current_page_number = empty($table_definition['page']) ? 1 : (int)$table_definition['page'];
 
+      $GLOBALS['admin_hooks']->cat('constructPaginator', $this);
+
       $this->row_count = (new query_parser($table_definition['sql']))->count();
 
       if (!isset($this->table_definition['rows_per_page'])) {
