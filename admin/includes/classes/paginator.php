@@ -38,13 +38,32 @@
       $this->query = $GLOBALS['db']->query($table_definition['sql']);
     }
 
+    public function display_count() {
+      $to = ($this->table_definition['rows_per_page'] * $this->current_page_number);
+      if ($to > $this->row_count) {
+        $to = $this->row_count;
+      }
+
+      $from = ($to > 0)
+            ? ($this->table_definition['rows_per_page'] * ($this->current_page_number - 1)) + 1
+            : 0;
+
+      return sprintf($this->table_definition['count_text'],
+        $from, $to, $this->row_count);
+    }
+
+    public function display_table() {
+      $table_definition =& $this->table_definition;
+      include DIR_FS_ADMIN . 'includes/components/paginated_table.php';
+    }
+
     public function draw_pages_form($parameters = []) {
       $pages = [];
       for ($i = 1; $i <= $this->page_count; $i++) {
         $pages[] = ['id' => $i, 'text' => $i];
       }
 
-      $form = new Form('pages', $GLOBALS['Admin']->link($GLOBALS['PHP_SELF']), 'get');
+      $form = new Form('pages', $GLOBALS['Admin']->link(), 'get');
 
       foreach ($parameters as $key => $value) {
         $form->hide($key, $value);
@@ -57,32 +76,23 @@
              ]) . '</form>';
     }
 
-    public function display_count() {
-      $to_num = ($this->table_definition['rows_per_page'] * $this->current_page_number);
-      if ($to_num > $this->row_count) {
-        $to_num = $this->row_count;
-      }
-
-      if ($to_num > 0) {
-        $from_num = ($this->table_definition['rows_per_page'] * ($this->current_page_number - 1)) + 1;
-      } else {
-        $from_num = 0;
-      }
-
-      return sprintf($this->table_definition['count_text'],
-        $from_num, $to_num, $this->row_count);
-    }
-
-    public function display_table() {
-      $table_definition =& $this->table_definition;
-      include DIR_FS_ADMIN . 'includes/components/paginated_table.php';
-    }
-
     public function fetch() {
       while ($row = $this->query->fetch_assoc()) {
         $this->table_definition['function']($row);
         yield $row;
       }
+    }
+
+    public function get_current_page_number() {
+      return $this->current_page_number;
+    }
+
+    public function get_table_definition() {
+      return $this->table_definition;
+    }
+
+    public function set_current_page_number($page_number) {
+      $this->current_page_number = $page_number;
     }
 
   }
