@@ -1197,6 +1197,7 @@ INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_clas
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'loginRequired', 'loginRequiredStart', 'zz_redirect', '', 'Login::require');
 
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'action_recorder', 'expireAction', 'zz_expire', '', 'actionRecorderAdmin::notify_expiration');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'orders', 'updateOrderAction', 'zz_message_update', '', 'Orders::message_update');
 
 INSERT INTO languages VALUES (1,'English','en','icon.gif','english',1);
 
