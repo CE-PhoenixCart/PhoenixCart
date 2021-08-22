@@ -20,7 +20,7 @@
 // load all enabled shipping modules
   $shipping_modules = new shipping();
 
-  $free_shipping = ot_shipping::is_eligible_free_shipping($order->delivery['country_id'], $order->info['total']);
+  $free_shipping = ot_shipping::is_eligible_free_shipping($order->delivery['country_id'], $order->info['total'] - $order->info['shipping_cost']);
 
   $module_count = $shipping_modules->count();
 // process the selected shipping method
