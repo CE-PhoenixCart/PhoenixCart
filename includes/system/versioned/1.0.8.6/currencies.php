@@ -46,7 +46,7 @@
 
       return $this->currencies[$currency_type]['symbol_left']
            . number_format(
-               tep_round($number, $this->currencies[$currency_type]['decimal_places']),
+               static::round($number, $this->currencies[$currency_type]['decimal_places']),
                $this->currencies[$currency_type]['decimal_places'],
                $this->currencies[$currency_type]['decimal_point'],
                $this->currencies[$currency_type]['thousands_point'])
@@ -54,7 +54,7 @@
     }
 
     public function calculate_price($products_price, $products_tax, $quantity = 1) {
-      return tep_round(Tax::price($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
+      return static::round(Tax::price($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
     }
 
     public function is_set($code) {
@@ -82,7 +82,7 @@
         $number *= ($currency_value ?? $this->currencies[$currency_type]['value']);
       }
 
-      return number_format(tep_round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
+      return number_format(static::round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
     }
 
     public function display_raw($products_price, $products_tax, $quantity = 1) {
@@ -99,6 +99,29 @@
 
         $GLOBALS['currency'] =& $_SESSION['currency'];
       }
+    }
+
+    public static function round($number, $precision) {
+      $location = strpos($number, '.');
+// if there's a decimal point, increment the location to point after it
+      if ((false === $location) || (strlen(substr($number, ++$location)) <= $precision)) {
+// the number is already rounded sufficiently
+        return $number;
+      }
+
+      $location += $precision;
+      $next_digit = substr($number, $location, 1);
+      $number = substr($number, 0, $location);
+
+      if ($next_digit < 5) {
+// we already truncated (which rounds down)
+        return $number;
+      }
+
+// otherwise we need to round up
+      return ($precision < 1)
+           ? $number + 1
+           : $number + ('0.' . str_repeat(0, $precision - 1) . '1');
     }
 
   }
