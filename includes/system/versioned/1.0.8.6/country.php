@@ -60,5 +60,18 @@
       return (new Select($name, $countries, $parameters))->set_selection($selected);
     }
 
+    public static function match_classification($classification, $country_id) {
+      switch ($classification) {
+        case 'national':
+          return STORE_COUNTRY == $country_id;
+        case 'international':
+          return STORE_COUNTRY != $country_id;
+        case 'both':
+          return true;
+      }
+
+      return false;
+    }
+
   }
 
