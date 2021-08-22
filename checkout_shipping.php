@@ -24,7 +24,7 @@
 
   $module_count = $shipping_modules->count();
 // process the selected shipping method
-  if (tep_validate_form_action_is('process')) {
+  if (Form::validate_action_is('process')) {
     $shipping_modules->process_selection();
   }
 
@@ -45,9 +45,9 @@
 
   if ( defined('SHIPPING_ALLOW_UNDEFINED_ZONES') && (SHIPPING_ALLOW_UNDEFINED_ZONES == 'False') && !$_SESSION['shipping'] ) {
     $messageStack->add_session('checkout_address', ERROR_NO_SHIPPING_AVAILABLE_TO_SHIPPING_ADDRESS);
-    tep_redirect(tep_href_link('checkout_shipping_address.php'));
+    Href::redirect($Linker->build('checkout_shipping_address.php'));
   }
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

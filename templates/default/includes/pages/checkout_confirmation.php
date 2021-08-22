@@ -10,12 +10,12 @@
   Released under the GNU General Public License
 */
 
-  $OSCOM_Hooks->register_pipeline('progress');
+  $hooks->register_pipeline('progress');
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('checkout_shipping.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('checkout_shipping.php'));
   $breadcrumb->add(NAVBAR_TITLE_2);
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <h1 class="display-4"><?= HEADING_TITLE ?></h1>
@@ -25,14 +25,14 @@
     echo $messageStack->output('checkout_confirmation');
   }
 
-  $form_action_url = ${$_SESSION['payment']}->form_action_url ?? tep_href_link('checkout_process.php');
+  $form_action_url = ${$_SESSION['payment']}->form_action_url ?? $Linker->build('checkout_process.php');
 
-  echo tep_draw_form('checkout_confirmation', $form_action_url, 'post');
+  echo new Form('checkout_confirmation', $form_action_url, 'post');
 ?>
 
   <div class="row">
     <div class="col-sm-7">
-      <h5 class="mb-1"><?= LIST_PRODUCTS ?><small><a class="font-weight-lighter ml-2" href="<?= tep_href_link('shopping_cart.php') ?>"><?= TEXT_EDIT ?></a></small></h5>
+      <h5 class="mb-1"><?= LIST_PRODUCTS ?><small><a class="font-weight-lighter ml-2" href="<?= $Linker->build('shopping_cart.php') ?>"><?= TEXT_EDIT ?></a></small></h5>
       <div class="border">
         <ul class="list-group list-group-flush">
           <?php
@@ -71,26 +71,26 @@
   if ($_SESSION['sendto']) {
     echo '<li class="list-group-item">';
     echo '<i class="fas fa-shipping-fast fa-fw fa-3x float-right text-black-50"></i>';
-    echo '<h5 class="mb-0">' . HEADING_DELIVERY_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . tep_href_link('checkout_shipping_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+    echo '<h5 class="mb-0">' . HEADING_DELIVERY_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_shipping_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
     echo '<p class="w-100 mb-1">' . $address->format($order->delivery, 1, ' ', '<br>') . '</p>';
     echo '</li>';
   }
 
   echo '<li class="list-group-item">';
   echo '<i class="fas fa-file-invoice-dollar fa-fw fa-3x float-right text-black-50"></i>';
-  echo '<h5 class="mb-0">' . HEADING_BILLING_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . tep_href_link('checkout_payment_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+  echo '<h5 class="mb-0">' . HEADING_BILLING_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
   echo '<p class="w-100 mb-1">' . $address->format($order->billing, 1, ' ', '<br>') . '</p>';
   echo '</li>';
 
   if ($order->info['shipping_method']) {
     echo '<li class="list-group-item">';
-    echo '<h5 class="mb-1">' . HEADING_SHIPPING_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . tep_href_link('checkout_shipping.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+    echo '<h5 class="mb-1">' . HEADING_SHIPPING_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_shipping.php') . '">' . TEXT_EDIT . '</a></small></h5>';
     echo '<p class="w-100 mb-1">' . $order->info['shipping_method'] . '</p>';
     echo '</li>';
   }
 
   echo '<li class="list-group-item">';
-  echo '<h5 class="mb-1">' . HEADING_PAYMENT_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . tep_href_link('checkout_payment.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+  echo '<h5 class="mb-1">' . HEADING_PAYMENT_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment.php') . '">' . TEXT_EDIT . '</a></small></h5>';
   echo '<p class="w-100 mb-1">' . $order->info['payment_method'] . '</p>';
   echo '</li>';
 ?>
@@ -101,17 +101,15 @@
   </div>
 
   <?php
-  if (tep_not_null($order->info['comments'])) {
+  if (!Text::is_empty($order->info['comments'])) {
 ?>
-  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . '<small><a class="font-weight-lighter ml-2" href="' . tep_href_link('checkout_payment.php') . '">' .TEXT_EDIT . '</a></small>' ?></h5>
+  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment.php') . '">' .TEXT_EDIT . '</a></small>' ?></h5>
 
   <div class="border mb-3">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
         <i class="fas fa-comments fa-fw fa-3x float-right text-black-50"></i>
-        <?php
-    echo nl2br(htmlspecialchars($order->info['comments'])) . tep_draw_hidden_field('comments', $order->info['comments']);
-?>
+        <?= nl2br(htmlspecialchars($order->info['comments'])) . new Input('comments', ['value' => $order->info['comments']], 'hidden') ?>
       </li>
     </ul>
   </div>
@@ -128,7 +126,7 @@
 
   <div class="row">
     <?php
-      if (tep_not_null($confirmation['title'])) {
+      if (!Text::is_empty($confirmation['title'])) {
         echo '<div class="col">';
         echo '<div class="bg-light border p-3">';
         echo $confirmation['title'];
@@ -144,7 +142,9 @@
           $fields .= $field['title'] . ' ' . $field['field'] . '<br>';
         }
 
-        if (strlen($fields) > 4) echo substr($fields, 0, -4);
+        if (strlen($fields) > strlen('<br>')) {
+          echo substr($fields, 0, -strlen('<br>'));
+        }
         echo '</div>';
         echo '</div>';
       }
@@ -156,7 +156,7 @@
     }
   }
 
-  echo $OSCOM_Hooks->call('siteWide', 'injectFormDisplay');
+  echo $hooks->cat('injectFormDisplay');
 ?>
 
   <div class="buttonSet mt-3">
@@ -166,7 +166,7 @@
     echo $payment_modules->process_button();
   }
 
-  echo tep_draw_button(sprintf(IMAGE_BUTTON_FINALISE_ORDER, $currencies->format($order->info['total'])), 'fas fa-check-circle', null, 'primary', null, 'btn-success btn-block btn-lg');
+  echo new Button(sprintf(IMAGE_BUTTON_FINALISE_ORDER, $currencies->format($order->info['total'])), 'fas fa-check-circle', 'btn-success btn-block btn-lg');
 ?>
     </div>
   </div>
@@ -174,12 +174,12 @@
   <div class="progressBarHook">
     <?php
   $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 3, 'min' => 0, 'max' => 100, 'now' => 100]];
-  echo $OSCOM_Hooks->call('progress', 'progressBar', $parameters);
+  echo $hooks->cat('progressBar', $parameters);
 ?>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>
