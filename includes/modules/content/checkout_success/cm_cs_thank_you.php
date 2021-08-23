@@ -31,13 +31,13 @@
           'title' => 'Enable Thank You Module',
           'value' => 'True',
           'desc' => 'Should the thank you block be shown on the checkout success page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '7',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_SORT_ORDER' => [
           'title' => 'Sort Order',

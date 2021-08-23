@@ -2,67 +2,56 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2014 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class cm_cs_redirect_old_order {
-    var $code;
-    var $group;
-    var $title;
-    var $description;
-    var $sort_order;
-    var $enabled = false;
+  class cm_cs_redirect_old_order extends abstract_executable_module {
 
-    function __construct() {
-      $this->code = get_class($this);
-      $this->group = basename(dirname(__FILE__));
+    const CONFIG_KEY_BASE = 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_';
 
-      $this->title = MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_TITLE;
-      $this->description = MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_DESCRIPTION;
-
-      if ( defined('MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS') ) {
-        $this->sort_order = MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_SORT_ORDER;
-        $this->enabled = (MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS == 'True');
-      }
+    public function __construct() {
+      parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $order_id;
-
+    public function execute() {
       if ( (int)MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES > 0 ) {
-        $check_query = tep_db_query("select 1 from orders where orders_id = '" . (int)$order_id . "' and date_purchased < date_sub(now(), interval '" . (int)MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES . "' minute)");
+        $check_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT 1
+ FROM orders
+ WHERE orders_id = %d AND date_purchased < DATE_SUB(NOW(), INTERVAL %d MINUTE)
+EOSQL
+          , (int)$GLOBALS['order_id'], (int)MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES));
 
-        if ( tep_db_num_rows($check_query) ) {
-          tep_redirect(tep_href_link('account.php', '', 'SSL'));
+        if ( mysqli_num_rows($check_query) ) {
+          Href::redirect($GLOBALS['Linker']->build('account.php'));
         }
       }
     }
 
-    function isEnabled() {
-      return $this->enabled;
+    protected function get_parameters() {
+      return [
+        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS' => [
+          'title' => 'Enable Redirect Old Order Module',
+          'value' => 'True',
+          'desc' => 'Should customers be redirected when viewing old checkout success orders?',
+          'set_func' => "Config::select_one(['True', 'False'], ",
+        ],
+        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES' => [
+          'title' => 'Redirect Minutes',
+          'value' => '60',
+          'desc' => 'Redirect customers to the My Account page after an order older than this amount is viewed.',
+        ],
+        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_SORT_ORDER' => [
+          'title' => 'Sort Order',
+          'value' => '0',
+          'desc' => 'Sort order of display. Lowest is displayed first.',
+        ],
+      ];
     }
 
-    function check() {
-      return defined('MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS');
-    }
-
-    function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Redirect Old Order Module', 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS', 'True', 'Should customers be redirected when viewing old checkout success orders?', '6', '1', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Redirect Minutes', 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES', '60', 'Redirect customers to the My Account page after an order older than this amount is viewed.', '6', '0', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_SORT_ORDER', '0', 'Sort order of display. Lowest is displayed first.', '6', '0', now())");
-    }
-
-    function remove() {
-      tep_db_query("delete from configuration where configuration_key in ('" . implode("', '", $this->keys()) . "')");
-    }
-
-    function keys() {
-      return array('MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS', 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES', 'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_SORT_ORDER');
-    }
   }
-?>
