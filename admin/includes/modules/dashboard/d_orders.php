@@ -25,7 +25,7 @@
     }
 
     function getOutput() {
-      $orders_query = tep_db_query(sprintf(<<<'EOSQL'
+      $orders_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT o.orders_id, o.customers_name, COALESCE(o.last_modified, o.date_purchased) AS date_last_modified, s.orders_status_name, ot.text AS order_total
  FROM orders o INNER JOIN orders_total ot ON o.orders_id = ot.orders_id INNER JOIN orders_status s ON o.orders_status = s.orders_status_id AND s.language_id = %d
  WHERE ot.class = 'ot_total'
@@ -46,11 +46,11 @@ EOSQL
           $output .= '</thead>';
           $output .= '<tbody>';
 
-          while ($order = tep_db_fetch_array($orders_query)) {
+          while ($order = $orders_query->fetch_assoc()) {
             $output .= '<tr>';
-              $output .= '<td><a href="' . tep_href_link('orders.php', 'oID=' . (int)$order['orders_id'] . '&action=edit') . '">' . htmlspecialchars($order['customers_name']) . '</a></td>';
+              $output .= '<td><a href="' . $GLOBALS['Admin']->link('orders.php', 'oID=' . (int)$order['orders_id'] . '&action=edit') . '">' . htmlspecialchars($order['customers_name']) . '</a></td>';
               $output .= '<td>' . strip_tags($order['order_total']) . '</td>';
-              $output .= '<td>' . tep_date_short($order['date_last_modified']) . '</td>';
+              $output .= '<td>' . Date::abridge($order['date_last_modified']) . '</td>';
               $output .= '<td class="text-right">' . $order['orders_status_name'] . '</td>';
             $output .= '</tr>';
           }
@@ -68,7 +68,7 @@ EOSQL
           'title' => 'Enable Orders Module',
           'value' => 'True',
           'desc' => 'Do you want to show the latest orders on the dashboard?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_ORDERS_DISPLAY' => [
           'title' => 'Orders to display',
@@ -79,7 +79,7 @@ EOSQL
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_ORDERS_SORT_ORDER' => [
           'title' => 'Sort Order',

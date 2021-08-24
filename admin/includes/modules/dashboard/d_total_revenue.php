@@ -10,53 +10,48 @@
   Released under the GNU General Public License
 */
 
-  class d_total_revenue {
-    var $code = 'd_total_revenue';
-    var $title;
-    var $description;
-    var $sort_order;
-    var $enabled = false;
-    var $content_width = 6;
+  class d_total_revenue extends abstract_module {
 
-    function __construct() {
-      $this->title = MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_TITLE;
-      $this->description = MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DESCRIPTION;
+    const CONFIG_KEY_BASE = 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_';
 
-      if ( defined('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS') ) {
-        $this->sort_order = MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_SORT_ORDER;
-        $this->enabled = (MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS == 'True');
-        $this->content_width = (int)MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CONTENT_WIDTH;
+    public $content_width = 6;
+
+    public function __construct() {
+      parent::__construct();
+
+      if ($this->enabled) {
+        $this->content_width = (int)($this->base_constant('CONTENT_WIDTH') ?? 6);
       }
     }
 
-    function getOutput() {
-      $days = array();
-      
+    public function getOutput() {
+      $days = [];
+
       $chart_days = (int)MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS;
-      
+
       for($i = 0; $i < $chart_days; $i++) {
-        $days[date('M-d', strtotime('-'. $i .' days'))] = 0;
+        $days[date('M-d', strtotime("-$i days"))] = 0;
       }
 
-      $orders_query = tep_db_query("select date_format(o.date_purchased, '%b-%d') as dateday, sum(ot.value) as total from orders o, orders_total ot where date_sub(curdate(), interval '" . $chart_days . "' day) <= o.date_purchased and o.orders_id = ot.orders_id and ot.class = 'ot_total' group by dateday");
-      while ($orders = tep_db_fetch_array($orders_query)) {
+      $orders_query = $GLOBALS['db']->query("select date_format(o.date_purchased, '%b-%d') as dateday, sum(ot.value) as total from orders o, orders_total ot where date_sub(curdate(), interval '" . $chart_days . "' day) <= o.date_purchased and o.orders_id = ot.orders_id and ot.class = 'ot_total' group by dateday");
+      while ($orders = $orders_query->fetch_assoc()) {
         $days[$orders['dateday']] = $orders['total'];
       }
 
       $days = array_reverse($days, true);
-      
+
       foreach ($days as $d => $r) {
         $plot_days[] = $d;
         $plot_revenue[] = $r;
       }
-      
+
       $plot_days = json_encode($plot_days);
       $plot_revenue = json_encode($plot_revenue);
-      
+
       $table_header = MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CHART_LINK;
       $step_size = MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STEP;
 
-      $output = <<<EOD
+      return <<<"EOD"
 <div class="table-responsive">
   <table class="table mb-2">
     <thead class="thead-dark">
@@ -95,37 +90,43 @@ var totalRevenue = new Chart(ctx, {
     title: {display: false},
     legend: {display: false},
     tooltips: {mode: 'index', intersect: false},
-    hover: {mode: 'nearest', intersect: true}      
+    hover: {mode: 'nearest', intersect: true}
   }
 });
 </script>
 EOD;
-
-      return $output;
-    }
-    
-    function isEnabled() {
-      return $this->enabled;
     }
 
-    function check() {
-      return defined('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS');
+    protected function get_parameters() {
+      return [
+        'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS' => [
+          'title' => 'Enable Total Revenue Module',
+          'value' => 'True',
+          'desc' => 'Do you want to show the total revenue chart on the dashboard?',
+          'set_func' => "Config::select_one(['True', 'False'], ",
+        ],
+        'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS' => [
+          'title' => 'Days',
+          'value' => '7',
+          'desc' => 'Days to display.',
+        ],
+        'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STEP' => [
+          'title' => 'Step Size',
+          'value' => '50',
+          'desc' => 'This is the Y Axis Step Size in Currency Units.  Make this a number that is about half or so of your average daily revenue, you can play with this to suit the Graph output.',
+        ],
+        'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CONTENT_WIDTH' => [
+          'title' => 'Content Width',
+          'value' => '6',
+          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        ],
+        'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_SORT_ORDER' => [
+          'title' => 'Sort Order',
+          'value' => '100',
+          'desc' => 'Sort order of display. Lowest is displayed first.',
+        ],
+      ];
     }
 
-    function install() {
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Enable Total Revenue Module', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS', 'True', 'Do you want to show the total revenue chart on the dashboard?', '6', '1', 'tep_cfg_select_option(array(\'True\', \'False\'), ', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Days', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS', '7', 'Days to display.', '6', '2', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Step Size', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STEP', '50', 'This is the Y Axis Step Size in Currency Units.  Make this a number that is about half or so of your average daily revenue, you can play with this to suit the Graph output.', '6', '2', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) values ('Content Width', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CONTENT_WIDTH', '6', 'What width container should the content be shown in? (12 = full width, 6 = half width).', '6', '3', 'tep_cfg_select_option(array(\'12\', \'11\', \'10\', \'9\', \'8\', \'7\', \'6\', \'5\', \'4\', \'3\', \'2\', \'1\'), ', now())");
-      tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_SORT_ORDER', '100', 'Sort order of display. Lowest is displayed first.', '6', '4', now())");
-    }
-
-    function remove() {
-      tep_db_query("delete from configuration where configuration_key in ('" . implode("', '", $this->keys()) . "')");
-    }
-
-    function keys() {
-      return array('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STEP',  'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CONTENT_WIDTH', 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_SORT_ORDER');
-    }
   }
-  
