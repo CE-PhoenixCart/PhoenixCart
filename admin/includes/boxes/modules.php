@@ -20,4 +20,3 @@
       ];
     }, Guarantor::ensure_global('cfg_modules')->getAll()),
   ];
-  
