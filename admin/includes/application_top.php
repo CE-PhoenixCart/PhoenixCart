@@ -152,8 +152,4 @@
 
   $customer_data = new customer_data();
 
-// initialize configuration modules
-  $cfgModules = new cfg_modules();
-
-
   $admin_hooks->register_page();
