@@ -20,12 +20,7 @@
     const TABLE_ALIASES = [];
 
     public static function rtrim_string_once($haystack, $needle) {
-      $displacement = -strlen($needle);
-      if (substr($haystack, $displacement) === $needle) {
-        $haystack = substr($haystack, 0, $displacement);
-      }
-
-      return $haystack;
+      return Text::rtrim_once($haystack, $needle);
     }
 
     public static function add_search_criteria($sql, $key, $db_tables) {
@@ -67,7 +62,7 @@
         }
       }
 
-      return self::rtrim_string_once($sql, self::COLUMN_SEPARATOR);
+      return Text::rtrim_once($sql, self::COLUMN_SEPARATOR);
     }
 
     public static function build_specified_columns($db_tables) {
@@ -103,7 +98,7 @@
     }
 
     public static function _build_columns($db_tables) {
-      return self::rtrim_string_once(self::build_columns($db_tables), self::COLUMN_SEPARATOR);
+      return Text::rtrim_once(self::build_columns($db_tables), self::COLUMN_SEPARATOR);
     }
 
     private static function _build_criteria($alias, $column_values) {
@@ -129,7 +124,7 @@
     }
 
     public static function build_criteria($db_table, $column_values) {
-      return self::rtrim_string_once(self::_build_criteria(null, $column_values), self::CRITERIA_INTERSECTION);
+      return Text::rtrim_once(self::_build_criteria(null, $column_values), self::CRITERIA_INTERSECTION);
     }
 
     public static function build_where($criteria, $skip_alias = false) {
@@ -150,7 +145,7 @@
           }
         }
 
-        $sql = self::rtrim_string_once($sql, self::CRITERIA_INTERSECTION);
+        $sql = Text::rtrim_once($sql, self::CRITERIA_INTERSECTION);
       }
 
       return $sql;

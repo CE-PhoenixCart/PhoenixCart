@@ -163,7 +163,7 @@ function selectAll(FormName, SelectBox) {
       $db_tables = $customer_data->build_db_tables(['id', 'name', 'email_address'], 'customers');
       Guarantor::guarantee_subarray($db_tables, 'customers');
       $db_tables['customers']['customers_id'] = null;
-      $built = query::rtrim_string_once(customer_query::build_specified_columns($db_tables), query::COLUMN_SEPARATOR)
+      $built = Text::rtrim_once(customer_query::build_specified_columns($db_tables), query::COLUMN_SEPARATOR)
              . ' FROM' . customer_query::build_joins($db_tables, []);
 
       $sql = 'SELECT DISTINCT ' . $built;

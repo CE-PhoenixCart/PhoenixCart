@@ -69,7 +69,7 @@
         foreach ($tables as $db_table) {
           Guarantor::guarantee_subarray($criteria, $db_table);
           if (!isset($criteria[$db_table][$foreign_key])) {
-            $foreign_table = self::rtrim_string_once($foreign_key, self::IDENTIFIER_SUFFIX);
+            $foreign_table = Text::rtrim_once($foreign_key, self::IDENTIFIER_SUFFIX);
             $criteria[$db_table][$foreign_key] = $criteria[$foreign_table][$foreign_key];
           }
         }
