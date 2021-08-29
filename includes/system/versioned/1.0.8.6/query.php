@@ -20,16 +20,12 @@
     const TABLE_ALIASES = [];
 
     public static function rtrim_string_once($haystack, $needle) {
-      $displacement = -strlen($needle);
-      if (substr($haystack, $displacement) === $needle) {
-        $haystack = substr($haystack, 0, $displacement);
-      }
-
-      return $haystack;
+      trigger_error('The query::rtrim_string_once function has been deprecated.', E_USER_DEPRECATED);
+      return Text::rtrim_once($haystack, $needle);
     }
 
     public static function add_search_criteria($sql, $key, $db_tables) {
-      $key = tep_db_input($key);
+      $key = $GLOBALS['db']->escape($key);
       $criteria = [];
       foreach ($db_tables as $db_table => $columns) {
         $table_alias = static::TABLE_ALIASES[$db_table] ?? $db_table;
@@ -57,9 +53,9 @@
     public static function add_order_by($criteria) {
       $sql = self::ORDER_BY;
       foreach ($criteria as $db_table => $column_directions) {
-        $table_alias = static::TABLE_ALIASES[$db_table] ?? tep_db_input($db_table);
+        $table_alias = static::TABLE_ALIASES[$db_table] ?? $GLOBALS['db']->escape($db_table);
         foreach ($column_directions as $column => $direction) {
-          $sql .= $table_alias . '.' . tep_db_input($column);
+          $sql .= $table_alias . '.' . $GLOBALS['db']->escape($column);
           if (!empty($direction) && 'DESC' === strtoupper($direction)) {
             $sql .= ' DESC';
           }
@@ -67,7 +63,7 @@
         }
       }
 
-      return self::rtrim_string_once($sql, self::COLUMN_SEPARATOR);
+      return Text::rtrim_once($sql, self::COLUMN_SEPARATOR);
     }
 
     public static function build_specified_columns($db_tables) {
@@ -103,7 +99,7 @@
     }
 
     public static function _build_columns($db_tables) {
-      return self::rtrim_string_once(self::build_columns($db_tables), self::COLUMN_SEPARATOR);
+      return Text::rtrim_once(self::build_columns($db_tables), self::COLUMN_SEPARATOR);
     }
 
     private static function _build_criteria($alias, $column_values) {
@@ -120,7 +116,7 @@
           $sql .= (int)$value;
         } else {
           // if not int, assume a string
-          $sql .= "'" . tep_db_input($value) . "'";
+          $sql .= "'" . $GLOBALS['db']->escape($value) . "'";
         }
         $sql .= self::CRITERIA_INTERSECTION;
       }
@@ -129,7 +125,7 @@
     }
 
     public static function build_criteria($db_table, $column_values) {
-      return self::rtrim_string_once(self::_build_criteria(null, $column_values), self::CRITERIA_INTERSECTION);
+      return Text::rtrim_once(self::_build_criteria(null, $column_values), self::CRITERIA_INTERSECTION);
     }
 
     public static function build_where($criteria, $skip_alias = false) {
@@ -150,7 +146,7 @@
           }
         }
 
-        $sql = self::rtrim_string_once($sql, self::CRITERIA_INTERSECTION);
+        $sql = Text::rtrim_once($sql, self::CRITERIA_INTERSECTION);
       }
 
       return $sql;

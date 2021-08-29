@@ -29,16 +29,16 @@
         'keys' => &$foreign_keys,
         'tables' => &$tables,
       ];
-      $GLOBALS['OSCOM_Hooks']->call('siteWide', 'accountCreationTables', $parameters);
+      $GLOBALS['all_hooks']->cat('accountCreationTables', $parameters);
 
       foreach ($tables as $db_table) {
         if (!isset($db_tables[$db_table])) {
           continue;
         }
 
-        tep_db_perform($db_table, $db_tables[$db_table]);
+        $GLOBALS['db']->perform($db_table, $db_tables[$db_table]);
         $key = $db_table . self::IDENTIFIER_SUFFIX;
-        $customer_details[$key] = tep_db_insert_id();
+        $customer_details[$key] = mysqli_insert_id($GLOBALS['db']);
         if (isset($foreign_keys[$key]) && is_array($foreign_keys[$key])) {
           foreach ($foreign_keys[$key] as $table) {
             $db_tables[$table][$key] = $customer_details[$key];
@@ -55,7 +55,7 @@
         'keys' => &$foreign_keys,
       ];
 
-      $GLOBALS['OSCOM_Hooks']->call('siteWide', 'accountUpdateTables', $parameters);
+      $GLOBALS['all_hooks']->cat('accountUpdateTables', $parameters);
 
       // do not update columns that are null
       $db_tables = array_map(function ($value) {
@@ -81,7 +81,7 @@
       $criteria = array_filter($criteria);
 
       foreach ($db_tables as $db_table => $column_values) {
-        tep_db_perform($db_table, $column_values, 'update',
+        $GLOBALS['db']->perform($db_table, $column_values, 'update',
           self::build_criteria($db_table, $criteria[$db_table]));
       }
     }

@@ -15,26 +15,19 @@
     public $show_choose_audience = true;
     public $title, $content;
 
-    function __construct($title, $content) {
+    public function __construct($title, $content) {
       $this->title = $title;
       $this->content = $content;
     }
 
-    function choose_audience() {
-      $products = [];
-      $products_query = tep_db_query(sprintf(<<<'EOSQL'
-SELECT pd.products_id, pd.products_name
+    public function choose_audience() {
+      $products = $GLOBALS['db']->fetch_all(sprintf(<<<'EOSQL'
+SELECT pd.products_id AS id, pd.products_name AS text
   FROM products p INNER JOIN products_description pd ON pd.products_id = p.products_id
   WHERE p.products_status = 1 AND pd.language_id = %d
  ORDER BY pd.products_name
 EOSQL
         , (int)$_SESSION['languages_id']));
-      while ($product = tep_db_fetch_array($products_query)) {
-        $products[] = [
-          'id' => $product['products_id'],
-          'text' => $product['products_name'],
-        ];
-      }
 
 $choose_audience_string = '<script><!--
 function mover(move) {
@@ -80,14 +73,15 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
-      $choose_audience_string .= '<form name="notifications" action="' . tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm') . '" method="post" onsubmit="return selectAll(\'notifications\', \'chosen[]\')">';
+      $link = $GLOBALS['Admin']->link('newsletters.php', ['page' => (int)$_GET['page'], 'nID' => (int)$_GET['nID'], 'action' => 'confirm']);
+      $choose_audience_string .= new Form('notifications', $link, 'post', ['onsubmit' => "return selectAll('notifications', 'chosen[]')"]);
         $choose_audience_string .= '<div class="row mb-3">';
           $choose_audience_string .= '<div class="col-5">';
             $choose_audience_string .= '<h6>' . TEXT_PRODUCTS . '</h6>';
-            $choose_audience_string .= tep_draw_pull_down_menu('products', $products, '', 'class="custom-select" size="20" multiple');
+            $choose_audience_string .= new Select('products', $products, ['class' => 'custom-select', 'size' => '20', 'multiple' => null]);
           $choose_audience_string .= '</div>';
           $choose_audience_string .= '<div class="col-2 align-self-center text-center">';
-            $choose_audience_string .= tep_draw_bootstrap_button(BUTTON_GLOBAL, 'fas fa-globe', tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm&global=true'), 'primary', null, 'btn-info');
+            $choose_audience_string .= $GLOBALS['Admin']->button(BUTTON_GLOBAL, 'fas fa-globe', 'btn-info', (clone $link)->set_parameter('global', 'true'));
             $choose_audience_string .= '<br><br>';
             $choose_audience_string .= '<input type="button" class="btn btn-secondary" value="' . BUTTON_SELECT . '" onClick="mover(\'remove\');">';
             $choose_audience_string .= '<br><br>';
@@ -95,34 +89,27 @@ function selectAll(FormName, SelectBox) {
           $choose_audience_string .= '</div>';
           $choose_audience_string .= '<div class="col-5">';
             $choose_audience_string .= '<h6>' . TEXT_SELECTED_PRODUCTS . '</h6>';
-            $choose_audience_string .= tep_draw_pull_down_menu('chosen[]', [], '', 'class="custom-select" size="20" multiple');
+            $choose_audience_string .= new Select('chosen[]', [], ['class' => 'custom-select', 'size' => '20', 'multiple' => null]);
           $choose_audience_string .= '</div>';
         $choose_audience_string .= '</div>';
 
-        $choose_audience_string .= tep_draw_bootstrap_button(IMAGE_SEND, 'fas fa-paper-plane', null, 'primary', null, 'btn-success btn-lg btn-block');
-        $choose_audience_string .= tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-angle-left', tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . $_GET['nID']), null, null, 'btn-light mt-2');
+        $choose_audience_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-lg btn-block');
+        $choose_audience_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', (clone $link)->delete_parameter('action'));
       $choose_audience_string .= '</form>';
 
       return $choose_audience_string;
     }
 
-    function confirm() {
-      $audience = [];
-
-      $sql = "SELECT distinct customers_id FROM products_notifications";
+    public function confirm() {
+      $sql = "SELECT DISTINCT customers_id FROM products_notifications";
       if ('true' !== ($_GET['global'] ?? null)) {
-        $sql .= " WHERE products_id in (" . implode(', ', $_POST['chosen']) . ")";
+        $sql .= " WHERE products_id in (" . implode(', ', array_map('intval', $_POST['chosen'])) . ")";
       }
 
-      $products_query = tep_db_query($sql);
-      while ($products = tep_db_fetch_array($products_query)) {
-        $audience[$products['customers_id']] = '1';
-      }
-
-      $customers_query = tep_db_query("SELECT customers_info_id FROM customers_info WHERE global_product_notifications = 1");
-      while ($customers = tep_db_fetch_array($customers_query)) {
-        $audience[$customers['customers_info_id']] = '1';
-      }
+      $audience = array_unique(array_merge(
+        $GLOBALS['db']->fetch_all($sql),
+        $GLOBALS['db']->fetch_all("SELECT customers_info_id FROM customers_info WHERE global_product_notifications = 1")
+        ));
 
       $confirm_string = '<div class="alert alert-danger">' . sprintf(TEXT_COUNT_CUSTOMERS, count($audience)) . '</div>';
 
@@ -137,26 +124,28 @@ function selectAll(FormName, SelectBox) {
           $confirm_string .= '</tr>';
         $confirm_string .= '</table>';
 
+      $link = $GLOBALS['Admin']->link('newsletters.php', ['page' => (int)$_GET['page'], 'nID' => (int)$_GET['nID']]);
       if (count($audience) > 0) {
-        $confirm_string .= tep_draw_form('confirm', 'newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm_send');
-        if (is_array($_POST['chosen'] ?? null)) {
+        $form = new Form('confirm', (clone $link)->set_parameter('action', 'confirm_send'));
+        if (isset($_POST['chosen']) && is_array($_POST['chosen'])) {
           foreach ($_POST['chosen'] as $customer_id) {
-            $confirm_string .= tep_draw_hidden_field('chosen[]', $customer_id);
+            $form->hide('chosen[]', $customer_id);
           }
         } else {
-          $confirm_string .= tep_draw_hidden_field('global', 'true');
+          $form->hide('global', 'true');
         }
 
-          $confirm_string .= tep_draw_bootstrap_button(IMAGE_SEND, 'fas fa-paper-plane', null, 'primary', null, 'btn-success btn-block btn-lg');
+        $confirm_string .= $form;
+          $confirm_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-block btn-lg');
         $confirm_string .= '</form>';
       }
 
-      $confirm_string .= tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-angle-left', tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . $_GET['nID'] . '&action=send'), 'primary', null, 'btn-light mt-2');
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $link->set_parameter('action', 'send'));
 
       return $confirm_string;
     }
 
-    function send($newsletter_id) {
+    public function send($newsletter_id) {
       global $customer_data;
       $audience = [];
 
@@ -172,16 +161,16 @@ function selectAll(FormName, SelectBox) {
         $sql .= ' WHERE pn.products_id in (' . implode(',', $_POST['chosen']) . ')';
       }
 
-      $products_query = tep_db_query($sql);
-      while ($products = tep_db_fetch_array($products_query)) {
+      $products_query = $GLOBALS['db']->query($sql);
+      while ($products = $products_query->fetch_assoc()) {
         $audience[$customer_data->get('id', $products)] = [
           'name' => $customer_data->get('name', $products),
           'email_address' => $customer_data->get('email_address', $products),
         ];
       }
 
-      $customers_query = tep_db_query('SELECT ' . $built . ' INNER JOIN customers_info ci ON c.customers_id = ci.customers_info_id WHERE ci.global_product_notifications = 1');
-      while ($customers = tep_db_fetch_array($customers_query)) {
+      $customers_query = $GLOBALS['db']->query('SELECT ' . $built . ' INNER JOIN customers_info ci ON c.customers_id = ci.customers_info_id WHERE ci.global_product_notifications = 1');
+      while ($customers = $customers_query->fetch_assoc()) {
         $audience[$customer_data->get('id', $customers)] = [
           'name' => $customer_data->get('name', $customers),
           'email_address' => $customer_data->get('email_address', $customers),
@@ -196,8 +185,8 @@ function selectAll(FormName, SelectBox) {
         $mimemessage->send($value['name'], $value['email_address'], STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $this->title);
       }
 
-      $newsletter_id = tep_db_prepare_input($newsletter_id);
-      tep_db_query("UPDATE newsletters SET date_sent = NOW(), status = 1 WHERE newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+      $newsletter_id = Text::input($newsletter_id);
+      $GLOBALS['db']->query("UPDATE newsletters SET date_sent = NOW(), status = 1 WHERE newsletters_id = " . (int)$newsletter_id);
     }
-  }
 
+  }
