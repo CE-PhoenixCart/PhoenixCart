@@ -57,8 +57,7 @@
   $request_type = (getenv('HTTPS') === 'on') ? 'SSL' : 'NONSSL';
 
 // set php_self globally
-  $req = parse_url($_SERVER['SCRIPT_NAME']);
-  $PHP_SELF = substr($req['path'], strlen(DIR_WS_ADMIN));
+  $PHP_SELF = Request::get_page(DIR_WS_ADMIN);
 
 // set application wide parameters
   array_walk(...[
@@ -92,7 +91,7 @@
 
 // redirect to login page if administrator is not yet logged in
   if (!isset($_SESSION['admin'])) {
-    $current_page = $PHP_SELF;
+    $current_page = Request::get_page();
 
 // if the first page request is to the login page, set the current page to the index page
 // so the redirection on a successful login is not made to the login page again
@@ -138,7 +137,7 @@
   require "includes/languages/{$_SESSION['language']}.php";
   setlocale(LC_NUMERIC, $_system_locale_numeric); // Prevent LC_ALL from setting LC_NUMERIC to a locale with 1,0 float/decimal values instead of 1.0 (see bug #634)
 
-  $current_page = basename($PHP_SELF);
+  $current_page = basename(Request::get_page());
   $current_page_language_file = "includes/languages/{$_SESSION['language']}/$current_page";
   if (file_exists($current_page_language_file)) {
     include $current_page_language_file;
