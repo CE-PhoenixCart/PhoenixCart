@@ -21,7 +21,7 @@
       $this->linker = new Linker(HTTP_SERVER . DIR_WS_ADMIN);
       $this->catalog_linker = new Linker(HTTP_CATALOG_SERVER . DIR_WS_CATALOG);
       $this->set_processor($processor
-        ?? pathinfo(Request::get_page(), PATHINFO_FILENAME));
+        ?? pathinfo(Request::get_page(DIR_WS_ADMIN), PATHINFO_FILENAME));
     }
 
     public function get_linker() {
