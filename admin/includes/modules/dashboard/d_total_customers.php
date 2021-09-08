@@ -10,52 +10,44 @@
   Released under the GNU General Public License
 */
 
-  class d_total_customers {
-    var $code = 'd_total_customers';
-    var $title;
-    var $description;
-    var $sort_order;
-    var $enabled = false;
-    var $content_width = 6;
+  class d_total_customers extends abstract_module {
 
-    function __construct() {
-      $this->title = MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_TITLE;
-      $this->description = MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_DESCRIPTION;
+    const CONFIG_KEY_BASE = 'MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_';
 
-      if ( defined('MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_STATUS') ) {
-        $this->sort_order = MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_SORT_ORDER;
-        $this->enabled = (MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_STATUS == 'True');
-        $this->content_width = (int)MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_CONTENT_WIDTH;
+    public $content_width = 6;
+
+    public function __construct() {
+      parent::__construct();
+
+      if ($this->enabled) {
+        $this->content_width = (int)($this->base_constant('CONTENT_WIDTH') ?? 6);
       }
     }
 
-    function getOutput() {
-      $days = [];
-
+    public function getOutput() {
       $chart_days = (int)MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_DAYS;
 
+      $days = [];
       for($i = 0; $i < $chart_days; $i++) {
         $days[date('M-d', strtotime('-'. $i .' days'))] = 0;
       }
 
-      $orders_query = $GLOBALS['db']->query("select date_format(customers_info_date_account_created, '%b-%d') as dateday, count(*) as total from customers_info where date_sub(curdate(), interval '" . $chart_days . "' day) <= customers_info_date_account_created group by dateday");
-      while ($orders = $orders_query->fetch_assoc()) {
-        $days[$orders['dateday']] = $orders['total'];
-      }
+      $days = array_merge($days, array_column($GLOBALS['db']->fetch_all(sprintf(<<<'EOSQL'
+SELECT DATE_FORMAT(customers_info_date_account_created, '%%b-%%d') AS dateday, COUNT(*) AS total
+ FROM customers_info
+ WHERE DATE_SUB(CURDATE(), INTERVAL %d DAY) <= customers_info_date_account_created
+ GROUP BY dateday
+EOSQL
+        , $chart_days)), 'total', 'dateday'));
 
       $days = array_reverse($days, true);
 
-      foreach ($days as $d => $r) {
-        $plot_days[] = $d;
-        $plot_customers[] = $r;
-      }
-
-      $plot_days = json_encode($plot_days);
-      $plot_customers = json_encode($plot_customers);
+      $plot_days = json_encode(array_keys($days));
+      $plot_customers = json_encode(array_values($days));
 
       $table_header = MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_CHART_LINK;
 
-      $output = <<<EOD
+      return <<<"EOHTML"
 <div class="table-responsive">
   <table class="table mb-2">
     <thead class="thead-dark">
@@ -95,9 +87,7 @@ var totalCustomers = new Chart(ctx, {
   }
 });
 </script>
-EOD;
-
-      return $output;
+EOHTML;
     }
 
     protected function get_parameters() {
