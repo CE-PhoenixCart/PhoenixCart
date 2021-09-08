@@ -13,7 +13,7 @@
   if (isset($mInfo)) {
     $heading = $mInfo->title;
 
-    if (in_array("{$mInfo->code}.$file_extension", $modules_installed) && ($mInfo->status > 0)) {
+    if (in_array("{$mInfo->code}.php", $modules_installed) && ($mInfo->status > 0)) {
       $keys = '';
       foreach ($mInfo->keys as $value) {
         $keys .= '<strong>' . $value['title'] . '</strong><br>';
