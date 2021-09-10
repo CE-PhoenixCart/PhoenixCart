@@ -13,6 +13,7 @@
   if (isset($mInfo)) {
     $heading = $mInfo->title;
 
+    $link = $Admin->link('modules.php')->retain_query_except()->set_parameter('module', $mInfo->code);
     if (in_array("{$mInfo->code}.php", $modules_installed) && ($mInfo->status > 0)) {
       $keys = '';
       foreach ($mInfo->keys as $value) {
@@ -44,11 +45,11 @@
       }
       $keys = Text::rtrim_once($keys, '<br><br>');
 
-      $link = $Admin->link('modules.php', ['set' => $set, 'module' => $mInfo->code]);
+      $contents = ['form' => new Form('remove_module', (clone $link)->set_parameter('action', 'remove'))];
       $contents[] = [
         'class' => 'text-center',
-        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-plus', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
-                . $Admin->button(IMAGE_MODULE_REMOVE, 'fas fa-minus', 'btn-warning', $link->set_parameter('action', 'remove')),
+        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-plus', 'btn-warning mr-2', $link->set_parameter('action', 'edit'))
+                . new Button(IMAGE_MODULE_REMOVE, 'fas fa-minus', 'btn-warning'),
       ];
 
       if (isset($mInfo->api_version)) {
@@ -58,18 +59,16 @@
       $contents[] = ['text' => $mInfo->description];
       $contents[] = ['text' => $keys];
     } elseif (isset($_GET['list']) && ($_GET['list'] == 'new')) {
-      if (isset($mInfo)) {
-        $contents[] = [
-          'class' => 'text-center',
-          'text' => $Admin->button(IMAGE_MODULE_INSTALL, 'fas fa-plus', 'btn-warning', $Admin->link('modules.php', ['set' => $set, 'module' => $mInfo->code, 'action' => 'install'])),
-        ];
+      $contents = ['form' => new Form('install_module', $link->delete_parameter('list')->set_parameter('action', 'install'))];
+      $contents[] = [
+        'class' => 'text-center',
+        'text' => new Button(IMAGE_MODULE_INSTALL, 'fas fa-plus', 'btn-warning'),
+      ];
 
-        if (isset($mInfo->api_version)) {
-          $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
-        }
-
-        $contents[] = ['text' => $mInfo->description];
+      if (isset($mInfo->api_version)) {
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
       }
 
+      $contents[] = ['text' => $mInfo->description];
     }
   }

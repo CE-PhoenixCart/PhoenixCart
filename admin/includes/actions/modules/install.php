@@ -13,7 +13,7 @@
   $basename = "{$_GET['module']}.php";
   $link = $Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']]);
   if (class_exists($_GET['module'])) {
-    $module =& Guarantor::ensure_globals($_GET['module']);
+    $module =& Guarantor::ensure_global($_GET['module']);
 
     if (cfg_modules::can($module, 'install')) {
       if ($module->check() > 0) {

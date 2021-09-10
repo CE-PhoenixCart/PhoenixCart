@@ -11,18 +11,14 @@
 */
 
   if (class_exists($_GET['module'])) {
-    $module =& Guarantor::ensure_globals($_GET['module']);
+    $module =& Guarantor::ensure_global($_GET['module']);
 
     if (cfg_modules::can($module, 'remove')) {
       $module->remove();
 
-      if (in_array($basename, $modules_installed)) {
-        unset($modules_installed[array_search($basename, $modules_installed)]);
-      }
-
       $db->query(sprintf(
         "UPDATE configuration SET configuration_value = '%s' WHERE configuration_key = '%s'",
-        $db->escape(implode(';', array_diff($modules_installed, [$basename]))),
+        $db->escape(implode(';', array_diff($modules_installed, ["{$_GET['module']}.php"]))),
         $db->escape($module_key)
         ));
 
