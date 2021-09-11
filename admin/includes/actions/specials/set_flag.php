@@ -12,4 +12,4 @@
 
   $db->query("UPDATE specials SET status = " . (int)$_GET['flag'] . ", date_status_change = NOW() WHERE specials_id = " . (int)$_GET['sID']);
 
-  return $Admin->link('specials.php')->retain_parameters(['action', 'flag']);
+  return $Admin->link('specials.php')->retain_query_except(['action', 'flag']);

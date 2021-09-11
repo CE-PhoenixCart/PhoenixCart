@@ -38,4 +38,4 @@ EOSQL
     'status' => 1,
   ]);
 
-  return $Admin->link('specials.php')->retain_parameters(['action'])->set_parameter('sID', mysqli_insert_id($db));
+  return $Admin->link('specials.php')->retain_query_except(['action'])->set_parameter('sID', mysqli_insert_id($db));

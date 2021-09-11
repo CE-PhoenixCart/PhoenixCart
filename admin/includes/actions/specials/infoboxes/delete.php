@@ -12,7 +12,7 @@
 
   $heading = TEXT_INFO_HEADING_DELETE_SPECIALS;
 
-  $link = $GLOBALS['Admin']->link('specials.php')->retain_parameters(['action']);
+  $link = $GLOBALS['Admin']->link('specials.php')->retain_query_except(['action']);
   $contents = ['form' => new Form('specials', (clone $link)->set_parameter('action', 'delete_confirm'))];
   $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
   $contents[] = ['text' => '<strong>' . $sInfo->products_name . '</strong>'];

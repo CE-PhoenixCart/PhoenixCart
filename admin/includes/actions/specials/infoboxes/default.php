@@ -14,7 +14,7 @@
     $sInfo = $table_definition['info'];
     $heading = $sInfo->products_name;
 
-    $link = $GLOBALS['Admin']->link('specials.php')->retain_parameters()->set_parameter('sID', $sInfo->specials_id);
+    $link = $GLOBALS['Admin']->link('specials.php')->retain_query_except()->set_parameter('sID', $sInfo->specials_id);
     $contents[] = [
       'class' => 'text-center',
       'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))

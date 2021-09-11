@@ -28,7 +28,7 @@
       <?=
       empty($action)
       ? $Admin->button(BUTTON_INSERT_SPECIAL, 'fas fa-funnel-dollar', 'btn-danger', $Admin->link('specials.php', ['action' => 'new']))
-      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link('specials.php')->retain_parameters(['action']))
+      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link('specials.php')->retain_query_except(['action']))
       ?>
     </div>
   </div>
@@ -56,7 +56,7 @@ EOSQL
       $specials = array_column($db->fetch_all("SELECT p.products_id FROM products p INNER JOIN specials s ON s.products_id = p.products_id"), 'products_id');
     }
 
-    $form = new Form('new_special', $Admin->link('specials.php')->retain_parameters(['info', 'sID'])->set_parameter('action', $form_action));
+    $form = new Form('new_special', $Admin->link('specials.php')->retain_query_except(['info', 'sID'])->set_parameter('action', $form_action));
     if ('update' === $form_action) {
       $form->hide('specials_id',  (int)$_GET['sID']);
     }
@@ -157,7 +157,7 @@ EOSQL
 
     $table_definition['split'] = new Paginator($table_definition);
     $table_definition['function'] = function (&$row) use (&$table_definition) {
-      $row['onclick'] = $GLOBALS['Admin']->link('specials.php')->retain_parameters(['action'])->set_parameter('sID', (int)$row['specials_id']);
+      $row['onclick'] = $GLOBALS['Admin']->link('specials.php')->retain_query_except(['action'])->set_parameter('sID', (int)$row['specials_id']);
       if (!isset($table_definition['info']) && (!isset($_GET['sID']) || ($_GET['sID'] == $row['specials_id']))) {
         $table_definition['info'] = new objectInfo($row);
         $row['info'] = &$table_definition['info'];

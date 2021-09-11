@@ -12,4 +12,4 @@
 
   $db->query("DELETE FROM specials WHERE specials_id = " . (int)Text::input($_GET['sID']));
 
-  return $Admin->link('specials.php')->retain_parameters(['action', 'sID']);
+  return $Admin->link('specials.php')->retain_query_except(['action', 'sID']);

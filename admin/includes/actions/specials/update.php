@@ -31,4 +31,4 @@
     'expires_date' => $expires_date,
   ], 'update', 'specials_id = ' . (int)$specials_id);
 
-  return $Admin->link('specials.php')->retain_parameters(['action'])->set_parameter('sID', (int)$specials_id);
+  return $Admin->link('specials.php')->retain_query_except(['action'])->set_parameter('sID', (int)$specials_id);
