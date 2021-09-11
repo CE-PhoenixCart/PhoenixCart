@@ -24,7 +24,7 @@
     }
 
     public static function add_search_criteria($sql, $key, $db_tables) {
-      $key = tep_db_input($key);
+      $key = $GLOBALS['db']->escape($key);
       $criteria = [];
       foreach ($db_tables as $db_table => $columns) {
         $table_alias = static::TABLE_ALIASES[$db_table] ?? $db_table;
@@ -52,9 +52,9 @@
     public static function add_order_by($criteria) {
       $sql = self::ORDER_BY;
       foreach ($criteria as $db_table => $column_directions) {
-        $table_alias = static::TABLE_ALIASES[$db_table] ?? tep_db_input($db_table);
+        $table_alias = static::TABLE_ALIASES[$db_table] ?? $GLOBALS['db']->escape($db_table);
         foreach ($column_directions as $column => $direction) {
-          $sql .= $table_alias . '.' . tep_db_input($column);
+          $sql .= $table_alias . '.' . $GLOBALS['db']->escape($column);
           if (!empty($direction) && 'DESC' === strtoupper($direction)) {
             $sql .= ' DESC';
           }
@@ -115,7 +115,7 @@
           $sql .= (int)$value;
         } else {
           // if not int, assume a string
-          $sql .= "'" . tep_db_input($value) . "'";
+          $sql .= "'" . $GLOBALS['db']->escape($value) . "'";
         }
         $sql .= self::CRITERIA_INTERSECTION;
       }
