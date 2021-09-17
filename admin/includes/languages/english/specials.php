@@ -42,3 +42,5 @@ const TEXT_INFO_HEADING_DELETE_SPECIALS = 'Delete Special Offer';
 const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this Special Offer?';
 
 const BUTTON_INSERT_SPECIAL = 'Add a new Special Offer';
+
+const WARNING_NO_PRODUCTS = 'You need to add a product before you can put it on special.';

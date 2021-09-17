@@ -17,6 +17,12 @@
 
   require 'includes/segments/process_action.php';
 
+  $options = Products::list_discountable();
+  if (!$options) {
+    $messageStack->add_session(WARNING_NO_PRODUCTS, 'warning');
+    Href::redirect($Admin->link('catalog.php'));
+  }
+
   require 'includes/template_top.php';
 ?>
 
@@ -60,15 +66,15 @@ EOSQL
     if ('update' === $form_action) {
       $form->hide('specials_id',  (int)$_GET['sID']);
     }
-    echo $form;
+    echo $form->hide('products_price', $sInfo->products_price ?? '');
 ?>
 
     <div class="form-group row" id="zProduct">
       <label for="specialProduct" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SPECIALS_PRODUCT ?></label>
-      <div class="col-sm-9"><?= (isset($sInfo->products_name)
+      <div class="col-sm-9"><?= isset($sInfo->products_name)
                               ? new Input('n', ['value' => $sInfo->products_name . ' (' . $currencies->format($sInfo->products_price) . ')', 'readonly' => null, 'class' => 'form-control-plaintext'])
-                              : Products::select_discountable('products_id', ['id' => 'specialProduct'])->require()),
-                                new Input('products_price', ['type' => 'hidden', 'value' =>($sInfo->products_price ?? '')]) ?>
+                              : (new Select('products_id', $options, ['id' => 'specialProduct']))->require()
+                            ?>
       </div>
     </div>
 
