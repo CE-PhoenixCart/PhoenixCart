@@ -17,12 +17,6 @@
 
   require 'includes/segments/process_action.php';
 
-  $options = Products::list_discountable();
-  if (!$options) {
-    $messageStack->add_session(WARNING_NO_PRODUCTS, 'warning');
-    Href::redirect($Admin->link('catalog.php'));
-  }
-
   require 'includes/template_top.php';
 ?>
 
@@ -56,10 +50,6 @@ EOSQL
     } else {
       $form_action = 'insert';
       $sInfo = new objectInfo([]);
-
-// create an array of products on special, which will be excluded from the pull down menu of products
-// (when creating a new product on special)
-      $specials = array_column($db->fetch_all("SELECT p.products_id FROM products p INNER JOIN specials s ON s.products_id = p.products_id"), 'products_id');
     }
 
     $form = new Form('new_special', $Admin->link('specials.php')->retain_query_except(['info', 'sID'])->set_parameter('action', $form_action));
@@ -71,11 +61,11 @@ EOSQL
 
     <div class="form-group row" id="zProduct">
       <label for="specialProduct" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SPECIALS_PRODUCT ?></label>
-      <div class="col-sm-9"><?= isset($sInfo->products_name)
-                              ? new Input('n', ['value' => $sInfo->products_name . ' (' . $currencies->format($sInfo->products_price) . ')', 'readonly' => null, 'class' => 'form-control-plaintext'])
-                              : (new Select('products_id', $options, ['id' => 'specialProduct']))->require()
-                            ?>
-      </div>
+      <div class="col-sm-9"><?=
+        isset($sInfo->products_name)
+        ? new Input('n', ['value' => $sInfo->products_name . ' (' . $currencies->format($sInfo->products_price) . ')', 'readonly' => null, 'class' => 'form-control-plaintext'])
+        : (new Select('products_id', $discountables ?? Products::list_discountable(), ['id' => 'specialProduct']))->require()
+      ?></div>
     </div>
 
     <div class="form-group row" id="zPrice">
