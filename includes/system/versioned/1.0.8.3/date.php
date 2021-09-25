@@ -19,12 +19,10 @@
      * Strings need to be in this format: YYYY-MM-DD HH:MM:SS
      * @param mixed $date
      */
-    public function __construct($date = null) {
+    public function __construct($date) {
       if (is_int($date)) {
         $this->timestamp = $date;
-      } elseif (is_null($date)) {
-        $this->timestamp = time();
-      } elseif ( ($date === '0000-00-00 00:00:00') || ($date == '') ) {
+      } elseif ( ($date === '0000-00-00 00:00:00') || !$date ) {
         $this->timestamp = false;
       } else {
         $this->timestamp = mktime(
@@ -59,6 +57,14 @@
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
     public static function abridge($raw_date) {
       return (new Date($raw_date))->format(DATE_FORMAT_SHORT);
+    }
+
+    /**
+     * Create with the current date.
+     * @return Date
+     */
+    public static function now() {
+      return new Date(time());
     }
 
   }
