@@ -34,10 +34,15 @@
       if ($this->current_page_number > $this->page_count) {
         $this->current_page_number = $this->page_count;
       }
+
       $table_definition['page'] = $this->current_page_number;
       $offset = ($this->table_definition['rows_per_page'] * ($this->current_page_number - 1));
       $table_definition['sql'] .= " LIMIT " . max($offset, 0) . ", " . $this->table_definition['rows_per_page'];
       $this->query = $GLOBALS['db']->query($table_definition['sql']);
+
+      if (!isset($table_definition['parameters'])) {
+        $table_definition['parameters'] = array_diff_key($_GET, ['page' => 0]);
+      }
     }
 
     public function display_count() {
@@ -59,7 +64,7 @@
       include DIR_FS_ADMIN . 'includes/components/paginated_table.php';
     }
 
-    public function draw_pages_form($parameters = []) {
+    public function draw_pages_form() {
       $pages = [];
       for ($i = 1; $i <= $this->page_count; $i++) {
         $pages[] = ['id' => $i, 'text' => $i];
@@ -67,7 +72,7 @@
 
       $form = new Form('pages', $GLOBALS['Admin']->link(), 'get');
 
-      foreach ($parameters as $key => $value) {
+      foreach ($this->table_definition['parameters'] ?? [] as $key => $value) {
         $form->hide($key, $value);
       }
 
