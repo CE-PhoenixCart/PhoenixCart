@@ -63,13 +63,13 @@
           'title' => 'Order Fee For Orders Under',
           'value' => '50',
           'desc' => 'Add the low order fee to orders under this amount.',
-          'use_func' => "Guarantor::ensure_global('currencies')->format",
+          'use_func' => 'currencies->format',
         ],
         'MODULE_ORDER_TOTAL_LOWORDERFEE_FEE' => [
           'title' => 'Order Fee',
           'value' => '5',
           'desc' => 'Low order fee.',
-          'use_func' => "Guarantor::ensure_global('currencies')->format",
+          'use_func' => 'currencies->format',
         ],
         'MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION' => [
           'title' => 'Attach Low Order Fee On Orders Made',

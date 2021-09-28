@@ -86,7 +86,7 @@
           'title' => 'Free Shipping For Orders Over',
           'value' => '50',
           'desc' => 'Provide free shipping for orders over the set amount.',
-          'use_func' => "Guarantor::ensure_global('currencies')->format",
+          'use_func' => 'currencies->format',
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION' => [
           'title' => 'Provide Free Shipping For Orders Made',
