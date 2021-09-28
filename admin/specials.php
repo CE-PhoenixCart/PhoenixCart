@@ -147,23 +147,13 @@ EOSQL
       ],
       'count_text' => TEXT_DISPLAY_NUMBER_OF_SPECIALS,
       'page' => $_GET['page'] ?? null,
+      'web_id' => 'sID',
+      'db_id' => 'specials_id',
       'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
       'sql' => $specials_sql,
     ];
 
     $table_definition['split'] = new Paginator($table_definition);
-    $table_definition['function'] = function (&$row) use (&$table_definition) {
-      $row['onclick'] = $GLOBALS['Admin']->link('specials.php')->retain_query_except(['action'])->set_parameter('sID', (int)$row['specials_id']);
-      if (!isset($table_definition['info']) && (!isset($_GET['sID']) || ($_GET['sID'] == $row['specials_id']))) {
-        $table_definition['info'] = new objectInfo($row);
-        $row['info'] = &$table_definition['info'];
-
-        $row['onclick']->set_parameter('action', 'edit');
-        $row['css'] = ' class="table-active"';
-      } else {
-        $row['css'] = '';
-      }
-    };
 
     $table_definition['split']->display_table();
   }

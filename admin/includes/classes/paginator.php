@@ -42,6 +42,10 @@
 
       if (!isset($table_definition['parameters'])) {
         $table_definition['parameters'] = array_diff_key($_GET, ['page' => 0]);
+
+        if (isset($this->table_definition['web_id'])) {
+          unset($table_definition['parameters'][$this->table_definition['web_id']]);
+        }
       }
     }
 
@@ -83,9 +87,29 @@
              ]) . '</form>';
     }
 
+    public function process_default(&$row) {
+      $row['onclick'] = $GLOBALS['Admin']->link();
+      $row['onclick']->retain_query_except(['action'])->set_parameter(
+        $this->table_definition['web_id'],
+        (int)$row[$this->table_definition['db_id']]);
+
+      if (!isset($this->table_definition['info'])
+        && (!isset($_GET[$this->table_definition['web_id']])
+          || ($_GET[$this->table_definition['web_id']] == $row[$this->table_definition['db_id']])))
+      {
+        $this->table_definition['info'] = new objectInfo($row);
+        $row['info'] = &$this->table_definition['info'];
+
+        $row['onclick']->set_parameter('action', 'edit');
+        $row['css'] = ' class="table-active"';
+      } else {
+        $row['css'] = '';
+      }
+    }
+
     public function fetch() {
       while ($row = $this->query->fetch_assoc()) {
-        $this->table_definition['function']($row);
+        ($this->table_definition['function'] ?? [$this, process_default])($row);
         yield $row;
       }
     }
