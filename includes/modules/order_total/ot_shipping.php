@@ -17,16 +17,7 @@
     public $output = [];
 
     public static function can_ship_free_to($country_id) {
-      switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
-        case 'national':
-          return $country_id == STORE_COUNTRY;
-        case 'international':
-          return $country_id != STORE_COUNTRY;
-        case 'both':
-          return true;
-      }
-
-      return false;
+      return Country::match_classification(MODULE_ORDER_TOTAL_SHIPPING_DESTINATION, $country_id);
     }
 
     public static function is_eligible_free_shipping($country_id, $amount) {
@@ -36,7 +27,7 @@
         && ($amount >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER);
     }
 
-    function process() {
+    public function process() {
       global $order, $currencies;
 
       if (self::is_eligible_free_shipping($order->delivery['country_id'], $order->info['total'] - $order->info['shipping_cost'])) {
@@ -47,20 +38,20 @@
 
       $module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
 
-      if (tep_not_null($order->info['shipping_method'])) {
+      if (!Text::is_empty($order->info['shipping_method'])) {
         if (($GLOBALS[$module]->tax_class ?? 0) > 0) {
-          $shipping_tax = tep_get_tax_rate($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
-          $shipping_tax_description = tep_get_tax_description($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $shipping_tax = Tax::get_rate($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+          $shipping_tax_description = Tax::get_description($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
 
-          $order->info['tax'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          $order->info['tax'] += Tax::calculate($order->info['shipping_cost'], $shipping_tax);
           if (!isset($order->info['tax_groups']["$shipping_tax_description"])) {
             Guarantor::guarantee_subarray($order->info, 'tax_groups')["$shipping_tax_description"] = 0;
           }
-          $order->info['tax_groups']["$shipping_tax_description"] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
-          $order->info['total'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+          $order->info['tax_groups']["$shipping_tax_description"] += Tax::calculate($order->info['shipping_cost'], $shipping_tax);
+          $order->info['total'] += Tax::calculate($order->info['shipping_cost'], $shipping_tax);
 
           if (DISPLAY_PRICE_WITH_TAX == 'true') {
-            $order->info['shipping_cost'] += tep_calculate_tax($order->info['shipping_cost'], $shipping_tax);
+            $order->info['shipping_cost'] += Tax::calculate($order->info['shipping_cost'], $shipping_tax);
           }
         }
 
@@ -78,7 +69,7 @@
           'title' => 'Display Shipping',
           'value' => 'True',
           'desc' => 'Do you want to display the order shipping cost?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -89,7 +80,7 @@
           'title' => 'Allow Free Shipping',
           'value' => 'False',
           'desc' => 'Do you want to allow free shipping?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER' => [
           'title' => 'Free Shipping For Orders Over',
@@ -101,7 +92,7 @@
           'title' => 'Provide Free Shipping For Orders Made',
           'value' => 'national',
           'desc' => 'Provide free shipping for orders sent to the set destination.',
-          'set_func' => "tep_cfg_select_option(['national', 'international', 'both'], ",
+          'set_func' => "Config::select_one(['national', 'international', 'both'], ",
         ],
       ];
     }

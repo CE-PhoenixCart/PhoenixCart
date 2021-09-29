@@ -10,19 +10,30 @@
   Released under the GNU General Public License
 */
 
-  $OSCOM_Hooks->register_pipeline('progress');
+  $hooks->register_pipeline('progress');
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('checkout_shipping.php'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('checkout_payment.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('checkout_shipping.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('checkout_payment.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  $comments_textarea = new Textarea('comments', [
+    'cols' => '60',
+    'rows' => '5',
+    'id' => 'inputComments',
+    'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,
+  ]);
+  if (isset($_SESSION['comments'])) {
+    $comments_textarea->set_text($_SESSION['comments']);
+  }
+
+  require $Template->map('template_top.php', 'component');
 
   echo $payment_modules->javascript_validation();
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
-<?= tep_draw_form('checkout_payment', tep_href_link('checkout_confirmation.php'), 'post', 'onsubmit="return check_form();"', true);
+<?php
+  echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['onsubmit' => 'return check_form();'], true);
 
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
     echo '<div class="alert alert-danger">' . "\n";
@@ -36,23 +47,24 @@
 
   <div class="row">
     <div class="col-sm-7">
-      <h5 class="mb-1"><?= TABLE_HEADING_PAYMENT_METHOD; ?></h5>
+      <h5 class="mb-1"><?= TABLE_HEADING_PAYMENT_METHOD ?></h5>
       <div>
         <table class="table border-right border-left border-bottom table-hover m-0">
           <?php
           foreach ($selection as $choice) {
             ?>
             <tr class="table-selection">
-              <td><label for="p_<?= $choice['id']; ?>"><?= $choice['module']; ?></label></td>
+              <td><label for="p_<?= $choice['id'] ?>"><?= $choice['module'] ?></label></td>
               <td class="text-right">
                 <?php
                 if (count($selection) > 1) {
+                  $tickable = new Tickable('payment', ['value' => $choice['id'], 'id' => "p_{$choice['id']}", 'class' => 'custom-control-input'], 'radio');
                   echo '<div class="custom-control custom-radio custom-control-inline">';
-                  echo tep_draw_radio_field('payment', $choice['id'], ($choice['id'] === ($_SESSION['payment'] ?? null)), 'id="p_' . $choice['id'] . '" required aria-required="true" class="custom-control-input"');
+                  echo $tickable->require()->tick($choice['id'] === ($_SESSION['payment'] ?? false));
                   echo '<label class="custom-control-label" for="p_' . $choice['id'] . '">&nbsp;</label>';
                   echo '</div>';
                 } else {
-                  echo tep_draw_hidden_field('payment', $choice['id']);
+                  echo new Input('payment', ['value' => $choice['id']], 'hidden');
                 }
                 ?>
               </td>
@@ -61,15 +73,15 @@
           if (isset($choice['error'])) {
             ?>
           <tr>
-            <td colspan="2"><?= $choice['error']; ?></td>
+            <td colspan="2"><?= $choice['error'] ?></td>
           </tr>
           <?php
             } elseif (isset($choice['fields']) && is_array($choice['fields'])) {
               foreach ($choice['fields'] as $field) {
               ?>
               <tr>
-                <td><?= $field['title']; ?></td>
-                <td><?= $field['field']; ?></td>
+                <td><?= $field['title'] ?></td>
+                <td><?= $field['field'] ?></td>
               </tr>
               <?php
               }
@@ -87,14 +99,14 @@
     </div>
     <div class="col-sm-5">
       <h5 class="mb-1">
-        <?php
-        echo TABLE_HEADING_BILLING_ADDRESS;
-        printf(LINK_TEXT_EDIT, 'font-weight-lighter ml-3', tep_href_link('checkout_payment_address.php'));
+        <?=
+        TABLE_HEADING_BILLING_ADDRESS,
+        sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-3', $Linker->build('checkout_payment_address.php'))
         ?>
       </h5>
       <div class="border">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><?= PAYMENT_FA_ICON . $customer->make_address_label($_SESSION['billto'], true, ' ', '<br>'); ?>
+          <li class="list-group-item"><?= PAYMENT_FA_ICON . $customer->make_address_label($_SESSION['billto'], true, ' ', '<br>') ?>
           </li>
         </ul>
       </div>
@@ -104,21 +116,21 @@
   <hr>
 
   <div class="form-group row">
-    <label for="inputComments" class="col-form-label col-sm-4 text-sm-right"><?= ENTRY_COMMENTS; ?></label>
-    <div class="col-sm-8"><?= tep_draw_textarea_field('comments', 'soft', 60, 5, ($_SESSION['comments'] ?? null), 'id="inputComments" placeholder="' . ENTRY_COMMENTS_PLACEHOLDER . '"'); ?></div>
+    <label for="inputComments" class="col-form-label col-sm-4 text-sm-right"><?= ENTRY_COMMENTS ?></label>
+    <div class="col-sm-8"><?= $comments_textarea ?></div>
   </div>
 
-  <?= $OSCOM_Hooks->call('siteWide', 'injectFormDisplay'); ?>
+  <?= $hooks->cat('injectFormDisplay') ?>
 
   <div class="buttonSet">
-    <div class="text-right"><?= tep_draw_button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', null, 'primary', null, 'btn-success btn-lg btn-block'); ?></div>
+    <div class="text-right"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
   </div>
 
   <div class="progressBarHook">
 
   <?php
   $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 2, 'min' => 0, 'max' => 100, 'now' => 67]];
-  echo $OSCOM_Hooks->call('progress', 'progressBar', $parameters);
+  echo $hooks->cat('progressBar', $parameters);
   ?>
 
   </div>
@@ -126,5 +138,5 @@
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -45,10 +45,14 @@
       return false;
     }
 
-    public static function get_page() {
+    public static function get_page($prefix = null) {
       if (is_null(static::$page)) {
+        if (is_null($prefix)) {
+          $prefix = DIR_WS_CATALOG;
+        }
+
         static::$page = Text::ltrim_once(
-          parse_url($_SERVER['SCRIPT_NAME'])['path'], DIR_WS_CATALOG);
+          parse_url($_SERVER['SCRIPT_NAME'])['path'], $prefix);
       }
 
       return static::$page;

@@ -10,12 +10,12 @@
   Released under the GNU General Public License
 */
 
-  $OSCOM_Hooks->register_pipeline('progress');
+  $hooks->register_pipeline('progress');
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('checkout_payment.php'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('checkout_payment_address.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('checkout_payment.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('checkout_payment_address.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <h1 class="display-4"><?= HEADING_TITLE ?></h1>
@@ -29,18 +29,20 @@
   <div class="row">
     <div class="col-sm-7">
       <h5 class="mb-1"><?= TABLE_HEADING_ADDRESS_BOOK_ENTRIES ?></h5>
-      <div><?= tep_draw_form('select_address', tep_href_link('checkout_payment_address.php'), 'post', '', true) ?>
+      <div><?= new Form('select_address', $Linker->build('checkout_payment_address.php')) ?>
         <table class="table border-right border-left border-bottom table-hover m-0">
           <?php
   $addresses_query = $customer->get_all_addresses_query();
   while ($address = $addresses_query->fetch_assoc()) {
+    $label_for = 'cpa_' . $address['address_book_id'];
+    $tickable = new Tickable('address', ['value' => $address['address_book_id'], 'id' => $label_for, 'aria-describedby' => $label_for, 'class' => 'custom-control-input'], 'radio');
 ?>
           <tr class="table-selection">
             <td><label for="cpa_<?= $address['address_book_id'] ?>"><?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?></label></td>
             <td align="text-right">
               <div class="custom-control custom-radio custom-control-inline">
-                <?= tep_draw_selection_field('address', 'radio', $address['address_book_id'], ($address['address_book_id'] == $_SESSION['billto']), 'id="cpa_' . $address['address_book_id'] . '" aria-describedby="cpa_' . $address['address_book_id'] . '" class="custom-control-input"') ?>
-                <label class="custom-control-label" for="cpa_<?= $address['address_book_id'] ?>">&nbsp;</label>
+                <?= $tickable->tick($address['address_book_id'] == $_SESSION['billto']) ?>
+                <label class="custom-control-label" for="<?= $label_for ?>">&nbsp;</label>
               </div>
             </td>
           </tr>
@@ -49,7 +51,7 @@
 ?>
         </table>
         <div class="buttonSet mt-1">
-          <?= tep_draw_hidden_field('action', 'submit') . tep_draw_button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', null, 'primary', null, 'btn-success btn-lg btn-block') ?>
+          <?= new Input('action', ['value' => 'submit'], 'hidden'), new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block') ?>
         </div>
       </form></div>
     </div>
@@ -66,6 +68,7 @@
 
   <?php
   if ($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) {
+    $form = new Form('checkout_new_address', $Linker->build('checkout_payment_address.php'));
 ?>
 
     <hr>
@@ -75,19 +78,18 @@
     <p class="font-weight-lighter"><?= TEXT_CREATE_NEW_PAYMENT_ADDRESS ?></p>
 
     <?php
-    echo tep_draw_form('checkout_new_address', tep_href_link('checkout_payment_address.php'), 'post', '', true) . PHP_EOL;
-    require $oscTemplate->map_to_template('checkout_new_address.php', 'component');
-    echo $OSCOM_Hooks->call('siteWide', 'injectFormDisplay');
-    echo tep_draw_hidden_field('action', 'submit');
-    echo tep_draw_button(BUTTON_ADD_NEW_ADDRESS, 'fas fa-user-cog', null, 'primary', null, 'btn-success btn-lg btn-block');
+    echo $form->hide('action', 'submit') . PHP_EOL;
+    require $Template->map('checkout_new_address.php', 'component');
+    echo $hooks->cat('injectFormDisplay');
+    echo new Button(BUTTON_ADD_NEW_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block');
     echo '</form>' . PHP_EOL;
   }
 ?>
 
   <div class="buttonSet">
-    <?= tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('checkout_payment.php'), null, null, 'btn-light mt-1') ?>
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-1', [], $Linker->build('checkout_payment.php')) ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

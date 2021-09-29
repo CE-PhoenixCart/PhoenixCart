@@ -14,17 +14,17 @@
 
     const CONFIG_KEY_BASE = 'MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_';
 
-    function __construct() {
+    public function __construct() {
       parent::__construct(__FILE__);
     }
 
-    function execute() {
+    public function execute() {
       if ( 'true' === DOWNLOAD_ENABLED ) {
         ob_start();
         extract($GLOBALS, EXTR_SKIP);
-        include $oscTemplate->map_to_template('downloads.php', 'component');
+        include $Template->map('downloads.php', 'component');
 
-        $oscTemplate->addContent(ob_get_clean(), $this->group);
+        $Template->add_content(ob_get_clean(), $this->group);
       }
     }
 
@@ -34,7 +34,7 @@
           'title' => 'Enable Product Downloads Module',
           'value' => 'True',
           'desc' => 'Should ordered product download links be shown on the checkout success page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_SORT_ORDER' => [
           'title' => 'Sort Order',

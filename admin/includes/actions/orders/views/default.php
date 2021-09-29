@@ -1,0 +1,131 @@
+<?php
+/*
+  $Id$
+
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
+
+  Copyright (c) 2021 Phoenix Cart
+
+  Released under the GNU General Public License
+*/
+
+  $orders_sql = sprintf(<<<'EOSQL'
+SELECT o.*, s.orders_status_name, ot.text AS order_total
+ FROM orders o INNER JOIN orders_total ot ON o.orders_id = ot.orders_id
+   LEFT JOIN orders_status s ON o.orders_status = s.orders_status_id AND s.language_id = %d
+ WHERE ot.class = 'ot_total'
+EOSQL
+    , (int)$_SESSION['languages_id']);
+  if (isset($_GET['cID'])) {
+    $orders_sql .= ' AND o.customers_id = ' . (int)Text::input($_GET['cID']);
+  }
+  if (!empty($_GET['status']) && is_numeric($_GET['status'])) {
+    $orders_sql .= ' AND o.orders_status = ' . (int)Text::input($_GET['status']);
+  }
+  $listing_order = ' ORDER BY o.orders_id DESC';
+
+  $parameters = [
+    'orders_sql' => &$orders_sql,
+    'listing_order' => &$listing_order,
+  ];
+  $admin_hooks->cat('injectSQL', $parameters);
+
+  $table_definition = [
+    'columns' => [
+      [
+        'name' => TABLE_HEADING_OID,
+        'function' => function (&$row) {
+          return $row['orders_id'];
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_CUSTOMERS,
+        'function' => function (&$row) {
+          return $row['customers_name'];
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_ORDER_TOTAL,
+        'function' => function (&$row) {
+          return strip_tags($row['order_total']);
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_DATE_PURCHASED,
+        'class' => 'text-right',
+        'function' => function (&$row) {
+          return $row['date_purchased'];
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_STATUS,
+        'class' => 'text-right',
+        'function' => function (&$row) {
+          return $row['orders_status_name'];
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_ACTION,
+        'class' => 'text-right',
+        'function' => function ($row) {
+          return '<a href="' . $row['onclick'] . '"><i class="fas fa-cogs mr-2 text-dark"></i></a>'
+               . ((isset($row['info']->orders_id))
+                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
+                : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>');
+        },
+      ],
+    ],
+    'count_text' => TEXT_DISPLAY_NUMBER_OF_ORDERS,
+    'page' => $_GET['page'] ?? null,
+    'sql' => $orders_sql . $listing_order,
+  ];
+
+  $table_definition['split'] = new Paginator($table_definition);
+  $link = $Admin->link('orders.php');
+  $table_definition['function'] = function (&$row) use ($link, &$table_definition) {
+    $link->set_parameter('oID', $row['orders_id']);
+    if (!isset($table_definition['info']) && (!isset($_GET['oID']) || ($_GET['oID'] == $row['orders_id']))) {
+      $table_definition['info'] = new objectInfo($row);
+      $row['info'] = &$table_definition['info'];
+
+      $row['onclick'] = (clone $link)->set_parameter('action', 'edit');
+      $row['css'] = ' class="table-active"';
+      $row['info']->link = $link;
+    } else {
+      $row['onclick'] = $link;
+      $row['css'] = '';
+    }
+  };
+?>
+
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
+    <div class="col text-right align-self-center">
+      <?=
+       (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
+         '<div class="input-group mb-1">',
+           '<div class="input-group-prepend">',
+             '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
+           '</div>',
+           new Input('oID', [], 'number'),
+         '</div>',
+       '</form>',
+       (new Form('status', $Admin->link('orders.php'), 'get'))->hide_session_id(),
+         '<div class="input-group mb-1">',
+           '<div class="input-group-prepend">',
+             '<span class="input-group-text">', HEADING_TITLE_STATUS, '</span>',
+           '</div>',
+           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['onchange' => 'this.form.submit()']),
+         '</div>',
+       '</form>',
+       $admin_hooks->cat('injectFilterForm')
+      ?>
+    </div>
+  </div>
+
+<?php
+  $table_definition['split']->display_table();
+?>

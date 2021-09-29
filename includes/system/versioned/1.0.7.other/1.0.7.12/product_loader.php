@@ -31,7 +31,7 @@
     ];
 
     public static function load_attributes($product, $language_id = null) {
-      $attributes_query = tep_db_query(sprintf(<<<'EOSQL'
+      $attributes_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT po.products_options_name, pov.products_options_values_name,
    pa.options_id, pa.options_values_id, pa.price_prefix, pa.options_values_price,
    pad.products_attributes_filename, pad.products_attributes_maxdays, pad.products_attributes_maxcount
@@ -79,7 +79,7 @@ EOSQL
     }
 
     public static function load_categories($product) {
-      $categories_query = tep_db_query(sprintf(<<<'EOSQL'
+      $categories_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT categories_id
  FROM products_to_categories
  WHERE products_id = %d
@@ -96,7 +96,7 @@ EOSQL
     }
 
     public static function load_images($product) {
-      $images_query = tep_db_query(sprintf(<<<'EOSQL'
+      $images_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT *
  FROM products_images
  WHERE products_id = %d
@@ -114,7 +114,7 @@ EOSQL
     }
 
     public static function load_notifications($product) {
-      $notifications_query = tep_db_query(sprintf(<<<'EOSQL'
+      $notifications_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT date_added FROM product_notifications WHERE products_id = %d AND customers_id = %d
 EOSQL
         , (int)$product->get('id'), (int)$_SESSION['customer_id']));
@@ -124,7 +124,7 @@ EOSQL
     }
 
     public static function load_reviews($product) {
-      $reviews_query = tep_db_query(sprintf(<<<'EOSQL'
+      $reviews_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT r.*, rd.*
  FROM reviews r INNER JOIN reviews_description rd ON r.reviews_id = rd.reviews_id
  WHERE r.reviews_status = 1 AND r.products_id = %d AND rd.languages_id = %d
@@ -156,12 +156,12 @@ EOSQL
 
     public static function load_tax_rate($product) {
       if (isset($GLOBALS['customer'])) {
-        $tax_rate = tep_get_tax_rate(
+        $tax_rate = Tax::get_rate(
           $product->get('tax_class_id'),
           $GLOBALS['customer']->get('country_id'),
           $GLOBALS['customer']->get('zone_id'));
       } else {
-        $tax_rate = tep_get_tax_rate($product->get('tax_class_id'));
+        $tax_rate = Tax::get_rate($product->get('tax_class_id'));
       }
 
       $product->set('tax_rate', $tax_rate);
@@ -173,7 +173,7 @@ EOSQL
         return [];
       }
 
-      $translations_query = tep_db_query(sprintf(<<<'EOSQL'
+      $translations_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT *
  FROM products_description
  WHERE products_id = %d

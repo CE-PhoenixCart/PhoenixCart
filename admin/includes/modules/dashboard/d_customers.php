@@ -46,20 +46,20 @@ EOTEXT
 , MODULE_ADMIN_DASHBOARD_CUSTOMERS_TITLE, MODULE_ADMIN_DASHBOARD_CUSTOMERS_DATE);
 
       $customer_limit = $this->base_constant('DISPLAY') ?? 6;
-      $customers_query = tep_db_query(
+      $customers_query = $GLOBALS['db']->query(
         $customer_data->add_order_by(
           $customer_data->build_read(['id', 'sortable_name', 'date_account_created'], 'customers'), ['date_account_created' => 'DESC'])
         . ' LIMIT ' . (int)$customer_limit);
-      while ($customers = tep_db_fetch_array($customers_query)) {
+      while ($customers = $customers_query->fetch_assoc()) {
         $output .= sprintf(<<<'EOTEXT'
     <tr>
       <td><a href="%s">%s</a></td>
       <td class="text-right">%s</td>
     </tr>
 EOTEXT
-, tep_href_link('customers.php', 'cID=' . (int)$customer_data->get('id', $customers) . '&action=edit'),
+, $GLOBALS['Admin']->link('customers.php', 'cID=' . (int)$customer_data->get('id', $customers) . '&action=edit'),
   htmlspecialchars($customer_data->get('sortable_name', $customers)),
-  tep_date_short($customer_data->get('date_account_created', $customers)));
+  Date::abridge($customer_data->get('date_account_created', $customers)));
       }
 
       $output .= "  </tbody>\n</table>";
@@ -73,7 +73,7 @@ EOTEXT
           'title' => 'Enable Customers Module',
           'value' => 'True',
           'desc' => 'Do you want to show the newest customers on the dashboard?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_CUSTOMERS_DISPLAY' => [
           'title' => 'Customers to display',
@@ -84,7 +84,7 @@ EOTEXT
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_CUSTOMERS_SORT_ORDER' => [
           'title' => 'Sort Order',

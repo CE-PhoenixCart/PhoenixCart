@@ -34,7 +34,7 @@ EOSQL
         $sql .= ' AND p.products_status = 1';
       }
 
-      $product_query = tep_db_query($sql);
+      $product_query = $GLOBALS['db']->query($sql);
 
       if ($product = $product_query->fetch_assoc()) {
         if (!empty($get_parameters)) {

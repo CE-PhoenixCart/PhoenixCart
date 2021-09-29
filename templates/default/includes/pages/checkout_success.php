@@ -10,22 +10,22 @@
   Released under the GNU General Public License
 */
 
-  $page_content = $oscTemplate->getContent('checkout_success');
+  $page_content = $Template->getContent('checkout_success');
 
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 
-  echo tep_draw_form('order', tep_href_link('checkout_success.php', 'action=update', 'SSL'), 'post', ' role="form"');
+  echo new Form('order', $Linker->build('checkout_success.php', ['action' => 'update']), 'post', ['role' => 'form']);
 ?>
 
   <div class="row">
-    <?php echo $page_content; ?>
+    <?= $page_content ?>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

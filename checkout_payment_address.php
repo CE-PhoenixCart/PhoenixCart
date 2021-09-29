@@ -15,7 +15,7 @@
   require 'includes/system/segments/checkout/pipeline.php';
 
   if (!$customer_data->has('address')) {
-    tep_redirect(tep_href_link('checkout_payment.php'));
+    Href::redirect($linker->build('checkout_payment.php'));
   }
 
   // needs to be included earlier to set the success message in the messageStack
@@ -25,10 +25,10 @@
 
   $error = false;
   $process = false;
-  if (tep_validate_form_action_is('submit')) {
+  if (Form::validate_action_is('submit')) {
     $customer_details = $customer_data->process($customer_data->get_fields_for_page('address_book'));
-    $OSCOM_Hooks->call('siteWide', 'injectFormVerify');
-    if (tep_form_processing_is_valid()) {
+    $hooks->cat('injectFormVerify');
+    if (Form::is_valid()) {
       $customer_details['id'] = $customer->get_id();
       $customer_data->add_address($customer_details);
 
@@ -36,7 +36,7 @@
 
       unset($_SESSION['payment']);
 
-      tep_redirect(tep_href_link('checkout_payment.php'));
+      Href::redirect($linker->build('checkout_payment.php'));
     } elseif (isset($_POST['address'])) {
       // process the selected billing destination
       $reset_payment = isset($_SESSION['billto']) && ($_SESSION['billto'] != $_POST['address']) && isset($_SESSION['payment']);
@@ -46,7 +46,7 @@
         if ($reset_payment) {
           unset($_SESSION['payment']);
         }
-        tep_redirect(tep_href_link('checkout_payment.php'));
+        Href::redirect($linker->build('checkout_payment.php'));
       } else {
         unset($_SESSION['billto']);
       }
@@ -55,12 +55,12 @@
 
 // if no billing destination address was selected, use their own address as default
   if (!isset($_SESSION['billto'])) {
-    $_SESSION['billto'] = $customer->get_default_address_id();
+    $_SESSION['billto'] = $customer->get('default_billto');
     $billto =& $_SESSION['billto'];
   }
 
   $addresses_count = $customer->count_addresses();
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

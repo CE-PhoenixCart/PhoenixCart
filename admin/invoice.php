@@ -14,20 +14,18 @@
 
   $currencies = new currencies();
 
-  $order = new order(tep_db_prepare_input($_GET['oID']));
+  $order = new order(Text::input($_GET['oID']));
   $address = $customer_data->get_module('address');
 
   require 'includes/template_top.php';
 ?>
 
   <div class="row align-items-center mx-1">
-    <div class="col"><?= tep_image(HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'images/' . STORE_LOGO, STORE_NAME); ?></div>
+    <div class="col"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
     <div class="col text-right">
-      <?php
-      echo '<h1 class="display-4">' . STORE_NAME . '</h1>';
-      echo '<p>' . nl2br(STORE_ADDRESS) . '</p>';
-      echo '<p>' . STORE_PHONE . '</p>';
-      ?>
+      <h1 class="display-4"><?= STORE_NAME ?></h1>
+      <p><?= nl2br(STORE_ADDRESS) ?></p>
+      <p><?= STORE_PHONE ?></p>
     </div>
   </div>
 
@@ -36,23 +34,23 @@
   <div class="row">
     <div class="col">
       <ul class="list-group">
-        <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SHIP_TO; ?></h6></li>
-        <li class="list-group-item border-0 font-weight-bold"><?= $address->format($order->delivery, 1, '', '<br>'); ?></li>
+        <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SHIP_TO ?></h6></li>
+        <li class="list-group-item border-0 font-weight-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
       </ul>
     </div>
     <div class="col">
       <ul class="list-group">
-        <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SOLD_TO; ?></h6></li>
-        <li class="list-group-item border-0"><?= $address->format($order->billing, 1, '', '<br>'); ?></li>
-        <li class="list-group-item border-0"><i class="fas fa-phone fa-fw"></i> <?= ($order->customer['telephone'] ?? ''); ?> <i class="fas fa-at fa-fw"></i> <?= ($order->customer['email_address'] ?? ''); ?></li>
+        <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SOLD_TO ?></h6></li>
+        <li class="list-group-item border-0"><?= $address->format($order->billing, 1, '', '<br>') ?></li>
+        <li class="list-group-item border-0"><i class="fas fa-phone fa-fw"></i> <?= $customer_data->get('telephone', $order->customer) ?? '' ?> <i class="fas fa-at fa-fw"></i> <?= $customer_data->get('email_address', $order->customer) ?? '' ?></li>
      </ul>
     </div>
     <div class="col text-right">
       <ul class="list-group">
-        <li class="list-group-item border-0"><h6 class="lead m-0"><?= sprintf(ENTRY_INVOICE_NUMBER, (int)$_GET['oID']); ?></h6></li>
-        <li class="list-group-item border-0"><?= sprintf(ENTRY_INVOICE_DATE, tep_date_short($order->info['date_purchased'])); ?></li>
-        <li class="list-group-item border-0"><?= sprintf(ENTRY_PAYMENT_METHOD, $order->info['payment_method']); ?></li>
-        <?= $OSCOM_Hooks->call('invoice', 'invoiceData'); ?>
+        <li class="list-group-item border-0"><h6 class="lead m-0"><?= sprintf(ENTRY_INVOICE_NUMBER, (int)$_GET['oID']) ?></h6></li>
+        <li class="list-group-item border-0"><?= sprintf(ENTRY_INVOICE_DATE, Date::abridge($order->info['date_purchased'])) ?></li>
+        <li class="list-group-item border-0"><?= sprintf(ENTRY_PAYMENT_METHOD, $order->info['payment_method']) ?></li>
+        <?= $admin_hooks->cat('invoiceData') ?>
       </ul>
     </div>
   </div>
@@ -60,14 +58,14 @@
   <table class="table table-striped mt-3">
     <thead class="thead-dark">
       <tr>
-        <th><?= TABLE_HEADING_QTY; ?></th>
-        <th><?= TABLE_HEADING_PRODUCTS; ?></th>
-        <th><?= TABLE_HEADING_PRODUCTS_MODEL; ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TAX; ?></th>
-        <th class="text-right"><?= TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></th>
-        <th class="text-right"><?= TABLE_HEADING_PRICE_INCLUDING_TAX; ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></th>
+        <th><?= TABLE_HEADING_QTY ?></th>
+        <th><?= TABLE_HEADING_PRODUCTS ?></th>
+        <th><?= TABLE_HEADING_PRODUCTS_MODEL ?></th>
+        <th class="text-right"><?= TABLE_HEADING_TAX ?></th>
+        <th class="text-right"><?= TABLE_HEADING_PRICE_EXCLUDING_TAX ?></th>
+        <th class="text-right"><?= TABLE_HEADING_PRICE_INCLUDING_TAX ?></th>
+        <th class="text-right"><?= TABLE_HEADING_TOTAL_EXCLUDING_TAX ?></th>
+        <th class="text-right"><?= TABLE_HEADING_TOTAL_INCLUDING_TAX ?></th>
       </tr>
     </thead>
     <tbody>
@@ -85,11 +83,11 @@
           }
           echo '</th>';
           echo '<td>' . $product['model'] . '</td>';
-          echo '<td class="text-right">' . tep_display_tax_value($product['tax']) . '%</td>';
+          echo '<td class="text-right">' . Tax::format($product['tax']) . '%</td>';
           echo '<td class="text-right">' . $currencies->format($product['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-          echo '<td class="text-right">' . $currencies->format(tep_add_tax($product['final_price'], $product['tax'], true), true, $order->info['currency'], $order->info['currency_value']) . '</td>';
+          echo '<td class="text-right">' . $currencies->format(Tax::add($product['final_price'], $product['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>';
           echo '<td class="text-right">' . $currencies->format($product['final_price'] * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-          echo '<th class="text-right">' . $currencies->format(tep_add_tax($product['final_price'], $product['tax'], true) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</th>';
+          echo '<th class="text-right">' . $currencies->format(Tax::add($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</th>';
         echo '</tr>';
       }
 
@@ -103,9 +101,7 @@
     </tbody>
   </table>
 
-  <?php
-  echo $OSCOM_Hooks->call('invoice', 'extraComments');
-  ?>
+  <?= $admin_hooks->cat('extraComments') ?>
 
 <?php
   require 'includes/template_bottom.php';

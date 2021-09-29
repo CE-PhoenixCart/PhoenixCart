@@ -73,7 +73,7 @@ EOSQL
       return new Select($name, $products, $parameters);
     }
 
-    public static function select_discountable($name, $parameters = []) {
+    public static function list_discountable() {
       $products_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT p.products_id, pd.products_name, p.products_price AS base_price,
        1 AS products_status, 0 AS is_special
@@ -91,7 +91,7 @@ EOSQL
         ];
       }
 
-      return new Select($name, $options, $parameters);
+      return $options;
     }
 
   }

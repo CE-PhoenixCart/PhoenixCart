@@ -17,7 +17,7 @@
 
     // class constructor
     function __construct() {
-      if (defined('MODULE_CUSTOMER_DATA_INSTALLED') && tep_not_null(MODULE_CUSTOMER_DATA_INSTALLED)) {
+      if (defined('MODULE_CUSTOMER_DATA_INSTALLED') && !Text::is_empty(MODULE_CUSTOMER_DATA_INSTALLED)) {
         $this->modules = (array)explode(';', MODULE_CUSTOMER_DATA_INSTALLED);
 
         global $language;
@@ -172,11 +172,11 @@
       customer_write::create($this->build_db_table_values($field_values, $table), $field_values);
 
       if (isset($field_values['address_book_id']) && isset($field_values['customers_id'])) {
-        tep_db_query("UPDATE customers SET customers_default_address_id = " . (int)$field_values['address_book_id']
+        $GLOBALS['db']->query("UPDATE customers SET customers_default_address_id = " . (int)$field_values['address_book_id']
           . " WHERE customers_id = " . (int)$field_values['customers_id']);
       }
 
-      tep_db_query("INSERT INTO customers_info (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) VALUES ("
+      $GLOBALS['db']->query("INSERT INTO customers_info (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) VALUES ("
         . (int)$field_values['customers_id'] . ", 0, NOW())");
     }
 

@@ -19,29 +19,27 @@
             <tr>
 <?php
   foreach ($table_definition['columns'] as $column) {
-    echo '<th';
+    echo '              <th';
     if (isset($column['class'])) {
       echo ' class="', $column['class'], '"';
     }
-    echo '>', $column['name'], '</th>';
+    echo '>', $column['name'], '</th>', PHP_EOL;
   }
 ?>
-
             </tr>
           </thead>
           <tbody>
 <?php
   foreach ($table_definition['split']->fetch() as $row) {
 ?>
-
             <tr<?= $row['css'] ?> onclick="document.location.href='<?= $row['onclick'] ?>'">
 <?php
     foreach ($table_definition['columns'] as $column) {
       if ($column['is_heading'] ?? false) {
-        echo '<th scope="row"';
+        echo '              <th scope="row"';
         $close = '</th>';
       } else {
-        echo '<td';
+        echo '              <td';
         $close = '</td>';
       }
 
@@ -52,12 +50,10 @@
       echo '>', $column['function']($row), $close, PHP_EOL;
     }
 ?>
-
             </tr>
 <?php
   }
 ?>
-
           </tbody>
         </table>
       </div>
@@ -75,13 +71,11 @@
        . '</div>'
       ?></div>
       </div>
-
       <?= $GLOBALS['admin_hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
-
     </div>
 
 <?php
-  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'])) {
+  if (isset($GLOBALS['action']) && ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action']))) {
     require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>

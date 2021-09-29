@@ -15,13 +15,13 @@
     public $modules;
 
 // class constructor
-    public function __construct($module = '') {
-      if (defined('MODULE_SHIPPING_INSTALLED') && tep_not_null(MODULE_SHIPPING_INSTALLED)) {
+    public function __construct($module = []) {
+      if (defined('MODULE_SHIPPING_INSTALLED') && !Text::is_empty(MODULE_SHIPPING_INSTALLED)) {
         $this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
 
         $include_modules = [];
 
-        if ( (tep_not_null($module)) && (in_array(substr($module['id'], 0, strpos($module['id'], '_')) . '.php', $this->modules)) ) {
+        if ( isset($module['id']) && (in_array(substr($module['id'], 0, strpos($module['id'], '_')) . '.php', $this->modules)) ) {
           $class = substr($module['id'], 0, strpos($module['id'], '_'));
           $include_modules[] = [
             'class' => $class,
@@ -68,7 +68,7 @@
 
         foreach ($this->modules as $value) {
           $class = pathinfo($value, PATHINFO_FILENAME);
-          if (tep_not_null($module)) {
+          if (!Text::is_empty($module)) {
             if ( ($module == $class) && ($GLOBALS[$class]->enabled) ) {
               $include_quotes[] = $class;
             }
@@ -97,7 +97,7 @@
           if ($GLOBALS[$class]->enabled) {
             $quotes = $GLOBALS[$class]->quotes;
             foreach ($quotes['methods'] as $method) {
-              if (isset($method['cost']) && tep_not_null($method['cost'])) {
+              if (isset($method['cost']) && !Text::is_empty($method['cost'])) {
                 $rates[] = [
                   'id' => $quotes['id'] . '_' . $method['id'],
                   'title' => $quotes['module'] . ' (' . $method['title'] . ')',
@@ -142,8 +142,8 @@
     }
 
     public function process_selection() {
-      if (tep_not_null($_POST['comments'])) {
-        $_SESSION['comments'] = tep_db_prepare_input($_POST['comments']);
+      if (!Text::is_empty($_POST['comments'])) {
+        $_SESSION['comments'] = Text::input($_POST['comments']);
       }
 
       if ( ($GLOBALS['module_count'] <= 0) && !$GLOBALS['free_shipping'] ) {
@@ -153,7 +153,7 @@
         }
 
         $_SESSION['shipping'] = false;
-        tep_redirect(tep_href_link('checkout_payment.php', '', 'SSL'));
+        Href::redirect($GLOBALS['Linker']->build('checkout_payment.php'));
       }
 
       if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
@@ -191,7 +191,7 @@
             'cost' => $quote[0]['methods'][0]['cost'],
           ];
 
-          tep_redirect(tep_href_link('checkout_payment.php', '', 'SSL'));
+          Href::redirect($GLOBALS['Linker']->build('checkout_payment.php'));
         }
       }
     }

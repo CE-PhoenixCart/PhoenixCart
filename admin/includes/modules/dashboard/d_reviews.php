@@ -25,7 +25,7 @@
     }
 
     function getOutput() {
-      $reviews_query = tep_db_query(sprintf(<<<'EOSQL'
+      $reviews_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT r.reviews_id, r.date_added, pd.products_name, r.customers_name, r.reviews_rating, r.reviews_status
  FROM reviews r, products_description pd
  WHERE pd.products_id = r.products_id and pd.language_id = %d
@@ -33,7 +33,6 @@ SELECT r.reviews_id, r.date_added, pd.products_name, r.customers_name, r.reviews
  LIMIT %d
 EOSQL
         , (int)$_SESSION['languages_id'], (int)MODULE_ADMIN_DASHBOARD_REVIEWS_DISPLAY));
-
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-2">';
@@ -48,13 +47,13 @@ EOSQL
           $output .= '</thead>';
           $output .= '<tbody>';
 
-          while ($reviews = tep_db_fetch_array($reviews_query)) {
+          while ($reviews = $reviews_query->fetch_assoc()) {
             $status_icon = ($reviews['reviews_status'] == '1') ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>';
             $output .= '<tr>';
-              $output .= '<td><a href="' . tep_href_link('reviews.php', 'rID=' . (int)$reviews['reviews_id'] . '&action=edit') . '">' . $reviews['products_name'] . '</a></td>';
-              $output .= '<td>' . tep_date_short($reviews['date_added']) . '</td>';
+              $output .= '<td><a href="' . $GLOBALS['Admin']->link('reviews.php', ['rID' => (int)$reviews['reviews_id'], 'action' => 'edit']) . '">' . $reviews['products_name'] . '</a></td>';
+              $output .= '<td>' . Date::abridge($reviews['date_added']) . '</td>';
               $output .= '<td>' . htmlspecialchars($reviews['customers_name']) . '</td>';
-              $output .= '<td>' . tep_draw_stars($reviews['reviews_rating']) . '</td>';
+              $output .= '<td>' . new star_rating((float)$reviews['reviews_rating']) . '</td>';
               $output .= '<td class="text-right">' . $status_icon . '</td>';
             $output .= '</tr>';
           }
@@ -72,7 +71,7 @@ EOSQL
           'title' => 'Enable Reviews Module',
           'value' => 'True',
           'desc' => 'Do you want to show the latest reviews on the dashboard?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'DISPLAY' => [
           'title' => 'Reviews to display',
@@ -83,7 +82,7 @@ EOSQL
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',

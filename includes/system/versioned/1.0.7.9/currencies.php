@@ -20,7 +20,7 @@
 // class constructor
     public function __construct() {
       $this->currencies = [];
-      $currencies_query = tep_db_query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
+      $currencies_query = $GLOBALS['db']->query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
       while ($currencies = $currencies_query->fetch_assoc()) {
         $this->currencies[$currencies['code']] = [
           'title' => $currencies['title'],
@@ -54,7 +54,7 @@
     }
 
     public function calculate_price($products_price, $products_tax, $quantity = 1) {
-      return tep_round(tep_add_tax($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
+      return tep_round(Tax::price($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
     }
 
     public function is_set($code) {
