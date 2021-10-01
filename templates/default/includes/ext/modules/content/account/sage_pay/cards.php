@@ -10,9 +10,6 @@
   Released under the GNU General Public License
 */
 
-  $account_link = $Linker->build('account.php');
-  $cards_link = $Linker->build('ext/modules/content/account/sage_pay/cards.php');
-
   $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_1, "$account_link");
   $breadcrumb->add(MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_NAVBAR_TITLE_2, "$cards_link");
 
@@ -20,11 +17,11 @@
   $delete_button->set('href', (string)$cards_link->add_parameters([
     'action' => 'delete',
     'id' => (int)$tokens['id'],
-    'formid' => md5($_SESSION['sessiontoken']),
+    'formid' => $_SESSION['sessiontoken'],
   ]));
   $back_button = (new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left'))->set('href', "$account_link");
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <h1 class="display-4"><?= MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_HEADING_TITLE ?></h1>
@@ -71,5 +68,5 @@
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

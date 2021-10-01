@@ -16,20 +16,19 @@
 // if the customer is not logged on, redirect them to the login page
   $parameters = [
     'page' => 'checkout_payment.php',
-    'mode' => 'SSL',
   ];
-  $OSCOM_Hooks->register_pipeline('loginRequired', $parameters);
+  $hooks->register_pipeline('loginRequired', $parameters);
 
   if (!isset($_SESSION['sage_pay_direct_acsurl'])) {
-    tep_redirect(tep_href_link('checkout_payment.php'));
+    Href::redirect($Linker->build('checkout_payment.php'));
   }
 
-  if (!isset($_SESSION['payment']) || ($_SESSION['payment'] != 'sage_pay_direct')) {
-    tep_redirect(tep_href_link('checkout_payment.php'));
+  if (!isset($_SESSION['payment']) || ($_SESSION['payment'] !== 'sage_pay_direct')) {
+    Href::redirect($Linker->build('checkout_payment.php'));
   }
 
   require language::map_to_translation('checkout_confirmation.php');
   require language::map_to_translation('modules/payment/sage_pay_direct.php');
 
-  require $oscTemplate->map_to_template(__FILE__, 'ext');
+  require $Template->map(__FILE__, 'ext');
   require 'includes/application_bottom.php';

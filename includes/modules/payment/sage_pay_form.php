@@ -42,7 +42,7 @@
       }
 
       if ( $this->enabled === true ) {
-        if ( !tep_not_null(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_LOGIN_NAME) || !tep_not_null(MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD) ) {
+        if ( !!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_LOGIN_NAME) || !!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD) ) {
           $this->description = '<div class="alert alert-warning">' . MODULE_PAYMENT_SAGE_PAY_FORM_ERROR_ADMIN_CONFIGURATION . '</div>' . $this->description;
 
           $this->enabled = false;
@@ -57,7 +57,7 @@
     }
 
     public function process_button() {
-      global $order;
+      global $order, $currencies, $customer_data;
 
       $process_button_string = '';
 
@@ -77,38 +77,42 @@
       $crypt = [
         'ReferrerID' => 'C74D7B82-E9EB-4FBD-93DB-76F0F551C802',
         'VendorTxCode' => substr(date('YmdHis') . '-' . $_SESSION['customer_id'] . '-' . $_SESSION['cartID'], 0, 40),
-        'Amount' => $this->format_raw($order->info['total']),
+        'Amount' => $currencies->format_raw($order->info['total']),
         'Currency' => $_SESSION['currency'],
         'Description' => substr(STORE_NAME, 0, 100),
-        'SuccessURL' => tep_href_link('checkout_process.php', '', 'SSL'),
-        'FailureURL' => tep_href_link('checkout_payment.php', 'payment_error=' . $this->code, 'SSL'),
-        'CustomerName' => substr($order->billing['name'], 0, 100),
-        'CustomerEMail' => substr($order->customer['email_address'], 0, 255),
-        'BillingSurname' => substr($order->billing['lastname'], 0, 20),
-        'BillingFirstnames' => substr($order->billing['firstname'], 0, 20),
-        'BillingAddress1' => substr($order->billing['street_address'], 0, 100),
-        'BillingCity' => substr($order->billing['city'], 0, 40),
-        'BillingPostCode' => substr($order->billing['postcode'], 0, 10),
-        'BillingCountry' => $order->billing['country']['iso_code_2'],
+        'SuccessURL' => $GLOBALS['Linker']->build('checkout_process.php'),
+        'FailureURL' => $GLOBALS['Linker']->build('checkout_payment.php', ['payment_error' => $this->code]),
+        'CustomerName' => substr($customer_data->get('name', $order->billing), 0, 100),
+        'CustomerEMail' => substr($customer_data->get('email_address', $order->customer), 0, 255),
+        'BillingSurname' => substr($customer_data->get('lastname', $order->billing), 0, 20),
+        'BillingFirstnames' => substr($customer_data->get('firstname', $order->billing), 0, 20),
+        'BillingAddress1' => substr($customer_data->get('street_address', $order->billing), 0, 100),
+        'BillingCity' => substr($customer_data->get('city', $order->billing), 0, 40),
+        'BillingPostCode' => substr($customer_data->get('postcode', $order->billing), 0, 10),
+        'BillingCountry' => $customer_data->get('country_iso_code_2', $order->billing),
       ];
 
       if ($crypt['BillingCountry'] == 'US') {
-        $crypt['BillingState'] = tep_get_zone_code($order->billing['country']['id'], $order->billing['zone_id'], '');
+        $crypt['BillingState'] = Zone::fetch_code(
+          $customer_data->get('country_id', $order->billing),
+          $customer_data->get('zone_id', $order->billing), '');
       }
 
-      $crypt['BillingPhone'] = substr($order->customer['telephone'], 0, 20);
-      $crypt['DeliverySurname'] = substr($order->delivery['lastname'], 0, 20);
-      $crypt['DeliveryFirstnames'] = substr($order->delivery['firstname'], 0, 20);
-      $crypt['DeliveryAddress1'] = substr($order->delivery['street_address'], 0, 100);
-      $crypt['DeliveryCity'] = substr($order->delivery['city'], 0, 40);
-      $crypt['DeliveryPostCode'] = substr($order->delivery['postcode'], 0, 10);
-      $crypt['DeliveryCountry'] = $order->delivery['country']['iso_code_2'];
+      $crypt['BillingPhone'] = substr($customer_data->get('telephone', $order->customer), 0, 20);
+      $crypt['DeliverySurname'] = substr($customer_data->get('lastname', $order->delivery), 0, 20);
+      $crypt['DeliveryFirstnames'] = substr($customer_data->get('firstname', $order->delivery), 0, 20);
+      $crypt['DeliveryAddress1'] = substr($customer_data->get('street_address', $order->delivery), 0, 100);
+      $crypt['DeliveryCity'] = substr($customer_data->get('city', $order->delivery), 0, 40);
+      $crypt['DeliveryPostCode'] = substr($customer_data->get('postcode', $order->delivery), 0, 10);
+      $crypt['DeliveryCountry'] = $customer_data->get('country_iso_code_2', $order->delivery);
 
       if ($crypt['DeliveryCountry'] == 'US') {
-        $crypt['DeliveryState'] = tep_get_zone_code($order->delivery['country']['id'], $order->delivery['zone_id'], '');
+        $crypt['DeliveryState'] = Zone::fetch_code(
+          $customer_data->get('country_id', $order->delivery),
+          $customer_data->get('zone_id', $order->delivery), '');
       }
 
-      if (tep_not_null(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_EMAIL)) {
+      if (!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_EMAIL)) {
         $crypt['VendorEMail'] = substr(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_EMAIL, 0, 255);
       }
 
@@ -126,7 +130,7 @@
           break;
       }
 
-      if (tep_not_null(MODULE_PAYMENT_SAGE_PAY_FORM_CUSTOMER_EMAIL_MESSAGE)) {
+      if (!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_CUSTOMER_EMAIL_MESSAGE)) {
         $crypt['eMailMessage'] = substr(MODULE_PAYMENT_SAGE_PAY_FORM_CUSTOMER_EMAIL_MESSAGE, 0, 7500);
       }
 
@@ -141,11 +145,18 @@
           }
         }
 
-        $contents[] = str_replace([':', "\n", "\r", '&'], '', $product_name) . ':' . $product['qty'] . ':' . $this->format_raw($product['final_price']) . ':' . $this->format_raw(($product['tax'] / 100) * $product['final_price']) . ':' . $this->format_raw((($product['tax'] / 100) * $product['final_price']) + $product['final_price']) . ':' . $this->format_raw(((($product['tax'] / 100) * $product['final_price']) + $product['final_price']) * $product['qty']);
+        $contents[] = str_replace(
+          [':', "\n", "\r", '&'],
+          '',
+          $product_name) . ':' . $product['qty']
+        . ':' . $currencies->format_raw($product['final_price'])
+        . ':' . $currencies->format_raw(($product['tax'] / 100) * $product['final_price'])
+        . ':' . $currencies->format_raw((($product['tax'] / 100) * $product['final_price']) + $product['final_price'])
+        . ':' . $currencies->format_raw(((($product['tax'] / 100) * $product['final_price']) + $product['final_price']) * $product['qty']);
       }
 
       foreach ($this->getOrderTotalsSummary() as $ot) {
-        $contents[] = str_replace([':', "\n", "\r", '&'], '', strip_tags($ot['title'])) . ':---:---:---:---:' . $this->format_raw($ot['value']);
+        $contents[] = str_replace([':', "\n", "\r", '&'], '', strip_tags($ot['title'])) . ':---:---:---:---:' . $currencies->format_raw($ot['value']);
       }
 
       $crypt['Basket'] = substr(count($contents) . ':' . implode(':', $contents), 0, 7500);
@@ -162,7 +173,7 @@
       $params['Crypt'] = $this->encryptParams($crypt_string);
 
       foreach ($params as $key => $value) {
-        $process_button_string .= tep_draw_hidden_field($key, $value);
+        $process_button_string .= new Input($key, ['value' => $value], 'hidden');
       }
 
       return $process_button_string;
@@ -171,7 +182,8 @@
     public function before_process() {
       global $sage_pay_response;
 
-      if (isset($_GET['crypt']) && tep_not_null($_GET['crypt'])) {
+      $link = $GLOBALS['Linker']->build('checkout_payment.php', ['payment_error' => $this->code]);
+      if (isset($_GET['crypt']) && !Text::is_empty($_GET['crypt'])) {
         $transaction_response = $this->decryptParams($_GET['crypt']);
 
         $sage_pay_response = ['Status' => null];
@@ -183,15 +195,18 @@
           }
         }
 
-        if ( ($sage_pay_response['Status'] != 'OK') && ($sage_pay_response['Status'] != 'AUTHENTICATED') && ($sage_pay_response['Status'] != 'REGISTERED') ) {
+        if ( ($sage_pay_response['Status'] !== 'OK') && ($sage_pay_response['Status'] !== 'AUTHENTICATED') && ($sage_pay_response['Status'] !== 'REGISTERED') ) {
           $this->sendDebugEmail($sage_pay_response);
 
           $error = $this->getErrorMessageNumber($sage_pay_response['StatusDetail']);
 
-          tep_redirect(tep_href_link('checkout_payment.php', 'payment_error=' . $this->code . (tep_not_null($error) ? '&error=' . $error : ''), 'SSL'));
+          if (!Text::is_empty($error)) {
+            $link->set_parameter('error', $error);
+          }
+          Href::redirect($link);
         }
       } else {
-        tep_redirect(tep_href_link('checkout_payment.php', 'payment_error=' . $this->code, 'SSL'));
+        Href::redirect($link);
       }
     }
 
@@ -242,7 +257,7 @@
         $result_string .= $k . ': ' . $v . "\n";
       }
 
-      $sql_data_array = [
+      $sql_data = [
         'orders_id' => $order_id,
         'orders_status_id' => MODULE_PAYMENT_SAGE_PAY_FORM_TRANSACTION_ORDER_STATUS_ID,
         'date_added' => 'NOW()',
@@ -250,7 +265,7 @@
         'comments' => trim($result_string),
       ];
 
-      tep_db_perform('orders_status_history', $sql_data_array);
+      $GLOBALS['db']->perform('orders_status_history', $sql_data);
     }
 
     public function get_error() {
@@ -260,7 +275,7 @@
 
       if ( isset($_GET['error']) && is_numeric($_GET['error']) && $this->errorMessageNumberExists($_GET['error']) ) {
         $error_number = $_GET['error'];
-      } elseif (isset($_GET['crypt']) && tep_not_null($_GET['crypt'])) {
+      } elseif (isset($_GET['crypt']) && !Text::is_empty($_GET['crypt'])) {
         $transaction_response = $this->decryptParams($_GET['crypt']);
 
         $string_array = explode('&', $transaction_response);
@@ -289,12 +304,10 @@
         $message = $this->getErrorMessage($error_number) . ' ' . MODULE_PAYMENT_SAGE_PAY_FORM_ERROR_GENERAL;
       }
 
-      $error = [
+      return [
         'title' => MODULE_PAYMENT_SAGE_PAY_FORM_ERROR_TITLE,
         'error' => $message,
       ];
-
-      return $error;
     }
 
     protected function get_parameters() {
@@ -303,7 +316,7 @@
           'title' => 'Enable Sage Pay Form Module',
           'desc' => 'Do you want to accept Sage Pay Form payments?',
           'value' => 'True',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_LOGIN_NAME' => [
           'title' => 'Vendor Login Name',
@@ -317,7 +330,7 @@
           'title' => 'Transaction Method',
           'desc' => 'The processing method to use for each transaction.',
           'value' => 'Authenticate',
-          'set_func' => "tep_cfg_select_option(['Authenticate', 'Deferred', 'Payment'], ",
+          'set_func' => "Config::select_one(['Authenticate', 'Deferred', 'Payment'], ",
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_EMAIL' => [
           'title' => 'Vendor E-Mail Notification',
@@ -327,40 +340,40 @@
           'title' => 'Send E-Mail Notifications',
           'desc' => 'Who to send e-mails to.',
           'value' => 'Customer and Vendor',
-          'set_func' => "tep_cfg_select_option(['No One', 'Customer and Vendor', 'Vendor Only'], ",
+          'set_func' => "Config::select_one(['No One', 'Customer and Vendor', 'Vendor Only'], ",
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_CUSTOMER_EMAIL_MESSAGE' => [
           'title' => 'Customer E-Mail Message',
           'desc' => 'A message to the customer which is inserted into successful transaction e-mails only.',
-          'use_func' => 'sage_pay_form_clip_text',
-          'set_func' => 'sage_pay_form_textarea_field(',
+          'use_func' => 'sage_pay_form::clip_text',
+          'set_func' => 'sage_pay_form::textarea_field(',
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_ORDER_STATUS_ID' => [
           'title' => 'Set Order Status',
           'desc' => 'Set the status of orders made with this payment module to this value',
           'value' => '0',
-          'use_func' => 'tep_get_order_status_name',
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
+          'use_func' => 'order_status::fetch_name',
+          'set_func' => 'Config::select_order_status(',
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_TRANSACTION_ORDER_STATUS_ID' => [
           'title' => 'Transaction Order Status',
           'desc' => 'Include transaction information in this order status level',
           'value' => self::ensure_order_status('MODULE_PAYMENT_SAGE_PAY_FORM_TRANSACTION_ORDER_STATUS_ID', 'Sage Pay [Transactions]'),
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
-          'use_func' => 'tep_get_order_status_name',
+          'set_func' => 'Config::select_order_status(',
+          'use_func' => 'order_status::fetch_name',
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_ZONE' => [
           'title' => 'Payment Zone',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
           'value' => '0',
-          'use_func' => 'tep_get_zone_class_title',
-          'set_func' => 'tep_cfg_pull_down_zone_classes(',
+          'use_func' => 'geo_zone::fetch_name',
+          'set_func' => 'Config::select_geo_zone(',
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_TRANSACTION_SERVER' => [
           'title' => 'Transaction Server',
           'desc' => 'Perform transactions on the production server or on the testing server.',
           'value' => 'Live',
-          'set_func' => "tep_cfg_select_option(['Live', 'Test'], ",
+          'set_func' => "Config::select_one(['Live', 'Test'], ",
         ],
         'MODULE_PAYMENT_SAGE_PAY_FORM_DEBUG_EMAIL' => [
           'title' => 'Debug E-Mail Address',
@@ -375,27 +388,17 @@
     }
 
 // format prices without currency formatting
-    function format_raw($number, $currency_code = '', $currency_value = '') {
-      global $currencies;
-
-      if (empty($currency_code) || !$currencies->is_set($currency_code)) {
-        $currency_code = $_SESSION['currency'];
-      }
-
-      if (empty($currency_value) || !is_numeric($currency_value)) {
-        $currency_value = $currencies->currencies[$currency_code]['value'];
-      }
-
-      return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
+    public function format_raw($number, $currency_code = '', $currency_value = '') {
+      return $GLOBALS['currencies']->format_raw($number, true, $currency_code, $currency_value);
     }
 
-    function getOrderTotalsSummary() {
+    public function getOrderTotalsSummary() {
       $order_totals = [];
       foreach (($GLOBALS['order_total_modules']->modules ?? []) as $value) {
         $class = pathinfo($value, PATHINFO_FILENAME);
         if ($GLOBALS[$class]->enabled) {
           foreach ($GLOBALS[$class]->output as $module) {
-            if (tep_not_null($module['title']) && tep_not_null($module['text'])) {
+            if (!Text::is_empty($module['title']) && !Text::is_empty($module['text'])) {
               $order_totals[] = [
                 'code' => $GLOBALS[$class]->code,
                 'title' => $module['title'],
@@ -411,34 +414,35 @@
       return $order_totals;
     }
 
-    function encryptParams($string) {
+    public function encryptParams($string) {
 
       $result = '@' . strtoupper(bin2hex(openssl_encrypt($string, 'aes-128-cbc', MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD, OPENSSL_RAW_DATA, MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD)));
 
       return $result;
     }
 
-   function decryptParams($string) {
-     if ( substr($string, 0, 1) == '@' ) {
-       $string = substr($string, 1);
-     }
+    public function decryptParams($string) {
+      if ( substr($string, 0, 1) == '@' ) {
+        $string = substr($string, 1);
+      }
 
-     $result = openssl_decrypt(hex2bin($string), 'aes-128-cbc', MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD, OPENSSL_RAW_DATA, MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD);
+      $result = openssl_decrypt(hex2bin($string), 'aes-128-cbc', MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD, OPENSSL_RAW_DATA, MODULE_PAYMENT_SAGE_PAY_FORM_ENCRYPTION_PASSWORD);
 
-     return $result;
-   }
+      return $result;
+    }
 
-    function loadErrorMessages() {
+    public function loadErrorMessages() {
       $errors = [];
 
-      if (file_exists(dirname(__FILE__) . '/../../../ext/modules/payment/sage_pay/errors.php')) {
-        include(dirname(__FILE__) . '/../../../ext/modules/payment/sage_pay/errors.php');
+      $path = DIR_FS_CATALOG . 'ext/modules/payment/sage_pay/errors.php';
+      if (file_exists($path)) {
+        include $path;
       }
 
       $this->_error_messages = $errors;
     }
 
-    function getErrorMessageNumber($string) {
+    public function getErrorMessageNumber($string) {
       if (!isset($this->_error_messages)) {
         $this->loadErrorMessages();
       }
@@ -452,7 +456,7 @@
       return false;
     }
 
-    function getErrorMessage($number) {
+    public function getErrorMessage($number) {
       if (!isset($this->_error_messages)) {
         $this->loadErrorMessages();
       }
@@ -464,7 +468,7 @@
       return false;
     }
 
-    function errorMessageNumberExists($number) {
+    public function errorMessageNumberExists($number) {
       if (!isset($this->_error_messages)) {
         $this->loadErrorMessages();
       }
@@ -473,7 +477,7 @@
     }
 
     protected function sendDebugEmail($response = []) {
-      if (tep_not_null(MODULE_PAYMENT_SAGE_PAY_FORM_DEBUG_EMAIL)) {
+      if (!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_DEBUG_EMAIL)) {
         $email_body = '';
 
         if (!empty($response)) {
@@ -489,20 +493,17 @@
         }
 
         if (!empty($email_body)) {
-          tep_mail('', MODULE_PAYMENT_SAGE_PAY_FORM_DEBUG_EMAIL, 'Sage Pay Form Debug E-Mail', trim($email_body), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+          Notifications::mail('', MODULE_PAYMENT_SAGE_PAY_FORM_DEBUG_EMAIL, 'Sage Pay Form Debug E-Mail', trim($email_body), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         }
       }
     }
-  }
 
-  function sage_pay_form_clip_text($value) {
-    if ( strlen($value) > 20 ) {
-      $value = substr($value, 0, 20) . '..';
+    public static function clip_text($value) {
+      return ( strlen($value) <= 20 ) ? $value : substr($value, 0, 20) . '...';
     }
 
-    return $value;
-  }
+    public static function textarea_field($value = '', $key = '') {
+      return new Textarea('configuration[' . $key . ']', ['cols' => '60', 'rows' => '5', 'value' => $value]);
+    }
 
-  function sage_pay_form_textarea_field($value = '', $key = '') {
-    return tep_draw_textarea_field('configuration[' . $key . ']', 'soft', 60, 5, $value);
   }
