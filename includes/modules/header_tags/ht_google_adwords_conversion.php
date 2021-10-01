@@ -86,10 +86,6 @@ EOD;
       }
     }
 
-    function format_raw($number, $currency_code = '', $currency_value = '') {
-      return $GLOBALS['currencies']->format_raw($number, true, $currency_code, $currency_value);
-    }
-
     protected function get_parameters() {
       return [
         'MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_STATUS' => [

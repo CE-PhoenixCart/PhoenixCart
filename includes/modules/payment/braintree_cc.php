@@ -575,10 +575,6 @@ EOSQL;
       ];
     }
 
-    function format_raw($number, $currency_code = '', $currency_value = '') {
-      return $GLOBALS['currencies']->format_raw($number, true, $currency_code, $currency_value);
-    }
-
     function getTransactionCurrency() {
       return $this->isValidCurrency($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY;
     }

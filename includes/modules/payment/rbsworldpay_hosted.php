@@ -301,11 +301,6 @@
       return $params;
     }
 
-// format prices without currency formatting
-    public function format_raw($number, $currency_code = '', $currency_value = '') {
-      return $GLOBALS['currencies']->format_raw($number, true, $currency_code, $currency_value);
-    }
-
     public function sendDebugEmail($response = []) {
       if (!Text::is_empty(MODULE_PAYMENT_RBSWORLDPAY_HOSTED_DEBUG_EMAIL)) {
         $email_body = '';

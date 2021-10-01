@@ -387,11 +387,6 @@
       ];
     }
 
-// format prices without currency formatting
-    public function format_raw($number, $currency_code = '', $currency_value = '') {
-      return $GLOBALS['currencies']->format_raw($number, true, $currency_code, $currency_value);
-    }
-
     public function getOrderTotalsSummary() {
       $order_totals = [];
       foreach (($GLOBALS['order_total_modules']->modules ?? []) as $value) {
