@@ -16,7 +16,7 @@
 
     protected $group = 'boxes';
 
-    function execute() {
+    public function execute() {
       global $current_category_id;
 
       $sql = 'SELECT DISTINCT p.products_id, pd.products_name FROM products p, products_description pd';
@@ -26,15 +26,15 @@
       } else {
         $sql .= ' WHERE';
       }
-      $sql .= " p.products_status = 1 AND p.products_ordered > 0 AND p.products_id = pd.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " ORDER BY p.products_ordered DESC, pd.products_name LIMIT " . MODULE_BOXES_BEST_SELLERS_MAX_DISPLAY;
+      $sql .= " p.products_status = 1 AND p.products_ordered > 0 AND p.products_id = pd.products_id AND pd.language_id = %d ORDER BY p.products_ordered DESC, pd.products_name LIMIT %d";
 
-      $best_sellers_query = tep_db_query($sql);
-      if (tep_db_num_rows($best_sellers_query) >= MODULE_BOXES_BEST_SELLERS_MIN_DISPLAY) {
+      $best_sellers_query = $GLOBALS['db']->query(sprintf($sql, (int)$_SESSION['languages_id'], (int)MODULE_BOXES_BEST_SELLERS_MAX_DISPLAY));
+      if (mysqli_num_rows($best_sellers_query) >= MODULE_BOXES_BEST_SELLERS_MIN_DISPLAY) {
         $best_sellers = [];
 
-        while ($best_seller = tep_db_fetch_array($best_sellers_query)) {
+        while ($best_seller = $best_sellers_query->fetch_assoc()) {
           $best_sellers[] = [
-            'link' => tep_href_link('product_info.php', 'products_id=' . (int)$best_seller['products_id']),
+            'link' => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$best_seller['products_id']]),
             'text' => $best_seller['products_name'],
           ];
         }
@@ -50,7 +50,7 @@
           'title' => 'Enable Best Sellers Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_BEST_SELLERS_MIN_DISPLAY' => [
           'title' => 'Minimum to Display',
@@ -66,7 +66,7 @@
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_BEST_SELLERS_SORT_ORDER' => [
           'title' => 'Sort Order',

@@ -1,5 +1,5 @@
 <div class="card mb-2 bm-best-sellers">
-  <div class="card-header"><?php echo MODULE_BOXES_BEST_SELLERS_BOX_TITLE; ?></div>
+  <div class="card-header"><?= MODULE_BOXES_BEST_SELLERS_BOX_TITLE ?></div>
   <div class="list-group list-group-flush">
     <?php
     foreach ($best_sellers as $best_seller) {

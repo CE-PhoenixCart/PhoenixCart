@@ -19,7 +19,7 @@
         $box = [
           'parameters' => ['product_card.php', 'component'],
           'classes' => 'is-product bm-specials',
-          'title' => sprintf(MODULE_BOXES_SPECIALS_BOX_TITLE, tep_href_link('specials.php')),
+          'title' => sprintf(MODULE_BOXES_SPECIALS_BOX_TITLE, $GLOBALS['Linker']->build('specials.php')),
           'attributes' => $product->get('data_attributes'),
         ];
 
@@ -38,13 +38,13 @@
           'title' => 'Enable Specials Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_SPECIALS_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_SPECIALS_SORT_ORDER' => [
           'title' => 'Sort Order',

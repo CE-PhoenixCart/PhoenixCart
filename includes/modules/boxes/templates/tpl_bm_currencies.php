@@ -1,9 +1,10 @@
 <div class="card mb-2 bm-currencies">
   <div class="card-header">
-    <?php echo MODULE_BOXES_CURRENCIES_BOX_TITLE; ?>
+    <?= MODULE_BOXES_CURRENCIES_BOX_TITLE ?>
   </div>
   <div class="card-body">
-    <?php echo $form_output; ?>
+    <?= $form, $menu->append_css('custom-form-input w-100') ?>
+    </form>
   </div>
 </div>
 

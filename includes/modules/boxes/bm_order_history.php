@@ -15,11 +15,9 @@
     const CONFIG_KEY_BASE = 'MODULE_BOXES_ORDER_HISTORY_';
 
     function execute() {
-      global $PHP_SELF;
-
       if (isset($_SESSION['customer_id'])) {
 // retrieve the last x products purchased
-        $products_query = tep_db_query(sprintf(<<<'EOSQL'
+        $products_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT DISTINCT op.products_id, pd.products_name
  FROM orders o
    INNER JOIN orders_products op ON o.orders_id = op.orders_id
@@ -32,7 +30,7 @@ SELECT DISTINCT op.products_id, pd.products_name
 EOSQL
           , (int)$_SESSION['customer_id'], (int)$_SESSION['languages_id'], (int)MODULE_BOXES_ORDER_HISTORY_MAX_DISPLAY_PRODUCTS));
 
-        if (tep_db_num_rows($products_query)) {
+        if (mysqli_num_rows($products_query)) {
           $tpl_data = ['group' => $this->group, 'file' => __FILE__];
           include 'includes/modules/block_template.php';
         }
@@ -45,7 +43,7 @@ EOSQL
           'title' => 'Enable Order History Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_ORDER_HISTORY_MAX_DISPLAY_PRODUCTS' => [
           'title' => 'Maximum Products to show',
@@ -56,7 +54,7 @@ EOSQL
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_ORDER_HISTORY_SORT_ORDER' => [
           'title' => 'Sort Order',

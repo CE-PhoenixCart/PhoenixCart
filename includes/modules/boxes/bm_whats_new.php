@@ -33,7 +33,7 @@
       $box = [
         'parameters' => ['product_card.php', 'component'],
         'classes' => 'is-product bm-whats-new',
-        'title' => sprintf(MODULE_BOXES_WHATS_NEW_BOX_TITLE, tep_href_link('products_new.php')),
+        'title' => sprintf(MODULE_BOXES_WHATS_NEW_BOX_TITLE, $GLOBALS['Linker']->build('products_new.php')),
         'attributes' => $product->get('data_attributes'),
       ];
 
@@ -51,7 +51,7 @@
           'title' => 'Enable Best Sellers Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_WHATS_NEW_MAX_RANDOM_SELECT_NEW' => [
           'title' => 'Selection of Random New Products',
@@ -62,7 +62,7 @@
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_WHATS_NEW_SORT_ORDER' => [
           'title' => 'Sort Order',
