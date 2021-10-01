@@ -8,7 +8,7 @@
  */
 
 
-set_include_path(get_include_path() . PATH_SEPARATOR . realpath(dirname(__FILE__)));
+set_include_path(get_include_path() . PATH_SEPARATOR . realpath(__DIR__));
 
 /**
  * Braintree PHP Library
@@ -88,7 +88,7 @@ abstract class Braintree
 }
 
 /*
-// OSCOMMERCE - replace the following with an autoloader in the payment module file
+// CE Phoenix Cart - replaced the following with an autoloader in the payment module file
 require_once('Braintree/Modification.php');
 require_once('Braintree/Instance.php');
 
@@ -176,7 +176,7 @@ if (version_compare(PHP_VERSION, '5.2.1', '<')) {
 
 
 function requireDependencies() {
-    $requiredExtensions = array('xmlwriter', 'SimpleXML', 'openssl', 'dom', 'hash', 'curl');
+    $requiredExtensions = ['xmlwriter', 'SimpleXML', 'openssl', 'dom', 'hash', 'curl'];
     foreach ($requiredExtensions AS $ext) {
         if (!extension_loaded($ext)) {
             throw new Braintree_Exception('The Braintree library requires the ' . $ext . ' extension.');

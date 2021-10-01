@@ -10,10 +10,10 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_NAVBAR_TITLE_1, tep_href_link('account.php'));
-  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_NAVBAR_TITLE_2, tep_href_link('ext/modules/content/account/braintree/cards.php'));
+  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_NAVBAR_TITLE_1, $account_link);
+  $breadcrumb->add(MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_NAVBAR_TITLE_2, $cards_link);
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <h1 class="display-4"><?= MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_HEADING_TITLE ?></h1>
@@ -31,14 +31,17 @@
   <div class="contentText row align-items-center">
 
 <?php
-  $tokens_query = tep_db_query("SELECT id, card_type, number_filtered, expiry_date FROM customers_braintree_tokens WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_added");
+  $tokens_query = $db->query("SELECT id, card_type, number_filtered, expiry_date FROM customers_braintree_tokens WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_added");
 
+  $cards_link->add_parameters(['action' => 'delete', 'formid' => $_SESSION['sessiontoken']]);
   if ( mysql_num_rows($tokens_query) > 0 ) {
-    while ( $tokens = $tokens_query->fetch_assoc() ) {
+    while ( $token = $tokens_query->fetch_assoc() ) {
 ?>
 
-      <div class="col-sm-6"><strong><?= htmlspecialchars($tokens['card_type']) ?></strong>&nbsp;&nbsp;****<?= htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2)) ?></div>
-      <div class="col-sm-6 text-right"><?= tep_draw_button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash', tep_href_link('ext/modules/content/account/braintree/cards.php', 'action=delete&id=' . (int)$tokens['id'] . '&formid=' . md5($_SESSION['sessiontoken']))) ?></div>
+      <div class="col-sm-6"><strong><?= htmlspecialchars($token['card_type']) ?></strong>&nbsp;&nbsp;****<?=
+        htmlspecialchars($token['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($token['expiry_date'], 0, 2) . '/' . substr($token['expiry_date'], 2))
+    ?></div>
+      <div class="col-sm-6 text-right"><?= new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash', '', [], $cards_link->set_paramter('id', (int)$token['id'])) ?></div>
 
 <?php
     }
@@ -54,9 +57,9 @@
   </div>
 
   <div class="buttonSet">
-    <?= tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('account.php')) ?>
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $account_link) ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>
