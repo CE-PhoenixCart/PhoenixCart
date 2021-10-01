@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-  $link = tep_href_link('checkout_process.php', session_name() . '=' . $_POST['M_sid'] . '&hash=' . $_POST['M_hash'], 'SSL', false);
+  $link = $Linker->build('checkout_process.php', [session_name() => $_POST['M_sid'], 'hash' => $_POST['M_hash']], false);
 ?>
 <!DOCTYPE html>
 <html <?= HTML_PARAMS ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>" />
-<title><?= htmlspecialchars($oscTemplate->getTitle()) ?></title>
+<title><?= htmlspecialchars($Template->get_title()) ?></title>
 <meta http-equiv="refresh" content="3; URL=<?= $link ?>">
 </head>
 <body>
