@@ -119,16 +119,16 @@ EOSQL;
     }
 
     public function build_attributes($product) {
+      $options = $product->get('attributes');
       $attributes = [];
-      foreach ($product['attributes'] as $option => $value) {
-        $attributes_query = tep_db_query(sprintf(
-          static::$attributes_sql,
-          (int)$product['id'],
-          (int)$option,
-          (int)$value,
-          (int)$_SESSION['languages_id']));
+      foreach ($product->get('attribute_selections') as $option => $value) {
+        $attribute = $options[$option]['values'][$value];
+        $attribute['value_id'] = $value;
+        $attribute['option_id'] = $option;
+        $attribute['value'] = $attribute['name'];
+        $attribute['option'] = $options[$option]['name'];
 
-        $attributes[] = $attributes_query->fetch_assoc();
+        $attributes[] = $attribute;
       }
 
       return $attributes;
@@ -140,12 +140,12 @@ EOSQL;
       foreach ($_SESSION['cart']->get_products() as $product) {
         $current = [];
         foreach (static::$column_keys as $order_key => $cart_key) {
-          $current[$order_key] = $product[$cart_key];
+          $current[$order_key] = $product->get($cart_key);
         }
-        $current['tax'] = tep_get_tax_rate($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
-        $current['tax_description'] = tep_get_tax_description($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
+        $current['tax'] = tep_get_tax_rate($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
+        $current['tax_description'] = tep_get_tax_description($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
 
-        if ($product['attributes']) {
+        if ($product->get('attributes')) {
           $current['attributes'] = $this->build_attributes($product);
         }
 

@@ -5,12 +5,12 @@
   if ($_SESSION['cart']->count_contents() > 0) {
     foreach ($_SESSION['cart']->get_products() as $product) {
       echo '<a class="list-group-item list-group-item-action';
-      if (isset($_SESSION['new_products_id_in_cart']) && ($_SESSION['new_products_id_in_cart'] == $product['id'])) {
+      if (isset($_SESSION['new_products_id_in_cart']) && ($product->get('uprid') == $_SESSION['new_products_id_in_cart'])) {
         echo ' active';
         unset($_SESSION['new_products_id_in_cart']);
       }
-      echo '" href="' . $GLOBALS['Linker']->build('product_info.php', ['products_id' => $product['id']]) . '">',
-           sprintf(MODULE_BOXES_SHOPPING_CART_BOX_ITEM_QUANTITY, $product['quantity'], $product['name']),
+      echo '" href="' . $GLOBALS['Linker']->build('product_info.php', ['products_id' => $product->get('uprid')]) . '">',
+           sprintf(MODULE_BOXES_SHOPPING_CART_BOX_ITEM_QUANTITY, $product->get('quantity'), $product->get('name')),
            '</a>';
     }
   } else {

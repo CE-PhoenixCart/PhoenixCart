@@ -79,13 +79,6 @@
     $heading[] = ['text' => TABLE_HEADING_SHOPPING_CART];
 
     if ( $info->customer_id > 0 ) {
-      function tep_has_product_attributes($products_id) {
-        $attributes_query = tep_db_query("SELECT COUNT(*) AS count FROM products_attributes WHERE products_id = " . (int)$products_id);
-        $attributes = tep_db_fetch_array($attributes_query);
-
-        return $attributes['count'] > 0;
-      }
-
       function tep_create_random_value($length, $type = 'mixed') {
         return 0;
       }
@@ -99,7 +92,7 @@
       $shoppingCart->restore_contents();
 
       foreach ($shoppingCart->get_products() as $product) {
-        $contents[] = ['text' => sprintf(TEXT_SHOPPING_CART_ITEM, $product['quantity'], $product['name'])];
+        $contents[] = ['text' => sprintf(TEXT_SHOPPING_CART_ITEM, $product->get('quantity'), $product->get('name'))];
       }
 
       $currencies = new currencies();
