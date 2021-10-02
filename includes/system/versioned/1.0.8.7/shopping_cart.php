@@ -12,14 +12,6 @@
 
   class shoppingCart {
 
-    const COLUMN_KEYS = [
-      'name' => 'products_name',
-      'model' => 'products_model',
-      'image' => 'products_image',
-      'weight' => 'products_weight',
-      'tax_class_id' => 'products_tax_class_id',
-    ];
-
     public $contents, $total, $weight, $cartID, $content_type;
 
     function __construct() {
@@ -84,8 +76,17 @@
     }
 
     function add_cart($products_id, $qty = 1, $attributes = null, $notify = true) {
-      $products_id_string = tep_get_uprid($products_id, $attributes);
-      $products_id = tep_get_prid($products_id_string);
+      if ($products_id instanceof Product) {
+        $product = $products_id;
+        $products_id = $product->get('id');
+      }
+
+      $products_id_string = Product::build_uprid($products_id, $attributes);
+      $products_id = Product::build_prid($products_id_string);
+
+      if (!isset($product)) {
+        $product = product_by_id::build($products_id);
+      }
 
       if (defined('MAX_QTY_IN_CART') && (MAX_QTY_IN_CART > 0) && ((int)$qty > MAX_QTY_IN_CART)) {
         $qty = MAX_QTY_IN_CART;
@@ -94,23 +95,23 @@
       if (!empty($attributes) && is_array($attributes)) {
         foreach ($attributes as $option => $value) {
           if (!is_numeric($option) || !is_numeric($value)) {
-            return;
+            return false;
           }
 
           $check_query = tep_db_query("SELECT products_attributes_id FROM products_attributes WHERE products_id = " . (int)$products_id . " AND options_id = " . (int)$option . " AND options_values_id = " . (int)$value . " LIMIT 1");
           if (tep_db_num_rows($check_query) < 1) {
-            return;
+            return false;
           }
         }
-      } elseif (tep_has_product_attributes($products_id)) {
-        return;
+      } elseif ($product->get('has_attributes')) {
+        return false;
       }
 
       if (is_numeric($products_id) && is_numeric($qty)) {
         $check_product_query = tep_db_query("SELECT products_status FROM products WHERE products_id = " . (int)$products_id);
         $check_product = tep_db_fetch_array($check_product_query);
 
-        if (($check_product !== false) && ($check_product['products_status'] == '1')) {
+        if ($product->get('status')) {
           if ($notify) {
             $_SESSION['new_products_id_in_cart'] = $products_id;
           }
@@ -141,11 +142,13 @@
           $this->cartID = $this->generate_cart_id();
         }
       }
+
+      return $product->get('name');
     }
 
     function update_quantity($products_id, $quantity, $attributes = null) {
-      $products_id_string = tep_get_uprid($products_id, $attributes);
-      $products_id = tep_get_prid($products_id_string);
+      $products_id_string = Product::build_uprid($products_id, $attributes);
+      $products_id = Product::build_prid($products_id_string);
 
       if (defined('MAX_QTY_IN_CART') && (MAX_QTY_IN_CART > 0) && ((int)$quantity > MAX_QTY_IN_CART)) {
         $quantity = MAX_QTY_IN_CART;
@@ -213,14 +216,17 @@ EOSQL
       return isset($this->contents[$products_id]);
     }
 
-    function remove($products_id) {
+    protected function _remove($products_id) {
       unset($this->contents[$products_id]);
 // remove from database
       if (isset($_SESSION['customer_id'])) {
         tep_db_query("DELETE FROM customers_basket WHERE customers_id = " . (int)$_SESSION['customer_id'] . " AND products_id = '" . tep_db_input($products_id) . "'");
         tep_db_query("DELETE FROM customers_basket_attributes WHERE customers_id = " . (int)$_SESSION['customer_id'] . " AND products_id = '" . tep_db_input($products_id) . "'");
       }
+    }
 
+    public function remove($products_id) {
+      $this->_remove($products_id);
       $this->calculate();
 
 // assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
@@ -236,88 +242,61 @@ EOSQL
     }
 
     function calculate() {
-      global $currencies;
-
       $this->total = 0;
       $this->weight = 0;
 
-      foreach (array_keys($this->contents) as $products_id) {
-        $qty = $this->contents[$products_id]['qty'];
+      foreach (array_keys($this->contents) as $product_id) {
+        $qty = $this->contents[$product_id]['qty'];
 
-// products price
-        $product_query = tep_db_query("SELECT products_id, products_price, products_tax_class_id, products_weight FROM products WHERE products_id = " . (int)$products_id);
-        if ($product = tep_db_fetch_array($product_query)) {
-          $products_tax = tep_get_tax_rate($product['products_tax_class_id']);
-
-          $specials_query = tep_db_query("SELECT specials_new_products_price FROM specials WHERE status = 1 AND products_id = " . (int)$products_id);
-          $specials = tep_db_fetch_array($specials_query);
-          $products_price = $specials['specials_new_products_price'] ?? $product['products_price'];
-
-          $this->total += $currencies->calculate_price($products_price, $products_tax, $qty);
-          $this->weight += ($qty * $product['products_weight']);
-        }
+// product price
+        $product = product_by_id::build(Product::build_prid($product_id));
+        if ($product->get('status')) {
+          $products_price = $product->get('base_price');
 
 // attributes price
-        if (!empty($this->contents[$products_id]['attributes'])) {
-          $this->total += $currencies->calculate_price($this->attributes_price($products_id), $products_tax, $qty);
+          if (!empty($this->contents[$product_id]['attributes'])) {
+            $products_price += $this->attributes_price($product_id, $product->get('attributes'));
+          }
+
+          $this->total += $GLOBALS['currencies']->calculate_price($products_price, $product->get('tax_rate'), $qty);
+          $this->weight += ($qty * $product->get('weight'));
+        } else {
+          $this->_remove($product_id);
+          $GLOBALS['messageStack']->add('product_action', sprintf(PRODUCT_REMOVED, Product::fetch_name($product_id)));
         }
+
       }
     }
 
-    function attributes_price($products_id) {
+    function attributes_price($product_id, $attributes) {
       $attributes_price = 0;
 
-      foreach (($this->contents[$products_id]['attributes'] ?? []) as $option => $value) {
-        $attribute_price_query = tep_db_query("SELECT options_values_price, price_prefix FROM products_attributes WHERE products_id = " . (int)$products_id . " AND options_id = " . (int)$option . " AND options_values_id = " . (int)$value);
-        $attribute_price = tep_db_fetch_array($attribute_price_query);
-        if ($attribute_price['price_prefix'] == '+') {
-          $attributes_price += $attribute_price['options_values_price'];
+      foreach (($this->contents[$product_id]['attributes'] ?? []) as $option => $value) {
+        if ($attributes[$option]['values'][$value]['prefix'] == '+') {
+          $attributes_price += $attributes[$option]['values'][$value]['price'];
         } else {
-          $attributes_price -= $attribute_price['options_values_price'];
+          $attributes_price -= $attributes[$option]['values'][$value]['price'];
         }
       }
 
       return $attributes_price;
     }
 
-    private function map_columns($data) {
-      static $column_keys = null;
-      if (is_null($column_keys)) {
-        $column_keys = static::COLUMN_KEYS;
-        $parameters = ['column_keys' => &$column_keys];
-        $GLOBALS['OSCOM_Hooks']->call('siteWide', 'cartProductColumns', $parameters);
-      }
-
-      $product = [];
-      foreach ($column_keys as $key => $column_name) {
-        $product[$key] = $data[$column_name];
-      }
-
-      return $product;
-    }
-
     function get_products() {
       $products = [];
-      foreach (array_keys($this->contents) as $products_id) {
-        $products_query = tep_db_query("SELECT p.*, pd.* FROM products p INNER JOIN products_description pd ON pd.products_id = p.products_id WHERE p.products_id = " . (int)$products_id . " AND pd.language_id = " . (int)$_SESSION['languages_id']);
-        if ($product = tep_db_fetch_array($products_query)) {
-          $prid = $product['products_id'];
-          $product_price = $product['products_price'];
-
-          $specials_query = tep_db_query("SELECT specials_new_products_price FROM specials WHERE status = 1 AND products_id = " . (int)$prid);
-          if ($specials = tep_db_fetch_array($specials_query)) {
-            $product_price = $specials['specials_new_products_price'];
-          }
-
-          $product = $this->map_columns($product);
-
-          $product['id'] = $products_id;
-          $product['price'] = $product_price;
-          $product['quantity'] = $this->contents[$products_id]['qty'];
-          $product['final_price'] = ($product_price + $this->attributes_price($products_id));
-          $product['attributes'] = ($this->contents[$products_id]['attributes'] ?? null);
+      foreach (array_keys($this->contents) as $product_id) {
+        $product = product_by_id::build($prid = Product::build_prid($product_id));
+        if ($product->get('status')) {
+          $product->set('uprid', $product_id);
+          $product->set('quantity', $this->contents[$product_id]['qty']);
+          $product->set('link', $GLOBALS['Linker']->build('product_info.php', ['products_id' => $product_id]));
+          $product->set('final_price', $product->get('base_price') + $this->attributes_price($product_id, $product->get('attributes')));
+          $product->set('attribute_selections', $this->contents[$product_id]['attributes'] ?? null);
 
           $products[] = $product;
+        } else {
+          $this->_remove($product_id);
+          $GLOBALS['messageStack']->add('product_action', sprintf(PRODUCT_REMOVED, Product::fetch_name($prid)));
         }
       }
 
@@ -340,40 +319,37 @@ EOSQL
       return tep_create_random_value($length, 'digits');
     }
 
-    function get_content_type() {
-      if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) ) {
-        $this->content_type = false;
-
-        foreach (array_keys($this->contents) as $products_id) {
-          if (isset($this->contents[$products_id]['attributes'])) {
-            foreach (($this->contents[$products_id]['attributes'] ?? []) as $option => $value) {
-              $virtual_check_query = tep_db_query(sprintf(<<<'EOSQL'
+    protected function has_virtual_attributes($product_id, $attributes) {
+      foreach ($attributes as $value) {
+        $virtual_check_query = tep_db_query(sprintf(<<<'EOSQL'
 SELECT COUNT(*) AS total
  FROM products_attributes pa INNER JOIN products_attributes_download pad ON pa.products_attributes_id = pad.products_attributes_id
  WHERE pa.products_id = %d AND pa.options_values_id = %d
 EOSQL
-                , (int)$products_id, (int)$value));
-              $virtual_check = tep_db_fetch_array($virtual_check_query);
+          , (int)$products_id, (int)$value));
+        $virtual_check = tep_db_fetch_array($virtual_check_query);
 
-              if ($virtual_check['total'] > 0) {
-                switch ($this->content_type) {
-                  case 'physical':
-                    $this->content_type = 'mixed';
+        if ($virtual_check['total'] > 0) {
+          return true;
+        }
+      }
 
-                    return $this->content_type;
-                  default:
-                    $this->content_type = 'virtual';
-                }
-              } else {
-                switch ($this->content_type) {
-                  case 'virtual':
-                    $this->content_type = 'mixed';
+      return false;
+    }
 
-                    return $this->content_type;
-                  default:
-                    $this->content_type = 'physical';
-                }
-              }
+    function get_content_type() {
+      if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) ) {
+        $this->content_type = false;
+
+        foreach ($this->contents as $id => $data) {
+          if (isset($data['attributes']) && $this->has_virtual_attributes($id, $data['attributes'])) {
+            switch ($this->content_type) {
+              case 'physical':
+                $this->content_type = 'mixed';
+
+                return $this->content_type;
+              default:
+                $this->content_type = 'virtual';
             }
           } else {
             switch ($this->content_type) {
