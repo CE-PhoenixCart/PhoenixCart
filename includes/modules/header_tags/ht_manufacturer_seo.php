@@ -16,16 +16,12 @@
 
     protected $group = 'header_tags';
 
-    function execute() {
-      global $PHP_SELF, $oscTemplate, $brand;
+    public function execute() {
+      if ((basename(Request::get_page()) === 'index.php') && isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
+        $brand_seo_description = $brand->getData('manufacturers_seo_description');
 
-      if (basename($PHP_SELF) == 'index.php') {
-        if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-          $brand_seo_description = $brand->getData('manufacturers_seo_description');
-
-          if (tep_not_null($brand_seo_description)) {
-            $oscTemplate->addBlock('<meta name="description" content="' . tep_output_string($brand_seo_description) . '" />' . PHP_EOL, $this->group);
-          }
+        if (!Text::is_empty($brand_seo_description)) {
+          $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($brand_seo_description) . '" />' . PHP_EOL, $this->group);
         }
       }
     }
@@ -36,13 +32,13 @@
           'title' => 'Enable Manufacturer Meta Module',
           'value' => 'True',
           'desc' => 'Do you want to allow Manufacturer meta tags to be added to the page header?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_MANUFACTURERS_SEO_DESCRIPTION_STATUS' => [
           'title' => 'Display Manufacturer Meta Description',
           'value' => 'True',
           'desc' => 'Manufacturer Descriptions help your site and your sites visitors.',
-          'set_func' => "tep_cfg_select_option(['True'], ",
+          'set_func' => "Config::select_one(['True'], ",
         ],
         'MODULE_HEADER_TAGS_MANUFACTURERS_SEO_SORT_ORDER' => [
           'title' => 'Sort Order',

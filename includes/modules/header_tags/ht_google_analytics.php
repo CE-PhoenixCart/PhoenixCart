@@ -22,7 +22,7 @@
       }
     }
 
-    function execute() {
+    public function execute() {
       global $currencies;
 
       if (Text::is_empty(MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_ID)) {
@@ -34,18 +34,21 @@
   _gaq.push([\'_setAccount\', \'' . Text::output(MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_ID) . '\']);
   _gaq.push([\'_trackPageview\']);' . "\n";
 
-      if ( (MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_EC_TRACKING === 'True') && (basename($GLOBALS['PHP_SELF']) === 'checkout_success.php') && isset($_SESSION['customer_id']) ) {
-        $order_query = tep_db_query("SELECT orders_id, billing_city, billing_state, billing_country FROM orders WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_purchased DESC LIMIT 1");
+      if ( isset($_SESSION['customer_id'])
+        && (MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_EC_TRACKING === 'True')
+        && (basename(Request::get_page()) === 'checkout_success.php') )
+      {
+        $order_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT orders_id, billing_city, billing_state, billing_country FROM orders WHERE customers_id = %d ORDER BY date_purchased DESC LIMIT 1
+EOSQL
+          , (int)$_SESSION['customer_id']));
 
         if (mysqli_num_rows($order_query) == 1) {
           $order = $order_query->fetch_assoc();
 
-          $totals = [];
-
-          $order_totals_query = tep_db_query("SELECT value, class FROM orders_total WHERE orders_id = " . (int)$order['orders_id']);
-          while ($order_totals = $order_totals_query->fetch_assoc()) {
-            $totals[$order_totals['class']] = $order_totals['value'];
-          }
+          $totals = array_column(
+            $GLOBALS['db']->fetch_all("SELECT value, class FROM orders_total WHERE orders_id = " . (int)$order['orders_id']),
+            'value', 'class');
 
           $header .= '  _gaq.push([\'_addTrans\',
     \'' . (int)$order['orders_id'] . '\', // order ID - required
@@ -58,9 +61,22 @@
     \'' . htmlspecialchars($order['billing_country']) . '\' // country
   ]);' . "\n";
 
-          $order_products_query = tep_db_query("SELECT op.products_id, pd.products_name, op.final_price, op.products_quantity FROM orders_products op, products_description pd, languages l WHERE op.orders_id = " . (int)$order['orders_id'] . " AND op.products_id = pd.products_id AND l.code = '" . tep_db_input(DEFAULT_LANGUAGE) . "' AND l.languages_id = pd.language_id");
+          $order_products_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT op.products_id, pd.products_name, op.final_price, op.products_quantity, l.languages_id
+ FROM orders_products op
+  INNER JOIN products_description pd ON op.products_id = pd.products_id
+  INNER JOIN languages l ON l.languages_id = pd.language_id
+ WHERE op.orders_id = %d AND l.code = '%s'
+EOSQL
+            , (int)$order['orders_id'], $GLOBALS['db']->escape(DEFAULT_LANGUAGE)));
           while ($order_products = $order_products_query->fetch_assoc()) {
-            $category_query = tep_db_query("SELECT cd.categories_name FROM categories_description cd, products_to_categories p2c, languages l WHERE p2c.products_id = " . (int)$order_products['products_id'] . " AND p2c.categories_id = cd.categories_id AND l.code = '" . tep_db_input(DEFAULT_LANGUAGE) . "' AND l.languages_id = cd.language_id LIMIT 1");
+            $category_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT cd.categories_name
+ FROM categories_description cd INNER JOIN products_to_categories p2c ON p2c.categories_id = cd.categories_id
+ WHERE p2c.products_id = %d AND cd.language_id = %d
+ LIMIT 1
+EOSQL
+              , (int)$order_products['products_id'], (int)$order_products['languages_id']));
             $category = $category_query->fetch_assoc();
 
             $header .= '  _gaq.push([\'_addItem\',
@@ -77,14 +93,17 @@
         }
       }
 
-      $header .= '  (function() {
-    var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;
-    ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';
-    var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);
+      $header .= <<<'EOJS'
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-</script>' . "\n";
+</script>
 
-      $GLOBALS['oscTemplate']->addBlock($header, $this->group);
+EOJS;
+
+      $GLOBALS['Template']->add_block($header, $this->group);
     }
 
     protected function get_parameters() {
@@ -93,7 +112,7 @@
           'title' => 'Enable Google Analytics Module',
           'value' => 'True',
           'desc' => 'Do you want to add Google Analytics to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_ID' => [
           'title' => 'Google Analytics ID',
@@ -104,13 +123,13 @@
           'title' => 'E-Commerce Tracking',
           'value' => 'True',
           'desc' => 'Do you want to enable e-commerce tracking? (E-Commerce tracking must also be enabled in your Google Analytics profile settings)',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_JS_PLACEMENT' => [
           'title' => 'Javascript Placement',
           'value' => 'Header',
           'desc' => 'Should the Google Analytics javascript be loaded in the header or footer?',
-          'set_func' => "tep_cfg_select_option(['Header', 'Footer'], ",
+          'set_func' => "Config::select_one(['Header', 'Footer'], ",
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ANALYTICS_SORT_ORDER' => [
           'title' => 'Sort Order',

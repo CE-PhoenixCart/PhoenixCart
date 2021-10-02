@@ -19,34 +19,35 @@
     }
 
     public function build_link() {
-      global $PHP_SELF, $cPath, $current_category_id;
-
-      switch (basename($PHP_SELF)) {
+      switch (basename(Request::get_page())) {
         case 'index.php':
-          if (isset($cPath) && !Text::is_empty($cPath) && ($current_category_id > 0) && ($GLOBALS['category_depth'] != 'top')) {
-            $canonical = Guarantor::ensure_global('category_tree')->find_path($current_category_id);
+          if (isset($GLOBALS['cPath']) && !Text::is_empty($GLOBALS['cPath'])
+            && ($GLOBALS['current_category_id'] > 0)
+            && ($GLOBALS['category_depth'] != 'top'))
+          {
+            $canonical = Guarantor::ensure_global('category_tree')->find_path($GLOBALS['current_category_id']);
 
-            return tep_href_link('index.php', 'view=all&cPath=' . $canonical, 'SSL', false);
+            return $GLOBALS['Linker']->build('index.php', ['view' => 'all', 'cPath' => $canonical], false);
           } elseif (isset($_GET['manufacturers_id']) && !Text::is_empty($_GET['manufacturers_id'])) {
-            return tep_href_link('index.php', 'view=all&manufacturers_id=' . (int)$_GET['manufacturers_id'], 'SSL', false);
+            return $GLOBALS['Linker']->build('index.php', ['view' => 'all', 'manufacturers_id' => (int)$_GET['manufacturers_id']], false);
           }
 
-          return tep_href_link('index.php', '', 'SSL', false);
+          return $GLOBALS['Linker']->build('index.php', [], false);
 
         case 'product_info.php':
-          return tep_href_link('product_info.php', 'products_id=' . (int)$_GET['products_id'], 'SSL', false);
+          return $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$_GET['products_id']], false);
 
         case 'products_new.php':
         case 'specials.php':
-          return tep_href_link($PHP_SELF, 'view=all', 'SSL', false);
+          return $GLOBALS['Linker']->build(null, ['view' => 'all'], false);
 
         default:
-          return tep_href_link($PHP_SELF, '', 'SSL', false);
+          return $GLOBALS['Linker']->build(null, [], false);
       }
     }
 
     public function execute() {
-      $GLOBALS['oscTemplate']->addBlock('<link rel="canonical" href="' . $this->build_link() . '" />' . PHP_EOL, $this->group);
+      $GLOBALS['Template']->add_block('<link rel="canonical" href="' . $this->build_link() . '" />' . PHP_EOL, $this->group);
     }
 
     protected function get_parameters() {
@@ -55,7 +56,7 @@
           'title' => 'Enable Canonical Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Canonical module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_CANONICAL_SORT_ORDER' => [
           'title' => 'Sort Order',

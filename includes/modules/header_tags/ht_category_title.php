@@ -21,17 +21,17 @@
     public function execute() {
       global $current_category_id, $category_tree;
 
-      if ( ($current_category_id > 0) && ('index.php' === basename($GLOBALS['PHP_SELF'])) ) {
+      if ( ($current_category_id > 0) && ('index.php' === basename(Request::get_page())) ) {
         if ( (MODULE_HEADER_TAGS_CATEGORY_TITLE_SEO_TITLE_OVERRIDE !== 'True')
           || Text::is_empty($category_title =  $category_tree->get($current_category_id, 'seo_title')) )
         {
           $category_title = $category_tree->get($current_category_id, 'name');
         }
 
-        $GLOBALS['oscTemplate']->setTitle(
+        $GLOBALS['Template']->set_title(
           $category_title
           . MODULE_HEADER_TAGS_CATEGORY_SEO_SEPARATOR
-          . $GLOBALS['oscTemplate']->getTitle());
+          . $GLOBALS['Template']->get_title());
       }
     }
 
@@ -41,7 +41,7 @@
           'title' => 'Enable Category Title Module',
           'value' => 'True',
           'desc' => 'Do you want to allow category titles to be added to the page title?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -52,7 +52,7 @@
           'title' => 'SEO Title Override?',
           'value' => 'True',
           'desc' => 'Do you want to allow category titles to be over-ridden by your SEO Titles (if set)?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }
