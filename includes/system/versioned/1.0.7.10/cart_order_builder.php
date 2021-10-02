@@ -13,19 +13,6 @@
   class cart_order_builder {
 
     public static $column_keys = null;
-    public static $attributes_sql = <<<'EOSQL'
-SELECT
-   popt.products_options_name AS `option`,
-   poval.products_options_values_name AS value,
-   pa.options_id AS option_id,
-   pa.options_values_id AS value_id,
-   pa.price_prefix AS prefix,
-   pa.options_values_price AS price
- FROM products_options popt
-  INNER JOIN products_attributes pa ON pa.options_id = popt.products_options_id
-  INNER JOIN products_options_values poval ON pa.options_values_id = poval.products_options_values_id AND popt.language_id = poval.language_id
- WHERE pa.products_id = %d AND pa.options_id = %d AND pa.options_values_id = %d AND popt.language_id = %d
-EOSQL;
 
     protected $order;
 
@@ -42,9 +29,8 @@ EOSQL;
         ];
         $parameters = [
           'column_keys' => &static::$column_keys,
-          'attributes_sql' => &static::$attributes_sql,
         ];
-        $GLOBALS['OSCOM_Hooks']->call('siteWide', 'cartOrderProductColumns', $parameters);
+        $GLOBALS['all_hooks']->cat('cartOrderProductColumns', $parameters);
       }
 
       $this->order =& $order;
@@ -142,8 +128,8 @@ EOSQL;
         foreach (static::$column_keys as $order_key => $cart_key) {
           $current[$order_key] = $product->get($cart_key);
         }
-        $current['tax'] = tep_get_tax_rate($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
-        $current['tax_description'] = tep_get_tax_description($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
+        $current['tax'] = Tax::get_rate($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
+        $current['tax_description'] = Tax::get_description($product->get('tax_class_id'), $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
 
         if ($product->get('attributes')) {
           $current['attributes'] = $this->build_attributes($product);
@@ -173,7 +159,7 @@ EOSQL;
         'builder' => $builder,
         'order' => &$order,
       ];
-      $GLOBALS['OSCOM_Hooks']->call('siteWide', 'cartOrderBuild', $parameters);
+      $GLOBALS['all_hooks']->cat('cartOrderBuild', $parameters);
 
       return $order;
     }

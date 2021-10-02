@@ -15,7 +15,7 @@
   require 'includes/application_top.php';
 
 // remove entries that have expired
-  tep_db_query("DELETE FROM whos_online WHERE time_last_click < " . (int)$xx_mins_ago);
+  $db->query("DELETE FROM whos_online WHERE time_last_click < " . (int)$xx_mins_ago);
 
   require 'includes/template_top.php';
 ?>
@@ -39,8 +39,8 @@
           </thead>
           <tbody>
           <?php
-          $whos_online_query = tep_db_query("SELECT * FROM whos_online");
-          while ($whos_online = tep_db_fetch_array($whos_online_query)) {
+          $whos_online_query = $db->query("SELECT * FROM whos_online");
+          while ($whos_online = $whos_online_query->fetch_assoc()) {
             $time_online = (time() - $whos_online['time_entry']);
             if (!isset($info) && (!isset($_GET['info']) || ($_GET['info'] == $whos_online['session_id']))) {
               $info = new ObjectInfo($whos_online);
@@ -49,7 +49,7 @@
             if (isset($info->session_id) && ($whos_online['session_id'] == $info->session_id)) {
               echo '<tr class="table-active">';
             } else {
-              echo '<tr onclick="document.location.href=\'' . tep_href_link('whos_online.php', tep_get_all_get_params(['info', 'action']) . 'info=' . $whos_online['session_id']) . '\'">';
+              echo '<tr onclick="document.location.href=\'' . $Admin->link()->retain_query_except(['action'])->set_parameter('info', $whos_online['session_id']) . '\'">';
             }
 ?>
                 <td><?= gmdate('H:i:s', $time_online) ?></td>
@@ -67,7 +67,7 @@
         </table>
       </div>
 
-      <p><?php printf(TEXT_NUMBER_OF_CUSTOMERS, tep_db_num_rows($whos_online_query)); ?></p>
+      <p><?php printf(TEXT_NUMBER_OF_CUSTOMERS, mysqli_num_rows($whos_online_query)); ?></p>
 
     </div>
 
@@ -79,10 +79,6 @@
     $heading[] = ['text' => TABLE_HEADING_SHOPPING_CART];
 
     if ( $info->customer_id > 0 ) {
-      function tep_create_random_value($length, $type = 'mixed') {
-        return 0;
-      }
-
       $session_customer_id = $_SESSION['customer_id'] ?? null;
       $session_currency = $_SESSION['currency'] ?? null;
       $_SESSION['customer_id'] = $info->customer_id;
@@ -108,7 +104,7 @@
     }
   }
 
-  if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
+  if ( ($heading !== []) && ($contents !== []) ) {
     echo '<div class="col-12 col-sm-4">';
       $box = new box();
       echo $box->infoBox($heading, $contents);
