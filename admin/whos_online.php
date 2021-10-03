@@ -75,6 +75,23 @@
     'sql' => "SELECT * FROM whos_online",
   ];
 
+  $table_definition['function'] = function (&$row) use (&$table_definition) {
+    $row['onclick'] = $GLOBALS['Admin']->link();
+    $row['onclick']->retain_query_except(['action'])->set_parameter(
+      'info', $row['session_id']);
+
+    if (!isset($table_definition['info'])
+      && (!isset($_GET['info']) || ($_GET['info'] == $row['session_id'])))
+    {
+      $table_definition['info'] = new objectInfo($row);
+      $row['info'] = &$table_definition['info'];
+
+      $row['css'] = ' class="table-active"';
+    } else {
+      $row['css'] = '';
+    }
+  };
+
   $table_definition['split'] = new Paginator($table_definition);
 ?>
 
