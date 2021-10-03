@@ -1,13 +1,21 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-pi-options-attributes">
-  <h4><?php echo MODULE_CONTENT_PI_OA_HEADING_TITLE; ?></h4>
+<div class="col-sm-<?= (int)MODULE_CONTENT_PI_OA_CONTENT_WIDTH ?> cm-pi-options-attributes">
+  <h4><?= MODULE_CONTENT_PI_OA_HEADING_TITLE ?></h4>
 
   <?php
   foreach ($options as $option) {
+    $input_id = "input_{$option['id']}";
+
     echo '<div class="form-group row">' . PHP_EOL;
-    echo '<label for="input_' . $option['id'] . '" class="col-form-label col-sm-3 text-left text-sm-right">' . $option['name'] . '</label>' . PHP_EOL;
+    echo '<label for="' . $input_id . '" class="col-form-label col-sm-3 text-left text-sm-right">' . $option['name'] . '</label>' . PHP_EOL;
     echo '<div class="col-sm-9">' . PHP_EOL;
-    echo tep_draw_pull_down_menu('id[' . $option['id'] . ']', $option['choices'], $option['selection'], $fr_required . 'id="input_' . $option['id'] . '"') . PHP_EOL;
-    echo $fr_input;
+
+    $input = new Select("id[{$option['id']}]", $option['choices'], ['id' => $input_id]);
+    $input->set_selection($option['selection']);
+    if (MODULE_CONTENT_PI_OA_ENFORCE === 'True') {
+      $input = $input->require() . PHP_EOL . FORM_REQUIRED_INPUT;
+    }
+    echo $input . PHP_EOL;
+
     echo '</div>' . PHP_EOL;
     echo '</div>' . PHP_EOL;
   }
