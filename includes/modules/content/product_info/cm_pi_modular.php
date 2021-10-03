@@ -18,35 +18,31 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $oscTemplate, $product_info;
+    public function execute() {
+      $slots = [
+        'a' => (int)$this->base_constant('A_WIDTH'),
+        'b' => (int)$this->base_constant('B_WIDTH'),
+        'c' => (int)$this->base_constant('C_WIDTH'),
+        'd' => (int)$this->base_constant('D_WIDTH'),
+        'e' => (int)$this->base_constant('E_WIDTH'),
+        'f' => (int)$this->base_constant('F_WIDTH'),
+        'g' => (int)$this->base_constant('G_WIDTH'),
+        'h' => (int)$this->base_constant('H_WIDTH'),
+        'i' => (int)$this->base_constant('I_WIDTH'),
+      ];
 
-      $content_width = (int)MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH;
-      $slot_array = ['a' => (int)MODULE_CONTENT_PI_MODULAR_A_WIDTH, 
-                     'b' => (int)MODULE_CONTENT_PI_MODULAR_B_WIDTH, 
-                     'c' => (int)MODULE_CONTENT_PI_MODULAR_C_WIDTH, 
-                     'd' => (int)MODULE_CONTENT_PI_MODULAR_D_WIDTH, 
-                     'e' => (int)MODULE_CONTENT_PI_MODULAR_E_WIDTH, 
-                     'f' => (int)MODULE_CONTENT_PI_MODULAR_F_WIDTH, 
-                     'g' => (int)MODULE_CONTENT_PI_MODULAR_G_WIDTH, 
-                     'h' => (int)MODULE_CONTENT_PI_MODULAR_H_WIDTH, 
-                     'i' => (int)MODULE_CONTENT_PI_MODULAR_I_WIDTH];
-      
-      if ( defined('MODULE_CONTENT_PI_INSTALLED') && tep_not_null(MODULE_CONTENT_PI_INSTALLED) ) {
-        $pi_array = explode(';', MODULE_CONTENT_PI_INSTALLED);
-
-        $pi_modules = [];
-
-        foreach ( $pi_array as $pim ) {
+      if ( defined('MODULE_CONTENT_PI_INSTALLED') && !Text::is_empty(MODULE_CONTENT_PI_INSTALLED) ) {
+        $pi_modules = array_filter(array_map(function ($pim) {
           $class = pathinfo($pim, PATHINFO_FILENAME);
 
-          $p_i = new $class();
-          if ( $p_i->isEnabled() ) {
-            $pi_modules[] = $p_i->getOutput();
-          }
-        }
+          return new $class();
+        }, explode(';', MODULE_CONTENT_PI_INSTALLED)), function ($p_i) {
+          return $p_i->isEnabled();
+        });
 
-        if ( [] !== $pi_modules ) {
+        if ( count($pi_modules) > 0 ) {
+          array_walk($pi_modules, function ($v, $unused) { $v->getOutput(); });
+
           $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
           include 'includes/modules/content/cm_template.php';
         }
@@ -59,67 +55,67 @@
           'title' => 'Enable &pi; Modular product_info',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_A_WIDTH' => [
           'title' => 'Slot Width: A',
           'value' => '12',
           'desc' => 'What width should Slot A be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_B_WIDTH' => [
           'title' => 'Slot Width: B',
           'value' => '6',
           'desc' => 'What width should Slot B be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_C_WIDTH' => [
           'title' => 'Slot Width: C',
           'value' => '6',
           'desc' => 'What width should Slot C be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_D_WIDTH' => [
           'title' => 'Slot Width: D',
           'value' => '4',
           'desc' => 'What width should Slot D be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_E_WIDTH' => [
           'title' => 'Slot Width: E',
           'value' => '4',
           'desc' => 'What width should Slot E be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_F_WIDTH' => [
           'title' => 'Slot Width: F',
           'value' => '4',
           'desc' => 'What width should Slot F be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_G_WIDTH' => [
           'title' => 'Slot Width: G',
           'value' => '6',
           'desc' => 'What width should Slot G be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_H_WIDTH' => [
           'title' => 'Slot Width: H',
           'value' => '6',
           'desc' => 'What width should Slot H be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_I_WIDTH' => [
           'title' => 'Slot Width: I',
           'value' => '12',
           'desc' => 'What width should Slot I be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_MODULAR_SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -128,34 +124,37 @@
         ],
       ];
     }
-    
-    public static function display_layout() {
-      if ( defined('MODULE_CONTENT_PI_MODULAR_STATUS') ) {
-        $arr = ['A' => ['s' => MODULE_CONTENT_PI_MODULAR_A_WIDTH, 'c' => '96858f'],  
-                'B' => ['s' => MODULE_CONTENT_PI_MODULAR_B_WIDTH, 'c' => '6d7993'],  
-                'C' => ['s' => MODULE_CONTENT_PI_MODULAR_C_WIDTH, 'c' => '9099a2'],  
-                'D' => ['s' => MODULE_CONTENT_PI_MODULAR_D_WIDTH, 'c' => 'd5d5d5'],   
-                'E' => ['s' => MODULE_CONTENT_PI_MODULAR_E_WIDTH, 'c' => '96858f'],  
-                'F' => ['s' => MODULE_CONTENT_PI_MODULAR_F_WIDTH, 'c' => '6d7993'],   
-                'G' => ['s' => MODULE_CONTENT_PI_MODULAR_G_WIDTH, 'c' => '9099a2'],   
-                'H' => ['s' => MODULE_CONTENT_PI_MODULAR_H_WIDTH, 'c' => 'd5d5d5'],   
-                'I' => ['s' => MODULE_CONTENT_PI_MODULAR_I_WIDTH, 'c' => '96858f']];
-                   
-        $c = 0; $img = null;
-        foreach ($arr as $x => $y) {
-          $img .= '<span style="color: white; font-weight: bold; font-size: 20px; background: #' . $y['c'] . '; font-family: courier;">' . $x . str_repeat('&nbsp;', $y['s']-1) . '</span>';
-          $c += $y['s'];
-          if ($c > 11) {
-            $c = 0;
-            $img .= '<br>';
-          }
-        }
 
-        return $img;
+    public static function display_layout() {
+      if ( !defined('MODULE_CONTENT_PI_MODULAR_STATUS') ) {
+        return null;
       }
-      
-      return null;
+
+      $slots = [
+        'A' => ['width' => MODULE_CONTENT_PI_MODULAR_A_WIDTH, 'color' => '96858f'],
+        'B' => ['width' => MODULE_CONTENT_PI_MODULAR_B_WIDTH, 'color' => '6d7993'],
+        'C' => ['width' => MODULE_CONTENT_PI_MODULAR_C_WIDTH, 'color' => '9099a2'],
+        'D' => ['width' => MODULE_CONTENT_PI_MODULAR_D_WIDTH, 'color' => 'd5d5d5'],
+        'E' => ['width' => MODULE_CONTENT_PI_MODULAR_E_WIDTH, 'color' => '96858f'],
+        'F' => ['width' => MODULE_CONTENT_PI_MODULAR_F_WIDTH, 'color' => '6d7993'],
+        'G' => ['width' => MODULE_CONTENT_PI_MODULAR_G_WIDTH, 'color' => '9099a2'],
+        'H' => ['width' => MODULE_CONTENT_PI_MODULAR_H_WIDTH, 'color' => 'd5d5d5'],
+        'I' => ['width' => MODULE_CONTENT_PI_MODULAR_I_WIDTH, 'color' => '96858f'],
+      ];
+
+      $row_width = 0;
+      $layout = '';
+      foreach ($slots as $k => $slot) {
+        $layout .= '<span style="color: white; font-weight: bold; font-size: 20px; background: #' . $slot['color'] . '; font-family: courier;">' . $k . str_repeat('&nbsp;', $slot['width']-1) . '</span>';
+
+        $row_width += $slot['width'];
+        if ($row_width >= 12) {
+          $layout .= '<br>';
+          $row_width = 0;
+        }
+      }
+
+      return $layout;
     }
 
   }
-  

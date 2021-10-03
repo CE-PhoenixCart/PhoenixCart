@@ -1,7 +1,7 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-pi-gtin">
+<div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_GTIN_CONTENT_WIDTH ?> cm-pi-gtin">
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <?php echo sprintf(MODULE_CONTENT_PRODUCT_INFO_GTIN_PUBLIC_TITLE, $gtin); ?>
+      <?= sprintf(MODULE_CONTENT_PRODUCT_INFO_GTIN_PUBLIC_TITLE, $gtin) ?>
     </li>
   </ul>
 </div>

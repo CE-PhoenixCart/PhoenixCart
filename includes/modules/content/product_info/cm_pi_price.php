@@ -18,17 +18,15 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $product_info, $currencies;
+    public function execute() {
+      global $product;
 
-      $content_width = (int)MODULE_CONTENT_PI_PRICE_CONTENT_WIDTH;
-
-      $products_price = $currencies->display_price($product_info['products_price'], tep_get_tax_rate($product_info['products_tax_class_id']));
-      $specials_price = null;
-
-      if ($new_price = tep_get_products_special_price($product_info['products_id'])) {
-        $specials_price = $currencies->display_price($new_price, tep_get_tax_rate($product_info['products_tax_class_id']));
-      }
+      $price = $product->get('is_special')
+             ? sprintf(MODULE_CONTENT_PI_PRICE_DISPLAY_SPECIAL,
+                 $product->format(),
+                 $product->format('price'))
+             : sprintf(MODULE_CONTENT_PI_PRICE_DISPLAY,
+                 $product->format());
 
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
@@ -40,13 +38,13 @@
           'title' => 'Enable Price Module',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_PI_PRICE_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '3',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_PRICE_SORT_ORDER' => [
           'title' => 'Sort Order',

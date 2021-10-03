@@ -18,13 +18,12 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $product_info;
+    public function execute() {
+      global $product;
 
-      $content_width = (int)MODULE_CONTENT_PI_DATE_AVAILABLE_CONTENT_WIDTH;
-
-      if ($product_info['products_date_available'] > date('Y-m-d H:i:s')) {
-        $date = (MODULE_CONTENT_PI_DATE_AVAILABLE_STYLE == 'Long') ? tep_date_long($product_info['products_date_available']) : tep_date_short($product_info['products_date_available']);
+      $date = $GLOBALS['product']->get('date_available');
+      if ($date > date('Y-m-d H:i:s')) {
+        $date = (MODULE_CONTENT_PI_DATE_AVAILABLE_STYLE === 'Long') ? Date::expound($date) : Date::abridge($date);
 
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
@@ -37,19 +36,19 @@
           'title' => 'Enable Date Available Module',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_PI_DATE_AVAILABLE_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_DATE_AVAILABLE_STYLE' => [
           'title' => 'Date Style',
           'value' => 'Long',
           'desc' => 'How should the date look?',
-          'set_func' => "tep_cfg_select_option(['Long', 'Short'], ",
+          'set_func' => "Config::select_one(['Long', 'Short'], ",
         ],
         'MODULE_CONTENT_PI_DATE_AVAILABLE_SORT_ORDER' => [
           'title' => 'Sort Order',

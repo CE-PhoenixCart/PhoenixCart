@@ -1,11 +1,12 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-pi-modular">
+<div class="col-sm-<?= (int)MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH ?> cm-pi-modular">
   <div class="row">
     <?php
-    foreach ($slot_array as $k => $v) {
-      if ($oscTemplate->hasBlocks('pi_modules_' . $k)) {
+    foreach ($slots as $k => $v) {
+      $block_name = "pi_modules_$k";
+      if ($GLOBALS['Template']->has_blocks($block_name)) {
         echo '<div class="col-sm-' . $v . '">';
           echo '<div class="row">';
-            echo $oscTemplate->getBlocks('pi_modules_' . $k);
+            echo $GLOBALS['Template']->get_blocks($block_name);
           echo '</div>';
         echo '</div>' . PHP_EOL;
       }
