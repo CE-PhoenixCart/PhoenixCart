@@ -1,6 +1,6 @@
-<div class="col-sm-<?php echo $content_width; ?> pi-img-disclaimer">
+<div class="col-sm-<?= (int)PI_IMG_DISCLAIMER_CONTENT_WIDTH ?> pi-img-disclaimer">
   <div class="alert alert-light mt-2">
-    <?php echo PI_IMG_DISCLAIMER_TEXT; ?>
+    <?= PI_IMG_DISCLAIMER_TEXT ?>
   </div>
 </div>
 
