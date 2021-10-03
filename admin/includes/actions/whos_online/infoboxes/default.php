@@ -19,6 +19,7 @@
       $_SESSION['customer_id'] = $table_definition['info']->customer_id;
       $_SESSION['currency'] = DEFAULT_CURRENCY;
 
+      $currencies = &Guarantor::ensure_global('currencies');
       $shoppingCart = new shoppingCart();
       $shoppingCart->restore_contents();
 
@@ -26,7 +27,6 @@
         $contents[] = ['text' => sprintf(TEXT_SHOPPING_CART_ITEM, $product->get('quantity'), $product->get('name'))];
       }
 
-      $currencies = new currencies();
       $contents[] = [
         'class' => 'table-dark text-right',
         'text' => sprintf(TEXT_SHOPPING_CART_SUBTOTAL, $currencies->format($shoppingCart->show_total())),
