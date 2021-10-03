@@ -30,7 +30,7 @@ SELECT products_id FROM reviews WHERE customers_id = %d AND products_id = %d LIM
 EOSQL
     , (int)$_SESSION['customer_id'], (int)$product->get('id')));
 
-  if (mysqli_num_results($reviewed_query) >= 1) {
+  if (mysqli_num_rows($reviewed_query) >= 1) {
     $messageStack->add_session('product_action', sprintf(TEXT_ALREADY_REVIEWED, $customer->get('short_name')), 'error');
 
     Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
@@ -47,7 +47,7 @@ SELECT op.products_id
 EOSQL
       , (int)$_SESSION['customer_id'], (int)$product->get('id')));
 
-    if (!mysqli_num_results($reviewable_query)) {
+    if (!mysqli_num_rows($reviewable_query)) {
       $messageStack->add_session('product_action', sprintf(TEXT_NOT_PURCHASED, $customer->get('short_name')), 'error');
 
       Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
@@ -64,7 +64,7 @@ EOSQL
     }
 
     $db->query("INSERT INTO reviews (products_id, customers_id, customers_name, reviews_rating, date_added) VALUES ('" . (int)$_GET['products_id'] . "', '" . (int)$_SESSION['customer_id'] . "', '" . $db->escape($nickname) . "', '" . $db->escape($rating) . "', NOW())");
-    $insert_id = mysqli_insert_id();
+    $insert_id = mysqli_insert_id($db);
 
     $db->query("INSERT INTO reviews_description (reviews_id, languages_id, reviews_text) VALUES ('" . (int)$insert_id . "', '" . (int)$_SESSION['languages_id'] . "', '" . $db->escape($review) . "')");
 
