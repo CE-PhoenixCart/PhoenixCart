@@ -109,7 +109,7 @@
 
     public function fetch() {
       while ($row = $this->query->fetch_assoc()) {
-        ($this->table_definition['function'] ?? [$this, process_default])($row);
+        ($this->table_definition['function'] ?? [$this, 'process_default'])($row);
         yield $row;
       }
     }
