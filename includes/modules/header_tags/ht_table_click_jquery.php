@@ -22,12 +22,12 @@
       }
     }
 
-    function execute() {
+    public function execute() {
       if (!Text::is_empty($this->base_constant('PAGES'))
-        && in_array(basename($GLOBALS['PHP_SELF']),
+        && in_array(basename(Request::get_page()),
              page_selection::_get_pages($this->base_constant('PAGES'))))
       {
-        $GLOBALS['oscTemplate']->addBlock(<<<'EOCSS'
+        $GLOBALS['Template']->add_block(<<<'EOCSS'
 <script>$('.table tr.table-selection').click(function() {
   $('.table tr.table-selection').removeClass('success').find('input').prop('checked', false);
   $(this).addClass('success').find('input').prop('checked', true);
@@ -43,7 +43,7 @@ EOCSS
           'title' => 'Enable Clickable Table Rows Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Clickable Table Rows module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_PAGES' => [
           'title' => 'Pages',

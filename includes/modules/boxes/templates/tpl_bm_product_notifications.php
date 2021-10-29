@@ -1,14 +1,12 @@
 <div class="card mb-2 bm-product-notifications">
-  <div class="card-header"><?php echo MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_TITLE; ?></div>
+  <div class="card-header"><?= MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_TITLE ?></div>
   <div class="list-group list-group-flush">
-    <?php
-  if ($notification_exists) {
-    echo '<a class="list-group-item list-group-item-action" href="' . tep_href_link($PHP_SELF, tep_get_all_get_params(['action']) . 'action=notify_remove', $request_type) . '"><i class="fas fa-times"></i> ' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY_REMOVE, tep_get_products_name($_GET['products_id'])) .'</a>';
-  } else {
-    echo '<a class="list-group-item list-group-item-action" href="' . tep_href_link($PHP_SELF, tep_get_all_get_params(['action']) . 'action=notify', $request_type) . '"><i class="fas fa-envelope"></i> ' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY, tep_get_products_name($_GET['products_id'])) .'</a>';
-  } ?>
+    <?= $notification_exists
+      ? '<a class="list-group-item list-group-item-action" href="' . $GLOBALS['Linker']->build()->request_query_except()->set_parameter('action', 'notify_remove') . '"><i class="fas fa-times"></i> ' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY_REMOVE, Product::fetch_name($_GET['products_id'])) .'</a>'
+      : '<a class="list-group-item list-group-item-action" href="' . $GLOBALS['Linker']->build()->request_query_except()->set_parameter('action', 'notify') . '"><i class="fas fa-envelope"></i> ' . sprintf(MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_NOTIFY, Product::fetch_name($_GET['products_id'])) .'</a>'
+    ?>
   </div>
-  <div class="card-footer"><a class="card-link" href="<?php echo tep_href_link('account_notifications.php', '', 'SSL'); ?>"><?php echo MODULE_BOXES_PRODUCT_NOTIFICATIONS_VIEW; ?></a></div>
+  <div class="card-footer"><a class="card-link" href="<?= $GLOBALS['Linker']->build('account_notifications.php') ?>"><?= MODULE_BOXES_PRODUCT_NOTIFICATIONS_VIEW ?></a></div>
 </div>
 
 <?php

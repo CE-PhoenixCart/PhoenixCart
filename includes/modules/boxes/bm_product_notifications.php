@@ -14,13 +14,14 @@
 
     const CONFIG_KEY_BASE = 'MODULE_BOXES_PRODUCT_NOTIFICATIONS_';
 
-    function execute() {
-      global $PHP_SELF, $request_type;
-
+    public function execute() {
       if (isset($_GET['products_id'])) {
         if (isset($_SESSION['customer_id'])) {
-          $check_query = tep_db_query("SELECT COUNT(*) AS count FROM products_notifications WHERE products_id = " . (int)$_GET['products_id'] . " AND customers_id = " . (int)$_SESSION['customer_id']);
-          $check = tep_db_fetch_array($check_query);
+          $check_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT COUNT(*) AS count FROM products_notifications WHERE products_id = %d AND customers_id = %d
+EOSQL
+            , (int)$_GET['products_id'], (int)$_SESSION['customer_id']));
+          $check = $check_query->fetch_assoc();
 
           $notification_exists = ($check['count'] > 0);
         } else {
@@ -38,13 +39,13 @@
           'title' => 'Enable Product Notifications Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_PRODUCT_NOTIFICATIONS_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_PRODUCT_NOTIFICATIONS_SORT_ORDER' => [
           'title' => 'Sort Order',

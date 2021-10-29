@@ -14,10 +14,10 @@
 
     const CONFIG_KEY_BASE = 'MODULE_BOXES_REVIEWS_';
 
-    function execute() {
+    public function execute() {
       if ($product = random_review::build()) {
         $card = [
-          'extra' => tep_draw_stars($product->get('reviews_rating')) . '<br>'
+          'extra' => new star_rating((float)$product->get('reviews_rating')) . '<br>'
                    . htmlspecialchars($product->get('reviews_text')) . '...',
         ];
 
@@ -43,13 +43,13 @@
           'title' => 'Enable Reviews Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_BOXES_REVIEWS_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement',
           'value' => 'Right Column',
           'desc' => 'Should the module be loaded in the left or right column?',
-          'set_func' => "tep_cfg_select_option(['Left Column', 'Right Column'], ",
+          'set_func' => "Config::select_one(['Left Column', 'Right Column'], ",
         ],
         'MODULE_BOXES_REVIEWS_SORT_ORDER' => [
           'title' => 'Sort Order',

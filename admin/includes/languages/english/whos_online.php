@@ -2,28 +2,26 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2020 osCommerce
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Who\'s Online');
+const HEADING_TITLE = "Who's Online";
 
-define('TABLE_HEADING_ONLINE', 'Online');
-define('TABLE_HEADING_CUSTOMER_ID', 'ID');
-define('TABLE_HEADING_FULL_NAME', 'Full Name');
-define('TABLE_HEADING_IP_ADDRESS', 'IP Address');
-define('TABLE_HEADING_ENTRY_TIME', 'Entry Time');
-define('TABLE_HEADING_LAST_CLICK', 'Last Click');
-define('TABLE_HEADING_LAST_PAGE_URL', 'Last URL');
-define('TABLE_HEADING_ACTION', 'Action');
-define('TABLE_HEADING_SHOPPING_CART', 'Users Shopping Cart');
+const TABLE_HEADING_ONLINE = 'Online';
+const TABLE_HEADING_CUSTOMER_ID = 'ID';
+const TABLE_HEADING_FULL_NAME = 'Full Name';
+const TABLE_HEADING_IP_ADDRESS = 'IP Address';
+const TABLE_HEADING_ENTRY_TIME = 'Entry Time';
+const TABLE_HEADING_LAST_CLICK = 'Last Click';
+const TABLE_HEADING_LAST_PAGE_URL = 'Last URL';
+const TABLE_HEADING_ACTION = 'Action';
+const TABLE_HEADING_SHOPPING_CART = 'Users Shopping Cart';
 
-define('TEXT_SHOPPING_CART_ITEM', '%s x %s');
-define('TEXT_SHOPPING_CART_SUBTOTAL', 'Subtotal: %s');
-define('TEXT_SHOPPING_CART_NA', 'N/A');
-
-define('TEXT_NUMBER_OF_CUSTOMERS', 'Currently there are %s customers online');
+const TEXT_SHOPPING_CART_ITEM = '%s x %s';
+const TEXT_SHOPPING_CART_SUBTOTAL = 'Subtotal: %s';
+const TEXT_SHOPPING_CART_NA = 'N/A';

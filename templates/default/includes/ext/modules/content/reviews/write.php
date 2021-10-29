@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('ext/modules/content/reviews/write.php',  tep_get_all_get_params()));
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('ext/modules/content/reviews/write.php')->retain_query_except());
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <div class="row">
@@ -20,7 +20,7 @@
   <h2 class="display-4 col-sm-4 text-left text-sm-right"><?= $product->hype_price() ?></h2>
 </div>
 
-<?= tep_draw_form('review', tep_href_link('ext/modules/content/reviews/write.php', 'action=process&products_id=' . (int)$_GET['products_id']), 'post', 'enctype="multipart/form-data"', true) ?>
+<?= new Form('review', $Linker->build('ext/modules/content/reviews/write.php', ['action' => 'process', 'products_id' => (int)$_GET['products_id']]), 'post', ['enctype' => 'multipart/form-data']) ?>
 
   <div class="alert alert-warning" role="alert">
     <?= sprintf(TEXT_REVIEW_WRITING, htmlspecialchars($customer->get('short_name')), $product->get('name')) ?>
@@ -30,7 +30,7 @@
     <label for="inputNickName" class="col-form-label col-sm-3 text-left text-sm-right"><?= SUB_TITLE_FROM ?></label>
     <div class="col-sm-9">
       <?=
-       tep_draw_input_field('nickname', htmlspecialchars($customer->get_short_name()), 'required aria-required="true" id="inputNickName" placeholder="' . SUB_TITLE_REVIEW_NICKNAME . '"'),
+       (new Input('nickname', ['value' => htmlspecialchars($customer->get('short_name')), 'id' => 'inputNickName', 'placeholder' => SUB_TITLE_REVIEW_NICKNAME]))->require(),
        FORM_REQUIRED_INPUT
 ?>
     </div>
@@ -39,7 +39,7 @@
   <div class="form-group row">
     <label for="inputReview" class="col-form-label col-sm-3 text-left text-sm-right"><?= SUB_TITLE_REVIEW ?></label>
     <div class="col-sm-9">
-<?=   tep_draw_textarea_field('review', 'soft', 60, 15, null, 'required aria-required="true" id="inputReview" placeholder="' . SUB_TITLE_REVIEW_TEXT . '"'),
+<?=   (new Textarea('review', ['cols' => '60', 'rows' => '15', 'id' => 'inputReview', 'placeholder', SUB_TITLE_REVIEW_TEXT]))->require(),
       FORM_REQUIRED_INPUT
 ?>
     </div>
@@ -59,22 +59,22 @@
     </div>
   </div>
 
-  <?= $OSCOM_Hooks->call('write', 'injectFormDisplay') ?>
+  <?= $hooks->cat('injectFormDisplay') ?>
 
   <div class="buttonSet">
-    <div class="text-right"><?= tep_draw_button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', null, 'primary', null, 'btn-success btn-lg btn-block') ?></div>
-    <p><?= tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('product_info.php', 'products_id=' . (int)$_GET['products_id']), null, null, 'btn-light mt-2') ?></p>
+    <div class="text-right"><?= new Button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', 'btn-success btn-lg btn-block') ?></div>
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-2', [], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']])) ?></p>
   </div>
 
   <hr>
 
   <div class="row">
     <div class="col-sm-8"><?= $product->get('description') ?>...</div>
-    <div class="col-sm-4"><?= tep_image('images/' . $product->get('image'), htmlspecialchars($product->get('name'))) ?></div>
+    <div class="col-sm-4"><?= new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name'))) ?></div>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -29,8 +29,6 @@
 
   $rbsworldpay_hosted = new rbsworldpay_hosted();
 
-  $error = false;
-
   if ( is_null($_GET['installation'] ?? $_POST['installation'] ?? null) || (($_GET['installation'] ?? $_POST['installation']) != MODULE_PAYMENT_RBSWORLDPAY_HOSTED_INSTALLATION_ID) ) {
     $error = true;
   } elseif ( !Text::is_empty(MODULE_PAYMENT_RBSWORLDPAY_HOSTED_CALLBACK_PASSWORD) && (!isset($_POST['callbackPW']) || ($_POST['callbackPW'] != MODULE_PAYMENT_RBSWORLDPAY_HOSTED_CALLBACK_PASSWORD)) ) {
@@ -39,10 +37,12 @@
     $error = true;
   } elseif ( !isset($_POST['M_hash'], $_POST['M_sid'], $_POST['M_cid'], $_POST['cartId'], $_POST['M_lang'], $_POST['amount']) || ($_POST['M_hash'] != md5($_POST['M_sid'] . $_POST['M_cid'] . $_POST['cartId'] . $_POST['M_lang'] . number_format($_POST['amount'], 2) . MODULE_PAYMENT_RBSWORLDPAY_HOSTED_MD5_PASSWORD)) ) {
     $error = true;
+  } else {
+    $error = false;
   }
 
   if ( !$error ) {
-    $order_query = tep_db_query("SELECT orders_id, orders_status, currency, currency_value FROM orders WHERE orders_id = " . (int)$_POST['cartId'] . " AND customers_id = " . (int)$_POST['M_cid']);
+    $order_query = $GLOBALS['db']->query("SELECT orders_id, orders_status, currency, currency_value FROM orders WHERE orders_id = " . (int)$_POST['cartId'] . " AND customers_id = " . (int)$_POST['M_cid']);
 
     if (!mysqli_num_rows($order_query)) {
       $error = true;
@@ -60,7 +60,7 @@
   if ($order['orders_status'] == MODULE_PAYMENT_RBSWORLDPAY_HOSTED_PREPARE_ORDER_STATUS_ID) {
     $order_status_id = (MODULE_PAYMENT_RBSWORLDPAY_HOSTED_ORDER_STATUS_ID > 0 ? (int)MODULE_PAYMENT_RBSWORLDPAY_HOSTED_ORDER_STATUS_ID : (int)DEFAULT_ORDERS_STATUS_ID);
 
-    tep_db_query("UPDATE orders SET orders_status = " . (int)$order_status_id . ", last_modified = NOW() WHERE orders_id = " . (int)$order['orders_id']);
+    $GLOBALS['db']->query("UPDATE orders SET orders_status = " . (int)$order_status_id . ", last_modified = NOW() WHERE orders_id = " . (int)$order['orders_id']);
 
     $sql_data = [
       'orders_id' => $order['orders_id'],
@@ -70,7 +70,7 @@
       'comments' => '',
     ];
 
-    tep_db_perform('orders_status_history', $sql_data);
+    $GLOBALS['db']->perform('orders_status_history', $sql_data);
   }
 
   $trans_result = 'WorldPay: Transaction Verified (Callback)' . "\n" .
@@ -88,6 +88,6 @@
     'comments' => $trans_result,
   ];
 
-  tep_db_perform('orders_status_history', $sql_data);
-  require $oscTemplate->map_to_template(__FILE__, 'ext');
-  tep_session_destroy();
+  $GLOBALS['db']->perform('orders_status_history', $sql_data);
+  require $Template->map(__FILE__, 'ext');
+  Session::destroy();

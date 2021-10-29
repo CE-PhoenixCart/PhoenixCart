@@ -1,6 +1,6 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-pinf-message">
+<div class="col-sm-<?= (int)MODULE_CONTENT_PINF_MESSAGE_CONTENT_WIDTH ?> cm-pinf-message">
   <div class="alert alert-danger" role="alert">
-    <?php echo MODULE_CONTENT_PINF_MESSAGE_PRODUCT_NOT_FOUND; ?>
+    <?= MODULE_CONTENT_PINF_MESSAGE_PRODUCT_NOT_FOUND ?>
   </div>
 </div>
 

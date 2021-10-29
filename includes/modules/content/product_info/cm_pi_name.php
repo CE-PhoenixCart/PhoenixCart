@@ -18,13 +18,7 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $product_info;
-
-      $content_width = (int)MODULE_CONTENT_PI_NAME_CONTENT_WIDTH;
-
-      $products_name = $product_info['products_name'];
-
+    public function execute() {
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -35,13 +29,13 @@
           'title' => 'Enable Name Module',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_PI_NAME_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '9',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PI_NAME_SORT_ORDER' => [
           'title' => 'Sort Order',

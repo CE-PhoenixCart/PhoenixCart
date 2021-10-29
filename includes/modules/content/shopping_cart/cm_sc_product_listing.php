@@ -29,38 +29,18 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
+    public function execute() {
       if ($_SESSION['cart']->count_contents() > 0) {
         $content_width = (int)MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH;
-        
+
         $GLOBALS['any_out_of_stock'] = false;
         $products = $_SESSION['cart']->get_products();
-        $products_field = '';
+        $form = new Form('cart_quantity', $GLOBALS['Linker']->build('shopping_cart.php', ['action' => 'update_product']));
 
-        for ($i=0, $n=count($products); $i<$n; $i++) {
+        foreach ($products as $product) {
           // Push all attributes information in an array
-          foreach (($products[$i]['attributes'] ?? []) as $option => $value) {
-            $products_field .= tep_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);
-            $attributes = tep_db_query(sprintf(<<<'EOSQL'
-SELECT popt.*, poval.*, pa.*
- FROM products_options popt
-   INNER JOIN products_attributes pa ON pa.options_id = popt.products_options_id
-   INNER JOIN products_options_values poval
-     ON pa.options_values_id = poval.products_options_values_id
-    AND popt.language_id = poval.language_id
- WHERE pa.products_id = %d
-   AND pa.options_id = %d
-   AND pa.options_values_id = %d
-   AND popt.language_id = %d
-EOSQL
-              , (int)$products[$i]['id'], (int)$option, (int)$value, (int)$_SESSION['languages_id']));
-            $attributes_values = tep_db_fetch_array($attributes);
-
-            $products[$i][$option]['products_options_name'] = $attributes_values['products_options_name'];
-            $products[$i][$option]['options_values_id'] = $value;
-            $products[$i][$option]['products_options_values_name'] = $attributes_values['products_options_values_name'];
-            $products[$i][$option]['options_values_price'] = $attributes_values['options_values_price'];
-            $products[$i][$option]['price_prefix'] = $attributes_values['price_prefix'];
+          foreach (($product->get('attribute_selections') ?? []) as $option => $value) {
+            $form->hide('id[' . $product->get('uprid') . '][' . $option . ']', $value);
           }
         }
 
@@ -75,13 +55,13 @@ EOSQL
           'title' => 'Enable Shopping Cart Product Listing',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_SC_PRODUCT_LISTING_SORT_ORDER' => [
           'title' => 'Sort Order',

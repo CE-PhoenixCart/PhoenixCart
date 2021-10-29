@@ -14,32 +14,40 @@
 
     const CONFIG_KEY_BASE = 'MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_';
 
+    const FORMAT = [
+      '1' => 'Single Line',
+      '2' => 'Two Lines',
+      '3' => 'No Indicator',
+    ];
+
     public function __construct() {
       parent::__construct(__FILE__);
 
-      if (static::get_constant('MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_JS_PLACEMENT') === 'Footer') {
+      if ($this->base_constant('JS_PLACEMENT') === 'Footer') {
         $this->group = 'footer_scripts';
       }
     }
 
-    function execute() {
-      global $lng;
+    public function execute() {
+      if ( isset($_SESSION['customer_id']) && (Request::get_page() === 'checkout_success.php') ) {
+        $order_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT o.orders_id, o.currency, o.currency_value, ot.value
+ FROM orders o
+  LEFT JOIN orders_total ot ON o.orders_id = ot.orders_id AND ot.class = 'ot_subtotal'
+ WHERE o.customers_id = %d
+ ORDER BY o.date_purchased DESC
+ LIMIT 1
+EOSQL
+          , (int)$_SESSION['customer_id']));
 
-      if ( ($GLOBALS['PHP_SELF'] == 'checkout_success.php') && isset($_SESSION['customer_id']) ) {
-        $order_query = tep_db_query("SELECT orders_id, currency, currency_value FROM orders WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY date_purchased DESC LIMIT 1");
-
-        if (mysqli_num_rows($order_query) == 1) {
-          $order = $order_query->fetch_assoc();
-
-          $order_subtotal_query = tep_db_query("SELECT value FROM orders_total WHERE orders_id = " . (int)$order['orders_id'] . " AND class='ot_subtotal'");
-          $order_subtotal = $order_subtotal_query->fetch_assoc();
-
-          if (!isset($lng) || !($lng instanceof language)) {
+        if ($order = $order_query->fetch_assoc()) {
+          if (isset($GLOBALS['lng']) && ($GLOBALS['lng'] instanceof language)) {
+            $lng = &$GLOBALS['lng'];
+          } else {
             $lng = new language();
           }
 
           $language_code = 'en';
-
           foreach ($lng->catalog_languages as $lkey => $lvalue) {
             if ($lvalue['id'] == $_SESSION['languages_id']) {
               $language_code = $lkey;
@@ -47,14 +55,14 @@
             }
           }
 
-          $conversion_id = (int)MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_ID;
+          $conversion_id = (int)$this->base_constant('ID');
           $conversion_language = htmlspecialchars($language_code);
-          $conversion_format = (int)MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_FORMAT;
-          $conversion_color = htmlspecialchars(MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_COLOR);
-          $conversion_label = htmlspecialchars(MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_LABEL);
-          $conversion_value = $this->format_raw($order_subtotal['value'], $order['currency'], $order['currency_value']);
+          $conversion_format = (int)$this->base_constant('FORMAT');
+          $conversion_color = htmlspecialchars($this->base_constant('COLOR'));
+          $conversion_label = htmlspecialchars($this->base_constant('LABEL'));
+          $conversion_value = $GLOBALS['currencies']->format_raw($order['value'], true, $order['currency'], $order['currency_value']);
 
-          $output = <<<EOD
+          $output = <<<"EOD"
 <script>
 /* <![CDATA[ */
 var google_conversion_id = {$conversion_id};
@@ -73,23 +81,9 @@ var google_conversion_value = {$conversion_value};
 </noscript>
 EOD;
 
-          $GLOBALS['oscTemplate']->addBlock($output, $this->group);
+          $GLOBALS['Template']->add_block($output, $this->group);
         }
       }
-    }
-
-    function format_raw($number, $currency_code = '', $currency_value = '') {
-      global $currencies;
-
-      if (empty($currency_code) || !$currencies->is_set($currency_code)) {
-        $currency_code = $_SESSION['currency'];
-      }
-
-      if (empty($currency_value) || !is_numeric($currency_value)) {
-        $currency_value = $currencies->currencies[$currency_code]['value'];
-      }
-
-      return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
     }
 
     protected function get_parameters() {
@@ -98,7 +92,7 @@ EOD;
           'title' => 'Enable Google AdWords Conversion Module',
           'value' => 'True',
           'desc' => 'Do you want to allow the Google AdWords Conversion Module on your checkout success page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_ID' => [
           'title' => 'Conversion ID',
@@ -109,8 +103,8 @@ EOD;
           'title' => 'Tracking Notification Layout',
           'value' => '1',
           'desc' => 'A small message will appear on your site telling customers that their visits on your site are being tracked. We recommend you use it.',
-          'set_func' => 'tep_cfg_google_adwords_conversion_set_format(',
-          'use_func' => 'tep_cfg_google_adwords_conversion_get_format',
+          'set_func' => 'ht_google_adwords_conversion::set_format(',
+          'use_func' => 'ht_google_adwords_conversion::get_format',
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_COLOR' => [
           'title' => 'Page Background Color',
@@ -126,7 +120,7 @@ EOD;
           'title' => 'Javascript Placement',
           'value' => 'Footer',
           'desc' => 'Should the Google AdWords Conversion javascript be loaded in the header or footer?',
-          'set_func' => "tep_cfg_select_option(['Header', 'Footer'], ",
+          'set_func' => "Config::select_one(['Header', 'Footer'], ",
         ],
         'MODULE_HEADER_TAGS_GOOGLE_ADWORDS_CONVERSION_SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -136,26 +130,23 @@ EOD;
       ];
     }
 
-  }
+    public static function set_format($key_value, $field_key) {
+      $string = '';
+      foreach ( static::FORMAT as $key => $value ) {
+        $string .= '<br><input type="radio" name="configuration[' . $field_key . ']" value="' . $key . '"';
 
-  function tep_cfg_google_adwords_conversion_set_format($key_value, $field_key) {
-    $format = ['1' => 'Single Line', '2' => 'Two Lines', '3' => 'No Indicator'];
+        if ($key_value == $key) {
+          $string .= ' checked="checked"';
+        }
 
-    $string = '';
+        $string .= ' /> ' . $value;
+      }
 
-    foreach ( $format as $key => $value ) {
-      $string .= '<br><input type="radio" name="configuration[' . $field_key . ']" value="' . $key . '"';
-
-      if ($key_value == $key) $string .= ' checked="checked"';
-
-      $string .= ' /> ' . $value;
+      return $string;
     }
 
-    return $string;
-  }
+    public static function get_format($value) {
+      return static::FORMAT[$value];
+    }
 
-  function tep_cfg_google_adwords_conversion_get_format($value) {
-    $format = ['1' => 'Single Line', '2' => 'Two Lines', '3' => 'No Indicator'];
-
-    return $format[$value];
   }

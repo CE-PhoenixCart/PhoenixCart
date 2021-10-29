@@ -42,14 +42,14 @@
           'title' => 'Enable Cash On Delivery Module',
           'value' => 'True',
           'desc' => 'Do you want to accept Cash On Delivery payments?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_PAYMENT_COD_ZONE' => [
           'title' => 'Payment Zone',
           'value' => '0',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
-          'use_func' => 'tep_get_zone_class_title',
-          'set_func' => 'tep_cfg_pull_down_zone_classes(',
+          'use_func' => 'geo_zone::fetch_name',
+          'set_func' => 'Config::select_geo_zone(',
         ],
         'MODULE_PAYMENT_COD_SORT_ORDER' => [
           'title' => 'Sort order of display.',
@@ -60,8 +60,8 @@
           'title' => 'Set Order Status',
           'value' => '0',
           'desc' => 'Set the status of orders made with this payment module to this value',
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
-          'use_func' => 'tep_get_order_status_name',
+          'set_func' => 'Config::select_order_status(',
+          'use_func' => 'order_status::fetch_name',
         ],
       ];
     }

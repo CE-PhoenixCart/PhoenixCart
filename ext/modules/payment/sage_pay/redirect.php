@@ -16,23 +16,24 @@
 // if the customer is not logged on, redirect them to the login page
   $parameters = [
     'page' => 'checkout_payment.php',
-    'mode' => 'SSL',
   ];
-  $OSCOM_Hooks->register_pipeline('loginRequired', $parameters);
+  $hooks->register_pipeline('loginRequired', $parameters);
 
   if ( isset($_GET['payment_error']) && !Text::is_empty($_GET['payment_error']) ) {
-    $redirect_url = tep_href_link('checkout_payment.php', 'payment_error=' . $_GET['payment_error'] . (isset($_GET['error']) && !Text::is_empty($_GET['error']) ? '&error=' . $_GET['error'] : ''));
+    $redirect_url = $Linker->build('checkout_payment.php', ['payment_error' => $_GET['payment_error']]);
+    if (isset($_GET['error']) && !Text::is_empty($_GET['error'])) {
+      $redirect_url->set_parameter('error', $_GET['error']);
+    }
+    $form = new Form('redirect', $redirect_url, 'post', ['target' => '_top']);
   } else {
-    $hidden_params = '';
-
     if ('sage_pay_direct' === $_SESSION['payment']) {
-      $redirect_url = tep_href_link('checkout_process.php', 'check=3D');
-      $hidden_params = tep_draw_hidden_field('MD', $_POST['MD']) . tep_draw_hidden_field('PaRes', $_POST['PaRes']);
+      $form = new Form('redirect', $Linker->build('checkout_process.php', ['check' => '3D']), 'post', ['target' => '_top']);
+      $form->hide('MD', $_POST['MD'])->hide('PaRes', $_POST['PaRes']);
     } else {
-      $redirect_url = tep_href_link('checkout_process.php');
+      $form = new Form('redirect', $Linker->build('checkout_process.php'), 'post', ['target' => '_top']);
     }
   }
 
   require language::map_to_translation('checkout_confirmation.php');
-  require $oscTemplate->map_to_template(__FILE__, 'ext');
+  require $Template->map(__FILE__, 'ext');
   require 'includes/application_bottom.php';

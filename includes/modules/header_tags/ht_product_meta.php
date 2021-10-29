@@ -16,11 +16,11 @@
 
     protected $group = 'header_tags';
 
-    function execute() {
-      global $oscTemplate, $product_info;
+    public function execute() {
+      global $product;
 
-      if (isset($_GET['products_id'], $product_info['products_seo_description']) && tep_not_null($product_info['products_seo_description'])) {
-        $oscTemplate->addBlock('<meta name="description" content="' . tep_output_string($product_info['products_seo_description']) . '" />' . PHP_EOL, $this->group);
+      if (isset($_GET['products_id'], $product) && !Text::is_empty($product->get('seo_description'))) {
+        $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($product->get('seo_description')) . '" />' . PHP_EOL, $this->group);
       }
     }
 
@@ -30,13 +30,13 @@
           'title' => 'Enable Product Meta Module',
           'value' => 'True',
           'desc' => 'Do you want to allow product meta tags to be added to the page header?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_PRODUCT_META_KEYWORDS_STATUS' => [
           'title' => 'Enable Keyword Search Engine',
           'value' => 'True',
           'desc' => 'Keywords can be used as an internal search engine...',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_PRODUCT_META_SORT_ORDER' => [
           'title' => 'Sort Order',

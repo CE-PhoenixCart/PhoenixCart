@@ -78,11 +78,12 @@ EOSQL
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_ORDERS,
     'page' => $_GET['page'] ?? null,
+    'web_id' => 'oID',
     'sql' => $orders_sql . $listing_order,
   ];
 
   $table_definition['split'] = new Paginator($table_definition);
-  $link = $Admin->link('orders.php');
+  $link = $Admin->link()->retain_query_except(['action']);
   $table_definition['function'] = function (&$row) use ($link, &$table_definition) {
     $link->set_parameter('oID', $row['orders_id']);
     if (!isset($table_definition['info']) && (!isset($_GET['oID']) || ($_GET['oID'] == $row['orders_id']))) {
@@ -91,9 +92,9 @@ EOSQL
 
       $row['onclick'] = (clone $link)->set_parameter('action', 'edit');
       $row['css'] = ' class="table-active"';
-      $row['info']->link = $link;
+      $row['info']->link = clone $link;
     } else {
-      $row['onclick'] = $link;
+      $row['onclick'] = clone $link;
       $row['css'] = '';
     }
   };

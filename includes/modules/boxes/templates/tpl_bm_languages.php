@@ -1,9 +1,9 @@
 <div class="card mb-2 bm-languages">
   <div class="card-header">
-    <?php echo MODULE_BOXES_LANGUAGES_BOX_TITLE; ?>
+    <?= MODULE_BOXES_LANGUAGES_BOX_TITLE ?>
   </div>
   <div class="card-body text-center">
-    <?php echo $languages_string; ?>
+    <?= $languages_string ?>
   </div>
 </div>
 

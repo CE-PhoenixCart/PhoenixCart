@@ -16,45 +16,45 @@
   $hooks->register_pipeline('loginRequired');
 
   if (!isset($_GET['products_id'])) {
-    tep_redirect(tep_href_link('index.php'));
+    Href::redirect($Linker->build('index.php'));
+  }
+
+  if (!($product instanceof Product) || !$product->get('status')) {
+    Href::redirect($Linker->build('product_info.php', ['products_id' => (int)$product->get('id')]));
   }
 
   require language::map_to_translation('modules/content/reviews/write.php');
 
-  $reviewed = [];
-  $reviewed_products_query = tep_db_query("SELECT DISTINCT products_id FROM reviews WHERE customers_id = " . (int)$_SESSION['customer_id']);
-  while ($reviewed_products = $reviewed_products_query->fetch_assoc()) {
-    $reviewed[] = $reviewed_products['products_id'];
-  }
+  $reviewed_query = $db->query(sprintf(<<<'EOSQL'
+SELECT products_id FROM reviews WHERE customers_id = %d AND products_id = %d LIMIT 1
+EOSQL
+    , (int)$_SESSION['customer_id'], (int)$product->get('id')));
 
-  if (in_array((int)$_GET['products_id'], $reviewed)) {
+  if (mysqli_num_rows($reviewed_query) >= 1) {
     $messageStack->add_session('product_action', sprintf(TEXT_ALREADY_REVIEWED, $customer->get('short_name')), 'error');
 
-    tep_redirect(tep_href_link('product_info.php', tep_get_all_get_params(['action'])));
+    Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
   }
 
   if (ALLOW_ALL_REVIEWS === 'false') {
-    $purchased = [];
-    $purchased_products_query = tep_db_query("SELECT DISTINCT op.products_id FROM orders o, orders_products op WHERE o.customers_id = " . (int)$_SESSION['customer_id'] . " AND o.orders_id = op.orders_id GROUP BY products_id");
+    $reviewable_query = $db->query(sprintf(<<<'EOSQL'
+SELECT op.products_id
+ FROM orders_products op
+  INNER JOIN orders o ON o.orders_id = op.orders_id
+  LEFT JOIN reviews r ON o.customers_id = r.customers_id AND op.products_id = r.products_id
+ WHERE o.customers_id = %d AND op.products_id = %d AND r.products_id IS NULL
+ LIMIT 1
+EOSQL
+      , (int)$_SESSION['customer_id'], (int)$product->get('id')));
 
-    while ($purchased_products = $purchased_products_query->fetch_assoc()) {
-      $purchased[] = $purchased_products['products_id'];
-    }
-
-    $allowable_reviews = array_diff($purchased, $reviewed);
-
-    if (!in_array((int)$_GET['products_id'], $allowable_reviews)) {
+    if (!mysqli_num_rows($reviewable_query)) {
       $messageStack->add_session('product_action', sprintf(TEXT_NOT_PURCHASED, $customer->get('short_name')), 'error');
 
-      tep_redirect(tep_href_link('product_info.php', tep_get_all_get_params(['action'])));
+      Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
     }
   }
 
-  if (!$product->get('status')) {
-    tep_redirect(tep_href_link('product_info.php', 'products_id=' . (int)$_GET['products_id']));
-  }
-
-  if (tep_validate_form_action_is('process')) {
+  if (Form::validate_action_is('process')) {
     $rating = Text::input($_POST['rating']);
     $review = Text::input($_POST['review']);
     $nickname = Text::input($_POST['nickname']);
@@ -63,17 +63,17 @@
       $nickname = sprintf(VERIFIED_BUYER, $nickname);
     }
 
-    tep_db_query("INSERT INTO reviews (products_id, customers_id, customers_name, reviews_rating, date_added) VALUES ('" . (int)$_GET['products_id'] . "', '" . (int)$_SESSION['customer_id'] . "', '" . tep_db_input($nickname) . "', '" . tep_db_input($rating) . "', NOW())");
-    $insert_id = tep_db_insert_id();
+    $db->query("INSERT INTO reviews (products_id, customers_id, customers_name, reviews_rating, date_added) VALUES ('" . (int)$_GET['products_id'] . "', '" . (int)$_SESSION['customer_id'] . "', '" . $db->escape($nickname) . "', '" . $db->escape($rating) . "', NOW())");
+    $insert_id = mysqli_insert_id($db);
 
-    tep_db_query("INSERT INTO reviews_description (reviews_id, languages_id, reviews_text) VALUES ('" . (int)$insert_id . "', '" . (int)$_SESSION['languages_id'] . "', '" . tep_db_input($review) . "')");
+    $db->query("INSERT INTO reviews_description (reviews_id, languages_id, reviews_text) VALUES ('" . (int)$insert_id . "', '" . (int)$_SESSION['languages_id'] . "', '" . $db->escape($review) . "')");
 
-    $OSCOM_Hooks->call('write', 'addNewAction');
+    $hooks->cat('addNewAction');
 
     $messageStack->add_session('product_action', sprintf(TEXT_REVIEW_RECEIVED, $nickname), 'success');
 
-    tep_redirect(tep_href_link('product_info.php', tep_get_all_get_params(['action'])));
+    Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
   }
 
-  require $oscTemplate->map_to_template(__FILE__, 'ext');
+  require $Template->map(__FILE__, 'ext');
   require 'includes/application_bottom.php';

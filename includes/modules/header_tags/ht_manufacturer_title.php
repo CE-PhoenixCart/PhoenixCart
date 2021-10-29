@@ -18,20 +18,19 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $PHP_SELF, $oscTemplate, $brand;
+    public function execute() {
+      global $Template, $brand;
 
-      if (basename($PHP_SELF) == 'index.php') {
-        if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-          $brand_seo_title = $brand->getData('manufacturers_seo_title');
-          $brand_name      = $brand->getData('manufacturers_name');
-
-          if ( tep_not_null($brand_seo_title) && (MODULE_HEADER_TAGS_MANUFACTURER_TITLE_SEO_TITLE_OVERRIDE == 'True') ) {
-            $oscTemplate->setTitle($brand_seo_title . MODULE_HEADER_TAGS_MANUFACTURER_SEO_SEPARATOR . $oscTemplate->getTitle());
-          } else {
-            $oscTemplate->setTitle($brand_name . MODULE_HEADER_TAGS_MANUFACTURER_SEO_SEPARATOR . $oscTemplate->getTitle());
-          }
+      if ( (basename(Request::get_page()) === 'index.php')
+        && isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']))
+      {
+        if ( (MODULE_HEADER_TAGS_MANUFACTURER_TITLE_SEO_TITLE_OVERRIDE !== 'True')
+           || Text::is_empty($brand_title = $brand->getData('manufacturers_seo_title')) )
+        {
+          $brand_title = $brand->getData('manufacturers_name');
         }
+
+        $Template->set_title($brand_title . MODULE_HEADER_TAGS_MANUFACTURER_SEO_SEPARATOR . $Template->get_title());
       }
     }
 
@@ -41,7 +40,7 @@
           'title' => 'Enable Manufacturer Title Module',
           'value' => 'True',
           'desc' => 'Do you want to allow manufacturer titles to be added to the page title?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -52,7 +51,7 @@
           'title' => 'SEO Title Override?',
           'value' => 'True',
           'desc' => 'Do you want to allow manufacturer names to be over-ridden by your SEO Titles (if set)?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }

@@ -1,7 +1,7 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-pi-date-available">
+<div class="col-sm-<?= (int)MODULE_CONTENT_PI_DATE_AVAILABLE_CONTENT_WIDTH ?> cm-pi-date-available">
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
-      <?php echo sprintf(MODULE_CONTENT_PI_DATE_AVAILABLE_TEXT, $date); ?>
+      <?= sprintf(MODULE_CONTENT_PI_DATE_AVAILABLE_TEXT, $date) ?>
     </li>
   </ul>
 </div>

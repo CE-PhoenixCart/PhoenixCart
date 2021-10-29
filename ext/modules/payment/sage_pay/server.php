@@ -22,10 +22,10 @@
 
   $result = null;
 
-  if ( isset($_GET['skcode']) && isset($_POST['VPSSignature']) && isset($_POST['VPSTxId']) && isset($_POST['VendorTxCode']) && isset($_POST['Status']) ) {
+  if ( isset($_GET['skcode'], $_POST['VPSSignature'], $_POST['VPSTxId'], $_POST['VendorTxCode'], $_POST['Status']) ) {
     $skcode = Text::input($_GET['skcode']);
 
-    $sp_query = tep_db_query('select securitykey from sagepay_server_securitykeys where code = "' . tep_db_input($skcode) . '" limit 1');
+    $sp_query = $db->query("SELECT securitykey FROM sagepay_server_securitykeys WHERE code = '" . $db->escape($skcode) . "' LIMIT 1");
     if ( mysqli_num_rows($sp_query) ) {
       $sp = $sp_query->fetch_assoc();
 
@@ -129,29 +129,33 @@
 
           $transaction_details_string = Text::input($transaction_details_string);
 
-          tep_db_query('update sagepay_server_securitykeys set verified = 1, transaction_details = "' . tep_db_input($transaction_details_string) . '" where code = "' . tep_db_input($skcode) . '"');
+          $db->query("UPDATE sagepay_server_securitykeys SET verified = 1, transaction_details = '" . $db->escape($transaction_details_string) . "' WHERE code = '" . $db->escape($skcode) . "'");
 
           $result = 'Status=OK' . chr(13) . chr(10) .
-                    'RedirectURL=' . $sage_pay_server->formatURL(tep_href_link('checkout_process.php', 'check=PROCESS&skcode=' . $skcode, 'SSL', false));
+                    'RedirectURL=' . $sage_pay_server->formatURL($Linker->build('checkout_process.php', ['check' => 'PROCESS', 'skcode' => $skcode], false));
         } else {
           $error = isset($_POST['StatusDetail']) ? $sage_pay_server->getErrorMessageNumber($_POST['StatusDetail']) : null;
 
           if ( MODULE_PAYMENT_SAGE_PAY_SERVER_PROFILE_PAGE == 'Normal' ) {
-            $error_url = tep_href_link('checkout_payment.php', 'payment_error=' . $sage_pay_server->code . (Text::is_empty($error) ? '' : '&error=' . $error), 'SSL', false);
+            $error_url = $Linker->build('checkout_payment.php', ['payment_error' => $sage_pay_server->code], false);
           } else {
-            $error_url = tep_href_link('ext/modules/payment/sage_pay/redirect.php', 'payment_error=' . $sage_pay_server->code . (Text::is_empty($error) ? '' : '&error=' . $error), 'SSL', false);
+            $error_url = $Linker->build('ext/modules/payment/sage_pay/redirect.php', ['payment_error' => $sage_pay_server->code], false);
+          }
+
+          if (!Text::is_empty($error)) {
+            $error_url->set_parameter('error', $error);
           }
 
           $result = 'Status=OK' . chr(13) . chr(10) .
                     'RedirectURL=' . $sage_pay_server->formatURL($error_url);
 
-          tep_db_query('delete from sagepay_server_securitykeys where code = "' . tep_db_input($skcode) . '"');
+          $db->query("DELETE FROM sagepay_server_securitykeys WHERE code = '" . $db->escape($skcode) . "'");
 
           $sage_pay_server->sendDebugEmail();
         }
       } else {
         $result = 'Status=INVALID' . chr(13) . chr(10) .
-                  'RedirectURL=' . $sage_pay_server->formatURL(tep_href_link('shopping_cart.php', '', 'SSL', false));
+                  'RedirectURL=' . $sage_pay_server->formatURL($Linker->build('shopping_cart.php', [], false));
 
         $sage_pay_server->sendDebugEmail();
       }
@@ -160,12 +164,12 @@
 
   if ( !isset($result) ) {
     $result = 'Status=ERROR' . chr(13) . chr(10) .
-              'RedirectURL=' . $sage_pay_server->formatURL(tep_href_link('shopping_cart.php', '', 'SSL', false));
+              'RedirectURL=' . $sage_pay_server->formatURL($Linker->build('shopping_cart.php', [], false));
   }
 
   echo $result;
 
-  tep_session_destroy();
+  Session::destroy();
 
   exit();
 

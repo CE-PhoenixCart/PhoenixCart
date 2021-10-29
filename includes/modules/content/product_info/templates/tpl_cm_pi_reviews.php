@@ -1,5 +1,5 @@
 <div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
-  <h4><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE; ?></h4>
+  <h4><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE ?></h4>
   <div class="row">
     <?php
   while ($review = $review_query->fetch_assoc()) {
@@ -8,7 +8,7 @@
     echo '<p class="font-weight-lighter">' . htmlspecialchars($review['reviews_text']) . '</p>';
     echo '<footer class="blockquote-footer">'
        . sprintf(MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_RATED,
-                 tep_draw_stars($review['reviews_rating']),
+                 new star_rating((float)$review['reviews_rating']),
                  htmlspecialchars($review['customers_name']))
        . '</footer>';
     echo '</blockquote>';

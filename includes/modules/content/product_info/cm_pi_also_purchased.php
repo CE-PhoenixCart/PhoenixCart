@@ -18,33 +18,29 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $currencies, $PHP_SELF;
-
-      $content_width = (int)MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_WIDTH;
-      $card_layout = IS_PRODUCT_PRODUCTS_DISPLAY_ROW;
-
-      $orders_query = tep_db_query(<<<'EOSQL'
-SELECT
-  p.*, pd.*,
-  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
-  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price,
-  p.products_quantity AS in_stock,
-  IF(s.status, 1, 0) AS is_special
+    public function execute() {
+      $also_purchased_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT %s
  FROM orders_products opa
-   INNER JOIN orders_products opb ON opa.orders_id = opb.orders_id
+   INNER JOIN orders_products opb ON opa.orders_id = opb.orders_id AND opa.products_id != opb.products_id
    INNER JOIN orders o ON opb.orders_id = o.orders_id
    INNER JOIN products p ON opb.products_id = p.products_id
+   INNER JOIN products_description pd ON p.products_id = pd.products_id
    LEFT JOIN specials s ON p.products_id = s.products_id
-   LEFT JOIN products_description pd ON p.products_id = pd.products_id
- WHERE p.products_status = 1 AND opa.products_id != opb.products_id AND opa.products_id = 
+   LEFT JOIN (SELECT products_id, COUNT(*) AS attribute_count FROM products_attributes GROUP BY products_id) a ON p.products_id = a.products_id
+ WHERE p.products_status = 1
+   AND opa.products_id = %d
+   AND pd.language_id = %d
+ GROUP BY p.products_id
+ ORDER BY o.date_purchased DESC
+ LIMIT %d
 EOSQL
-        . (int)$_GET['products_id']
-        . " AND pd.language_id = " . (int)$_SESSION['languages_id']
-        . " GROUP BY p.products_id ORDER BY o.date_purchased DESC LIMIT " . (int)MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_LIMIT);
-      $num_products_ordered = tep_db_num_rows($orders_query);
+        , Product::COLUMNS,
+        (int)$_GET['products_id'],
+        (int)$_SESSION['languages_id'],
+        (int)$this->base_constant('CONTENT_LIMIT')));
 
-      if ($num_products_ordered > 0) {
+      if (mysqli_num_rows($also_purchased_query) > 0) {
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }
@@ -56,13 +52,13 @@ EOSQL
           'title' => 'Enable Also Purchased Module',
           'value' => 'True',
           'desc' => 'Should this module be shown on the product info page?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_LIMIT' => [
           'title' => 'Number of Products',

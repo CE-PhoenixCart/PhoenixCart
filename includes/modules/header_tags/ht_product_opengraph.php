@@ -16,10 +16,10 @@
 
     public $group = 'header_tags';
 
-    function execute() {
+    public function execute() {
       global $product;
 
-      if (isset($product) && is_callable([$product, 'get']) && $product->get('status')) {
+      if (isset($product) && $product->get('status')) {
         $data = [
           'og:type' => 'product',
           'og:title' => $product->get('name'),
@@ -31,12 +31,12 @@
 
         $images = $product->get('images');
         $products_image = $images[0]['image'] ?? $product->get('image');
-        $data['og:image'] = tep_href_link("images/$products_image", '', 'NONSSL', false, false);
+        $data['og:image'] = $GLOBALS['Linker']->build("images/$products_image", [], false);
 
         $data['product:price:amount'] = $product->format_raw();
         $data['product:price:currency'] = $_SESSION['currency'];
 
-        $data['og:url'] = tep_href_link('product_info.php', 'products_id=' . $product->get('id'), 'NONSSL', false);
+        $data['og:url'] = $GLOBALS['Linker']->build('product_info.php', ['products_id' => $product->get('id')], false);
 
         $data['product:availability'] = ( $product->get('in_stock') > 0 ) ? MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_TEXT_IN_STOCK : MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_TEXT_OUT_OF_STOCK;
 
@@ -45,7 +45,7 @@
           $result .= '<meta property="' . htmlspecialchars($property) . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;
         }
 
-        $GLOBALS['oscTemplate']->addBlock($result, $this->group);
+        $GLOBALS['Template']->add_block($result, $this->group);
       }
     }
 
@@ -55,7 +55,7 @@
           'title' => 'Enable Product OpenGraph Module',
           'value' => 'True',
           'desc' => 'Do you want to allow Open Graph Meta Tags (good for Facebook and Pinterest and other sites) to be added to your product page?  Note that your product thumbnails MUST be at least 200px by 200px.',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_SORT_ORDER' => [
           'title' => 'Sort Order',
