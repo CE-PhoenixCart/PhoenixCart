@@ -32,26 +32,26 @@
           'title' => 'Enable Country module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '2',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Country module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the country to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'address_book;checkout_new_address;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -110,8 +110,7 @@
           ];
 
           if (isset($customer_details['country']['id']) && 6 > count(array_filter($customer_details['country'], function ($v) { return isset($v); }))) {
-            $countries_query = tep_db_query("SELECT * FROM countries WHERE countries_id = " . (int)$customer_details['country_id']);
-            $country = tep_db_fetch_array($countries_query);
+            $country = $GLOBALS['db']->query("SELECT * FROM countries WHERE countries_id = " . (int)$customer_details['country_id'])->fetch_assoc();
             $customer_details['country'] = $this->get('country', $country);
           }
           return $customer_details[$field];
@@ -120,33 +119,33 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_COUNTRY;
-
       $input_id = 'inputCountry';
-      $attribute = 'id="' . $input_id . '"';
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
+      $parameters = ['id' => $input_id];
+
+      if (!Text::is_empty(ENTRY_COUNTRY_TEXT)) {
+        $parameters['aria-describedby'] = 'atCountry';
       }
 
-      if (tep_not_null(ENTRY_COUNTRY_TEXT)) {
-        $attribute .= ' aria-describedby="atCountry"';
-        $postInput .= '<span id="atCountry" class="form-text">' . ENTRY_COUNTRY_TEXT . '</span>';
-      }
+      $input = $this->draw_country_list('country_id', $parameters);
 
-      $country_id = null;
       if (isset($customer_details) && is_array($customer_details)) {
-        $country_id = $this->get('country_id', $customer_details);
+        $input->set_selection($this->get('country_id', $customer_details));
       }
 
-      $input = $this->draw_country_list('country_id', $country_id, $attribute)
-             . $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      if (isset($parameters['aria-describedby'])) {
+        $input .= '<span id="atCountry" class="form-text">' . ENTRY_COUNTRY_TEXT . '</span>';
+      }
+
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['country_id'] = tep_db_prepare_input($_POST['country_id']);
+      $customer_details['country_id'] = Text::input($_POST['country_id']);
 
       if (($this->is_required() || '' !== $customer_details['country_id'])
         && (false === is_numeric($customer_details['country_id']))
@@ -179,14 +178,13 @@
 
     ////
     // Creates a pull-down list of countries
-    public function draw_country_list($name, $selected = '', $parameters = '') {
-      $countries = [['id' => '', 'text' => PULL_DOWN_DEFAULT]];
-      $countries_query = tep_db_query("SELECT countries_id, countries_name FROM countries");
-      while ($country = tep_db_fetch_array($countries_query)) {
-        $countries[] = ['id' => $country['countries_id'], 'text' => $country['countries_name']];
-      }
+    public function draw_country_list($name, $parameters = []) {
+      $countries = array_merge(
+        [['id' => '', 'text' => PULL_DOWN_DEFAULT]],
+        $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries")
+      );
 
-      return tep_draw_pull_down_menu($name, $countries, $selected, $parameters);
+      return new Select($name, $countries, $parameters);
     }
 
   }

@@ -11,11 +11,9 @@
 */
 ?>
   <div class="form-group row align-items-center">
-    <div class="col-form-label col-sm-3 text-left text-sm-right"><?php echo ENTRY_NEWSLETTER; ?></div>
+    <div class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_NEWSLETTER ?></div>
     <div class="col-sm-9 pl-5 custom-control custom-switch">
-<?php
-  echo tep_draw_selection_field('newsletter', 'checkbox', 1, (1 == $newsletter), $attribute . 'class="custom-control-input" id="inputNewsletter"');
-?>
-      <label for="inputNewsletter" class="custom-control-label text-muted"><small><?php echo ENTRY_NEWSLETTER_TEXT; ?>&nbsp;</small></label>
+      <?= $input->append_css('custom-control-input')->set('id', 'inputNewsletter') ?>
+      <label for="inputNewsletter" class="custom-control-label text-muted"><small><?= ENTRY_NEWSLETTER_TEXT ?>&nbsp;</small></label>
     </div>
   </div>

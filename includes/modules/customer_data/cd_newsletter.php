@@ -23,27 +23,27 @@
           'title' => 'Enable Newsletter Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '3',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'account_newsletters;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Newsletter (if enabled)',
           'value' => 'False',
           'desc' => 'Do you want the newsletter to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -66,21 +66,21 @@
     }
 
     public function display_input(&$customer_details = null) {
-      $attribute = '';
+      $input = new Tickable('newsletter', ['value' => '1'], 'checkbox');
+
+      if ($customer_details && is_array($customer_details)) {
+        $input->tick(1 == $this->get('newsletter', $customer_details));
+      }
+
       if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE;
+        $input->require();
       }
 
-      $newsletter = false;
-      if (!empty($customer_details) && is_array($customer_details)) {
-        $newsletter = $this->get('newsletter', $customer_details);
-      }
-
-      include $GLOBALS['oscTemplate']->map_to_template(__FILE__);
+      include Guarantor::ensure_global('Template')->map(__FILE__);
     }
 
     public function process(&$customer_details) {
-      $customer_details['newsletter'] = isset($_POST['newsletter']) ? tep_db_prepare_input($_POST['newsletter']) : false;
+      $customer_details['newsletter'] = isset($_POST['newsletter']) ? Text::input($_POST['newsletter']) : false;
 
       if ( ( ('1' !== $customer_details['newsletter']) )
         && (!empty($customer_details['newsletter']) || $this->is_required())

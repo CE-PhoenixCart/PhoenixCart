@@ -23,26 +23,26 @@
           'title' => 'Enable Gender Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '0',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Gender module (if enabled)',
           'value' => 'False',
           'desc' => 'Do you want the gender to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'account_edit;address_book;checkout_new_address;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -72,14 +72,14 @@
         $gender = $this->get('gender', $customer_details);
       }
 
-      include $GLOBALS['oscTemplate']->map_to_template(__FILE__);
+      include Guarantor::ensure_global('Template')->map(__FILE__);
     }
 
     public function process(&$customer_details) {
-      $customer_details['gender'] = isset($_POST['gender']) ? tep_db_prepare_input($_POST['gender']) : false;
+      $customer_details['gender'] = isset($_POST['gender']) ? Text::input($_POST['gender']) : false;
 
       if ( ( ('m' !== $customer_details['gender']) && ('f' !== $customer_details['gender']) )
-        && (!empty($customer_details['gender']) || $this->is_required())
+        && ($customer_details['gender'] || $this->is_required())
          )
       {
         $GLOBALS['messageStack']->add_classed($GLOBALS['message_stack_area'] ?? 'customer_data', ENTRY_GENDER_ERROR);
