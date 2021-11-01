@@ -1,5 +1,5 @@
 <li class="nav-item nb-new-products">
-  <?= '<a class="nav-link" href="' . tep_href_link('products_new.php') . '">' . MODULE_NAVBAR_NEW_PRODUCTS_PUBLIC_TEXT . '</a>' ?>
+  <?= '<a class="nav-link" href="' . $GLOBALS['Linker']->build('products_new.php') . '">' . MODULE_NAVBAR_NEW_PRODUCTS_PUBLIC_TEXT . '</a>' ?>
 </li>
 
 <?php

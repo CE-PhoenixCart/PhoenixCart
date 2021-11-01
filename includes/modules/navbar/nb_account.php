@@ -33,13 +33,13 @@
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your Navbar?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement Group',
           'value' => 'Left',
           'desc' => 'Where should the module be loaded?  Lowest is loaded first, per Group.',
-          'set_func' => "tep_cfg_select_option(['Home', 'Left', 'Center', 'Right'], ",
+          'set_func' => "Config::select_one(['Home', 'Left', 'Center', 'Right'], ",
         ],
         'MODULE_NAVBAR_ACCOUNT_SORT_ORDER' => [
           'title' => 'Sort Order',

@@ -6,7 +6,7 @@
     <?php
     foreach ($GLOBALS['currencies']->currencies as $key => $value) {
       echo '<a class="dropdown-item" href="'
-      . tep_href_link($GLOBALS['PHP_SELF'], tep_get_all_get_params(['language', 'currency']) . 'currency=' . $key, $GLOBALS['request_type']) . '">'
+      . $GLOBALS['Linker']->build()->retain_query_except(['language'])->set_parameter('currency', $key) . '">'
       . $value['title']
       . '</a>' . PHP_EOL;
     }

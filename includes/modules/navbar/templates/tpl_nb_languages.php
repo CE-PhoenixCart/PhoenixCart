@@ -7,9 +7,9 @@
     foreach ($lng->catalog_languages as $key => $value) {
       $image = Text::ltrim_once(language::map_to_translation("images/{$value['image']}", $value['directory']), DIR_FS_CATALOG);
       echo '<a class="dropdown-item" href="'
-           . tep_href_link($GLOBALS['PHP_SELF'], tep_get_all_get_params(['language', 'currency']) . 'language=' . $key)
+           . $GLOBALS['Linker']->build()->retain_query_except(['currency'])->set_parameter('language', $key)
            . '">'
-           . tep_image($image, htmlspecialchars($value['name']), '', '', '', false)
+           . (new Image($image, [], htmlspecialchars($value['name'])))->set_responsive(false)
            . ' ' . $value['name'] . '</a>' . PHP_EOL;
     }
     ?>

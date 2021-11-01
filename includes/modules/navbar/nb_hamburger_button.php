@@ -27,13 +27,13 @@
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your Navbar?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_NAVBAR_HAMBURGER_BUTTON_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement Group',
           'value' => 'Home',
           'desc' => 'This is a special module that must be placed in the Home Group.  Lowest is loaded first, per Group.',
-          'set_func' => "tep_cfg_select_option(['Home'], ",
+          'set_func' => "Config::select_one(['Home'], ",
         ],
         'MODULE_NAVBAR_HAMBURGER_BUTTON_SORT_ORDER' => [
           'title' => 'Sort Order',

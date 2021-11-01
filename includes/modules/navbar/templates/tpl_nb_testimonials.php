@@ -1,5 +1,5 @@
 <li class="nav-item nb-testimonials">
-   <?= '<a class="nav-link" href="' . tep_href_link('testimonials.php') . '">' . MODULE_NAVBAR_TESTIMONIALS_PUBLIC_TEXT . '</a>' ?>
+   <?= '<a class="nav-link" href="' . $GLOBALS['Linker']->build('testimonials.php') . '">' . MODULE_NAVBAR_TESTIMONIALS_PUBLIC_TEXT . '</a>' ?>
 </li>
 
 <?php
