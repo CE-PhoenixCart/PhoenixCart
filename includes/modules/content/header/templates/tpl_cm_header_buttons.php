@@ -1,12 +1,12 @@
-<div class="col-sm-<?php echo $content_width; ?> text-right cm-header-buttons">
+<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_BUTTONS_CONTENT_WIDTH ?> text-right cm-header-buttons">
   <div class="btn-group" role="group" aria-label="...">
     <?php
-    echo tep_draw_button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_CART_CONTENTS . ($_SESSION['cart']->count_contents() > 0 ? ' (' . $_SESSION['cart']->count_contents() . ')' : ''), 'fas fa-shopping-cart', tep_href_link('shopping_cart.php'))
-       . tep_draw_button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_CHECKOUT, 'fas fa-credit-card', tep_href_link('checkout_shipping.php', '', 'SSL'))
-       . tep_draw_button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_MY_ACCOUNT, 'fas fa-user', tep_href_link('account.php', '', 'SSL'));
+    echo new Button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_CART_CONTENTS . ($_SESSION['cart']->count_contents() > 0 ? ' (' . $_SESSION['cart']->count_contents() . ')' : ''), 'fas fa-shopping-cart', '', [], $GLOBALS['Linker']->build('shopping_cart.php'))
+       . new Button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_CHECKOUT, 'fas fa-credit-card', '', [], $GLOBALS['Linker']->build('checkout_shipping.php'))
+       . new Button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_MY_ACCOUNT, 'fas fa-user', '', [], $GLOBALS['Linker']->build('account.php'));
 
     if ( isset($_SESSION['customer_id']) ) {
-      echo tep_draw_button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_LOGOFF, 'fas fa-sign-out-alt', tep_href_link('logoff.php', '', 'SSL'));
+      echo new Button(MODULE_CONTENT_HEADER_BUTTONS_TITLE_LOGOFF, 'fas fa-sign-out-alt', '', [], $GLOBALS['Linker']->build('logoff.php'));
     }
     ?>
   </div>

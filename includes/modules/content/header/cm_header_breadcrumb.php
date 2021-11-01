@@ -19,7 +19,7 @@
     }
 
     public function execute() {
-      global $breadcrumb, $cPath_array, $category_tree, $brand;
+      global $breadcrumb, $cPath_array, $category_tree, $brand, $Linker;
 
       // add the products model to the breadcrumb trail
       if (isset($_GET['products_id'])) {
@@ -33,9 +33,9 @@ NULLIF(p.products_model, ''), pd.products_name) AS products_model
  WHERE p.products_id = %d AND pd.language_id = %d
 EOSQL;
 
-        $model_query = tep_db_query(sprintf($model_sql, (int)$_GET['products_id'], (int)$_SESSION['languages_id']));
+        $model_query = $GLOBALS['db']->query(sprintf($model_sql, (int)$_GET['products_id'], (int)$_SESSION['languages_id']));
         if ($model = $model_query->fetch_assoc()) {
-          $breadcrumb->prepend($model['products_model'], tep_href_link('product_info.php', 'products_id=' . (int)$_GET['products_id']));
+          $breadcrumb->prepend($model['products_model'], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']]));
         }
       }
 
@@ -51,19 +51,19 @@ EOSQL;
             $breadcrumb_category = $category_tree->get($category_id, 'name');
           }
 
-          $breadcrumb->prepend($breadcrumb_category, tep_href_link('index.php', 'cPath=' . $cPath));
+          $breadcrumb->prepend($breadcrumb_category, $Linker->build('index.php', ['cPath' => $cPath]));
         }
       } elseif (!empty($_GET['manufacturers_id'])) {
         if ( ( 'True' !== $this->base_constant('MANUFACTURER_SEO_OVERRIDE') ) || Text::is_empty($breadcrumb_brand = $brand->getData('manufacturers_seo_title'))) {
           $breadcrumb_brand = $brand->getData('manufacturers_name');
         }
 
-        $breadcrumb->prepend($breadcrumb_brand, tep_href_link('index.php', 'manufacturers_id=' . (int)$_GET['manufacturers_id']));
+        $breadcrumb->prepend($breadcrumb_brand, $Linker->build('index.php', ['manufacturers_id' => (int)$_GET['manufacturers_id']]));
       }
 
       foreach (array_reverse(MODULE_CONTENT_HEADER_BREADCRUMB_TITLES) as $text => $page) {
         if (is_string($page) && (strlen($page) > 0)) {
-          $link = tep_href_link($page);
+          $link = $Linker->build($page);
         } else {
           $link = HTTP_SERVER;
         }
@@ -90,7 +90,7 @@ EOSQL;
         }
 
         $data = json_encode($schema_breadcrumb);
-        $GLOBALS['oscTemplate']->addBlock('<script type="application/ld+json">' . $data . '</script>', 'footer_scripts');
+        $GLOBALS['Template']->add_block('<script type="application/ld+json">' . $data . '</script>', 'footer_scripts');
       }
 
       if (('Header' === $this->base_constant('LOCATION')) || ('Both' === $this->base_constant('LOCATION'))) {
@@ -107,13 +107,13 @@ EOSQL;
           'title' => 'Enable Header Breadcrumb Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Breadcrumb content module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -124,25 +124,25 @@ EOSQL;
           'title' => 'Location',
           'value' => 'Both',
           'desc' => 'Where you want the breadcrumb to be used.  Display in the Header, post as Schema entries, or Both.',
-          'set_func' => "tep_cfg_select_option(['Header', 'Schema', 'Both'], ",
+          'set_func' => "Config::select_one(['Header', 'Schema', 'Both'], ",
         ],
         $this->config_key_base . 'PRODUCT_SEO_OVERRIDE' => [
           'title' => 'Product SEO Override?',
           'value' => 'True',
           'desc' => 'Do you want to allow product names in the breadcrumb to be over-ridden by your SEO Titles (if set)?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'MANUFACTURER_SEO_OVERRIDE' => [
           'title' => 'Manufacturer SEO Override?',
           'value' => 'True',
           'desc' => 'Do you want to allow manufacturer names in the breadcrumb to be over-ridden by your SEO Titles (if set)?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'CATEGORY_SEO_OVERRIDE' => [
           'title' => 'SEO Breadcrumb Override?',
           'value' => 'True',
           'desc' => 'Do you want to allow category names in the breadcrumb to be over-ridden by your SEO Titles (if set)?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }
