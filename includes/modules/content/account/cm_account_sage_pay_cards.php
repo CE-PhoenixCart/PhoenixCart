@@ -43,9 +43,9 @@
     }
 
     public function execute() {
-      $GLOBALS['oscTemplate']->_data['account']['account']['links']['sage_pay_cards'] = [
+      $GLOBALS['Template']->_data['account']['account']['links']['sage_pay_cards'] = [
         'title' => $this->public_title,
-        'link' => tep_href_link('ext/modules/content/account/sage_pay/cards.php'),
+        'link' => $GLOBALS['Linker']->build('ext/modules/content/account/sage_pay/cards.php'),
         'icon' => 'far fa-credit-card fa-5x',
       ];
     }
@@ -56,7 +56,7 @@
           'title' => 'Enable Sage Pay Card Management',
           'value' => 'True',
           'desc' => 'Do you want to enable the Sage Pay Card Management module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_ACCOUNT_SAGE_PAY_CARDS_SORT_ORDER' => [
           'title' => 'Sort Order',
