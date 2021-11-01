@@ -1,6 +1,6 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-gdpr-intro">
+<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_INTRO_CONTENT_WIDTH ?> cm-gdpr-intro">
   <div class="alert alert-info">
-    <?php echo MODULE_CONTENT_GDPR_INTRO_PUBLIC_TEXT; ?>
+    <?= MODULE_CONTENT_GDPR_INTRO_PUBLIC_TEXT ?>
   </div>
 </div>
 
@@ -16,4 +16,3 @@
   Released under the GNU General Public License
 */
 ?>
-

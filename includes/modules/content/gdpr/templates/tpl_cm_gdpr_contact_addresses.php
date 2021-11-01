@@ -1,13 +1,13 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-gdpr-contact-addresses">
+<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_CONTENT_WIDTH ?> cm-gdpr-contact-addresses">
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th colspan="2"><?php echo MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_PUBLIC_TITLE; ?></th>
+        <th colspan="2"><?= MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_PUBLIC_TITLE ?></th>
       </tr>
     </thead>
     </tbody>
       <tr>
-        <td class="w-50"><p class="text-center"><?php echo sprintf(MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_NUM_ADDRESSES, $port_my_data['YOU']['CONTACT']['ADDRESS']['OTHER']['COUNT']); ?></p></td>
+        <td class="w-50"><p class="text-center"><?= sprintf(MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_NUM_ADDRESSES, $port_my_data['YOU']['CONTACT']['ADDRESS']['OTHER']['COUNT']) ?></p></td>
         <td>
           <ul class="list-group">
             <?php
