@@ -49,17 +49,17 @@ EOSQL;
       }
 
       ob_start();
-      include $GLOBALS['oscTemplate']->map_to_template(__FILE__);
+      include Guarantor::ensure_global('Template')->map(__FILE__);
       $email_order = ob_get_clean();
 
       $parameters = ['order' => $order, 'email' => &$email_order];
-      echo $GLOBALS['OSCOM_Hooks']->call('siteWide', 'orderMail', $parameters);
+      echo $GLOBALS['hooks']->cat('orderMail', $parameters);
 
-      $accepted = tep_mail($order->customer['name'], $order->customer['email_address'], MODULE_NOTIFICATIONS_CHECKOUT_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+      $accepted = Notifications::mail($order->customer['name'], $order->customer['email_address'], MODULE_NOTIFICATIONS_CHECKOUT_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
       // send emails to other people
       if (SEND_EXTRA_ORDER_EMAILS_TO != '') {
-        tep_mail('', SEND_EXTRA_ORDER_EMAILS_TO, MODULE_NOTIFICATIONS_CHECKOUT_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        Notifications::mail('', SEND_EXTRA_ORDER_EMAILS_TO, MODULE_NOTIFICATIONS_CHECKOUT_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
       }
 
       return $accepted;
@@ -71,7 +71,7 @@ EOSQL;
           'title' => 'Enable Checkout Notification module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }

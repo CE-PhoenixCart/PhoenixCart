@@ -28,10 +28,10 @@
       Guarantor::ensure_global('hooks', 'shop');
 
       ob_start();
-      include Guarantor::ensure_global('oscTemplate')->map_to_template(__FILE__);
-      echo $GLOBALS['OSCOM_Hooks']->call('siteWide', 'statusUpdateEmail', $data);
+      include Guarantor::ensure_global('Template')->map(__FILE__);
+      echo $GLOBALS['hooks']->cat('statusUpdateEmail', $data);
 
-      return tep_mail($data['customers_name'], $data['customers_email_address'], MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_SUBJECT, ob_get_clean(), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+      return Notifications::mail($data['customers_name'], $data['customers_email_address'], MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_SUBJECT, ob_get_clean(), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
     }
 
     protected function get_parameters() {
@@ -40,7 +40,7 @@
           'title' => 'Enable Order Update Notification module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }

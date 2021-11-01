@@ -17,7 +17,7 @@
     function prepare() {
       global $customer_data;
 
-      $d = &$GLOBALS['oscTemplate']->_data[$this->group];
+      $d = &$GLOBALS['Template']->_data[$this->group];
 
       $d = [
         'account' => [
@@ -26,7 +26,7 @@
           'links' => [
             'edit' => [
               'title' => MY_ACCOUNT_INFORMATION,
-              'link' => tep_href_link('account_edit.php', '', 'SSL'),
+              'link' => $GLOBALS['Linker']->build('account_edit.php'),
               'icon' => 'fas fa-user fa-5x',
             ],
           ],
@@ -37,7 +37,7 @@
           'links' => [
             'history' => [
               'title' => MY_ORDERS_VIEW,
-              'link' => tep_href_link('account_history.php', '', 'SSL'),
+              'link' => $GLOBALS['Linker']->build('account_history.php'),
               'icon' => 'fas fa-shopping-cart fa-5x',
             ],
           ],
@@ -52,7 +52,7 @@
       if ($customer_data->has(['address'])) {
         $d['account']['links']['address_book'] = [
           'title' => MY_ACCOUNT_ADDRESS_BOOK,
-          'link' => tep_href_link('address_book.php', '', 'SSL'),
+          'link' => $GLOBALS['Linker']->build('address_book.php'),
           'icon' => 'fas fa-home fa-5x',
         ];
       }
@@ -60,7 +60,7 @@
       if ($customer_data->has(['password'])) {
         $d['account']['links']['password'] = [
           'title' => MY_ACCOUNT_PASSWORD,
-          'link' => tep_href_link('account_password.php', '', 'SSL'),
+          'link' => $GLOBALS['Linker']->build('account_password.php'),
           'icon' => 'fas fa-cog fa-5x',
         ];
       }
@@ -68,28 +68,28 @@
       if ($customer_data->has(['newsletter'])) {
         $d['notifications']['links']['newsletters'] = [
           'title' => EMAIL_NOTIFICATIONS_NEWSLETTERS,
-          'link' => tep_href_link('account_newsletters.php', '', 'SSL'),
+          'link' => $GLOBALS['Linker']->build('account_newsletters.php'),
           'icon' => 'fas fa-envelope fa-5x',
         ];
       }
 
       $d['notifications']['links']['products'] = [
         'title' => EMAIL_NOTIFICATIONS_PRODUCTS,
-        'link' => tep_href_link('account_notifications.php', '', 'SSL'),
+        'link' => $GLOBALS['Linker']->build('account_notifications.php'),
         'icon' => 'fas fa-paper-plane fa-5x',
       ];
     }
 
     function build() {
-      global $oscTemplate;
+      global $Template;
 
-      uasort($oscTemplate->_data[$this->group], function (array $a, array $b) {
+      uasort($Template->_data[$this->group], function (array $a, array $b) {
         return $a['sort_order'] <=> $b['sort_order'];
       });
 
       $output = '<div class="col-sm-12">';
 
-      foreach ( $oscTemplate->_data[$this->group] as $group ) {
+      foreach ( $Template->_data[$this->group] as $group ) {
         $output .= '<h4>' . $group['title'] . '</h4>';
         $output .= '<div class="list-group list-group-horizontal-sm">';
 
@@ -115,7 +115,7 @@
 
       $output .= '</div>';
 
-      $oscTemplate->addContent($output, $this->group);
+      $Template->add_content($output, $this->group);
     }
 
   }

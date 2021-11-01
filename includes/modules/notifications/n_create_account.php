@@ -19,11 +19,11 @@
 
     public function notify($customer) {
       ob_start();
-      include $GLOBALS['oscTemplate']->map_to_template(__FILE__);
-      echo $GLOBALS['OSCOM_Hooks']->call('siteWide', 'accountCreationNotification');
+      include Guarantor::ensure_global('Template')->map(__FILE__);
+      echo $GLOBALS['hooks']->cat('accountCreationNotification');
       $email_text = ob_get_clean();
 
-      return tep_mail($customer->get('name'), $customer->get('email_address'), MODULE_NOTIFICATIONS_CREATE_ACCOUNT_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+      return Notifications::mail($customer->get('name'), $customer->get('email_address'), MODULE_NOTIFICATIONS_CREATE_ACCOUNT_SUBJECT, $email_text, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
     }
 
     protected function get_parameters() {
@@ -32,7 +32,7 @@
           'title' => 'Enable Account Creation Notification module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }

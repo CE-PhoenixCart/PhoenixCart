@@ -39,7 +39,7 @@
           'title' => 'Enable Flat Shipping',
           'value' => 'True',
           'desc' => 'Do you want to offer flat rate shipping?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'COST' => [
           'title' => 'Shipping Cost',
@@ -50,15 +50,15 @@
           'title' => 'Tax Class',
           'value' => '0',
           'desc' => 'Use the following tax class on the shipping fee.',
-          'use_func' => 'tep_get_tax_class_title',
-          'set_func' => 'tep_cfg_pull_down_tax_classes(',
+          'use_func' => 'Tax::get_class_title',
+          'set_func' => 'Config::select_tax_class(',
         ],
         $this->config_key_base . 'ZONE' => [
           'title' => 'Shipping Zone',
           'value' => '0',
           'desc' => 'If a zone is selected, only enable this shipping method for that zone.',
-          'use_func' => 'tep_get_zone_class_title',
-          'set_func' => 'tep_cfg_pull_down_zone_classes(',
+          'use_func' => 'geo_zone::fetch_name',
+          'set_func' => 'Config::select_geo_zone(',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
