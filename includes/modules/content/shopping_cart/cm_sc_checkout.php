@@ -30,8 +30,6 @@
     }
 
     public function execute() {
-      $content_width = (int)MODULE_CONTENT_SC_CHECKOUT_CONTENT_WIDTH;
-
       if ($_SESSION['cart']->count_contents() > 0) {
         $payment_modules = new payment();
 
@@ -48,13 +46,13 @@
           'title' => 'Enable Shopping Cart Checkout Button',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_SC_CHECKOUT_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_SC_CHECKOUT_SORT_ORDER' => [
           'title' => 'Sort Order',

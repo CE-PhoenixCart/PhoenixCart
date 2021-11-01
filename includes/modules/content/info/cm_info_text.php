@@ -33,7 +33,7 @@
           'title' => 'Enable Text Module',
           'value' => 'True',
           'desc' => 'Should this module be shown?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_INFO_TEXT_CONTENT_WIDTH' => [
           'title' => 'Content Width',

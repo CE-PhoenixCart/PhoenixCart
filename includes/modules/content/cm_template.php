@@ -11,6 +11,6 @@
 */
 
   ob_start();
-  include($GLOBALS['oscTemplate']->map_to_template($tpl_data['file']));
+  include(Guarantor::ensure_global('Template')->map($tpl_data['file']));
 
-  $GLOBALS['oscTemplate']->addContent(ob_get_clean(), $tpl_data['group']);
+  $GLOBALS['Template']->add_content(ob_get_clean(), $tpl_data['group']);

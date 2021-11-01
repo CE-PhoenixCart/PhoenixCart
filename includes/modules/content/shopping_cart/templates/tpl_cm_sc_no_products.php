@@ -1,7 +1,7 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-sc-no-products">
-  <div class="alert alert-danger"><?php echo MODULE_CONTENT_SC_NO_PRODUCTS_TEXT_CART_EMPTY; ?></div>
-  
-  <p class="text-right"><?php echo tep_draw_button(MODULE_CONTENT_SC_NO_PRODUCTS_BUTTON_CONTINUE, 'fas fa-angle-right', tep_href_link('index.php'), 'primary', NULL, 'btn-danger btn-lg btn-block'); ?></p>
+<div class="col-sm-<?= (int)MODULE_CONTENT_SC_NO_PRODUCTS_CONTENT_WIDTH ?> cm-sc-no-products">
+  <div class="alert alert-danger"><?= MODULE_CONTENT_SC_NO_PRODUCTS_TEXT_CART_EMPTY ?></div>
+
+  <p class="text-right"><?= new Button(MODULE_CONTENT_SC_NO_PRODUCTS_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-danger btn-lg btn-block', [], $GLOBALS['Linker']->build('index.php')) ?></p>
 </div>
 
 <?php
@@ -15,7 +15,7 @@
     Rainer Schmied - @raiwa
 
   All rights reserved.
-  
+
   Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
