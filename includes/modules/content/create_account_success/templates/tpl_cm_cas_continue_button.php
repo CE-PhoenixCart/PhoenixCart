@@ -1,5 +1,5 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-cas-continue-button">
-  <?php echo tep_draw_button(MODULE_CONTENT_CAS_CONTINUE_BUTTON_TEXT, 'fas fa-angle-right', $origin_href, null, null, 'btn-success btn-block btn-lg'); ?>
+<div class="col-sm-<?= (int)MODULE_CONTENT_CAS_CONTINUE_BUTTON_CONTENT_WIDTH ?> cm-cas-continue-button">
+  <?= new Button(MODULE_CONTENT_CAS_CONTINUE_BUTTON_TEXT, 'fas fa-angle-right', 'btn-success btn-block btn-lg', [], $origin_href) ?>
 </div>
 
 <?php
@@ -14,4 +14,3 @@
   Released under the GNU General Public License
 */
 ?>
-   

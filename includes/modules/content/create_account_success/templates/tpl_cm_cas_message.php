@@ -1,6 +1,6 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-cas-message">
+<div class="col-sm-<?= (int)MODULE_CONTENT_CAS_MESSAGE_CONTENT_WIDTH ?> cm-cas-message">
   <div class="alert alert-success" role="alert">
-    <?php echo sprintf(MODULE_CONTENT_CAS_MESSAGE_PUBLIC_TITLE, $contact_us_href, $account_href); ?>
+    <?= sprintf(MODULE_CONTENT_CAS_MESSAGE_PUBLIC_TITLE, $contact_us_href, $account_href) ?>
   </div>
 </div>
 

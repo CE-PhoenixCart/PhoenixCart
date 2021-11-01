@@ -1,14 +1,14 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-login-form ">
+<div class="col-sm-<?= (int)MODULE_CONTENT_LOGIN_FORM_CONTENT_WIDTH ?> cm-login-form ">
 
-  <p class="alert alert-success" role="alert"><?php echo MODULE_CONTENT_LOGIN_TEXT_RETURNING_CUSTOMER; ?></p>
+  <p class="alert alert-success" role="alert"><?= MODULE_CONTENT_LOGIN_TEXT_RETURNING_CUSTOMER ?></p>
 
 <?php
-  echo tep_draw_form('login', tep_href_link('login.php', 'action=process', 'SSL'), 'post', '', true);
+  echo new Form('login', $GLOBALS['Linker']->build('login.php', ['action' => 'process']), 'post');
   $GLOBALS['customer_data']->act_on('username', 'display_input');
   $GLOBALS['customer_data']->act_on('password', 'display_input');
 ?>
 
-  <p class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_LOGIN, 'fas fa-sign-in-alt', null, 'primary', null, 'btn-success btn-block'); ?></p>
+  <p class="text-right"><?= new Button(IMAGE_BUTTON_LOGIN, 'fas fa-sign-in-alt', 'btn-success btn-block') ?></p>
 
   </form>
 
