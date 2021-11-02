@@ -403,11 +403,11 @@
         }
 
         if ($params['BillingCountry'] == 'US') {
-          $params['BillingState'] = Zone::fetch_code($order->billing['country']['id'], $order->billing['zone_id'], '');
+          $params['BillingState'] = Zone::fetch_code($order->billing['zone_id'], $order->billing['country']['id'], '');
         }
 
         if ($params['DeliveryCountry'] == 'US') {
-          $params['DeliveryState'] = Zone::fetch_code($order->delivery['country']['id'], $order->delivery['zone_id'], '');
+          $params['DeliveryState'] = Zone::fetch_code($order->delivery['zone_id'], $order->delivery['country']['id'], '');
         }
 
         $contents = [];
