@@ -326,7 +326,7 @@ SELECT COUNT(*) AS total
  FROM products_attributes pa INNER JOIN products_attributes_download pad ON pa.products_attributes_id = pad.products_attributes_id
  WHERE pa.products_id = %d AND pa.options_values_id = %d
 EOSQL
-          , (int)$products_id, (int)$value));
+          , (int)$product_id, (int)$value));
         $virtual_check = $virtual_check_query->fetch_assoc();
 
         if ($virtual_check['total'] > 0) {
