@@ -19,8 +19,6 @@
     }
 
     function execute() {
-      $content_width = (int)MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
