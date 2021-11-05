@@ -42,6 +42,7 @@
         list($number) = explode('-', $version);
 
         if (version_compare($number, '5.7.7', '<')) {
+          error_log("Version [$version] not at least MySQL 5.7.7");
           exit("[[-5|$version]]");
         }
 
@@ -51,6 +52,7 @@
           exit('[[1]]');
         }
 
+        error_log("Version [$version] not at least MariaDB 10.2.2");
         exit("[[-10|$version]]");
 
       case 'dbImport':
