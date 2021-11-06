@@ -69,7 +69,7 @@ class hook_admin_siteWide_hMenu {
         $n++;
       }
 
-      $icon = new Image('images/CE-Phoenix-30-30.png', [], 'CE Phoenix v' . Versions::get('Phoenix'), 30, 30);
+      $icon = $GLOBALS['Admin']->image('images/CE-Phoenix-30-30.png', [], 'CE Phoenix v' . Versions::get('Phoenix'), 30, 30);
       $output = '<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark">';
         $output .= '<a class="navbar-brand" href="' . $GLOBALS['Admin']->link('index.php') . '">' . $icon->set_responsive(false) . '</a>';
         $output .= '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
@@ -78,7 +78,7 @@ class hook_admin_siteWide_hMenu {
         $output .= '</div>';
       $output .= '</nav>';
 
-      $icon = new Image('images/icon_phoenix.png', [], 'Phoenix');
+      $icon = $GLOBALS['Admin']->image('images/icon_phoenix.png', [], 'Phoenix');
       $output .= '<div class="col bg-light mb-1 border-bottom d-print-none">';
         $output .= '<ul class="nav justify-content-end">';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/">' . $icon . ' ' . HEADER_TITLE_PHOENIX_CLUB . '</a></li>';
