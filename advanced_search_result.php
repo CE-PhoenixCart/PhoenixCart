@@ -83,13 +83,21 @@
     Href::redirect($Linker->build('advanced_search.php')->retain_query_except());
   }
 
-  $select_str = "SELECT DISTINCT p.products_id, m.*, p.*, pd.*, p.products_quantity AS in_stock, IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price, IF(s.status, s.specials_new_products_price, p.products_price) AS final_price, IF(s.status, 1, 0) AS is_special ";
+  $select_str = sprintf("SELECT DISTINCT m.*, %s", Product::COLUMNS);
 
   if ( (DISPLAY_PRICE_WITH_TAX == 'true') && (!Text::is_empty($pfrom) || !Text::is_empty($pto)) ) {
-    $select_str .= ", SUM(tr.tax_rate) AS tax_rate ";
+    $select_str .= ", SUM(tr.tax_rate) AS tax_rate";
   }
 
-  $from_str = "FROM products p LEFT JOIN manufacturers m using(manufacturers_id) LEFT JOIN specials s ON p.products_id = s.products_id";
+  $from_str = <<<'EOSQL'
+ FROM products p
+  INNER JOIN products_description pd ON p.products_id = pd.products_id
+  INNER JOIN products_to_categories p2c ON p.products_id = p2c.products_id
+  INNER JOIN categories c ON p2c.categories_id = c.categories_id
+  LEFT JOIN manufacturers m USING(manufacturers_id)
+  LEFT JOIN specials s ON p.products_id = s.products_id
+  LEFT JOIN (SELECT products_id, COUNT(*) AS attribute_count FROM products_attributes GROUP BY products_id) a ON p.products_id = a.products_id
+EOSQL;
 
   if ( (DISPLAY_PRICE_WITH_TAX == 'true') && (!Text::is_empty($pfrom) || !Text::is_empty($pto)) ) {
     if (isset($customer) && ($customer instanceof customer)) {
@@ -102,9 +110,7 @@
     $from_str .= " LEFT JOIN tax_rates tr ON p.products_tax_class_id = tr.tax_class_id LEFT JOIN zones_to_geo_zones gz ON tr.tax_zone_id = gz.geo_zone_id AND (gz.zone_country_id IS NULL OR gz.zone_country_id = '0' OR gz.zone_country_id = " . (int)$country_id . ") AND (gz.zone_id IS NULL OR gz.zone_id = '0' OR gz.zone_id = " . (int)$zone_id . ")";
   }
 
-  $from_str .= ", products_description pd, categories c, products_to_categories p2c";
-
-  $where_str = " WHERE p.products_status = 1 AND p.products_id = pd.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " AND p.products_id = p2c.products_id AND p2c.categories_id = c.categories_id ";
+  $where_str = " WHERE p.products_status = 1 AND pd.language_id = " . (int)$_SESSION['languages_id'];
 
   if (isset($_GET['categories_id']) && !Text::is_empty($_GET['categories_id'])) {
     if (isset($_GET['inc_subcat']) && ($_GET['inc_subcat'] == '1')) {
