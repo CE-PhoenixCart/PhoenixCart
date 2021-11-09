@@ -25,8 +25,8 @@
       $menu->set_selection($_GET['manufacturers_id']);
     }
 ?>
-  <ul class="list-group list-group-flush">';
-    <li class="list-group-item">';
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
       <?= (new Form('manufacturers', $GLOBALS['Linker']->build('index.php', [], false), 'get'))->hide_session_id() ?>
         <?= $menu ?>
       </form>
