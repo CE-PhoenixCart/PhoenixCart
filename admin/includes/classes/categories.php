@@ -79,7 +79,7 @@
       }, $ids)) ?: TEXT_TOP;
     }
 
-    public function remove($category_id) {
+    public static function remove($category_id) {
       $duplicate_image_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT c1.categories_image
  FROM categories c1
