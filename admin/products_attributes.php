@@ -28,6 +28,8 @@
 
   require 'includes/segments/process_action.php';
 
+  $get_link = (clone $link)->set_parameter('formid', $_SESSION['sessiontoken']);
+
   $product_selector = new Select('products_id', Products::list_options());
   $options = $db->fetch_all(sprintf(<<<'EOSQL'
 SELECT products_options_id AS id, products_options_name AS text, products_options.*
@@ -139,12 +141,13 @@ EOSQL
                 <td class="text-right"><?= $attributes_values["options_values_price"] ?></td>
                 <td class="text-center"><?= $attributes_values["price_prefix"] ?></td>
                 <td class="text-right"><?=
-                  $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $link)->set_parameter('action', 'delete_attribute')->set_parameter('attribute_id', (int)$_GET['attribute_id'])),
+                  $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $get_link)->set_parameter('action', 'delete_attribute')->set_parameter('attribute_id', (int)$_GET['attribute_id'])),
                   $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link)
                 ?></td>
               </tr>
               <?php
             } else {
+              $attribute_link = (clone $get_link)->set_parameter('attribute_id', $attributes_values['products_attributes_id']);
             ?>
             <tr>
               <td><?= $attributes_values['products_name'] ?? '' ?></td>
@@ -153,8 +156,8 @@ EOSQL
               <td class="text-right"><?= $attributes_values["options_values_price"] ?></td>
               <td class="text-center"><?= $attributes_values["price_prefix"] ?></td>
               <td class="text-right"><?=
-                $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $link)->set_parameter('action', 'update_attribute')->set_parameter('attribute_id', $attributes_values['products_attributes_id'])),
-                $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $link)->set_parameter('action', 'delete_product_attribute')->set_parameter('attribute_id', $attributes_values['products_attributes_id']))
+                $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $attribute_link)->set_parameter('action', 'update_attribute')),
+                $Admin->button('', 'fas fa-trash text-danger', 'btn-link', $attribute_link->set_parameter('action', 'delete_product_attribute'))
               ?></td>
             </tr>
             <?php
@@ -266,7 +269,7 @@ EOSQL
             </tr>
             <tr>
               <td colspan="3"><?=
-                $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $link)->set_parameter('action', 'delete_option')->set_parameter('option_id', (int)$_GET['option_id'])),
+                $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $get_link)->set_parameter('action', 'delete_option')->set_parameter('option_id', (int)$_GET['option_id'])),
                 $Admin->button('', 'fas fa-times text-dark', 'btn-light', $link)
               ?></td>
             </tr>
@@ -343,8 +346,8 @@ EOSQL
               <td><?= $options_values['products_options_name'] ?></td>
               <td class="w-25"><?= $options_values['sort_order'] ?></td>
               <td class="w-25 text-right"><?=
-                $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $link)->set_parameter('action', 'update_option')->set_parameter('option_id', (int)$options_values['products_options_id'])),
-                $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $link)->set_parameter('action', 'delete_product_option')->set_parameter('option_id', (int)$options_values['products_options_id']))
+                $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $get_link)->set_parameter('action', 'update_option')->set_parameter('option_id', (int)$options_values['products_options_id'])),
+                $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $get_link)->set_parameter('action', 'delete_product_option')->set_parameter('option_id', (int)$options_values['products_options_id']))
               ?></td>
             </tr>
             <?php
@@ -452,7 +455,7 @@ EOSQL
           </tr>
           <tr>
             <td class="text-right" colspan="3"><?=
-              $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $link)->set_parameter('action', 'delete_value')->set_parameter('value_id', (int)$_GET['value_id'])),
+              $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $get_link)->set_parameter('action', 'delete_value')->set_parameter('value_id', (int)$_GET['value_id'])),
               $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link)
             ?></td>
           </tr>
@@ -531,14 +534,15 @@ EOSQL
               </tr>
               <?php
             } else {
+              $value_link = (clone $get_link)->set_parameter('value_id', $values_values['products_options_values_id']);
               ?>
               <tr>
                 <td><?= $values_values['products_options_name'] ?></td>
                 <td><?= $values_values['products_options_values_name'] ?></td>
                 <td><?= $values_values['sort_order'] ?></td>
                 <td class="text-right"><?=
-                  $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $link)->set_parameter('action', 'update_option_value')->set_parameter('value_id', $values_values['products_options_values_id'])),
-                  $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $link)->set_parameter('action', 'delete_option_value')->set_parameter('value_id', $values_values['products_options_values_id']))
+                  $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $value_link)->set_parameter('action', 'update_option_value')),
+                  $Admin->button('', 'fas fa-trash text-danger', 'btn-link', $value_link->set_parameter('action', 'delete_option_value'))
                 ?></td>
               </tr>
               <?php
