@@ -135,7 +135,7 @@
 
       $parameters = [
         'group' => $group,
-        'results' => &$modules,
+        'modules' => &$modules,
       ];
       $GLOBALS['all_hooks']->cat('getContentModules', $parameters);
       return $modules;
