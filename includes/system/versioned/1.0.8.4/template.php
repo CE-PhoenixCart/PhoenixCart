@@ -133,7 +133,10 @@
         }
       }
 
-      $parameters = [ 'results' => &$modules ];
+      $parameters = [
+        'group' => $group,
+        'results' => &$modules,
+      ];
       $GLOBALS['all_hooks']->cat('getContentModules', $parameters);
       return $modules;
     }
