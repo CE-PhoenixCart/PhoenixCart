@@ -18,7 +18,7 @@
 
     public function execute() {
       if ((basename(Request::get_page()) === 'index.php') && isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-        $brand_seo_description = $brand->getData('manufacturers_seo_description');
+        $brand_seo_description = $GLOBALS['brand']->getData('manufacturers_seo_description');
 
         if (!Text::is_empty($brand_seo_description)) {
           $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($brand_seo_description) . '" />' . PHP_EOL, $this->group);
