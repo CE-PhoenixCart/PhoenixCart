@@ -2,7 +2,7 @@
   <table class="table table-striped table-hover">
     <thead class="thead-dark">
       <tr>
-        <th colspan="2"><?= MODULE_CONTENT_GDPR_CONTACT_DETAILS_PUBLIC_T ?></th>
+        <th colspan="2"><?= MODULE_CONTENT_GDPR_CONTACT_DETAILS_PUBLIC_TITLE ?></th>
       </tr>
     </thead>
     <tr>
