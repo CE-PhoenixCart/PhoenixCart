@@ -82,7 +82,7 @@
         'id' => $input_id,
         'autocomplete' => 'username email',
         'placeholder' => ENTRY_EMAIL_ADDRESS_TEXT
-      ]);
+      ], 'email');
 
       if (isset($customer_details) && is_array($customer_details)) {
         $input->set('value', $this->get('email_address', $customer_details));
