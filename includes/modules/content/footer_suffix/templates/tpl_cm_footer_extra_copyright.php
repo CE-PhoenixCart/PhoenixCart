@@ -1,5 +1,5 @@
-<div class="col-sm-<?php echo $content_width; ?> text-center text-sm-left cm-footer-extra-copyright">
-  <?php echo FOOTER_TEXT_BODY; ?>
+<div class="col-sm-<?= (int)MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_CONTENT_WIDTH ?> text-center text-sm-left cm-footer-extra-copyright">
+  <?= sprintf(FOOTER_TEXT_BODY, date('Y'), $GLOBALS['Linker']->build('index.php'), STORE_NAME) ?>
 </div>
 
 <?php

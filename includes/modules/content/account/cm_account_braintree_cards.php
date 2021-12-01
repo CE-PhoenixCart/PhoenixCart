@@ -43,9 +43,9 @@
     }
 
     public function execute() {
-      $GLOBALS['oscTemplate']->_data['account']['account']['links']['braintree_cards'] = [
+      $GLOBALS['Template']->_data['account']['account']['links']['braintree_cards'] = [
         'title' => $this->public_title,
-        'link' => tep_href_link('ext/modules/content/account/braintree/cards.php'),
+        'link' => $GLOBALS['Linker']->build('ext/modules/content/account/braintree/cards.php'),
         'icon' => 'far fa-credit-card fa-5x',
       ];
     }
@@ -56,7 +56,7 @@
           'title' => 'Enable Braintree Card Management',
           'value' => 'True',
           'desc' => 'Do you want to enable the Braintree Card Management module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_ACCOUNT_BRAINTREE_CARDS_SORT_ORDER' => [
           'title' => 'Sort Order',

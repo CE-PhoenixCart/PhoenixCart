@@ -23,20 +23,20 @@
           'title' => 'Enable State module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '2',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require State module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the state to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'ENTRY_STATE_MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'address_book;checkout_new_address;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -73,7 +73,7 @@
           }
 
           if (!$customer_details[$field]) {
-            $customer_details[$field] = tep_get_zone_name($GLOBALS['customer_data']->get('country_id', $customer_details), $this->get('zone_id', $customer_details), null);
+            $customer_details[$field] = Zone::fetch_name($this->get('zone_id', $customer_details), $GLOBALS['customer_data']->get('country_id', $customer_details), null);
           }
 
           return $customer_details[$field];
@@ -88,15 +88,13 @@
 
     public function display_input(&$customer_details = null) {
       $label_text = ENTRY_STATE;
-
       $input_id = 'inputState';
-      $attribute = 'id="' . $input_id . '" autocomplete="address-level1"';
 
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
-      }
+      $parameters = [
+        'id' => $input_id,
+        'autocomplete' => 'address-level1'
+      ];
+
 
       $state = null;
       $zones = null;
@@ -105,48 +103,51 @@
         $country_id = $GLOBALS['customer_data']->get('country_id', $customer_details);
 
         if ((int)$country_id > 0) {
-          $zones = [];
-          $zones_query = tep_db_query("SELECT zone_name FROM zones WHERE zone_country_id = " . (int)$country_id . " ORDER BY zone_name");
-          while ($zones_values = tep_db_fetch_array($zones_query)) {
-            $zones[] = ['id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']];
-          }
+          $zones = $GLOBALS['db']->fetch_all("SELECT zone_name AS id, zone_name AS text FROM zones WHERE zone_country_id = " . (int)$country_id . " ORDER BY zone_name");
         }
       }
 
+      $post_input = null;
       if (empty($zones)) {
-        if (tep_not_null(ENTRY_STATE_TEXT)) {
-          $attribute .= ' placeholder="' . ENTRY_STATE_TEXT . '"';
+        if (!Text::is_empty(ENTRY_STATE_TEXT)) {
+          $parameters['placeholder'] = ENTRY_STATE_TEXT;
         }
 
-        $input = tep_draw_input_field('state', $state, $attribute);
+        $input = (new Input('state', $parameters))->set('value', $state);
       } else {
-        if (tep_not_null(ENTRY_STATE_TEXT)) {
-          $attribute .= ' aria-describedby="atState"';
-          $postInput .= '<span id="atState" class="form-text">' . ENTRY_STATE_TEXT . '</span>';
+        if (!Text::is_empty(ENTRY_STATE_TEXT)) {
+          $parameters['aria-describedby'] = 'atState';
+          $post_input .= '<span id="atState" class="form-text">' . ENTRY_STATE_TEXT . '</span>';
         }
 
-        $input = tep_draw_pull_down_menu('state', $zones, $state, $attribute);
+        $input = new Select('state', $zones, $parameters);
+        $input->set_selection($state);
       }
-      $input .= $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        if (isset($post_input)) {
+          $input .= $post_input;
+        }
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function fetch_zone_count($country_id) {
       static $check;
 
       if (!isset($check)) {
-        $check_query = tep_db_query("SELECT COUNT(*) AS total FROM zones WHERE zone_country_id = " . (int)$country_id);
-        $check = tep_db_fetch_array($check_query);
+        $check = $GLOBALS['db']->query("SELECT COUNT(*) AS total FROM zones WHERE zone_country_id = " . (int)$country_id)->fetch_assoc();
       }
 
       return $check['total'];
     }
 
     public function process(&$customer_details) {
-      $customer_details['state'] = tep_db_prepare_input($_POST['state']);
+      $customer_details['state'] = Text::input($_POST['state']);
       if (isset($_POST['zone_id'])) {
-        $customer_details['zone_id'] = tep_db_prepare_input($_POST['zone_id']);
+        $customer_details['zone_id'] = Text::input($_POST['zone_id']);
       } else {
         $customer_details['zone_id'] = false;
       }
@@ -155,10 +156,10 @@
 
       $country_id = $GLOBALS['customer_data']->get('country_id', $customer_details);
       if ((int)$country_id > 0 && $this->fetch_zone_count($country_id) > 0) {
-        $zone_query = tep_db_query("SELECT DISTINCT zone_id FROM zones WHERE zone_country_id = " . (int)$country_id
-          . " AND (zone_name = '" . tep_db_input($customer_details['state']) . "' OR zone_code = '" . tep_db_input($customer_details['state']) . "')");
-        if (tep_db_num_rows($zone_query) === 1) {
-          $zone = tep_db_fetch_array($zone_query);
+        $zone_query = $GLOBALS['db']->query("SELECT DISTINCT zone_id FROM zones WHERE zone_country_id = " . (int)$country_id
+          . " AND (zone_name = '" . $GLOBALS['db']->escape($customer_details['state']) . "' OR zone_code = '" . $GLOBALS['db']->escape($customer_details['state']) . "')");
+        if (mysqli_num_rows($zone_query) === 1) {
+          $zone = $zone_query->fetch_assoc();
           $customer_details['zone_id'] = (int)$zone['zone_id'];
           $customer_details['entry_state'] = '';
         } else {

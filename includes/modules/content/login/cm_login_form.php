@@ -16,11 +16,11 @@
 
     const CONFIG_KEY_BASE = 'MODULE_CONTENT_LOGIN_FORM_';
 
-    function __construct() {
+    public function __construct() {
       parent::__construct(__FILE__);
     }
 
-    function login() {
+    public function login() {
       global $customer_data;
 
       $email_address = Text::input($_POST['email_address']);
@@ -52,8 +52,6 @@
         $GLOBALS['messageStack']->add('login', MODULE_CONTENT_LOGIN_TEXT_LOGIN_ERROR);
       }
 
-      $content_width = (int)MODULE_CONTENT_LOGIN_FORM_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -64,13 +62,13 @@
           'title' => 'Enable Login Form Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the login form module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_LOGIN_FORM_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_LOGIN_FORM_SORT_ORDER' => [
           'title' => 'Sort Order',

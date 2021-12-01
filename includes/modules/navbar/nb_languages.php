@@ -17,7 +17,7 @@
     public $group = 'navbar_modules_right';
 
     function getOutput() {
-      if (substr(basename($GLOBALS['PHP_SELF']), 0, strlen('checkout')) !== 'checkout') {
+      if (substr(basename(Request::get_page()), 0, strlen('checkout')) !== 'checkout') {
         if (($GLOBALS['lng'] ?? null) instanceof language) {
           $lng =& $GLOBALS['lng'];
         } else {
@@ -35,13 +35,13 @@
           'title' => 'Enable Languages Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your Navbar?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_NAVBAR_LANGUAGES_CONTENT_PLACEMENT' => [
           'title' => 'Content Placement',
           'value' => 'Right',
           'desc' => 'Should the module be loaded in the Left or Right or the Home area of the Navbar?',
-          'set_func' => "tep_cfg_select_option(['Home', 'Left', 'Center', 'Right'], ",
+          'set_func' => "Config::select_one(['Home', 'Left', 'Center', 'Right'], ",
         ],
         'MODULE_NAVBAR_LANGUAGES_SORT_ORDER' => [
           'title' => 'Sort Order',

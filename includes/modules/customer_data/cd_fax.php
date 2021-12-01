@@ -23,20 +23,20 @@
           'title' => 'Enable Fax module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '3',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Fax module (if enabled)',
           'value' => 'False',
           'desc' => 'Do you want the fax to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'account_edit;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -76,33 +76,30 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_FAX;
-
       $input_id = 'inputFax';
-      $attribute = 'id="' . $input_id . '" placeholder="' . ENTRY_FAX_TEXT . '"';
-      $postInput = '';
+
+      $input = new Input('fax', [
+        'id' => $input_id,
+        'placeholder' => ENTRY_FAX_TEXT,
+      ]);
+
+      if (isset($customer_details) && is_array($customer_details)) {
+        $input->set('value', $this->get('fax', $customer_details));
+      }
+
       if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
       }
 
-      $fax = null;
-      if (!empty($customer_details) && is_array($customer_details)) {
-        $fax = $this->get('fax', $customer_details);
-      }
-
-      $input = tep_draw_input_field('fax', $fax, $attribute)
-             . $postInput;
-
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['fax'] = tep_db_prepare_input($_POST['fax']);
+      $customer_details['fax'] = Text::input($_POST['fax']);
 
       if (strlen($customer_details['fax']) < $this->base_constant('MIN_LENGTH')
-        && ($this->is_required()
-          || !empty($customer_details['fax'])
-          )
+        && ($this->is_required() || $customer_details['fax'])
         )
       {
         $GLOBALS['messageStack']->add_classed(

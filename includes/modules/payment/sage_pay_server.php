@@ -136,11 +136,11 @@
         }
 
         if ($params['BillingCountry'] === 'US') {
-          $params['BillingState'] = Zone::fetch_code($customer_data->get('country_id', $order->billing), $customer_data->get('zone_id', $order->billing), '');
+          $params['BillingState'] = Zone::fetch_code($customer_data->get('zone_id', $order->billing), $customer_data->get('country_id', $order->billing), '');
         }
 
         if ($params['DeliveryCountry'] === 'US') {
-          $params['DeliveryState'] = Zone::fetch_code($customer_data->get('country_id', $order->delivery), $customer_data->get('zone_id', $order->delivery), '');
+          $params['DeliveryState'] = Zone::fetch_code($customer_data->get('zone_id', $order->delivery), $customer_data->get('country_id', $order->delivery), '');
         }
 
         if ( MODULE_PAYMENT_SAGE_PAY_SERVER_PROFILE_PAGE !== 'Normal' ) {

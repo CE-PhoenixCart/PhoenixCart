@@ -15,11 +15,11 @@
      . MODULE_NOTIFICATIONS_CHECKOUT_SEPARATOR . "\n"
      . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_ORDER_NUMBER . ' ' . $order->get_id() . "\n"
      . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_INVOICE_URL . ' '
-     . tep_href_link('account_history_info.php', 'order_id=' . $order->get_id(), 'SSL', false) . "\n"
+     . $GLOBALS['Linker']->build('account_history_info.php', ['order_id' => $order->get_id()], false) . "\n"
      . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_DATE_ORDERED . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
 
   if (!empty($order->info['comments'])) {
-    echo tep_db_output($order->info['comments']) . "\n";
+    echo htmlspecialchars($order->info['comments']) . "\n";
   }
 
   echo MODULE_NOTIFICATIONS_CHECKOUT_TEXT_PRODUCTS . "\n"
@@ -30,11 +30,11 @@
        . (empty($product['model']) ? '' : ' (' . $product['model'] . ')')
        . ' = ' . $GLOBALS['currencies']->display_price($product['final_price'], $product['tax'], $product['qty']);
 
-//------insert customer chosen option to order--------
+//------insert customer chosen options to order--------
     foreach (($product['attributes'] ?? []) as $attribute) {
       echo "\n\t" . $attribute['option'] . ' ' . $attribute['value'];
     }
-//------insert customer chosen option eof ----
+//------insert customer chosen options eof ----
   }
   echo "\n" . MODULE_NOTIFICATIONS_CHECKOUT_SEPARATOR . "\n";
 

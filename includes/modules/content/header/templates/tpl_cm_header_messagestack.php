@@ -1,5 +1,5 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-header-messagestack">
-  <?php echo $messageStack->output('header'); ?>
+<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_MESSAGESTACK_CONTENT_WIDTH ?> cm-header-messagestack">
+  <?= $GLOBALS['messageStack']->output('header') ?>
 </div>
 
 <?php

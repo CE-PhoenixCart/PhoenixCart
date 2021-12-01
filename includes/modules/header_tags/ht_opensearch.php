@@ -66,7 +66,7 @@
         ],
         'MODULE_HEADER_TAGS_OPENSEARCH_SITE_ICON' => [
           'title' => '16x16 Icon',
-          'value' => HTTP_CATALOG_SERVER . DIR_WS_CATALOG . 'favicon.ico',
+          'value' => (defined('HTTP_CATALOG_SERVER') ? HTTP_CATALOG_SERVER : HTTP_SERVER) . DIR_WS_CATALOG . 'favicon.ico',
           'desc' => 'A 16x16 sized icon (must be in .ico format, eg http://server/favicon.ico). (optional)',
         ],
         'MODULE_HEADER_TAGS_OPENSEARCH_SITE_IMAGE' => [

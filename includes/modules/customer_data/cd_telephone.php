@@ -23,20 +23,20 @@
           'title' => 'Enable Telephone module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '3',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Telephone module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the telephone to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'account_edit;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -76,28 +76,28 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_TELEPHONE;
-
       $input_id = 'inputTelephone';
-      $attribute = 'id="' . $input_id . '" autocomplete="tel" placeholder="' . ENTRY_TELEPHONE_TEXT . '"';
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
-      }
 
-      $telephone = null;
+      $input = new Input('telephone', [
+        'id' => $input_id,
+        'autocomplete' => 'tel',
+        'placeholder' => ENTRY_TELEPHONE_TEXT,
+      ]);
+
       if (!empty($customer_details) && is_array($customer_details)) {
-        $telephone = $this->get('telephone', $customer_details);
+        $input->set('value', $this->get('telephone', $customer_details));
       }
 
-      $input = tep_draw_input_field('telephone', $telephone, $attribute)
-             . $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['telephone'] = tep_db_prepare_input($_POST['telephone']);
+      $customer_details['telephone'] = Text::input($_POST['telephone']);
 
       if (strlen($customer_details['telephone']) < $this->base_constant('MIN_LENGTH')
         && ($this->is_required()

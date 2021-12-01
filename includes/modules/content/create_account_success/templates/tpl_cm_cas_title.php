@@ -1,5 +1,5 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-cas-title">
-  <h1 class="display-4"><?php echo MODULE_CONTENT_CAS_TITLE_PUBLIC_TITLE; ?></h1>
+<div class="col-sm-<?= (int)MODULE_CONTENT_CAS_TITLE_CONTENT_WIDTH ?> cm-cas-title">
+  <h1 class="display-4"><?= MODULE_CONTENT_CAS_TITLE_PUBLIC_TITLE ?></h1>
 </div>
 
 <?php
@@ -14,4 +14,3 @@
   Released under the GNU General Public License
 */
 ?>
-   

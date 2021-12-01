@@ -19,8 +19,6 @@
     }
 
     public function execute() {
-      $content_width = (int)MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -31,13 +29,13 @@
           'title' => 'Enable Header Logo Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Logo content module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '4',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_HEADER_LOGO_SORT_ORDER' => [
           'title' => 'Sort Order',

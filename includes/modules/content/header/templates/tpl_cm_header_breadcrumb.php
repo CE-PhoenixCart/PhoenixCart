@@ -1,9 +1,9 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-header-breadcrumb">
+<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_BREADCRUMB_CONTENT_WIDTH ?> cm-header-breadcrumb">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <?php
   foreach ($GLOBALS['breadcrumb']->trail() as $v) {
-    if (isset($v['link']) && tep_not_null($v['link'])) {
+    if (isset($v['link']) && !Text::is_empty($v['link'])) {
       echo '<li class="breadcrumb-item"><a href="' . $v['link'] . '">' . $v['title'] . '</a></li>';
     } else {
       echo '<li class="breadcrumb-item">' . $v['title'] . '</li>';

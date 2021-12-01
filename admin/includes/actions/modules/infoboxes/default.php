@@ -33,8 +33,8 @@
             $keys .= '0';
             $messageStack->add(sprintf(
               WARNING_INVALID_USE_FUNCTION,
-              $configuration['use_function'],
-              $configuration['configuration_title']
+              $value['use_function'],
+              $value['configuration_title']
              ), 'warning');
           }
         } else {

@@ -3,21 +3,16 @@
     <?= $navbarAccountText ?>
   </a>
   <div class="dropdown-menu<?= (('Right' === MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT) ? ' dropdown-menu-right' : '') ?>" aria-labelledby="navDropdownAccount">
-    <?php
-    if (isset($_SESSION['customer_id'])) {
-      echo '<a class="dropdown-item" href="' . tep_href_link('logoff.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGOFF . '</a>' . PHP_EOL;
-    } else {
-      echo '<a class="dropdown-item" href="' . tep_href_link('login.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGIN . '</a>' . PHP_EOL;
-      echo '<a class="dropdown-item" href="' . tep_href_link('create_account.php') . '">' . MODULE_NAVBAR_ACCOUNT_REGISTER . '</a>' . PHP_EOL;
-    }
+    <?= isset($_SESSION['customer_id'])
+      ? '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('logoff.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGOFF . '</a>' . PHP_EOL
+      : ('<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('login.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGIN . '</a>' . PHP_EOL
+       . '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('create_account.php') . '">' . MODULE_NAVBAR_ACCOUNT_REGISTER . '</a>' . PHP_EOL)
     ?>
     <div class="dropdown-divider"></div>
-    <?php
-    echo '<a class="dropdown-item" href="' . tep_href_link('account.php') . '">' . MODULE_NAVBAR_ACCOUNT . '</a>' . PHP_EOL;
-    echo '<a class="dropdown-item" href="' . tep_href_link('account_history.php') . '">' . MODULE_NAVBAR_ACCOUNT_HISTORY . '</a>' . PHP_EOL;
-    echo '<a class="dropdown-item" href="' . tep_href_link('address_book.php') . '">' . MODULE_NAVBAR_ACCOUNT_ADDRESS_BOOK . '</a>' . PHP_EOL;
-    echo '<a class="dropdown-item" href="' . tep_href_link('account_password.php') . '">' . MODULE_NAVBAR_ACCOUNT_PASSWORD . '</a>' . PHP_EOL;
-    ?>
+    <a class="dropdown-item" href="<?= $GLOBALS['Linker']->build('account.php') ?>"><?= MODULE_NAVBAR_ACCOUNT ?></a>
+    <a class="dropdown-item" href="<?= $GLOBALS['Linker']->build('account_history.php') ?>"><?= MODULE_NAVBAR_ACCOUNT_HISTORY ?></a>
+    <a class="dropdown-item" href="<?= $GLOBALS['Linker']->build('address_book.php') ?>"><?= MODULE_NAVBAR_ACCOUNT_ADDRESS_BOOK ?></a>
+    <a class="dropdown-item" href="<?= $GLOBALS['Linker']->build('account_password.php') ?>"><?= MODULE_NAVBAR_ACCOUNT_PASSWORD ?></a>
   </div>
 </li>
 

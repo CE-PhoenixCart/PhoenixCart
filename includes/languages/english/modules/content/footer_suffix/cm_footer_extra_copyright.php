@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  define('MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_TITLE', 'Copyright Details');
-  define('MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_DESCRIPTION', 'Adds a Copyright Block to the Extra Footer Area of your site');
+  const MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_TITLE = 'Copyright Details';
+  const MODULE_CONTENT_FOOTER_EXTRA_COPYRIGHT_DESCRIPTION = 'Adds a Copyright Block to the Extra Footer Area of your site';
 
-  define('FOOTER_TEXT_BODY', '<p>Copyright &copy; ' . date('Y') . ' <a class="text-light" href="' . tep_href_link('index.php') . '">' . STORE_NAME . '</a> &middot; Powered by <a class="text-light" href="https://phoenixcart.org" target="_blank" rel="noreferrer">CE Phoenix</a></p>');
+  const FOOTER_TEXT_BODY = '<p>Copyright &copy; %s <a class="text-light" href="%s">%s</a> &middot; Powered by <a class="text-light" href="https://phoenixcart.org" target="_blank" rel="noreferrer">CE Phoenix Cart</a></p>';

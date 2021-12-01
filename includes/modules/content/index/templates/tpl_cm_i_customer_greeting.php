@@ -1,6 +1,6 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-i-customer-greeting">
+<div class="col-sm-<?= MODULE_CONTENT_CUSTOMER_GREETING_CONTENT_WIDTH ?> cm-i-customer-greeting">
   <div class="alert alert-info" role="alert">
-    <?php echo $customer_greeting; ?>
+    <?= $customer_greeting ?>
   </div>
 </div>
 

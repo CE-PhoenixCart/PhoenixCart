@@ -23,20 +23,20 @@
           'title' => 'Enable Email Address module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '1',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Email Address module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the email address to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'ENTRY_EMAIL_ADDRESS_MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'account_edit;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -76,28 +76,28 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_EMAIL_ADDRESS;
-
       $input_id = 'inputEmail';
-      $attribute = 'id="' . $input_id . '" autocomplete="username email" placeholder="' . ENTRY_EMAIL_ADDRESS_TEXT . '"';
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
-      }
 
-      $email_address = null;
+      $input = new Input('email_address', [
+        'id' => $input_id,
+        'autocomplete' => 'username email',
+        'placeholder' => ENTRY_EMAIL_ADDRESS_TEXT
+      ], 'email');
+
       if (isset($customer_details) && is_array($customer_details)) {
-        $email_address = $this->get('email_address', $customer_details);
+        $input->set('value', $this->get('email_address', $customer_details));
       }
 
-      $input = tep_draw_input_field('email_address', $email_address, $attribute, 'email')
-             . $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['email_address'] = tep_db_prepare_input($_POST['email_address']);
+      $customer_details['email_address'] = Text::input($_POST['email_address']);
 
       if (($this->is_required() || !empty($customer_details['email_address']))
         && (strlen($customer_details['email_address']) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH)
@@ -113,13 +113,12 @@
 
         return false;
       } else {
-        $check_email_sql = "SELECT COUNT(*) AS total FROM customers WHERE customers_email_address = '" . tep_db_input($customer_details['email_address']) . "'";
+        $check_email_sql = "SELECT COUNT(*) AS total FROM customers WHERE customers_email_address = '" . $GLOBALS['db']->escape($customer_details['email_address']) . "'";
         if (isset($_SESSION['customer_id']) || isset($customer_details['id'])) {
           $check_email_sql .= " AND customers_id != " . (int)($_SESSION['customer_id'] ?? $customer_details['id']);
         }
 
-        $check_email_query = tep_db_query($check_email_sql);
-        $check_email = tep_db_fetch_array($check_email_query);
+        $check_email = $GLOBALS['db']->query($check_email_sql)->fetch_assoc();
         if ($check_email['total'] > 0) {
           $GLOBALS['messageStack']->add_classed($GLOBALS['message_stack_area'] ?? 'customer_data', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
 

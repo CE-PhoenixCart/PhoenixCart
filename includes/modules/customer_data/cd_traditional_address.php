@@ -26,7 +26,7 @@
           'title' => 'Enable Traditional Address module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
       ];
     }
@@ -86,8 +86,7 @@
 
     function format($address, $html, $boln, $eoln) {
       $address_format_id = $address['format_id'] ?? $address['address_format_id'] ?? $this->get_address_format_id($address['country_id'] ?? $address['country']['id'] ?? null);
-      $address_format_query = tep_db_query("SELECT address_format AS format FROM address_format WHERE address_format_id = " . (int)$address_format_id);
-      $address_format = tep_db_fetch_array($address_format_query);
+      $address_format = $GLOBALS['db']->query("SELECT address_format AS format FROM address_format WHERE address_format_id = " . (int)$address_format_id)->fetch_assoc();
 
       $company = htmlspecialchars($address['company'] ?? '');
       $name = htmlspecialchars($GLOBALS['customer_data']->get('name', $address) ?? '');
@@ -97,10 +96,10 @@
       $city = htmlspecialchars($address['city']);
       $state = htmlspecialchars($address['state'] ?? '');
       if (!empty($address['country_id'])) {
-        $country = tep_get_country_name($address['country_id']);
+        $country = Country::fetch_name($address['country_id']);
 
         if (!empty($address['zone_id'])) {
-          $state = tep_get_zone_code($address['country_id'], $address['zone_id'], $state);
+          $state = Zone::fetch_code($address['zone_id'], $address['country_id'], $state);
         }
       } elseif (!empty($address['country']) && is_array($address['country'])) {
         $country = htmlspecialchars($address['country']['title']);
@@ -150,8 +149,7 @@
     }
 
     function get_address_format_id($country_id) {
-      $address_format_query = tep_db_query("SELECT address_format_id AS format_id FROM countries WHERE countries_id = " . (int)$country_id);
-      $address_format = tep_db_fetch_array($address_format_query);
+      $address_format = $GLOBALS['db']->query("SELECT address_format_id AS format_id FROM countries WHERE countries_id = " . (int)$country_id)->fetch_assoc();
 
       return $address_format['format_id'] ?? '1';
     }

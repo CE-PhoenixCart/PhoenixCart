@@ -69,7 +69,7 @@ class hook_admin_siteWide_hMenu {
         $n++;
       }
 
-      $icon = new Image('images/CE-Phoenix-30-30.png', [], 'CE Phoenix v' . Versions::get('Phoenix'), 30, 30);
+      $icon = $GLOBALS['Admin']->image('images/CE-Phoenix-30-30.png', [], 'CE Phoenix v' . Versions::get('Phoenix'), 30, 30);
       $output = '<nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark">';
         $output .= '<a class="navbar-brand" href="' . $GLOBALS['Admin']->link('index.php') . '">' . $icon->set_responsive(false) . '</a>';
         $output .= '<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';
@@ -78,12 +78,12 @@ class hook_admin_siteWide_hMenu {
         $output .= '</div>';
       $output .= '</nav>';
 
-      $icon = new Image('images/icon_phoenix.png', [], 'Phoenix');
       $output .= '<div class="col bg-light mb-1 border-bottom d-print-none">';
         $output .= '<ul class="nav justify-content-end">';
-          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/">' . $icon . ' ' . HEADER_TITLE_PHOENIX_CLUB . '</a></li>';
+          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/">' . HEADER_TITLE_PHOENIX_CLUB . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/phoenixcartwiki/index.php">' . HEADER_TITLE_PHOENIX_WIKI . '</a></li>';
-          $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->link('certified_addons.php') . '">' . $icon . ' ' . HEADER_TITLE_CERTIFIED_ADDONS . '</a></li>';
+          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/addons/">' . HEADER_TITLE_CERTIFIED_ADDONS . '</a></li>';
+          $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->link('certified_addons.php') . '">' . HEADER_TITLE_CERTIFIED_DEVELOPERS . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->catalog('') . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link text-danger" href="' . $GLOBALS['Admin']->link('login.php', ['action' => 'logoff']) . '">'
                    . sprintf(HEADER_TITLE_LOGOFF, $_SESSION['admin']['username'])

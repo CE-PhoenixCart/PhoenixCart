@@ -1,26 +1,26 @@
-<div class="col-sm-<?php echo $content_width; ?> cm-gdpr-personal-details">
+<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_PERSONAL_DETAILS_CONTENT_WIDTH ?> cm-gdpr-personal-details">
   <table class="table table-striped table-hover">
     <thead class="thead-dark">
       <tr>
-        <th colspan="2"><?php echo MODULE_CONTENT_GDPR_PERSONAL_DETAILS_PUBLIC_TITLE; ?></th>
+        <th colspan="2"><?= MODULE_CONTENT_GDPR_PERSONAL_DETAILS_PUBLIC_TITLE ?></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <th class="w-50"><?php echo MODULE_CONTENT_GDPR_PERSONAL_DETAILS_GIVEN_NAME; ?></th>
-        <td><?php echo $gdpr_fname; ?></td>
+        <th class="w-50"><?= MODULE_CONTENT_GDPR_PERSONAL_DETAILS_GIVEN_NAME ?></th>
+        <td><?= $gdpr_fname ?></td>
       </tr>
       <tr>
-        <th><?php echo MODULE_CONTENT_GDPR_PERSONAL_DETAILS_FAMILY_NAME; ?></th>
-        <td><?php echo $gdpr_lname; ?></td>
+        <th><?= MODULE_CONTENT_GDPR_PERSONAL_DETAILS_FAMILY_NAME ?></th>
+        <td><?= $gdpr_lname ?></td>
       </tr>
       <tr>
-        <th><?php echo MODULE_CONTENT_GDPR_PERSONAL_DETAILS_GENDER; ?></th>
-        <td><?php echo $gdpr_gender; ?></td>
+        <th><?= MODULE_CONTENT_GDPR_PERSONAL_DETAILS_GENDER ?></th>
+        <td><?= $gdpr_gender ?></td>
       </tr>
       <tr>
-        <th><?php echo MODULE_CONTENT_GDPR_PERSONAL_DETAILS_DOB; ?></th>
-        <td><?php echo $gdpr_dob; ?></td>
+        <th><?= MODULE_CONTENT_GDPR_PERSONAL_DETAILS_DOB ?></th>
+        <td><?= $gdpr_dob ?></td>
       </tr>
     </tbody>
   </table>
@@ -38,4 +38,3 @@
   Released under the GNU General Public License
 */
 ?>
-

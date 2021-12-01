@@ -18,37 +18,11 @@
       parent::__construct(__FILE__);
     }
 
-    function execute() {
-      global $oscTemplate;
-
-      $style_array = [];
-      $style_array[] = MODULE_CONTENT_NAVBAR_STYLE_BG;
-      $style_array[] = MODULE_CONTENT_NAVBAR_STYLE_FG;
-      $style_array[] = MODULE_CONTENT_NAVBAR_FIXED;
-      $style_array[] = MODULE_CONTENT_NAVBAR_COLLAPSE;
-
-      $navbar_style = implode(' ', $style_array);
-
-      switch (MODULE_CONTENT_NAVBAR_FIXED) {
-        case 'fixed-top':
-          $custom_css = '<style>body { padding-top: ' . MODULE_CONTENT_NAVBAR_OFFSET . ' !important; }</style>';
-          break;
-        case 'fixed-bottom':
-          $custom_css = '<style>body { padding-bottom: ' . MODULE_CONTENT_NAVBAR_OFFSET . ' !important; }</style>';
-          break;
-        default:
-          $custom_css = null;
-      }
-
-      // workaround; padding needs to be set last
-      $oscTemplate->addBlock($custom_css, 'footer_scripts');
-
+    public function execute() {
       if ( defined('MODULE_CONTENT_NAVBAR_INSTALLED') && !Text::is_empty(MODULE_CONTENT_NAVBAR_INSTALLED) ) {
-        $nav_array = explode(';', MODULE_CONTENT_NAVBAR_INSTALLED);
-
         $navbar_modules = [];
 
-        foreach ( $nav_array as $nbm ) {
+        foreach ( explode(';', MODULE_CONTENT_NAVBAR_INSTALLED) as $nbm ) {
           $class = pathinfo($nbm, PATHINFO_FILENAME);
 
           $nav = new $class();
@@ -58,10 +32,32 @@
         }
 
         if ( [] !== $navbar_modules ) {
+          $styles = [];
+          $styles[] = MODULE_CONTENT_NAVBAR_STYLE_BG;
+          $styles[] = MODULE_CONTENT_NAVBAR_STYLE_FG;
+          $styles[] = MODULE_CONTENT_NAVBAR_FIXED;
+          $styles[] = MODULE_CONTENT_NAVBAR_COLLAPSE;
+
+          $navbar_style = implode(' ', $styles);
+
           $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
           include 'includes/modules/content/cm_template.php';
         }
       }
+
+      switch (MODULE_CONTENT_NAVBAR_FIXED) {
+        case 'fixed-top':
+          $custom_css = '<style>body { padding-top: ' . MODULE_CONTENT_NAVBAR_OFFSET . ' !important; }</style>';
+          break;
+        case 'fixed-bottom':
+          $custom_css = '<style>body { padding-bottom: ' . MODULE_CONTENT_NAVBAR_OFFSET . ' !important; }</style>';
+          break;
+        default:
+          return;
+      }
+
+      // workaround; padding needs to be set last
+      $GLOBALS['Template']->add_block($custom_css, 'footer_scripts');
     }
 
     protected function get_parameters() {
@@ -70,25 +66,25 @@
           'title' => 'Enable Navbar Module',
           'value' => 'True',
           'desc' => 'Should the Navbar be shown? ',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_NAVBAR_STYLE_BG' => [
           'title' => 'Background Colour Scheme',
           'value' => 'bg-light',
           'desc' => 'What background colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/utilities/colors/#background-color"><u>colors/#background-color</u></a>',
-          'set_func' => "tep_cfg_select_option(['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white'], ",
+          'set_func' => "Config::select_one(['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white'], ",
         ],
         'MODULE_CONTENT_NAVBAR_STYLE_FG' => [
           'title' => 'Link Colour Scheme',
           'value' => 'navbar-light',
           'desc' => 'What foreground colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#color-schemes"><u>navbar/#color-schemes</u></a>',
-          'set_func' => "tep_cfg_select_option(['navbar-dark', 'navbar-light'], ",
+          'set_func' => "Config::select_one(['navbar-dark', 'navbar-light'], ",
         ],
         'MODULE_CONTENT_NAVBAR_FIXED' => [
           'title' => 'Placement',
           'value' => 'default',
           'desc' => 'Should the Navbar be Fixed/Sticky/Default behaviour? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#placement"><u>navbar/#placement</u></a>',
-          'set_func' => "tep_cfg_select_option(['fixed-top', 'fixed-bottom', 'sticky-top', 'default'], ",
+          'set_func' => "Config::select_one(['fixed-top', 'fixed-bottom', 'sticky-top', 'default'], ",
         ],
         'MODULE_CONTENT_NAVBAR_OFFSET' => [
           'title' => 'Placement Offset',
@@ -99,7 +95,7 @@
           'title' => 'Collapse',
           'value' => 'navbar-expand-sm',
           'desc' => 'When should the Navbar Show? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#how-it-works"><u>navbar/#how-it-works</u></a>',
-          'set_func' => "tep_cfg_select_option(['navbar-expand', 'navbar-expand-sm', 'navbar-expand-md', 'navbar-expand-lg', 'navbar-expand-xl'], ",
+          'set_func' => "Config::select_one(['navbar-expand', 'navbar-expand-sm', 'navbar-expand-md', 'navbar-expand-lg', 'navbar-expand-xl'], ",
         ],
         'MODULE_CONTENT_NAVBAR_SORT_ORDER' => [
           'title' => 'Sort Order',

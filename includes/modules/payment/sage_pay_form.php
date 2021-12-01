@@ -94,8 +94,8 @@
 
       if ($crypt['BillingCountry'] == 'US') {
         $crypt['BillingState'] = Zone::fetch_code(
-          $customer_data->get('country_id', $order->billing),
-          $customer_data->get('zone_id', $order->billing), '');
+          $customer_data->get('zone_id', $order->billing),
+          $customer_data->get('country_id', $order->billing), '');
       }
 
       $crypt['BillingPhone'] = substr($customer_data->get('telephone', $order->customer), 0, 20);
@@ -108,8 +108,8 @@
 
       if ($crypt['DeliveryCountry'] == 'US') {
         $crypt['DeliveryState'] = Zone::fetch_code(
-          $customer_data->get('country_id', $order->delivery),
-          $customer_data->get('zone_id', $order->delivery), '');
+          $customer_data->get('zone_id', $order->delivery),
+          $customer_data->get('country_id', $order->delivery), '');
       }
 
       if (!Text::is_empty(MODULE_PAYMENT_SAGE_PAY_FORM_VENDOR_EMAIL)) {

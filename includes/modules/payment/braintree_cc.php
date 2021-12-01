@@ -309,7 +309,7 @@
           'streetAddress' => $customer_data->get('street_address', $order->billing),
           'extendedAddress' => $customer_data->get('suburb', $order->billing),
           'locality' => $customer_data->get('city', $order->billing),
-          'region' => Zone::fetch_name($customer_data->get('country_id', $order->billing), $customer_data->get('zone_id', $order->billing), $customer_data->get('state', $order->billing)),
+          'region' => Zone::fetch_name($customer_data->get('zone_id', $order->billing), $customer_data->get('country_id', $order->billing), $customer_data->get('state', $order->billing)),
           'postalCode' => $customer_data->get('postcode', $order->billing),
           'countryCodeAlpha2' => $customer_data->get('country_iso_code_2', $order->billing),
         ],
@@ -330,8 +330,8 @@
           'extendedAddress' => $customer_data->get('suburb', $order->delivery),
           'locality' => $customer_data->get('city', $order->delivery),
           'region' => Zone::fetch_name(
-            $customer_data->get('country_id', $order->delivery),
             $customer_data->get('zone_id', $order->delivery),
+            $customer_data->get('country_id', $order->delivery),
             $customer_data->get('state', $order->delivery)),
           'postalCode' => $customer_data->get('postcode', $order->delivery),
           'countryCodeAlpha2' => $customer_data->get('country_iso_code_2', $order->delivery),

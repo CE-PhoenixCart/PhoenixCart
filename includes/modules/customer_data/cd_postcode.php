@@ -23,20 +23,20 @@
           'title' => 'Enable Post Code module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '2',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Post Code module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the post code to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'address_book;checkout_new_address;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -76,28 +76,29 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_POST_CODE;
-
       $input_id = 'inputPostCode';
-      $attribute = 'id="' . $input_id . '" autocomplete="postal-code" placeholder="' . ENTRY_POST_CODE_TEXT . '"';
-      $postInput = '';
+
+      $parameters = [
+        'id' => $input_id,
+        'autocomplete' => 'postal-code',
+        'placeholder' => ENTRY_POST_CODE_TEXT,
+      ];
+
+      if ($customer_details && is_array($customer_details)) {
+        $parameters['value'] = $this->get('postcode', $customer_details);
+      }
+
+      $input = new Input('postcode', $parameters);
       if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
       }
 
-      $postcode = null;
-      if (isset($customer_details) && is_array($customer_details)) {
-        $postcode = $this->get('postcode', $customer_details);
-      }
-
-      $input = tep_draw_input_field('postcode', $postcode, $attribute)
-             . $postInput;
-
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['postcode'] = tep_db_prepare_input($_POST['postcode']);
+      $customer_details['postcode'] = Text::input($_POST['postcode']);
 
       if ($this->is_required() && (strlen($customer_details['postcode']) < $this->base_constant('MIN_LENGTH'))) {
         $GLOBALS['messageStack']->add_classed(

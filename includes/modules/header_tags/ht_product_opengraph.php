@@ -19,7 +19,7 @@
     public function execute() {
       global $product;
 
-      if (isset($product) && $product->get('status')) {
+      if (isset($product) && ($product instanceof Product) && $product->get('status')) {
         $data = [
           'og:type' => 'product',
           'og:title' => $product->get('name'),

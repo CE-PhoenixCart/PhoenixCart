@@ -1,20 +1,20 @@
-<div class="col-sm-<?php echo $content_width ?> cm-sc-checkout">
+<div class="col-sm-<?= (int)MODULE_CONTENT_SC_CHECKOUT_CONTENT_WIDTH ?> cm-sc-checkout">
 
   <div class="buttonSet">
-    <?php echo tep_draw_button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', tep_href_link('checkout_shipping.php', '', 'SSL'), 'primary', NULL, 'btn-success btn-lg btn-block'); ?>
+    <?= new Button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', 'btn-success btn-lg btn-block', [], $GLOBALS['Linker']->build('checkout_shipping.php')) ?>
   </div>
-  
+
 <?php
     if (!empty($initialize_checkout_methods)) {
 ?>
   <div class="w-100"></div>
-  <p class="text-right"><?php echo MODULE_CONTENT_SC_CHECKOUT_ALTERNATIVE_CHECKOUT_METHODS; ?></p>
+  <p class="text-right"><?= MODULE_CONTENT_SC_CHECKOUT_ALTERNATIVE_CHECKOUT_METHODS ?></p>
 
 <?php
       foreach($initialize_checkout_methods as $value) {
 ?>
 
-  <p class="text-right"><?php echo $value; ?></p>
+  <p class="text-right"><?= $value ?></p>
 
 <?php
       }
@@ -34,7 +34,7 @@
     Rainer Schmied - @raiwa
 
   All rights reserved.
-  
+
   Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.

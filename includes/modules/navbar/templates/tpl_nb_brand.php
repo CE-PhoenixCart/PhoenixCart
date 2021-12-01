@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-echo '<a class="navbar-brand nb-brand" href="' . tep_href_link('index.php') . '">' . MODULE_NAVBAR_BRAND_PUBLIC_TEXT . '</a>';
+echo '<a class="navbar-brand nb-brand" href="' . $GLOBALS['Linker']->build('index.php') . '">' . MODULE_NAVBAR_BRAND_PUBLIC_TEXT . '</a>';

@@ -33,13 +33,13 @@
           'title' => 'Enable Category Description Module',
           'value' => 'True',
           'desc' => 'Should this module be enabled?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_IN_CATEGORY_DESCRIPTION_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '12',
           'desc' => 'What width container should the content be shown in?',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_CONTENT_IN_CATEGORY_DESCRIPTION_SORT_ORDER' => [
           'title' => 'Sort Order',

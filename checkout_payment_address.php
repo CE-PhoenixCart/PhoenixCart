@@ -15,7 +15,7 @@
   require 'includes/system/segments/checkout/pipeline.php';
 
   if (!$customer_data->has('address')) {
-    Href::redirect($linker->build('checkout_payment.php'));
+    Href::redirect($Linker->build('checkout_payment.php'));
   }
 
   // needs to be included earlier to set the success message in the messageStack
@@ -36,7 +36,7 @@
 
       unset($_SESSION['payment']);
 
-      Href::redirect($linker->build('checkout_payment.php'));
+      Href::redirect($Linker->build('checkout_payment.php'));
     } elseif (isset($_POST['address'])) {
       // process the selected billing destination
       $reset_payment = isset($_SESSION['billto']) && ($_SESSION['billto'] != $_POST['address']) && isset($_SESSION['payment']);
@@ -46,7 +46,7 @@
         if ($reset_payment) {
           unset($_SESSION['payment']);
         }
-        Href::redirect($linker->build('checkout_payment.php'));
+        Href::redirect($Linker->build('checkout_payment.php'));
       } else {
         unset($_SESSION['billto']);
       }

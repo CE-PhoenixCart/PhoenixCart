@@ -32,14 +32,15 @@ const HTML_PARAMS = 'dir="ltr" lang="en"';
 const CHARSET = 'utf-8';
 
 // page title
-const TITLE = 'CE Phoenix Administration Tool';
+const TITLE = 'CE Phoenix Cart Administration Tool';
 
-// header text in includes/header.php
-const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart mr-1 text-primary"></i><span class="border-bottom border-primary">Your Shop</span>';
-const HEADER_TITLE_PHOENIX_CLUB = '<span class="border-bottom border-primary">Phoenix Club</span>';
-const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school mr-1 text-primary"></i><span class="border-bottom border-primary">User Guide</span>';
-const HEADER_TITLE_CERTIFIED_ADDONS = '<span class="border-bottom border-primary">Certified Addons & Services</span>';
-const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock mr-1"></i><span class="border-bottom border-danger">%s, securely logoff</span>';
+// header text in includes/hooks/admin/siteWide/hMenu.php
+const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Your Shop</span>';
+const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle mr-1 text-primary" aria-hidden="true"></i></i><span class="border-bottom border-primary">Help</span>';
+const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">User Guide</span>';
+const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Certified Developers</span>';
+const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus mr-1 text-primary" aria-hidden="true"></i></i><span class="border-bottom border-primary">Add-ons</span>';
+const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock mr-1" aria-hidden="true"></i><span class="border-bottom border-danger">%s, securely log off</span>';
 
 // images
 const IMAGE_BACK = 'Back';
@@ -85,7 +86,7 @@ const IMAGE_UPLOAD = 'Upload';
 const ICON_FILE = 'File';
 const ICON_FILE_DOWNLOAD = 'Download';
 
-// constants for use in tep_prev_next_display function
+// constants for use in pagination
 const TEXT_RESULT_PAGE = 'Page %s of %d';
 const TEXT_DISPLAY_NUMBER_OF_COUNTRIES = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> countries)';
 const TEXT_DISPLAY_NUMBER_OF_CUSTOMER_DATA_GROUPS = 'Displaying <strong>%d</strong> to <strong>%d</strong> (of <strong>%d</strong> customer data groups)';
@@ -123,7 +124,11 @@ const SUCCESS_FILE_SAVED_SUCCESSFULLY = '<strong>Success:</strong> File upload s
 const WARNING_NO_FILE_UPLOADED = '<strong>Warning:</strong> No file uploaded.';
 
 // bootstrap helper
-const MODULE_CONTENT_BOOTSTRAP_ROW_DESCRIPTION = '<p>Content Width can be 12 or less per column per row.</p><p>12/12 = 100% width, 6/12 = 50% width, 4/12 = 33% width.</p><p>Total of all columns in any one row must equal 12 (eg:  3 boxes of 4 columns each, 1 box of 12 columns and so on).</p>';
+const MODULE_CONTENT_BOOTSTRAP_ROW_DESCRIPTION = <<<'EOT'
+<p>Content Width can be 12 or less per column per row.</p>
+<p>12/12 = 100% width, 6/12 = 50% width, 4/12 = 33% width.</p>
+<p>Total of all columns in any one row must equal 12 (eg:  3 boxes of 4 columns each, 1 box of 12 columns and so on).</p>
+EOT;
 
 // seo helper
 const PLACEHOLDER_COMMA_SEPARATION = 'Must, Be, Comma, Separated';

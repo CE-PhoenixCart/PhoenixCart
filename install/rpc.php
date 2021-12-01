@@ -33,13 +33,16 @@
           exit("[[0|{$db->error}]]");
         }
 
-        if ($version_query = mysqli_query($db, "SELECT VERSION() AS `v`")) {
-          list($number) = explode('-', $version_query->fetch_assoc()['v']);
-        } else {
+        $version_query = mysqli_query($db, "SELECT VERSION() AS `v`");
+        if (!$version_query) {
           exit("[[0|{$db->error}]]");
         }
 
+        $version = $version_query->fetch_assoc()['v'];
+        list($number) = explode('-', $version);
+
         if (version_compare($number, '5.7.7', '<')) {
+          error_log("Version [$version] not at least MySQL 5.7.7");
           exit("[[-5|$version]]");
         }
 
@@ -49,6 +52,7 @@
           exit('[[1]]');
         }
 
+        error_log("Version [$version] not at least MariaDB 10.2.2");
         exit("[[-10|$version]]");
 
       case 'dbImport':

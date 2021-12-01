@@ -161,7 +161,7 @@
                              . new Input('Bcity', ['value' => $customer_data->get('city', $order->billing)], 'hidden');
 
       if ($customer_data->get('country_iso_code_2', $order->billing) === 'US') {
-        $process_button_string .= new Input('Bstate', ['value' => Zone::fetch_code($customer_data->get('country_id', $order->billing), $customer_data->get('zone_id', $order->billing), '')], 'hidden');
+        $process_button_string .= new Input('Bstate', ['value' => Zone::fetch_code($customer_data->get('zone_id', $order->billing), $customer_data->get('country_id', $order->billing), '')], 'hidden');
       } else {
         $process_button_string .= new Input('Bstate', ['value' => $customer_data->get('state', $order->billing)], 'hidden');
       }

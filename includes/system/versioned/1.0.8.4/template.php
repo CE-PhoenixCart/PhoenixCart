@@ -123,19 +123,22 @@
     }
 
     public function get_content_modules($group) {
-      $result = [];
+      $modules = [];
 
       foreach ( explode(';', MODULE_CONTENT_INSTALLED) as $m ) {
         $module = explode('/', $m, 2);
 
         if ( $module[0] == $group ) {
-          $result[] = $module[1];
+          $modules[] = $module[1];
         }
       }
 
-      $parameters = [ 'results' => &$results ];
+      $parameters = [
+        'group' => $group,
+        'modules' => &$modules,
+      ];
       $GLOBALS['all_hooks']->cat('getContentModules', $parameters);
-      return $result;
+      return $modules;
     }
 
     public function map($file, $type = 'module') {

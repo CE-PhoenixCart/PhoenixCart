@@ -23,20 +23,20 @@
           'title' => 'Enable First Name module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '1',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require First Name',
           'value' => 'True',
           'desc' => 'Do you want the first name to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'ENTRY_FIRST_NAME_MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'account_edit;address_book;checkout_new_address;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -79,26 +79,27 @@
       $label_text = ENTRY_FIRST_NAME;
 
       $input_id = 'inputFirstName';
-      $attribute = 'id="' . $input_id . '" autocomplete="given-name" placeholder="' . ENTRY_FIRST_NAME_TEXT . '"';
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
-      }
 
-      $firstname = null;
+      $input = new Input('firstname', [
+        'id' => $input_id,
+        'autocomplete' => 'given-name',
+        'placeholder' => ENTRY_FIRST_NAME_TEXT,
+      ]);
+
       if (isset($customer_details) && is_array($customer_details)) {
-        $firstname = $this->get('firstname', $customer_details);
+        $input->set('value', $this->get('firstname', $customer_details));
       }
 
-      $input = tep_draw_input_field('firstname', $firstname, $attribute)
-             . $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include DIR_FS_CATALOG . $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include DIR_FS_CATALOG . Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
-      $customer_details['firstname'] = tep_db_prepare_input($_POST['firstname']);
+      $customer_details['firstname'] = Text::input($_POST['firstname']);
 
       if ($this->is_required() && (strlen($customer_details['firstname']) < ENTRY_FIRST_NAME_MIN_LENGTH)) {
         $GLOBALS['messageStack']->add_classed(

@@ -23,20 +23,20 @@
           'title' => 'Enable Date of Birth module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your shop?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'GROUP' => [
           'title' => 'Customer data group',
           'value' => '1',
           'desc' => 'In what group should this appear?',
-          'use_func' => 'tep_get_customer_data_group_title',
-          'set_func' => 'tep_cfg_pull_down_customer_data_groups(',
+          'use_func' => 'customer_data_group::fetch_name',
+          'set_func' => 'Config::select_customer_data_group(',
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require Date of Birth module (if enabled)',
           'value' => 'True',
           'desc' => 'Do you want the date of birth to be required in customer registration?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         static::CONFIG_KEY_BASE . 'MIN_LENGTH' => [
           'title' => 'Minimum Length',
@@ -47,7 +47,7 @@
           'title' => 'Pages',
           'value' => 'account_edit;create_account;customers',
           'desc' => 'On what pages should this appear?',
-          'set_func' => 'tep_draw_account_edit_pages(',
+          'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
@@ -74,24 +74,24 @@
 
     public function display_input($customer_details = null) {
       $label_text = ENTRY_DOB;
-
       $input_id = 'dob';
-      $attribute = 'id="' . $input_id . '" autocomplete="bday" placeholder="' . ENTRY_DOB_TEXT . '"';
-      $postInput = '';
-      if ($this->is_required()) {
-        $attribute = self::REQUIRED_ATTRIBUTE . $attribute;
-        $postInput = FORM_REQUIRED_INPUT;
-      }
 
-      $dob = null;
+      $input = new Input('dob', [
+        'id' => $input_id,
+        'autocomplete' => 'bday',
+        'placeholder' => ENTRY_DOB_TEXT,
+      ]);
+
       if (isset($customer_details) && is_array($customer_details)) {
-        $dob = tep_date_short($this->get('dob', $customer_details));
+        $input->set('value', (new Date($this->get('dob', $customer_details)))->format('Y-m-d'));
       }
 
-      $input = tep_draw_input_field('dob', $dob, $attribute)
-             . $postInput;
+      if ($this->is_required()) {
+        $input->require();
+        $input .= FORM_REQUIRED_INPUT;
+      }
 
-      include $GLOBALS['oscTemplate']->map_to_template($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function is_valid($date) {
@@ -99,24 +99,24 @@
         return $this->is_required();
       }
 
-      $raw = tep_cd_dob_date_raw($date);
+      $raw = cd_dob_date_raw($date);
       return ((strlen($date) >= $this->base_constant('MIN_LENGTH'))
         && is_numeric($raw)
         && @checkdate(substr($raw, 4, 2), substr($raw, 6, 2), substr($raw, 0, 4)));
     }
 
     public function process(&$customer_details) {
-      $dob = tep_db_prepare_input($_POST['dob']);
+      $dob = Text::input($_POST['dob']);
 
       if (!$this->is_valid($dob)) {
         $GLOBALS['messageStack']->add_classed(
           $GLOBALS['message_stack_area'] ?? 'customer_data',
-          sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')) . tep_cd_dob_date_raw($customer_details['dob']));
+          sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')) . cd_dob_date_raw($customer_details['dob']));
 
         return false;
       }
 
-      $customer_details['dob'] = tep_cd_dob_date_raw($dob);
+      $customer_details['dob'] = cd_dob_date_raw($dob);
       return true;
     }
 

@@ -1,5 +1,5 @@
 <li class="nav-item nb-home">
-  <?= '<a class="nav-link" href="' . tep_href_link('index.php') . '">' . MODULE_NAVBAR_HOME_PUBLIC_TEXT . '</a>' ?>
+  <?= '<a class="nav-link" href="' . $GLOBALS['Linker']->build('index.php') . '">' . MODULE_NAVBAR_HOME_PUBLIC_TEXT . '</a>' ?>
 </li>
 
 <?php
