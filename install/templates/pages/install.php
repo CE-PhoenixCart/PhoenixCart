@@ -147,7 +147,7 @@
       <div class="form-group row">
         <label for="userName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_USERNAME ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_SERVER_USERNAME', ['id' => 'DB_SERVER_USERNAME', 'placeholder' => TEXT_USERNAME]))->require(),
+          <?= new Input('DB_SERVER_USERNAME', ['id' => 'DB_SERVER_USERNAME', 'placeholder' => TEXT_USERNAME]),
               TEXT_REQUIRED_INFORMATION,
               TEXT_USERNAME_DESCRIPTION ?>
         </div>
@@ -156,7 +156,7 @@
       <div class="form-group row">
         <label for="passWord" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PASSWORD ?></label>
         <div class="col-sm-9">
-          <?= (new Input('DB_SERVER_PASSWORD', ['id' => 'DB_SERVER_PASSWORD'], 'password'))->require(),
+          <?= new Input('DB_SERVER_PASSWORD', ['id' => 'DB_SERVER_PASSWORD'], 'password'),
               TEXT_REQUIRED_INFORMATION,
               TEXT_PASSWORD_DESCRIPTION ?>
         </div>
