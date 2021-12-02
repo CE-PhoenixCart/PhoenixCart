@@ -19,7 +19,7 @@
 SELECT id
  FROM action_recorder
  WHERE module = '%s' AND user_name = '%s' AND date_added >= DATE_SUB(NOW(), INTERVAL %d MINUTE) AND success = 1
- ORDERY BY date_added DESC
+ ORDER BY date_added DESC
  LIMIT %d
 EOSQL
         , $GLOBALS['db']->escape($this->code), $GLOBALS['db']->escape($user_name), (int)$this->minutes, (int)$this->attempts));
