@@ -31,8 +31,14 @@
           <tbody>
 <?php
   foreach ($table_definition['split']->fetch() as $row) {
+    $row_attributes = $row['css'];
+    if (isset($row['onclick'])) {
+      $row_attributes .= <<<"EOJS"
+ onclick="document.location.href='{$row['onclick']}'"
+EOJS;
+    }
 ?>
-            <tr<?= $row['css'] ?> onclick="document.location.href='<?= $row['onclick'] ?>'">
+            <tr<?= $row_attributes ?>>
 <?php
     foreach ($table_definition['columns'] as $column) {
       if ($column['is_heading'] ?? false) {
