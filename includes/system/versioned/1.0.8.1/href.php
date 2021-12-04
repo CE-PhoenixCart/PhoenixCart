@@ -18,7 +18,7 @@
     protected $separator_encoding = true;
 
     public function __construct($prefix = '', $page = null, $parameters = [], $add_session_id = true) {
-      $this->page = Text::output($prefix . ($page ?? $GLOBALS['PHP_SELF']));
+      $this->page = Text::output($prefix . ($page ?? Request::get_page()));
 
       if (is_array($parameters)) {
         $this->parameters = $parameters;

@@ -122,15 +122,15 @@ EOSQL
     }
 
     public function register_page() {
-      $this->page = pathinfo($GLOBALS['PHP_SELF'], PATHINFO_FILENAME);
+      $this->page = pathinfo(Request::get_page(), PATHINFO_FILENAME);
       $this->register($this->page);
       $this->register_pipeline('siteWide');
-      $this->call('siteWide', 'injectAppTop');
+      $this->cat('injectAppTop');
     }
 
     public function register_pipeline($pipeline, &$parameters = null) {
       $this->register($pipeline);
-      $this->call($this->page, "{$pipeline}Start", $parameters);
+      $this->cat("{$pipeline}Start", $parameters);
     }
 
     public function set($action, $code, $callable) {
