@@ -68,13 +68,13 @@
         return constant($constant_name);
       }
 
-      $check_sql = "SELECT orders_status_id FROM orders_status WHERE orders_status_name = '" . tep_db_input($order_status_name) . "' LIMIT 1";
-      $check_query = tep_db_query($check_sql);
+      $check_sql = "SELECT orders_status_id FROM orders_status WHERE orders_status_name = '" . $GLOBALS['db']->escape($order_status_name) . "' LIMIT 1";
+      $check_query = $GLOBALS['db']->query($check_sql);
 
-      if (tep_db_num_rows($check_query) < 1) {
-        $next_id = tep_db_fetch_array(tep_db_query("SELECT MAX(orders_status_id) + 1 AS next_id FROM orders_status"))['next_id'] ?? 1;
+      if (mysqli_num_rows($check_query) < 1) {
+        $next_id = $GLOBALS['db']->query("SELECT MAX(orders_status_id) + 1 AS next_id FROM orders_status")->fetch_assoc()['next_id'] ?? 1;
 
-        tep_db_query(sprintf(<<<'EOSQL'
+        $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 INSERT INTO orders_status (orders_status_id, language_id, orders_status_name, public_flag, downloads_flag)
  SELECT
    %d AS orders_status_id,
@@ -85,12 +85,12 @@ INSERT INTO orders_status (orders_status_id, language_id, orders_status_name, pu
  FROM languages l
  ORDER BY l.sort_order
 EOSQL
-          , (int)$next_id, tep_db_input($order_status_name), (int)$public_flag, (int)$downloads_flag));
+          , (int)$next_id, $GLOBALS['db']->escape($order_status_name), (int)$public_flag, (int)$downloads_flag));
 
-        $check_query = tep_db_query($check_sql);
+        $check_query = $GLOBALS['db']->query($check_sql);
       }
 
-      $check = tep_db_fetch_array($check_query);
+      $check = $check_query->fetch_assoc();
       return $check['orders_status_id'];
     }
 

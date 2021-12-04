@@ -15,7 +15,7 @@
     public static function register_stages() {
       $stages = [];
 
-      switch (pathinfo($GLOBALS['PHP_SELF'], PATHINFO_FILENAME)) {
+      switch (pathinfo(Request::get_page(), PATHINFO_FILENAME)) {
         case 'checkout_process':
         case 'checkout_confirmation':
           $stages[] = 'checkout_confirmation_stage';

@@ -20,8 +20,8 @@
 // class constructor
     public function __construct() {
       $this->currencies = [];
-      $currencies_query = tep_db_query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
-      while ($currencies = tep_db_fetch_array($currencies_query)) {
+      $currencies_query = $GLOBALS['db']->query("SELECT code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value FROM currencies");
+      while ($currencies = $currencies_query->fetch_assoc()) {
         $this->currencies[$currencies['code']] = [
           'title' => $currencies['title'],
           'symbol_left' => $currencies['symbol_left'],
@@ -41,12 +41,12 @@
       }
 
       if ($calculate_currency_value) {
-        $number *= tep_not_null($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
+        $number *= Text::is_empty($currency_value) ? $this->currencies[$currency_type]['value'] : $currency_value;
       }
 
       return $this->currencies[$currency_type]['symbol_left']
            . number_format(
-               tep_round($number, $this->currencies[$currency_type]['decimal_places']),
+               static::round($number, $this->currencies[$currency_type]['decimal_places']),
                $this->currencies[$currency_type]['decimal_places'],
                $this->currencies[$currency_type]['decimal_point'],
                $this->currencies[$currency_type]['thousands_point'])
@@ -54,11 +54,11 @@
     }
 
     public function calculate_price($products_price, $products_tax, $quantity = 1) {
-      return tep_round(tep_add_tax($products_price, $products_tax), $this->currencies[$_SESSION['currency']]['decimal_places']) * $quantity;
+      return static::round(Tax::price($products_price, $products_tax), $this->currencies[$_SESSION['currency']]['decimal_places']) * $quantity;
     }
 
     public function is_set($code) {
-      return isset($this->currencies[$code]) && tep_not_null($this->currencies[$code]);
+      return isset($this->currencies[$code]) && !Text::is_empty($this->currencies[$code]);
     }
 
     public function get_value($code) {
@@ -79,10 +79,10 @@
       }
 
       if ($calculate_currency_value) {
-        $number *= tep_not_null($currency_value) ? $currency_value : $this->currencies[$currency_type]['value'];
+        $number *= Text::is_empty($currency_value) ? $this->currencies[$currency_type]['value'] : $currency_value;
       }
 
-      return number_format(tep_round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
+      return number_format(static::round($number, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
     }
 
     public function display_raw($products_price, $products_tax, $quantity = 1) {
@@ -99,6 +99,30 @@
 
         $GLOBALS['currency'] =& $_SESSION['currency'];
       }
+    }
+
+    public static function round($number, $precision) {
+      $number = "$number";
+      $location = strpos($number, '.');
+// if there's a decimal point, increment the location to point after it
+      if ((false === $location) || (strlen(substr($number, ++$location)) <= $precision)) {
+// the number is already rounded sufficiently
+        return $number;
+      }
+
+      $location += $precision;
+      $next_digit = $number[$location];
+      $number = substr($number, 0, $location);
+
+      if ($next_digit < 5) {
+// we already truncated (which rounds down)
+        return $number;
+      }
+
+// otherwise we need to round up
+      return ($precision < 1)
+           ? $number + 1
+           : $number + ('0.' . str_repeat(0, $precision - 1) . '1');
     }
 
   }

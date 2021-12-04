@@ -38,8 +38,8 @@
       }
 
       if (isset($address['country']['id'])) {
-        $check_query = tep_db_query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)$geo_zone_id . " AND zone_country_id = " . (int)$address['country']['id'] . " ORDER BY zone_id");
-        while ($check = tep_db_fetch_array($check_query)) {
+        $check_query = $GLOBALS['db']->query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)$geo_zone_id . " AND zone_country_id = " . (int)$address['country']['id'] . " ORDER BY zone_id");
+        while ($check = $check_query->fetch_assoc()) {
           if (($check['zone_id'] < 1) || ($check['zone_id'] == $address['zone_id'])) {
             return;
           }
