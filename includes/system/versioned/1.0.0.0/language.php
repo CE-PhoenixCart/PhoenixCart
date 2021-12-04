@@ -17,7 +17,7 @@
     var $languages, $catalog_languages, $browser_languages, $language;
 
     function __construct($lng = '') {
-      $this->languages = array('af' => 'af|afrikaans',
+      $this->languages = ['af' => 'af|afrikaans',
                                'ar' => 'ar([-_][[:alpha:]]{2})?|arabic',
                                'be' => 'be|belarusian',
                                'bg' => 'bg|bulgarian',
@@ -73,15 +73,17 @@
                                'tw' => 'zh[-_]tw|chinese traditional',
                                'zh' => 'zh|chinese simplified',
                                'ji' => 'ji|yiddish',
-                               'zu' => 'zu|zulu');
+                               'zu' => 'zu|zulu'];
 
-      $this->catalog_languages = array();
-      $languages_query = tep_db_query("select languages_id, name, code, image, directory from languages order by sort_order");
-      while ($languages = tep_db_fetch_array($languages_query)) {
-        $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
-                                                             'name' => $languages['name'],
-                                                             'image' => $languages['image'],
-                                                             'directory' => $languages['directory']);
+      $this->catalog_languages = [];
+      $languages_query = $GLOBALS['db']->query("select languages_id, name, code, image, directory from languages order by sort_order");
+      while ($languages = $languages_query->fetch_assoc()) {
+        $this->catalog_languages[$languages['code']] = [
+          'id' => $languages['languages_id'],
+          'name' => $languages['name'],
+          'image' => $languages['image'],
+          'directory' => $languages['directory'],
+        ];
       }
 
       $this->browser_languages = '';
@@ -91,7 +93,7 @@
     }
 
     function set_language($language) {
-      if ( (tep_not_null($language)) && (isset($this->catalog_languages[$language])) ) {
+      if ( (!Text::is_empty($language)) && (isset($this->catalog_languages[$language])) ) {
         $this->language = $this->catalog_languages[$language];
       } else {
         $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
@@ -101,7 +103,7 @@
     function get_browser_language() {
       $this->browser_languages = explode(',', getenv('HTTP_ACCEPT_LANGUAGE'));
 
-      for ($i=0, $n=sizeof($this->browser_languages); $i<$n; $i++) {
+      for ($i=0, $n=count($this->browser_languages); $i<$n; $i++) {
         foreach($this->languages as $key => $value) {
           if (preg_match('/^(' . $value . ')(;q=[0-9]\\.[0-9])?$/i', $this->browser_languages[$i]) && isset($this->catalog_languages[$key])) {
             $this->language = $this->catalog_languages[$key];
@@ -110,5 +112,5 @@
         }
       }
     }
+
   }
-?>

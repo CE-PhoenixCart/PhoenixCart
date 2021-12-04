@@ -21,35 +21,35 @@
       $this->customer = [];
       $this->delivery = [];
 
-      if (tep_not_null($order_id)) {
-        $this->query($order_id);
-      } else {
+      if (Text::is_empty($order_id)) {
         $this->cart();
+      } else {
+        $this->query($order_id);
       }
     }
 
     public function query($order_id) {
-      $order_id = tep_db_prepare_input($order_id);
+      $order_id = Text::input($order_id);
 
-      $order_query = tep_db_query("SELECT * FROM orders WHERE orders_id = " . (int)$order_id);
-      $order = tep_db_fetch_array($order_query);
+      $order_query = $GLOBALS['db']->query("SELECT * FROM orders WHERE orders_id = " . (int)$order_id);
+      $order = $order_query->fetch_assoc();
 
-      $totals_query = tep_db_query("SELECT title, text FROM orders_total WHERE orders_id = " . (int)$order_id . " ORDER BY sort_order");
-      while ($totals = tep_db_fetch_array($totals_query)) {
+      $totals_query = $GLOBALS['db']->query("SELECT title, text FROM orders_total WHERE orders_id = " . (int)$order_id . " ORDER BY sort_order");
+      while ($totals = $totals_query->fetch_assoc()) {
         $this->totals[] =  [
           'title' => $totals['title'],
           'text' => $totals['text'],
         ];
       }
 
-      $order_total_query = tep_db_query("SELECT text FROM orders_total WHERE orders_id = " . (int)$order_id . " AND class = 'ot_total'");
-      $order_total = tep_db_fetch_array($order_total_query);
+      $order_total_query = $GLOBALS['db']->query("SELECT text FROM orders_total WHERE orders_id = " . (int)$order_id . " AND class = 'ot_total'");
+      $order_total = $order_total_query->fetch_assoc();
 
-      $shipping_method_query = tep_db_query("SELECT title FROM orders_total WHERE orders_id = " . (int)$order_id . " AND class = 'ot_shipping'");
-      $shipping_method = tep_db_fetch_array($shipping_method_query);
+      $shipping_method_query = $GLOBALS['db']->query("SELECT title FROM orders_total WHERE orders_id = " . (int)$order_id . " AND class = 'ot_shipping'");
+      $shipping_method = $shipping_method_query->fetch_assoc();
 
-      $order_status_query = tep_db_query("SELECT orders_status_name FROM orders_status WHERE orders_status_id = " . $order['orders_status'] . " AND language_id = " . (int)$_SESSION['languages_id']);
-      $order_status = tep_db_fetch_array($order_status_query);
+      $order_status_query = $GLOBALS['db']->query("SELECT orders_status_name FROM orders_status WHERE orders_status_id = " . $order['orders_status'] . " AND language_id = " . (int)$_SESSION['languages_id']);
+      $order_status = $order_status_query->fetch_assoc();
 
       $this->info = [
         'currency' => $order['currency'],
@@ -104,8 +104,8 @@
         'format_id' => $order['billing_address_format_id'],
       ];
 
-      $orders_products_query = tep_db_query("SELECT orders_products_id, products_id, products_name, products_model, products_price, products_tax, products_quantity, final_price FROM orders_products WHERE orders_id = " . (int)$order_id);
-      while ($orders_products = tep_db_fetch_array($orders_products_query)) {
+      $orders_products_query = $GLOBALS['db']->query("SELECT orders_products_id, products_id, products_name, products_model, products_price, products_tax, products_quantity, final_price FROM orders_products WHERE orders_id = " . (int)$order_id);
+      while ($orders_products = $orders_products_query->fetch_assoc()) {
         $current = [
           'qty' => $orders_products['products_quantity'],
           'id' => $orders_products['products_id'],
@@ -116,9 +116,9 @@
           'final_price' => $orders_products['final_price'],
         ];
 
-        $attributes_query = tep_db_query("SELECT products_options, products_options_values, options_values_price, price_prefix FROM orders_products_attributes WHERE orders_id = " . (int)$order_id . " AND orders_products_id = " . (int)$orders_products['orders_products_id']);
-        if (tep_db_num_rows($attributes_query)) {
-          while ($attributes = tep_db_fetch_array($attributes_query)) {
+        $attributes_query = $GLOBALS['db']->query("SELECT products_options, products_options_values, options_values_price, price_prefix FROM orders_products_attributes WHERE orders_id = " . (int)$order_id . " AND orders_products_id = " . (int)$orders_products['orders_products_id']);
+        if (mysqli_num_rows($attributes_query)) {
+          while ($attributes = $attributes_query->fetch_assoc()) {
             $current['attributes'][] = [
               'option' => $attributes['products_options'],
               'value' => $attributes['products_options_values'],
@@ -185,8 +185,8 @@
           'qty' => $product['quantity'],
           'name' => $product['name'],
           'model' => $product['model'],
-          'tax' => tep_get_tax_rate($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
-          'tax_description' => tep_get_tax_description($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
+          'tax' => Tax::get_rate($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
+          'tax_description' => Tax::get_description($product['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
           'price' => $product['price'],
           'final_price' => $product['price'] + $_SESSION['cart']->attributes_price($product['id']),
           'weight' => $product['weight'],
@@ -195,8 +195,8 @@
 
         if ($product['attributes']) {
           foreach ($product['attributes'] as $option => $value) {
-            $attributes_query = tep_db_query("SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix FROM products_options  popt, products_options_values poval, products_attributes pa WHERE pa.products_id = " . (int)$product['id'] . " AND pa.options_id = " . (int)$option . " AND pa.options_id = popt.products_options_id AND pa.options_values_id = " . (int)$value . " AND pa.options_values_id = poval.products_options_values_id AND popt.language_id = " . (int)$_SESSION['languages_id'] . " AND poval.language_id = " . (int)$_SESSION['languages_id']);
-            $attributes = tep_db_fetch_array($attributes_query);
+            $attributes_query = $GLOBALS['db']->query("SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix FROM products_options  popt, products_options_values poval, products_attributes pa WHERE pa.products_id = " . (int)$product['id'] . " AND pa.options_id = " . (int)$option . " AND pa.options_id = popt.products_options_id AND pa.options_values_id = " . (int)$value . " AND pa.options_values_id = poval.products_options_values_id AND popt.language_id = " . (int)$_SESSION['languages_id'] . " AND poval.language_id = " . (int)$_SESSION['languages_id']);
+            $attributes = $attributes_query->fetch_assoc();
 
             $current['attributes'][] = [
               'option' => $attributes['products_options_name'],

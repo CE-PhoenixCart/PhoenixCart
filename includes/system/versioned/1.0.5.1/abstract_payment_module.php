@@ -29,8 +29,8 @@
 
       $zone_id = constant(static::CONFIG_KEY_BASE . 'ZONE');
       if ( $this->enabled && ((int)$zone_id > 0) ) {
-        $check_query = tep_db_query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)$zone_id . " AND zone_country_id = " . (int)$order->delivery['country']['id'] . " ORDER BY zone_id");
-        while ($check = tep_db_fetch_array($check_query)) {
+        $check_query = $GLOBALS['db']->query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)$zone_id . " AND zone_country_id = " . (int)$order->delivery['country']['id'] . " ORDER BY zone_id");
+        while ($check = $check_query->fetch_assoc()) {
           if (($check['zone_id'] < 1) || ($check['zone_id'] == $order->delivery['zone_id'])) {
             return;
           }
@@ -80,21 +80,21 @@
         return constant($constant_name);
       }
 
-      $check_sql = "SELECT orders_status_id FROM orders_status WHERE orders_status_name = '" . tep_db_input($order_status_name) . "' LIMIT 1";
-      $check_query = tep_db_query($check_sql);
+      $check_sql = "SELECT orders_status_id FROM orders_status WHERE orders_status_name = '" . $GLOBALS['db']->escape($order_status_name) . "' LIMIT 1";
+      $check_query = $GLOBALS['db']->query($check_sql);
 
-      if (tep_db_num_rows($check_query) < 1) {
+      if (mysqli_num_rows($check_query) < 1) {
         $column_names = '';
         $column_values = '';
-        $flags_query = tep_db_query("DESCRIBE orders_status public_flag");
-        if (tep_db_num_rows($flags_query) === 1) {
+        $flags_query = $GLOBALS['db']->query("DESCRIBE orders_status public_flag");
+        if (mysqli_num_rows($flags_query) === 1) {
           $column_names = ', public_flag, downloads_flag';
           $column_values = ', 0 AS public_flag, 0 AS downloads_flag';
         }
 
-        $next_id = tep_db_fetch_array(tep_db_query("SELECT MAX(orders_status_id) + 1 AS next_id FROM orders_status"))['next_id'] ?? 1;
+        $next_id = $GLOBALS['db']->query("SELECT MAX(orders_status_id) + 1 AS next_id FROM orders_status")->fetch_assoc()['next_id'] ?? 1;
 
-        tep_db_query(sprintf(<<<'EOSQL'
+        $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 INSERT INTO orders_status (orders_status_id, language_id, orders_status_name%s)
  SELECT %d AS orders_status_id,
    l.languages_id AS language_id,
@@ -102,12 +102,12 @@ INSERT INTO orders_status (orders_status_id, language_id, orders_status_name%s)
  FROM languages l
  ORDER BY l.sort_order
 EOSQL
-          , $column_names, (int)$next_id, tep_db_input($order_status_name), $column_values));
+          , $column_names, (int)$next_id, $GLOBALS['db']->escape($order_status_name), $column_values));
 
-        $check_query = tep_db_query($check_sql);
+        $check_query = $GLOBALS['db']->query($check_sql);
       }
 
-      $check = tep_db_fetch_array($check_query);
+      $check = $check_query->fetch_assoc();
       return $check['orders_status_id'];
     }
 

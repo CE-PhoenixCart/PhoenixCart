@@ -96,8 +96,8 @@
       $sql .= self::build_joins($criteria, $criteria);
       $sql .= self::build_where($criteria);
 
-      $query = tep_db_query($sql);
-      $result = tep_db_fetch_array($query);
+      $query = $GLOBALS['db']->query($sql);
+      $result = $query->fetch_assoc();
 
       return $result['total'] ?? null;
     }

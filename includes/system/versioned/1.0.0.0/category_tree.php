@@ -41,9 +41,9 @@
         $this->_data = $_category_tree_data;
       } else {
 
-        $categories_query = tep_db_query("select c.categories_id, c.parent_id, c.categories_image, cd.categories_name, cd.categories_description, cd.categories_seo_description, cd.categories_seo_title from categories c, categories_description cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id']. "' order by c.parent_id, c.sort_order, cd.categories_name");
+        $categories_query = $GLOBALS['db']->query("select c.categories_id, c.parent_id, c.categories_image, cd.categories_name, cd.categories_description, cd.categories_seo_description, cd.categories_seo_title from categories c, categories_description cd where c.categories_id = cd.categories_id and cd.language_id = '" . (int)$_SESSION['languages_id']. "' order by c.parent_id, c.sort_order, cd.categories_name");
 
-        while ( $categories = tep_db_fetch_array($categories_query) ) {
+        while ( $categories = $categories_query->fetch_assoc() ) {
           $this->_data[$categories['parent_id']][$categories['categories_id']] = [
             'name'            => $categories['categories_name'],
             'image'           => $categories['categories_image'],
@@ -61,6 +61,7 @@
       $result = ((($level === 0) && ($this->parent_group_apply_to_root === true)) || ($level > 0)) ? $this->parent_group_start_string : null;
 
       if ( isset($this->_data[$parent_id]) ) {
+        $link = $GLOBALS['Linker']->build('index.php');
         foreach ( $this->_data[$parent_id] as $category_id => $category ) {
           if ( $this->breadcrumb_usage === true ) {
             $category_link = $this->buildBreadcrumb($category_id);
@@ -84,7 +85,7 @@
             $link_title = $category['name'];
           }
 
-          $result .= '<a class="list-group-item list-group-item-action" href="' . tep_href_link('index.php', 'cPath=' . $category_link) . '">';
+          $result .= '<a class="list-group-item list-group-item-action" href="' . $link->set_parameter('cPath', $category_link) . '">';
           $result .= str_repeat($this->spacer_string, $this->spacer_multiplier * $level);
           $result .= $link_title . '</a>';
 
