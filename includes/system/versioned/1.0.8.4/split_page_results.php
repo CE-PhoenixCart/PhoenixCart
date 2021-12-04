@@ -78,7 +78,7 @@
       if (is_null($link)) {
         $link = $GLOBALS['Linker']->build()->retain_query_except(['page', 'info']);
       } else if (is_string($link)) {
-        $link = $GLOBALS['Linker']->build($GLOBALS['PHP_SELF'], phoenix_parameterize(rtrim($link, '&')));
+        $link = $GLOBALS['Linker']->build(null, phoenix_parameterize(rtrim($link, '&')));
       }
 
       $display_links_string = '<nav aria-label="...">';

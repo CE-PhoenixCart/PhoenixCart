@@ -27,7 +27,7 @@
       global $cPath;
 
       for ($i = 0, $n = count($this->path); $i < $n; $i++) {
-        if ($this->path[$i]['page'] == $GLOBALS['PHP_SELF']) {
+        if ($this->path[$i]['page'] == Request::get_page()) {
           if (!isset($cPath)) {
             array_splice($this->path, ($i));
             break;
@@ -55,7 +55,7 @@
       }
 
       $this->path[] = [
-        'page' => $GLOBALS['PHP_SELF'],
+        'page' => Request::get_page(),
         'get' => $this->filter_parameters($_GET),
         'post' => $this->filter_parameters($_POST),
       ];
@@ -63,7 +63,7 @@
 
     public function remove_current_page() {
       $last_entry_position = count($this->path) - 1;
-      if ($this->path[$last_entry_position]['page'] == $GLOBALS['PHP_SELF']) {
+      if ($this->path[$last_entry_position]['page'] == Request::get_page()) {
         unset($this->path[$last_entry_position]);
       }
     }
@@ -77,7 +77,7 @@
         ];
       } else {
         $this->snapshot = [
-          'page' => $GLOBALS['PHP_SELF'],
+          'page' => Request::get_page(),
           'get' => $this->filter_parameters($_GET),
           'post' => $this->filter_parameters($_POST),
         ];

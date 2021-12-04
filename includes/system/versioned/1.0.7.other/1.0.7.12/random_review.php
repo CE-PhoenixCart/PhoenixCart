@@ -13,7 +13,7 @@
   class random_review {
 
     public static function build() {
-      $random_query = tep_db_query(sprintf(<<<'EOSQL'
+      $random_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT RAND() * COUNT(*) AS `offset`
   FROM reviews r
    INNER JOIN reviews_description rd ON r.reviews_id = rd.reviews_id
@@ -29,7 +29,7 @@ EOSQL
         return false;
       }
 
-      $product_query = tep_db_query(sprintf(<<<'EOSQL'
+      $product_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT %s,
     SUBSTRING(rd.reviews_text, 1, 60) AS reviews_text,
     r.reviews_rating

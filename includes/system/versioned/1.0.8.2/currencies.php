@@ -49,7 +49,7 @@
     }
 
     public function calculate_price($products_price, $products_tax, $quantity = 1) {
-      return static::round(tep_add_tax($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
+      return static::round(Tax::price($products_price, $products_tax), $this->currencies[$_SESSION['currency'] ?? DEFAULT_CURRENCY]['decimal_places']) * $quantity;
     }
 
     public function is_set($code) {

@@ -13,7 +13,7 @@
   class random_special {
 
     public static function build() {
-      $random_query = tep_db_query(sprintf(<<<'EOSQL'
+      $random_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT RAND() * COUNT(*) AS `offset`
   FROM products p
    INNER JOIN products_description pd ON p.products_id = pd.products_id
@@ -28,7 +28,7 @@ EOSQL
         return false;
       }
 
-      $product_query = tep_db_query(sprintf(<<<'EOSQL'
+      $product_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT pd.*, p.*, s.*,
     s.specials_new_products_price AS base_price,
     p.products_quantity AS in_stock,
