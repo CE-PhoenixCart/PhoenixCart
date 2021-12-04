@@ -108,9 +108,6 @@
       }
 
       if (is_numeric($products_id) && is_numeric($qty)) {
-        $check_product_query = $GLOBALS['db']->query("SELECT products_status FROM products WHERE products_id = " . (int)$products_id);
-        $check_product = $check_product_query->fetch_assoc();
-
         if (($product->get('status') == '1')) {
           if ($notify) {
             $_SESSION['new_products_id_in_cart'] = $products_id;

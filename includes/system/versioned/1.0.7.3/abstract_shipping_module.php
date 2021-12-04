@@ -26,11 +26,11 @@
       global $order;
 
       if ($this->tax_class > 0) {
-        $this->quotes['tax'] = tep_get_tax_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
+        $this->quotes['tax'] = Tax::get_rate($this->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
       }
-      
-      if (tep_not_null($this->icon) && ('True' === ($this->base_constant('DISPLAY_ICON') ?? 'True'))) {
-        $this->quotes['icon'] = tep_image($this->icon, htmlspecialchars($this->title));
+
+      if (!Text::is_empty($this->icon) && ('True' === ($this->base_constant('DISPLAY_ICON') ?? 'True'))) {
+        $this->quotes['icon'] = new Image($this->icon, [], htmlspecialchars($this->title));
       }
     }
 
@@ -39,4 +39,3 @@
     }
 
   }
-

@@ -16,7 +16,7 @@
 
 // class constructor
     function __construct() {
-      if (defined('MODULE_ORDER_TOTAL_INSTALLED') && tep_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
+      if (defined('MODULE_ORDER_TOTAL_INSTALLED') && !Text::is_empty(MODULE_ORDER_TOTAL_INSTALLED)) {
         $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
         foreach ($this->modules as $value) {
@@ -36,7 +36,7 @@
             $GLOBALS[$class]->process();
 
             foreach ($GLOBALS[$class]->output as $output) {
-              if (tep_not_null($output['title']) && tep_not_null($output['text'])) {
+              if (!Text::is_empty($output['title']) && !Text::is_empty($output['text'])) {
                 $order_total_array[] = [
                   'code' => $GLOBALS[$class]->code,
                   'title' => $output['title'],
