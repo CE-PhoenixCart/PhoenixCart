@@ -17,4 +17,4 @@
     'customer_notified' => $GLOBALS['customer_notification'],
     'comments' => $order->info['comments'],
   ];
-  tep_db_perform('orders_status_history', $sql_data);
+  $GLOBALS['db']->perform('orders_status_history', $sql_data);

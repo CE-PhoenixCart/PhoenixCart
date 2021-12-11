@@ -11,4 +11,4 @@
 */
 
   require 'includes/system/segments/sortable_product_columns.php';
-  include $GLOBALS['oscTemplate']->map_to_template('product_listing.php', 'component');
+  include $GLOBALS['Template']->map('product_listing.php', 'component');

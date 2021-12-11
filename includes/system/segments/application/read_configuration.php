@@ -11,7 +11,8 @@
 */
 
 // set the application parameters
-  $configuration_query = tep_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from configuration');
-  while ($configuration = tep_db_fetch_array($configuration_query)) {
-    define($configuration['cfgKey'], $configuration['cfgValue']);
-  }
+  array_walk(...[
+    $db->fetch_all('SELECT configuration_key, configuration_value FROM configuration'),
+    function ($v) {
+      define($v['configuration_key'], $v['configuration_value']);
+    }]);
