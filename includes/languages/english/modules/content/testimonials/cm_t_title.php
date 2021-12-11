@@ -12,7 +12,6 @@
 
   const MODULE_CONTENT_TESTIMONIALS_TITLE_TITLE        = 'Page Heading';
   const MODULE_CONTENT_TESTIMONIALS_TITLE_DESCRIPTION  = 'Shows the Page Heading.';
-  
+
   const MODULE_CONTENT_TESTIMONIALS_TITLE_PUBLIC_TITLE = 'Customer Testimonials';
 
-  

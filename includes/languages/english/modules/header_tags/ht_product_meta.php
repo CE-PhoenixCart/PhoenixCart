@@ -12,4 +12,3 @@
 
   define('MODULE_HEADER_TAGS_PRODUCT_META_TITLE', 'Product SEO');
   define('MODULE_HEADER_TAGS_PRODUCT_META_DESCRIPTION', 'Add the SEO Meta elements defined when setting up the product, to the header of the product page');
-  

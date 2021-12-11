@@ -12,4 +12,3 @@
 
   const MODULE_CONTENT_PI_DESCRIPTION_TITLE       = 'Description';
   const MODULE_CONTENT_PI_DESCRIPTION_DESCRIPTION = 'Shows the Products Description on the product_info Page.';
-  

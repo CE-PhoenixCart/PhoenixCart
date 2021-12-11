@@ -14,4 +14,3 @@
   define('MODULE_HEADER_TAGS_CATEGORY_TITLE_DESCRIPTION', 'Add the title of the current category to the page title');
 
   define('MODULE_HEADER_TAGS_CATEGORY_SEO_SEPARATOR', ' | ');
-  

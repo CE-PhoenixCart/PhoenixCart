@@ -9,7 +9,7 @@
     Rainer Schmied - @raiwa
 
   All rights reserved.
-  
+
   Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -23,6 +23,6 @@
 
   define('MODULE_CONTENT_SC_STOCK_NOTICE_TITLE', 'Out of Stock Notice');
   define('MODULE_CONTENT_SC_STOCK_NOTICE_DESCRIPTION', 'Show Stock Notice on the shopping cart page.');
-  
+
   define('MODULE_CONTENT_SC_STOCK_NOTICE_CANT_CHECKOUT', '<p class="lead">Products marked ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' don\'t exist in desired quantity in our stock.</p><p>Please alter the quantity of products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ', thank you.</p>');
   define('MODULE_CONTENT_SC_STOCK_NOTICE_CAN_CHECKOUT', '<p class="lead">Products marked ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' don\'t exist in desired quantity in our stock.</p><p>You can buy them anyway and check the quantity we have in stock for immediate delivery in the checkout process.</p>');

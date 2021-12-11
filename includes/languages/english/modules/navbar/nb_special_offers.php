@@ -12,6 +12,5 @@
 
   define('MODULE_NAVBAR_SPECIAL_OFFERS_TITLE', 'Special Offers');
   define('MODULE_NAVBAR_SPECIAL_OFFERS_DESCRIPTION', 'Show Special Offers Link in Navbar.');
-  
+
   define('MODULE_NAVBAR_SPECIAL_OFFERS_PUBLIC_TEXT', '<i title="Special Offers" class="fas fa-fire"></i><span class="d-inline d-sm-none d-md-inline"> Special Offers</span>');
-  

@@ -14,4 +14,3 @@
   define('MODULE_HEADER_TAGS_MANUFACTURER_TITLE_DESCRIPTION', 'Add the title of the current manufacturer to the page title');
 
   define('MODULE_HEADER_TAGS_MANUFACTURER_SEO_SEPARATOR', ' | ');
-  
