@@ -14,4 +14,4 @@
   $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 
 // set php_self
-  $PHP_SELF = substr(parse_url($_SERVER['SCRIPT_NAME'])['path'], strlen(DIR_WS_CATALOG));
+  $PHP_SELF = Request::get_page();

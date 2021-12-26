@@ -15,4 +15,3 @@
 
   define('MODULE_HEADER_TAGS_PRODUCT_SCHEMA_TEXT_IN_STOCK', 'https://schema.org/InStock');
   define('MODULE_HEADER_TAGS_PRODUCT_SCHEMA_TEXT_OUT_OF_STOCK', 'https://schema.org/OutOfStock');
-  

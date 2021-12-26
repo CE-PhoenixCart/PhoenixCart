@@ -12,5 +12,5 @@
 
   const MODULE_CONTENT_CAS_CONTINUE_BUTTON_TITLE       = 'Continue Button';
   const MODULE_CONTENT_CAS_CONTINUE_BUTTON_DESCRIPTION = 'Shows the Continue Button.';
-  
+
   const MODULE_CONTENT_CAS_CONTINUE_BUTTON_TEXT        = 'Continue';

@@ -21,7 +21,7 @@
       $goto = 'shopping_cart.php';
       $parameters = ['action', 'cPath', 'products_id', 'pid'];
     } else {
-      $goto = $PHP_SELF;
+      $goto = Request::get_page();
       if ('buy_now' === $_GET['action']) {
         $parameters = ['action', 'pid', 'products_id'];
       } else {

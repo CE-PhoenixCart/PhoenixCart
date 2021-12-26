@@ -62,7 +62,9 @@
  * Make sure the MIME version header is first.
  */
       $this->headers[] = 'MIME-Version: 1.0';
-      $this->headers += array_filter(array_values($headers), 'tep_not_null');
+      $this->headers += array_filter(array_values($headers), function ($header) {
+        return !Text::is_empty($header);
+      });
     }
 
 /**
@@ -220,10 +222,10 @@
     }
 
     protected function _build_message() {
-      $attachments = tep_not_null($this->attachments);
-      $html_images = tep_not_null($this->html_images);
-      $html = tep_not_null($this->html);
-      $text = tep_not_null($this->text);
+      $attachments = !Text::is_empty($this->attachments);
+      $html_images = !Text::is_empty($this->html_images);
+      $html = !Text::is_empty($this->html);
+      $text = !Text::is_empty($this->text);
 
       $message = null;
       switch (true) {
@@ -236,44 +238,44 @@
           $message->addSubpart($this->text, $this->get_parameters('text'));
           return $message;
         case ($html && !$attachments && !$html_images):
-          if (tep_not_null($this->html_text)) {
+          if (Text::is_empty($this->html_text)) {
+            $message = new mime($this->html, $this->get_parameters('html'));
+          } else {
             $message = new mime('', ['content_type' => 'multipart/alternative']);
             $message->addSubpart($this->html_text, $this->get_parameters('text'));
             $message->addSubpart($this->html, $this->get_parameters('html'));
-          } else {
-            $message = new mime($this->html, $this->get_parameters('html'));
           }
           break;
         case ($html && !$attachments && $html_images):
-          if (tep_not_null($this->html_text)) {
+          if (Text::is_empty($this->html_text)) {
+            $message = new mime('', ['content_type' => 'multipart/related']);
+            $related = $message;
+          } else {
             $message = new mime('', ['content_type' => 'multipart/alternative']);
             $message->addSubpart($this->html_text, $this->get_parameters('text'));
             $related = $message->addSubpart('', ['content_type' => 'multipart/related']);
-          } else {
-            $message = new mime('', ['content_type' => 'multipart/related']);
-            $related = $message;
           }
           $related->addSubpart($this->html, $this->get_parameters('html'));
           break;
         case ($html && $attachments && !$html_images):
           $message = new mime('', ['content_type' => 'multipart/mixed']);
-          if (tep_not_null($this->html_text)) {
+          if (Text::is_empty($this->html_text)) {
+            $message->addSubpart($this->html, $this->get_parameters('html'));
+          } else {
             $alt = $message->addSubpart('', ['content_type' => 'multipart/alternative']);
             $alt->addSubpart($this->html_text, $this->get_parameters('text'));
             $alt->addSubpart($this->html, $this->get_parameters('html'));
-          } else {
-            $message->addSubpart($this->html, $this->get_parameters('html'));
           }
           break;
         case ($html && $attachments && $html_images):
           $message = new mime('', ['content_type' => 'multipart/mixed']);
 
-          if (tep_not_null($this->html_text)) {
+          if (!Text::is_empty($this->html_text)) {
+            $related = $message->addSubpart('', ['content_type' => 'multipart/related']);
+          } else {
             $alt = $message->addSubpart('', ['content_type' => 'multipart/alternative']);
             $alt->addSubpart($this->html_text, $this->get_parameters('text'));
             $related = $alt->addSubpart('', ['content_type' => 'multipart/related']);
-          } else {
-            $related = $message->addSubpart('', ['content_type' => 'multipart/related']);
           }
           $related->addSubpart($this->html, $this->get_parameters('html'));
 
@@ -320,7 +322,7 @@
       $message = $this->_build_message();
 
       if ( is_object($message) ) {
-        if (tep_not_null($this->attachments)) {
+        if (!Text::is_empty($this->attachments)) {
           foreach ($this->attachments as $attachment) {
             $message->addSubpart($attachment['body'], $this->get_parameters('attachment', $attachment));
           }

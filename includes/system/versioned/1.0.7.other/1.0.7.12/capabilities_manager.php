@@ -22,7 +22,7 @@
           'capabilities' => &static::$capabilities,
         ];
 
-        $GLOBALS['OSCOM_Hooks']->call('system', static::LISTENER_NAME, $parameters);
+        $GLOBALS['all_hooks']->cat(static::LISTENER_NAME, $parameters);
       }
     }
 

@@ -14,4 +14,3 @@
   const MODULE_CONTENT_PINF_MESSAGE_DESCRIPTION       = 'Shows a Message on the product_info Page when the product is not available.';
 
   const MODULE_CONTENT_PINF_MESSAGE_PRODUCT_NOT_FOUND = 'D\'oh. Product not found!';
-  

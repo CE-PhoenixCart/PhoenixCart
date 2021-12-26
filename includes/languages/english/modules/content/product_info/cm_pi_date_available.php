@@ -12,5 +12,5 @@
 
   const MODULE_CONTENT_PI_DATE_AVAILABLE_TITLE       = 'Date Available';
   const MODULE_CONTENT_PI_DATE_AVAILABLE_DESCRIPTION = 'Shows the Date Available (if set) on the Product Info Page.';
- 
+
   const MODULE_CONTENT_PI_DATE_AVAILABLE_TEXT        = 'Available from:<span class="badge badge-primary badge-pill">%s</span>';

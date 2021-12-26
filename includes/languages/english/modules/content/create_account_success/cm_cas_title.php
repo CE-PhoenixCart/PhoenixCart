@@ -12,7 +12,6 @@
 
   const MODULE_CONTENT_CAS_TITLE_TITLE        = 'Page Heading';
   const MODULE_CONTENT_CAS_TITLE_DESCRIPTION  = 'Shows the Page Heading.';
-  
+
   const MODULE_CONTENT_CAS_TITLE_PUBLIC_TITLE = 'Thanks for setting up your profile!';
 
-  

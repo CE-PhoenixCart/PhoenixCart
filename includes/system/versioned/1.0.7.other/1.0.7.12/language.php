@@ -119,7 +119,7 @@
     public static function load_languages() {
       $languages = [];
 
-      $languages_query = tep_db_query("SELECT languages_id, name, code, image, directory FROM languages ORDER BY sort_order");
+      $languages_query = $GLOBALS['db']->query("SELECT languages_id, name, code, image, directory FROM languages ORDER BY sort_order");
       while ($language = $languages_query->fetch_assoc()) {
         $languages[$language['code']] = [
           'id' => $language['languages_id'],
@@ -173,8 +173,8 @@
       $page = ('.php' === $page)
             ? "includes/languages/$language.php"
             : "includes/languages/$language/$page";
-      $template =& Guarantor::ensure_global('oscTemplate');
-      $translation = $template->map_to_template($page, 'translation')
+      $Template =& Guarantor::ensure_global('Template');
+      $translation = $Template->map($page, 'translation')
                   ?? DIR_FS_CATALOG . $page;
 
       return file_exists($translation) ? $translation : DIR_FS_CATALOG . $page;

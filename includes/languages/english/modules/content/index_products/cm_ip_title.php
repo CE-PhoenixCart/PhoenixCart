@@ -12,6 +12,5 @@
 
   const MODULE_CONTENT_IP_TITLE_TITLE        = 'Page Heading';
   const MODULE_CONTENT_IP_TITLE_DESCRIPTION  = 'Shows the Category/Manufacturer Name on index products pages.';
-  
+
   const MODULE_CONTENT_IP_TITLE_PUBLIC_TITLE = '%s';
-  

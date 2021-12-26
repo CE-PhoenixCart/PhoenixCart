@@ -20,10 +20,10 @@
 
 // class constructor
     function __construct() {
-      $this->messages = array();
+      $this->messages = [];
 
       if (isset($_SESSION['messageToStack'])) {
-        for ($i=0, $n=sizeof($_SESSION['messageToStack']); $i<$n; $i++) {
+        for ($i=0, $n=count($_SESSION['messageToStack']); $i<$n; $i++) {
           $this->add($_SESSION['messageToStack'][$i]['class'], $_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
         }
         unset($_SESSION['messageToStack']);
@@ -33,31 +33,31 @@
 // class methods
     function add($class, $message, $type = 'error') {
       if ($type == 'error') {
-        $this->messages[] = array('params' => 'class="alert alert-danger alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message);
+        $this->messages[] = ['params' => 'class="alert alert-danger alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message];
       } elseif ($type == 'warning') {
-        $this->messages[] = array('params' => 'class="alert alert-warning alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message);
+        $this->messages[] = ['params' => 'class="alert alert-warning alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message];
       } elseif ($type == 'success') {
-        $this->messages[] = array('params' => 'class="alert alert-success alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message);
+        $this->messages[] = ['params' => 'class="alert alert-success alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message];
       } else {
-        $this->messages[] = array('params' => 'class="alert alert-info alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message);
+        $this->messages[] = ['params' => 'class="alert alert-info alert-dismissible fade show" role="alert"', 'class' => $class, 'text' => $message];
       }
     }
 
     function add_session($class, $message, $type = 'error') {
       if (!isset($_SESSION['messageToStack'])) {
-        $_SESSION['messageToStack'] = array();
+        $_SESSION['messageToStack'] = [];
       }
 
-      $_SESSION['messageToStack'][] = array('class' => $class, 'text' => $message, 'type' => $type);
+      $_SESSION['messageToStack'][] = ['class' => $class, 'text' => $message, 'type' => $type];
     }
 
     function reset() {
-      $this->messages = array();
+      $this->messages = [];
     }
 
     function output($class) {
-      $output = array();
-      for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
+      $output = [];
+      for ($i=0, $n=count($this->messages); $i<$n; $i++) {
         if ($this->messages[$i]['class'] == $class) {
           $output[] = $this->messages[$i];
         }
@@ -69,7 +69,7 @@
     function size($class) {
       $count = 0;
 
-      for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
+      for ($i=0, $n=count($this->messages); $i<$n; $i++) {
         if ($this->messages[$i]['class'] == $class) {
           $count++;
         }

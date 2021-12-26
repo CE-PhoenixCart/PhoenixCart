@@ -12,6 +12,5 @@
 
   const MODULE_CONTENT_LOGIN_TITLE_TITLE        = 'Page Heading';
   const MODULE_CONTENT_LOGIN_TITLE_DESCRIPTION  = 'Shows the Page Heading.';
-  
+
   const MODULE_CONTENT_LOGIN_TITLE_PUBLIC_TITLE = 'Welcome, Please Sign In';
-  

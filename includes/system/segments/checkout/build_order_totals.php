@@ -22,7 +22,7 @@
     }
 
     foreach ($GLOBALS[$class]->output as $order_total) {
-      if (tep_not_null($order_total['title']) && tep_not_null($order_total['text'])) {
+      if (!Text::is_empty($order_total['title']) && !Text::is_empty($order_total['text'])) {
         $GLOBALS['order']->totals[] = [
           'code' => $GLOBALS[$class]->code,
           'title' => $order_total['title'],

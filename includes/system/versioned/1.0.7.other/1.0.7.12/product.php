@@ -80,7 +80,7 @@
     }
 
     public function increment_view_count() {
-      tep_db_query("UPDATE products_description SET products_viewed = products_viewed+1 WHERE products_id = " . (int)$this->get('id') . " AND language_id = " . (int)$_SESSION['languages_id']);
+      $GLOBALS['db']->query("UPDATE products_description SET products_viewed = products_viewed+1 WHERE products_id = " . (int)$this->get('id') . " AND language_id = " . (int)$_SESSION['languages_id']);
     }
 
     public function find_path() {

@@ -9,7 +9,7 @@
     Rainer Schmied - @raiwa
 
   All rights reserved.
-  
+
   Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
   1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
@@ -23,6 +23,6 @@
 
   define('MODULE_CONTENT_SC_NO_PRODUCTS_TITLE', 'No Products Message');
   define('MODULE_CONTENT_SC_NO_PRODUCTS_DESCRIPTION', 'Show the No Products message on the shopping cart page.');
-  
+
   define('MODULE_CONTENT_SC_NO_PRODUCTS_TEXT_CART_EMPTY', 'Your Shopping Cart is empty!');
   define('MODULE_CONTENT_SC_NO_PRODUCTS_BUTTON_CONTINUE', 'Continue');

@@ -10,5 +10,5 @@
   Released under the GNU General Public License
 */
 
-// define the project version --- obsolete, now retrieved with tep_get_version()
-  const PROJECT_VERSION = 'CE Phoenix';
+// define the project version --- obsolete, now retrieved with Versions::get()
+  const PROJECT_VERSION = 'CE Phoenix Cart';

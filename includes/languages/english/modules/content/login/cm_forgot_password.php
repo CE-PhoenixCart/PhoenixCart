@@ -15,4 +15,3 @@
 
   define('MODULE_CONTENT_FORGOT_PASSWORD_INTRO_TEXT', 'Did you forget your Password?  No problem!');
   define('MODULE_CONTENT_FORGOT_PASSWORD_BUTTON_TEXT', 'Reset Password');
-  

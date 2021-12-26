@@ -13,12 +13,12 @@
   class adverts {
 
     public static function get_grouped_adverts($advert_group) {
-      $group = tep_db_prepare_input($advert_group);
+      $group = Text::input($advert_group);
 
-      $advert_query = tep_db_query("SELECT * FROM advert WHERE advert_group = '" . tep_db_input($group) . "' and status = 1 order by sort_order");
+      $advert_query = $GLOBALS['db']->query("SELECT * FROM advert WHERE advert_group = '" . $GLOBALS['db']->escape($group) . "' and status = 1 order by sort_order");
 
       $num = 1; $adverts = [];
-      while ($advert = tep_db_fetch_array($advert_query)) {
+      while ($advert = $advert_query->fetch_assoc()) {
         $adverts[$num] =  $advert;
 
         $num++;
@@ -31,12 +31,12 @@
       $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
 
       $groups_array = [['id' => '0', 'text' => TEXT_DEFAULT]];
-      $groups_query = tep_db_query("select DISTINCT advert_group from advert order by advert_group");
-      while ($groups = tep_db_fetch_array($groups_query)) {
+      $groups_query = $GLOBALS['db']->query("select DISTINCT advert_group from advert order by advert_group");
+      while ($groups = $groups_query->fetch_assoc()) {
         $groups_array[] = ['id' => $groups['advert_group'], 'text' => $groups['advert_group']];
       }
 
-      return tep_draw_pull_down_menu($name, $groups_array, $advert_id);
+      return (new Select($name, $groups_array))->set_selection($advert_id);
     }
 
     public static function advert_get_group($advert_id) {

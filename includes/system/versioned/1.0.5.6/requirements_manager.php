@@ -66,7 +66,7 @@
       }
 
       if (!$successful) {
-        tep_block_form_processing();
+        Form::block_processing();
       }
 
       return $details;

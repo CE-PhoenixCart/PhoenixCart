@@ -13,12 +13,12 @@
   class oscTemplate {
 
     var $_title;
-    var $_blocks = array();
-    var $_content = array();
+    var $_blocks = [];
+    var $_content = [];
     var $_grid_container_width = 12;
     var $_grid_content_width = BOOTSTRAP_CONTENT;
     var $_grid_column_width = 0;
-    var $_data = array();
+    var $_data = [];
 
     function __construct() {
       $this->_title = TITLE;
@@ -71,23 +71,21 @@
     }
 
     function buildBlocks() {
-      global $language;
-
-      if ( defined('TEMPLATE_BLOCK_GROUPS') && tep_not_null(TEMPLATE_BLOCK_GROUPS) ) {
+      if ( defined('TEMPLATE_BLOCK_GROUPS') && !Text::is_empty(TEMPLATE_BLOCK_GROUPS) ) {
         $tbgroups_array = explode(';', TEMPLATE_BLOCK_GROUPS);
 
         foreach ($tbgroups_array as $group) {
           $module_key = 'MODULE_' . strtoupper($group) . '_INSTALLED';
 
-          if ( defined($module_key) && tep_not_null(constant($module_key)) ) {
+          if ( defined($module_key) && !Text::is_empty(constant($module_key)) ) {
             $modules_array = explode(';', constant($module_key));
 
             foreach ( $modules_array as $module ) {
               $class = basename($module, '.php');
 
               if ( !class_exists($class) ) {
-                if ( file_exists('includes/languages/' . $language . '/modules/' . $group . '/' . $module) ) {
-                  include('includes/languages/' . $language . '/modules/' . $group . '/' . $module);
+                if ( file_exists('includes/languages/' . $_SESSION['language'] . '/modules/' . $group . '/' . $module) ) {
+                  include('includes/languages/' . $_SESSION['language'] . '/modules/' . $group . '/' . $module);
                 }
 
                 if ( file_exists('includes/modules/' . $group . '/' . $module) ) {
@@ -117,8 +115,6 @@
     }
 
     function getContent($group) {
-      global $language;
-
       if ( !class_exists('tp_' . $group) && file_exists('includes/modules/pages/tp_' . $group . '.php') ) {
         include('includes/modules/pages/tp_' . $group . '.php');
       }
@@ -132,8 +128,8 @@
       foreach ( $this->getContentModules($group) as $module ) {
         if ( !class_exists($module) ) {
           if ( file_exists('includes/modules/content/' . $group . '/' . $module . '.php') ) {
-            if ( file_exists('includes/languages/' . $language . '/modules/content/' . $group . '/' . $module . '.php') ) {
-              include('includes/languages/' . $language . '/modules/content/' . $group . '/' . $module . '.php');
+            if ( file_exists('includes/languages/' . $_SESSION['language'] . '/modules/content/' . $group . '/' . $module . '.php') ) {
+              include('includes/languages/' . $_SESSION['language'] . '/modules/content/' . $group . '/' . $module . '.php');
             }
 
             include('includes/modules/content/' . $group . '/' . $module . '.php');
@@ -159,7 +155,7 @@
     }
 
     function getContentModules($group) {
-      $result = array();
+      $result = [];
 
       foreach ( explode(';', MODULE_CONTENT_INSTALLED) as $m ) {
         $module = explode('/', $m, 2);
@@ -177,4 +173,3 @@
     }
 
   }
-  

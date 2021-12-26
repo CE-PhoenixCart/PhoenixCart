@@ -15,21 +15,19 @@
 
 // class constructor
     function __construct($module = '') {
-      global $PHP_SELF;
-
-      if (defined('MODULE_PAYMENT_INSTALLED') && tep_not_null(MODULE_PAYMENT_INSTALLED)) {
+      if (defined('MODULE_PAYMENT_INSTALLED') && !Text::is_empty(MODULE_PAYMENT_INSTALLED)) {
         $this->modules = explode(';', MODULE_PAYMENT_INSTALLED);
 
         $include_modules = [];
 
-        if ( (tep_not_null($module)) && (in_array($module . '.' . substr($PHP_SELF, (strrpos($PHP_SELF, '.')+1)), $this->modules)) ) {
+        if ( (!Text::is_empty($module)) && (in_array($module . '.' . substr(Request::get_page(), (strrpos(Request::get_page(), '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
 
-          $include_modules[] = array('class' => $module, 'file' => $module . '.php');
+          $include_modules[] = ['class' => $module, 'file' => $module . '.php'];
         } else {
           foreach($this->modules as $value) {
             $class = substr($value, 0, strrpos($value, '.'));
-            $include_modules[] = array('class' => $class, 'file' => $value);
+            $include_modules[] = ['class' => $class, 'file' => $value];
           }
         }
 
@@ -43,11 +41,11 @@
 // if there is only one payment method, select it as default because in
 // checkout_confirmation.php the $payment variable is being assigned the
 // $_POST['payment'] value which will be empty (no radio button selection possible)
-        if ( (tep_count_payment_modules() == 1) && (!isset($_SESSION['payment']) || !is_object($GLOBALS[$_SESSION['payment']] ?? null)) ) {
+        if ( ($this->count() == 1) && (!isset($_SESSION['payment']) || !is_object($GLOBALS[$_SESSION['payment']] ?? null)) ) {
           $_SESSION['payment'] = $include_modules[0]['class'];
         }
 
-        if ( (tep_not_null($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
+        if ( (!Text::is_empty($module)) && (in_array($module, $this->modules)) && (isset($GLOBALS[$module]->form_action_url)) ) {
           $this->form_action_url = $GLOBALS[$module]->form_action_url;
         }
       }
@@ -61,7 +59,7 @@
    The following method is a work-around to implementing the method in all
    payment modules available which would break the modules in the contributions
    section. This should be looked into again post 2.2.
-*/   
+*/
     function update_status() {
       if (is_array($this->modules)) {
         if (is_object($GLOBALS[$this->selected_module])) {
@@ -117,7 +115,7 @@
     }
 
     function checkout_initialization_method() {
-      $initialize_array = array();
+      $initialize_array = [];
 
       if (is_array($this->modules)) {
         foreach($this->modules as $value) {
@@ -132,7 +130,7 @@
     }
 
     function selection() {
-      $selection_array = array();
+      $selection_array = [];
 
       if (is_array($this->modules)) {
         foreach($this->modules as $value) {
@@ -194,5 +192,11 @@
         }
       }
     }
+
+    public function count() {
+      return count(array_filter($this->modules, function ($m) {
+        return $GLOBALS[pathinfo($m, PATHINFO_FILENAME)]->enabled ?? false;
+      }));
+    }
+
   }
-?>

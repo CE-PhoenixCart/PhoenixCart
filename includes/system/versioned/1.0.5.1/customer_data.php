@@ -20,7 +20,6 @@
       if (defined('MODULE_CUSTOMER_DATA_INSTALLED') && !Text::is_empty(MODULE_CUSTOMER_DATA_INSTALLED)) {
         $this->modules = (array)explode(';', MODULE_CUSTOMER_DATA_INSTALLED);
 
-        global $language;
         foreach ($this->modules as $basename) {
           $class = pathinfo($basename, PATHINFO_FILENAME);
 

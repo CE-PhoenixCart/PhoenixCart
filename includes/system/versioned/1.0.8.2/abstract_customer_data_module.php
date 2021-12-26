@@ -41,7 +41,7 @@
 
     public function is_required() {
       return (('True' === $this->base_constant('REQUIRED'))
-        && ('customers.php' !== $GLOBALS['PHP_SELF']));
+        && ('customers.php' !== Request::get_page()));
     }
 
   }

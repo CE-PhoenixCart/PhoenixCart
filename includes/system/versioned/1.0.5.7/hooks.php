@@ -35,14 +35,14 @@
     }
 
     private function load($group, $alias) {
-      $hooks_query = tep_db_query(sprintf(<<<'EOSQL'
+      $hooks_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT hooks_action, hooks_code, hooks_class, hooks_method
  FROM hooks
  WHERE hooks_site = '%s' AND hooks_group = '%s'
 EOSQL
-, tep_db_input($this->_site), tep_db_input($group)));
+, $GLOBALS['db']->escape($this->_site), $GLOBALS['db']->escape($group)));
 
-      while ($hook = tep_db_fetch_array($hooks_query)) {
+      while ($hook = $hooks_query->fetch_assoc()) {
         if ('' === $hook['hooks_class'] && function_exists($hook['hooks_method'])) {
           Guarantor::guarantee_all($this->_hooks, $this->_site, $alias, $hook['hooks_action'])[$hook['hooks_code']]
             = $hook['hooks_method'];
@@ -106,7 +106,7 @@ EOSQL
     }
 
     public function register_page() {
-      $this->page = pathinfo($GLOBALS['PHP_SELF'], PATHINFO_FILENAME);
+      $this->page = pathinfo(Request::get_page(), PATHINFO_FILENAME);
       $this->register('siteWide', $this->page);
       $this->register($this->page);
     }

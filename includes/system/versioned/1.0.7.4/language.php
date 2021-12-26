@@ -79,8 +79,8 @@
     public $language;
 
     public function __construct($language = '') {
-      $languages_query = tep_db_query("SELECT languages_id, name, code, image, directory FROM languages ORDER BY sort_order");
-      while ($languages = tep_db_fetch_array($languages_query)) {
+      $languages_query = $GLOBALS['db']->query("SELECT languages_id, name, code, image, directory FROM languages ORDER BY sort_order");
+      while ($languages = $languages_query->fetch_assoc()) {
         $this->catalog_languages[$languages['code']] = [
           'id' => $languages['languages_id'],
           'name' => $languages['name'],
@@ -93,7 +93,7 @@
     }
 
     public function set_language($language) {
-      if ( (tep_not_null($language)) && (isset($this->catalog_languages[$language])) ) {
+      if ( (!Text::is_empty($language)) && (isset($this->catalog_languages[$language])) ) {
         $this->language = $this->catalog_languages[$language];
       } else {
         $this->language = $this->catalog_languages[DEFAULT_LANGUAGE];
@@ -110,4 +110,5 @@
         }
       }
     }
+
   }

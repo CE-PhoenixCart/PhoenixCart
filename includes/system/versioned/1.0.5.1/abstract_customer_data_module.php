@@ -37,7 +37,7 @@
 
     public function is_required() {
       return (('True' === $this->get_constant(static::CONFIG_KEY_BASE . 'REQUIRED'))
-        && ('customers.php' !== $GLOBALS['PHP_SELF']));
+        && ('customers.php' !== Request::get_page()));
     }
 
   }

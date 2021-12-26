@@ -58,14 +58,14 @@
     }
 
     public function buildBlocks() {
-      if ( !defined('TEMPLATE_BLOCK_GROUPS') || !tep_not_null(TEMPLATE_BLOCK_GROUPS) ) {
+      if ( !defined('TEMPLATE_BLOCK_GROUPS') || Text::is_empty(TEMPLATE_BLOCK_GROUPS) ) {
         return;
       }
 
       foreach (explode(';', TEMPLATE_BLOCK_GROUPS) as $group) {
         $module_key = 'MODULE_' . strtoupper($group) . '_INSTALLED';
 
-        if ( !defined($module_key) || !tep_not_null(constant($module_key)) ) {
+        if ( !defined($module_key) || Text::is_empty(constant($module_key)) ) {
           continue;
         }
 

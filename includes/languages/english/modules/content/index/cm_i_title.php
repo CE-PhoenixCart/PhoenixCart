@@ -12,6 +12,5 @@
 
   const MODULE_CONTENT_I_TITLE_TITLE        = 'Page Heading';
   const MODULE_CONTENT_I_TITLE_DESCRIPTION  = 'Shows the Page Heading.';
-  
+
   const MODULE_CONTENT_I_TITLE_PUBLIC_TITLE = 'Welcome on %s';
-  
