@@ -222,8 +222,8 @@
     }
 
     protected function _build_message() {
-      $attachments = !Text::is_empty($this->attachments);
-      $html_images = !Text::is_empty($this->html_images);
+      $attachments = [] !== $this->attachments;
+      $html_images = [] !== $this->html_images;
       $html = !Text::is_empty($this->html);
       $text = !Text::is_empty($this->text);
 
