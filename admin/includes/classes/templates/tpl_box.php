@@ -7,11 +7,11 @@
   <table class="table table-striped table-hover">
     <thead class="thead-light">
       <tr>
-        <th><?php echo $heading ?></th>
+        <th><?= $heading ?></th>
       </tr>
     </thead>
     <tbody>
-      <?php echo $contents ?>
+      <?= $contents ?>
     </tbody>
   </table>
   <?php

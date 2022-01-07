@@ -24,7 +24,7 @@
         $heading = $heading[0]['text'];
       }
       $parameters = ['heading' => &$heading, 'contents' => &$contents];
-      $GLOBALS['OSCOM_Hooks']->call(pathinfo($GLOBALS['PHP_SELF'], PATHINFO_FILENAME), 'infoBox', $parameters);
+      $GLOBALS['admin_hooks']->cat('infoBox', $parameters);
 
       if (isset($contents['form'])) {
         $form_start = $contents['form'] . PHP_EOL;
