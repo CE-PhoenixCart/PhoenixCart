@@ -43,7 +43,19 @@
         )))->set_selection($zone_class_id);
     }
 
+    public static function select_at_least_one($selections, $key_values, $key_name = null) {
+      $key_name = static::name($key_name);
+
+      return static::select_none_to_many($selections, $key_values, $key_name);
+    }
+
     public static function select_multiple($selections, $key_values, $key_name = null) {
+      $key_name = static::name($key_name);
+      return PHP_EOL . new Input($key_name, ['value' => ''], 'hidden')
+           . static::select_none_to_many($selections, $key_values, $key_name);
+    }
+
+    public static function select_none_to_many($selections, $key_values, $key_name) {
       if (empty($key_values)) {
         $key_values = [];
       } elseif (!is_array($key_values)) {
@@ -54,7 +66,7 @@
         }
       }
 
-      $key_name = static::name($key_name) . '[]';
+      $key_name .= '[]';
       $checkbox = new Tickable($key_name, ['class' => ' '], 'checkbox');
 
       $string = '';
