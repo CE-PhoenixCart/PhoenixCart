@@ -20,5 +20,5 @@ class hook_admin_siteWide_fontAwesome {
 
     return $this->sitestart;
   }
-  
+
 }
