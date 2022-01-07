@@ -11,4 +11,3 @@
 */
 
   define('MODULES_ADMIN_MENU_LAYOUT_PI', 'Product Info');
-  
