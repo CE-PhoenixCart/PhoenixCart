@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 
   if ($category_depth == 'nested') {
 
@@ -20,7 +20,7 @@
 ?>
 
   <div class="row">
-    <?php echo $oscTemplate->getContent('index_nested'); ?>
+    <?= $Template->get_content('index_nested') ?>
   </div>
 
 <?php
@@ -29,7 +29,7 @@
 ?>
 
   <div class="row">
-    <?php echo $oscTemplate->getContent('index_products'); ?>
+    <?= $Template->get_content('index_products') ?>
   </div>
 
 <?php
@@ -41,11 +41,11 @@
 ?>
 
 <div class="row">
-  <?php echo $oscTemplate->getContent('index'); ?>
+  <?= $Template->get_content('index') ?>
 </div>
 
 <?php
   }
 
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

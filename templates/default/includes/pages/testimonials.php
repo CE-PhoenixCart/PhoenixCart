@@ -10,17 +10,17 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('testimonials.php'));
-  
-  $page_content = $oscTemplate->getContent('testimonials');
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('testimonials.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  $page_content = $Template->get_content('testimonials');
+
+  require $Template->map('template_top.php', 'component');
 ?>
 
   <div class="row">
-    <?php echo $page_content; ?>
+    <?= $page_content ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -10,22 +10,24 @@
   Released under the GNU General Public License
 */
 
-  $page = info_pages::get_page(['p.slug' => 'shipping',
-                                'pd.languages_id' => (int)$_SESSION['languages_id']]);
-                                
-  $breadcrumb->add($page['pages_title'], tep_href_link('shipping.php'));
+  $page = info_pages::get_page([
+    'p.slug' => 'shipping',
+    'pd.languages_id' => (int)$_SESSION['languages_id'],
+  ]);
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  $breadcrumb->add($page['pages_title'], $Linker->build('shipping.php'));
+
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo $page['pages_title']; ?></h1>
+<h1 class="display-4"><?= $page['pages_title'] ?></h1>
 
-  <?php echo $page['pages_text']; ?>
+  <?= $page['pages_text'] ?>
 
   <div class="buttonSet">
-    <div class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', tep_href_link('index.php'), null, null, 'btn-light btn-block btn-lg'); ?></div>
+    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('index.php')) ?></div>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

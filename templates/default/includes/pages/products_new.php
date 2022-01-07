@@ -10,15 +10,15 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('products_new.php'));
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('products_new.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   require 'includes/system/segments/sortable_product_listing.php';
 
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

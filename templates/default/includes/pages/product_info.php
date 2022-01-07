@@ -10,11 +10,11 @@
   Released under the GNU General Public License
 */
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 
-<?php echo tep_draw_form('cart_quantity', tep_href_link('product_info.php', tep_get_all_get_params(['action']). 'action=add_product', 'NONSSL'), 'post', 'role="form"'); ?>
+<?= new Form('cart_quantity', $Linker->build('product_info.php')->retain_query_except()->set_parameter('action', 'add_product'), 'post', ['role' => 'form']) ?>
 
 <?php
   if ($messageStack->size('product_action') > 0) {
@@ -23,11 +23,11 @@
 ?>
 
   <div class="row is-product">
-    <?php echo $oscTemplate->getContent('product_info'); ?>
+    <?= $Template->get_content('product_info') ?>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

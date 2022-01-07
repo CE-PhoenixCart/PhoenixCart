@@ -10,10 +10,10 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('account.php'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('address_book.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('address_book.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
 <h1 class="display-4"><?= HEADING_TITLE ?></h1>
@@ -36,7 +36,7 @@
       <div class="card mb-2 text-white bg-info">
         <div class="card-header"><?= PRIMARY_ADDRESS_TITLE ?></div>
 
-        <div class="card-body"><?= $customer->make_address_label($customer->get_default_address_id(), true, ' ', '<br>') ?></div>
+        <div class="card-body"><?= $customer->make_address_label($customer->get('default_address_id'), true, ' ', '<br>') ?></div>
       </div>
     </div>
 
@@ -54,12 +54,15 @@
     while ($address = $addresses_query->fetch_assoc()) {
       ?>
       <div class="col-sm-4">
-        <div class="card mb-2 <?= ($address['address_book_id'] == $customer->get_default_address_id()) ? ' text-white bg-info' : ' bg-light' ?>">
-          <div class="card-header"><?= htmlspecialchars($customer_data->get('name', $address)) ?></strong><?php if ($customer->get('default_address_id') == $address['address_book_id']) echo '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>'; ?></div>
+        <div class="card mb-2 <?= ($address['address_book_id'] == $customer->get('default_address_id')) ? 'text-white bg-info' : 'bg-light' ?>">
+          <div class="card-header"><?= htmlspecialchars($customer_data->get('name', $address)) ?></strong><?= ($customer->get('default_address_id') == $address['address_book_id']) ? '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>' : '' ?></div>
           <div class="card-body">
             <?= $customer_data->get_module('address')->format($address, true, ' ', '<br>') ?>
           </div>
-          <div class="card-footer text-center"><?= tep_draw_button(SMALL_IMAGE_BUTTON_EDIT, 'fas fa-file', tep_href_link('address_book_process.php', 'edit=' . $address['address_book_id']), null, null, 'btn btn-dark btn-sm') . ' ' . tep_draw_button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', tep_href_link('address_book_process.php', 'delete=' . $address['address_book_id']), null, null, 'btn btn-dark btn-sm') ?></div>
+          <div class="card-footer text-center"><?=
+            new Button(SMALL_IMAGE_BUTTON_EDIT, 'fas fa-file', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['edit' => $address['address_book_id']])) . ' '
+          . new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['delete' => $address['address_book_id']]))
+          ?></div>
         </div>
       </div>
       <?php
@@ -71,13 +74,13 @@
     <?php
     if ($customer->count_addresses() < MAX_ADDRESS_BOOK_ENTRIES) {
       ?>
-      <div class="text-right"><?= tep_draw_button(IMAGE_BUTTON_ADD_ADDRESS, 'fas fa-home', tep_href_link('address_book_process.php'), 'primary', null, 'btn-success btn-lg btn-block') ?></div>
+      <div class="text-right"><?= new Button(IMAGE_BUTTON_ADD_ADDRESS, 'fas fa-home', 'btn-success btn-lg btn-block', [], $Linker->build('address_book_process.php')) ?></div>
       <?php
       }
     ?>
-    <p><?= tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('account.php')) ?></p>
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('account.php')) ?></p>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $page_content = $Template->getContent('checkout_success');
+  $page_content = $Template->get_content('checkout_success');
 
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
