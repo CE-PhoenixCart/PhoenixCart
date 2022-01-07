@@ -40,7 +40,7 @@ EOSQL
       }
 
       \Href::redirect(\Guarantor::ensure_global('Linker')
-        ->build($GLOBALS['PHP_SELF'])
+        ->build()
         ->retain_query_except(['action', 'notify']));
     }
 
