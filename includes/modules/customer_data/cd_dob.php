@@ -111,7 +111,7 @@
       if (!$this->is_valid($dob)) {
         $GLOBALS['messageStack']->add_classed(
           $GLOBALS['message_stack_area'] ?? 'customer_data',
-          sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')) . cd_dob_date_raw($customer_details['dob']));
+          sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')) . $dob);
 
         return false;
       }
