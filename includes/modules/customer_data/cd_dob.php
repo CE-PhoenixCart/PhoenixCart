@@ -83,7 +83,7 @@
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {
-        $input->set('value', (new Date($this->get('dob', $customer_details)))->format('Y-m-d'));
+        $input->set('value', (new Date($this->get('dob', $customer_details)))->format('%Y-%m-%d'));
       }
 
       if ($this->is_required()) {
