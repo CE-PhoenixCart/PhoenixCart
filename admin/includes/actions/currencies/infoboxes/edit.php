@@ -10,6 +10,12 @@
   Released under the GNU General Public License
 */
 
+  if (!is_object($GLOBALS['table_definition']['info'] ?? null)) {
+    error_log('Nothing selected for editing');
+    return;
+  }
+
+  $cInfo =& $GLOBALS['table_definition']['info'];
   $heading = TEXT_INFO_HEADING_EDIT_CURRENCY;
 
   $link = $GLOBALS['Admin']->link('currencies.php', ['cID' => $cInfo->currencies_id]);
