@@ -36,7 +36,7 @@
   if (DEFAULT_CURRENCY != $cInfo->code) {
     $contents[] = [
       'text' => '<div class="custom-control custom-switch">'
-              . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'cDefault"'], 'checkbox')
+              . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'cDefault'], 'checkbox')
               . '<label for="cDefault" class="custom-control-label text-muted"><small>' . TEXT_INFO_SET_AS_DEFAULT . '</small></label></div>',
     ];
   }

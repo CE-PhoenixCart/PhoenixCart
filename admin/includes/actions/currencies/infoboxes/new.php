@@ -31,7 +31,7 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_THOUSANDS_POINT, null) . '<br>' . new Input('thousands_point')];
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_DECIMAL_PLACES, null) . '<br>' . new Input('decimal_places')];
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_VALUE, null) . '<br>' . new Input('value')];
-  $contents[] = ['text' => '<div class="custom-control custom-switch">' . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'cDefault"'], 'checkbox') . '<label for="cDefault" class="custom-control-label text-muted"><small>' . TEXT_INFO_SET_AS_DEFAULT . '</small></label></div>'];
+  $contents[] = ['text' => '<div class="custom-control custom-switch">' . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'cDefault'], 'checkbox') . '<label for="cDefault" class="custom-control-label text-muted"><small>' . TEXT_INFO_SET_AS_DEFAULT . '</small></label></div>'];
   $contents[] = [
     'class' => 'text-center',
     'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
