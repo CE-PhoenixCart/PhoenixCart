@@ -10,36 +10,36 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('account.php', '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('account_edit.php', '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build());
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size($message_stack_area) > 0) {
     echo $messageStack->output($message_stack_area);
   }
 
-  echo tep_draw_form('account_edit', tep_href_link('account_edit.php', '', 'SSL'), 'post', '', true) . tep_draw_hidden_field('action', 'process');
+  echo (new Form('account_edit', $Linker->build()))->hide('action', 'process');
 ?>
 
-  <div class="text-danger text-right"><?php echo FORM_REQUIRED_INFORMATION; ?></div>
+  <div class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></div>
 
   <?php
   $customer_data->display_input($customer_data->get_fields_for_page('account_edit'), $customer->fetch_to_address());
-  echo $OSCOM_Hooks->call('siteWide', 'injectFormDisplay');
+  echo $hooks->cat('injectFormDisplay');
 ?>
 
   <div class="buttonSet">
-    <div class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', null, 'primary', null, 'btn-success btn-lg btn-block'); ?></div>
-    <p><?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('account.php', '', 'SSL')); ?></p>
+    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('account.php')) ?></p>
   </div>
 
 </form>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

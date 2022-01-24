@@ -10,21 +10,21 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('gdpr.php'));
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('gdpr.php'));
 
-  $page_content = $oscTemplate->getContent('gdpr');
+  $page_content = $Template->get_content('gdpr');
 
-  $OSCOM_Hooks->call('gdpr', 'portData');
+  $hooks->call('gdpr', 'portData');
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
   <div class="row">
-    <?php echo $page_content; ?>
+    <?= $page_content ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

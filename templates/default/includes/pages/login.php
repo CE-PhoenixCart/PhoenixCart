@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('login.php', '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('login.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 
   if ($messageStack->size('login') > 0) {
     echo $messageStack->output('login');
@@ -20,9 +20,9 @@
 ?>
 
   <div class="row">
-    <?php echo $page_content; ?>
+    <?= $page_content ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

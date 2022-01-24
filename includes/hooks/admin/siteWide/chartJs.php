@@ -11,19 +11,16 @@
 */
 
 class hook_admin_siteWide_chartJs {
-  var $version = '2.8.0';
 
-  var $sitestart = null;
+  public $version = '2.9.3';
 
-  function listen_injectSiteStart() {
-    global $PHP_SELF;
-    
-    if (basename($PHP_SELF == 'index.php')) {
-      $this->sitestart .= '<!-- chartJs Hooked -->' . PHP_EOL;
-      $this->sitestart .= '<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>' . PHP_EOL;
+  public $sitestart = null;
 
-      return $this->sitestart;
+  public function listen_injectSiteStart() {
+    if (basename(Request::get_page() === 'index.php')) {
+      return '<!-- chartJs Hooked -->' . PHP_EOL
+           . '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>' . PHP_EOL;
     }
   }
-  
+
 }

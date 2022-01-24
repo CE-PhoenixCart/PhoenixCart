@@ -13,15 +13,15 @@
   $breadcrumb->add(NAVBAR_TITLE_1);
   $breadcrumb->add(NAVBAR_TITLE_2);
 
-  $page_content = $oscTemplate->getContent('create_account_success');
+  $page_content = $Template->get_content('create_account_success');
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
   <div class="row">
-    <?php echo $page_content; ?>
+    <?= $page_content ?>
   </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

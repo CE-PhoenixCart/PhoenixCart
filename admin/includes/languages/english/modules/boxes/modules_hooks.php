@@ -11,4 +11,3 @@
 */
 
   define('MODULES_ADMIN_MENU_MODULES_HOOKS', 'Hooks');
-  

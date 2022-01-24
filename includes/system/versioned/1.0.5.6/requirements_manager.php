@@ -62,7 +62,7 @@
       $successful = true;
       $details = [];
       foreach ($purveyors as $purveyor) {
-        $successful = $successful && $this->act_on($purveyor, 'process', $details);
+        $successful = $this->act_on($purveyor, 'process', $details) && $successful;
       }
 
       if (!$successful) {

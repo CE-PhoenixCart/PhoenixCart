@@ -83,7 +83,7 @@
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {
-        $input->set('value', (new Date($this->get('dob', $customer_details)))->format('Y-m-d'));
+        $input->set('value', Date::abridge($this->get('dob', $customer_details)));
       }
 
       if ($this->is_required()) {
@@ -94,30 +94,32 @@
       include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
-    public function is_valid($date) {
+    public function normalize_date(&$date) {
       if (empty($date)) {
         return $this->is_required();
       }
 
-      $raw = cd_dob_date_raw($date);
       return ((strlen($date) >= $this->base_constant('MIN_LENGTH'))
-        && is_numeric($raw)
-        && @checkdate(substr($raw, 4, 2), substr($raw, 6, 2), substr($raw, 0, 4)));
+        && is_numeric($date = cd_dob_date_raw($date))
+        && @checkdate(substr($date, 4, 2), substr($date, 6, 2), substr($date, 0, 4)))
+        && $date = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2);
     }
 
     public function process(&$customer_details) {
-      $dob = Text::input($_POST['dob']);
+      $customer_details['dob'] = Text::input($_POST['dob']);
 
-      if (!$this->is_valid($dob)) {
-        $GLOBALS['messageStack']->add_classed(
-          $GLOBALS['message_stack_area'] ?? 'customer_data',
-          sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')) . cd_dob_date_raw($customer_details['dob']));
-
-        return false;
+      if ($this->normalize_date($customer_details['dob'])) {
+        return true;
       }
 
-      $customer_details['dob'] = cd_dob_date_raw($dob);
-      return true;
+      $GLOBALS['messageStack']->add_classed(
+        $GLOBALS['message_stack_area'] ?? 'customer_data',
+        sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')));
+
+      error_log(sprintf('Date input as [%s] and parsed as [%s]', $_POST['dob'] ?? '', $customer_details['dob']));
+      $customer_details['dob'] = null;
+
+      return false;
     }
 
     public function build_db_values(&$db_tables, $customer_details, $table = 'both') {

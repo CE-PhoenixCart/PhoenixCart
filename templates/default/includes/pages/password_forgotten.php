@@ -10,13 +10,13 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE_1, tep_href_link('login.php', '', 'SSL'));
-  $breadcrumb->add(NAVBAR_TITLE_2, tep_href_link('password_forgotten.php', '', 'SSL'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('login.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('password_forgotten.php'));
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?php echo HEADING_TITLE; ?></h1>
+<h1 class="display-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size('password_forgotten') > 0) {
@@ -26,23 +26,23 @@
   if ($password_reset_initiated == true) {
 ?>
 
-  <div class="alert alert-success" role="alert"><?php echo TEXT_PASSWORD_RESET_INITIATED; ?></div>
+  <div class="alert alert-success" role="alert"><?= TEXT_PASSWORD_RESET_INITIATED ?></div>
 
 <?php
   } else {
 ?>
 
-<?php echo tep_draw_form('password_forgotten', tep_href_link('password_forgotten.php', 'action=process', 'SSL'), 'post', '', true); ?>
+<?= new Form('password_forgotten', $Linker->build('password_forgotten.php', ['action' => 'process']), 'post', [], true) ?>
 
-  <div class="alert alert-warning" role="alert"><?php echo TEXT_MAIN; ?></div>
+  <div class="alert alert-warning" role="alert"><?= TEXT_MAIN ?></div>
 
   <?php
   $customer_data->display_input(['email_address']);
   ?>
 
   <div class="buttonSet">
-    <div class="text-right"><?php echo tep_draw_button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', null, 'primary', null, 'btn-warning btn-lg btn-block'); ?></div>
-    <p><?php echo tep_draw_button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', tep_href_link('login.php', '', 'SSL')); ?></p>
+    <div class="text-right"><?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning btn-lg btn-block') ?></div>
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('login.php')) ?></p>
   </div>
 
 </form>
@@ -50,5 +50,5 @@
 <?php
   }
 
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

@@ -26,7 +26,7 @@
 
   $customer_data->display_input($customer_data->get_fields_for_page('address_book'), $customer_details);
 
-  if ( !isset($_GET['edit']) || ($customer->get_default_address_id() != $_GET['edit']) ) {
+  if ( !isset($_GET['edit']) || ($customer->get('default_address_id') != $_GET['edit']) ) {
 ?>
 
       <div class="form-group row">

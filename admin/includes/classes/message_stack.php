@@ -84,7 +84,7 @@
           $alert .= '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>';
         $alert .= '</div>';
       }
-      
+
       return $alert;
     }
 

@@ -9,28 +9,28 @@
 
   Released under the GNU General Public License
 */
-  
-  $page = info_pages::get_page(['pd.pages_id' => (int)$_GET['pages_id'],
-                                'pd.languages_id' => (int)$_SESSION['languages_id'],
-                                'p.pages_status' => 1]);
-  
-  if (sizeof($page) > 0) {
-    $breadcrumb->add($page['pages_title'], tep_href_link('info.php', 'pages_id=' . (int)$page['pages_id']));
-    
-    require $oscTemplate->map_to_template('template_top.php', 'component');
-    
-    $page_content = $oscTemplate->getContent('info');
+
+  $page = info_pages::get_page([
+    'pd.pages_id' => (int)$_GET['pages_id'],
+    'pd.languages_id' => (int)$_SESSION['languages_id'],
+    'p.pages_status' => 1,
+  ]);
+
+  if (count($page) > 0) {
+    $breadcrumb->add($page['pages_title'], $Linker->build('info.php', ['pages_id' => (int)$page['pages_id']]));
+
+    require $Template->map('template_top.php', 'component');
+
+    $page_content = $Template->get_content('info');
     ?>
-    
+
     <div class="row">
-      <?php echo $page_content; ?>
+      <?= $page_content ?>
     </div>
-    
+
     <?php
-    require $oscTemplate->map_to_template('template_bottom.php', 'component');
+    require $Template->map('template_bottom.php', 'component');
+  } else {
+    Href::redirect($Linker->build('index.php'));
   }
-  else {
-    tep_redirect(tep_href_link('index.php'));
-  }
-  ?>
-  
+?>

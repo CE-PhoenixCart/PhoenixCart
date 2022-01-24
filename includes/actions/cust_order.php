@@ -20,7 +20,7 @@
 
         if (\product_by_id::build($pid)->get('has_attributes')) {
           \Href::redirect(\Guarantor::ensure_global('Linker')
-            ->build('product_info.php', 'products_id=' . $pid));
+            ->build('product_info.php', ['products_id' => $pid]));
         }
 
         $_SESSION['cart']->add_cart($pid, $_SESSION['cart']->get_quantity($pid)+1);

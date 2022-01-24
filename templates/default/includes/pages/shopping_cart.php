@@ -9,12 +9,12 @@
 
   Released under the GNU General Public License
 */
-  
-  $page_content = $oscTemplate->getContent('shopping_cart');
 
-  $breadcrumb->add(NAVBAR_TITLE, tep_href_link('shopping_cart.php'));
+  $page_content = $Template->get_content('shopping_cart');
 
-  require $oscTemplate->map_to_template('template_top.php', 'component');
+  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('shopping_cart.php'));
+
+  require $Template->map('template_top.php', 'component');
 
   if ($messageStack->size('product_action') > 0) {
     echo $messageStack->output('product_action');
@@ -22,9 +22,9 @@
 ?>
 
 <div class="row">
-  <?php echo $page_content; ?>
+  <?= $page_content ?>
 </div>
 
 <?php
-  require $oscTemplate->map_to_template('template_bottom.php', 'component');
+  require $Template->map('template_bottom.php', 'component');
 ?>

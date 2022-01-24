@@ -11,20 +11,20 @@
 */
 ?>
 <!DOCTYPE html>
-<html <?php echo HTML_PARAMS; ?>>
+<html <?= HTML_PARAMS ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo CHARSET; ?>" />
-<title><?php echo htmlspecialchars(TITLE); ?></title>
-<base href="<?php echo HTTP_SERVER . DIR_WS_CATALOG; ?>" />
+<meta http-equiv="Content-Type" content="text/html; charset=<?= CHARSET ?>" />
+<title><?= htmlspecialchars(TITLE) ?></title>
+<base href="<?= HTTP_SERVER . DIR_WS_CATALOG ?>" />
 </head>
 <body>
 
 <div style="text-align: center;">
-  <?php echo tep_image('ext/modules/payment/paypal/images/hss_load.gif');?>
+  <?= new Image('ext/modules/payment/paypal/images/hss_load.gif') ?>
 </div>
 
-<form name="pphs" action="<?php echo $form_url; ?>" method="post" <?php echo ($error ? 'target="_top"' : ''); ?>>
-  <input type="hidden" name="hosted_button_id" value="<?php echo (isset($_SESSION['pphs_result']['HOSTEDBUTTONID']) ? htmlspecialchars($_SESSION['pphs_result']['HOSTEDBUTTONID']) : ''); ?>" />
+<form name="pphs" action="<?= $form_url ?>" method="post" <?= ($error ? 'target="_top"' : '') ?>>
+  <input type="hidden" name="hosted_button_id" value="<?= (isset($_SESSION['pphs_result']['HOSTEDBUTTONID']) ? htmlspecialchars($_SESSION['pphs_result']['HOSTEDBUTTONID']) : '') ?>" />
 </form>
 
 <script>

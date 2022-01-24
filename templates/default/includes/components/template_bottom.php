@@ -11,28 +11,26 @@
 */
 ?>
 
-      <?php
-      echo $OSCOM_Hooks->call('siteWide', 'injectBodyContentEnd');
-      ?>
+      <?= $hooks->cat('injectBodyContentEnd') ?>
 
       </div> <!-- bodyContent //-->
 
 <?php
-  if ( $oscTemplate->hasBlocks('boxes_column_left') && ($tpl_template->getGridColumnWidth() > 0) ) {
+  if ( $Template->has_blocks('boxes_column_left') && ($tpl_template->getGridColumnWidth() > 0) ) {
 ?>
 
-      <div id="columnLeft" class="col-md-<?php echo $tpl_template->getGridColumnWidth(); ?> order-6 order-md-1">
-        <?php echo $oscTemplate->getBlocks('boxes_column_left'); ?>
+      <div id="columnLeft" class="col-md-<?= $tpl_template->getGridColumnWidth() ?> order-6 order-md-1">
+        <?= $Template->get_blocks('boxes_column_left') ?>
       </div>
 
 <?php
   }
 
-  if ( $oscTemplate->hasBlocks('boxes_column_right') && ($tpl_template->getGridColumnWidth() > 0) ) {
+  if ( $Template->has_blocks('boxes_column_right') && ($tpl_template->getGridColumnWidth() > 0) ) {
 ?>
 
-      <div id="columnRight" class="col-md-<?php echo $tpl_template->getGridColumnWidth(); ?> order-last">
-        <?php echo $oscTemplate->getBlocks('boxes_column_right'); ?>
+      <div id="columnRight" class="col-md-<?= $tpl_template->getGridColumnWidth() ?> order-last">
+        <?= $Template->get_blocks('boxes_column_right') ?>
       </div>
 
 <?php
@@ -41,24 +39,22 @@
 
     </div> <!-- row -->
 
-    <?php
-    echo $OSCOM_Hooks->call('siteWide', 'injectBodyWrapperEnd');
-    ?>
+    <?= $hooks->cat('injectBodyWrapperEnd') ?>
 
   </div> <!-- bodyWrapper //-->
 
   <?php
-  echo $OSCOM_Hooks->call('siteWide', 'injectBeforeFooter');
+  echo $hooks->cat('injectBeforeFooter');
 
-  require $oscTemplate->map_to_template('footer.php', 'component');
+  require $Template->map('footer.php', 'component');
 
-  echo $OSCOM_Hooks->call('siteWide', 'injectAfterFooter');
+  echo $hooks->cat('injectAfterFooter');
 
-  echo $OSCOM_Hooks->call('siteWide', 'injectSiteEnd');
+  echo $hooks->cat('injectSiteEnd');
 
-  echo $oscTemplate->getBlocks('footer_scripts');
+  echo $Template->get_blocks('footer_scripts');
 
-  echo $OSCOM_Hooks->call('siteWide', 'injectBodyEnd');
+  echo $hooks->cat('injectBodyEnd');
   ?>
 
 </body>
