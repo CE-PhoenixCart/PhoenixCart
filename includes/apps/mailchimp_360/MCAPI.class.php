@@ -45,7 +45,7 @@ class MCAPI {
         } elseif( $username_or_apikey && !$password ){
             $this->api_key = $GLOBALS["mc_api_key"] = $username_or_apikey;
         }  else {
-            $this->api_key = $this->callServer("login", array("username" => $username_or_apikey, "password" => $password));
+            $this->api_key = $this->callServer("login", ["username" => $username_or_apikey, "password" => $password]);
             $GLOBALS["mc_api_key"] = $this->api_key;
         }
     }
@@ -77,7 +77,7 @@ class MCAPI {
      * @return boolean true on success
      */
     function campaignUnschedule($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignUnschedule", $params);
     }
@@ -95,7 +95,7 @@ class MCAPI {
      * @return boolean true on success
      */
     function campaignSchedule($cid, $schedule_time, $schedule_time_b=NULL) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["schedule_time"] = $schedule_time;
         $params["schedule_time_b"] = $schedule_time_b;
@@ -111,7 +111,7 @@ class MCAPI {
      * @return boolean true on success
      */
     function campaignResume($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignResume", $params);
     }
@@ -125,7 +125,7 @@ class MCAPI {
      * @return boolean true on success
      */
     function campaignPause($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignPause", $params);
     }
@@ -142,7 +142,7 @@ class MCAPI {
      * @return boolean true on success
      */
     function campaignSendNow($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignSendNow", $params);
     }
@@ -162,7 +162,7 @@ class MCAPI {
      */
     function campaignSendTest($cid, $test_emails=array (
 ), $send_type=NULL) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["test_emails"] = $test_emails;
         $params["send_type"] = $send_type;
@@ -183,7 +183,7 @@ class MCAPI {
      * @returnf array sections associative array of editable sections in the template that can accept custom HTML when sending a campaign
      */
     function campaignTemplates() {
-        $params = array();
+        $params = [];
         return $this->callServer("campaignTemplates", $params);
     }
 
@@ -244,7 +244,7 @@ class MCAPI {
      * @return integer total The total number of subscribers matching your segmentation options
      */
     function campaignSegmentTest($list_id, $options) {
-        $params = array();
+        $params = [];
         $params["list_id"] = $list_id;
         $params["options"] = $options;
         return $this->callServer("campaignSegmentTest", $params);
@@ -318,7 +318,7 @@ class MCAPI {
      * @return string the ID for the created campaign
      */
     function campaignCreate($type, $options, $content, $segment_opts=NULL, $type_opts=NULL) {
-        $params = array();
+        $params = [];
         $params["type"] = $type;
         $params["options"] = $options;
         $params["content"] = $content;
@@ -346,7 +346,7 @@ class MCAPI {
      * @return boolean true if the update succeeds, otherwise an error will be thrown
      */
     function campaignUpdate($cid, $name, $value) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["name"] = $name;
         $params["value"] = $value;
@@ -363,7 +363,7 @@ class MCAPI {
     * @return string the id of the replicated Campaign created, otherwise an error will be thrown
     */
     function campaignReplicate($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignReplicate", $params);
     }
@@ -378,7 +378,7 @@ class MCAPI {
     * @return boolean true if the delete succeeds, otherwise an error will be thrown
     */
     function campaignDelete($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignDelete", $params);
     }
@@ -428,7 +428,7 @@ class MCAPI {
      */
     function campaigns($filters=array (
 ), $start=0, $limit=25) {
-        $params = array();
+        $params = [];
         $params["filters"] = $filters;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -447,7 +447,7 @@ class MCAPI {
      * @returnf string name Name of the given folder
      */
     function campaignFolders() {
-        $params = array();
+        $params = [];
         return $this->callServer("campaignFolders", $params);
     }
 
@@ -478,7 +478,7 @@ class MCAPI {
      * @returnf integer emails_sent Number of email addresses campaign was sent to.
      */
     function campaignStats($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignStats", $params);
     }
@@ -497,7 +497,7 @@ class MCAPI {
      * @returnf integer unique Number of unique people who clicked on the specific link
      */
     function campaignClickStats($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignClickStats", $params);
     }
@@ -527,7 +527,7 @@ class MCAPI {
      * @returnf integer unsubs_pct Percentage of unsubs from this domain (whole number)
      */
     function campaignEmailDomainPerformance($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignEmailDomainPerformance", $params);
     }
@@ -543,7 +543,7 @@ class MCAPI {
      * @return array Arrays of email addresses with Hard Bounces
      */
     function campaignHardBounces($cid, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -561,7 +561,7 @@ class MCAPI {
      * @return array Arrays of email addresses with Soft Bounces
      */
     function campaignSoftBounces($cid, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -579,7 +579,7 @@ class MCAPI {
      * @return array list of email addresses that unsubscribed from this campaign
      */
     function campaignUnsubscribes($cid, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -603,7 +603,7 @@ class MCAPI {
      * @returnf string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views
      */
     function campaignAbuseReports($cid, $since=NULL, $start=0, $limit=500) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["since"] = $since;
         $params["start"] = $start;
@@ -625,7 +625,7 @@ class MCAPI {
      * @returnf type the "type" of the message. one of: negative, positive, or neutral
      */
     function campaignAdvice($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignAdvice", $params);
     }
@@ -652,7 +652,7 @@ class MCAPI {
      * @returnf array goals an array containing goal names and number of conversions
      */
     function campaignAnalytics($cid) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         return $this->callServer("campaignAnalytics", $params);
     }
@@ -676,7 +676,7 @@ class MCAPI {
      * @returnf string message the entire bounce message received
      */
     function campaignBounceMessages($cid, $start=0, $limit=25, $since=NULL) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -705,7 +705,7 @@ class MCAPI {
      * @returnf lines array containing detail of the order - product, category, quantity, item cost
      */
     function campaignEcommOrders($cid, $start=0, $limit=100, $since=NULL) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -735,7 +735,7 @@ class MCAPI {
      */
     function campaignShareReport($cid, $opts=array (
 )) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["opts"] = $opts;
         return $this->callServer("campaignShareReport", $params);
@@ -753,7 +753,7 @@ class MCAPI {
      * @returnf string text The Text content used for the campgain with merge tags intact
      */
     function campaignContent($cid, $for_archive=true) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["for_archive"] = $for_archive;
         return $this->callServer("campaignContent", $params);
@@ -773,7 +773,7 @@ class MCAPI {
      * @returnf integer open_count Total number of times the campaign was opened by this email address
      */
     function campaignOpenedAIM($cid, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -791,7 +791,7 @@ class MCAPI {
      * @return array list of email addresses that did not open a campaign
      */
     function campaignNotOpenedAIM($cid, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -812,7 +812,7 @@ class MCAPI {
      * @returnf integer clicks Total number of times the URL was clicked on by this email address
      */
     function campaignClickDetailAIM($cid, $url, $start=0, $limit=1000) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["url"] = $url;
         $params["start"] = $start;
@@ -833,7 +833,7 @@ class MCAPI {
      * @returnf string url For clicks, the URL that was clicked
      */
     function campaignEmailStatsAIM($cid, $email_address) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["email_address"] = $email_address;
         return $this->callServer("campaignEmailStatsAIM", $params);
@@ -855,7 +855,7 @@ class MCAPI {
      * @returnf string url For clicks, the URL that was clicked
      */
     function campaignEmailStatsAIMAll($cid, $start=0, $limit=100) {
-        $params = array();
+        $params = [];
         $params["cid"] = $cid;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -890,7 +890,7 @@ class MCAPI {
      * @return bool true if the data is saved, otherwise an error is thrown.
      */
     function campaignEcommAddOrder($order) {
-        $params = array();
+        $params = [];
         $params["order"] = $order;
         return $this->callServer("campaignEcommAddOrder", $params);
     }
@@ -917,7 +917,7 @@ class MCAPI {
      * @returnf string default_language Default Language for this list's forms
      */
     function lists() {
-        $params = array();
+        $params = [];
         return $this->callServer("lists", $params);
     }
 
@@ -934,7 +934,7 @@ class MCAPI {
      * @returnf string tag The merge tag that's used for forms and listSubscribe() and listUpdateMember()
      */
     function listMergeVars($id) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         return $this->callServer("listMergeVars", $params);
     }
@@ -960,7 +960,7 @@ class MCAPI {
      */
     function listMergeVarAdd($id, $tag, $name, $req=array (
 )) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["tag"] = $tag;
         $params["name"] = $name;
@@ -979,7 +979,7 @@ class MCAPI {
      * @return bool true if the request succeeds, otherwise an error will be thrown
      */
     function listMergeVarUpdate($id, $tag, $options) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["tag"] = $tag;
         $params["options"] = $options;
@@ -998,7 +998,7 @@ class MCAPI {
      * @return bool true if the request succeeds, otherwise an error will be thrown
      */
     function listMergeVarDel($id, $tag) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["tag"] = $tag;
         return $this->callServer("listMergeVarDel", $params);
@@ -1017,7 +1017,7 @@ class MCAPI {
      * @returnf array groups Array of the group names
      */
     function listInterestGroups($id) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         return $this->callServer("listInterestGroups", $params);
     }
@@ -1033,7 +1033,7 @@ class MCAPI {
      * @return bool true if the request succeeds, otherwise an error will be thrown
      */
     function listInterestGroupAdd($id, $group_name) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["group_name"] = $group_name;
         return $this->callServer("listInterestGroupAdd", $params);
@@ -1049,7 +1049,7 @@ class MCAPI {
      * @return bool true if the request succeeds, otherwise an error will be thrown
      */
     function listInterestGroupDel($id, $group_name) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["group_name"] = $group_name;
         return $this->callServer("listInterestGroupDel", $params);
@@ -1065,7 +1065,7 @@ class MCAPI {
      * @return bool true if the request succeeds, otherwise an error will be thrown
      */
     function listInterestGroupUpdate($id, $old_name, $new_name) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["old_name"] = $old_name;
         $params["new_name"] = $new_name;
@@ -1083,7 +1083,7 @@ class MCAPI {
      * @returnf array sources the possible sources and whether they are enabled
      */
     function listWebhooks($id) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         return $this->callServer("listWebhooks", $params);
     }
@@ -1109,7 +1109,7 @@ class MCAPI {
     function listWebhookAdd($id, $url, $actions=array (
 ), $sources=array (
 )) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["url"] = $url;
         $params["actions"] = $actions;
@@ -1126,7 +1126,7 @@ class MCAPI {
      * @return boolean true if the call succeeds, otherwise an exception will be thrown
      */
     function listWebhookDel($id, $url) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["url"] = $url;
         return $this->callServer("listWebhookDel", $params);
@@ -1170,7 +1170,7 @@ class MCAPI {
      * @return boolean true on success, false on failure. When using MCAPI.class.php, the value can be tested and error messages pulled from the MCAPI object (see below)
      */
     function listSubscribe($id, $email_address, $merge_vars, $email_type='html', $double_optin=true, $update_existing=false, $replace_interests=true, $send_welcome=false) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["email_address"] = $email_address;
         $params["merge_vars"] = $merge_vars;
@@ -1197,7 +1197,7 @@ class MCAPI {
      * @return boolean true on success, false on failure. When using MCAPI.class.php, the value can be tested and error messages pulled from the MCAPI object (see below)
      */
     function listUnsubscribe($id, $email_address, $delete_member=false, $send_goodbye=true, $send_notify=true) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["email_address"] = $email_address;
         $params["delete_member"] = $delete_member;
@@ -1220,7 +1220,7 @@ class MCAPI {
      * @return boolean true on success, false on failure. When using MCAPI.class.php, the value can be tested and error messages pulled from the MCAPI object
      */
     function listUpdateMember($id, $email_address, $merge_vars, $email_type='', $replace_interests=true) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["email_address"] = $email_address;
         $params["merge_vars"] = $merge_vars;
@@ -1248,7 +1248,7 @@ class MCAPI {
      * @returnf array errors Array of error structs. Each error struct will contain "code", "message", and the full struct that failed
      */
     function listBatchSubscribe($id, $batch, $double_optin=true, $update_existing=false, $replace_interests=true) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["batch"] = $batch;
         $params["double_optin"] = $double_optin;
@@ -1274,7 +1274,7 @@ class MCAPI {
      * @returnf array errors Array of error structs. Each error struct will contain "code", "message", and "email"
      */
     function listBatchUnsubscribe($id, $emails, $delete_member=false, $send_goodbye=true, $send_notify=false) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["emails"] = $emails;
         $params["delete_member"] = $delete_member;
@@ -1299,7 +1299,7 @@ class MCAPI {
      * @returnf date timestamp timestamp of their associated status date (subscribed, unsubscribed, cleaned, or updated) in GMT
      */
     function listMembers($id, $status='subscribed', $since=NULL, $start=0, $limit=100) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["status"] = $status;
         $params["since"] = $since;
@@ -1329,7 +1329,7 @@ class MCAPI {
      * @returnf date timestamp The time this email address was added to the list
      */
     function listMemberInfo($id, $email_address) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["email_address"] = $email_address;
         return $this->callServer("listMemberInfo", $params);
@@ -1353,7 +1353,7 @@ class MCAPI {
      * @returnf string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views
      */
     function listAbuseReports($id, $start=0, $limit=500, $since=NULL) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         $params["start"] = $start;
         $params["limit"] = $limit;
@@ -1376,7 +1376,7 @@ class MCAPI {
      * @returnf integer optins number of subscribers who opted-in during the month
      */
     function listGrowthHistory($id) {
-        $params = array();
+        $params = [];
         $params["id"] = $id;
         return $this->callServer("listGrowthHistory", $params);
     }
@@ -1398,7 +1398,7 @@ class MCAPI {
      * @returnf string url Your Monkey Rewards link for our Affiliate program
      */
     function getAffiliateInfo() {
-        $params = array();
+        $params = [];
         return $this->callServer("getAffiliateInfo", $params);
     }
 
@@ -1429,7 +1429,7 @@ class MCAPI {
      * @returnf array orders Order details for the account, include order_id, type, cost, date/time, and any credits applied to the order
      */
     function getAccountDetails() {
-        $params = array();
+        $params = [];
         return $this->callServer("getAccountDetails", $params);
     }
 
@@ -1444,7 +1444,7 @@ class MCAPI {
      * @return string the content pass in converted to text.
      */
     function generateText($type, $content) {
-        $params = array();
+        $params = [];
         $params["type"] = $type;
         $params["content"] = $content;
         return $this->callServer("generateText", $params);
@@ -1461,7 +1461,7 @@ class MCAPI {
      * @return string Your HTML content with all CSS inlined, just like if we sent it.
      */
     function inlineCss($html, $strip_css=false) {
-        $params = array();
+        $params = [];
         $params["html"] = $html;
         $params["strip_css"] = $strip_css;
         return $this->callServer("inlineCss", $params);
@@ -1478,7 +1478,7 @@ class MCAPI {
      * @return integer the folder_id of the newly created folder.
      */
     function createFolder($name) {
-        $params = array();
+        $params = [];
         $params["name"] = $name;
         return $this->callServer("createFolder", $params);
     }
@@ -1499,7 +1499,7 @@ class MCAPI {
      * @returnf string expired_at The date the key was expired
      */
     function apikeys($username, $password, $expired=false) {
-        $params = array();
+        $params = [];
         $params["username"] = $username;
         $params["password"] = $password;
         $params["expired"] = $expired;
@@ -1517,7 +1517,7 @@ class MCAPI {
      * @return string a new API Key that can be immediately used.
      */
     function apikeyAdd($username, $password) {
-        $params = array();
+        $params = [];
         $params["username"] = $username;
         $params["password"] = $password;
         return $this->callServer("apikeyAdd", $params);
@@ -1538,7 +1538,7 @@ class MCAPI {
      * @return boolean true if it worked, otherwise an error is thrown.
      */
     function apikeyExpire($username, $password) {
-        $params = array();
+        $params = [];
         $params["username"] = $username;
         $params["password"] = $password;
         return $this->callServer("apikeyExpire", $params);
@@ -1555,7 +1555,7 @@ class MCAPI {
      * @return string returns "Everything's Chimpy!" if everything is chimpy, otherwise returns an error message
      */
     function ping() {
-        $params = array();
+        $params = [];
         return $this->callServer("ping", $params);
     }
 
@@ -1565,7 +1565,7 @@ class MCAPI {
      * @return mixed the result of the call
      */
     function callMethod() {
-        $params = array();
+        $params = [];
         return $this->callServer("callMethod", $params);
     }
 
@@ -1625,7 +1625,7 @@ class MCAPI {
 
         $serial = unserialize($response);
         if($response && $serial === false) {
-        	$response = array("error" => "Bad Response.  Got This: " . $response, "code" => "-99");
+        	$response = ["error" => "Bad Response.  Got This: " . $response, "code" => "-99"];
         } else {
         	$response = $serial;
         }
@@ -1642,7 +1642,7 @@ class MCAPI {
      * Re-implement http_build_query for systems that do not already have it
      */
     function httpBuildQuery($params, $key=null) {
-        $ret = array();
+        $ret = [];
 
         foreach((array) $params as $name => $val) {
             $name = urlencode($name);
@@ -1660,5 +1660,3 @@ class MCAPI {
         return implode("&", $ret);
     }
 }
-
-?>
