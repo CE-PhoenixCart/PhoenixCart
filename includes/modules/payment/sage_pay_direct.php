@@ -984,7 +984,9 @@ EOSQL;
       $dialog_error = MODULE_PAYMENT_SAGE_PAY_DIRECT_DIALOG_CONNECTION_ERROR;
       $dialog_connection_time = MODULE_PAYMENT_SAGE_PAY_DIRECT_DIALOG_CONNECTION_TIME;
 
-      $test_url = $GLOBALS['Linker']->build('modules.php', ['set' => 'payment', 'module' => $this->code, 'action' => 'install', 'subaction' => 'conntest']);
+      if (isset($GLOBALS['Admin'])) {
+        $test_url = $GLOBALS['Admin']->link('modules.php', ['set' => 'payment', 'module' => $this->code, 'action' => 'install', 'subaction' => 'conntest']);
+      }
 
       $js = <<<EOD
 <script>
