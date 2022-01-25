@@ -20,7 +20,7 @@
   require language::map_to_translation('address_book_process.php');
 
   if (is_numeric($_GET['delete'] ?? null) && Form::validate_action_is('deleteconfirm', 2)) {
-    if ((int)$_GET['delete'] == $customer->get_default_address_id()) {
+    if ((int)$_GET['delete'] == $customer->get('default_address_id')) {
       $messageStack->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
     } else {
       $db->query("DELETE FROM address_book WHERE address_book_id = " . (int)$_GET['delete'] . " and customers_id = " . (int)$_SESSION['customer_id']);
@@ -80,7 +80,7 @@
     $navbar_link_3 = $Linker->build('address_book_process.php', ['edit' => $_GET['edit']]);
     $back_link = $Linker->build('address_book.php');
   } elseif (is_numeric($_GET['delete'] ?? null)) {
-    if ($_GET['delete'] == $customer->get_default_address_id()) {
+    if ($_GET['delete'] == $customer->get('default_address_id')) {
       $messageStack->add_session($message_stack_area, WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
 
       Href::redirect($Linker->build('address_book.php'));

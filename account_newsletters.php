@@ -12,20 +12,20 @@
 
   require 'includes/application_top.php';
 
-  $OSCOM_Hooks->register_pipeline('loginRequired');
+  $hooks->register_pipeline('loginRequired');
 
   if (!$customer_data->has(['newsletter'])) {
-    tep_redirect(tep_href_link('account.php'));
+    Href::redirect($Linker->build('account.php'));
   }
 
 // needs to be included earlier to set the success message in the messageStack
   require language::map_to_translation('account_newsletters.php');
 
   $customer_data->build_read(['newsletter'], 'customers', ['id' => (int)$_SESSION['customer_id']]);
-  $newsletter_query = tep_db_query($customer_data->build_read(['newsletter'], 'customers', ['id' => (int)$_SESSION['customer_id']]));
+  $newsletter_query = $db->query($customer_data->build_read(['newsletter'], 'customers', ['id' => (int)$_SESSION['customer_id']]));
   $newsletter = $newsletter_query->fetch_assoc();
 
-  if (tep_validate_form_action_is('process')) {
+  if (Form::validate_action_is('process')) {
     if (isset($_POST['newsletter_general']) && is_numeric($_POST['newsletter_general'])) {
       $newsletter_general = Text::input($_POST['newsletter_general']);
     } else {
@@ -39,9 +39,9 @@
 
     $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
 
-    tep_redirect(tep_href_link('account.php'));
+    Href::redirect($Linker->build('account.php'));
   }
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

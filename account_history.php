@@ -12,10 +12,10 @@
 
   require 'includes/application_top.php';
 
-  $OSCOM_Hooks->register_pipeline('loginRequired');
+  $hooks->register_pipeline('loginRequired');
 
   require language::map_to_translation('account_history.php');
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

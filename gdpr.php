@@ -12,14 +12,14 @@
 
   require 'includes/application_top.php';
 
-  $OSCOM_Hooks->register_pipeline('loginRequired');
-  $OSCOM_Hooks->call('gdpr', 'injectRedirect');
+  $hooks->register_pipeline('loginRequired');
+  $hooks->cat('injectRedirect');
 
   $port_my_data = [];
-  $OSCOM_Hooks->call('gdpr', 'injectData');
+  $hooks->cat('injectData');
 
   require language::map_to_translation('gdpr.php');
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

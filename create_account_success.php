@@ -13,6 +13,6 @@
   require 'includes/application_top.php';
 
   require language::map_to_translation('create_account_success.php');
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';
