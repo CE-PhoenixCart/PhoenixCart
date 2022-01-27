@@ -12,9 +12,11 @@
 
   foreach ( $cl_box_groups as &$group ) {
     if ( $group['heading'] == BOX_HEADING_LOCATION_AND_TAXES ) {
-      $group['apps'][] = array('code' => 'zones.php',
-                               'title' => MODULES_ADMIN_MENU_TAXES_ZONES,
-                               'link' => tep_href_link('zones.php'));
+      $group['apps'][] = [
+        'code' => 'zones.php',
+        'title' => MODULES_ADMIN_MENU_TAXES_ZONES,
+        'link' => $GLOBALS['Admin']->link('zones.php'),
+      ];
 
       break;
     }

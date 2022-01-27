@@ -11,4 +11,3 @@
 */
 
   $cl_box_groups[] = ['heading' => BOX_HEADING_LAYOUT, 'apps' => []];
-  
