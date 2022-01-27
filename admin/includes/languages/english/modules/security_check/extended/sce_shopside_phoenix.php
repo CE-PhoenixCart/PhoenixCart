@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
-define('MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_OSC_TITLE', 'Versioning - Phoenix');
-define('MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_OSC_MESSAGE', 'Your shop is based on CE Phoenix v%s, see <a href="' . tep_href_link('version_check.php') . '"><u>Tools > Version Checker</u></a> for more detailed information.');
+const MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_PHOENIX_TITLE = 'Version - CE Phoenix Cart';
+const MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_PHOENIX_MESSAGE = <<<'EOT'
+Your shop is based on CE Phoenix v%s, see <a href="%s"><u>Tools > Version Checker</u></a> for more detailed information.
+EOT;
 

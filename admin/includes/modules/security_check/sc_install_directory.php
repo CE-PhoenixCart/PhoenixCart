@@ -2,29 +2,24 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_install_directory {
-    var $type = 'warning';
+  class sc_install_directory {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/install_directory.php');
-    }
-
-    function pass() {
+    public function pass() {
       return !file_exists(DIR_FS_CATALOG . 'install');
     }
 
-    function getMessage() {
+    public function get_message() {
       return WARNING_INSTALL_DIRECTORY_EXISTS;
     }
+
   }
-?>

@@ -2,29 +2,24 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_file_uploads {
-    var $type = 'warning';
+  class sc_file_uploads {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/file_uploads.php');
-    }
-
-    function pass() {
+    public function pass() {
       return (bool)ini_get('file_uploads');
     }
 
-    function getMessage() {
+    public function get_message() {
       return WARNING_FILE_UPLOADS_DISABLED;
     }
+
   }
-?>

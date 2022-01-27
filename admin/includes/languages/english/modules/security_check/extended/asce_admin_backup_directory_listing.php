@@ -2,14 +2,15 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2013 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_DIRECTORY_LISTING_TITLE', 'admin/backups/ Directory Listing');
-define('MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_DIRECTORY_LISTING_HTTP_200', 'The <a href="' . tep_href_link('backups/') . '" target="_blank">' . DIR_WS_ADMIN . 'backups/</a> directory is publicly accessible and/or browsable - please disable directory listing for this directory in your web server configuration.');
-?>
+const MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_DIRECTORY_LISTING_TITLE = 'Web Directory Listing admin/backups/';
+const MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_DIRECTORY_LISTING_HTTP_200 = <<<'EOT'
+The <a href="%s" target="_blank">%s</a> directory is publicly accessible and/or browsable - please disable directory listing for this directory in your web server configuration.
+EOT;

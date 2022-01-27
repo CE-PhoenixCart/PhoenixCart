@@ -10,27 +10,21 @@
   Released under the GNU General Public License
 */
 
-  class securityCheck_fopen_wrapper {
-    var $type = 'warning';
-    var $has_doc = false;
+  class sc_fopen_wrapper {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
+    public $has_doc = false;
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/fopen_wrapper.php');
-
+    public function __construct() {
       $this->title = MODULE_SECURITY_CHECK_FOPEN_WRAPPER_TITLE;
     }
 
-    function pass() {
-      if ((int)ini_get('allow_url_fopen') == 0) return false;
-
-      return true;
+    public function pass() {
+      return ((int)ini_get('allow_url_fopen') != 0);
     }
 
-    function getMessage() {
+    public function get_message() {
       return MODULE_SECURITY_CHECK_FOPEN_WRAPPER_ERROR;
     }
-    
+
   }
-  

@@ -10,26 +10,24 @@
   Released under the GNU General Public License
 */
 
-  class securityCheckExtended_shopside_osc {
-    var $type = 'info';
-    var $has_doc = false;
+  class sce_shopside_phoenix {
 
-    function __construct() {
-      global $language;
+    public $type = 'info';
+    public $has_doc = false;
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended/shopside_osc.php');
-      
-      $this->title = MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_OSC_TITLE;
+    public function __construct() {
+      $this->title = MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_PHOENIX_TITLE;
     }
 
-    function pass() {
+    public function pass() {
       return false;
     }
 
-    function getMessage() {
-      $current_version = tep_get_version();
-
-      return sprintf(MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_OSC_MESSAGE, $current_version);
+    public function get_message() {
+      return sprintf(
+        MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_PHOENIX_MESSAGE,
+        Versions::get('Phoenix'),
+        $GLOBALS['Admin']->link('version_check.php'));
     }
+
   }
-  

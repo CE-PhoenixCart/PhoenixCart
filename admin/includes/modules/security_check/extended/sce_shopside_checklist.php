@@ -10,24 +10,21 @@
   Released under the GNU General Public License
 */
 
-  class securityCheckExtended_shopside_checklist {
-    var $type = 'info';
-    var $has_doc = false;
+  class sce_shopside_checklist {
 
-    function __construct() {
-      global $language;
+    public $type = 'info';
+    public $has_doc = false;
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended/shopside_checklist.php');
-      
+    public function __construct() {
       $this->title = MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_CHECKLIST_TITLE;
     }
 
-    function pass() {
+    public function pass() {
       return false;
     }
 
-    function getMessage() {
+    public function get_message() {
       return MODULE_SECURITY_CHECK_EXTENDED_SHOPSIDE_CHECKLIST_MESSAGE;
     }
+
   }
-  

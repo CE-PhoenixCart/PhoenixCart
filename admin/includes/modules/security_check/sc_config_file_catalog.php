@@ -2,29 +2,24 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_config_file_catalog {
-    var $type = 'warning';
+  class sc_config_file_catalog {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/config_file_catalog.php');
+    public function pass() {
+      return (file_exists(DIR_FS_CATALOG . 'includes/configure.php') && !File::is_writable(DIR_FS_CATALOG . 'includes/configure.php'));
     }
 
-    function pass() {
-      return (file_exists(DIR_FS_CATALOG . 'includes/configure.php') && !tep_is_writable(DIR_FS_CATALOG . 'includes/configure.php'));
-    }
-
-    function getMessage() {
+    public function get_message() {
       return WARNING_CONFIG_FILE_WRITEABLE;
     }
+
   }
-?>

@@ -2,63 +2,44 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2014 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheckExtended_ext_directory_listing {
-    var $type = 'warning';
-    var $has_doc = true;
+  class asce_ext_directory_listing {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
+    public $has_doc = true;
+    protected $curl_handle;
+    protected $url;
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended/ext_directory_listing.php');
-
+    public function __construct($security_checks) {
       $this->title = MODULE_SECURITY_CHECK_EXTENDED_EXT_DIRECTORY_LISTING_TITLE;
+
+      $this->url = $GLOBALS['Admin']->catalog('ext/');
+      $this->curl_handle = $security_checks->fetch_curl_handle($this->url);
+      if (!$security_checks->add_curl_handle($this->curl_handle, __CLASS__)) {
+        $this->curl_handle = null;
+      }
     }
 
-    function pass() {
-      $request = $this->getHttpRequest(tep_catalog_href_link('ext/'));
-
+    public function pass($request) {
       return $request['http_code'] != 200;
     }
 
-    function getMessage() {
-      return MODULE_SECURITY_CHECK_EXTENDED_EXT_DIRECTORY_LISTING_HTTP_200;
+    public function get_message() {
+      return sprintf(
+        MODULE_SECURITY_CHECK_EXTENDED_EXT_DIRECTORY_LISTING_HTTP_200,
+        $this->url,
+        DIR_WS_CATALOG . 'ext/');
     }
 
-    function getHttpRequest($url) {
-      $server = parse_url($url);
-
-      if (isset($server['port']) === false) {
-        $server['port'] = ($server['scheme'] == 'https') ? 443 : 80;
-      }
-
-      if (isset($server['path']) === false) {
-        $server['path'] = '/';
-      }
-
-      $curl = curl_init($server['scheme'] . '://' . $server['host'] . $server['path'] . (isset($server['query']) ? '?' . $server['query'] : ''));
-      curl_setopt($curl, CURLOPT_PORT, $server['port']);
-      curl_setopt($curl, CURLOPT_HEADER, false);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($curl, CURLOPT_FORBID_REUSE, true);
-      curl_setopt($curl, CURLOPT_FRESH_CONNECT, true);
-      curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'HEAD');
-      curl_setopt($curl, CURLOPT_NOBODY, true);
-
-      $result = curl_exec($curl);
-
-      $info = curl_getinfo($curl);
-
-      curl_close($curl);
-
-      return $info;
+    public function close() {
+      curl_close($this->curl_handle);
     }
+
   }
-?>

@@ -2,29 +2,24 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_session_auto_start {
-    var $type = 'warning';
+  class sc_session_auto_start {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/session_auto_start.php');
-    }
-
-    function pass() {
+    public function pass() {
       return ((bool)ini_get('session.auto_start') == false);
     }
 
-    function getMessage() {
+    public function get_message() {
       return WARNING_SESSION_AUTO_START;
     }
+
   }
-?>

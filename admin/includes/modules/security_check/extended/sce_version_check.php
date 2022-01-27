@@ -2,34 +2,33 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2013 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheckExtended_version_check {
-    var $type = 'warning';
-    var $has_doc = true;
+  class sce_version_check {
 
-    function __construct() {
-      global $language;
+    const URL = 'https://github.com/CE-PhoenixCart/PhoenixCart/blob/master/includes/version.php';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended/version_check.php');
+    public $type = 'warning';
+    public $has_doc = true;
+    protected $version;
 
+    public function __construct() {
       $this->title = MODULE_SECURITY_CHECK_EXTENDED_VERSION_CHECK_TITLE;
+      $this->version = trim(Web::load(static::URL));
     }
 
-    function pass() {
-      $cache_file = DIR_FS_CACHE . 'oscommerce_version_check.cache';
-
-      return file_exists($cache_file) && (filemtime($cache_file) > strtotime('-30 days'));
+    public function pass() {
+      return !version_compare(Versions::get('Phoenix'), $this->version, '<');
     }
 
-    function getMessage() {
-      return '<a href="' . tep_href_link('version_check.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_VERSION_CHECK_ERROR . '</a>';
+    public function get_message() {
+      return '<a href="' . $GLOBALS['Admin']->link('version_check.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_VERSION_CHECK_ERROR . '</a>';
     }
+
   }
-?>

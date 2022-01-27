@@ -2,14 +2,15 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2013 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_FILE_TITLE', 'admin/backups/ File Access');
-define('MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_FILE_HTTP_200', 'Backup files in ' . DIR_WS_ADMIN . 'backups/ can be accessed and downloaded directly - please disable public access to this directory in your web server configuration.');
-?>
+const MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_FILE_TITLE = 'Web File Access admin/backups/';
+const MODULE_SECURITY_CHECK_EXTENDED_ADMIN_BACKUP_FILE_HTTP_200 = <<<'EOT'
+Backup files in %s can be accessed and downloaded directly - please disable public access to this directory in your web server configuration.'
+EOT;

@@ -2,31 +2,28 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2013 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_extended_last_run {
-    var $type = 'warning';
+  class sc_extended_last_run {
 
-    function __construct() {
-      global $language;
+    public $type = 'warning';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/extended_last_run.php');
-    }
-
-    function pass() {
-      global $PHP_SELF;
-
-      if ( $PHP_SELF == 'security_checks.php' ) {
+    public function pass() {
+      if ( Request::get_page() === 'security_checks.php' ) {
         if ( defined('MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME') ) {
-          tep_db_query("update configuration set configuration_value = '" . time() . "' where configuration_key = 'MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME'");
+          $GLOBALS['db']->query("UPDATE configuration SET configuration_value = '" . time() . "' WHERE configuration_key = 'MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME'");
         } else {
-          tep_db_query("insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added) values ('Security Check Extended Last Run', 'MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME', '" . time() . "', 'The date and time the last extended security check was performed.', '6', now())");
+          $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added)
+  VALUES ('Security Check Extended Last Run', 'MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME', '%d', 'The date and time the last extended security check was performed.', 6, NOW())
+EOSQL
+            , time()));
         }
 
         return true;
@@ -35,8 +32,8 @@
       return defined('MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME') && (MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_DATETIME > strtotime('-30 days'));
     }
 
-    function getMessage() {
-      return '<a href="' . tep_href_link('security_checks.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_OLD . '</a>';
+    public function get_message() {
+      return '<a href="' . $GLOBALS['Admin']->link('security_checks.php') . '">' . MODULE_SECURITY_CHECK_EXTENDED_LAST_RUN_OLD . '</a>';
     }
+
   }
-?>

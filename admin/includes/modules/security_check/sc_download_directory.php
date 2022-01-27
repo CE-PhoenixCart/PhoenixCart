@@ -10,21 +10,17 @@
   Released under the GNU General Public License
 */
 
-  class securityCheck_download_directory {
+  class sc_download_directory {
 
     const FS_DOWNLOAD_DIRECTORY = DIR_FS_CATALOG . 'download/';
 
     public $type = 'warning';
 
-    function __construct() {
-      include DIR_FS_ADMIN . 'includes/languages/' . $_SESSION['language'] . '/modules/security_check/download_directory.php';
-    }
-
-    function pass() {
+    public function pass() {
       return ('true' !== DOWNLOAD_ENABLED) || is_dir(static::FS_DOWNLOAD_DIRECTORY);
     }
 
-    function getMessage() {
+    public function get_message() {
       return sprintf(WARNING_DOWNLOAD_DIRECTORY_NON_EXISTENT, static::FS_DOWNLOAD_DIRECTORY);
     }
 

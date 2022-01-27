@@ -2,29 +2,24 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class securityCheck_default_currency {
-    var $type = 'error';
+  class sc_default_currency {
 
-    function __construct() {
-      global $language;
+    public $type = 'error';
 
-      include(DIR_FS_ADMIN . 'includes/languages/' . $language . '/modules/security_check/default_currency.php');
-    }
-
-    function pass() {
+    public function pass() {
       return defined('DEFAULT_CURRENCY');
     }
 
-    function getMessage() {
+    public function get_message() {
       return ERROR_NO_DEFAULT_CURRENCY_DEFINED;
     }
+
   }
-?>
