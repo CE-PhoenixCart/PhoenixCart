@@ -29,10 +29,10 @@
 
       $security_checks = new security_checks();
 
-      foreach (array_column($security_checks->generate_modules(), 'class') as $module) {
+      foreach (array_column(iterator_to_array($security_checks->generate_modules()), 'class') as $module) {
         if ( !$GLOBALS[$module]->pass() ) {
           Guarantor::guarantee_subarray($messages, $GLOBALS[$module]->type);
-          $messages[$GLOBALS[$module]->type][] = $GLOBALS[$module]->getMessage();
+          $messages[$GLOBALS[$module]->type][] = $GLOBALS[$module]->get_message();
         }
       }
 
