@@ -15,7 +15,7 @@
       $group['apps'][] = [
         'code' => 'customer_data_groups.php',
         'title' => BOX_LOCALIZATION_CUSTOMER_DATA_GROUPS,
-        'link' => tep_href_link('customer_data_groups.php'),
+        'link' => $GLOBALS['Admin']->link('customer_data_groups.php'),
       ];
 
       break;

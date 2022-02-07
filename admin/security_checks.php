@@ -5,64 +5,14 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
   require 'includes/application_top.php';
 
-  function tep_sort_secmodules($a, $b) {
-    return strcasecmp($a['title'], $b['title']);
-  }
-
-  $types = ['info', 'warning', 'error'];
-
-  $modules = [];
-
-  if ($secdir = @dir(DIR_FS_ADMIN . 'includes/modules/security_check/')) {
-    while ($file = $secdir->read()) {
-      if (!is_dir(DIR_FS_ADMIN . "includes/modules/security_check/$file")) {
-        if ('php' === pathinfo($file, PATHINFO_EXTENSION)) {
-          $code = pathinfo($file, PATHINFO_FILENAME);
-          $class = "securityCheck_$code";
-
-          include(DIR_FS_ADMIN . 'includes/modules/security_check/' . $file);
-          $$class = new $class();
-
-          $modules[] = [
-            'title' => $$class->title ?? $code,
-            'class' => $class,
-            'code' => $code,
-          ];
-        }
-      }
-    }
-    $secdir->close();
-  }
-
-  if ($extdir = @dir(DIR_FS_ADMIN . 'includes/modules/security_check/extended/')) {
-    while ($file = $extdir->read()) {
-      if (!is_dir(DIR_FS_ADMIN . "includes/modules/security_check/extended/$file")) {
-        if ('php' === pathinfo($file, PATHINFO_EXTENSION)) {
-          $code = pathinfo($file, PATHINFO_FILENAME);
-          $class = "securityCheckExtended_$code";
-
-          include(DIR_FS_ADMIN . 'includes/modules/security_check/extended/' . $file);
-          $$class = new $class();
-
-          $modules[] = [
-            'title' => $$class->title ?? $code,
-            'class' => $class,
-            'code' => $code,
-          ];
-        }
-      }
-    }
-    $extdir->close();
-  }
-
-  usort($modules, 'tep_sort_secmodules');
+  $security_checks = new security_checks(true);
 
   require 'includes/template_top.php';
 ?>
@@ -72,7 +22,7 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col-sm-4 text-right align-self-center">
-      <?= tep_draw_bootstrap_button(BUTTON_TEXT_RELOAD, 'fas fa-cog', tep_href_link('security_checks.php'), null, null, 'btn-info') ?>
+      <?= $Admin->button(BUTTON_TEXT_RELOAD, 'fas fa-cog', 'btn-info', $Admin->link()) ?>
     </div>
   </div>
 
@@ -87,38 +37,29 @@
       </thead>
       <tbody>
         <?php
-        foreach ($modules as $module) {
-          $secCheck = ${$module['class']};
-
-          if ( !in_array($secCheck->type, $types) ) {
-            $secCheck->type = 'info';
-          }
-
-          $output = '';
-
-          if ( $secCheck->pass() ) {
-            $secCheck->type = 'success';
-          } else {
-            $output = $secCheck->getMessage();
-          }
-
-          switch($secCheck->type) {
-            case 'info':
-            $fa = 'fas fa-fw fa-info-circle text-info';
-            break;
-            case 'warning':
-            case 'error':
-            $fa = 'fas fa-fw fa-exclamation-circle text-danger';
-            break;
-            default:
+        foreach ($security_checks->generate_modules() as $module) {
+          if ( ${$module['class']}->pass($security_checks->fetch_curl_result($module['class'])) ) {
+            $output = '';
             $fa = 'fas fa-fw fa-check-circle text-success';
+          } else {
+            $output = ${$module['class']}->get_message();
+
+            switch (${$module['class']}->type) {
+              case 'info':
+                $fa = 'fas fa-fw fa-info-circle text-info';
+                break;
+              case 'warning':
+              case 'error':
+                $fa = 'fas fa-fw fa-exclamation-circle text-danger';
+                break;
+            }
           }
 
-          echo '<tr>';
-            echo '<td><i class="' . $fa . '"></i> ' . htmlspecialchars($module['title']) . '</td>';
-            echo '<td>' . htmlspecialchars($module['code']) . '</td>';
-            echo '<td>' . $output . '</td>';
-          echo '</tr>';
+          echo '<tr>',
+                 '<td><i class="', $fa, '"></i> ', htmlspecialchars($module['title']), '</td>',
+                 '<td>', htmlspecialchars($module['class']), '</td>',
+                 '<td>', $output, '</td>',
+               '</tr>';
         }
       ?>
       </tbody>
@@ -126,6 +67,8 @@
   </div>
 
 <?php
+  $security_checks->close();
+
   require 'includes/template_bottom.php';
   require 'includes/application_bottom.php';
 ?>

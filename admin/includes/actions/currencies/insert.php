@@ -24,7 +24,7 @@
   ];
 
   $db->perform('currencies', $sql_data);
-  $currency_id = mysqli_insert_id();
+  $currency_id = mysqli_insert_id($db);
 
   if (isset($_POST['default']) && ('on' === $_POST['default'])) {
     $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($code) . "' WHERE configuration_key = 'DEFAULT_CURRENCY'");

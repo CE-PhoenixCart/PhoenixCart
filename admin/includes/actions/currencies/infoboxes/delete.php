@@ -26,7 +26,8 @@
   $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $cInfo->title];
   $contents[] = [
     'class' => 'text-center',
-    'text' => ($remove_currency
-             ? $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', (clone $link)->set_parameter('action', 'delete_confirm'))
-             : '')
-            . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link)];
+    'text' => ($GLOBALS['remove_currency']
+             ? ''
+             : $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', (clone $link)->set_parameter('action', 'delete_confirm')->set_parameter('formid', $_SESSION['sessiontoken'])))
+            . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
+  ];

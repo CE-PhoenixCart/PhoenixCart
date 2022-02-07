@@ -14,6 +14,6 @@
 
   require language::map_to_translation('info.php');
 
-  require $oscTemplate->map_to_template(__FILE__, 'page');
+  require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';

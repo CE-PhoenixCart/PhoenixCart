@@ -10,19 +10,15 @@
   Released under the GNU General Public License
 */
 
-  class securityCheck_session_storage {
+  class sc_session_storage {
 
     public $type = 'warning';
 
-    function __construct() {
-      include DIR_FS_ADMIN . 'includes/languages/' . $_SESSION['language'] . '/modules/security_check/session_storage.php';
-    }
-
-    function pass() {
+    public function pass() {
       return (!defined('DIR_FS_SESSION') || !DIR_FS_SESSION || (is_dir(DIR_FS_SESSION) && is_writable(DIR_FS_SESSION)));
     }
 
-    function getMessage() {
+    public function get_message() {
       if (defined('DIR_FS_SESSION') && DIR_FS_SESSION) {
         if (!is_dir(DIR_FS_SESSION)) {
           return sprintf(WARNING_SESSION_DIRECTORY_NON_EXISTENT, session_save_path());
