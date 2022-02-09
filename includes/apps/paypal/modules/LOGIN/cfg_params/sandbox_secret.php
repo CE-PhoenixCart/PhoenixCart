@@ -22,7 +22,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('sandbox_secret', OSCOM_APP_PAYPAL_LOGIN_SANDBOX_SECRET, 'id="inputLogInSandboxSecret"');
+      $input = new Input('sandbox_secret', ['value' => OSCOM_APP_PAYPAL_LOGIN_SANDBOX_SECRET, 'id' => 'inputLogInSandboxSecret']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -34,4 +34,3 @@ EOT;
       return $result;
     }
   }
-?>
