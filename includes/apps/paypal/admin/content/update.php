@@ -12,7 +12,7 @@
 ?>
 
 <div style="padding-bottom: 15px;">
-  <?php echo $OSCOM_PayPal->drawButton('&nbsp;', '#', 'info', 'data-button="ppUpdateButton"'); ?>
+  <?= $OSCOM_PayPal->drawButton('&nbsp;', '#', 'info', 'data-button="ppUpdateButton"') ?>
 </div>
 
 <div id="ppUpdateInfo"></div>
@@ -29,7 +29,7 @@ $(function() {
     } else if ( OSCOM.APP.PAYPAL.getUpdatesProgress == 'update' ) {
       OSCOM.APP.PAYPAL.doUpdate();
     } else if ( OSCOM.APP.PAYPAL.getUpdatesProgress == 'retrieveFresh' ) {
-      window.location('<?php echo tep_href_link('paypal.php', 'action=update'); ?>');
+      window.location('<?= $GLOBALS['Admin']->link('paypal.php', ['action' => 'update']) ?>');
     } else if ( OSCOM.APP.PAYPAL.getUpdatesProgress == 'manualDownload' ) {
       window.open('https://apps.oscommerce.com/index.php?Info&paypal&app');
     }
@@ -37,15 +37,15 @@ $(function() {
 
   (OSCOM.APP.PAYPAL.getUpdates = function() {
     var def = {
-      'button_apply_update': '<?php echo addslashes($OSCOM_PayPal->getDef('button_apply_update')); ?>',
-      'button_check_for_updates': '<?php echo addslashes($OSCOM_PayPal->getDef('button_check_for_updates')); ?>',
-      'button_retrieving_progress': '<?php echo addslashes($OSCOM_PayPal->getDef('button_retrieving_progress')); ?>',
-      'button_visit_app_page': '<?php echo addslashes($OSCOM_PayPal->getDef('button_visit_app_page')); ?>',
-      'could_not_request_update_list': '<?php echo addslashes($OSCOM_PayPal->getDef('could_not_request_update_list')); ?>',
-      'invalid_update_list_format': '<?php echo addslashes($OSCOM_PayPal->getDef('invalid_update_list_format')); ?>',
-      'manual_update_available': '<?php echo addslashes($OSCOM_PayPal->getDef('manual_update_available')); ?>',
-      'no_updates_available': '<?php echo addslashes($OSCOM_PayPal->getDef('no_updates_available')); ?>',
-      'retrieving_update_list': '<?php echo addslashes($OSCOM_PayPal->getDef('retrieving_update_list')); ?>'
+      'button_apply_update': '<?= addslashes($OSCOM_PayPal->getDef('button_apply_update')) ?>',
+      'button_check_for_updates': '<?= addslashes($OSCOM_PayPal->getDef('button_check_for_updates')) ?>',
+      'button_retrieving_progress': '<?= addslashes($OSCOM_PayPal->getDef('button_retrieving_progress')) ?>',
+      'button_visit_app_page': '<?= addslashes($OSCOM_PayPal->getDef('button_visit_app_page')) ?>',
+      'could_not_request_update_list': '<?= addslashes($OSCOM_PayPal->getDef('could_not_request_update_list')) ?>',
+      'invalid_update_list_format': '<?= addslashes($OSCOM_PayPal->getDef('invalid_update_list_format')) ?>',
+      'manual_update_available': '<?= addslashes($OSCOM_PayPal->getDef('manual_update_available')) ?>',
+      'no_updates_available': '<?= addslashes($OSCOM_PayPal->getDef('no_updates_available')) ?>',
+      'retrieving_update_list': '<?= addslashes($OSCOM_PayPal->getDef('retrieving_update_list')) ?>'
     };
 
     $('#ppUpdateInfo').empty();
@@ -54,7 +54,7 @@ $(function() {
 
     $('#ppUpdateInfo').append('<div class="pp-panel pp-panel-info"><p>' + def['retrieving_update_list'] + '</p></div>');
 
-    $.get('<?php echo tep_href_link('paypal.php', 'action=checkVersion'); ?>', function (data) {
+    $.get('<?= $GLOBALS['Admin']->link('paypal.php', ['action' => 'checkVersion']) ?>', function (data) {
       var error = false;
 
       $('#ppUpdateInfo').empty();
@@ -141,18 +141,18 @@ $(function() {
 
   OSCOM.APP.PAYPAL.doUpdate = function() {
     var def = {
-      'button_applying_updates_progress': '<?php echo addslashes($OSCOM_PayPal->getDef('button_applying_updates_progress')); ?>',
-      'button_check_for_updates': '<?php echo addslashes($OSCOM_PayPal->getDef('button_check_for_updates')); ?>',
-      'applying_updates_heading': '<?php echo addslashes($OSCOM_PayPal->getDef('applying_updates_heading')); ?>',
-      'applying_updates_success': '<?php echo addslashes($OSCOM_PayPal->getDef('applying_updates_success')); ?>',
-      'downloading_version_progress': '<?php echo addslashes($OSCOM_PayPal->getDef('downloading_version_progress')); ?>',
-      'applying_version_progress': '<?php echo addslashes($OSCOM_PayPal->getDef('applying_version_progress')); ?>',
-      'error_applying_heading': '<?php echo addslashes($OSCOM_PayPal->getDef('error_applying_heading')); ?>',
-      'error_applying': '<?php echo addslashes($OSCOM_PayPal->getDef('error_applying')); ?>',
-      'error_applying_start': '<?php echo addslashes($OSCOM_PayPal->getDef('error_applying_start')); ?>',
-      'error_heading': '<?php echo addslashes($OSCOM_PayPal->getDef('error_heading')); ?>',
-      'error_download_start': '<?php echo addslashes($OSCOM_PayPal->getDef('error_download_start')); ?>',
-      'no_updates_found': '<?php echo addslashes($OSCOM_PayPal->getDef('no_updates_found')); ?>'
+      'button_applying_updates_progress': '<?= addslashes($OSCOM_PayPal->getDef('button_applying_updates_progress')) ?>',
+      'button_check_for_updates': '<?= addslashes($OSCOM_PayPal->getDef('button_check_for_updates')) ?>',
+      'applying_updates_heading': '<?= addslashes($OSCOM_PayPal->getDef('applying_updates_heading')) ?>',
+      'applying_updates_success': '<?= addslashes($OSCOM_PayPal->getDef('applying_updates_success')) ?>',
+      'downloading_version_progress': '<?= addslashes($OSCOM_PayPal->getDef('downloading_version_progress')) ?>',
+      'applying_version_progress': '<?= addslashes($OSCOM_PayPal->getDef('applying_version_progress')) ?>',
+      'error_applying_heading': '<?= addslashes($OSCOM_PayPal->getDef('error_applying_heading')) ?>',
+      'error_applying': '<?= addslashes($OSCOM_PayPal->getDef('error_applying')) ?>',
+      'error_applying_start': '<?= addslashes($OSCOM_PayPal->getDef('error_applying_start')) ?>',
+      'error_heading': '<?= addslashes($OSCOM_PayPal->getDef('error_heading')) ?>',
+      'error_download_start': '<?= addslashes($OSCOM_PayPal->getDef('error_download_start')) ?>',
+      'no_updates_found': '<?= addslashes($OSCOM_PayPal->getDef('no_updates_found')) ?>'
     }
 
     $('#ppUpdateInfo').empty();
@@ -195,11 +195,11 @@ $(function() {
 
         $('#ppUpdateInfo div').append('<p>' + def['downloading_version_progress'].replace(':version', OSCOM.htmlSpecialChars(versions[i])) + '</p>');
 
-        $.getJSON('<?php echo tep_href_link('paypal.php', 'action=update&subaction=download&v=APPDLV'); ?>'.replace('APPDLV', versions[i]), function (data) {
+        $.getJSON('<?= $GLOBALS['Admin']->link('paypal.php', ['action' => 'update', 'subaction' => 'download', 'v' => 'APPDLV']) ?>'.replace('APPDLV', versions[i]), function (data) {
           if ( (typeof data == 'object') && ('rpcStatus' in data) && (data['rpcStatus'] == 1) ) {
             $('#ppUpdateInfo div').append('<p>' + def['applying_version_progress'].replace(':version', OSCOM.htmlSpecialChars(versions[i])) + '</p>');
 
-            $.getJSON('<?php echo tep_href_link('paypal.php', 'action=update&subaction=apply&v=APPDLV'); ?>'.replace('APPDLV', versions[i]), function (data) {
+            $.getJSON('<?= $GLOBALS['Admin']->link('paypal.php', ['action' => 'update', 'subaction' => 'apply', 'v' => 'APPDLV']) ?>'.replace('APPDLV', versions[i]), function (data) {
               if ( (typeof data == 'object') && ('rpcStatus' in data) && (data['rpcStatus'] == 1) ) {
               } else {
                 updateError = true;
@@ -210,7 +210,7 @@ $(function() {
 
                 $('#ppUpdateInfo').append('<h3 class="pp-panel-header-error">' + def['error_applying_heading'].replace(':version', OSCOM.htmlSpecialChars(versions[i])) + '</h3><div id="ppUpdateErrorLog" class="pp-panel pp-panel-error"><p>' + def['error_applying'] + '</p></div>');
 
-                $.getJSON('<?php echo tep_href_link('paypal.php', 'action=update&subaction=log&v=APPDLV'); ?>'.replace('APPDLV', versions[i]), function (data) {
+                $.getJSON('<?= $GLOBALS['Admin']->link('paypal.php', ['action' => 'update', 'subaction' => 'log', 'v' => 'APPDLV']) ?>'.replace('APPDLV', versions[i]), function (data) {
                   if ( (typeof data == 'object') && ('rpcStatus' in data) && (data['rpcStatus'] == 1) ) {
                     $('#ppUpdateErrorLog').append('<p>' + OSCOM.nl2br(OSCOM.htmlSpecialChars(data['log'])) + '</p>');
                   }

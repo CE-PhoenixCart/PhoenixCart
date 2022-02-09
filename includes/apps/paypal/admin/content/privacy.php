@@ -11,6 +11,6 @@
 */
 ?>
 
-<h1 class="display-4"><?php echo $OSCOM_PayPal->getDef('privacy_title'); ?></h1>
+<h1 class="display-4"><?= $OSCOM_PayPal->getDef('privacy_title') ?></h1>
 
-<?php echo $OSCOM_PayPal->getDef('privacy_body'); ?>
+<?= $OSCOM_PayPal->getDef('privacy_body') ?>

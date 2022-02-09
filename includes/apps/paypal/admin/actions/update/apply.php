@@ -59,7 +59,7 @@
           unset($zip);
           unlink($update_pkg);
 
-          $meta = array();
+          $meta = [];
           $meta_pass = true;
 
           if ( file_exists($work_dir . '/' . $update_version . '/oscom_update.json') ) {
@@ -79,7 +79,7 @@
           }
 
           if ( $meta_pass === true ) {
-            $errors = array();
+            $errors = [];
 
             if ( !$OSCOM_PayPal->isWritable(DIR_FS_CATALOG . 'includes/apps/paypal/version.txt') ) {
               $errors[] = $OSCOM_PayPal->displayPath(DIR_FS_CATALOG . 'includes/apps/paypal/version.txt');
