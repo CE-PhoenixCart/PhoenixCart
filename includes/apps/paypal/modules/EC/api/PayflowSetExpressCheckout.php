@@ -24,14 +24,14 @@
                     'TENDER' => 'P',
                     'TRXTYPE' => (OSCOM_APP_PAYPAL_DP_TRANSACTION_METHOD == '1') ? 'S' : 'A',
                     'ACTION' => 'S',
-                    'RETURNURL' => tep_href_link('ext/modules/payment/paypal/express.php', 'osC_Action=retrieve', 'SSL'),
-                    'CANCELURL' => tep_href_link('shopping_cart.php', '', 'SSL'));
+                    'RETURNURL' => $GLOBALS['Linker']->build('ext/modules/payment/paypal/express.php', ['osC_Action' => 'retrieve']),
+                    'CANCELURL' => $GLOBALS['Linker']->build('shopping_cart.php'));
 
     if ( is_array($extra_params) && !empty($extra_params) ) {
       $params = array_merge($params, $extra_params);
     }
 
-    $headers = array();
+    $headers = [];
 
     if ( isset($params['_headers']) ) {
       $headers = $params['_headers'];

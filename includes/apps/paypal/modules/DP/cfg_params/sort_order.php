@@ -24,16 +24,15 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('sort_order', OSCOM_APP_PAYPAL_DP_SORT_ORDER, 'id="inputDpSortOrder"');
+      $input = new Input('sort_order', ['value' => OSCOM_APP_PAYPAL_DP_SORT_ORDER, 'id' => 'inputDpSortOrder']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
 <p>{$this->description}</p>
 
-<div class="mb-3">{$input}</div> 
+<div class="mb-3">{$input}</div>
 EOT;
 
       return $result;
     }
   }
-?>

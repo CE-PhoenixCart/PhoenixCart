@@ -24,7 +24,7 @@
       'PWD' => $OSCOM_PayPal->getCredentials('DP', 'payflow_password'),
       'TENDER' => 'C',
       'TRXTYPE' => (OSCOM_APP_PAYPAL_DP_TRANSACTION_METHOD == '1') ? 'S' : 'A',
-      'CUSTIP' => tep_get_ip_address(),
+      'CUSTIP' => Request::get_ip(),
       'BUTTONSOURCE' => $OSCOM_PayPal->getIdentifier(),
     ];
 

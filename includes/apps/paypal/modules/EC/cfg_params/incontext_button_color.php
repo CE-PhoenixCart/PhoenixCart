@@ -25,7 +25,7 @@
 
     function getSetField() {
       global $OSCOM_PayPal;
-      
+
       $input = null;
       $input .= '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="incontextButtonColorSelectionGold" name="incontext_button_color" value="1"' . (OSCOM_APP_PAYPAL_EC_INCONTEXT_BUTTON_COLOR == '1' ? ' checked="checked"' : '') . '>';
