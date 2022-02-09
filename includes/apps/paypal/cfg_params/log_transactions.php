@@ -23,8 +23,8 @@
 
     function getSetField() {
       global $OSCOM_PayPal;
-      
-      $input = null;      
+
+      $input = null;
       $input .= '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="logTransactionsSelectionAll" name="log_transactions" value="1"' . (OSCOM_APP_PAYPAL_LOG_TRANSACTIONS == '1' ? ' checked="checked"' : '') . '>';
         $input .= '<label class="custom-control-label" for="logTransactionsSelectionAll">' . $OSCOM_PayPal->getDef('cfg_log_transactions_all') . '</label>';
