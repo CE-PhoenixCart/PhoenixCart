@@ -48,9 +48,9 @@
         }
       }
 
-      if ( ('modules.php' === $GLOBALS['PHP_SELF']) && ('install' === ($_GET['action'] ?? null)) && ('conntest' === ($_GET['subaction'] ?? null)) ) {
+      if ( ('modules.php' === Request::get_page()) && ('install' === ($_GET['action'] ?? null)) && ('conntest' === ($_GET['subaction'] ?? null)) ) {
         echo $this->getTestConnectionResult();
-        exit;
+        exit();
       }
     }
 
@@ -61,7 +61,7 @@
         $button_title .= ' (' . $this->code . '; Sandbox)';
       }
 
-      $string = '<a href="' . tep_href_link('ext/modules/payment/paypal/express_payflow.php') . '"><img src="' . MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_BUTTON . '" border="0" alt="" title="' . $button_title . '" /></a>';
+      $string = '<a href="' . $GLOBALS['Linker']->build('ext/modules/payment/paypal/express_payflow.php') . '"><img src="' . MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_BUTTON . '" border="0" alt="" title="' . $button_title . '" /></a>';
 
       return $string;
     }
@@ -70,15 +70,15 @@
       global $messageStack, $order;
 
       if (!isset($_SESSION['ppeuk_token'])) {
-        tep_redirect(tep_href_link('ext/modules/payment/paypal/express_payflow.php'));
+        Href::redirect($GLOBALS['Linker']->build('ext/modules/payment/paypal/express_payflow.php'));
       }
 
       $response_array = $this->getExpressCheckoutDetails($_SESSION['ppeuk_token']);
 
       if ($response_array['RESULT'] != '0') {
-        tep_redirect(tep_href_link('shopping_cart.php', 'error_message=' . urlencode($response_array['OSCOM_ERROR_MESSAGE'])));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php', ['error_message' => $response_array['OSCOM_ERROR_MESSAGE']]));
       } elseif ( !isset($_SESSION['ppeuk_secret']) || ($response_array['CUSTOM'] != $_SESSION['ppeuk_secret']) ) {
-        tep_redirect(tep_href_link('shopping_cart.php'));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php'));
       }
 
       $_SESSION['ppeuk_order_total_check'] = true;
@@ -90,10 +90,15 @@
 
     public function confirmation() {
       if (empty($_SESSION['comments'])) {
+        $textarea = new Textarea('ppecomments', ['cols' => '60', 'rows' => '5']);
+        if (isset($_SESSION['comments'])) {
+          $textarea->set_text($_SESSION['comments']);
+        }
+
         return [
           'fields' => [[
             'title' => MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TEXT_COMMENTS,
-            'field' => tep_draw_textarea_field('ppecomments', 'soft', '60', '5', ($_SESSION['comments'] ?? null)),
+            'field' => $textarea,
           ]],
         ];
       }
@@ -105,19 +110,19 @@
       global $order, $response_array, $customer_data;
 
       if (!isset($_SESSION['ppeuk_token'])) {
-        tep_redirect(tep_href_link('ext/modules/payment/paypal/express_payflow.php'));
+        Href::redirect($GLOBALS['Linker']->build('ext/modules/payment/paypal/express_payflow.php'));
       }
 
       $response_array = $this->getExpressCheckoutDetails($_SESSION['ppeuk_token']);
 
       if ($response_array['RESULT'] == '0') {
         if ( !isset($_SESSION['ppeuk_secret']) || ($response_array['CUSTOM'] != $_SESSION['ppeuk_secret']) ) {
-          tep_redirect(tep_href_link('shopping_cart.php'));
+          Href::redirect($GLOBALS['Linker']->build('shopping_cart.php'));
         } elseif ( !isset($_SESSION['ppeuk_order_total_check']) ) {
-          tep_redirect(tep_href_link('checkout_confirmation.php'));
+          Href::redirect($GLOBALS['Linker']->build('checkout_confirmation.php'));
         }
       } else {
-        tep_redirect(tep_href_link('shopping_cart.php', 'error_message=' . urlencode($response_array['OSCOM_ERROR_MESSAGE'])));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php', ['error_message' => $response_array['OSCOM_ERROR_MESSAGE']]));
       }
 
       if ( isset($_SESSION['ppeuk_order_total_check']) ) {
@@ -142,9 +147,9 @@
         $params['SHIPTONAME'] = $customer_data->get('name', $order->delivery);
         $params['SHIPTOSTREET'] = $customer_data->get('street_address', $order->delivery);
         $params['SHIPTOCITY'] = $customer_data->get('city', $order->delivery);
-        $params['SHIPTOSTATE'] = tep_get_zone_code(
-          $customer_data->get('country_id', $order->delivery),
+        $params['SHIPTOSTATE'] = Zone::fetch_code(
           $customer_data->get('zone_id', $order->delivery),
+          $customer_data->get('country_id', $order->delivery),
           $customer_data->get('state', $order->delivery));
         $params['SHIPTOCOUNTRY'] = $customer_data->get('country_iso_code_2', $order->delivery);
         $params['SHIPTOZIP'] = $customer_data->get('postcode', $order->delivery);
@@ -153,7 +158,7 @@
       $response_array = $this->doExpressCheckoutPayment($params);
 
       if ($response_array['RESULT'] != '0') {
-        tep_redirect(tep_href_link('shopping_cart.php', 'error_message=' . urlencode($response_array['OSCOM_ERROR_MESSAGE'])));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php', ['error_message' => $response_array['OSCOM_ERROR_MESSAGE']]));
       }
     }
 
@@ -176,7 +181,7 @@
         'comments' => $pp_result,
       ];
 
-      tep_db_perform('orders_status_history', $sql_data);
+      $GLOBALS['db']->perform('orders_status_history', $sql_data);
 
       unset($_SESSION['ppeuk_token']);
       unset($_SESSION['ppeuk_payerid']);
@@ -191,7 +196,7 @@
           'title' => 'Enable PayPal Express Checkout (Payflow Edition)',
           'desc' => 'Do you want to accept PayPal Express Checkout (Payflow Edition) payments?',
           'value' => 'True',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VENDOR' => [
           'title' => 'Vendor',
@@ -218,40 +223,40 @@
           'title' => 'Transaction Method',
           'desc' => 'The processing method to use for each transaction.',
           'value' => 'Sale',
-          'set_func' => "tep_cfg_select_option(['Authorization', 'Sale'], ",
+          'set_func' => "Config::select_one(['Authorization', 'Sale'], ",
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_ORDER_STATUS_ID' => [
           'title' => 'Set Order Status',
           'desc' => 'Set the status of orders made with this payment module to this value.',
           'value' => '0',
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
-          'use_func' => 'tep_get_order_status_name',
+          'set_func' => 'Config::select_order_status(',
+          'use_func' => 'order_status::fetch_name',
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TRANSACTIONS_ORDER_STATUS_ID' => [
           'title' => 'PayPal Transactions Order Status Level',
           'desc' => 'Include PayPal transaction information in this order status level.',
           'value' => self::ensure_order_status('MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TRANSACTIONS_ORDER_STATUS_ID', 'PayPal [Transactions]'),
-          'use_func' => 'tep_get_order_status_name',
-          'set_func' => 'tep_cfg_pull_down_order_statuses(',
+          'use_func' => 'order_status::fetch_name',
+          'set_func' => 'Config::select_order_status(',
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_ZONE' => [
           'title' => 'Payment Zone',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
           'value' => '0',
-          'set_func' => 'tep_cfg_pull_down_zone_classes(',
-          'use_func' => 'tep_get_zone_class_title',
+          'set_func' => 'Config::select_geo_zone(',
+          'use_func' => 'geo_zone::fetch_name',
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TRANSACTION_SERVER' => [
           'title' => 'Transaction Server',
           'desc' => 'Use the live or testing (sandbox) gateway server to process transactions?',
           'value' => 'Live',
-          'set_func' => "tep_cfg_select_option(['Live', 'Sandbox'], ",
+          'set_func' => "Config::select_one(['Live', 'Sandbox'], ",
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VERIFY_SSL' => [
           'title' => 'Verify SSL Certificate',
           'desc' => 'Verify gateway server SSL certificate on connection?',
           'value' => 'True',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PROXY' => [
           'title' => 'Proxy Server',
@@ -338,7 +343,7 @@
         $currency_value = $currencies->currencies[$currency_code]['value'];
       }
 
-      return number_format(tep_round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
+      return number_format(currencies::round($number * $currency_value, $currencies->currencies[$currency_code]['decimal_places']), $currencies->currencies[$currency_code]['decimal_places'], '.', '');
     }
 
     function setExpressCheckout($parameters) {
@@ -356,8 +361,8 @@
         'TENDER' => 'P',
         'TRXTYPE' => ((MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TRANSACTION_METHOD == 'Sale') ? 'S' : 'A'),
         'ACTION' => 'S',
-        'RETURNURL' => tep_href_link('ext/modules/payment/paypal/express_payflow.php', 'osC_Action=retrieve'),
-        'CANCELURL' => tep_href_link('shopping_cart.php'),
+        'RETURNURL' => $GLOBALS['Linker']->build('ext/modules/payment/paypal/express_payflow.php', ['osC_Action' => 'retrieve']),
+        'CANCELURL' => $GLOBALS['Linker']->build('shopping_cart.php'),
       ];
 
       if (is_array($parameters) && !empty($parameters)) {
@@ -548,7 +553,7 @@
         }
 
         if (!empty($email_body)) {
-          tep_mail('', MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_DEBUG_EMAIL, 'PayPal Express Checkout (Payflow Edition) Debug E-Mail', trim($email_body), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+          Notifications::mail('', MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_DEBUG_EMAIL, 'PayPal Express Checkout (Payflow Edition) Debug E-Mail', trim($email_body), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         }
       }
     }
@@ -561,7 +566,7 @@
       $dialog_error = MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_DIALOG_CONNECTION_ERROR;
       $dialog_connection_time = MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_DIALOG_CONNECTION_TIME;
 
-      $test_url = tep_href_link('modules.php', 'set=payment&module=' . $this->code . '&action=install&subaction=conntest');
+      $test_url = $GLOBALS['Admin']->link('modules.php', ['set' => 'payment', 'module' => $this->code, 'action' => 'install', 'subaction' => 'conntest']);
 
       $js = <<<EOD
 <script>

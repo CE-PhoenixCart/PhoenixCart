@@ -24,7 +24,7 @@
 
   $seller_accounts = [$paypal_standard->_app->getCredentials('PS', 'email')];
 
-  if ( tep_not_null($paypal_standard->_app->getCredentials('PS', 'email_primary')) ) {
+  if ( !Text::is_empty($paypal_standard->_app->getCredentials('PS', 'email_primary')) ) {
     $seller_accounts[] = $paypal_standard->_app->getCredentials('PS', 'email_primary');
   }
 
@@ -63,9 +63,9 @@
       $customer = new customer($customer_id);
     }
 
-    $check_query = tep_db_query("SELECT orders_status FROM orders WHERE orders_id = " . (int)$order_id . " AND customers_id = " . (int)$customer_id);
+    $check_query = $db->query("SELECT orders_status FROM orders WHERE orders_id = " . (int)$order_id . " AND customers_id = " . (int)$customer_id);
 
-    if ($check = tep_db_fetch_array($check_query)) {
+    if ($check = $check_query->fetch_assoc()) {
       if ( $check['orders_status'] == OSCOM_APP_PAYPAL_PS_PREPARE_ORDER_STATUS_ID ) {
         $order = new order($order_id);
         $order->info['order_status'] = DEFAULT_ORDERS_STATUS_ID;
@@ -74,12 +74,12 @@
           $order->info['order_status'] = OSCOM_APP_PAYPAL_PS_ORDER_STATUS_ID;
         }
 
-        tep_db_query("UPDATE orders SET orders_status = " . (int)$order->info['order_status'] . ", last_modified = NOW() WHERE orders_id = " . (int)$order_id);
+        $db->query("UPDATE orders SET orders_status = " . (int)$order->info['order_status'] . ", last_modified = NOW() WHERE orders_id = " . (int)$order_id);
 
         if ('true' === DOWNLOAD_ENABLED) {
-          $downloads_query = tep_db_query("SELECT opd.orders_products_filename FROM orders o, orders_products op, orders_products_download opd WHERE o.orders_id = " . (int)$order_id . " AND o.customers_id = " . (int)$customer_id . " AND o.orders_id = op.orders_id AND op.orders_products_id = opd.orders_products_id AND opd.orders_products_filename != ''");
+          $downloads_query = $db->query("SELECT opd.orders_products_filename FROM orders o, orders_products op, orders_products_download opd WHERE o.orders_id = " . (int)$order_id . " AND o.customers_id = " . (int)$customer_id . " AND o.orders_id = op.orders_id AND op.orders_products_id = opd.orders_products_id AND opd.orders_products_filename != ''");
 
-          switch (tep_db_num_rows($downloads_query)) {
+          switch (mysqli_num_rows($downloads_query)) {
             case 0:
               $order->content_type = 'physical';
               break;
@@ -96,12 +96,12 @@
         $hooks->register_pipeline('after');
         include 'includes/system/segments/checkout/insert_history.php';
 
-        tep_db_query("DELETE FROM customers_basket WHERE customers_id = " . (int)$customer_id);
-        tep_db_query("DELETE FROM customers_basket_attributes WHERE customers_id = " . (int)$customer_id);
+        $db->query("DELETE FROM customers_basket WHERE customers_id = " . (int)$customer_id);
+        $db->query("DELETE FROM customers_basket_attributes WHERE customers_id = " . (int)$customer_id);
       }
     }
   }
 
-  tep_session_destroy();
+  Session::destroy();
 
   require 'includes/application_bottom.php';

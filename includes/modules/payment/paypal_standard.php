@@ -41,7 +41,9 @@
 
       $this->title = $this->_app->getDef('module_ps_title');
       $this->public_title = $this->_app->getDef('module_ps_public_title');
-      $this->description = '<div align="center">' . $this->_app->drawButton($this->_app->getDef('module_ps_legacy_admin_app_button'), tep_href_link('paypal.php', 'action=configure&module=PS'), 'primary', null, true) . '</div>';
+      if (isset($GLOBALS['Admin'])) {
+        $this->description = '<div align="center">' . $this->_app->drawButton($this->_app->getDef('module_ps_legacy_admin_app_button'), $GLOBALS['Admin']->link('paypal.php', 'action=configure&module=PS'), 'primary', null, true) . '</div>';
+      }
       $this->sort_order = defined('OSCOM_APP_PAYPAL_PS_SORT_ORDER') ? OSCOM_APP_PAYPAL_PS_SORT_ORDER : 0;
       $this->enabled = defined('OSCOM_APP_PAYPAL_PS_STATUS') && in_array(OSCOM_APP_PAYPAL_PS_STATUS, ['1', '0']);
       $this->order_status = defined('OSCOM_APP_PAYPAL_PS_PREPARE_ORDER_STATUS_ID') && ((int)OSCOM_APP_PAYPAL_PS_PREPARE_ORDER_STATUS_ID > 0) ? (int)OSCOM_APP_PAYPAL_PS_PREPARE_ORDER_STATUS_ID : 0;
@@ -90,7 +92,7 @@
 // Before the stock quantity check is performed in checkout_process.php, detect if the quantity
 // has already been deducted in the IPN to avoid a quantity == 0 redirect
       if ( $this->enabled === true ) {
-        if ('checkout_process.php' === basename($GLOBALS['PHP_SELF'])) {
+        if ('checkout_process.php' === basename(Request::get_page())) {
           if ( isset($_SESSION['payment']) && ($_SESSION['payment'] == $this->code) ) {
             $this->pre_before_check();
           }
@@ -102,7 +104,7 @@
       global $order;
 
       if ( ($this->enabled == true) && ((int)OSCOM_APP_PAYPAL_PS_ZONE > 0) ) {
-        $check_query = tep_db_query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)OSCOM_APP_PAYPAL_PS_ZONE . " AND zone_country_id = " . (int)$order->billing['country']['id'] . " ORDER BY zone_id");
+        $check_query = $GLOBALS['db']->query("SELECT zone_id FROM zones_to_geo_zones WHERE geo_zone_id = " . (int)OSCOM_APP_PAYPAL_PS_ZONE . " AND zone_country_id = " . (int)$order->billing['country']['id'] . " ORDER BY zone_id");
         while ($check = $check_query->fetch_assoc()) {
           if (($check['zone_id'] < 1) || ($check['zone_id'] == $order->billing['zone_id'])) {
             return;
@@ -125,10 +127,10 @@
       if (isset($_SESSION['cart_PayPal_Standard_ID'])) {
         $order_id = $this->extract_order_id();
 
-        $check_query = tep_db_query('SELECT orders_id FROM orders_status_history WHERE orders_id = ' . (int)$order_id . ' LIMIT 1');
+        $check_query = $GLOBALS['db']->query('SELECT orders_id FROM orders_status_history WHERE orders_id = ' . (int)$order_id . ' LIMIT 1');
 
         if (mysqli_num_rows($check_query) < 1) {
-          tep_delete_order($order_id);
+          order::remove($order_id, false);
 
           unset($_SESSION['cart_PayPal_Standard_ID']);
         }
@@ -158,14 +160,14 @@
         if (isset($_SESSION['cart_PayPal_Standard_ID'])) {
           $order_id = $this->extract_order_id();
 
-          $curr_check = tep_db_query("SELECT currency FROM orders WHERE orders_id = " . (int)$order_id);
+          $curr_check = $GLOBALS['db']->query("SELECT currency FROM orders WHERE orders_id = " . (int)$order_id);
           $curr = $curr_check->fetch_assoc();
 
           if ( ($curr['currency'] != $GLOBALS['order']->info['currency']) || ($_SESSION['cartID'] != substr($_SESSION['cart_PayPal_Standard_ID'], 0, strlen($_SESSION['cartID']))) ) {
-            $check_query = tep_db_query('SELECT orders_id FROM orders_status_history WHERE orders_id = ' . (int)$order_id . ' LIMIT 1');
+            $check_query = $GLOBALS['db']->query('SELECT orders_id FROM orders_status_history WHERE orders_id = ' . (int)$order_id . ' LIMIT 1');
 
             if (mysqli_num_rows($check_query) < 1) {
-              tep_delete_order($order_id);
+              order::remove($order_id, false);
             }
 
             $insert_order = true;
@@ -213,6 +215,11 @@
         }
       }
 
+      $notify_url = $GLOBALS['Linker']->build('ext/modules/payment/paypal/standard_ipn.php', [], false);
+      if (isset($ipn_language)) {
+        $notify_url->set_parameter('language', $ipn_language);
+      }
+
       $process_button_string = '';
       $parameters = [
         'cmd' => '_cart',
@@ -224,10 +231,10 @@
         'currency_code' => $_SESSION['currency'],
         'invoice' => $this->extract_order_id(),
         'custom' => $_SESSION['customer_id'],
-        'notify_url' => tep_href_link('ext/modules/payment/paypal/standard_ipn.php', (isset($ipn_language) ? 'language=' . $ipn_language : ''), 'SSL', false, false),
+        'notify_url' => "$notify_url",
         'rm' => '2',
-        'return' => tep_href_link('checkout_process.php'),
-        'cancel_return' => tep_href_link('checkout_payment.php'),
+        'return' => $GLOBALS['Linker']->build('checkout_process.php'),
+        'cancel_return' => $GLOBALS['Linker']->build('checkout_payment.php'),
         'bn' => $this->_app->getIdentifier(),
         'paymentaction' => (OSCOM_APP_PAYPAL_PS_TRANSACTION_METHOD == '1') ? 'sale' : 'authorization',
       ];
@@ -246,9 +253,9 @@
         $parameters['address1'] = $customer_data->get('street_address', $order->delivery);
         $parameters['address2'] = $customer_data->get('suburb', $order->delivery);
         $parameters['city'] = $customer_data->get('city', $order->delivery);
-        $parameters['state'] = tep_get_zone_code(
-          $customer_data->get('country_id', $order->delivery),
+        $parameters['state'] = Zone::fetch_code(
           $customer_data->get('zone_id', $order->delivery),
+          $customer_data->get('country_id', $order->delivery),
           $customer_data->get('state', $order->delivery));
         $parameters['zip'] = $customer_data->get('postcode', $order->delivery);
         $parameters['country'] = $customer_data->get('country_iso_code_2', $order->delivery);
@@ -260,9 +267,9 @@
         $parameters['address1'] = $customer_data->get('street_address', $order->billing);
         $parameters['address2'] = $customer_data->get('suburb', $order->billing);
         $parameters['city'] = $customer_data->get('city', $order->billing);
-        $parameters['state'] = tep_get_zone_code(
-          $customer_data->get('country_id', $order->billing),
+        $parameters['state'] = Zone::fetch_code(
           $customer_data->get('zone_id', $order->billing),
+          $customer_data->get('country_id', $order->billing),
           $customer_data->get('state', $order->billing));
         $parameters['zip'] = $customer_data->get('postcode', $order->billing);
         $parameters['country'] = $customer_data->get('country_iso_code_2', $order->billing);
@@ -274,7 +281,7 @@
 
       foreach ($order->products as $product) {
         if ( DISPLAY_PRICE_WITH_TAX == 'true' ) {
-          $product_price = $this->_app->formatCurrencyRaw($product['final_price'] + tep_calculate_tax($product['final_price'], $product['tax']));
+          $product_price = $this->_app->formatCurrencyRaw($product['final_price'] + Tax::calculate($product['final_price'], $product['tax']));
         } else {
           $product_price = $this->_app->formatCurrencyRaw($product['final_price']);
         }
@@ -384,13 +391,13 @@
           unlink(OSCOM_APP_PAYPAL_PS_EWP_WORKING_DIRECTORY . '/' . $random_string . 'encrypted.txt');
         }
 
-        $process_button_string = tep_draw_hidden_field('cmd', '_s-xclick')
-                               . tep_draw_hidden_field('encrypted', $data);
+        $process_button_string = new Input('cmd', ['value' => '_s-xclick'], 'hidden')
+                               . new Input('encrypted', ['value' => $data], 'hidden');
 
         unset($data);
       } else {
         foreach ($parameters as $key => $value) {
-          $process_button_string .= tep_draw_hidden_field($key, $value);
+          $process_button_string .= new Input($key, ['value' => $value], 'hidden');
         }
       }
 
@@ -505,17 +512,17 @@
       if ( $result != 'VERIFIED' ) {
         $GLOBALS['messageStack']->add_session('header', $this->_app->getDef('module_ps_error_invalid_transaction'));
 
-        tep_redirect(tep_href_link('shopping_cart.php'));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php'));
       }
 
       $this->verifyTransaction($pptx_params);
 
       $order_id = $this->extract_order_id();
 
-      $check_query = tep_db_query("SELECT orders_status FROM orders WHERE orders_id = " . (int)$order_id . " AND customers_id = " . (int)$_SESSION['customer_id']);
+      $check_query = $GLOBALS['db']->query("SELECT orders_status FROM orders WHERE orders_id = " . (int)$order_id . " AND customers_id = " . (int)$_SESSION['customer_id']);
 
       if (!mysqli_num_rows($check_query) || ($order_id != $pptx_params['invoice']) || ($_SESSION['customer_id'] != $pptx_params['custom'])) {
-        tep_redirect(tep_href_link('shopping_cart.php'));
+        Href::redirect($GLOBALS['Linker']->build('shopping_cart.php'));
       }
 
       $check = $check_query->fetch_assoc();
@@ -531,7 +538,7 @@
             'comments' => $_SESSION['comments'],
           ];
 
-          tep_db_perform('orders_status_history', $sql_data);
+          $GLOBALS['db']->perform('orders_status_history', $sql_data);
         }
 
 // load the after_process function from the payment modules
@@ -549,7 +556,7 @@
         $order->info['order_status'] = OSCOM_APP_PAYPAL_PS_ORDER_STATUS_ID;
       }
 
-      tep_db_query("UPDATE orders SET orders_status = " . (int)$order->info['order_status'] . ", last_modified = NOW() WHERE orders_id = " . (int)$order->get_id());
+      $GLOBALS['db']->query("UPDATE orders SET orders_status = " . (int)$order->info['order_status'] . ", last_modified = NOW() WHERE orders_id = " . (int)$order->get_id());
 
       $GLOBALS['hooks']->register_pipeline('after');
       require 'includes/system/segments/checkout/insert_history.php';
@@ -563,7 +570,7 @@
 
       $GLOBALS['hooks']->register_pipeline('reset');
 
-      tep_redirect(tep_href_link('checkout_success.php'));
+      Href::redirect($GLOBALS['Linker']->build('checkout_success.php'));
     }
 
     function get_error() {
@@ -571,7 +578,7 @@
     }
 
     function check() {
-      $check_query = tep_db_query("SELECT configuration_value FROM configuration WHERE configuration_key = 'OSCOM_APP_PAYPAL_PS_STATUS'");
+      $check_query = $GLOBALS['db']->query("SELECT configuration_value FROM configuration WHERE configuration_key = 'OSCOM_APP_PAYPAL_PS_STATUS'");
       if ( $check = $check_query->fetch_assoc() ) {
         return !Text::is_empty($check['configuration_value']);
       }
@@ -580,11 +587,11 @@
     }
 
     function install() {
-      tep_redirect(tep_href_link('paypal.php', 'action=configure&subaction=install&module=PS'));
+      Href::redirect($GLOBALS['Admin']->link('paypal.php', ['action' => 'configure', 'subaction' => 'install', 'module' => 'PS']));
     }
 
     function remove() {
-      tep_redirect(tep_href_link('paypal.php', 'action=configure&subaction=uninstall&module=PS'));
+      Href::redirect($GLOBALS['Admin']->link('paypal.php', ['action' => 'configure', 'subaction' => 'uninstall', 'module' => 'PS']));
     }
 
     function keys() {
@@ -593,12 +600,12 @@
 
     function verifyTransaction($pptx_params, $is_ipn = false) {
       if ( isset($pptx_params['invoice']) && is_numeric($pptx_params['invoice']) && ($pptx_params['invoice'] > 0) && isset($pptx_params['custom']) && is_numeric($pptx_params['custom']) && ($pptx_params['custom'] > 0) ) {
-        $order_query = tep_db_query("SELECT orders_id, currency, currency_value FROM orders WHERE orders_id = " . (int)$pptx_params['invoice'] . " AND customers_id = " . (int)$pptx_params['custom']);
+        $order_query = $GLOBALS['db']->query("SELECT orders_id, currency, currency_value FROM orders WHERE orders_id = " . (int)$pptx_params['invoice'] . " AND customers_id = " . (int)$pptx_params['custom']);
 
         if ( mysqli_num_rows($order_query) === 1 ) {
           $order = $order_query->fetch_assoc();
 
-          $total_query = tep_db_query("SELECT value FROM orders_total WHERE orders_id = " . (int)$order['orders_id'] . " AND class = 'ot_total' limit 1");
+          $total_query = $GLOBALS['db']->query("SELECT value FROM orders_total WHERE orders_id = " . (int)$order['orders_id'] . " AND class = 'ot_total' limit 1");
           $total = $total_query->fetch_assoc();
 
           $comment_status = 'Transaction ID: ' . htmlspecialchars($pptx_params['txn_id']) . "\n"
@@ -624,7 +631,7 @@
             'comments' => $comment_status,
           ];
 
-          tep_db_perform('orders_status_history', $sql_data);
+          $GLOBALS['db']->perform('orders_status_history', $sql_data);
         }
       }
     }
