@@ -43,10 +43,10 @@
         'zone_id' => STORE_ZONE,
         'zone_name' => Zone::fetch_name(STORE_ZONE, STORE_COUNTRY, ''),
         'country_id' => STORE_COUNTRY,
-        'country_name' => $country['name'],
-        'country_iso_code_2' => $country['iso_code_2'],
-        'country_iso_code_3' => $country['iso_code_3'],
-        'address_format_id' => $country['format_id'],
+        'country_name' => $customer_data->get('name', $country),
+        'country_iso_code_2' => $customer_data->get('iso_code_2', $country),
+        'country_iso_code_3' => $customer_data->get('iso_code_3', $country),
+        'address_format_id' => $customer_data->get('format_id', $country),
       ];
     }
   }
