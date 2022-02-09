@@ -25,9 +25,8 @@
 
     function getSetField() {
       global $OSCOM_PayPal;
-      
-      $input = null;      
-      $input .= '<div class="custom-control custom-radio custom-control-inline">';
+
+      $input = '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="ewpStatusSelectionTrue" name="ewp_status" value="1"' . (OSCOM_APP_PAYPAL_PS_EWP_STATUS == '1' ? ' checked="checked"' : '') . '>';
         $input .= '<label class="custom-control-label" for="ewpStatusSelectionTrue">' . $OSCOM_PayPal->getDef('cfg_ps_ewp_status_true') . '</label>';
       $input .= '</div>';
@@ -46,4 +45,3 @@ EOT;
       return $result;
     }
   }
-?>

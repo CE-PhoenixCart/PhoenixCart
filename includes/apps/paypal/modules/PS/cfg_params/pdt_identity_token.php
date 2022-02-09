@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('pdt_identity_token', OSCOM_APP_PAYPAL_PS_PDT_IDENTITY_TOKEN, 'id="inputPsPdtIdentityToken"');
+      $input = new Input('pdt_identity_token', ['value' => OSCOM_APP_PAYPAL_PS_PDT_IDENTITY_TOKEN, 'id' => 'inputPsPdtIdentityToken']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -36,4 +36,3 @@ EOT;
       return $result;
     }
   }
-?>
