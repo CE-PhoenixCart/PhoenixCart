@@ -43,9 +43,9 @@
         'zone_id' => STORE_ZONE,
         'zone_name' => Zone::fetch_name(STORE_ZONE, STORE_COUNTRY, ''),
         'country_id' => STORE_COUNTRY,
-        'country_name' => $customer_data->get('name', $country),
-        'country_iso_code_2' => $customer_data->get('iso_code_2', $country),
-        'country_iso_code_3' => $customer_data->get('iso_code_3', $country),
+        'country_name' => $customer_data->get('country_name', $country),
+        'country_iso_code_2' => $customer_data->get('country_iso_code_2', $country),
+        'country_iso_code_3' => $customer_data->get('country_iso_code_3', $country),
         'address_format_id' => $customer_data->get('format_id', $country),
       ];
     }
