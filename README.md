@@ -38,7 +38,7 @@ Installation of Phoenix takes no more than a few minutes - you will need a hosti
 
 Software | Minimum | Maximum (tested)
 -------- | ------- | ----------------
-PHP | 7.0 | 7.4
+PHP | 7.0 | 8.0
 MariaDB | 10.2.2 | 10.5
 MySQL | 5.7.7 | 8.0
 
@@ -76,33 +76,25 @@ PHP setting | file_uploads | ON
 
 ### Language Packs
 
-Language | URL | Credit & Thanks 
------------- | ------------- | ------------- 
-DE | https://github.com/cupidare/PhoenixCart-German-Language/ | cupidare
-DK | https://phoenixcart.org/forum/app.php/addons/free_addon/danish_language_pack/ | Kofod 
-ES | https://github.com/raiwa/OSCOM-CE-Phoenix-Spanish-language-idioma-espanol | raiwa 
-FR | https://phoenixcart.org/forum/app.php/addons/free_addon/french_language_pack/ | artfulweb 
-IT | https://github.com/bitit-it/phoenix-italian | bitit.it
-NL | https://phoenixcart.org/forum/app.php/addons/free_addon/dutch_language_pack/ | Fiber 
-RU | https://github.com/Agrosheriff/CE-Phoenix_RU | Fredi 
-SE | https://phoenixcart.org/forum/app.php/addons/free_addon/swedish_language_pack/ | Bertil
+See the list at https://phoenixcart.org/forum/app.php/addons/free/language-23
 
-Please be aware that language packs (other than ES) are maintained by shop owners so may not be up to date, may be incomplete, or may contain non-core files and definitions.  The list at https://phoenixcart.org/forum/app.php/addons/free/language-23 may be more up to date.
-
-## Certified Service Providers
-
-Name | URL | Services Offered
------------- | ------------- | ------------- 
-Rainer<br>[@raiwa](https://phoenixcart.org/forum/memberlist.php?mode=viewprofile&u=64) | [oscaddons.com](https://www.oscaddons.com/index.php) | Providing all kinds of support for CE Phoenix online stores. You will find Add-Ons which add functionality and features to your store.  Completely free Add-Ons and a selection of commercial Add-Ons at very affordable prices exclusive to my website.  On the other hand you can count on installation and programming services at very competitive prices.  Visit my website and feel free to contact me - English, Deutsch and Español.
-John<br>[@BrockleyJohn](https://phoenixcart.org/forum/memberlist.php?mode=viewprofile&u=167) | [sewebsites.net](https://cp.sewebsites.net/contact) | Custom jobs, big or small, including adapting existing addons to CE Phoenix. Integration of stock systems and new payment methods. Addons both free and great value, soon to be added to the site.
-Preston<br>[@zipurman](https://phoenixcart.org/forum/memberlist.php?mode=viewprofile&u=88) | [phoenixaddons.com](https://phoenixaddons.com/) | Any need for programming in your CE Phoenix online store, or any PHP/JS/CSS/SQL, I am happy to help. We also offer hosting on our own VMWare servers and have been building web solutions and hosting for over 20 years. The website offers some free add-ons and more coming soon. Thanks for any consideration on your projects. (CST Canada)
+Please be aware that language packs (other than ES) are maintained by shop owners so may not be up to date, may be incomplete, or may contain non-core files and definitions.
 
 ## How to Support the Phoenix Project
 
-Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to sponsor forward movement in the code-base. Phoenix needs you as much as you need Phoenix... 
+Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix...
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
+
+### Certified Service Providers
+
+[Certified service providers](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+
+* These developers are certified by the Core Team
+* These developers support Phoenix by giving their time, code and financial support
+
+If you are looking for a developer for a paid-for project, please consider one of those at https://phoenixcart.org/forum/app.php/developers
 
 ### Join the Phoenix Club
 
@@ -117,8 +109,8 @@ Phoenix (Youtube) | https://www.youtube.com/channel/UCjJe0ZX3-nGzeJFEzcVUyIA/
 Zipurman Coding (Youtube) | https://www.youtube.com/user/zipurman/videos
 Support (Discord) | https://discord.gg/3pzfrtMAX4
 User Guide (Phoenix Cart) | https://phoenixcart.org/phoenixcartwiki/index.php
-Forum (Phoenix Cart) | https://phoenixcart.org/forum/
 Add-ons Library (Phoenix Cart) | https://phoenixcart.org/forum/addons/
+Forum (Phoenix Cart) | https://phoenixcart.org/forum/
 
 ## Credits
 
@@ -131,4 +123,4 @@ Oranges, Lemons, Pears, Apples | Eelffica from Pixabay | https://pixabay.com/ser
 Tomatoes | Rocky_H from Pixabay | https://pixabay.com/service/license/
 Heart | Gerhard Gellinger from Pixabay | https://pixabay.com/service/license/
 
-Other fruit images are based on modified images from the named Owners.
+Other fruit images are based on modified images from the named owners.
