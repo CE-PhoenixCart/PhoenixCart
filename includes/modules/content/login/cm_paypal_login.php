@@ -45,7 +45,9 @@
       $this->group = basename(dirname(__FILE__));
 
       $this->title = $this->_app->getDef('module_login_title');
-      $this->description = '<div align="center">' . $this->_app->drawButton($this->_app->getDef('module_login_legacy_admin_app_button'), $GLOBALS['Admin']->link('paypal.php', ['action' => 'configure', 'module' => 'LOGIN']), 'primary', null, true) . '</div>';
+      if (isset($GLOBALS['Admin'])) {
+        $this->description = '<div align="center">' . $this->_app->drawButton($this->_app->getDef('module_login_legacy_admin_app_button'), $GLOBALS['Admin']->link('paypal.php', ['action' => 'configure', 'module' => 'LOGIN']), 'primary', null, true) . '</div>';
+      }
 
       if ( defined('OSCOM_APP_PAYPAL_LOGIN_STATUS') ) {
         $this->sort_order = (defined('OSCOM_APP_PAYPAL_LOGIN_SORT_ORDER') ? OSCOM_APP_PAYPAL_LOGIN_SORT_ORDER : 0);
