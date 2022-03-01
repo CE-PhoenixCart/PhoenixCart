@@ -26,7 +26,7 @@
       $this->_short_title = $OSCOM_PayPal->getDef('module_ec_short_title');
       $this->_introduction = $OSCOM_PayPal->getDef('module_ec_introduction');
 
-      $this->_req_notes = array();
+      $this->_req_notes = [];
 
       if ( !function_exists('curl_init') ) {
         $this->_req_notes[] = $OSCOM_PayPal->getDef('module_ec_error_curl');
@@ -98,8 +98,8 @@
         $server = (MODULE_PAYMENT_PAYPAL_EXPRESS_TRANSACTION_SERVER == 'Live') ? 'LIVE' : 'SANDBOX';
 
         if ( defined('MODULE_PAYMENT_PAYPAL_EXPRESS_SELLER_ACCOUNT') ) {
-          if ( tep_not_null(MODULE_PAYMENT_PAYPAL_EXPRESS_SELLER_ACCOUNT) ) {
-            if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_SELLER_EMAIL') || !tep_not_null(constant('OSCOM_APP_PAYPAL_' . $server . '_SELLER_EMAIL')) ) {
+          if ( !Text::is_empty(MODULE_PAYMENT_PAYPAL_EXPRESS_SELLER_ACCOUNT) ) {
+            if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_SELLER_EMAIL') || Text::is_empty(constant('OSCOM_APP_PAYPAL_' . $server . '_SELLER_EMAIL')) ) {
               $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_' . $server . '_SELLER_EMAIL', MODULE_PAYMENT_PAYPAL_EXPRESS_SELLER_ACCOUNT);
             }
           }
@@ -108,10 +108,10 @@
         }
 
         if ( defined('MODULE_PAYMENT_PAYPAL_EXPRESS_API_USERNAME') && defined('MODULE_PAYMENT_PAYPAL_EXPRESS_API_PASSWORD') && defined('MODULE_PAYMENT_PAYPAL_EXPRESS_API_SIGNATURE') ) {
-          if ( tep_not_null(MODULE_PAYMENT_PAYPAL_EXPRESS_API_USERNAME) && tep_not_null(MODULE_PAYMENT_PAYPAL_EXPRESS_API_PASSWORD) && tep_not_null(MODULE_PAYMENT_PAYPAL_EXPRESS_API_SIGNATURE) ) {
-            if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_USERNAME') || !tep_not_null(constant('OSCOM_APP_PAYPAL_' . $server . '_API_USERNAME')) ) {
-              if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_PASSWORD') || !tep_not_null(constant('OSCOM_APP_PAYPAL_' . $server . '_API_PASSWORD')) ) {
-                if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_SIGNATURE') || !tep_not_null(constant('OSCOM_APP_PAYPAL_' . $server . '_API_SIGNATURE')) ) {
+          if ( !Text::is_empty(MODULE_PAYMENT_PAYPAL_EXPRESS_API_USERNAME) && !Text::is_empty(MODULE_PAYMENT_PAYPAL_EXPRESS_API_PASSWORD) && !Text::is_empty(MODULE_PAYMENT_PAYPAL_EXPRESS_API_SIGNATURE) ) {
+            if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_USERNAME') || Text::is_empty(constant('OSCOM_APP_PAYPAL_' . $server . '_API_USERNAME')) ) {
+              if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_PASSWORD') || Text::is_empty(constant('OSCOM_APP_PAYPAL_' . $server . '_API_PASSWORD')) ) {
+                if ( !defined('OSCOM_APP_PAYPAL_' . $server . '_API_SIGNATURE') || Text::is_empty(constant('OSCOM_APP_PAYPAL_' . $server . '_API_SIGNATURE')) ) {
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_' . $server . '_API_USERNAME', MODULE_PAYMENT_PAYPAL_EXPRESS_API_USERNAME);
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_' . $server . '_API_PASSWORD', MODULE_PAYMENT_PAYPAL_EXPRESS_API_PASSWORD);
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_' . $server . '_API_SIGNATURE', MODULE_PAYMENT_PAYPAL_EXPRESS_API_SIGNATURE);
@@ -132,10 +132,10 @@
         $server = (MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_TRANSACTION_SERVER == 'Live') ? 'LIVE' : 'SANDBOX';
 
         if ( defined('MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VENDOR') && defined('MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_USERNAME') && defined('MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PASSWORD') && defined('MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PARTNER') ) {
-          if ( tep_not_null(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VENDOR) && tep_not_null(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PASSWORD) && tep_not_null(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PARTNER) ) {
-            if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_VENDOR') || !tep_not_null(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_VENDOR')) ) {
-              if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_PASSWORD') || !tep_not_null(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_PASSWORD')) ) {
-                if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_PARTNER') || !tep_not_null(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_PARTNER')) ) {
+          if ( !Text::is_empty(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VENDOR) && !Text::is_empty(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PASSWORD) && !Text::is_empty(MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PARTNER) ) {
+            if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_VENDOR') || Text::is_empty(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_VENDOR')) ) {
+              if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_PASSWORD') || Text::is_empty(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_PASSWORD')) ) {
+                if ( !defined('OSCOM_APP_PAYPAL_PF_' . $server . '_PARTNER') || Text::is_empty(constant('OSCOM_APP_PAYPAL_PF_' . $server . '_PARTNER')) ) {
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_PF_' . $server . '_VENDOR', MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_VENDOR);
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_PF_' . $server . '_USER', MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_USERNAME);
                   $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_PF_' . $server . '_PASSWORD', MODULE_PAYMENT_PAYPAL_PRO_PAYFLOW_EC_PASSWORD);

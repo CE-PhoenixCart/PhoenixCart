@@ -15,7 +15,7 @@
     var $title;
     var $description;
     var $app_configured = false;
-    var $set_func = 'tep_cfg_select_option(array(\'Full\', \'Half\'), ';
+    var $set_func = 'Config::select_one(array(\'Full\', \'Half\'), ';
 
     function __construct() {
       global $OSCOM_PayPal;
@@ -40,4 +40,3 @@ EOT;
       return $result;
     }
   }
-?>

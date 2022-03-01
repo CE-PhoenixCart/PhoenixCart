@@ -24,7 +24,7 @@
       'VERSION' => $OSCOM_PayPal->getApiVersion(),
       'METHOD' => 'DoDirectPayment',
       'PAYMENTACTION' => (OSCOM_APP_PAYPAL_DP_TRANSACTION_METHOD == '1') ? 'Sale' : 'Authorization',
-      'IPADDRESS' => tep_get_ip_address(),
+      'IPADDRESS' => Request::get_ip(),
       'BUTTONSOURCE' => $OSCOM_PayPal->getIdentifier(),
     ];
 

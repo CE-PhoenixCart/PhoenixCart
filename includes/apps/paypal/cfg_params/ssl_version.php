@@ -46,9 +46,8 @@
       $dialog_connection_test_general_error = addslashes($OSCOM_PayPal->getDef('cfg_ssl_version_dialog_general_error'));
 
       $has_json = function_exists('json_encode') ? 'true' : 'false';
-      
-      $input = null;      
-      $input .= '<div class="custom-control custom-radio custom-control-inline">';
+
+      $input = '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="sslVersionSelectionDefault" name="ssl_version" value="0"' . (OSCOM_APP_PAYPAL_SSL_VERSION == '0' ? ' checked="checked"' : '') . '>';
         $input .= '<label class="custom-control-label" for="sslVersionSelectionDefault">' . $OSCOM_PayPal->getDef('cfg_ssl_version_default') . '</label>';
       $input .= '</div>';
@@ -57,7 +56,7 @@
         $input .= '<label class="custom-control-label" for="sslVersionSelectionTls12">' . $OSCOM_PayPal->getDef('cfg_ssl_version_tls12') . '</label>';
       $input .= '</div>';
 
-      $connection_test_url = tep_href_link('paypal.php', 'action=ssltest');
+      $connection_test_url = $GLOBALS['Linker']->build('paypal.php', ['action' => 'ssltest']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -132,4 +131,3 @@ EOT;
       return $result;
     }
   }
-?>

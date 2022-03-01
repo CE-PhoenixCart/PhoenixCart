@@ -14,5 +14,4 @@
 
   $OSCOM_PayPal->addAlert($OSCOM_PayPal->getDef('alert_module_install_success'), 'success');
 
-  tep_redirect(tep_href_link('paypal.php', 'action=configure&module=' . $current_module));
-?>
+  Href::redirect($GLOBALS['Admin']->link('paypal.php', ['action' => 'configure', 'module' => $current_module]));

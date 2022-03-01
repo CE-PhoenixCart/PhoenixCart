@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('sort_order', OSCOM_APP_PAYPAL_PS_SORT_ORDER, 'id="inputPsSortOrder"');
+      $input = new Input('sort_order', ['value' => OSCOM_APP_PAYPAL_PS_SORT_ORDER, 'id' => 'inputPsSortOrder']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -35,5 +35,5 @@ EOT;
 
       return $result;
     }
+
   }
-?>

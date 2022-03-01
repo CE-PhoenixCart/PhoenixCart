@@ -25,8 +25,8 @@
 
     function getSetField() {
       global $OSCOM_PayPal;
-      
-      $input = null;      
+
+      $input = null;
       $input .= '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="transactionMethodSelectionAuthorize" name="transaction_method" value="0"' . (OSCOM_APP_PAYPAL_PS_TRANSACTION_METHOD == '0' ? ' checked="checked"' : '') . '>';
         $input .= '<label class="custom-control-label" for="transactionMethodSelectionAuthorize">' . $OSCOM_PayPal->getDef('cfg_ps_transaction_method_authorize') . '</label>';

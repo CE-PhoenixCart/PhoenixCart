@@ -16,7 +16,7 @@
     <h1 class="display-4"><?= $OSCOM_PayPal->getDef('heading_log_view') ?></h1>
   </div>
   <div class="col text-right">
-    <h1 class="display-4"><?= $OSCOM_PayPal->drawButton($OSCOM_PayPal->getDef('button_back'), tep_href_link('paypal.php', 'action=log&page=' . $_GET['page']), 'info') ?></h1>
+    <h1 class="display-4"><?= $OSCOM_PayPal->drawButton($OSCOM_PayPal->getDef('button_back'), $GLOBALS['Admin']->link('paypal.php', ['action' => 'log', 'page' => $_GET['page']]), 'info') ?></h1>
   </div>
 </div>
 

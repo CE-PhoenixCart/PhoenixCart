@@ -24,22 +24,22 @@
     }
 
     function getSetField() {
-      $statuses_array = array();
+      $statuses_array = [];
 
-      $flags_query = tep_db_query("describe orders_status public_flag");
+      $flags_query = $GLOBALS['db']->query("describe orders_status public_flag");
 
-      if (tep_db_num_rows($flags_query) == 1) {
-        $statuses_query = tep_db_query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' and public_flag = '0' order by orders_status_name");
+      if (mysqli_num_rows($flags_query) == 1) {
+        $statuses_query = $GLOBALS['db']->query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' and public_flag = '0' order by orders_status_name");
       } else {
-        $statuses_query = tep_db_query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' order by orders_status_name");
+        $statuses_query = $GLOBALS['db']->query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' order by orders_status_name");
       }
 
-      while ($statuses = tep_db_fetch_array($statuses_query)) {
+      while ($statuses = $statuses_query->fetch_assoc()) {
         $statuses_array[] = array('id' => $statuses['orders_status_id'],
                                   'text' => $statuses['orders_status_name']);
       }
 
-      $input = tep_draw_pull_down_menu('transactions_order_status_id', $statuses_array, OSCOM_APP_PAYPAL_TRANSACTIONS_ORDER_STATUS_ID, 'id="inputTransactionsOrderStatusId"');
+      $input = (new Select('transactions_order_status_id', $statuses_array, ['id' => 'inputTransactionsOrderStatusId']))->set_selection(OSCOM_APP_PAYPAL_TRANSACTIONS_ORDER_STATUS_ID);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -51,4 +51,3 @@ EOT;
       return $result;
     }
   }
-?>

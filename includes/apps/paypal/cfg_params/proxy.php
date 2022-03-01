@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('proxy', OSCOM_APP_PAYPAL_PROXY, 'id="inputProxy"');
+      $input = new Input('proxy', ['value' => OSCOM_APP_PAYPAL_PROXY, 'id' => 'inputProxy']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -36,4 +36,3 @@ EOT;
       return $result;
     }
   }
-?>

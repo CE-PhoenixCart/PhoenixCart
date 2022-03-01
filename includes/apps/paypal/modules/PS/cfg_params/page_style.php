@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('page_style', OSCOM_APP_PAYPAL_PS_PAGE_STYLE, 'id="inputPsPageStyle"');
+      $input = new Input('page_style', ['value' => OSCOM_APP_PAYPAL_PS_PAGE_STYLE, 'id' => 'inputPsPageStyle']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -36,4 +36,3 @@ EOT;
       return $result;
     }
   }
-?>

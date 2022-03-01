@@ -42,8 +42,8 @@
       $form_url = 'https://securepayments.sandbox.paypal.com/webapps/HostedSoleSolutionApp/webflow/sparta/hostedSoleSolutionProcess';
     }
   } else {
-    $form_url = tep_href_link('checkout_payment.php', 'payment_error=paypal_pro_hs', 'SSL');
+    $form_url = $Linker->build('checkout_payment.php', ['payment_error' => 'paypal_pro_hs']);
   }
 
-  require $oscTemplate->map_to_template(__FILE__, 'ext');
-  require(DIR_FS_CATALOG . 'includes/application_bottom.php');
+  require $Template->map(__FILE__, 'ext');
+  require DIR_FS_CATALOG . 'includes/application_bottom.php';

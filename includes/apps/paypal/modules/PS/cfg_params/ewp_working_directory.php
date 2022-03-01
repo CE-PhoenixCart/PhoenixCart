@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('ewp_working_directory', OSCOM_APP_PAYPAL_PS_EWP_WORKING_DIRECTORY, 'id="inputPsEwpWorkingDirectory"');
+      $input = new Input('ewp_working_directory', ['value' => OSCOM_APP_PAYPAL_PS_EWP_WORKING_DIRECTORY, 'id' => 'inputPsEwpWorkingDirectory']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -36,4 +36,3 @@ EOT;
       return $result;
     }
   }
-?>

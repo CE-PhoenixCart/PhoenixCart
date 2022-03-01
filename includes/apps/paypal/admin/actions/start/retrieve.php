@@ -14,7 +14,7 @@
                   'secret' => OSCOM_APP_PAYPAL_START_SECRET);
 
   $result_string = $OSCOM_PayPal->makeApiCall('https://www.oscommerce.com/index.php?RPC&Website&Index&PayPalStart&action=retrieve', $params);
-  $result = array();
+  $result = [];
 
   if ( !empty($result_string) && (substr($result_string, 0, 9) == 'rpcStatus') ) {
     $raw = explode("\n", $result_string);
@@ -46,11 +46,10 @@
 
       $OSCOM_PayPal->addAlert($OSCOM_PayPal->getDef('alert_onboarding_success'), 'success');
 
-      tep_redirect(tep_href_link('paypal.php', 'action=credentials'));
+      Href::redirect($GLOBALS['Admin']->link('paypal.php', ['action' => 'credentials']));
     } else {
       $OSCOM_PayPal->addAlert($OSCOM_PayPal->getDef('alert_onboarding_retrieve_error'), 'error');
     }
   } else {
     $OSCOM_PayPal->addAlert($OSCOM_PayPal->getDef('alert_onboarding_retrieve_connection_error'), 'error');
   }
-?>

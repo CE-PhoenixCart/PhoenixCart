@@ -24,7 +24,7 @@
     }
 
     function getSetField() {
-      $input = tep_draw_input_field('ewp_public_cert_id', OSCOM_APP_PAYPAL_PS_EWP_PUBLIC_CERT_ID, 'id="inputPsEwpPublicCertId"');
+      $input = new Input('ewp_public_cert_id', ['value' => OSCOM_APP_PAYPAL_PS_EWP_PUBLIC_CERT_ID, 'id' => 'inputPsEwpPublicCertId']);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
@@ -36,4 +36,3 @@ EOT;
       return $result;
     }
   }
-?>

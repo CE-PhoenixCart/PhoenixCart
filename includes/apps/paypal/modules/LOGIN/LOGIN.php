@@ -25,19 +25,19 @@
       $this->_short_title = $OSCOM_PayPal->getDef('module_login_short_title');
       $this->_introduction = $OSCOM_PayPal->getDef('module_login_introduction');
 
-      $this->_req_notes = array();
+      $this->_req_notes = [];
 
       if ( !function_exists('curl_init') ) {
         $this->_req_notes[] = $OSCOM_PayPal->getDef('module_login_error_curl');
       }
 
       if ( defined('OSCOM_APP_PAYPAL_LOGIN_STATUS') ) {
-        if ( ((OSCOM_APP_PAYPAL_LOGIN_STATUS == '1') && (!tep_not_null(OSCOM_APP_PAYPAL_LOGIN_LIVE_CLIENT_ID) || !tep_not_null(OSCOM_APP_PAYPAL_LOGIN_LIVE_SECRET))) || ((OSCOM_APP_PAYPAL_LOGIN_STATUS == '0') && (!tep_not_null(OSCOM_APP_PAYPAL_LOGIN_SANDBOX_CLIENT_ID) || !tep_not_null(OSCOM_APP_PAYPAL_LOGIN_SANDBOX_SECRET))) ) {
+        if ( ((OSCOM_APP_PAYPAL_LOGIN_STATUS == '1') && (Text::is_empty(OSCOM_APP_PAYPAL_LOGIN_LIVE_CLIENT_ID) || Text::is_empty(OSCOM_APP_PAYPAL_LOGIN_LIVE_SECRET))) || ((OSCOM_APP_PAYPAL_LOGIN_STATUS == '0') && (!!Text::is_empty(OSCOM_APP_PAYPAL_LOGIN_SANDBOX_CLIENT_ID) || !!Text::is_empty(OSCOM_APP_PAYPAL_LOGIN_SANDBOX_SECRET))) ) {
           $this->_req_notes[] = $OSCOM_PayPal->getDef('module_login_error_credentials');
         }
 
         $this->_req_notes[] = $OSCOM_PayPal->getDef('module_login_notice_paypal_app_return_url', array(
-          'return_url' => tep_catalog_href_link('login.php', 'action=paypal_login', 'SSL')
+          'return_url' => $GLOBALS['Admin']->catalog('login.php', ['action' => 'paypal_login'])
         ));
       }
     }
@@ -95,8 +95,8 @@
         $server = (MODULE_CONTENT_PAYPAL_LOGIN_SERVER_TYPE == 'Live') ? 'LIVE' : 'SANDBOX';
 
         if ( defined('MODULE_CONTENT_PAYPAL_LOGIN_CLIENT_ID') ) {
-          if ( tep_not_null(MODULE_CONTENT_PAYPAL_LOGIN_CLIENT_ID) ) {
-            if ( !defined('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_CLIENT_ID') || !tep_not_null(constant('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_CLIENT_ID')) ) {
+          if ( !Text::is_empty(MODULE_CONTENT_PAYPAL_LOGIN_CLIENT_ID) ) {
+            if ( !defined('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_CLIENT_ID') || Text::is_empty(constant('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_CLIENT_ID')) ) {
               $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_CLIENT_ID', MODULE_CONTENT_PAYPAL_LOGIN_CLIENT_ID);
             }
           }
@@ -105,8 +105,8 @@
         }
 
         if ( defined('MODULE_CONTENT_PAYPAL_LOGIN_SECRET') ) {
-          if ( tep_not_null(MODULE_CONTENT_PAYPAL_LOGIN_SECRET) ) {
-            if ( !defined('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_SECRET') || !tep_not_null(constant('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_SECRET')) ) {
+          if ( !Text::is_empty(MODULE_CONTENT_PAYPAL_LOGIN_SECRET) ) {
+            if ( !defined('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_SECRET') || Text::is_empty(constant('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_SECRET')) ) {
               $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_LOGIN_' . $server . '_SECRET', MODULE_CONTENT_PAYPAL_LOGIN_SECRET);
             }
           }
@@ -126,7 +126,7 @@
       }
 
       if ( defined('MODULE_CONTENT_PAYPAL_LOGIN_CONTENT_WIDTH') ) {
-        $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_LOGIN_CONTENT_WIDTH', MODULE_CONTENT_PAYPAL_LOGIN_CONTENT_WIDTH, 'Content Width', 'Should the content be shown in a full or half width container?', 'tep_cfg_select_option(array(\'Full\', \'Half\'), ');
+        $OSCOM_PayPal->saveParameter('OSCOM_APP_PAYPAL_LOGIN_CONTENT_WIDTH', MODULE_CONTENT_PAYPAL_LOGIN_CONTENT_WIDTH, 'Content Width', 'Should the content be shown in a full or half width container?', 'Config::select_one(array(\'Full\', \'Half\'), ');
         $OSCOM_PayPal->deleteParameter('MODULE_CONTENT_PAYPAL_LOGIN_CONTENT_WIDTH');
       }
 

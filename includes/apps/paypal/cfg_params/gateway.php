@@ -25,8 +25,8 @@
 
     function getSetField() {
       global $OSCOM_PayPal;
-      
-      $input = null;      
+
+      $input = null;
       $input .= '<div class="custom-control custom-radio custom-control-inline">';
         $input .= '<input type="radio" class="custom-control-input" id="gatewaySelectionPayPal" name="gateway" value="1"' . (OSCOM_APP_PAYPAL_GATEWAY == '1' ? ' checked="checked"' : '') . '>';
         $input .= '<label class="custom-control-label" for="gatewaySelectionPayPal">' . $OSCOM_PayPal->getDef('cfg_gateway_paypal') . '</label>';

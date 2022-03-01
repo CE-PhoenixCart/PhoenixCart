@@ -28,22 +28,21 @@
 
       $statuses_array = array(array('id' => '0', 'text' => $OSCOM_PayPal->getDef('cfg_dp_order_status_id_default')));
 
-      $statuses_query = tep_db_query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' order by orders_status_name");
-      while ($statuses = tep_db_fetch_array($statuses_query)) {
+      $statuses_query = $GLOBALS['db']->query("select orders_status_id, orders_status_name from orders_status where language_id = '" . (int)$_SESSION['languages_id'] . "' order by orders_status_name");
+      while ($statuses = $statuses_query->fetch_assoc()) {
         $statuses_array[] = array('id' => $statuses['orders_status_id'],
                                   'text' => $statuses['orders_status_name']);
       }
 
-      $input = tep_draw_pull_down_menu('order_status_id', $statuses_array, OSCOM_APP_PAYPAL_DP_ORDER_STATUS_ID, 'id="inputDpOrderStatusId"');
+      $input = (new Select('order_status_id', $statuses_array, ['id="inputDpOrderStatusId']))->set_selection(OSCOM_APP_PAYPAL_DP_ORDER_STATUS_ID);
 
       $result = <<<EOT
 <h5>{$this->title}</h5>
 <p>{$this->description}</p>
 
-<div class="mb-3">{$input}</div>      
+<div class="mb-3">{$input}</div>
 EOT;
 
       return $result;
     }
   }
-?>
