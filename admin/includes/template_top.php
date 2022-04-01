@@ -18,16 +18,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title><?= TITLE ?></title>
 <base href="<?= HTTP_SERVER . DIR_WS_ADMIN ?>" />
-<link rel="stylesheet" href="<?= tep_catalog_href_link('ext/jquery/ui/redmond/jquery-ui-1.10.4.min.css') ?>">
+<link rel="stylesheet" href="<?= $Admin->catalog('ext/jquery/ui/redmond/jquery-ui-1.10.4.min.css') ?>">
 
-<?= $OSCOM_Hooks->call('siteWide', 'injectSiteStart') ?>
+<?= $admin_hooks->cat('injectSiteStart') ?>
 
-<script src="<?= tep_catalog_href_link('ext/jquery/ui/jquery-ui-1.10.4.min.js') ?>"></script>
+<script src="<?= $Admin->catalog('ext/jquery/ui/jquery-ui-1.10.4.min.js') ?>"></script>
 
 <?php
-  if (tep_not_null(JQUERY_DATEPICKER_I18N_CODE)) {
+  if (!Text::is_empty(JQUERY_DATEPICKER_I18N_CODE)) {
 ?>
-<script src="<?= tep_catalog_href_link('ext/jquery/ui/i18n/jquery.ui.datepicker-' . JQUERY_DATEPICKER_I18N_CODE . '.js') ?>"></script>
+<script src="<?= $Admin->catalog('ext/jquery/ui/i18n/jquery.ui.datepicker-' . JQUERY_DATEPICKER_I18N_CODE . '.js') ?>"></script>
 <script>
 $.datepicker.setDefaults($.datepicker.regional['<?= JQUERY_DATEPICKER_I18N_CODE ?>']);
 </script>
@@ -38,13 +38,13 @@ $.datepicker.setDefaults($.datepicker.regional['<?= JQUERY_DATEPICKER_I18N_CODE 
 </head>
 <body>
 
-<?= $OSCOM_Hooks->call('siteWide', 'injectBodyStart') ?>
+<?= $admin_hooks->cat('injectBodyStart') ?>
 
 <div class="container-fluid">
   <div class="row">
 
 <?php
-  if (isset($_SESSION['admin'])) {
+  if (isset($_SESSION['admin']) && file_exists('includes/header.php')) {
     require 'includes/header.php';
   }
 ?>

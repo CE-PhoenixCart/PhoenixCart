@@ -18,13 +18,13 @@
     require 'includes/footer.php';
   }
 
-  echo $OSCOM_Hooks->call('siteWide', 'injectSiteEnd');
+  echo $admin_hooks->cat('injectSiteEnd');
   ?>
 
   </div>
 </div>
 
-<?= $OSCOM_Hooks->call('siteWide', 'injectBodyEnd') ?>
+<?= $admin_hooks->cat('injectBodyEnd') ?>
 
 </body>
 </html>
