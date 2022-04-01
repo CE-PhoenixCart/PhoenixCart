@@ -40,7 +40,7 @@
         <label class="form-check-label font-weight-bold text-danger mr-1" for="rating_1"><?= TEXT_BAD ?></label>
         <?php
         for ($i = 1; $i <= 5; $i++) {
-          echo (new Tickable('reviews_rating', ['value' => $i, , 'class' => 'form-check-input', 'id' => "rating_$i"], 'radio'))->tick($i == ($rInfo->reviews_rating ?? 5));
+          echo (new Tickable('reviews_rating', ['value' => "$i", 'class' => 'form-check-input', 'id' => "rating_$i"], 'radio'))->tick($i == ($rInfo->reviews_rating ?? 5));
         }
         ?>
         <label class="form-check-label font-weight-bold text-danger" for="rating_5"><?= TEXT_GOOD ?></label></div>
@@ -49,7 +49,7 @@
 
     <div class="form-group row" id="zReview">
       <label for="reviewReview" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_REVIEW ?></label>
-      <div class="col-sm-9"><?= (new Textarea('reviews_text', [rows => '5', 'class' => 'form-control']))->require()->set_text($rInfo->reviews_text ?? '') . ENTRY_REVIEW_TEXT ?>
+      <div class="col-sm-9"><?= (new Textarea('reviews_text', ['rows' => '5', 'class' => 'form-control']))->require()->set_text($rInfo->reviews_text ?? '') . ENTRY_REVIEW_TEXT ?>
       </div>
     </div>
 
