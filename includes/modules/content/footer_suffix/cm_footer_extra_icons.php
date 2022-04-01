@@ -48,7 +48,7 @@
         ],
         'MODULE_CONTENT_FOOTER_EXTRA_ICONS_DISPLAY' => [
           'title' => 'Icons',
-          'value' => 'apple-pay,bitcoin,cc-paypal',
+          'value' => 'bitcoin,ethereum',
           'desc' => 'Icons to display.',
         ],
         'MODULE_CONTENT_FOOTER_EXTRA_ICONS_SORT_ORDER' => [
