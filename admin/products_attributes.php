@@ -96,7 +96,7 @@ EOSQL
                   <?= (new Select('options_id', $options))->set_selection($attributes_values['options_id']) ?>
                 </td>
                 <td>
-                  <?= (new Select('values_id', $values))->set_selection($attributes_values['options_id']) ?>
+                  <?= (new Select('values_id', $values))->set_selection($attributes_values['options_values_id']) ?>
                 </td>
                 <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
                 <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
