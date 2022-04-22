@@ -47,7 +47,7 @@
       foreach ($attributes as $option_id => $attribute) {
         $option_choices = [];
 
-        if (PI_OA_HELPER == 'True') {
+        if ((PI_OA_ENFORCE === 'True') && (PI_OA_HELPER === 'True')) {
           $option_choices[] = ['id' => '', 'text' => PI_OA_ENFORCE_SELECTION];
         }
 
