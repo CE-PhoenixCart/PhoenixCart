@@ -33,17 +33,9 @@
 
   shipping::ensure_enabled();
 
-// if no shipping method has been selected, automatically select the cheapest method.
-// if the module's status was changed when none were available, to save on implementing
-// a javascript force-selection method, also automatically select the cheapest shipping
-// method if more than one module is now enabled
-  if ( !isset($_SESSION['shipping']) || (!$_SESSION['shipping'] && ($module_count > 1)) ) {
-    $_SESSION['shipping'] = $shipping_modules->cheapest();
-  }
-
   require language::map_to_translation('checkout_shipping.php');
 
-  if ( defined('SHIPPING_ALLOW_UNDEFINED_ZONES') && (SHIPPING_ALLOW_UNDEFINED_ZONES == 'False') && !$_SESSION['shipping'] ) {
+  if ( defined('SHIPPING_ALLOW_UNDEFINED_ZONES') && (SHIPPING_ALLOW_UNDEFINED_ZONES === 'False') && ($module_count <= 0) ) {
     $messageStack->add_session('checkout_address', ERROR_NO_SHIPPING_AVAILABLE_TO_SHIPPING_ADDRESS);
     Href::redirect($Linker->build('checkout_shipping_address.php'));
   }

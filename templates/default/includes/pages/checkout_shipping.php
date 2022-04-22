@@ -39,6 +39,11 @@
             ?>
         <table class="table border-right border-left border-bottom table-hover m-0">
           <?php
+      $method_input = new Tickable('shipping', [
+        'class' => 'custom-control-input',
+      ], 'radio');
+      $method_input->require();
+
       $n = count($quotes);
       foreach ($quotes as $quote) {
         $n2 = count($quote['methods']);
@@ -73,14 +78,16 @@
               echo '<div class="alert alert-error">' . $quote['error'] . '</div>';
             } else {
               $label_for = "d_{$method['id']}";
-              $method_input = new Tickable('shipping', [
-                'value' => $method_value,
-                'id' => $label_for,
-                'aria-describedby' => $label_for,
-                'class' => 'custom-control-input',
-              ], 'radio');
               echo '<div class="custom-control custom-radio custom-control-inline">';
-              echo $method_input->require();
+
+              if (isset($_SESSION['shipping']['id'])) {
+                $method_input->tick($method_value === $_SESSION['shipping']['id']);
+              }
+              echo $method_input
+                     ->set('value', $method_value)
+                     ->set('id', $label_for)
+                     ->set('aria-describedby', $label_for);
+
               echo '<label class="custom-control-label" for="' . $label_for . '">' . $method_price . '</label>';
               echo '</div>';
             }
