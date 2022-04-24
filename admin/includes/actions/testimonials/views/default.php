@@ -64,7 +64,7 @@
     if (!isset($table_definition['info'])
       && (!isset($_GET['tID']) || ($_GET['tID'] == $row['testimonials_id'])))
     {
-      $row = array_merge($row, $db->query(sprintf(<<<'EOSQL'
+      $row = array_merge($row, $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT *
  FROM testimonials_description
  WHERE testimonials_id = %d
