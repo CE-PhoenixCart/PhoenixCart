@@ -49,7 +49,7 @@
 
     if (!isset($table_definition['info'])
       && (!isset($_GET['tID']) || ($_GET['tID'] == $row['tax_class_id']))
-      && (substr($action, 0, 3) !== 'new'))
+      && (substr($GLOBALS['action'], 0, 3) !== 'new'))
     {
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
