@@ -12,14 +12,14 @@
 
   if (isset($GLOBALS['table_definition']['info']->zone_id)) {
     $cInfo =& $GLOBALS['table_definition']['info'];
-    $link->set_parameter('cID', $cInfo->zone_id);
+    $GLOBALS['link']->set_parameter('cID', $cInfo->zone_id);
 
     $heading = $cInfo->zone_name;
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
-              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $link->set_parameter('action', 'delete')),
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $GLOBALS['link'])->set_parameter('action', 'edit'))
+              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $GLOBALS['link']->set_parameter('action', 'delete')),
     ];
     $contents[] = ['text' => TEXT_INFO_ZONES_NAME . '<br>' . $cInfo->zone_name . ' (' . $cInfo->zone_code . ')'];
     $contents[] = ['text' => TEXT_INFO_COUNTRY_NAME . ' ' . $cInfo->countries_name];
