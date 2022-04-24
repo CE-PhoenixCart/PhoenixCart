@@ -17,6 +17,6 @@
     'last_modified' => 'NOW()',
   ];
 
-  $db->perform('tax_class', $sql_data, 'update', 'where tax_class_id = ' . (int)$tax_class_id);
+  $db->perform('tax_class', $sql_data, 'update', 'tax_class_id = ' . (int)$tax_class_id);
 
   return $link->set_parameter('tID', (int)$tax_class_id);
