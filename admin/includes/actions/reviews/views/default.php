@@ -51,7 +51,7 @@ EOSQL
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) use ($customer_data) {
-          return (isset($row['info']->id) && ($row['info']->id === $row['reviews_id']))
+          return (isset($row['info']->reviews_id) && ($row['info']->reviews_id === $row['reviews_id']))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },
