@@ -28,7 +28,7 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) {
-          return (isset($table_definition['info']->tax_class_id) && ($row['tax_class_id'] == $table_definition['info']->tax_class_id) )
+          return (isset($row['info']->tax_class_id) && ($row['tax_class_id'] == $row['info']->tax_class_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                : '<a href="' . $GLOBALS['link']->set_parameter('tID', $row['tax_class_id']) . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },
@@ -49,7 +49,7 @@
 
     if (!isset($table_definition['info'])
       && (!isset($_GET['tID']) || ($_GET['tID'] == $row['tax_class_id']))
-      && (substr($GLOBALS['action'], 0, 3) !== 'new'))
+      && !Text::is_prefixed_by($GLOBALS['action'], 'new'))
     {
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
