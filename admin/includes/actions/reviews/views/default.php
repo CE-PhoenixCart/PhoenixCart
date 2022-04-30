@@ -41,7 +41,7 @@ EOSQL
       [
         'name' => TABLE_HEADING_STATUS,
         'function' => function ($row) {
-          $flag_link = (clone $row['link'])->set_parameter('action', 'set_flag');
+          $flag_link = (clone $row['link'])->set_parameter('action', 'set_flag')->set_parameter('formid', $_SESSION['sessiontoken']);
           return ($row['reviews_status'] == '1')
                 ? '<i class="fas fa-check-circle text-success"></i> <a href="' . $flag_link->set_parameter('flag', '0') . '"><i class="fas fa-times-circle text-muted"></i></a>'
                 : '<a href="' . $flag_link->set_parameter('flag', '1') . '"><i class="fas fa-check-circle text-muted"></i></a> <i class="fas fa-times-circle text-danger"></i>';
@@ -51,7 +51,7 @@ EOSQL
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) use ($customer_data) {
-          return (isset($row['info']->id) && ($row['info']->id === $row['reviews_id']))
+          return (isset($row['info']->reviews_id) && ($row['info']->reviews_id === $row['reviews_id']))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },
@@ -70,14 +70,14 @@ EOSQL
       $reviews_text = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT rd.*, LENGTH(rd.reviews_text) AS reviews_text_size
  FROM reviews r INNER JOIN reviews_description rd ON r.reviews_id = rd.reviews_id
- WHERE r.reviews_id = %d"
+ WHERE r.reviews_id = %d
 EOSQL
          , (int)$row['reviews_id']))->fetch_assoc();
 
-      $product_image = $GLOBALS['db']->query("SELECT products_image FROM products WHERE products_id = " . (int)$reviews['products_id'])->fetch_assoc();
+      $product_image = $GLOBALS['db']->query("SELECT products_image FROM products WHERE products_id = " . (int)$row['products_id'])->fetch_assoc();
       $row['products_image'] = $product_image['products_image'];
 
-      $reviews_average = $GLOBALS['db']->query("SELECT (AVG(reviews_rating) / 5 * 100) AS average_rating FROM reviews WHERE products_id = " . (int)$reviews['products_id'])->fetch_assoc();
+      $reviews_average = $GLOBALS['db']->query("SELECT (AVG(reviews_rating) / 5 * 100) AS average_rating FROM reviews WHERE products_id = " . (int)$row['products_id'])->fetch_assoc();
       $row['average_rating'] = $reviews_average['average_rating'];
 
       $rInfo_array = array_merge($row, $reviews_text);

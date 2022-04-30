@@ -25,7 +25,7 @@
     'reviews_status' => 1,
   ]);
   $db->perform('reviews_description', [
-    'reviews_id' => (int)mysqli_insert_id(),
+    'reviews_id' => (int)mysqli_insert_id($db),
     'languages_id' => (int)$_SESSION['languages_id'],
     'reviews_text' => $review,
   ]);

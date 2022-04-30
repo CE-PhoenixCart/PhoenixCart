@@ -34,7 +34,7 @@ EOSQL
     $button = new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
             . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link);
 
-    $form = $Admin->form('update', (clone $link)->set_parameter('action', 'update'), 'post', ['enctype', 'multipart/form-data']);
+    $form = new Form('update', (clone $link)->set_parameter('action', 'update'), 'post', ['enctype' => 'multipart/form-data']);
 /* Re-Post all POST'ed variables */
     foreach($_POST as $key => $value) {
       $form->hide($key, htmlspecialchars($value));

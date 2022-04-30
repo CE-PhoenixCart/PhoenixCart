@@ -29,7 +29,7 @@
 
       ob_start();
       include Guarantor::ensure_global('Template')->map(__FILE__);
-      echo $GLOBALS['hooks']->cat('statusUpdateEmail', $data);
+      echo ($GLOBALS['admin_hooks'] ?? $GLOBALS['hooks'])->cat('statusUpdateEmail', $data);
 
       return Notifications::mail($data['customers_name'], $data['customers_email_address'], MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_SUBJECT, ob_get_clean(), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
     }

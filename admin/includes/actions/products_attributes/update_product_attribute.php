@@ -34,7 +34,7 @@
       $db->query(sprintf(<<<'EOSQL'
 INSERT INTO products_attributes_download
   (products_attributes_id, products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount)
- VALUES (%d, %s, %s, %s) ON DUPLICATE KEY UPDATE
+ VALUES (%d, '%s', %d, %d) ON DUPLICATE KEY UPDATE
   products_attributes_id = VALUES(products_attributes_id),
   products_attributes_filename = VALUES(products_attributes_filename),
   products_attributes_maxdays = VALUES(products_attributes_maxdays),

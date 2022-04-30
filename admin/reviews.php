@@ -30,7 +30,7 @@
       <?=
       empty($action)
       ? $Admin->button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-star', 'btn-danger', $Admin->link('reviews.php', ['action' => 'new']))
-      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link())
+      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $link)
       ?>
     </div>
   </div>

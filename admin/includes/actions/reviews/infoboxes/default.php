@@ -10,8 +10,8 @@
   Released under the GNU General Public License
 */
 
-  if (isset($GLOBALS['rInfo']) && is_object($GLOBALS['rInfo'])) {
-    $rInfo = &$GLOBALS['rInfo'];
+  if (isset($GLOBALS['table_definition']['info']->reviews_id)) {
+    $rInfo = &$GLOBALS['table_definition']['info'];
     $heading = $rInfo->products_name;
     $link = (clone $GLOBALS['link'])->set_parameter('rID', (int)$rInfo->reviews_id);
 

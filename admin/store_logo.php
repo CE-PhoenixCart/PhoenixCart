@@ -23,32 +23,41 @@
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_NEW_LOGO; ?></h1>
-      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION; ?></div>
+      <h1 class="display-4 mb-2"><?= HEADING_NEW_LOGO ?></h1>
+      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION ?></div>
 
-      <?= new Form('logo', $Admin->link('store_logo.php')->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
+      <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
 
         <div class="custom-file mb-2">
           <?= (new Input('store_logo', ['id' => 'inputLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
 
-          <label class="custom-file-label" for="inputLogo"><?= TEXT_LOGO_IMAGE; ?></label>
+          <label class="custom-file-label" for="inputLogo"><?= TEXT_LOGO_IMAGE ?></label>
         </div>
 
-        <?= $admin_hooks->call('store_logo', 'editForm'),
+        <?= $admin_hooks->cat('editForm'),
             new Button(IMAGE_UPLOAD, 'fas fa-file-upload', 'btn-danger btn-block')
         ?>
 
       </form>
     </div>
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE; ?></h1>
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
 
-      <?= $Admin->catalog_image('images/' .  STORE_LOGO); ?>
-      <br><small><?= DIR_FS_CATALOG . 'images/' .  STORE_LOGO; ?></small>
+      <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
+      <br><small><?= DIR_FS_CATALOG . 'images/' .  STORE_LOGO ?></small>
     </div>
   </div>
 
-  <script>$(document).on('change', '#inputLogo', function (event) { $(this).next('.custom-file-label').html(event.target.files[0].name); });</script>
+  <script>
+    document.querySelector('#inputLogo').addEventListener('change', function (event) {
+      var labels = document.querySelectorAll('LABEL.custom-file-label');
+      for (var i = 0; i < labels.length; i++) {
+        if ('inputLogo' === labels[i].htmlFor) {
+          labels[i].innerHTML = event.target.files[0].name;
+        }
+      }
+    });
+  </script>
 
 <?php
   require 'includes/template_bottom.php';

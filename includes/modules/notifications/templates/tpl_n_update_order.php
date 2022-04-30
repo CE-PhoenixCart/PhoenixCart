@@ -13,7 +13,7 @@
   echo STORE_NAME, "\n", MODULE_NOTIFICATIONS_UPDATE_ORDER_SEPARATOR, "\n";
   printf(MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_ORDER_NUMBER .  "\n", $data['orders_id']);
   printf(MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_INVOICE_URL .  "\n",
-    $GLOBALS['Admin']->link('account_history_info.php', ['order_id' => $data['orders_id']]));
+    $GLOBALS['Admin']->catalog('account_history_info.php', ['order_id' => $data['orders_id']]));
   printf(MODULE_NOTIFICATIONS_UPDATE_ORDER_TEXT_DATE_ORDERED .  "\n\n",
     Date::expound($data['date_purchased']));
   echo $data['notify_comments'];
