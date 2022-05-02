@@ -35,7 +35,7 @@
         'class' => 'text-right',
         'function' => function ($row) {
           $flag_link = (clone $row['onclick'])->set_parameter('action', 'set_flag')->set_parameter('formid', $_SESSION['sessiontoken']);
-          return ($testimonials['testimonials_status'] == '1')
+          return ($row['testimonials_status'] == '1')
                ? '<i class="fas fa-check-circle text-success"></i> <a href="' . $flag_link->set_parameter('flag', '0') . '"><i class="fas fa-times-circle text-muted"></i></a>'
                : '<a href="' . $flag_link->set_parameter('flag', '1') . '"><i class="fas fa-check-circle text-muted"></i></a>  <i class="fas fa-times-circle text-danger"></i>';
         },
@@ -44,9 +44,9 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) {
-          return (isset($table_definition['info']->zone_id) && ($row['zone_id'] == $table_definition['info']->zone_id) )
+          return (isset($table_definition['info']->testimonials_id) && ($row['testimonials_id'] == $table_definition['info']->testimonials_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
-               : '<a href="' . $GLOBALS['link']->set_parameter('cID', $row['zone_id']) . '"><i class="fas fa-info-circle text-muted"></i></a>';
+               : '<a href="' . $GLOBALS['link']->set_parameter('tID', $row['testimonials_id']) . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },
       ],
     ],
