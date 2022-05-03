@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  global $tInfo;
+  if (isset($GLOBALS['table_definition']['info']->testimonials_id)) {
+    $tInfo = &$GLOBALS['table_definition']['info'];
 
-  if (isset($tInfo->testimonials_id)) {
     $GLOBALS['link']->set_parameter('tID', $tInfo->testimonials_id);
     $heading = $tInfo->customers_name;
 

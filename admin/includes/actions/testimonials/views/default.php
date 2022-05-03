@@ -44,9 +44,9 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) {
-          return (isset($table_definition['info']->testimonials_id) && ($row['testimonials_id'] == $table_definition['info']->testimonials_id) )
+          return (isset($row['info']->testimonials_id) && ($row['testimonials_id'] == $row['info']->testimonials_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
-               : '<a href="' . $GLOBALS['link']->set_parameter('tID', $row['testimonials_id']) . '"><i class="fas fa-info-circle text-muted"></i></a>';
+               : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },
       ],
     ],
@@ -71,7 +71,7 @@ SELECT *
  ORDER BY languages_id = %d DESC
  LIMIT 1
 EOSQL
-        , (int)$row['testimonials_id'], (int)$_SESSION['languages_id']))->fetch_assoc());
+        , (int)$row['testimonials_id'], (int)$_SESSION['languages_id']))->fetch_assoc() ?? []);
 
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
