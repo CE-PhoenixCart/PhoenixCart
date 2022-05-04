@@ -154,7 +154,7 @@ EOSQL
     $table_definition['function'] = function (&$row) use ($customer_data, &$table_definition) {
       $link = $GLOBALS['Admin']->link('customers.php')->retain_query_except(['action'])->set_parameter('cID', $customer_data->get('id', $row));
       if (!isset($table_definition['info']) && (!isset($_GET['cID']) || ($_GET['cID'] === $customer_data->get('id', $row)))) {
-        $reviews_query = $GLOBALS['db']->query("SELECT COUNT(*) AS number_of_reviews FROM reviews WHERE customers_id = " . (int)$customer_data->get('id', $customers));
+        $reviews_query = $GLOBALS['db']->query("SELECT COUNT(*) AS number_of_reviews FROM reviews WHERE customers_id = " . (int)$customer_data->get('id', $row));
         $reviews = $reviews_query->fetch_assoc();
         $row['number_of_reviews'] = $reviews['number_of_reviews'];
         $customer_data->get([
