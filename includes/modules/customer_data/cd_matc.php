@@ -67,6 +67,38 @@
       }
 
       include Guarantor::ensure_global('Template')->map(__FILE__);
+
+      $p_modal = info_pages::get_page([
+        'p.slug' => 'privacy',
+        'pd.languages_id' => $_SESSION['languages_id'],
+      ]);
+      $modal = [
+        'name' => 'PModal',
+        'title' => $p_modal['pages_title'],
+        'text' => $p_modal['pages_text'],
+        'close_button' => MATC_BUTTON_CLOSE,
+      ];
+
+      ob_start();
+      include Guarantor::ensure_global('Template')->map('modal.php', 'component');
+
+      $GLOBALS['Template']->add_block(ob_get_clean(), 'footer_scripts');
+
+      $c_modal = info_pages::get_page([
+        'p.slug' => 'conditions',
+        'pd.languages_id' => $_SESSION['languages_id'],
+      ]);
+      $modal = [
+        'name' => 'TCModal',
+        'title' => $c_modal['pages_title'],
+        'text' => $c_modal['pages_text'],
+        'close_button' => MATC_BUTTON_CLOSE,
+      ];
+
+      ob_start();
+      include Guarantor::ensure_global('Template')->map('modal.php', 'component');
+
+      $GLOBALS['Template']->add_block(ob_get_clean(), 'footer_scripts');
     }
 
     public function process(&$customer_details) {
