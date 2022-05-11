@@ -41,7 +41,7 @@
         ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
           'title' => 'Sort Order',
-          'value' => '5800',
+          'value' => '6800',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
       ];
