@@ -44,7 +44,7 @@
 
     foreach (language::load_all() as $l) {
       $flag_image = $Admin->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", ['alt' => $l['name']]);
-      $info_page = info_pages::getContainer(['pd.pages_id' => $pInfo->pages_id, 'pd.languages_id' => $l[$i]['id']]);
+      $info_page = info_pages::getContainer(['pd.pages_id' => $pInfo->pages_id, 'pd.languages_id' => $l['id']]);
 
       $navbar_title .= '<div class="input-group mb-1">';
         $navbar_title .= '<div class="input-group-prepend">';

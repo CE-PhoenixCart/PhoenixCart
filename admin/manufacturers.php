@@ -50,7 +50,7 @@
       && (!isset($_GET['mID']) || ($_GET['mID'] == $row['manufacturers_id']))
       && !Text::is_prefixed_by($GLOBALS['action'], 'new'))
     {
-      $row = array_merge($row, $GLOBALS['db']->query("SELECT COUNT(*) AS products_count FROM products WHERE manufacturers_id = " . (int)$manufacturers['manufacturers_id'])->fetch_assoc());
+      $row = array_merge($row, $GLOBALS['db']->query("SELECT COUNT(*) AS products_count FROM products WHERE manufacturers_id = " . (int)$row['manufacturers_id'])->fetch_assoc());
 
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
