@@ -1195,6 +1195,8 @@ INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_clas
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_success', 'siteWideStart', 'notify', 'cm_cs_product_notifications', 'process');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'index', 'siteWideStart', 'category_depth', '', 'category_tree::set_global_depth');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'loginRequired', 'loginRequiredStart', 'zz_redirect', '', 'Login::require');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reviewable', 'reviewableStart', '_01_not_reviewed', '', 'Reviews::verify_not_reviewed');
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'reviewable', 'reviewableStart', '_02_bought', '', 'Reviews::verify_buyer');
 
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'action_recorder', 'expireAction', 'zz_expire', '', 'actionRecorderAdmin::notify_expiration');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'orders', 'updateOrderAction', 'zz_message_update', '', 'Orders::message_update');
