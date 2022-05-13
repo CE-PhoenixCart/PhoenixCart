@@ -117,6 +117,10 @@
       return Text::ltrim_once(__FILE__, DIR_FS_CATALOG);
     }
 
+    public function hook() {
+      $this->display_input();
+    }
+
     public function is_checked() {
       if (!$this->process()) {
         Form::block_processing();
@@ -129,7 +133,7 @@
       if (is_null($parameter_key)) {
         $GLOBALS['db']->query(<<<'EOSQL'
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method)
- VALUES ('shop', 'checkout_confirmation', 'injectFormDisplay', 'display_matc', 'cd_matc', 'display_input')
+ VALUES ('shop', 'checkout_confirmation', 'injectFormDisplay', 'display_matc', 'cd_matc', 'hook')
 EOSQL
           );
         $GLOBALS['db']->query(<<<'EOSQL'
