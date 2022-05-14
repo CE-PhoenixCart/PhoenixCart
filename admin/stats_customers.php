@@ -15,6 +15,7 @@
   require 'includes/segments/process_action.php';
 
   Guarantor::ensure_global('currencies');
+  $link = $Admin->link('stats_customers.php', ['action' => 'docsv', 'formid' => $_SESSION['sessiontoken']]);
 
   $db_tables = $customer_data->build_db_tables(['id', 'name'], 'customers');
 
@@ -50,7 +51,7 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) use ($Admin) {
-          return '<a class="text-dark" href="' . $Admin->link('stats_customers.php', ['action' => 'docsv', 'cID' => $row['customers_id']]) . '"><i class="fas fa-file-csv mr-2"></i></a>'
+          return '<a class="text-dark" href="' . $GLOBALS['link']->set_parameter('cID', $row['customers_id']) . '"><i class="fas fa-file-csv mr-2"></i></a>'
                . '<a class="text-dark" href="' . $Admin->link('orders.php', ['cID' => $row['customers_id']]) . '"><i class="fas fa-eye"></i></a>';
         },
       ],
