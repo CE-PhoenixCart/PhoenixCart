@@ -34,5 +34,5 @@
 
     $messageStack->add_session($newsletter_errors[$action], 'error');
 
-    return $link->set_parameter('nID', (int)$newsletter_id);
+    return $link->set_parameter('nID', (int)$GLOBALS['newsletter_id']);
   }

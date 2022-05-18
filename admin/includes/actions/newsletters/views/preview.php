@@ -10,7 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $newsletter = $db->query("SELECT title, content, module FROM newsletters WHERE newsletters_id = " . (int)$newsletter_id)->fetch_assoc();
+  $newsletter = isset($newsletter_id)
+              ? $db->query("SELECT title, content, module FROM newsletters WHERE newsletters_id = " . (int)$newsletter_id)->fetch_assoc()
+              : ['title' => '', 'content' => '', 'module' => ''];
 
   $nInfo = new objectInfo($newsletter);
 ?>
