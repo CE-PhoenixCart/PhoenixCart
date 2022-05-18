@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  if (isset($oInfo->orders_status_id)) {
+  if (isset($table_definition['info']->orders_status_id)) {
+    $oInfo = &$table_definition['info'];
     $heading = $oInfo->orders_status_name;
     $link = $GLOBALS['link']->set_parameter('oID', $oInfo->orders_status_id);
 

@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $oInfo = &$table_definition['info'];
   $heading = TEXT_INFO_HEADING_DELETE_ORDERS_STATUS;
   $link = $GLOBALS['link']->set_parameter('oID', $oInfo->orders_status_id);
 
