@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  if (isset($mInfo->manufacturers_id)) {
+  if (isset($table_definition['info']->manufacturers_id)) {
+    $mInfo = &$table_definition['info'];
     $link = $GLOBALS['link']->set_parameter('mID', (int)$mInfo->manufacturers_id);
     $heading = $mInfo->manufacturers_name;
 

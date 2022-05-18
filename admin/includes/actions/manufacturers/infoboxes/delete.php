@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $mInfo = &$table_definition['info'];
   $heading = TEXT_HEADING_DELETE_MANUFACTURER;
   $link = $GLOBALS['link']->set_parameter('mID', (int)$mInfo->manufacturers_id);
 

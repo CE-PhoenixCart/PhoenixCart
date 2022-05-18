@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $mInfo = &$table_definition['info'];
   $heading = TEXT_HEADING_EDIT_MANUFACTURER . ' <small>' . TEXT_EDIT_INTRO . '</small>';
   $link = $GLOBALS['link']->set_parameter('mID', (int)$mInfo->manufacturers_id);
 
