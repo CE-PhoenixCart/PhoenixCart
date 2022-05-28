@@ -21,7 +21,7 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_SORT_ORDER, null) . '<br>' . new Input('sort_order')];
   $contents[] = [
     'text' => '<div class="custom-control custom-switch">'
-            . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'lDefault"'], 'checkbox')
+            . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'lDefault'], 'checkbox')
             . '<label for="lDefault" class="custom-control-label text-muted"><small>' . TEXT_SET_DEFAULT . '</small></label></div>',
   ];
   $contents[] = [

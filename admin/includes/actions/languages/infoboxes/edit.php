@@ -24,7 +24,7 @@
   if (DEFAULT_LANGUAGE != $lInfo->code) {
     $contents[] = [
       'text' => '<div class="custom-control custom-switch">'
-              . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'lDefault"'], 'checkbox')
+              . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'lDefault'], 'checkbox')
               . '<label for="lDefault" class="custom-control-label text-muted"><small>' . TEXT_SET_DEFAULT . '</small></label></div>',
     ];
   }

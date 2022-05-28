@@ -23,9 +23,9 @@
         'is_heading' => true,
         'function' => function ($row) {
           return $row['name']
-               . (DEFAULT_LANGUAGE == $row['code'])
-               ? ' (' . TEXT_DEFAULT . ')'
-               : '';
+               . ((DEFAULT_LANGUAGE == $row['code'])
+                ? ' (' . TEXT_DEFAULT . ')'
+                : '');
         },
       ],
       [
