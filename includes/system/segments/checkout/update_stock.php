@@ -10,11 +10,11 @@
   Released under the GNU General Public License
 */
 
-  if (STOCK_LIMITED == 'true') {
+  if (STOCK_LIMITED === 'true') {
 // Stock Update - Joao Correia
     if (DOWNLOAD_ENABLED === 'true') {
       $stock_sql = <<<'EOSQL'
-SELECT p.products_quantity, IF(pad.products_attributes_filename IS NULL, 1, 0) AS is_virtual
+SELECT p.products_quantity, IF(pad.products_attributes_filename IS NULL, 0, 1) AS is_virtual
  FROM products p
    LEFT JOIN products_attributes pa ON p.products_id=pa.products_id
    LEFT JOIN products_attributes_download pad ON pa.products_attributes_id=pad.products_attributes_id
@@ -32,7 +32,7 @@ EOSQL;
         $stock_left = $stock_values['products_quantity'] - $product['qty'];
 
         $sql_data = ['products_quantity' => (int)$stock_left];
-        if ( ($stock_left < 1) && (STOCK_ALLOW_CHECKOUT == 'false') ) {
+        if ( ($stock_left < 1) && (STOCK_ALLOW_CHECKOUT === 'false') ) {
           $sql_data['products_status'] = '0';
         }
 

@@ -24,7 +24,8 @@
 
       $GLOBALS['admin_hooks']->cat('constructPaginator', $this);
 
-      $this->row_count = (new query_parser($table_definition['sql']))->count();
+      $this->row_count = $table_definition['row_count']
+                      ?? (new query_parser($table_definition['sql']))->count();
 
       if (!isset($this->table_definition['rows_per_page'])) {
         $this->table_definition['rows_per_page'] = MAX_DISPLAY_SEARCH_RESULTS;

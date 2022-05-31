@@ -37,19 +37,19 @@
       unset($_SESSION['payment']);
 
       Href::redirect($Linker->build('checkout_payment.php'));
-    } elseif (isset($_POST['address'])) {
-      // process the selected billing destination
-      $reset_payment = isset($_SESSION['billto']) && ($_SESSION['billto'] != $_POST['address']) && isset($_SESSION['payment']);
-      $_SESSION['billto'] = $_POST['address'];
+    }
+  } elseif (isset($_POST['address']) && Form::validate_action_is('select')) {
+// process the selected billing destination
+    $reset_payment = isset($_SESSION['billto'], $_SESSION['payment']) && ($_SESSION['billto'] != $_POST['address']);
+    $_SESSION['billto'] = $_POST['address'];
 
-      if ($customer->fetch_to_address($_SESSION['billto'])) {
-        if ($reset_payment) {
-          unset($_SESSION['payment']);
-        }
-        Href::redirect($Linker->build('checkout_payment.php'));
-      } else {
-        unset($_SESSION['billto']);
+    if ($customer->fetch_to_address($_SESSION['billto'])) {
+      if ($reset_payment) {
+        unset($_SESSION['payment']);
       }
+      Href::redirect($Linker->build('checkout_payment.php'));
+    } else {
+      unset($_SESSION['billto']);
     }
   }
 

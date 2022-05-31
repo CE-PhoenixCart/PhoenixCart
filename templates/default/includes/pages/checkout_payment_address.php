@@ -29,7 +29,7 @@
   <div class="row">
     <div class="col-sm-7">
       <h5 class="mb-1"><?= TABLE_HEADING_ADDRESS_BOOK_ENTRIES ?></h5>
-      <div><?= new Form('select_address', $Linker->build('checkout_payment_address.php')) ?>
+      <div><?= (new Form('select_address', $Linker->build('checkout_payment_address.php')))->hide('action', 'select') ?>
         <table class="table border-right border-left border-bottom table-hover m-0">
           <?php
   $addresses_query = $customer->get_all_addresses_query();
@@ -51,7 +51,7 @@
 ?>
         </table>
         <div class="buttonSet mt-1">
-          <?= new Input('action', ['value' => 'submit'], 'hidden'), new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block') ?>
+          <?= new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block') ?>
         </div>
       </form></div>
     </div>
