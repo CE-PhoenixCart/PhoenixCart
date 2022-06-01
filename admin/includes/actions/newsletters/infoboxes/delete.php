@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $nInfo = &$table_definition['info'];
   $heading = $nInfo->title;
   $link = $GLOBALS['link']->set_parameter('nID', (int)$nInfo->newsletters_id);
 
