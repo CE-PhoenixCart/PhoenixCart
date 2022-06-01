@@ -21,7 +21,7 @@
   function phoenix_newsletter_is_locked() {
     $GLOBALS['newsletter_id'] = Text::input($_GET['nID']);
 
-    return $db->query("SELECT locked FROM newsletters WHERE newsletters_id = " . (int)($GLOBALS['newsletter_id']))->fetch_assoc()['locked'] ?? false;
+    return $GLOBALS['db']->query("SELECT locked FROM newsletters WHERE newsletters_id = " . (int)($GLOBALS['newsletter_id']))->fetch_assoc()['locked'] ?? false;
   }
 
   if (!isset($_GET['nID']) || !phoenix_newsletter_is_locked()) {
