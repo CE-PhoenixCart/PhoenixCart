@@ -73,7 +73,7 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
-      $link = $GLOBALS['Admin']->link('newsletters.php', ['page' => (int)$_GET['page'], 'nID' => (int)$_GET['nID'], 'action' => 'confirm']);
+      $link = $GLOBALS['Admin']->link('newsletters.php')->retain_query_except()->set_parameter('nID', (int)$_GET['nID'])->set_parameter('action', 'confirm');
       $choose_audience_string .= new Form('notifications', $link, 'post', ['onsubmit' => "return selectAll('notifications', 'chosen[]')"]);
         $choose_audience_string .= '<div class="row mb-3">';
           $choose_audience_string .= '<div class="col-5">';
