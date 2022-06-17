@@ -31,10 +31,8 @@
         return;
       }
 
-      if (!empty($_SESSION['language'])
-        && (substr($this->files[$class], 0, strlen($this->directory)) === $this->directory))
-      {
-        $language_file = substr($this->files[$class], strlen($this->directory));
+      $language_file = $this->files[$class];
+      if (!empty($_SESSION['language']) && $this->remove_prefix($language_file)) {
         $language_file = is_callable($this->translator)
                        ? call_user_func($this->translator, $language_file)
                        : "{$this->directory}languages/{$_SESSION['language']}/$language_file";
@@ -45,6 +43,24 @@
       }
 
       require $this->files[$class];
+    }
+
+    public function remove_prefix(&$file) {
+      if (Text::is_prefixed_by($file, $this->directory)) {
+        $file = Text::ltrim_once($file, $this->directory);
+        return true;
+      }
+
+      $file = Text::ltrim_once($file, DIR_FS_CATALOG);
+      if (preg_match('{\Atemplates/[^/]+/includes/}', $file, $matches)
+        && file_exists($matches[0])
+        && is_dir($matches[0]))
+      {
+        $file = Text::ltrim_once($file, $matches[0]);
+        return true;
+      }
+
+      return false;
     }
 
     public function find_all_actions_under(string $directory) {
