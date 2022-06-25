@@ -12,19 +12,29 @@
 
   class newsletter {
 
+    const REQUIRES = [
+      'name',
+      'email_address',
+      'newsletter',
+    ];
+
     public $show_choose_audience = false;
     public $title, $content;
 
-    function __construct($title, $content) {
+    public function __construct($title, $content) {
       $this->title = $title;
       $this->content = $content;
     }
 
-    function choose_audience() {
+    public function choose_audience() {
       return false;
     }
 
-    function confirm() {
+    public function confirm() {
+      if (!$GLOBALS['customer_data']->has(static::REQUIRES)) {
+        return '';
+      }
+
       $confirm_string = '<div class="alert alert-danger">' . sprintf(TEXT_COUNT_CUSTOMERS, $GLOBALS['customer_data']->count_by_criteria(['newsletter' => 1])) . '</div>' . "\n";
 
       $confirm_string .= '<table class="table table-striped">' . "\n";
@@ -38,32 +48,33 @@
       $confirm_string .= '  </tr>' . "\n";
       $confirm_string .= '</table>' . "\n";
 
+      $GLOBALS['link']->set_parameter('nID', (int)$_GET['nID']);
       $confirm_string .= '<div class="buttonSet">';
-      $confirm_string .= tep_draw_bootstrap_button(IMAGE_SEND, 'fas fa-paper-plane', tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . (int)$_GET['nID'] . '&action=confirm_send'), 'primary', null, 'btn-success btn-block btn-lg');
-      $confirm_string .= tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-angle-left', tep_href_link('newsletters.php', 'page=' . (int)$_GET['page'] . '&nID=' . (int)$_GET['nID']), null, null, 'btn-light mt-2');
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-block btn-lg', (clone $GLOBALS['link'])->set_parameter('action', 'confirm_send'));
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $GLOBALS['link']);
       $confirm_string .= '</div>' . "\n";
 
       return $confirm_string;
     }
 
-    function send($newsletter_id) {
+    public function send(int $newsletter_id) {
       if ($GLOBALS['customer_data'] instanceof customer_data) {
         $customer_data = &$GLOBALS['customer_data'];
       } else {
         $customer_data = new customer_data();
       }
 
-      $mail_query = tep_db_query($customer_data->build_read(['name', 'email_address'], 'customers', ['newsletter' => 1]));
+      $mail_query = $GLOBALS['db']->query($customer_data->build_read(['name', 'email_address'], 'customers', ['newsletter' => 1]));
 
       $mimemessage = new email();
       $mimemessage->add_message($this->content);
       $mimemessage->build_message();
-      while ($mail = tep_db_fetch_array($mail_query)) {
+      while ($mail = $mail_query->fetch_assoc()) {
         $mimemessage->send($customer_data->get('name', $mail), $customer_data->get('email_address', $mail), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $this->title);
       }
 
-      $newsletter_id = tep_db_prepare_input($newsletter_id);
-      tep_db_query("UPDATE newsletters SET date_sent = NOW(), status = 1 WHERE newsletters_id = '" . tep_db_input($newsletter_id) . "'");
+      $newsletter_id = Text::input($newsletter_id);
+      $GLOBALS['db']->query("UPDATE newsletters SET date_sent = NOW(), status = 1 WHERE newsletters_id = " . (int)$newsletter_id);
     }
 
   }
