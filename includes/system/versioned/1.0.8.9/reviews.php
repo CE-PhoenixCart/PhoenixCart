@@ -21,7 +21,7 @@ EOSQL
       if (mysqli_num_rows($reviewed_query) >= 1) {
         $GLOBALS['messageStack']->add_session('product_action', sprintf(TEXT_ALREADY_REVIEWED, $GLOBALS['customer']->get('short_name')), 'error');
 
-        Href::redirect($Linker->build('product_info.php')->retain_query_except(['action']));
+        Href::redirect($GLOBALS['Linker']->build('product_info.php')->retain_query_except(['action']));
       }
     }
 

@@ -17,7 +17,7 @@
   $contents = ['form' => new Form('status', (clone $link)->set_parameter('action', 'delete_confirm'))];
   $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
   $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $oInfo->orders_status_name];
-  if ($remove_status) {
+  if ($GLOBALS['remove_status']) {
     $contents[] = [
       'class' => 'text-center',
       'text' => '<br>'

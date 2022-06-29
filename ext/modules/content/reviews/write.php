@@ -36,7 +36,7 @@
       $nickname = sprintf(VERIFIED_BUYER, $nickname);
     }
 
-    $db->query("INSERT INTO reviews (products_id, customers_id, customers_name, reviews_rating, date_added) VALUES (" . (int)$_GET['products_id'] . ", " . (int)$_SESSION['customer_id'] . ", '" . $db->escape($nickname) . "', '" . $db->escape($rating) . "', NOW())");
+    $db->query("INSERT INTO reviews (products_id, customers_id, customers_name, reviews_rating, date_added) VALUES (" . (int)$_GET['products_id'] . ", " . (int)$customer->get_id() . ", '" . $db->escape($nickname) . "', '" . $db->escape($rating) . "', NOW())");
     $insert_id = mysqli_insert_id($db);
 
     $db->query("INSERT INTO reviews_description (reviews_id, languages_id, reviews_text) VALUES (" . (int)$insert_id . ", " . (int)$_SESSION['languages_id'] . ", '" . $db->escape($review) . "')");

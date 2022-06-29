@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('ext/modules/content/reviews/write.php')->retain_query_except());
+  $form_link = $Linker->build('ext/modules/content/reviews/write.php')->retain_query_except();
+  $breadcrumb->add(NAVBAR_TITLE, $form_link);
 
   require $Template->map('template_top.php', 'component');
 ?>
@@ -20,7 +21,7 @@
   <h2 class="display-4 col-sm-4 text-left text-sm-right"><?= $product->hype_price() ?></h2>
 </div>
 
-<?= new Form('review', $Linker->build('ext/modules/content/reviews/write.php', ['action' => 'process', 'products_id' => (int)$_GET['products_id']]), 'post', ['enctype' => 'multipart/form-data']) ?>
+<?= new Form('review', (clone $form_link)->set_parameter('action', 'process'), 'post', ['enctype' => 'multipart/form-data']) ?>
 
   <div class="alert alert-warning" role="alert">
     <?= sprintf(TEXT_REVIEW_WRITING, htmlspecialchars($customer->get('short_name')), $product->get('name')) ?>

@@ -10,7 +10,9 @@
   Released under the GNU General Public License
 */
 
-  if (!isset($_GET['nID']) && in_array($action, ['delete', 'new'])) {
+  if (isset($_GET['nID'])) {
+    $newsletter_id = Text::input($_GET['nID']);
+  } elseif (in_array($action, ['delete', 'new'])) {
     return;
   }
 
@@ -19,9 +21,7 @@
   }
 
   function phoenix_newsletter_is_locked() {
-    $GLOBALS['newsletter_id'] = Text::input($_GET['nID']);
-
-    return $db->query("SELECT locked FROM newsletters WHERE newsletters_id = " . (int)($GLOBALS['newsletter_id']))->fetch_assoc()['locked'] ?? false;
+    return $GLOBALS['db']->query("SELECT locked FROM newsletters WHERE newsletters_id = " . (int)($GLOBALS['newsletter_id']))->fetch_assoc()['locked'] ?? false;
   }
 
   if (!isset($_GET['nID']) || !phoenix_newsletter_is_locked()) {
@@ -34,5 +34,5 @@
 
     $messageStack->add_session($newsletter_errors[$action], 'error');
 
-    return $link->set_parameter('nID', (int)$GLOBALS['newsletter_id']);
+    return $link->set_parameter('nID', (int)$newsletter_id);
   }

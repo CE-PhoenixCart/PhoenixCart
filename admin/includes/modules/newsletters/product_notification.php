@@ -73,7 +73,7 @@ function selectAll(FormName, SelectBox) {
 }
 //--></script>';
 
-      $link = $GLOBALS['Admin']->link('newsletters.php', ['page' => (int)$_GET['page'], 'nID' => (int)$_GET['nID'], 'action' => 'confirm']);
+      $link = $GLOBALS['link']->set_parameter('nID', (int)$_GET['nID'])->set_parameter('action', 'confirm');
       $choose_audience_string .= new Form('notifications', $link, 'post', ['onsubmit' => "return selectAll('notifications', 'chosen[]')"]);
         $choose_audience_string .= '<div class="row mb-3">';
           $choose_audience_string .= '<div class="col-5">';
@@ -107,8 +107,8 @@ function selectAll(FormName, SelectBox) {
       }
 
       $audience = array_unique(array_merge(
-        $GLOBALS['db']->fetch_all($sql),
-        $GLOBALS['db']->fetch_all("SELECT customers_info_id FROM customers_info WHERE global_product_notifications = 1")
+        array_column($GLOBALS['db']->fetch_all($sql), 'customers_id'),
+        array_column($GLOBALS['db']->fetch_all("SELECT customers_info_id FROM customers_info WHERE global_product_notifications = 1"), 'customers_info_id')
         ));
 
       $confirm_string = '<div class="alert alert-danger">' . sprintf(TEXT_COUNT_CUSTOMERS, count($audience)) . '</div>';
@@ -124,7 +124,7 @@ function selectAll(FormName, SelectBox) {
           $confirm_string .= '</tr>';
         $confirm_string .= '</table>';
 
-      $link = $GLOBALS['Admin']->link('newsletters.php', ['page' => (int)$_GET['page'], 'nID' => (int)$_GET['nID']]);
+      $link = $GLOBALS['link']->set_parameter('nID', (int)$_GET['nID']);
       if (count($audience) > 0) {
         $form = new Form('confirm', (clone $link)->set_parameter('action', 'confirm_send'));
         if (isset($_POST['chosen']) && is_array($_POST['chosen'])) {

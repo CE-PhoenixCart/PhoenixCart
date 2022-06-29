@@ -90,7 +90,7 @@
         && !in_array($action, $GLOBALS['always_valid_actions'] ?? [])
         && !Form::validate_action_is($action) )
       {
-        return;
+        return $this->locate('', 'default');
       }
 
       return $this->locate('', $action);
