@@ -10,11 +10,12 @@
   Released under the GNU General Public License
 */
 
-  if (isset($mInfo)) {
+  if (isset($table_definition['info']->code)) {
+    $mInfo =& $table_definition['info'];
     $heading = $mInfo->title;
 
     $link = $Admin->link('modules.php')->retain_query_except()->set_parameter('module', $mInfo->code);
-    if (in_array("{$mInfo->code}.php", $modules_installed) && ($mInfo->status > 0)) {
+    if (in_array("{$mInfo->code}.php", $modules_installed)) {
       $keys = '';
       foreach ($mInfo->keys as $value) {
         $keys .= '<strong>' . $value['title'] . '</strong><br>';

@@ -13,6 +13,9 @@
 const TABLE_HEADING_MODULES = 'Modules';
 const TABLE_HEADING_SORT_ORDER = 'Sort Order';
 const TABLE_HEADING_ACTION = 'Action';
+const TABLE_HEADING_ENABLED = 'Enabled';
+const TABLE_HEADING_GROUP = 'Group';
+const TABLE_HEADING_WIDTH = 'Width';
 
 const TEXT_INFO_VERSION = 'Version:';
 const TEXT_INFO_ONLINE_STATUS = 'online status';

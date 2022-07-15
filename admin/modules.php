@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -27,44 +27,90 @@
   $template_integration = $cfg_modules->get($set, 'template_integration');
 
   $modules_installed = (defined($module_key) && constant($module_key)) ? explode(';', constant($module_key)) : [];
+  $link = $Admin->link()->retain_query_except(['action', 'module'])->set_parameter('set', $set);
+
+  $module_files = cfg_modules::list_modules($set);
 
   require 'includes/segments/process_action.php';
 
-  $new_modules_counter = 0;
+  $table_definition = [
+    'columns' => [
+      [
+        'name' => TABLE_HEADING_MODULES,
+        'is_heading' => true,
+        'function' => function ($row) {
+          return $row['title'];
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_ACTION,
+        'class' => 'text-right',
+        'function' => function ($row) {
+          return isset($row['info']->code)
+               ? '<i class="fas fa-chevron-circle-right text-info"></i>'
+               : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
+        },
+      ],
+    ],
+    'count_text' => '',
+    'page' => $_GET['page'] ?? null,
+    'web_id' => 'module',
+    'db_id' => 'code',
+    'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
+  ];
 
-  $module_files = [];
-  if ($dir = @dir($module_directory)) {
-    while ($file = $dir->read()) {
-      if (!is_dir($module_directory . $file) && pathinfo($file, PATHINFO_EXTENSION) === 'php') {
-        if (isset($_GET['list']) && ('new' === $_GET['list'])) {
-          if (!in_array($file, $modules_installed)) {
-            $module_files[] = $file;
-          }
-        } else {
-          if (in_array($file, $modules_installed)) {
-            $module_files[] = $file;
-          } else {
-            $new_modules_counter++;
-          }
-        }
-      }
-    }
-    sort($module_files);
-    $dir->close();
+  if (!isset($_GET['list']) || ('new' !== $_GET['list'])) {
+    array_splice($table_definition['columns'], -1, 0, [
+      [
+        'name' => TABLE_HEADING_SORT_ORDER,
+        'class' => 'text-right',
+        'function' => function ($row) {
+          return is_numeric($row['sort_order']) ? $row['sort_order'] : '';
+        },
+      ],
+    ]);
   }
+
+  $table_definition['function'] = function (&$row) use (&$table_definition) {
+    $GLOBALS['link']->set_parameter('module', $row['code']);
+
+    if (!isset($table_definition['info'])
+      && (!isset($_GET['module']) || ($_GET['module'] == $row['code'])))
+    {
+      $row['keys'] = cfg_modules::build_keys(new $row['code']());
+      $table_definition['info'] = new objectInfo($row);
+      $row['info'] = &$table_definition['info'];
+
+      $row['css'] = ' class="table-active"';
+      $row['onclick'] = (isset($_GET['list']) && ('new' === $_GET['list']))
+                      ? null
+                      : (clone $GLOBALS['link'])->set_parameter('action', 'edit');
+    } else {
+      $row['css'] = '';
+      $row['onclick'] = $GLOBALS['link'];
+    }
+  };
 
   require 'includes/template_top.php';
 ?>
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE; ?></h1>
+<?php
+  $cfgm = "cfgm_$set";
+  if (is_callable([$cfgm, 'menu'])) {
+?>
+      <span class="float-right"><?= $cfgm::menu() ?></span>
+<?php
+  }
+?>
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col-sm-4 text-right align-self-center">
       <?=
       isset($_GET['list'])
-      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('modules.php', ['set' => $set]))
-      : $Admin->button(IMAGE_MODULE_INSTALL . ' (' . $new_modules_counter . ')', 'fas fa-plus', 'btn-danger', $Admin->link('modules.php', ['set' => $set, 'list' => 'new']))
+      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', (clone $GLOBALS['link'])->delete_parameter('list'))
+      : $Admin->button(IMAGE_MODULE_INSTALL . ' (' . count($module_files['new']) . ')', 'fas fa-plus', 'btn-danger', (clone $GLOBALS['link'])->set_parameter('list', 'new'))
       ?>
     </div>
   </div>
@@ -75,120 +121,60 @@
         <table class="table table-striped table-hover">
           <thead class="thead-dark">
             <tr>
-              <th><?= TABLE_HEADING_MODULES ?></th>
-              <th class="text-right"><?= TABLE_HEADING_SORT_ORDER ?></th>
-              <th class="text-right"><?= TABLE_HEADING_ACTION ?></th>
+<?php
+  foreach ($table_definition['columns'] as $column) {
+    echo '              <th';
+    if (isset($column['class'])) {
+      echo ' class="', $column['class'], '"';
+    }
+    echo '>', $column['name'], '</th>', PHP_EOL;
+  }
+?>
             </tr>
           </thead>
           <tbody>
-            <?php
-            $installed_modules = [];
-            foreach ($module_files as $file) {
-              $class = pathinfo($file, PATHINFO_FILENAME);
-              if (class_exists($class)) {
-                $module = new $class();
-                if ($module->check() > 0) {
-                  if (($module->sort_order > 0) && !isset($installed_modules[$module->sort_order])) {
-                    $installed_modules[$module->sort_order] = $file;
-                  } else {
-                    $installed_modules[] = $file;
-                  }
-                }
+<?php
+  foreach ($module_files[(isset($_GET['list']) && ('new' === $_GET['list'])) ? 'new' : 'installed'] as $row) {
+    $table_definition['function']($row);
 
-                if (!isset($mInfo) && (!isset($_GET['module']) || ($_GET['module'] == $class))) {
-                  $module_info = [
-                    'code' => $module->code,
-                    'title' => $module->title,
-                    'description' => $module->description,
-                    'status' => $module->check(),
-                    'signature' => ($module->signature ?? null),
-                    'api_version' => ($module->api_version ?? null),
-                  ];
+    $row_attributes = $row['css'];
+    if (isset($row['onclick'])) {
+      $row_attributes .= <<<"EOJS"
+ onclick="document.location.href='{$row['onclick']}'"
+EOJS;
+    }
+?>
+            <tr<?= $row_attributes ?>>
+<?php
+    foreach ($table_definition['columns'] as $column) {
+      if ($column['is_heading'] ?? false) {
+        echo '              <th scope="row"';
+        $close = '</th>';
+      } else {
+        echo '              <td';
+        $close = '</td>';
+      }
 
-                  $keys_extra = [];
-                  foreach ($module->keys() as $key) {
-                    $key_value_query = $db->query("SELECT configuration_title, configuration_value, configuration_description, use_function, set_function FROM configuration WHERE configuration_key = '" . $key . "'");
-                    $key_value = $key_value_query->fetch_assoc();
+      if (isset($column['class'])) {
+        echo ' class="', $column['class'], '"';
+      }
 
-                    if (!isset($keys_extra[$key])) {
-                      $keys_extra[$key] = [];
-                    }
-
-                    if (is_null($key_value) && ($module->check() <= 0)) {
-                      continue;
-                    }
-
-                    $keys_extra[$key]['title'] = $key_value['configuration_title'];
-                    $keys_extra[$key]['value'] = $key_value['configuration_value'];
-                    $keys_extra[$key]['description'] = $key_value['configuration_description'];
-                    $keys_extra[$key]['use_function'] = $key_value['use_function'];
-                    $keys_extra[$key]['set_function'] = $key_value['set_function'];
-                  }
-
-                  $module_info['keys'] = $keys_extra;
-
-                  $mInfo = new objectInfo($module_info);
-                }
-
-                $link = $Admin->link('modules.php', ['set' => $set, 'module' => $class]);
-                if (isset($mInfo->code) && ($class == $mInfo->code) ) {
-                  if ($module->check() > 0) {
-                    echo '<tr class="table-active onclick="document.location.href=\'' . $link->set_parameter('action', 'edit') . '\'">' . PHP_EOL;
-                  } else {
-                    echo '<tr class="table-active">' . PHP_EOL;
-                  }
-
-                  $icon = '<i class="fas fa-chevron-circle-right text-info"></i>';
-                } else {
-                  if (isset($_GET['list'])) {
-                    $link->set_parameter('list', 'new');
-                  }
-                  echo '<tr onclick="document.location.href=\'' . $link . '\'">' . PHP_EOL;
-                  $icon = '<a href="' . $link . '"><i class="fas fa-info-circle text-muted"></i></a>';
-                }
-                ?>
-                <td><?= $module->title ?></td>
-                <td class="text-right"><?php if (in_array($module->code . ".php", $modules_installed) && is_numeric($module->sort_order)) echo $module->sort_order; ?></td>
-                <td class="text-right"><?= $icon ?></td>
-              </tr>
-              <?php
-              }
-            }
-
-            if (!isset($_GET['list'])) {
-              ksort($installed_modules);
-              $check_query = $db->query("SELECT configuration_value FROM configuration WHERE configuration_key = '" . $module_key . "'");
-              if ($check = $check_query->fetch_assoc()) {
-                if ($check['configuration_value'] != implode(';', $installed_modules)) {
-                  $db->query("UPDATE configuration SET configuration_value = '" . implode(';', $installed_modules) . "', last_modified = NOW() WHERE configuration_key = '" . $module_key . "'");
-                }
-              } else {
-                $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', '" . $module_key . "', '" . implode(';', $installed_modules) . "', 'This is automatically updated. No need to edit.', '6', '0', NOW())");
-              }
-
-              if ($template_integration) {
-                $check_query = $db->query("SELECT configuration_value FROM configuration WHERE configuration_key = 'TEMPLATE_BLOCK_GROUPS'");
-                if ($check = $check_query->fetch_assoc()) {
-                  $tbgroups = explode(';', $check['configuration_value']);
-                  if (!in_array($module_type, $tbgroups)) {
-                    $tbgroups[] = $module_type;
-                    sort($tbgroups);
-                    $db->query("UPDATE configuration SET configuration_value = '" . implode(';', $tbgroups) . "', last_modified = NOW() WHERE configuration_key = 'TEMPLATE_BLOCK_GROUPS'");
-                  }
-                } else {
-                  $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Template Block Groups', 'TEMPLATE_BLOCK_GROUPS', '" . $module_type . "', 'This is automatically updated. No need to edit.', '6', '0', NOW())");
-                }
-              }
-            }
-            ?>
+      echo '>', $column['function']($row), $close, PHP_EOL;
+    }
+?>
+            </tr>
+<?php
+  }
+?>
           </tbody>
         </table>
       </div>
-      <p><?= TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></p>
+      <p><?= TEXT_MODULE_DIRECTORY . ' ' . $module_directory ?></p>
+      <?= $GLOBALS['admin_hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
     </div>
 
 <?php
-  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'])) {
+  if ($action_file = $Admin->locate('/infoboxes', $action)) {
     require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>
@@ -196,6 +182,32 @@
   </div>
 
 <?php
+  if (!isset($_GET['list'])) {
+    if (defined($module_key)) {
+      $installed = implode(';', array_map(function ($v) {
+        return "$v.php";
+      }, array_column($module_files['installed'], 'code')));
+      if (constant($module_key) !== $installed) {
+        $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($installed) . "', last_modified = NOW() WHERE configuration_key = '" . $db->escape($module_key) . "'");
+      }
+    } else {
+      $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', '" . $db->escape($module_key) . "', '" . $db->escape(implode(';', $module_files['installed'])) . "', 'This is automatically updated. No need to edit.', 6, 0, NOW())");
+    }
+
+    if ($template_integration) {
+      if (defined('TEMPLATE_BLOCK_GROUPS')) {
+        $tbgroups = explode(';', TEMPLATE_BLOCK_GROUPS);
+        if (!in_array($module_type, $tbgroups)) {
+          $tbgroups[] = $module_type;
+          sort($tbgroups);
+          $db->query("UPDATE configuration SET configuration_value = '" . $db->escape(implode(';', $tbgroups)) . "', last_modified = NOW() WHERE configuration_key = 'TEMPLATE_BLOCK_GROUPS'");
+        }
+      } else {
+        $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Template Block Groups', 'TEMPLATE_BLOCK_GROUPS', '" . $db->escape($module_type) . "', 'This is automatically updated. No need to edit.', 6, 0, NOW())");
+      }
+    }
+  }
+
   require 'includes/template_bottom.php';
   require 'includes/application_bottom.php';
 ?>

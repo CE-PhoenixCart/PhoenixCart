@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
+  $mInfo =& $table_definition['info'];
+
   $keys = '';
   foreach ($mInfo->keys as $key => $value) {
     $keys .= '<strong>' . $value['title'] . '</strong><br>' . $value['description'] . '<br>';

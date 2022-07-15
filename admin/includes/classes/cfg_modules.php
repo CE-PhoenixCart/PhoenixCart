@@ -14,7 +14,7 @@
 
     private $_modules = [];
 
-    function __construct() {
+    public function __construct() {
       $directory = 'includes/modules/cfg_modules';
 
       if ($dir = @dir($directory)) {
@@ -35,11 +35,11 @@
       }
     }
 
-    function getAll() {
+    public function getAll() {
       return $this->_modules;
     }
 
-    function get($code, $key) {
+    public function get(string $code, string $key) {
       foreach ($this->_modules as $m) {
         if ($m['code'] == $code) {
           return $m[$key];
@@ -47,7 +47,7 @@
       }
     }
 
-    function exists($code) {
+    public function exists(string $code) {
       foreach ($this->_modules as $m) {
         if ($m['code'] == $code) {
           return true;
@@ -55,6 +55,83 @@
       }
 
       return false;
+    }
+
+    public static function generate_modules() {
+      if ($dir = @dir($GLOBALS['module_directory'])) {
+        while ($file = $dir->read()) {
+          if (!is_dir("{$GLOBALS['module_directory']}$file")) {
+            yield $file;
+          }
+        }
+
+        $dir->close();
+      }
+    }
+
+    public static function list_modules(string $type) {
+      $f = "cfgm_$type::list_modules";
+      if (is_callable($f)) {
+        return $f();
+      }
+
+      $module_files = ['installed' => []];
+      $new_modules = [];
+
+      $generator = "cfgm_$type::generate_modules";
+      if (!is_callable($generator)) {
+        $generator = [static::class, 'generate_modules'];
+      }
+
+      foreach ($generator() as $file) {
+        $pathinfo = pathinfo($file);
+        if (('php' !== $pathinfo['extension']) || (!class_exists($pathinfo['filename']))) {
+          continue;
+        }
+
+        $module = new $pathinfo['filename']();
+        if ($module->check() > 0) {
+          if (($module->sort_order > 0) && !isset($module_files['installed'][$module->sort_order])) {
+            $module_files['installed'][$module->sort_order] = get_object_vars($module);
+          } else {
+            $module_files['installed'][] = get_object_vars($module);
+          }
+        } else {
+          $key = $module->title;
+          if (isset($module->group)) {
+            $key = "{$module->group}-$key";
+          }
+
+          $new_modules[$key] = get_object_vars($module);
+        }
+      }
+
+      ksort($new_modules);
+
+      $module_files['new'] = array_values($new_modules);
+
+      return $module_files;
+    }
+
+    public static function build_keys($module) {
+      if (is_callable([$module, 'build_keys'])) {
+        return $module->build_keys();
+      }
+
+      $key_values = $GLOBALS['db']->fetch_all($GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT
+   configuration_key,
+   configuration_title AS title,
+   configuration_value AS value,
+   configuration_description AS description,
+   use_function,
+   set_function
+ FROM configuration
+ WHERE configuration_key IN ('%s')
+EOSQL
+          , implode("', '", array_map([$GLOBALS['db'], 'escape'], $module->keys())))));
+
+      return array_combine(array_column($key_values, 'configuration_key'), $key_values);
     }
 
     public static function can($module, $action) {
@@ -85,6 +162,13 @@
           return !$GLOBALS['customer_data']->has_requirements($provides, get_class($module));
         default:
           return true;
+      }
+    }
+
+    public function hook_injectBodyStart() {
+      $class = "cfgm_{$GLOBALS['set']}";
+      if (is_callable([$class, 'hook_injectBodyStart'])) {
+        $class::hook_injectBodyStart();
       }
     }
 
