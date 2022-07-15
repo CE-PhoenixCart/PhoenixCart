@@ -38,7 +38,7 @@
              ), 'warning');
           }
         } else {
-          $keys .= Text::break($value['value'], 40, '<br>');
+          $keys .= $value['value'] . '<br>';
         }
 
         $keys .= '<br><br>';
@@ -57,7 +57,10 @@
       }
 
       $contents[] = ['text' => $mInfo->description];
-      $contents[] = ['text' => $keys];
+      $contents[] = [
+        'class' => 'text-break',
+        'text' => $keys,
+      ];
     } elseif (isset($_GET['list']) && ($_GET['list'] == 'new')) {
       $contents = ['form' => new Form('install_module', $link->delete_parameter('list')->set_parameter('action', 'install'))];
       $contents[] = [
