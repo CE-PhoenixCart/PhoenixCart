@@ -22,7 +22,7 @@
         'methods' => [[
           'id' => $this->code,
           'title' => MODULE_SHIPPING_ITEM_TEXT_WAY,
-          'cost' => ($this->base_constant('COST') * $this->count_items()) + $this->calculate_handling(),
+          'cost' => ((float)$this->base_constant('COST') * $this->count_items()) + $this->calculate_handling(),
         ]],
       ];
 

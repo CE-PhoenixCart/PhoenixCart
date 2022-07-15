@@ -24,7 +24,7 @@
         'methods' => [[
           'id' => $this->code,
           'title' => MODULE_SHIPPING_FLAT_TEXT_WAY,
-          'cost' => $this->base_constant('COST') + $this->calculate_handling(),
+          'cost' => (float)$this->base_constant('COST') + $this->calculate_handling(),
         ]],
       ];
 
