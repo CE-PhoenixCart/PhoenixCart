@@ -82,9 +82,9 @@
 
     public function retain_query_except(array $excludes = []) {
       $excludes = array_merge($excludes, ['x', 'y', 'error', session_name()]);
-      $this->parameters += array_diff_key(array_filter($_GET, function ($k) {
+      static::_flatten(array_diff_key(array_filter($_GET, function ($k) {
         return rawurlencode($k) === $k;
-      }, ARRAY_FILTER_USE_KEY), array_flip($excludes));
+      }, ARRAY_FILTER_USE_KEY), array_flip($excludes)), $this->parameters);
       return $this;
     }
 
@@ -103,7 +103,7 @@
       }
 
       $parameters = implode('&', array_map(function ($k, $v) {
-        return is_array($v) ? static::build_subquery($v, $k) : "$k=" . rawurlencode($v);
+        return "$k=" . rawurlencode("$v");
       }, array_keys($this->parameters), $this->parameters));
 
       $link = $this->page;
@@ -152,11 +152,25 @@
       return new static(...$arguments);
     }
 
-    public static function build_subquery(array $parameters, string $prefix) {
-      return implode('&', array_map(function ($k, $v) use ($prefix) {
-        $k = sprintf('%s[%s]', $prefix, rawurlencode($k));
-        return is_array($v) ? $this->build_subquery($v, $k) : "$k=" . rawurlencode($v);
-      }, array_keys($parameters), $parameters));
+    protected static function _build_prefixed_key(string $key, string $prefix = null) {
+      return is_null($prefix)
+           ? $key
+           : sprintf('%s[%s]', $prefix, rawurlencode($key));
+    }
+
+    protected static function _flatten(
+      array $data,
+      array &$results,
+      string $prefix = null
+    ) {
+      foreach ($data as $key => $value) {
+        $key = static::_build_prefixed_key($key, $prefix);
+        if (is_array($value)) {
+          static::_flatten($value, $results, $key);
+        } else {
+          $results[$key] = $value;
+        }
+      }
     }
 
     public static function redirect($url) {
