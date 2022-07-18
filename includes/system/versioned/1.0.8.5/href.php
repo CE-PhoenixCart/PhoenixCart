@@ -88,13 +88,6 @@
       return $this;
     }
 
-    public function build_subquery(array $parameters, string $prefix) {
-      return implode('&', array_map(function ($k, $v) use ($prefix) {
-        $k = sprintf('%s[%s]', $prefix, rawurlencode($k));
-        return is_array($v) ? $this->build_subquery($v, $k) : "$k=" . rawurlencode($v);
-      }, array_keys($parameters), $parameters));
-    }
-
     public function real_link() {
       if (Text::is_empty($this->page)) {
         die('<h5>Error!</h5><p>Unable to determine the page link!</p>');
@@ -110,7 +103,7 @@
       }
 
       $parameters = implode('&', array_map(function ($k, $v) {
-        return is_array($v) ? $this->build_subquery($v, $k) : "$k=" . rawurlencode($v);
+        return is_array($v) ? static::build_subquery($v, $k) : "$k=" . rawurlencode($v);
       }, array_keys($this->parameters), $this->parameters));
 
       $link = $this->page;
@@ -157,6 +150,13 @@
 
     public static function build(...$arguments) {
       return new static(...$arguments);
+    }
+
+    public static function build_subquery(array $parameters, string $prefix) {
+      return implode('&', array_map(function ($k, $v) use ($prefix) {
+        $k = sprintf('%s[%s]', $prefix, rawurlencode($k));
+        return is_array($v) ? $this->build_subquery($v, $k) : "$k=" . rawurlencode($v);
+      }, array_keys($parameters), $parameters));
     }
 
     public static function redirect($url) {
