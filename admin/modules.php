@@ -184,14 +184,9 @@ EOJS;
 <?php
   if (!isset($_GET['list'])) {
     if (defined($module_key)) {
-      $installed = implode(';', array_map(function ($v) {
-        return "$v.php";
-      }, array_column($module_files['installed'], 'code')));
-      if (constant($module_key) !== $installed) {
-        $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($installed) . "', last_modified = NOW() WHERE configuration_key = '" . $db->escape($module_key) . "'");
-      }
+      $cfg_modules->fix_installed_constant($set, $module_files['installed']);
     } else {
-      $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', '" . $db->escape($module_key) . "', '" . $db->escape(implode(';', $module_files['installed'])) . "', 'This is automatically updated. No need to edit.', 6, 0, NOW())");
+      $db->query("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', '" . $db->escape($module_key) . "', '', 'This is automatically updated. No need to edit.', 6, 0, NOW())");
     }
 
     if ($template_integration) {

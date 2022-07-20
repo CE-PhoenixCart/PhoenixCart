@@ -15,6 +15,10 @@
     const LANGUAGE_DIRECTORY = DIR_FS_CATALOG . 'includes/languages/';
     const TEMPLATE_INTEGRATION = false;
 
+    public static function fix_installed_constant($installed_modules) {
+      return empty($_GET['page']);
+    }
+
     public static function generate_pages() {
       if (!($maindir = @dir(static::DIRECTORY))) {
         return;

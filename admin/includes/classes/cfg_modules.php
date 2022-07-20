@@ -48,13 +48,27 @@
     }
 
     public function exists(string $code) {
-      foreach ($this->_modules as $m) {
-        if ($m['code'] == $code) {
-          return true;
-        }
+      return $this->get($code, 'code') === $code;
+    }
+
+    public function fix_installed_constant($type, $installed_modules) {
+      $should_fix = "cfgm_$type::fix_installed_constant";
+      if (is_callable($should_fix) && !$should_fix($installed_modules)) {
+        return;
       }
 
-      return false;
+      $installed = implode(';', array_map(function ($v) {
+        return "$v.php";
+      }, array_column($installed_modules, 'code')));
+
+      if (constant($this->get($type, 'key')) !== $installed) {
+        $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+UPDATE configuration
+ SET configuration_value = '%s', last_modified = NOW()
+ WHERE configuration_key = '%s'
+EOSQL
+          , $GLOBALS['db']->escape($installed), $GLOBALS['db']->escape($module_key)));
+      }
     }
 
     public static function generate_modules() {
@@ -118,7 +132,7 @@
         return $module->build_keys();
       }
 
-      $key_values = $GLOBALS['db']->fetch_all($GLOBALS['db']->query(sprintf(<<<'EOSQL'
+      $key_values = $GLOBALS['db']->fetch_all(sprintf(<<<'EOSQL'
 SELECT
    configuration_key,
    configuration_title AS title,
@@ -129,7 +143,7 @@ SELECT
  FROM configuration
  WHERE configuration_key IN ('%s')
 EOSQL
-          , implode("', '", array_map([$GLOBALS['db'], 'escape'], $module->keys())))));
+        , implode("', '", array_map([$GLOBALS['db'], 'escape'], $module->keys()))));
 
       return array_combine(array_column($key_values, 'configuration_key'), $key_values);
     }
