@@ -13,7 +13,7 @@
 
   <div class="row no-gutters">
     <div class="col-12 col-sm-8">
-      <div class="table-responsive">
+      <div class="table-responsive"><?= $table_definition['form'] ?? '' ?>
         <table class="table table-striped table-hover">
           <thead class="thead-dark">
             <tr>
@@ -62,7 +62,10 @@ EOJS;
 ?>
           </tbody>
         </table>
-      </div>
+      <?=
+        $table_definition['submit'] ?? '',
+        isset($table_definition['form']) ? $table_definition['form']->close() : ''
+      ?></div>
 
       <div class="row my-1">
         <div class="col"><?= $table_definition['split']->display_count() ?></div>
