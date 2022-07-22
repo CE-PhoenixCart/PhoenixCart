@@ -12,36 +12,30 @@
 
   require 'includes/application_top.php';
 
-  function tep_opendir($path) {
-    $path = rtrim($path, '/') . '/';
-
-    $exclude_array = ['.', '..', '.DS_Store', 'Thumbs.db'];
-
-    $result = [];
-
-    if ($handle = opendir($path)) {
-      while (false !== ($filename = readdir($handle))) {
-        if (!in_array($filename, $exclude_array)) {
-          $file = [
-            'name' => $path . $filename,
-            'is_dir' => is_dir($path . $filename),
-            'writable' => tep_is_writable($path . $filename),
-            'size' => filesize($path . $filename),
-            'last_modified' => strftime(DATE_TIME_FORMAT, filemtime($path . $filename)),
-          ];
-
-          $result[] = $file;
-
-          if ($file['is_dir'] == true) {
-            $result = array_merge($result, tep_opendir($path . $filename));
-          }
-        }
-      }
-
-      closedir($handle);
+  function phoenix_opendir($path) {
+    $path = rtrim($path, '/\\') . '/';
+    $handle = opendir($path);
+    if (!$handle) {
+      return;
     }
 
-    return $result;
+    while ($filename = readdir($handle)) {
+      if (pathinfo($filename, PATHINFO_EXTENSION) === 'php') {
+        $filepath = "$path$filename";
+
+        yield [
+          'name' => $filepath,
+          'is_dir' => is_dir($filepath),
+          'writable' => File::is_writable($filepath),
+          'size' => filesize($filepath),
+          'last_modified' => strftime(DATE_TIME_FORMAT, filemtime($filepath)),
+        ];
+      } elseif (('.' !== $filename[0]) && is_dir("$path$filename")) {
+        yield from phoenix_opendir("$path$filename");
+      }
+    }
+
+    closedir($handle);
   }
 
   if (!isset($_GET['lngdir'])) {
@@ -50,7 +44,7 @@
 
   $languages = [];
   $language_exists = false;
-  foreach (tep_get_languages() as $l) {
+  foreach (array_values(language::load_all()) as $l) {
     if ($l['directory'] === $_GET['lngdir']) {
       $language_exists = true;
     }
@@ -61,37 +55,19 @@
   if (!$language_exists) {
     $_GET['lngdir'] = $_SESSION['language'];
   }
+  $link = $Admin->link()->retain_query_except(['action', 'filename']);
 
   const DIR_FS_CATALOG_LANGUAGES = DIR_FS_CATALOG . 'includes/languages/';
 
   if (isset($_GET['filename'])) {
-    $file_edit = realpath(DIR_FS_CATALOG_LANGUAGES . $_GET['filename']);
+    $file_edit = Path::normalize(DIR_FS_CATALOG_LANGUAGES . $_GET['filename']);
 
-    if (substr($file_edit, 0, strlen(DIR_FS_CATALOG_LANGUAGES)) != DIR_FS_CATALOG_LANGUAGES) {
-      tep_redirect(tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir']));
+    if (!Text::is_prefixed_by($file_edit, DIR_FS_CATALOG_LANGUAGES)) {
+      Href::redirect($link);
     }
   }
 
-  $action = $_GET['action'] ?? '';
-
-  if (tep_not_null($action)) {
-    switch ($action) {
-      case 'save':
-        if (isset($_GET['lngdir'], $_GET['filename'])) {
-          $file = DIR_FS_CATALOG_LANGUAGES . $_GET['filename'];
-
-          if (file_exists($file) && tep_is_writable($file)) {
-            $new_file = fopen($file, 'w');
-            $file_contents = $_POST['file_contents'];
-            fwrite($new_file, $file_contents, strlen($file_contents));
-            fclose($new_file);
-          }
-
-          tep_redirect(tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir']));
-        }
-        break;
-    }
-  }
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>
@@ -101,11 +77,10 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE; ?></h1>
     </div>
     <div class="col-sm-4 text-right align-self-center">
-      <?php
-      echo tep_draw_form('lng', 'define_language.php', '', 'get');
-      echo tep_draw_pull_down_menu('lngdir', $languages, $_GET['lngdir'], 'onchange="this.form.submit();"');
-      echo tep_hide_session_id();
-      echo '</form>';
+      <?=
+        (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
+        (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
+        '</form>'
       ?>
     </div>
   </div>
@@ -115,82 +90,85 @@
     $file = DIR_FS_CATALOG_LANGUAGES . $_GET['filename'];
 
     if (file_exists($file)) {
-      $file_array = file($file);
-      $contents = implode('', $file_array);
+      $textarea = new Textarea('file_contents', ['cols' => '80', 'rows' => '25', 'id' => 'dlFile']);
+      $textarea->set_text(file_get_contents($file));
 
-      $file_writeable = tep_is_writable($file);
-      if (!$file_writeable) {
+      $tickable = new Tickable('download', ['value' => '1'], 'checkbox');
+
+      if (!File::is_writable($file)) {
+        $tickable->set('readonly')->tick();
+
         $messageStack->reset();
-        $messageStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $file), 'error');
+        $messageStack->add(sprintf(ERROR_FILE_NOT_WRITEABLE, $file), 'warning');
         echo $messageStack->output();
       }
 
-      echo tep_draw_form('language', 'define_language.php', 'lngdir=' . $_GET['lngdir'] . '&filename=' . $_GET['filename'] . '&action=save');
+      echo new Form('language',
+        (clone $link)->set_parameter('filename', Text::input($_GET['filename']))
+                     ->set_parameter('action', 'save'));
 ?>
 
-        <div class="alert alert-info mb-3">
-          <p class="lead mb-0"><?= $_GET['filename']; ?></p>
-        </div>
+    <div class="alert alert-info mb-3">
+      <p class="lead mb-0"><?= $_GET['filename']; ?></p>
+    </div>
 
-        <div class="form-group row" id="zFile">
-          <div class="col">
-            <?= tep_draw_textarea_field('file_contents', 'soft', '80', '25', $contents, (($file_writeable) ? '' : 'readonly') . ' id="dlFile"'); ?>
-          </div>
-        </div>
-
-        <?php
-        if ($file_writeable) {
-          echo tep_draw_bootstrap_button(IMAGE_SAVE, 'fas fa-pen-alt', null, 'primary', null, 'btn-success btn-lg btn-block mr-2');
-          echo tep_draw_bootstrap_button(IMAGE_CANCEL, 'fas fa-times', tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir']), null, null, 'btn-light mt-2');
-        } else {
-          echo tep_draw_bootstrap_button(IMAGE_BACK, 'fas fa-angle-left', tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir']), null, null, 'btn-light btn-lg btn-block');
-        }
-        ?>
-
-      </form>
-
-      <div class="alert alert-info mt-3">
-        <?= TEXT_EDIT_NOTE; ?>
+    <div class="form-group row" id="zFile">
+      <div class="col">
+        <?= $textarea ?>
       </div>
+    </div>
+
+    <?=
+      $tickable, TEXT_INFO_DOWNLOAD_ONLY,
+      new Button(IMAGE_SAVE, 'fas fa-pen-alt', 'btn-success btn-lg btn-block mr-2'),
+      $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light mt-2', $link)
+    ?>
+
+  </form>
+
+  <div class="alert alert-info mt-3">
+    <?= TEXT_EDIT_NOTE; ?>
+  </div>
 
 <?php
     } else {
 ?>
-      <div class="alert alert-warning text-center">
-        <?= TEXT_FILE_DOES_NOT_EXIST; ?>
-      </div>
+  <div class="alert alert-warning text-center">
+    <?= TEXT_FILE_DOES_NOT_EXIST; ?>
+  </div>
 
 <?php
-      echo tep_draw_bootstrap_button(IMAGE_BACK, 'fas fa-angle-left', tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir']), null, null, 'btn-warning btn-block btn-lg');
+      echo $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-warning btn-block btn-lg', $link);
     }
   } else {
     $filename = $_GET['lngdir'] . '.php';
-    $file_extension = substr($PHP_SELF, strrpos($PHP_SELF, '.'));
+    $link->set_parameter('filename', Text::input($filename));
 ?>
 
   <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>
-          <th><?= TABLE_HEADING_FILES; ?></th>
-          <th class="text-center"><?= TABLE_HEADING_WRITABLE; ?></th>
-          <th class="text-right"><?= TABLE_HEADING_LAST_MODIFIED; ?></th>
+          <th><?= TABLE_HEADING_FILES ?></th>
+          <th class="text-center"><?= TABLE_HEADING_WRITABLE ?></th>
+          <th class="text-right"><?= TABLE_HEADING_LAST_MODIFIED ?></th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><a href="<?= tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir'] . '&filename=' . $filename); ?>"><?= $filename; ?></a></td>
-          <td class="text-center"><?= (tep_is_writable(DIR_FS_CATALOG_LANGUAGES . $filename) ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>'); ?></td>
-          <td class="text-right"><?= strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)); ?></td>
+          <td><a href="<?= $link ?>"><?= $filename ?></a></td>
+          <td class="text-center"><?= File::is_writable(DIR_FS_CATALOG_LANGUAGES . $filename) ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>' ?></td>
+          <td class="text-right"><?= strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)) ?></td>
         </tr>
 <?php
-    foreach (tep_opendir(DIR_FS_CATALOG_LANGUAGES . $_GET['lngdir']) as $file) {
-      if (substr($file['name'], strrpos($file['name'], '.')) == $file_extension) {
-        $filename = substr($file['name'], strlen(DIR_FS_CATALOG_LANGUAGES));
+    foreach (phoenix_opendir(DIR_FS_CATALOG_LANGUAGES . $_GET['lngdir']) as $file) {
+      if (pathinfo($file['name'], PATHINFO_EXTENSION) === 'php') {
+        $filename = Text::ltrim_once($file['name'], DIR_FS_CATALOG_LANGUAGES);
+        $link->set_parameter('filename', $filename);
 
         echo '<tr>';
-          echo '<td><a href="' . tep_href_link('define_language.php', 'lngdir=' . $_GET['lngdir'] . '&filename=' . $filename) . '">' . substr($filename, strlen($_GET['lngdir'] . '/')) . '</a></td>';
-          echo '<td class="text-center">' . (($file['writable'] == true) ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>') . '</td>';
+          echo '<td><a href="' . $link . '">' . substr($filename, strlen($_GET['lngdir'] . '/')) . '</a></td>';
+          echo '<td class="text-center">' . ($file['writable'] ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>') . '</td>';
           echo '<td class="text-right">' . $file['last_modified'] . '</td>';
         echo '</tr>';
       }
