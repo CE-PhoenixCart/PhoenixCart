@@ -130,7 +130,8 @@ EOSQL
           foreach ($locations as $location) {
             if (is_array($location)) {
               $file = implode('->', $location);
-              $version = get_class_vars(explode('::', $location[0])[0])['version'] ?? null;
+              $class = explode('::', $location[0])[0];
+              $version = class_exists($class) ? (get_class_vars($class)['version'] ?? null) : null;
             } else {
               $file = "$code.php";
               $version = get_class_vars("hook_{$site}_{$group}_{$code}")['version'] ?? null;
