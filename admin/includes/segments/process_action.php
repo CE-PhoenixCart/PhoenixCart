@@ -14,8 +14,8 @@
   $action = $_GET['action'] ?? '';
   $admin_hooks->cat('preAction');
 
-  if ($action && ($action_file = $Admin->locate_action($action))) {
-    $hook_action = Admin::camel_case($action) . 'Action';
+  if ($action_file = $Admin->locate_action($action)) {
+    $hook_action = Admin::camel_case($action ?: 'default') . 'Action';
     $action_redirect = require $action_file;
     $admin_hooks->cat($hook_action);
 
