@@ -179,7 +179,7 @@ EOSQL
       }
     }
 
-    public function hook_injectBodyStart() {
+    public static function hook_injectBodyStart() {
       $class = "cfgm_{$GLOBALS['set']}";
       if (is_callable([$class, 'hook_injectBodyStart'])) {
         $class::hook_injectBodyStart();

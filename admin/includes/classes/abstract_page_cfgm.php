@@ -66,7 +66,7 @@
         }, iterator_to_array(static::generate_pages())));
     }
 
-    public function menu() {
+    public static function menu() {
       $form = new Form('choose_page', $GLOBALS['link'], 'get');
       foreach (array_diff_key($GLOBALS['link']->get_parameters(), ['page' => 0]) as $k => $v) {
         if (is_string($v) && (strlen($v) > 0)) {
