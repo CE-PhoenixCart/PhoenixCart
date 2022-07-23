@@ -80,12 +80,12 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <?=
-      isset($action)
-    ? '<div class="col-sm-4 text-right align-self-center">'
+      empty($action)
+    ? ''
+    : '<div class="col-sm-4 text-right align-self-center">'
       . (new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light'))->set(
           'href', $Admin->link())
     . '</div>'
-    : ''
     ?>
   </div>
 
