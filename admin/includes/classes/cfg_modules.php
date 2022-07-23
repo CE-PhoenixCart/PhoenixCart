@@ -67,7 +67,7 @@ UPDATE configuration
  SET configuration_value = '%s', last_modified = NOW()
  WHERE configuration_key = '%s'
 EOSQL
-          , $GLOBALS['db']->escape($installed), $GLOBALS['db']->escape($module_key)));
+          , $GLOBALS['db']->escape($installed), $GLOBALS['db']->escape($GLOBALS['module_key'])));
       }
     }
 
