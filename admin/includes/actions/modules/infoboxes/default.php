@@ -15,7 +15,10 @@
     $heading = $mInfo->title;
 
     $link = $Admin->link('modules.php')->retain_query_except()->set_parameter('module', $mInfo->code);
-    if (in_array("{$mInfo->code}.php", $modules_installed)) {
+    if (in_array($mInfo->code, array_map(function ($m) {
+      return pathinfo($m, PATHINFO_FILENAME);
+    }, $modules_installed)))
+    {
       $keys = '';
       foreach ($mInfo->keys as $value) {
         $keys .= '<strong>' . $value['title'] . '</strong><br>';

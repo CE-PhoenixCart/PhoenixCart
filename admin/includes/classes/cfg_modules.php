@@ -57,9 +57,7 @@
         return;
       }
 
-      $installed = implode(';', array_map(function ($v) {
-        return "$v.php";
-      }, array_column($installed_modules, 'code')));
+      $installed = implode(';', array_column($installed_modules, 'file'));
 
       if (constant($this->get($type, 'key')) !== $installed) {
         $GLOBALS['db']->query(sprintf(<<<'EOSQL'
@@ -105,10 +103,12 @@ EOSQL
 
         $module = new $pathinfo['filename']();
         if ($module->check() > 0) {
+          $vars = get_object_vars($module);
+          $vars['file'] = $file;
           if (($module->sort_order > 0) && !isset($module_files['installed'][$module->sort_order])) {
-            $module_files['installed'][$module->sort_order] = get_object_vars($module);
+            $module_files['installed'][$module->sort_order] = $vars;
           } else {
-            $module_files['installed'][] = get_object_vars($module);
+            $module_files['installed'][] = $vars;
           }
         } else {
           $key = $module->title;

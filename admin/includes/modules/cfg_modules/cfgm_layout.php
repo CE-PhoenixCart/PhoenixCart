@@ -38,6 +38,8 @@
           if (is_callable([$module, 'get_group']) && !isset($installed_modules[$key]['group'])) {
             $installed_modules[$key]['group'] = $module->get_group();
           }
+          $installed_modules[$key]['file'] = sprintf('%s/%s',
+            $installed_modules[$key]['group'], $installed_modules[$key]['code']);
 
           if ($module->base_constant('CONTENT_WIDTH') && !isset($installed_modules[$key]['content_width'])) {
             $installed_modules[$key]['content_width'] = $module->base_constant('CONTENT_WIDTH');

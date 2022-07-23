@@ -37,6 +37,8 @@
           if (is_callable([$module, 'get_group']) && !isset($installed_modules[$key]['group'])) {
             $installed_modules[$key]['group'] = $module->get_group();
           }
+          $installed_modules[$key]['file'] = sprintf('%s/%s',
+            $installed_modules[$key]['group'], $installed_modules[$key]['code']);
         } else {
           $key = "{$page}-{$module->title}-" . count($new_modules);
 
