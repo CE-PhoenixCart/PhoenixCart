@@ -23,7 +23,7 @@
       $this->alias = $alias ?? "{$this->directory}/{$this->filename}";
     }
 
-    public static function run_sql($sql) {
+    public function run_sql($sql) {
       if ($this->split) {
         foreach (
           explode(";\n",
@@ -46,8 +46,8 @@
       }
     }
 
-    public static function run_sql_or_die($sql) {
-      static::run_sql($sql);
+    public function run_sql_or_die($sql) {
+      $this->run_sql($sql);
 
       if (!empty($GLOBALS['db']->errno)) {
         $GLOBALS['db']->report_error($this->filename);
@@ -62,7 +62,7 @@
       }
     }
 
-    public static function validate_packet($filesize) {
+    public function validate_packet($filesize) {
       $maximum = $GLOBALS['db']->query('SELECT @@global.max_allowed_packet')->fetch_array()[0];
       if ($filesize + 1024 > $maximum) {
         $this->split = true;
@@ -71,19 +71,19 @@
       return true;
     }
 
-    public static function validate_size($file) {
+    public function validate_size($file) {
       $filesize = filesize($file);
 
-      return ($filesize > 15000) && static::validate_packet($filesize);
+      return ($filesize > 15000) && $this->validate_packet($filesize);
     }
 
     public function install() {
       $path = "{$this->directory}/{$this->filename}";
-      if (!file_exists($path) || !static::validate_packet(filesize($path))) {
+      if (!file_exists($path) || !$this->validate_packet(filesize($path))) {
         return false;
       }
 
-      static::run_sql(file_get_contents($path));
+      $this->run_sql(file_get_contents($path));
 
       if (empty($GLOBALS['db']->errno)) {
         return true;
@@ -97,7 +97,7 @@
     }
 
     public function restore_sql($file) {
-      if (is_null($file) || !file_exists($file) || !static::validate_size($file)) {
+      if (is_null($file) || !file_exists($file) || !$this->validate_size($file)) {
         static::message(sprintf(ERROR_INVALID_FILE, $this->alias ?? '[NULL]'));
         return false;
       }
@@ -114,7 +114,7 @@ REPLACE INTO configuration
 EOSQL
         , $GLOBALS['db']->escape($this->filename));
 
-      static::run_sql_or_die($sql);
+      $this->run_sql_or_die($sql);
     }
 
     public function decompress_and_restore() {
