@@ -10,7 +10,6 @@
   Released under the GNU General Public License
 */
 
-  $zInfo = $GLOBALS['table_definition']['info'];
   $heading = TEXT_INFO_HEADING_NEW_ZONE;
   $link = $GLOBALS['link'];
   if (isset($_GET['zID'])) {
