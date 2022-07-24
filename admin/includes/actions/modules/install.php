@@ -11,7 +11,6 @@
 */
 
   $basename = "{$_GET['module']}.php";
-  $link = $Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']]);
   if (class_exists($_GET['module'])) {
     $module =& Guarantor::ensure_global($_GET['module']);
 
@@ -32,7 +31,7 @@
         $db->escape(implode(';', $modules_installed)),
         $db->escape($module_key)));
 
-      return $link;
+      return $link->set_parameter('module', $_GET['module']);
     }
 
     $messageStack->add_session(ERROR_MODULE_UNMET_REQUIREMENT, 'error');
