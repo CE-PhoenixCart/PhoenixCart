@@ -157,4 +157,16 @@
       return $layout;
     }
 
+    public function install($parameter_key = null) {
+      if (!defined('MODULE_CONTENT_PI_INSTALLED')) {
+        $GLOBALS['db']->query(<<<'EOSQL'
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added)
+ VALUES ('Installed Modules', 'MODULE_CONTENT_PI_INSTALLED', '', 'This is automatically updated. No need to edit.', 6, 0, NOW())
+EOSQL
+          );
+      }
+
+      parent::install($parameter_key);
+    }
+
   }

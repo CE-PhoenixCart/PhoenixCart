@@ -174,14 +174,6 @@ EOJS;
     </div>
 
 <?php
-  if ($action_file = $Admin->locate('/infoboxes', $action)) {
-    require DIR_FS_ADMIN . 'includes/components/infobox.php';
-  }
-?>
-
-  </div>
-
-<?php
   if (!isset($_GET['list'])) {
     if (defined($module_key)) {
       $cfg_modules->fix_installed_constant($set, $module_files['installed']);
@@ -203,6 +195,14 @@ EOJS;
     }
   }
 
+  if ($action_file = $Admin->locate('/infoboxes', $action)) {
+    require DIR_FS_ADMIN . 'includes/components/infobox.php';
+  }
+?>
+
+  </div>
+
+<?php
   require 'includes/template_bottom.php';
   require 'includes/application_bottom.php';
 ?>

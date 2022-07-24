@@ -35,6 +35,14 @@
       }
     }
 
+    public function set(string $code, string $key, $value) {
+      foreach ($this->_modules as $m) {
+        if ($m['code'] == $code) {
+          $m[$key] = $value;
+        }
+      }
+    }
+
     public function getAll() {
       return $this->_modules;
     }
@@ -57,7 +65,8 @@
         return;
       }
 
-      $installed = implode(';', array_column($installed_modules, 'file'));
+      $modules_installed = array_column($installed_modules, 'file');
+      $installed = implode(';', $modules_installed);
 
       if (constant($this->get($type, 'key')) !== $installed) {
         $GLOBALS['db']->query(sprintf(<<<'EOSQL'
@@ -66,6 +75,7 @@ UPDATE configuration
  WHERE configuration_key = '%s'
 EOSQL
           , $GLOBALS['db']->escape($installed), $GLOBALS['db']->escape($GLOBALS['module_key'])));
+        $GLOBALS['modules_installed'] = $modules_installed;
       }
     }
 
@@ -120,6 +130,7 @@ EOSQL
         }
       }
 
+      ksort($module_files['installed']);
       ksort($new_modules);
 
       $module_files['new'] = array_values($new_modules);
