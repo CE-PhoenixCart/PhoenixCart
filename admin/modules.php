@@ -96,16 +96,16 @@
 
   <div class="row">
     <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
 <?php
   $cfgm = "cfgm_$set";
   if (is_callable([$cfgm, 'menu'])) {
 ?>
-      <span class="float-right"><?= $cfgm::menu() ?></span>
+    <div class="col-sm-2 text-right align-self-center"><?= $cfgm::menu() ?></div>
 <?php
   }
 ?>
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
-    </div>
     <div class="col-sm-4 text-right align-self-center">
       <?=
       isset($_GET['list'])
