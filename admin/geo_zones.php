@@ -91,7 +91,7 @@ function update_zone(theForm) {
       <?=
         empty($action)
       ? $Admin->button(TEXT_INFO_HEADING_NEW_ZONE, 'fas fa-atlas', 'btn-danger', (clone $link)->set_parameter('action', 'new_zone'))
-      : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link())
+      : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', isset($_GET['zID']) ? $Admin->link()->set_parameter('zID', (int)$_GET['zID']) : $Admin->link())
       ?>
     </div>
   </div>

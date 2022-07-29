@@ -14,7 +14,7 @@
   switch ($GLOBALS['saction']) {
     case 'new':
       $heading = TEXT_INFO_HEADING_NEW_SUB_ZONE;
-      $link = $GLOBALS['link']->set_parameter('zID', (int)$_GET['zID'])->set_parameter('action', 'list')->set_parameter('sID', $sInfo->association_id);
+      $link = $GLOBALS['link']->set_parameter('sID', $sInfo->association_id);
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'insert_sub'))];
       $contents[] = ['text' => TEXT_INFO_NEW_SUB_ZONE_INTRO];
@@ -28,7 +28,7 @@
       break;
     case 'edit':
       $heading = TEXT_INFO_HEADING_EDIT_SUB_ZONE;
-      $link = $GLOBALS['link']->set_parameter('zID', (int)$_GET['zID'])->set_parameter('action', 'list')->set_parameter('sID', $sInfo->association_id);
+      $link = $GLOBALS['link']->set_parameter('sID', $sInfo->association_id);
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'save_sub'))];
       $contents[] = ['text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO];
@@ -42,7 +42,7 @@
       break;
     case 'delete':
       $heading = TEXT_INFO_HEADING_DELETE_SUB_ZONE;
-      $link = $GLOBALS['link']->set_parameter('zID', (int)$_GET['zID'])->set_parameter('action', 'list')->set_parameter('sID', $sInfo->association_id);
+      $link = $GLOBALS['link']->set_parameter('sID', $sInfo->association_id);
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'delete_confirm_sub'))];
       $contents[] = ['text' => TEXT_INFO_DELETE_SUB_ZONE_INTRO];
@@ -56,7 +56,7 @@
     default:
       if (isset($sInfo->association_id)) {
         $heading = $sInfo->countries_name;
-        $link = $GLOBALS['link']->set_parameter('zID', (int)$_GET['zID'])->set_parameter('action', 'list')->set_parameter('sID', $sInfo->association_id);
+        $link = $GLOBALS['link']->set_parameter('sID', $sInfo->association_id);
 
         $contents[] = [
           'class' => 'text-center',

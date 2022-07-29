@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $link->set_parameter('zID', (int)$_GET['zID'])->set_parameter('action', 'list');
   $table_definition = [
     'columns' => [
       [
@@ -49,28 +50,23 @@ EOSQL
   ];
 
   $table_definition['split'] = new Paginator($table_definition);
-  $table_definition['function'] = function (&$row) use (&$table_definition) {
-    $row['link'] = $GLOBALS['link']->set_parameter('sID', $row['association_id'])->set_parameter('action', 'list');
+  $table_definition['function'] = function (&$row) use (&$table_definition, $link) {
+    $row['onclick'] = $link->set_parameter('sID', $row['association_id']);
     if (!isset($table_definition['info']) && (!isset($_GET['sID']) || ($_GET['sID'] === $row['association_id']))) {
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
 
-      $row['onclick'] = (clone $row['link'])->set_parameter('saction', 'edit');
+      $row['onclick'] = (clone $row['onclick'])->set_parameter('saction', 'edit');
       $row['css'] = ' class="table-active"';
     } else {
-      $row['onclick'] = $row['link'];
       $row['css'] = '';
     }
   };
 
-  $admin_hooks->set('buttons', 'update_installed_currencies', function () {
-    if (empty($saction)) {
-      $link = (clone $GLOBALS['link']);
-      $link->set_parameter('zID', $_GET['zID'])->set_parameter('action', 'list')->set_parameter('saction', 'new');
-      if (isset($sInfo)) {
-        $link->set_parameter('sID', $sInfo->association_id);
-      }
-      $button = $GLOBALS['Admin']->button(IMAGE_INSERT, 'fas fa-plus', 'btn-warning', $link);
+  $admin_hooks->set('buttons', 'new_geo_zone', function () use ($link) {
+    if (empty($GLOBALS['saction'])) {
+      $insert_link = (clone $link)->set_parameter('saction', 'new')->delete_parameter('sID');
+      $button = $GLOBALS['Admin']->button(IMAGE_INSERT, 'fas fa-plus', 'btn-warning', $insert_link);
 
       return <<<"EOHTML"
           <div class="row">
