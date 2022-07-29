@@ -92,6 +92,7 @@
           $new_modules[$key] = get_object_vars($module);
           $new_modules[$key]['status'] = $module->check();
           $new_modules[$key]['group'] = $page;
+          $new_modules[$key]['file'] = "{$new_modules[$key]['code']}.php";
         }
       }
 

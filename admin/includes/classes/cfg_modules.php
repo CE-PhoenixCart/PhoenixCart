@@ -112,9 +112,9 @@ EOSQL
         }
 
         $module = new $pathinfo['filename']();
+        $vars = get_object_vars($module);
+        $vars['file'] = $file;
         if ($module->check() > 0) {
-          $vars = get_object_vars($module);
-          $vars['file'] = $file;
           if (($module->sort_order > 0) && !isset($module_files['installed'][$module->sort_order])) {
             $module_files['installed'][$module->sort_order] = $vars;
           } else {
@@ -126,7 +126,7 @@ EOSQL
             $key = "{$module->group}-$key";
           }
 
-          $new_modules[$key] = get_object_vars($module);
+          $new_modules[$key] = $vars;
         }
       }
 
