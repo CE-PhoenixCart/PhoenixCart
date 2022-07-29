@@ -30,7 +30,6 @@
       ],
       [
         'name' => TABLE_HEADING_CONFIGURATION_VALUE,
-        'class' => 'text-center',
         'function' => function ($row) {
           if (Text::is_empty($row['use_function'])) {
             $cfg_value = $row['configuration_value'];
