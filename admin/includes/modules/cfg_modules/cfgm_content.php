@@ -48,6 +48,8 @@
           if (is_callable([$module, 'get_group']) && !isset($new_modules[$key]['group'])) {
             $new_modules[$key]['group'] = $module->get_group();
           }
+          $new_modules[$key]['file'] = sprintf('%s/%s',
+            $new_modules[$key]['group'], $new_modules[$key]['code']);
         }
       }
 
