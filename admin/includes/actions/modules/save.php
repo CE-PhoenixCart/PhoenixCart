@@ -22,4 +22,4 @@
     $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($value) . "' WHERE configuration_key = '" . $db->escape($key) . "'");
   }
 
-  return $Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']]);
+  return $link->set_parameter('module', $_GET['module']);
