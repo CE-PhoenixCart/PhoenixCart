@@ -12,6 +12,7 @@
 
   $always_valid_actions = ['expire'];
   require 'includes/application_top.php';
+  class_exists('abstract_page_cfgm');
 
   $classes = [];
   if ($dir = @dir(DIR_FS_CATALOG . 'includes/modules/action_recorder/')) {
