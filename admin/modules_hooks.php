@@ -18,7 +18,7 @@
   $template = new $template_name();
   $directories = $hooks->get_hook_directories();
 
-  function tep_find_contents($base, $test) {
+  function phoenix_find_contents($base, $test) {
     $contents = [];
     if (is_dir($base) && ($handle = @dir($base))) {
       while ($file = $handle->read()) {
@@ -33,7 +33,7 @@
     return $contents;
   }
 
-  function tep_find_listeners($class) {
+  function phoenix_find_listeners($class) {
     $listeners = [];
 
     if (class_exists($class)) {
@@ -52,16 +52,16 @@
   $contents = [];
   foreach ($directories as $directory) {
     $directory = dirname($directory);
-    foreach (tep_find_contents($directory, 'is_dir') as $site) {
-      foreach (tep_find_contents("$directory/$site", 'is_dir') as $group) {
-        foreach (tep_find_contents("$directory/$site/$group", 'is_file') as $file) {
+    foreach (phoenix_find_contents($directory, 'is_dir') as $site) {
+      foreach (phoenix_find_contents("$directory/$site", 'is_dir') as $group) {
+        foreach (phoenix_find_contents("$directory/$site/$group", 'is_file') as $file) {
           $pathinfo = pathinfo("$directory/$site/$group/$file");
           if ('php' !== ($pathinfo['extension'] ?? null)) {
             continue;
           }
 
           $class = "hook_{$site}_{$group}_{$pathinfo['filename']}";
-          foreach (tep_find_listeners($class) as $listener) {
+          foreach (phoenix_find_listeners($class) as $listener) {
             Guarantor::guarantee_all(
               $contents,
               $site,
@@ -75,12 +75,12 @@
     }
   }
 
-  $hooks_query = tep_db_query(sprintf(<<<'EOSQL'
+  $hooks_query = $db->query(sprintf(<<<'EOSQL'
 SELECT hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method
  FROM hooks
 EOSQL
-    , tep_db_input(tep_db_prepare_input($file))));
-  while ($hook = tep_db_fetch_array($hooks_query)) {
+    , $db->escape(Text::input($file))));
+  while ($hook = $hooks_query->fetch_assoc()) {
     $callable = [];
     if (!empty($hook['hooks_class'])) {
       $callable[] = $hook['hooks_class'];
@@ -130,16 +130,18 @@ EOSQL
           foreach ($locations as $location) {
             if (is_array($location)) {
               $file = implode('->', $location);
+              $class = explode('::', $location[0])[0];
+              $version = class_exists($class) ? (get_class_vars($class)['version'] ?? null) : null;
             } else {
               $file = "$code.php";
+              $version = get_class_vars("hook_{$site}_{$group}_{$code}")['version'] ?? null;
             }
-            $class = "hook_{$site}_{$group}_{$code}";
 ?>
         <tr>
           <td><?= $group ?></td>
           <td><?= $file ?></td>
           <td><?= $action ?></td>
-          <td class="text-right"><?= get_class_vars($class)['version'] ?? 'N/A' ?></td>
+          <td class="text-right"><?= $version ?? 'N/A' ?></td>
         </tr>
         <?php
           }

@@ -2,27 +2,26 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2019 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Action Recorder');
+const HEADING_TITLE = 'Action Recorder';
 
-define('TABLE_HEADING_MODULE', 'Module');
-define('TABLE_HEADING_CUSTOMER', 'Customer');
-define('TABLE_HEADING_SUCCESS', 'Result');
-define('TABLE_HEADING_DATE_ADDED', 'Date');
-define('TABLE_HEADING_ACTION', 'Action');
+const TABLE_HEADING_MODULE = 'Module';
+const TABLE_HEADING_CUSTOMER = 'Customer';
+const TABLE_HEADING_SUCCESS = 'Result';
+const TABLE_HEADING_DATE_ADDED = 'Date';
+const TABLE_HEADING_ACTION = 'Action';
 
-define('TEXT_FILTER_SEARCH', 'Search');
-define('TEXT_ALL_MODULES', '-- All Modules --');
-define('TEXT_GUEST', 'Guest');
+const TEXT_FILTER_SEARCH = 'Search';
+const TEXT_GUEST = 'Guest';
 
-define('TEXT_INFO_IDENTIFIER', 'Identifier:');
-define('TEXT_INFO_DATE_ADDED', 'Date Added: %s');
+const TEXT_INFO_IDENTIFIER = 'Identifier:';
+const TEXT_INFO_DATE_ADDED = 'Date Added: %s';
 
-define('SUCCESS_EXPIRED_ENTRIES', '<strong>Success:</strong> %s expired entries were removed.');
+const SUCCESS_EXPIRED_ENTRIES = '<strong>Success:</strong> %s expired entries were removed.';

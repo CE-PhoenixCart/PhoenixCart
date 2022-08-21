@@ -22,11 +22,11 @@
       parent::__construct();
 
       if ($this->enabled) {
-        $this->content_width = (int)(self::get_constant('MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CONTENT_WIDTH') ?? 6);
+        $this->content_width = (int)($this->base_constant('CONTENT_WIDTH') ?? 6);
       }
     }
 
-    function getOutput() {
+    public function getOutput() {
       $current_version = Versions::get('Phoenix');
 
       $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
@@ -62,13 +62,13 @@
           'title' => 'Enable Version Check Module',
           'value' => 'True',
           'desc' => 'Do you want to show the version check results on the dashboard?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => '6',
           'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "tep_cfg_select_option(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_VERSION_CHECK_SORT_ORDER' => [
           'title' => 'Sort Order',

@@ -10,14 +10,16 @@
   Released under the GNU General Public License
 */
 
+  if (!in_array(basename($_GET['module']), array_column($module_files['installed'], 'code'))) {
+    error_log("'{$_GET['module']}' not an installed module; can't save configuration.");
+    Href::redirect($link);
+  }
+
   foreach ($_POST['configuration'] as $key => $value) {
-    if (is_array($value)) {
-      $value = implode(';', $value);
-    }
+    $value = is_array($value) ? implode(';', array_map('Text::prepare', $value)) : Text::prepare($value);
 
     $key = Text::input($key);
-    $value = Text::prepare($value);
     $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($value) . "' WHERE configuration_key = '" . $db->escape($key) . "'");
   }
 
-  return $Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']]);
+  return $link->set_parameter('module', $_GET['module']);

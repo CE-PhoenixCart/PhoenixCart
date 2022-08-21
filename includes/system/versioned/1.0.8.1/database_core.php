@@ -41,7 +41,7 @@
       }
 
       foreach (str_split("DB: [{$this->errno}] {$this->error} from <$sql>", 1024) as $line) {
-        trigger_error($line, E_USER_ERROR);
+        trigger_error($line, E_USER_WARNING);
       }
 
       if (ini_get('display_errors')) {

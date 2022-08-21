@@ -22,7 +22,7 @@
         $db->escape($module_key)
         ));
 
-      return $Admin->link('modules.php', ['set' => $set]);
+      return $link;
     }
 
     $messageStack->add_session(ERROR_MODULE_HAS_DEPENDENTS, 'error');
@@ -31,4 +31,4 @@
     }
   }
 
-  Href::redirect($Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']]));
+  Href::redirect($link);

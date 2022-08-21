@@ -18,8 +18,8 @@
       $xml = Web::load_xml('https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
       $xml = json_decode(json_encode($xml), JSON_FORCE_OBJECT);
 
-      $currency_query = tep_db_query("SELECT currencies_id, code, title FROM currencies");
-      while ($currency = tep_db_fetch_array($currency_query)) {
+      $currency_query = $GLOBALS['db']->query("SELECT currencies_id, code, title FROM currencies");
+      while ($currency = $currency_query->fetch_assoc()) {
         $to[$currency['code']] = $currency['code'];
       }
 
@@ -42,8 +42,8 @@
       $to_exchange = array_intersect_key($ecb_currencies, $to);
 
       foreach ($to_exchange as $k => $v) {
-        $rate = tep_db_prepare_input($v);
-        tep_db_query("UPDATE currencies SET value = '" . tep_db_input($rate) . "', last_updated = NOW() WHERE code = '" . tep_db_input($k) . "'");
+        $rate = Text::input($v);
+        $GLOBALS['db']->query("UPDATE currencies SET value = '" . $GLOBALS['db']->escape($rate) . "', last_updated = NOW() WHERE code = '" . $GLOBALS['db']->escape($k) . "'");
 
         $GLOBALS['messageStack']->add_session(sprintf(MODULE_ADMIN_CURRENCIES_ECB_CURRENCIES_UPDATED, $k), 'success');
       }
@@ -56,7 +56,7 @@
           'title' => 'Enable ECB Module',
           'value' => 'True',
           'desc' => 'Do you want to install this Currency Conversion Module?',
-          'set_func' => "tep_cfg_select_option(['True', 'False'], ",
+          'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_CURRENCIES_ECB_SORT_ORDER' => [
           'title' => 'Sort Order',

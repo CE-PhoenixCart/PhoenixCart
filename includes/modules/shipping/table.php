@@ -31,7 +31,7 @@
       $table_cost = preg_split("/[:,]/" , $this->base_constant('COST'));
       for ($i = 0, $n = count($table_cost); $i < $n; $i += 2) {
         if ($order_total <= $table_cost[$i]) {
-          $shipping = $table_cost[$i+1];
+          $shipping = (float)$table_cost[$i+1];
           break;
         }
       }
@@ -46,7 +46,7 @@
         'methods' => [[
           'id' => $this->code,
           'title' => MODULE_SHIPPING_TABLE_TEXT_WAY,
-          'cost' => $shipping + $this->calculate_handling(),
+          'cost' => $shipping + (float)$this->calculate_handling(),
         ]],
       ];
 

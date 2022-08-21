@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
-  $customer_details = $db->query($customer_data->build_read(
-    $customer_data->list_all_capabilities(), 'both',
-    [ 'id' => (int)$_GET['cID'] ]))->fetch_assoc();
+  if (isset($_GET['cID'])) {
+    $customer_details = $db->query($customer_data->build_read(
+      $customer_data->list_all_capabilities(), 'both',
+      [ 'id' => (int)$_GET['cID'] ]))->fetch_assoc();
+  }

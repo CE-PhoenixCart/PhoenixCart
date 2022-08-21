@@ -22,7 +22,7 @@
       return array_reduce(
         explode(' ', $s),
         function ($carry, $word) use ($maximum, $break_marker) {
-          return $carry . chunk_split($word, $maximum, $break_marker);
+          return $carry . Text::rtrim_once(chunk_split($word, $maximum, $break_marker), $break_marker) . ' ';
         }, '');
     }
 

@@ -42,7 +42,7 @@
     }
 
     public function calculate_handling() {
-      return ($this->base_constant('HANDLING') ?? 0);
+      return (float)($this->base_constant('HANDLING') ?? 0);
     }
 
   }

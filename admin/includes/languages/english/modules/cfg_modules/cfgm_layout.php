@@ -5,9 +5,9 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_LAYOUT_PI', 'Product Info');
+const MODULE_CFG_MODULE_LAYOUT_TITLE = 'Layout';

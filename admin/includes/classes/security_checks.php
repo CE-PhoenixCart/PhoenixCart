@@ -100,7 +100,7 @@
 
       $curl = curl_init($url);
 
-      $options = array_merge(static::CURL_OPTIONS, $options);
+      $options += static::CURL_OPTIONS;
       curl_setopt_array($curl, $options);
 
       return $curl;
@@ -118,12 +118,17 @@
     }
 
     public function exec() {
-      $active = true;
       do {
-        if (curl_multi_select($this->multi_handle) === -1) {
+        $result = curl_multi_exec($this->multi_handle, $active);
+      } while (CURLM_CALL_MULTI_PERFORM === $result);
+
+      do {
+        if (in_array(curl_multi_select($this->multi_handle), [0, -1], true)) {
           usleep(100000);
         } else {
-          $result = curl_multi_exec($this->multi_handle, $active);
+          do {
+            $result = curl_multi_exec($this->multi_handle, $active);
+          } while (CURLM_CALL_MULTI_PERFORM === $result);
         }
       } while ($active && (CURLM_OK === $result));
 

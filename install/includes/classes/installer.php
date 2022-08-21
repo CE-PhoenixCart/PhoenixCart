@@ -60,21 +60,8 @@
         return false;
       }
 
-      foreach (
-        explode(";\n",
-          trim(implode('',
-              array_filter(
-                file($sql_file),
-                function ($s) {
-                  $s = trim($s);
-                  return ('' !== $s) && ('#' !== $s[0]);
-                })), "; \n\r\t\v\0")
-        ) as $sql)
-      {
-        if (!$db->query($sql)) {
-          return false;
-        }
-      }
+      $runner = new sql_file(basename($sql_file), dirname($sql_file));
+      return $runner->install();
     }
 
     public static function load_time_zones() {

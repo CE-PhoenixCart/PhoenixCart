@@ -133,8 +133,8 @@
               'title' => sprintf(MODULE_SHIPPING_ZONES_TEXT_WAY,
                 $order->delivery['country']['iso_code_2'],
                 $shipping_weight),
-              'cost' => ($zones_table[$i+1] * $GLOBALS['shipping_num_boxes'])
-                      + $this->base_constant("HANDLING_{$this->destination_zone}"),
+              'cost' => ((float)$zones_table[$i+1] * $GLOBALS['shipping_num_boxes'])
+                      + (float)$this->base_constant("HANDLING_{$this->destination_zone}"),
             ];
             break;
           }
