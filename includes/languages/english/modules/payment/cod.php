@@ -2,14 +2,13 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  define('MODULE_PAYMENT_COD_TEXT_TITLE', 'Cash on Delivery');
-  define('MODULE_PAYMENT_COD_TEXT_DESCRIPTION', 'Cash on Delivery');
-?>
+  const MODULE_PAYMENT_COD_TEXT_TITLE = 'Cash on Delivery';
+  const MODULE_PAYMENT_COD_TEXT_DESCRIPTION = 'Cash on Delivery';

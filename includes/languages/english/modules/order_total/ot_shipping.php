@@ -2,17 +2,16 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  define('MODULE_ORDER_TOTAL_SHIPPING_TITLE', 'Shipping');
-  define('MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION', 'Order Shipping Cost');
+  const MODULE_ORDER_TOTAL_SHIPPING_TITLE = 'Shipping';
+  const MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION = 'Order Shipping Cost';
 
-  define('FREE_SHIPPING_TITLE', 'Free Shipping');
-  define('FREE_SHIPPING_DESCRIPTION', 'Free shipping for orders over %s');
-?>
+  const FREE_SHIPPING_TITLE = 'Free Shipping';
+  const FREE_SHIPPING_DESCRIPTION = 'Free shipping for orders over %s';
