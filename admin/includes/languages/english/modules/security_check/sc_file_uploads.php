@@ -2,13 +2,12 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('WARNING_FILE_UPLOADS_DISABLED', '<strong>Warning:</strong> File uploads are disabled in the php.ini configuration file.');
-?>
+const WARNING_FILE_UPLOADS_DISABLED = '<strong>Warning:</strong> File uploads are disabled in the php.ini configuration file.';

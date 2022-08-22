@@ -2,13 +2,14 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('ERROR_NO_DEFAULT_LANGUAGE_DEFINED', '<strong>Error:</strong> There is currently no default language set. Please set one at: Administration Tool->Localization->Languages');
-?>
+const ERROR_NO_DEFAULT_LANGUAGE_DEFINED = <<<'EOT'
+<strong>Error:</strong> There is currently no default language set. Please set one at: Administration Tool->Localization->Languages
+EOT;
