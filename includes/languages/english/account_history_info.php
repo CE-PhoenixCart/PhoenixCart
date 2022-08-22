@@ -2,40 +2,39 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'History');
-define('NAVBAR_TITLE_3', 'Order #%s');
+const NAVBAR_TITLE_1 = 'My Account';
+const NAVBAR_TITLE_2 = 'History';
+const NAVBAR_TITLE_3 = 'Order #%s';
 
-define('HEADING_TITLE', 'Order Information');
+const HEADING_TITLE = 'Order Information';
 
-define('HEADING_ORDER_NUMBER', 'Order #%s');
-define('HEADING_ORDER_DATE', 'Order Date:');
-define('HEADING_ORDER_TOTAL', 'Order Total:');
+const HEADING_ORDER_NUMBER = 'Order #%s';
+const HEADING_ORDER_DATE = 'Order Date:';
+const HEADING_ORDER_TOTAL = 'Order Total:';
 
-define('HEADING_DELIVERY_ADDRESS', 'Delivery Address');
-define('HEADING_SHIPPING_METHOD', 'Shipping Method');
+const HEADING_DELIVERY_ADDRESS = 'Delivery Address';
+const HEADING_SHIPPING_METHOD = 'Shipping Method';
 
-define('HEADING_PRODUCTS', 'Products');
-define('HEADING_TAX', 'Tax');
-define('HEADING_TOTAL', 'Total');
+const HEADING_PRODUCTS = 'Products';
+const HEADING_TAX = 'Tax';
+const HEADING_TOTAL = 'Total';
 
-define('HEADING_BILLING_INFORMATION', 'Billing Information');
-define('HEADING_BILLING_ADDRESS', 'Billing Address');
-define('HEADING_PAYMENT_METHOD', 'Payment Method');
+const HEADING_BILLING_INFORMATION = 'Billing Information';
+const HEADING_BILLING_ADDRESS = 'Billing Address';
+const HEADING_PAYMENT_METHOD = 'Payment Method';
 
-define('HEADING_ORDER_HISTORY', 'Order History');
-define('HEADING_COMMENT', 'Comments');
-define('TEXT_NO_COMMENTS_AVAILABLE', 'No comments available.');
+const HEADING_ORDER_HISTORY = 'Order History';
+const HEADING_COMMENT = 'Comments';
+const TEXT_NO_COMMENTS_AVAILABLE = 'No comments available.';
 
-define('TABLE_HEADING_DOWNLOAD_DATE', 'Link expires: ');
-define('TABLE_HEADING_DOWNLOAD_COUNT', ' downloads remaining');
-define('HEADING_DOWNLOAD', 'Download links');
-?>
+const TABLE_HEADING_DOWNLOAD_DATE = 'Link expires: ';
+const TABLE_HEADING_DOWNLOAD_COUNT = ' downloads remaining';
+const HEADING_DOWNLOAD = 'Download links';

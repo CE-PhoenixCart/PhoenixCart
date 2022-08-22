@@ -2,19 +2,19 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE', 'Specials');
-define('HEADING_TITLE', 'Get Them While They\'re Hot!');
+const NAVBAR_TITLE = 'Specials';
+const HEADING_TITLE = 'Get Them While They\'re Hot!';
 
-define('TEXT_NO_PRODUCTS', 'There are no special offers available.');
+const TEXT_NO_PRODUCTS = 'There are no special offers available.';
 
 // seo
-define('META_SEO_TITLE', 'Special Offers Page');
-define('META_SEO_DESCRIPTION', 'Specials Description');
+const META_SEO_TITLE = 'Special Offers Page';
+const META_SEO_DESCRIPTION = 'Specials Description';
