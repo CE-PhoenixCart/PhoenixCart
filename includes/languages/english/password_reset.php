@@ -2,23 +2,22 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2012 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'Login');
-define('NAVBAR_TITLE_2', 'Password Reset');
+const NAVBAR_TITLE_1 = 'Login';
+const NAVBAR_TITLE_2 = 'Password Reset';
 
-define('HEADING_TITLE', 'Password Reset');
+const HEADING_TITLE = 'Password Reset';
 
-define('TEXT_MAIN', 'Please enter a new password for your account.');
+const TEXT_MAIN = 'Please enter a new password for your account.';
 
-define('TEXT_NO_RESET_LINK_FOUND', 'Error: The password reset link was not found in our records, please try again by generating a new link.');
-define('TEXT_NO_EMAIL_ADDRESS_FOUND', 'Error: The E-Mail Address was not found in our records, please try again.');
+const TEXT_NO_RESET_LINK_FOUND = 'Error: The password reset link was not found in our records, please try again by generating a new link.';
+const TEXT_NO_EMAIL_ADDRESS_FOUND = 'Error: The E-Mail Address was not found in our records, please try again.';
 
-define('SUCCESS_PASSWORD_RESET', 'Your password has been successfully updated. Please login with your new password.');
-?>
+const SUCCESS_PASSWORD_RESET = 'Your password has been successfully updated. Please log in with your new password.';

@@ -2,22 +2,22 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2020 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('TEXT_COUNT_CUSTOMERS', 'Customers receiving this notification: %s');
-define('TEXT_PRODUCTS', 'Products');
-define('TEXT_SELECTED_PRODUCTS', 'Selected Products');
+const TEXT_COUNT_CUSTOMERS = 'Customers receiving this notification: %s';
+const TEXT_PRODUCTS = 'Products';
+const TEXT_SELECTED_PRODUCTS = 'Selected Products';
 
-define('JS_PLEASE_SELECT_PRODUCTS', 'Please select some products.');
+const JS_PLEASE_SELECT_PRODUCTS = 'Please select some products.';
 
-define('BUTTON_GLOBAL', 'Global');
-define('BUTTON_SELECT', '>>>');
-define('BUTTON_UNSELECT', '<<<');
-define('BUTTON_SUBMIT', 'Submit');
-define('BUTTON_CANCEL', 'Cancel');
+const BUTTON_GLOBAL = 'Global';
+const BUTTON_SELECT = '>>>';
+const BUTTON_UNSELECT = '<<<';
+const BUTTON_SUBMIT = 'Submit';
+const BUTTON_CANCEL = 'Cancel';

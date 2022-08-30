@@ -2,18 +2,18 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2019 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Security Checks');
+const HEADING_TITLE = 'Security Checks';
 
-define('TABLE_HEADING_TITLE', 'Title');
-define('TABLE_HEADING_MODULE', 'Module');
-define('TABLE_HEADING_INFO', 'Info');
+const TABLE_HEADING_TITLE = 'Title';
+const TABLE_HEADING_MODULE = 'Module';
+const TABLE_HEADING_INFO = 'Info';
 
-define('BUTTON_TEXT_RELOAD', 'Reload');
+const BUTTON_TEXT_RELOAD = 'Reload';

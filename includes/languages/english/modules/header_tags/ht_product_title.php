@@ -2,15 +2,15 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2016 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  define('MODULE_HEADER_TAGS_PRODUCT_TITLE_TITLE', 'Product Title');
-  define('MODULE_HEADER_TAGS_PRODUCT_TITLE_DESCRIPTION', 'Add the title of the current product to the page title');
+  const MODULE_HEADER_TAGS_PRODUCT_TITLE_TITLE = 'Product Title';
+  const MODULE_HEADER_TAGS_PRODUCT_TITLE_DESCRIPTION = 'Add the title of the current product to the page title';
 
-  define('MODULE_HEADER_TAGS_PRODUCT_SEO_SEPARATOR', ' | ');
+  const MODULE_HEADER_TAGS_PRODUCT_SEO_SEPARATOR = ' | ';

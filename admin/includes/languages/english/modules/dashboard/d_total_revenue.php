@@ -2,15 +2,15 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2019 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_TITLE', 'Total Revenue Chart');
-define('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DESCRIPTION', 'Show the total revenue chart of the last X days');
+const MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_TITLE = 'Total Revenue Chart';
+const MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DESCRIPTION = 'Show the total revenue chart of the last X days';
 
-define('MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CHART_LINK', 'Total Revenue');
+const MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CHART_LINK = 'Total Revenue';

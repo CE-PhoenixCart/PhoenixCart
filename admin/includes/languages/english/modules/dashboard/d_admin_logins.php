@@ -2,15 +2,14 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2010 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE', 'Last Administrator Logins');
-define('MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DESCRIPTION', 'Show the last successful and failed administrator logins');
-define('MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DATE', 'Date');
-?>
+const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE = 'Last Administrator Logins';
+const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DESCRIPTION = 'Show the last successful and failed administrator logins';
+const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DATE = 'Date';

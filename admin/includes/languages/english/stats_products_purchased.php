@@ -2,17 +2,16 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2002 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Best Products Purchased');
+const HEADING_TITLE = 'Best Products Purchased';
 
-define('TABLE_HEADING_NUMBER', 'No.');
-define('TABLE_HEADING_PRODUCTS', 'Products');
-define('TABLE_HEADING_PURCHASED', 'Purchased');
-?>
+const TABLE_HEADING_NUMBER = 'No.';
+const TABLE_HEADING_PRODUCTS = 'Products';
+const TABLE_HEADING_PURCHASED = 'Purchased';

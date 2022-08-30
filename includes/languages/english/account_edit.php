@@ -2,18 +2,17 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2022 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-define('NAVBAR_TITLE_1', 'My Account');
-define('NAVBAR_TITLE_2', 'Edit Account');
+const NAVBAR_TITLE_1 = 'My Account';
+const NAVBAR_TITLE_2 = 'Edit Account';
 
-define('HEADING_TITLE', 'My Account Information');
+const HEADING_TITLE = 'My Account Information';
 
-define('SUCCESS_ACCOUNT_UPDATED', 'Your account has been successfully updated.');
-
+const SUCCESS_ACCOUNT_UPDATED = 'Your account has been successfully updated.';
