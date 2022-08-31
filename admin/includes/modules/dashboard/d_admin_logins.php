@@ -46,7 +46,7 @@ EOSQL
             $output .= '<td>'
                      . (($logins['success'] == '1') ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>')
                      . ' <a href="' . $GLOBALS['Admin']->link('action_recorder.php', 'module=ar_admin_login&aID=' . (int)$logins['id']) . '">' . htmlspecialchars($logins['user_name']) . '</a></td>';
-            $output .= '<td class="text-right">' . Date::abridge($logins['date_added']) . '</td>';
+            $output .= '<td class="text-right">' . (new Date($logins['date_added']))->format(DATE_TIME_FORMAT) . '</td>';
           $output .= '</tr>';
         }
 
