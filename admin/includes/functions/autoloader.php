@@ -11,6 +11,7 @@
 */
 
   function tep_build_admin_autoload_index($modules_directory_length) {
+    trigger_error('The tep_build_admin_autoload_index function has been deprecated.', E_USER_DEPRECATED);
     $class_files = [];
 
     tep_find_all_files_under(DIR_FS_ADMIN . 'includes/modules', $class_files);
@@ -25,6 +26,7 @@
   }
 
   function tep_autoload_admin($class) {
+    trigger_error('The tep_autoload_admin function has been deprecated.', E_USER_DEPRECATED);
     static $class_files;
     static $modules_directory_length;
 

@@ -23,6 +23,7 @@
   }
 
   function phoenix_normalize($attributes) {
+    trigger_error('The phoenix_normalize function has been deprecated.', E_USER_DEPRECATED);
     $parameters = [];
     foreach (preg_split('{"[^"]*"(*SKIP)(*FAIL)|\s+}', $attributes) as $parameter) {
       $pair = explode('=', $parameter, 2);
@@ -37,6 +38,7 @@
 ////
 // Output a form
   function tep_draw_form($name, $action, $method = 'post', $parameters = '', $tokenize = false) {
+    trigger_error('The tep_draw_form function has been deprecated.', E_USER_DEPRECATED);
     $form = new Form($name, $action, $method, phoenix_normalize($parameters));
 
     if ( $tokenize && isset($_SESSION['sessiontoken']) ) {
@@ -49,6 +51,7 @@
 ////
 // Output a form input field
   function tep_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true, $class = 'class="form-control"') {
+    trigger_error('The tep_draw_input_field function has been deprecated.', E_USER_DEPRECATED);
     $parameters = phoenix_normalize($parameters);
 
     if (isset($class)) {
@@ -73,6 +76,7 @@
 ////
 // Output a selection field - alias function for tep_draw_checkbox_field() and tep_draw_radio_field()
   function tep_draw_selection_field($name, $type, $value = '', $checked = false, $parameters = '') {
+    trigger_error('The tep_draw_selection_field function has been deprecated.', E_USER_DEPRECATED);
     $input = new Tickable($name, phoenix_normalize($parameters), $type);
 
     if (!Text::is_empty($value)) {
@@ -91,12 +95,14 @@
 ////
 // Output a form checkbox field
   function tep_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
+    trigger_error('The tep_draw_checkbox_field function has been deprecated.', E_USER_DEPRECATED);
     return tep_draw_selection_field($name, 'checkbox', $value, $checked, $parameters);
   }
 
 ////
 // Output a form radio field
   function tep_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
+    trigger_error('The tep_draw_radio_field function has been deprecated.', E_USER_DEPRECATED);
     return tep_draw_selection_field($name, 'radio', $value, $checked, $parameters);
   }
 
@@ -104,6 +110,7 @@
 // Output a form textarea field
 // The $wrap parameter is no longer used in the core xhtml template
   function tep_draw_textarea_field($name, $wrap, $width, $height, $text = '', $parameters = '', $reinsert_value = true) {
+    trigger_error('The tep_draw_textarea_field function has been deprecated.', E_USER_DEPRECATED);
     $textarea = new Textarea($name, phoenix_normalize($parameters));
     $textarea->set('cols', $width)->set('rows', $height);
 
@@ -119,6 +126,7 @@
 ////
 // Output a form hidden field
   function tep_draw_hidden_field($name, $value = '', $parameters = '') {
+    trigger_error('The tep_draw_hidden_field function has been deprecated.', E_USER_DEPRECATED);
     $input = new Input($name, phoenix_normalize($parameters), 'hidden');
 
     if (Text::is_empty($value)) {
@@ -135,6 +143,7 @@
 ////
 // Hide form elements
   function tep_hide_session_id() {
+    trigger_error('The tep_hide_session_id function has been deprecated.', E_USER_DEPRECATED);
     if (defined('SID') && !Text::is_empty(SID)) {
       return new Input(session_name(), ['type' => 'hidden', 'value' => session_id()]);
     }
@@ -145,6 +154,7 @@
 ////
 // Output a form pull down menu
   function tep_draw_pull_down_menu($name, $values, $default = '', $parameters = '', $required = false) {
+    trigger_error('The tep_draw_pull_down_menu function has been deprecated.', E_USER_DEPRECATED);
     $select = new Select($name, $values, phoenix_normalize($parameters));
 
     if ( !empty($default) ) {
@@ -168,6 +178,7 @@
 ////
 // Output a jQuery UI Button
   function tep_draw_button($title = null, $icon = null, $link = null, $priority = null, $params = [], $style = null) {
+    trigger_error('The tep_draw_button function has been deprecated.', E_USER_DEPRECATED);
     if (isset($params['params'])) {
       $params = array_merge($params, phoenix_normalize($params['params']));
       unset($params['params']);
@@ -178,6 +189,7 @@
 
 // review stars
   function tep_draw_stars($rating = 0) {
+    trigger_error('The tep_draw_stars function has been deprecated.', E_USER_DEPRECATED);
     return (string)(new star_rating((float)$rating));
   }
 

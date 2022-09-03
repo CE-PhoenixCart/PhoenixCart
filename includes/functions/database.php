@@ -11,12 +11,14 @@
 */
 
   function tep_db_connect($server = DB_SERVER, $username = DB_SERVER_USERNAME, $password = DB_SERVER_PASSWORD, $database = DB_DATABASE, $link = 'db') {
+    trigger_error('The tep_db_connect function has been deprecated.', E_USER_DEPRECATED);
     $GLOBALS[$link] = new Database($server, $username, $password, $database);
 
     return $GLOBALS[$link];
   }
 
   function tep_db_close($link = 'db') {
+    trigger_error('The tep_db_close function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->close();
   }
 
@@ -30,26 +32,32 @@
   }
 
   function tep_db_query($query, $link = 'db') {
+    trigger_error('The tep_db_query function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->query($query);
   }
 
   function tep_db_perform($table, $data, $action = 'insert', $parameters = '', $link = 'db') {
+    trigger_error('The tep_db_perform function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->perform($table, $data, $action, $parameters);
   }
 
   function tep_db_fetch_array($db_query) {
+    trigger_error('The tep_db_fetch_array function has been deprecated.', E_USER_DEPRECATED);
     return $db_query->fetch_assoc();
   }
 
   function tep_db_num_rows($db_query) {
+    trigger_error('The tep_db_num_rows function has been deprecated.', E_USER_DEPRECATED);
     return mysqli_num_rows($db_query);
   }
 
   function tep_db_data_seek($db_query, $row_number) {
+    trigger_error('The tep_db_data_seek function has been deprecated.', E_USER_DEPRECATED);
     return $db_query->data_seek($row_number);
   }
 
   function tep_db_insert_id($link = 'db') {
+    trigger_error('The tep_db_insert_id function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->insert_id;
   }
 
@@ -64,18 +72,22 @@
   }
 
   function tep_db_output($string) {
+    trigger_error('The tep_db_output function has been deprecated.', E_USER_DEPRECATED);
     return htmlspecialchars($string);
   }
 
   function tep_db_input($string, $link = 'db') {
+    trigger_error('The tep_db_input function has been deprecated.', E_USER_DEPRECATED);
     return $GLOBALS[$link]->real_escape_string($string);
   }
 
   function tep_db_prepare_input($input) {
+    trigger_error('The tep_db_prepare_input function has been deprecated.', E_USER_DEPRECATED);
     return Text::input($input);
   }
 
   function tep_db_affected_rows($link = 'db') {
+    trigger_error('The tep_db_affected_rows function has been deprecated.', E_USER_DEPRECATED);
     return mysqli_affected_rows($GLOBALS[$link]);
   }
 

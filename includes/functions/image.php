@@ -21,6 +21,7 @@
     $responsive = true,
     string $bootstrap_css = '')
   {
+    trigger_error('The tep_image function has been deprecated.', E_USER_DEPRECATED);
     $image = new Image($src, phoenix_normalize($parameters));
 
     if (!Text::is_empty($alt)) {
