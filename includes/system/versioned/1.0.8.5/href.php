@@ -16,6 +16,7 @@
     protected $page;
     protected $parameters = [];
     protected $separator_encoding = true;
+    protected $hooks = null;
 
     public function __construct($prefix = '', $page = null, $parameters = [], $add_session_id = true) {
       $this->page = Text::output($prefix . ($page ?? Request::get_page()));
@@ -27,6 +28,11 @@
       }
 
       $this->set_include_session($add_session_id);
+    }
+
+    public function set_hooks(&$hooks) {
+      $this->hooks =& $hooks;
+      return $this;
     }
 
     public function set_include_session(bool $include_session) {
@@ -128,7 +134,7 @@
         'link' => &$link,
         'href' => $this,
       ];
-      $chain = $GLOBALS['all_hooks']->chain('hrefLink', $chain);
+      $chain = ($this->hooks ?? $GLOBALS['all_hooks'])->chain('hrefLink', $chain);
       return $chain['link'] ?? $this->real_link();
     }
 
