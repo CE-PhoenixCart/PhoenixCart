@@ -14,8 +14,7 @@
     $last_order = $_GET['order_id'];
   } else {
 // Get last order id for checkout_success
-    $orders_query = $GLOBALS['db']->query("SELECT orders_id FROM orders WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY orders_id DESC LIMIT 1");
-    $orders = $orders_query->fetch_assoc();
+    $orders = $GLOBALS['db']->query("SELECT orders_id FROM orders WHERE customers_id = " . (int)$_SESSION['customer_id'] . " ORDER BY orders_id DESC LIMIT 1")->fetch_assoc();
     $last_order = $orders['orders_id'];
   }
 
@@ -43,7 +42,7 @@ EOSQL
   if (mysqli_num_rows($downloads_query) > 0) {
 ?>
 
-  <h3><? ?> HEADING_DOWNLOAD ?></h3>
+  <h3><?= HEADING_DOWNLOAD ?></h3>
 
   <div class="contentText">
     <table class="table table-striped">
