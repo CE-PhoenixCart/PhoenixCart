@@ -12,17 +12,15 @@
   mail.php - a class to assist in building mime-HTML eMails
 
   The original class was made by Richard Heyes <richard@phpguru.org>
-  and can be found here: http://www.phpguru.org
 
-  Renamed and Modified by Jan Wildeboer for osCommerce
+  Modified by Jan Wildeboer
 */
 
   class email {
 
     /**
-     * If you want the auto load functionality
-     * to find other mime-image/file types, add the
-     * extension and content type here.
+     * If you want the auto load functionality to find other mime-image/file
+     * types, add the extension and content type here.
      */
     const IMAGE_TYPES = [
       'gif' => 'image/gif',
@@ -58,20 +56,17 @@
       $this->build_params['text_charset'] = constant('CHARSET');
       $this->build_params['text_wrap'] = 998;
 
-/**
- * Make sure the MIME version header is first.
- */
+// Make sure the MIME version header is first.
       $this->headers[] = 'MIME-Version: 1.0';
-      $this->headers += array_filter(array_values($headers), function ($v) {
-        return !Text::is_empty($v);
-      });
+      $this->headers = array_merge($this->headers,
+        array_filter(array_values($headers), function ($v) {
+          return !Text::is_empty($v);
+        }));
     }
 
 /**
- * This function will read a file in
- * from a supplied filename and return
- * it. This can then be given as the first
- * argument of the the functions
+ * This function will read a file in from a supplied filename and return
+ * it. This can then be given as the first argument of the the functions
  * add_html_image() or add_attachment().
  */
     public function get_file($filename) {
@@ -90,13 +85,10 @@
     }
 
 /**
- * Function for extracting images from
- * html source. This function will look
- * through the html code supplied by add_html()
- * and find any file that ends in one of the
- * extensions defined in $obj->image_types.
- * If the file exists it will read it in and
- * embed it, (not an attachment).
+ * Function for extracting images from HTML source. This function will look
+ * through the HTML code supplied by add_html() and find any file that ends in
+ * one of the extensions defined in $obj->image_types.
+ * If the file exists it will read it in and embed it, (not an attachment).
  *
  * Function contributed by Dan Allen
  */
@@ -120,7 +112,7 @@
         sort($html_images);
 
         foreach ($html_images as $html_image) {
-          if ($image = $this->get_file("$images_dir$html_image")) {
+          if ($image = file_get_contents("$images_dir$html_image")) {
             $content_type = static::IMAGE_TYPES[pathinfo($html_image, PATHINFO_EXTENSION)];
             $this->add_html_image($image, basename($html_image), $content_type);
           }
@@ -129,17 +121,14 @@
     }
 
 /**
- * Adds plain text. Use this function
- * when NOT sending html email
+ * Adds plain text. Use this function when NOT sending html email
  */
     public function add_text($text = '') {
       $this->text = str_replace(static::LINEFEEDS, $this->lf, $text);
     }
 
 /**
- * Adds a html part to the mail.
- * Also replaces image names with
- * content-id's.
+ * Adds an HTML part to the mail.  Also replaces image names with content-id's.
  */
     public function add_html($html, $text = null, $images_dir = null) {
       $this->html = str_replace(static::LINEFEEDS, '<br>', $html);
@@ -161,8 +150,7 @@
     }
 
 /**
- * Adds an image to the list of embedded
- * images.
+ * Adds an image to the list of embedded images.
  */
     public function add_html_image($file, $name = '', $c_type='application/octet-stream') {
       $this->html_images[] = [
@@ -292,10 +280,8 @@
     }
 
 /**
- * Builds the multipart message from the
- * list ($this->_parts). $params is an
- * array of parameters that shape the building
- * of the message. Currently supported are:
+ * Builds the multipart message from the list ($this->_parts). $params is an
+ * array of parameters that shape the building of the message. Currently supported are:
  *
  * $params['html_encoding'] - The type of encoding to use on html. Valid options are
  *                            "7bit", "quoted-printable" or "base64" (all without quotes).
@@ -370,9 +356,6 @@
       return (('' == $name) ? $address : '"' . $this->ensure_encoding($name) . '" <' . $address . '>');
     }
 
-/**
- * Sends the mail.
- */
     public function send($to_name, $to_addr, $from_name, $from_addr, $subject = '', $headers = []) {
       // No need to check for "\r\n" separately as will match the other two
       foreach (["\n", "\r"] as $line_ending) {
@@ -399,11 +382,8 @@
     }
 
 /**
- * Use this method to return the email
- * in message/rfc822 format. Useful for
- * adding an email to another email as
- * an attachment. there's a commented
- * out example in example.php.
+ * Use this method to return the email in message/rfc822 format. Useful for
+ * adding an email to another email as an attachment.
  *
  * string get_rfc822(string To name,
  *       string To email,

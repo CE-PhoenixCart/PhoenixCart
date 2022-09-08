@@ -14,7 +14,7 @@
   The original class was made by Richard Heyes <richard@phpguru.org>
   and can be found here: http://www.phpguru.org
 
-  Renamed and Modified by Jan Wildeboer for osCommerce
+  Modified by Jan Wildeboer
 */
 
   class mime {
@@ -168,7 +168,7 @@
          return $data;
          break;
        case 'quoted-printable':
-         return $this->_quotedPrintableEncode($data);
+         return quoted_printable_encode($data);
          break;
        case 'base64':
          return rtrim(chunk_split(base64_encode($data), 76, $this->lf));
@@ -177,7 +177,7 @@
     }
 
 /**
- * quoteadPrintableEncode()
+ * quotedPrintableEncode()
  *
  * Encodes data to quoted-printable standard.
  *
