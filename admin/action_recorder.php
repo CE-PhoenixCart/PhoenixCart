@@ -93,7 +93,7 @@
         'name' => TABLE_HEADING_DATE_ADDED,
         'class' => 'text-right',
         'function' => function (&$row) {
-          return Date::abridge($row['date_added']);
+          return (new Date($row['date_added']))->format(DATE_TIME_FORMAT);
         },
       ],
       [

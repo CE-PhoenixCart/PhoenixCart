@@ -44,7 +44,15 @@
     }
 
     public function catalog($page = null, $parameters = []) {
-      return $this->catalog_linker->build($page, $parameters, false);
+      static $hooks = null;
+
+      if (is_null($hooks)) {
+        $hooks = &Guarantor::ensure_global('hooks', 'shop');
+        $hooks->register('system');
+        $hooks->register_pipeline('siteWide');
+      }
+
+      return $this->catalog_linker->build($page, $parameters, false)->set_hooks($hooks);
     }
 
     public static function button($text, $icon,

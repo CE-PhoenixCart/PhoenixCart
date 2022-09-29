@@ -10,20 +10,19 @@
   Released under the GNU General Public License
 */
 
-  $sInfo = $GLOBALS['table_definition']['info'];
+  $sInfo = $GLOBALS['table_definition']['info'] ?? new stdClass();
   switch ($GLOBALS['saction']) {
     case 'new':
       $heading = TEXT_INFO_HEADING_NEW_SUB_ZONE;
-      $link = $GLOBALS['link']->set_parameter('sID', $sInfo->association_id);
 
-      $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'insert_sub'))];
+      $contents = ['form' => new Form('zones', (clone $GLOBALS['link'])->set_parameter('saction', 'insert_sub'))];
       $contents[] = ['text' => TEXT_INFO_NEW_SUB_ZONE_INTRO];
       $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['onchange' => 'update_zone(this.form);'])];
       $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . new Select('zone_id', [['id' => '', 'text' => TYPE_BELOW]])];
       $contents[] = [
         'class' => 'text-center',
         'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
-                . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
+                . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
       ];
       break;
     case 'edit':
@@ -46,7 +45,7 @@
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'delete_confirm_sub'))];
       $contents[] = ['text' => TEXT_INFO_DELETE_SUB_ZONE_INTRO];
-      $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $sInfo->countries_name];
+      $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $sInfo->countries_name . ' / ' . $sInfo->zone_name];
       $contents[] = [
         'class' => 'text-center',
         'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')

@@ -11,6 +11,7 @@
 */
 
   function tep_find_all_files_under($directory, &$files) {
+    trigger_error('The tep_find_all_files_under function has been deprecated.', E_USER_DEPRECATED);
     foreach (scandir($directory, SCANDIR_SORT_ASCENDING) as $entry) {
       // we have no file or directory names starting with a dot
       // so it's safe to screen out anything that does, like the current and parent directories
@@ -29,6 +30,7 @@
   }
 
   function tep_normalize_class_name($original_class) {
+    trigger_error('The tep_normalize_class_name function has been deprecated.', E_USER_DEPRECATED);
     $class_position = strrpos($original_class, "\\");
     if (is_int($class_position)) {
       $original_class = substr($original_class, $class_position + 1);
@@ -38,6 +40,7 @@
   }
 
   function tep_calculate_hook_name($directory, $path) {
+    trigger_error('The tep_calculate_hook_name function has been deprecated.', E_USER_DEPRECATED);
     $exclude_length = strlen($directory);
 
     list ($site, $group, $basename) = explode('/', substr($path, $exclude_length));
@@ -46,6 +49,7 @@
   }
 
   function tep_find_all_hooks_under($directory, &$files) {
+    trigger_error('The tep_find_all_hooks_under function has been deprecated.', E_USER_DEPRECATED);
     foreach (scandir($directory, SCANDIR_SORT_ASCENDING) as $site) {
       // we have no file or directory names starting with a dot
       // so it's safe to screen out anything that does, like the current and parent directories
@@ -68,6 +72,7 @@
   }
 
   function tep_find_all_templates_under($directory, &$files) {
+    trigger_error('The tep_find_all_templates_under function has been deprecated.', E_USER_DEPRECATED);
     foreach (scandir($directory, SCANDIR_SORT_ASCENDING) as $template) {
       if ('.' !== $template[0]) {
         $files[$template . '_template'] = "$directory/$template/includes/template.php";
@@ -76,6 +81,7 @@
   }
 
   function tep_find_all_actions_under($directory, &$files) {
+    trigger_error('The tep_find_all_actions_under function has been deprecated.', E_USER_DEPRECATED);
     foreach (scandir($directory, SCANDIR_SORT_ASCENDING) as $file) {
       if (is_file($path = "$directory/$file")) {
         $files[tep_normalize_class_name(pathinfo($file, PATHINFO_FILENAME))] = $path;
@@ -84,6 +90,7 @@
   }
 
   function tep_build_catalog_autoload_index() {
+    trigger_error('The tep_build_catalog_autoload_index function has been deprecated.', E_USER_DEPRECATED);
     $class_files = [];
 
     tep_find_all_hooks_under(DIR_FS_CATALOG . 'includes/hooks/', $class_files);
@@ -103,6 +110,7 @@
   }
 
   function tep_autoload_catalog($original_class) {
+    trigger_error('The tep_autoload_catalog function has been deprecated.', E_USER_DEPRECATED);
     static $class_files;
     static $modules_directory_length;
 

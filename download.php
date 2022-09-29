@@ -10,15 +10,30 @@
   Released under the GNU General Public License
 */
 
+// Upgrade notices, warnings, etc. to fatal errors
+// This prevents notices from appearing in the body of the file.
+  set_error_handler(function ($severity, $message, $file, $line, $context) {
+    if (error_reporting() & $severity) {
+      throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+  });
+  ob_start();
+
   include 'includes/application_top.php';
 
+  if (ob_get_contents()) {
+    error_log(sprintf('Unneeded output:  [%s]', ob_get_clean()));
+  }
+
+  ob_end_clean();
+
   if (!isset($_SESSION['customer_id'])) {
-    die;
+    die();
   }
 
 // Check download.php was called with proper GET parameters
   if (!is_numeric($_GET['order'] ?? null) || !is_numeric($_GET['id'] ?? null) ) {
-    die;
+    die();
   }
 
   $downloads_query = $db->query(sprintf(<<<'EOSQL'
@@ -38,75 +53,34 @@ SELECT opd.orders_products_filename
 EOSQL
     , (int)$_SESSION['customer_id'], (int)$_GET['order'], (int)$_GET['id'], (int)$_SESSION['languages_id']));
   if (!mysqli_num_rows($downloads_query)) {
-    die;
+    die();
   }
   $downloads = $downloads_query->fetch_assoc();
+  $path = DIR_FS_CATALOG . "download/{$downloads['orders_products_filename']}";
 
-  if (!file_exists(DIR_FS_CATALOG . 'download/' . $downloads['orders_products_filename'])) {
-    die;
+  if (!file_exists($path)) {
+    die();
   }
 
 // Now decrement counter
   $db->query("UPDATE orders_products_download SET download_count = download_count-1 WHERE orders_products_download_id = " . (int)$_GET['id']);
 
-// Returns a random name, 16 to 20 characters long
-// There are more than 10^28 combinations
-// The directory is "hidden", i.e. starts with '.'
-function phoenix_random_name() {
-  $letters = 'abcdefghijklmnopqrstuvwxyz';
-
-  $dirname = '.';
-  $length = mt_rand(16, 20);
-  for ($i = 1; $i <= $length; $i++) {
-    $dirname .= $letters[random_int(0, 25)];
+  if (DOWNLOAD_BY_REDIRECT === 'true') {
+// This will work only on Unix/Linux hosts, may be blocked by security restrictions,
+// doesn't actually enforce limits until a second person tries to download,
+// and has some race conditions (e.g. if two people try to download at the same time).
+// This is very efficient on server resources though.
+    redirect_downloader::link($path, $downloads['orders_products_filename']);
   }
-
-  return $dirname;
-}
-
-// Unlinks all subdirectories and files in $dir
-// Works only on one subdir level, will not recurse
-function phoenix_unlink_temp_dir($dir) {
-  $h1 = opendir($dir);
-  while ($subdir = readdir($h1)) {
-// Ignore . and .. and CVS and non directories
-    if (in_array($subdir, ['.', '..', 'CVS']) || !is_dir("$dir$subdir")) {
-      continue;
-    }
-// Loop and unlink files in subdirectory
-    $h2 = opendir($dir . $subdir);
-    while ($file = readdir($h2)) {
-      if ($file === '.' || $file === '..') continue;
-      @unlink("$dir$subdir/$file");
-    }
-    closedir($h2);
-    @rmdir($dir . $subdir);
-  }
-  closedir($h1);
-}
 
 
 // Now send the file with header() magic
-  header("Expires: Mon, 26 Nov 1962 00:00:00 GMT");
-  header("Last-Modified: " . gmdate("D,d M Y H:i:s") . " GMT");
-  header("Cache-Control: no-cache, must-revalidate");
-  header("Pragma: no-cache");
-  header("Content-Type: Application/octet-stream");
-  header("Content-disposition: attachment; filename=" . $downloads['orders_products_filename']);
-
-  if (DOWNLOAD_BY_REDIRECT == 'true') {
-// This will work only on Unix/Linux hosts
-    phoenix_unlink_temp_dir('pub/');
-    $tempdir = phoenix_random_name();
-    umask(0000);
-    mkdir('pub/' . $tempdir, 0777);
-    $file = "pub/$tempdir/{$downloads['orders_products_filename']}";
-    symlink(DIR_FS_CATALOG . 'download/' . $downloads['orders_products_filename'], $file);
-    if (file_exists($file = "pub/$tempdir/{$downloads['orders_products_filename']}")) {
-      Href::redirect($Linker->build($file, [], false));
-    }
-  }
+  header('Expires: Mon, 26 Nov 1962 00:00:00 GMT');
+  header('Last-Modified: ' . gmdate('D,d M Y H:i:s') . ' GMT');
+  header('Cache-Control: no-cache, must-revalidate');
+  header('Pragma: no-cache');
+  header('Content-Type: Application/octet-stream');
+  header('Content-disposition: attachment; filename="' . $downloads['orders_products_filename'] . '"');
 
 // Fallback to readfile() delivery method. This will work on all systems, but will need considerable resources
-  readfile(DIR_FS_CATALOG . 'download/' . $downloads['orders_products_filename']);
-?>
+  readfile($path);

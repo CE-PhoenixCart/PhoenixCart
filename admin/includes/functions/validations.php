@@ -44,6 +44,7 @@
   //
   ////////////////////////////////////////////////////////////////////////////////////////////////
   function tep_validate_email($email) {
+    trigger_error('The tep_validate_email function has been deprecated.', E_USER_DEPRECATED);
     $email = trim($email);
     if (strlen($email) > 255) {
       $valid_address = false;
@@ -59,4 +60,3 @@
     }
     return $valid_address;
   }
-?>

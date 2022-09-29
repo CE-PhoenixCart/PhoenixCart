@@ -152,7 +152,8 @@ SELECT
    use_function,
    set_function
  FROM configuration
- WHERE configuration_key IN ('%s')
+ WHERE configuration_key IN ('%1$s')
+ ORDER BY FIELD(configuration_key, '%1$s')
 EOSQL
         , implode("', '", array_map([$GLOBALS['db'], 'escape'], $module->keys()))));
 

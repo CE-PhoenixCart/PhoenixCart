@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $always_valid_actions = ['delete'];
   require 'includes/application_top.php';
   $link = $Admin->link()->retain_query_except(['action', 'oID']);
 

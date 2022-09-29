@@ -65,7 +65,7 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-right',
         'function' => function ($row) {
-          return (isset($row['info']->reviews_id) && ($row['info']->reviews_id === $row['reviews_id']))
+          return isset($row['info']->pages_id)
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
         },

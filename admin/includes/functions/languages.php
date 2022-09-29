@@ -13,9 +13,9 @@
   function tep_get_languages_directory($code) {
     trigger_error('The tep_get_languages_directory function has been deprecated.', E_USER_DEPRECATED);
 
-    $language_query = tep_db_query("select languages_id, directory from languages where code = '" . tep_db_input($code) . "'");
-    if (tep_db_num_rows($language_query)) {
-      $language = tep_db_fetch_array($language_query);
+    $language_query = $GLOBALS['db']->query("SELECT languages_id, directory FROM languages WHERE code = '" . $GLOBALS['db']->escape($code) . "'");
+    if (mysqli_num_rows($language_query)) {
+      $language = $language_query->fetch_assoc();
       $_SESSION['languages_id'] = $language['languages_id'];
       return $language['directory'];
     } else {

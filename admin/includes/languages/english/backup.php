@@ -42,7 +42,7 @@ const ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST = '<strong>Error:</strong> Backup di
 const ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE = '<strong>Error:</strong> Backup directory is not writeable.';
 const ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE = '<strong>Error:</strong> Download link not acceptable.';
 const ERROR_INVALID_FILE = 'The file [%s] is not recognized as a valid backup.  Verify that it exists, has a .sql extension, and is of a reasonable size.';
-const ERROR_FILE_TOO_LARGE = 'The fileis "%d" bytes but the limit is "%s".';
+const ERROR_FILE_TOO_LARGE = 'The file is "%d" bytes but the limit is "%s".';
 
 const SUCCESS_LAST_RESTORE_CLEARED = '<strong>Success:</strong> The last restoration date has been cleared.';
 const SUCCESS_DATABASE_SAVED = '<strong>Success:</strong> The database has been saved.';

@@ -16,6 +16,7 @@
 // $HTTP_xxx_VARS
 // Ie, products attributes
   function do_magic_quotes_gpc(&$ar) {
+    trigger_error('The tep_rand function has been deprecated.', E_USER_DEPRECATED);
     if (!is_array($ar)) return false;
 
     foreach ($ar as $key => $value) {
@@ -42,4 +43,3 @@
 
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   date_default_timezone_set(defined('CFG_TIME_ZONE') ? CFG_TIME_ZONE : date_default_timezone_get());
-?>
