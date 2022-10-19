@@ -26,10 +26,9 @@
         $modules_installed[] = $basename;
       }
 
-      $db->query(sprintf(
-        "UPDATE configuration SET configuration_value = '%s' WHERE configuration_key = '%s'",
-        $db->escape(implode(';', $modules_installed)),
-        $db->escape($module_key)));
+      $cfg_modules->fix_installed_constant($set, array_map(function ($m) {
+        return ['file' => $m];
+      }, $modules_installed));
 
       return $link->set_parameter('module', $_GET['module']);
     }
