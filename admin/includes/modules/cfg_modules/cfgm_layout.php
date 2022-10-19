@@ -25,6 +25,14 @@
     public static function fix_installed_constant($installed_modules) {
       if (empty($_GET['page'])) {
         if (empty($_GET['module'])) {
+          foreach (static::GROUP_KEYS as $key) {
+            if (defined($key)) {
+              $GLOBALS['modules_installed'] = array_merge(
+                $GLOBALS['modules_installed'],
+                explode(';', constant($key)));
+            }
+          }
+
           return false;
         }
 
