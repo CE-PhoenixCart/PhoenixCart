@@ -907,7 +907,7 @@ INSERT INTO countries VALUES (57,'Denmark','DK','DNK','1');
 INSERT INTO countries VALUES (58,'Djibouti','DJ','DJI','1');
 INSERT INTO countries VALUES (59,'Dominica','DM','DMA','1');
 INSERT INTO countries VALUES (60,'Dominican Republic','DO','DOM','1');
-INSERT INTO countries VALUES (61,'East Timor','TP','TMP','1');
+INSERT INTO countries VALUES (61, 'Timor-Leste', 'TL', 'TLS', '1');
 INSERT INTO countries VALUES (62,'Ecuador','EC','ECU','1');
 INSERT INTO countries VALUES (63,'Egypt','EG','EGY','1');
 INSERT INTO countries VALUES (64,'El Salvador','SV','SLV','1');
@@ -1094,7 +1094,7 @@ INSERT INTO countries VALUES (245, 'Saint Barthélemy', 'BL', 'BLM', '1');
 INSERT INTO countries VALUES (246, 'Saint Martin (French part)', 'MF', 'MAF', '1');
 INSERT INTO countries VALUES (247, 'Sint Maarten (Dutch part)', 'SX', 'SXM', '1');
 INSERT INTO countries VALUES (248, 'South Sudan', 'SS', 'SSD', '1');
-INSERT INTO countries VALUES (249, 'East Timor', 'TL', 'TLS', '1');
+INSERT INTO countries VALUES (249, 'Timor-Leste', 'TL', 'TLS', '1');
 
 INSERT INTO currencies VALUES (1,'U.S. Dollar','USD','$','','.',',','2','1.0000', now());
 INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','1.0000', now());
