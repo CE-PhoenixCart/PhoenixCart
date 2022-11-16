@@ -12,7 +12,7 @@
 
 // Upgrade notices, warnings, etc. to fatal errors
 // This prevents notices from appearing in the body of the file.
-  set_error_handler(function ($severity, $message, $file, $line, $context) {
+  set_error_handler(function ($severity, $message, $file, $line, $unused = null) {
     if (error_reporting() & $severity) {
       throw new ErrorException($message, 0, $severity, $file, $line);
     }
