@@ -16,5 +16,6 @@
 
     return $Admin->link();
   } else {
+    error_log(sprintf('Could not delete [%s] from [%s]', $source, DIR_FS_BACKUP));
     $messageStack->add(sprintf(ERROR_PATH_NOT_REMOVEABLE, $_GET['file']), 'error');
   }
