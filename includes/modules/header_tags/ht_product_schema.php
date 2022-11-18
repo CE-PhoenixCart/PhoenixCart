@@ -53,7 +53,7 @@
           'priceCurrency' => $_SESSION['currency'],
         ];
 
-        $schema_product['offers']['price'] = $product->format();
+        $schema_product['offers']['price'] = $product->format_raw();
 
         if ($product->get('special_expiration')) {
           $schema_product['offers']['priceValidUntil'] = $product->get('special_expiration');

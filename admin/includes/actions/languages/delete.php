@@ -15,7 +15,7 @@
   $lng = $db->query("SELECT code FROM languages WHERE languages_id = " . (int)$lID)->fetch_assoc();
 
   $remove_language = $lng['code'] != DEFAULT_LANGUAGE;
-  if ($remove_language) {
+  if (!$remove_language) {
     $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
   }
 

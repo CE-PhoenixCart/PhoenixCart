@@ -18,7 +18,7 @@
      * @return boolean
      */
     public static function is_writable(string $file) {
-      if (strtolower(substr(PHP_OS, 0, 3)) === 'win') {
+      if (strtolower(substr(PHP_OS, 0, strlen('win'))) !== 'win') {
         return is_writable($file);
       }
 

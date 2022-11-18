@@ -37,6 +37,7 @@
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_COUNTRIES,
     'page' => $_GET['spage'] ?? null,
+    'page_name' => 'spage',
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
     'sql' => sprintf(<<<'EOSQL'
 SELECT a.*, c.countries_name, z.zone_name
