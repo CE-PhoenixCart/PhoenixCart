@@ -107,12 +107,12 @@
       return array_filter(
         array_map('strtolower', array_column($acceptable_locales, 'locale')),
         function ($v) {
-          if (isset(static::LANGUAGES[$v])) {
+          if (isset(static::LANGUAGES[$v]) || ('*' === $v)) {
             return true;
           }
 
           foreach (static::LANGUAGES as $language) {
-            if (preg_match("{\A(?:$v)\z}", $language)) {
+            if (preg_match("{\A(?:$language)\z}", $v)) {
               return true;
             }
           }
