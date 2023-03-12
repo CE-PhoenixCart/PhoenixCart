@@ -84,7 +84,7 @@ EOJS;
     </div>
 
 <?php
-  if (isset($GLOBALS['action']) && ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action']))) {
+  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'] ?? 'default')) {
     require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>
