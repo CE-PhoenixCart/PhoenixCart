@@ -95,7 +95,7 @@
         $input .= FORM_REQUIRED_INPUT;
       }
 
-      include DIR_FS_CATALOG . Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {
