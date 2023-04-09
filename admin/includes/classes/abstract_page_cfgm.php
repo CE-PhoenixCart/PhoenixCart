@@ -15,7 +15,7 @@
     const LANGUAGE_DIRECTORY = DIR_FS_CATALOG . 'includes/languages/';
     const TEMPLATE_INTEGRATION = false;
 
-    public static function fix_installed_constant($installed_modules) {
+    public static function fix_installed_constant(&$installed_modules) {
       return empty($_GET['page']);
     }
 
