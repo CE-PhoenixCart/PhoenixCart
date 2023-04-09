@@ -22,7 +22,15 @@
       'product_info' => 'MODULE_CONTENT_PI_INSTALLED',
     ];
 
-    public static function fix_installed_constant($installed_modules) {
+    protected static function is_module_installed($module) {
+      if (!isset($GLOBALS[$module]) || !($GLOBALS[$module] instanceof $module)) {
+        $GLOBALS[$module] = new $module();
+      }
+
+      return $GLOBALS[$module]->isEnabled();
+    }
+
+    public static function fix_installed_constant(&$installed_modules) {
       if (empty($_GET['page'])) {
         if (empty($_GET['module'])) {
           foreach (static::GROUP_KEYS as $key) {
@@ -48,12 +56,15 @@
       $key = static::GROUP_KEYS[pathinfo($page, PATHINFO_FILENAME)] ?? null;
 
       if (is_null($key)) {
-        error_log("No key found for '{$_GET['page']}'");
+        error_log("No key found for '$page'");
         return false;
       }
 
       $GLOBALS['cfg_modules']->set(static::CODE, 'key', $key);
       $GLOBALS['module_key'] = $key;
+      $installed_modules = array_filter($installed_modules, function ($v) use ($page) {
+        return ($v['group'] == $page) && static::is_module_installed($v['code']);
+      });
 
       return true;
     }
@@ -146,7 +157,7 @@
             'name' => TABLE_HEADING_ENABLED,
             'class' => 'text-right',
             'function' => function ($row) {
-              return ($row['status'] > 0)
+              return ($row['enabled'] > 0)
                    ? '<i class="fas fa-check-circle text-success"></i>'
                    : '<i class="fas fa-times-circle text-danger"></i>';
             },
