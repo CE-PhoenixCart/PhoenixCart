@@ -44,7 +44,7 @@
           return false;
         }
 
-        if (empty($GLOBALS[$_GET['module']]->group)) {
+        if (empty(Guarantor::ensure_global($_GET['module'])->group)) {
           return true;
         }
 
