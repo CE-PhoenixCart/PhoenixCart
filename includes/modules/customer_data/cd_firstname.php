@@ -84,6 +84,7 @@
         'id' => $input_id,
         'autocomplete' => 'given-name',
         'placeholder' => ENTRY_FIRST_NAME_TEXT,
+        'minlength' => ENTRY_FIRST_NAME_MIN_LENGTH,
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {

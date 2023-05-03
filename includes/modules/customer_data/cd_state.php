@@ -92,7 +92,8 @@
 
       $parameters = [
         'id' => $input_id,
-        'autocomplete' => 'address-level1'
+        'autocomplete' => 'address-level1',
+        'minlength' => ENTRY_STATE_MIN_LENGTH,
       ];
 
 

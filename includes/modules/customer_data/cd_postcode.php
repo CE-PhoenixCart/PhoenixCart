@@ -82,6 +82,7 @@
         'id' => $input_id,
         'autocomplete' => 'postal-code',
         'placeholder' => ENTRY_POST_CODE_TEXT,
+        'minlength' => constant(static::CONFIG_KEY_BASE . 'MIN_LENGTH'),
       ];
 
       if ($customer_details && is_array($customer_details)) {

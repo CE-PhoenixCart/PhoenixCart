@@ -81,6 +81,7 @@
         'id' => $input_id,
         'autocomplete' => 'family-name',
         'placeholder' => ENTRY_LAST_NAME_TEXT,
+        'minlength' => ENTRY_LAST_NAME_MIN_LENGTH,
       ];
 
       $input = new Input('lastname', $parameters);

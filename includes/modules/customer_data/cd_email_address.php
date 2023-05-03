@@ -81,7 +81,8 @@
       $input = new Input('email_address', [
         'id' => $input_id,
         'autocomplete' => 'username email',
-        'placeholder' => ENTRY_EMAIL_ADDRESS_TEXT
+        'placeholder' => ENTRY_EMAIL_ADDRESS_TEXT,
+        'minlength' => ENTRY_EMAIL_ADDRESS_MIN_LENGTH,
       ], 'email');
 
       if (isset($customer_details) && is_array($customer_details)) {
