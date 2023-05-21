@@ -82,7 +82,7 @@
         'id' => $input_id,
         'autocomplete' => 'address-line1',
         'placeholder' => ENTRY_STREET_ADDRESS_TEXT,
-        'minlength' => constant(static::CONFIG_KEY_BASE . 'MIN_LENGTH'),
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ]);
 
       if ($customer_details && is_array($customer_details)) {

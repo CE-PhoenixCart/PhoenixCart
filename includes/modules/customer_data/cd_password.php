@@ -84,7 +84,7 @@
         'autocomplete' => isset($customer_details['password'])
                         ? 'current-password'
                         : 'new-password',
-        'minlength' => constant(static::CONFIG_KEY_BASE . 'MIN_LENGTH'),
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ];
 
       if (defined($entry_base . '_TEXT') && !Text::is_empty(constant($entry_base . '_TEXT'))) {

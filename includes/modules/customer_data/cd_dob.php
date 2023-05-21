@@ -80,7 +80,7 @@
         'id' => $input_id,
         'autocomplete' => 'bday',
         'placeholder' => ENTRY_DOB_TEXT,
-        'minlength' => constant(static::CONFIG_KEY_BASE . 'MIN_LENGTH'),
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {
