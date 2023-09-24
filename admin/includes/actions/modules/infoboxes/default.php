@@ -13,9 +13,10 @@
   if (isset($table_definition['info']->code)) {
     $mInfo =& $table_definition['info'];
     $heading = $mInfo->title;
+    $module = new $mInfo->code();
 
     $link = $Admin->link('modules.php')->retain_query_except()->set_parameter('module', $mInfo->code);
-    if (in_array($mInfo->file, $modules_installed)) {
+    if ($module->isEnabled()) {
       $keys = '';
       foreach ($mInfo->keys as $value) {
         $keys .= '<strong>' . $value['title'] . '</strong><br>';
@@ -62,7 +63,7 @@
         'class' => 'text-break',
         'text' => $keys,
       ];
-    } elseif (isset($_GET['list']) && ($_GET['list'] == 'new')) {
+    } elseif (isset($_GET['list']) && ('new' === $_GET['list'])) {
       $contents = ['form' => new Form('install_module', $link->delete_parameter('list')->set_parameter('action', 'install'))];
       $contents[] = [
         'class' => 'text-center',

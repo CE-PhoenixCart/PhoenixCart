@@ -44,11 +44,11 @@
           return false;
         }
 
-        if (empty(Guarantor::ensure_global($_GET['module'])->group)) {
-          return true;
+        if (!class_exists($_GET['module'])) {
+          return false;
         }
 
-        $page = $GLOBALS[$_GET['module']]->group;
+        $page = basename(dirname($GLOBALS['class_index']->get($_GET['module'])));
       } else {
         $page = $_GET['page'];
       }
@@ -63,10 +63,20 @@
       $GLOBALS['cfg_modules']->set(static::CODE, 'key', $key);
       $GLOBALS['module_key'] = $key;
       $installed_modules = array_filter($installed_modules, function ($v) use ($page) {
+        if (isset($v['file']) && !isset($v['group'], $v['code'])) {
+          $v['code'] = pathinfo($v['file'], PATHINFO_FILENAME);
+          $v['group'] = basename(dirname($GLOBALS['class_index']->get($v['code'])));
+        }
+
         return ($v['group'] == $page) && static::is_module_installed($v['code']);
       });
 
-      return true;
+      $installed = implode(';', array_column($installed_modules, 'file'));
+      if (constant($key) !== $installed) {
+        cfg_modules::update_configuration($installed, $key);
+      }
+
+      return false;
     }
 
     public static function generate_modules() {

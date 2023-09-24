@@ -16,11 +16,9 @@
     if (cfg_modules::can($module, 'remove')) {
       $module->remove();
 
-      $db->query(sprintf(
-        "UPDATE configuration SET configuration_value = '%s' WHERE configuration_key = '%s'",
+      cfg_modules::update_configuration(
         $db->escape(implode(';', array_diff($modules_installed, ["{$_GET['module']}.php"]))),
-        $db->escape($module_key)
-        ));
+        $db->escape($module_key));
 
       return $link;
     }
