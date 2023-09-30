@@ -83,6 +83,7 @@
         'autocomplete' => 'tel',
         'placeholder' => ENTRY_TELEPHONE_TEXT,
         'minlength' => $this->base_constant('MIN_LENGTH'),
+        'type' => 'tel',
       ]);
 
       if (!empty($customer_details) && is_array($customer_details)) {
