@@ -99,6 +99,9 @@
           }
         }
 
+        $parameters = ['product_schema' => &$schema_product];
+        $GLOBALS['hooks']->cat('injectHtProductSchema', $parameters);
+
         $data = json_encode($schema_product);
 
         $GLOBALS['Template']->add_block('<script type="application/ld+json">' . $data . '</script>', $this->group);
