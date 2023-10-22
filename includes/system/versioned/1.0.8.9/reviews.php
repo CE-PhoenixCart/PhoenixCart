@@ -26,6 +26,10 @@ EOSQL
     }
 
     public static function verify_buyer() {
+      if ('true' === ALLOW_ALL_REVIEWS) {
+        return;
+      }
+
       $reviewable_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT op.products_id
  FROM orders_products op
