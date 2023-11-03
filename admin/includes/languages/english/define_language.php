@@ -21,7 +21,7 @@ const TEXT_EDIT_NOTE = <<<'EORT'
 
 <p>Each language definition is set as a PHP constant in the following manner:</p>
 
-<p><pre>const TEXT_MAIN = '<span style="background-color: #FFFF99;">This text can be edited. It\'s really easy to do!</span>');</pre></p>
+<p><pre>const TEXT_MAIN = '<span style="background-color: #FFFF99;">This text can be edited. It\'s really easy to do!</span>';</pre></p>
 
 <p>The highlighted text can be edited. As this definition is using single quotes to contain the text, any single quotes within the text definition must be escaped with a backslash (eg, It\'s)</p>
 
