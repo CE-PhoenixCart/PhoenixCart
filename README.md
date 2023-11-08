@@ -104,13 +104,11 @@ If you wish to help steer the future direction of the software you need to join 
 
 Channel | URL 
 ------------ | -------------
-Phoenix Club | https://phoenixcart.org/forum/
-Phoenix (Youtube) | https://www.youtube.com/channel/UCjJe0ZX3-nGzeJFEzcVUyIA/
+Phoenix (Forum) | https://phoenixcart.org/forum/
+Phoenix (Youtube) | https://www.youtube.com/@PhoenixCart/
 Zipurman Coding (Youtube) | https://www.youtube.com/user/zipurman/videos
-Support (Discord) | https://discord.gg/3pzfrtMAX4
 User Guide (Phoenix Cart) | https://phoenixcart.org/phoenixcartwiki/index.php
 Add-ons Library (Phoenix Cart) | https://phoenixcart.org/forum/addons/
-Forum (Phoenix Cart) | https://phoenixcart.org/forum/
 
 ## Credits
 
