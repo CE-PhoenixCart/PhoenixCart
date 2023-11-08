@@ -28,8 +28,8 @@ const TEXT_EDIT_NOTE = <<<'EORT'
 <p>Multiple line entries can be done like</p>
 
 <p><pre>const TEXT_MAIN = <<<'EOT'
-<span style="background-color: #FFFF99;">This text can be edited.
- It's really easy to do!</span>
+<span style="background-color: #FFFF99;">This text can be edited. 
+It's really easy to do!</span>
 EOT;</pre></p>
 
 <p>Also, it is no longer necessary to escape with a backslash in multiple line entries like this.</p>
