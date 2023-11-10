@@ -39,7 +39,7 @@
       $form_action = 'update';
 
       $product_query = $db->query(sprintf(<<<'EOSQL'
-SELECT p.products_id, pd.products_name, p.products_price, s.specials_new_products_price, s.expires_date
+SELECT p.*, pd.*, s.*
  FROM products p INNER JOIN products_description pd ON p.products_id = pd.products_id and pd.language_id = %d INNER JOIN specials s ON pd.products_id = s.products_id
  WHERE s.specials_id = %d
 EOSQL
