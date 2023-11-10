@@ -44,8 +44,11 @@
 
 <div class="row">
   <div class="col-12 col-sm-9">
-    <h2 class="display-4"><?= TEXT_STORE_SETTINGS ?></h2>
-    <p class="text-danger pull-right text-right"><?= TEXT_REQUIRED_INFORMATION ?></p>
+    
+    <div class="row">
+      <h2 class="display-4 col-12 col-md-9"><?= TEXT_STORE_SETTINGS ?></h2>
+      <p class="col-12 col-md-3 text-danger text-md-right my-auto"><?= TITLE_REQUIRED_INFORMATION ?></p>
+    </div>
 
     <form name="install" id="installForm" action="install.php?step=4" method="post" role="form">
 
