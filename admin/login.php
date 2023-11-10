@@ -56,8 +56,8 @@
   require 'includes/template_top.php';
 ?>
 
-  <div class="mx-auto w-75 w-md-25">
-    <div class="card text-center shadow mt-5">
+  <div class="mx-auto col-sm-6 col-md-4 col-lg-3">
+    <div class="card text-center shadow my-5">
       <div class="card-header text-white bg-dark"><?= HEADING_TITLE ?></div>
       <div class="px-5 py-2">
         <?= $Admin->image('images/CE-Phoenix.png', ['alt' => 'CE PhoenixCart', 'class' => 'card-img-top']) ?>
