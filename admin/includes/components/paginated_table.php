@@ -12,7 +12,7 @@
 ?>
 
   <div class="row no-gutters">
-    <div class="col-12 col-sm-8">
+    <div class="col-12 col-sm-<?= $table_definition['width'] ?? 8 ?>">
       <div class="table-responsive"><?= $table_definition['form'] ?? '' ?>
         <table class="table table-striped table-hover">
           <thead class="thead-dark">

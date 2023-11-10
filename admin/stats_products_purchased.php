@@ -51,6 +51,7 @@ EOSQL
     'page' => $_GET['page'] ?? null,
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
     'sql' => $products_sql,
+    'width' => 12,
   ];
 
   $table_definition['split'] = new Paginator($table_definition);
