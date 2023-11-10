@@ -83,7 +83,7 @@ class hook_admin_siteWide_hMenu {
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/">' . HEADER_TITLE_PHOENIX_CLUB . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/phoenixcartwiki/index.php">' . HEADER_TITLE_PHOENIX_WIKI . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/addons/">' . HEADER_TITLE_CERTIFIED_ADDONS . '</a></li>';
-          $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->link('certified_addons.php') . '">' . HEADER_TITLE_CERTIFIED_DEVELOPERS . '</a></li>';
+          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/viewforum.php?f=22">' . HEADER_TITLE_CERTIFIED_DEVELOPERS . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->catalog('') . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link text-danger" href="' . $GLOBALS['Admin']->link('login.php', ['action' => 'logoff']) . '">'
                    . sprintf(HEADER_TITLE_LOGOFF, $_SESSION['admin']['username'])

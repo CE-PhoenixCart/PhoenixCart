@@ -13,7 +13,7 @@
   - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart#user-checklist)
   - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart#one-click)
   - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart#language-packs)
-* [Certified Service Providers](https://github.com/CE-PhoenixCart/PhoenixCart#certified-service-providers)
+* [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart#certified-partners)
 * [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart#how-to-support-the-phoenix-project)
   - [Join the Phoenix Club](https://github.com/CE-PhoenixCart/PhoenixCart#join-the-phoenix-club)
 * [Links](https://github.com/CE-PhoenixCart/PhoenixCart#helpful-links)
@@ -87,12 +87,12 @@ Help Phoenix fly high...if you or your employer is commercially dependent on Pho
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
 
-### Certified Service Providers
+### Certified Partners
 
-[Certified service providers](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
 
-* These developers are certified by the Core Team
-* These developers support Phoenix by giving their time, code and financial support
+* These partners are certified by the Core Team
+* These partners support Phoenix by giving their time, code and financial support
 
 If you are looking for a developer for a paid-for project, please consider one of those at https://phoenixcart.org/forum/app.php/developers
 

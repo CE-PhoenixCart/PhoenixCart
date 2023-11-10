@@ -36,7 +36,7 @@ const TITLE = 'CE Phoenix Cart Administration Tool';
 const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Your Shop</span>';
 const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Help</span>';
 const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">User Guide</span>';
-const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Certified Developers</span>';
+const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Certified Partners</span>';
 const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Add-ons</span>';
 const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock mr-1" aria-hidden="true"></i><span class="border-bottom border-danger">%s, securely log off</span>';
 
