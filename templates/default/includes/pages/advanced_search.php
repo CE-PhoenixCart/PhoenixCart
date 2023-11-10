@@ -15,66 +15,6 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<script src="includes/general.js"></script>
-<script><!--
-function check_form() {
-  var error_message = "<?= JS_ERROR ?>";
-  var error_found = false;
-  var error_field;
-  var keywords = document.advanced_search.keywords.value;
-  var dfrom = document.advanced_search.dfrom.value;
-  var dto = document.advanced_search.dto.value;
-  var pfrom = document.advanced_search.pfrom.value;
-  var pto = document.advanced_search.pto.value;
-  var pfrom_float;
-  var pto_float;
-
-  if ( ((keywords == '') || (keywords.length < 1)) && ((dfrom == '') || (dfrom.length < 1)) && ((dto == '') || (dto.length < 1)) && ((pfrom == '') || (pfrom.length < 1)) && ((pto == '') || (pto.length < 1)) ) {
-    error_message = error_message + "* <?= ERROR_AT_LEAST_ONE_INPUT ?>\n";
-    error_field = document.advanced_search.keywords;
-    error_found = true;
-  }
-
-  if (pfrom.length > 0) {
-    pfrom_float = parseFloat(pfrom);
-    if (isNaN(pfrom_float)) {
-      error_message = error_message + "* <?= ERROR_PRICE_FROM_MUST_BE_NUM ?>\n";
-      error_field = document.advanced_search.pfrom;
-      error_found = true;
-    }
-  } else {
-    pfrom_float = 0;
-  }
-
-  if (pto.length > 0) {
-    pto_float = parseFloat(pto);
-    if (isNaN(pto_float)) {
-      error_message = error_message + "* <?= ERROR_PRICE_TO_MUST_BE_NUM ?>\n";
-      error_field = document.advanced_search.pto;
-      error_found = true;
-    }
-  } else {
-    pto_float = 0;
-  }
-
-  if ( (pfrom.length > 0) && (pto.length > 0) ) {
-    if ( (!isNaN(pfrom_float)) && (!isNaN(pto_float)) && (pto_float < pfrom_float) ) {
-      error_message = error_message + "* <?= ERROR_PRICE_TO_LESS_THAN_PRICE_FROM ?>\n";
-      error_field = document.advanced_search.pto;
-      error_found = true;
-    }
-  }
-
-  if (error_found == true) {
-    alert(error_message);
-    error_field.focus();
-    return false;
-  } else {
-    return true;
-  }
-}
-//--></script>
-
 <h1 class="display-4"><?= HEADING_TITLE_1 ?></h1>
 
 <?php
@@ -83,7 +23,7 @@ function check_form() {
   }
 ?>
 
-<?= (new Form('advanced_search', $Linker->build('advanced_search_result.php', [], false), 'get', ['onsubmit' => 'return check_form(this);']))->hide_session_id()->hide('search_in_description', '1') ?>
+<?= (new Form('advanced_search', $Linker->build('advanced_search_result.php', [], false), 'get'))->hide_session_id()->hide('search_in_description', '1') ?>
 
   <div class="form-group row">
     <label for="inputKeywords" class="col-form-label col-sm-3 text-left text-sm-right"><?= HEADING_SEARCH_CRITERIA ?></label>

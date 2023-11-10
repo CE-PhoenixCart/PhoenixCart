@@ -17,8 +17,6 @@
   $error = false;
 
   if ( empty($_GET['keywords'])
-    && (empty($_GET['dfrom']) || ($_GET['dfrom'] == DATE_FORMAT_STRING))
-    && (empty($_GET['dto']) || ($_GET['dto'] == DATE_FORMAT_STRING))
     && !is_numeric($_GET['pfrom'] ?? null)
     && !is_numeric($_GET['pto'] ?? null)
     )
@@ -27,19 +25,9 @@
 
     $messageStack->add_session('search', ERROR_AT_LEAST_ONE_INPUT);
   } else {
-    $dfrom = '';
-    $dto = '';
     $pfrom = $_GET['pfrom'] ?? '';
     $pto = $_GET['pto'] ?? '';
     $keywords = '';
-
-    if (isset($_GET['dfrom']) && ($_GET['dfrom'] !== DATE_FORMAT_STRING)) {
-      $dfrom = $_GET['dfrom'];
-    }
-
-    if (isset($_GET['dto']) && ($_GET['dto'] !== DATE_FORMAT_STRING)) {
-      $dto = $_GET['dto'];
-    }
 
     if (isset($_GET['keywords'])) {
       $keywords = Text::input($_GET['keywords']);
@@ -73,7 +61,7 @@
     }
   }
 
-  if (empty($dfrom) && empty($dto) && empty($pfrom) && empty($pto) && empty($keywords)) {
+  if (empty($pfrom) && empty($pto) && empty($keywords)) {
     $error = true;
 
     $messageStack->add_session('search', ERROR_AT_LEAST_ONE_INPUT);
