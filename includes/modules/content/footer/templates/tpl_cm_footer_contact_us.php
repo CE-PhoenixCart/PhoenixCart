@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-<?= (int)MODULE_CONTENT_FOOTER_CONTACT_US_CONTENT_WIDTH ?> cm-footer-contact-us">
+<div class="col-sm-6 col-md-<?= (int)MODULE_CONTENT_FOOTER_CONTACT_US_CONTENT_WIDTH ?> cm-footer-contact-us mb-2 mb-sm-0">
   <h4><?= MODULE_CONTENT_FOOTER_CONTACT_US_HEADING_TITLE ?></h4>
   <address>
     <strong><?= STORE_NAME ?></strong><br>

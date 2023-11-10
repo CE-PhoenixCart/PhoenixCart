@@ -1,4 +1,4 @@
-<div class="col-sm-6 col-md-<?= (int)MODULE_CONTENT_FOOTER_ACCOUNT_CONTENT_WIDTH ?> cm-footer-account">
+<div class="col-sm-6 col-md-<?= (int)MODULE_CONTENT_FOOTER_ACCOUNT_CONTENT_WIDTH ?> cm-footer-account mb-2 mb-sm-0">
   <h4><?= MODULE_CONTENT_FOOTER_ACCOUNT_HEADING_TITLE ?></h4>
   <nav class="nav nav-pills flex-column">
 
