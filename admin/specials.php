@@ -78,7 +78,7 @@ EOSQL
     <div class="form-group row" id="zDate">
       <label for="specialDate" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SPECIALS_EXPIRES_DATE ?></label>
       <div class="col-sm-9">
-        <?= new Input('expdate', ['value' => (isset($sInfo->expires_date) ? substr($sInfo->expires_date, 0, 4) . '-' . substr($sInfo->expires_date, 5, 2) . '-' . substr($sInfo->expires_date, 8, 2) : ''), 'id' => 'specialDate']) ?>
+        <?= new Input('expdate', ['class' => 'form-control w-25', 'value' => substr($sInfo->expires_date ?? '', 0, 10), 'onfocus' => 'this.showPicker?.()'], 'date') ?>
       </div>
     </div>
 
@@ -92,8 +92,6 @@ EOSQL
     ?>
 
   </form>
-
-  <script>$('#specialDate').datepicker({ dateFormat: 'yy-mm-dd' });</script>
 
 <?php
   } else {

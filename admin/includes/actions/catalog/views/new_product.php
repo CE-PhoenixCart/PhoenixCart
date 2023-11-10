@@ -153,7 +153,7 @@ function updateNet() {
         <div class="form-group row" id="zDate">
           <label for="products_date_available" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_DATE_AVAILABLE ?></label>
           <div class="col-sm-9">
-            <?= (new Input('products_date_available', ['id' => 'products_date_available', 'aria-describedby' => 'pDateHelp', 'class' => 'form-control w-25']))->default_value($product->get('date_available') ?? '') ?>
+            <?= (new Input('products_date_available', ['id' => 'products_date_available', 'aria-describedby' => 'pDateHelp', 'class' => 'form-control w-25', 'onfocus' => 'this.showPicker?.()'], 'date'))->default_value(substr($product->get('date_available') ?? '', 0, 10)) ?>
             <small id="pDateHelp" class="form-text text-muted">
               <?= TEXT_PRODUCTS_DATE_AVAILABLE_HELP ?>
             </small>
@@ -390,7 +390,6 @@ function updateNet() {
 
   <script>
   updateGross();
-  $('#products_date_available').datepicker({ dateFormat: 'yy-mm-dd' });
   </script>
 
   <?=

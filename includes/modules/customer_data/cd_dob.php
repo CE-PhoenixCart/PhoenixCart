@@ -38,11 +38,6 @@
           'desc' => 'Do you want the date of birth to be required in customer registration?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        static::CONFIG_KEY_BASE . 'MIN_LENGTH' => [
-          'title' => 'Minimum Length',
-          'value' => '10',
-          'desc' => 'Minimum length of date of birth',
-        ],
         static::CONFIG_KEY_BASE . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'account_edit;create_account;customers',
@@ -78,13 +73,12 @@
 
       $input = new Input('dob', [
         'id' => $input_id,
+        'onfocus' => 'this.showPicker?.()',
         'autocomplete' => 'bday',
-        'placeholder' => ENTRY_DOB_TEXT,
-        'minlength' => $this->base_constant('MIN_LENGTH'),
-      ]);
+      ], 'date');
 
       if (isset($customer_details) && is_array($customer_details)) {
-        $input->set('value', Date::abridge($this->get('dob', $customer_details)));
+        $input->set('value', $this->get('dob', $customer_details));
       }
 
       if ($this->is_required()) {
@@ -99,11 +93,8 @@
       if (empty($date)) {
         return $this->is_required();
       }
-
-      return ((strlen($date) >= $this->base_constant('MIN_LENGTH'))
-        && is_numeric($date = cd_dob_date_raw($date))
-        && @checkdate(substr($date, 4, 2), substr($date, 6, 2), substr($date, 0, 4)))
-        && $date = substr($date, 0, 4) . '-' . substr($date, 4, 2) . '-' . substr($date, 6, 2);
+      
+      return true;
     }
 
     public function process(&$customer_details) {
@@ -115,7 +106,7 @@
 
       $GLOBALS['messageStack']->add_classed(
         $GLOBALS['message_stack_area'] ?? 'customer_data',
-        sprintf(ENTRY_DOB_ERROR, $this->base_constant('MIN_LENGTH')));
+        sprintf(ENTRY_DOB_ERROR));
 
       error_log(sprintf('Date input as [%s] and parsed as [%s]', $_POST['dob'] ?? '', $customer_details['dob']));
       $customer_details['dob'] = null;

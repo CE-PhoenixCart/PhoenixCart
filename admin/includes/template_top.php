@@ -24,17 +24,6 @@
 
 <script src="<?= $Admin->catalog('ext/jquery/ui/jquery-ui-1.10.4.min.js') ?>"></script>
 
-<?php
-  if (!Text::is_empty(JQUERY_DATEPICKER_I18N_CODE)) {
-?>
-<script src="<?= $Admin->catalog('ext/jquery/ui/i18n/jquery.ui.datepicker-' . JQUERY_DATEPICKER_I18N_CODE . '.js') ?>"></script>
-<script>
-$.datepicker.setDefaults($.datepicker.regional['<?= JQUERY_DATEPICKER_I18N_CODE ?>']);
-</script>
-<?php
-  }
-?>
-
 </head>
 <body>
 

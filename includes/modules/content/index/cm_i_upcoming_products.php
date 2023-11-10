@@ -27,7 +27,7 @@
       $expected_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT p.products_id, pd.products_name, products_date_available AS date_expected
  FROM products p INNER JOIN products_description pd ON p.products_id = pd.products_id
- WHERE TO_DAYS(products_date_available) >= TO_DAYS(NOW()) AND pd.language_id = %d
+ WHERE products_date_available >= NOW() AND pd.language_id = %d
  ORDER BY %s
  LIMIT %d
 EOSQL
