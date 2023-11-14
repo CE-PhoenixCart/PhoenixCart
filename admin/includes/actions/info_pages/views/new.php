@@ -84,7 +84,8 @@
     <div class="form-group row" id="zInputSlug">
       <label for="inputSlug" class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_SLUG ?></label>
       <div class="col-sm-9">
-        <?= (new Input('slug', ['id' => 'inputSlug', 'class' => 'form-control w-50']))->require() ?>
+        <?= (new Input('slug', ['id' => 'inputSlug', 'class' => 'form-control w-50', 'aria-describedby' => 'zSlugHelp']))->require() ?>
+        <small id="zSlugHelp" class="form-text text-muted"><?= TEXT_PAGE_SLUG_HELP ?></small>
       </div>
     </div>
 

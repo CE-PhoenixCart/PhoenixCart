@@ -48,3 +48,5 @@ const SORT_ORDER = 'Sort Order';
 const TABLE_HEADING_SORT_ORDER = 'Sort Order';
 
 const MISSING_SLUGS_ERROR = 'Required Slugs are Missing:  <b>%s</b><hr>These Slugs are required to power certain functionality of your site.';
+
+const TEXT_PAGE_SLUG_HELP = 'Slug *must* be Unique';
