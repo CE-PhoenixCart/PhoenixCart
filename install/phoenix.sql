@@ -1095,6 +1095,9 @@ INSERT INTO countries VALUES (246, 'Saint Martin (French part)', 'MF', 'MAF', '1
 INSERT INTO countries VALUES (247, 'Sint Maarten (Dutch part)', 'SX', 'SXM', '1');
 INSERT INTO countries VALUES (248, 'South Sudan', 'SS', 'SSD', '1');
 INSERT INTO countries VALUES (249, 'Timor-Leste', 'TL', 'TLS', '1');
+INSERT INTO countries VALUES (250, 'Guernsey', 'GG', 'GGY', '1');
+INSERT INTO countries VALUES (251, 'Jersey', 'JE', 'JEY', '1');
+INSERT INTO countries VALUES (252, 'Isle of Man', 'IM', 'IMN', '1');
 
 INSERT INTO currencies VALUES (1,'U.S. Dollar','USD','$','','.',',','2','1.0000', now());
 INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','1.0000', now());
