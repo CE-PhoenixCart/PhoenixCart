@@ -161,18 +161,6 @@
             },
           ],
         ]);
-
-        array_splice($GLOBALS['table_definition']['columns'], -1, 0, [
-          [
-            'name' => TABLE_HEADING_ENABLED,
-            'class' => 'text-right',
-            'function' => function ($row) {
-              return ($row['enabled'] > 0)
-                   ? '<i class="fas fa-check-circle text-success"></i>'
-                   : '<i class="fas fa-times-circle text-danger"></i>';
-            },
-          ],
-        ]);
       }
     }
 
