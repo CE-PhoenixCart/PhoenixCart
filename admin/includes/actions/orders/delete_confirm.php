@@ -12,6 +12,6 @@
 
   $oID = Text::input($_GET['oID']);
 
-  order::remove($oID, $_POST['restock'] ?? false);
+  order::remove($oID, $_POST['restock'] ?? false, $_POST['reactivate'] ?? false);
 
   return $Admin->link('orders.php')->retain_query_except(['oID', 'action']);

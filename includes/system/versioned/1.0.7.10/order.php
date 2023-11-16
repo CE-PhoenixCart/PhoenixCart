@@ -43,12 +43,21 @@
       $this->id = Text::input($order_id);
     }
 
-    public static function remove($order_id, $restock = false) {
+    public static function remove($order_id, $restock = false, $reactivate = false) {
       if ('on' === $restock) {
         $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 UPDATE products p INNER JOIN orders_products op ON p.products_id = op.products_id
   SET p.products_quantity = p.products_quantity + op.products_quantity,
       p.products_ordered = p.products_ordered - op.products_quantity
+  WHERE op.orders_id = %d
+EOSQL
+          , (int)$order_id));
+      }
+      
+      if ('on' === $reactivate) {
+        $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+UPDATE products p INNER JOIN orders_products op ON p.products_id = op.products_id
+  SET p.products_status = 1
   WHERE op.orders_id = %d
 EOSQL
           , (int)$order_id));
