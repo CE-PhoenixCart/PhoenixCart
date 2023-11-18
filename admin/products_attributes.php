@@ -39,12 +39,16 @@ SELECT products_options_id AS id, products_options_name AS text, products_option
 EOSQL
     , (int)$_SESSION['languages_id']));
   $values = $db->fetch_all(sprintf(<<<'EOSQL'
-SELECT products_options_values_id AS id, products_options_values_name AS text, products_options_values.*
- FROM products_options_values
- WHERE language_id = %d
- ORDER BY products_options_values_name
+SELECT pov.*, pov.products_options_values_id AS id, pov.products_options_values_name AS text, pov2po.products_options_id 
+ FROM products_options_values pov LEFT JOIN products_options_values_to_products_options pov2po ON pov.products_options_values_id = pov2po.products_options_values_id 
+ WHERE pov.language_id = %d 
+ ORDER BY pov.products_options_values_name 
 EOSQL
-    , (int)$_SESSION['languages_id']));
+    , (int)$_SESSION['languages_id']));    
+  $grouped_values = [];
+  foreach ($values as $value) {
+    $grouped_values[] = ['id' => $value['id'], 'text' => $value['text'], 'parameters' => ['data-id' => $value['products_options_id']]];
+  }
 
   require 'includes/template_top.php';
   ?>
@@ -175,7 +179,7 @@ EOSQL
                 <?= new Select('options_id', array_merge($default_selection, $options)) ?>
               </td>
               <td>
-                <?= new Select('values_id', array_merge($default_selection, $values)) ?>
+                <?= new Select('values_id', array_merge($default_selection, $grouped_values)) ?>
               </td>
               <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
               <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>
