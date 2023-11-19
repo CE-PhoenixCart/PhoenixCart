@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-md-<?= (int)MODULE_CONTENT_FOOTER_INFORMATION_CONTENT_WIDTH ?> cm-footer-information-links mb-2 mb-sm-0">
   <h4><?= MODULE_CONTENT_FOOTER_INFORMATION_HEADING_TITLE ?></h4>
-  <nav class="nav nav-pills flex-column">
+  <nav class="nav flex-column">
     <?php
   foreach (MODULE_CONTENT_FOOTER_INFORMATION_DATA as $page => $text) {
     echo '<a class="nav-link pl-0" href="' . $GLOBALS['Linker']->build($page) . '">' . $text . '</a>' . PHP_EOL;
