@@ -12,7 +12,7 @@
 
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TITLE = 'Payment Icons';
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_DESCRIPTION = <<<'EOT'
-Adds Brand Icons to the Extra Footer Area of your site.<div class="alert alert-info">Available Brand Icons are shown here: https://fontawesome.com/icons?d=gallery&s=brands&c=payments-shopping</div>
+Adds Brand Icons to the Extra Footer Area of your site.<div class="alert alert-info">Available Brand Icons are shown here: https://fontawesome.com/search?q=shopping&o=r&m=free&f=brands</div>
 EOT;
 
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TEXT = '';
