@@ -1,5 +1,5 @@
-<div class="<?php echo $content_width; ?> cm-info-text">
-  <?php echo $page['pages_text']; ?>
+<div class="<?= $content_width ?> cm-info-text">
+  <?= $page['pages_text'] ?>
 </div>
 
 <?php

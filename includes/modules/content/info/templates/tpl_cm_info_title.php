@@ -1,5 +1,5 @@
-<div class="<?php echo $content_width; ?> cm-info-title">
-  <h1 class="display-4"><?php echo $page['pages_title']; ?></h1>
+<div class="<?= $content_width ?> cm-info-title">
+  <h1 class="display-4"><?= $page['pages_title'] ?></h1>
 </div>
 
 <?php
