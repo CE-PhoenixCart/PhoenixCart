@@ -43,6 +43,7 @@
       }
 
       $files = array_unique($files);
+      sort($files);
 
       $output = Config::select_multiple($files, $values, $key) . '<br>'
               . new Tickable('p_all', ['class' => ' '], 'checkbox') . '&nbsp;' . TEXT_ALL;
