@@ -50,7 +50,7 @@ class hook_admin_siteWide_hMenu {
       });
 
       foreach ( $cl_box_groups as &$group ) {
-        usort($group['apps'], 'static::sort_box_links');
+        usort($group['apps'], 'hook_admin_siteWide_hMenu::sort_box_links');
       }
 
       $n = 1;
