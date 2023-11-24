@@ -39,6 +39,12 @@
           'set_func' => 'Customers::select_pages(',
           'use_func' => 'abstract_module::list_exploded',
         ],
+        static::CONFIG_KEY_BASE . 'CHECKOUT' => [
+          'title' => 'Checkout Page',
+          'value' => 'False',
+          'desc' => 'Should the MATC also show on checkout_confirmation?',
+          'set_func' => "Config::select_one(['True', 'False'], ",
+        ],
         static::CONFIG_KEY_BASE . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '6800',
@@ -118,7 +124,9 @@
     }
 
     public function hook() {
-      $this->display_input();
+      if ( 'True' === $this->base_constant('CHECKOUT') && 'True' === $this->base_constant('STATUS') ) { 
+        $this->display_input();
+      }
     }
 
     public function is_checked() {
