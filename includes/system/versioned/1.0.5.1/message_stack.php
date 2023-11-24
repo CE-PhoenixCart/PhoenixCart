@@ -16,6 +16,7 @@
   $messageStack->add('general', 'Error: Error 2', 'warning');
   if ($messageStack->size('general') > 0) echo $messageStack->output('general');
 */
+  #[\AllowDynamicProperties]
   class messageStack extends alertBlock {
 
 // class constructor

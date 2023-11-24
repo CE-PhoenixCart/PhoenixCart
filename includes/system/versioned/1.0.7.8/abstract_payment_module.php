@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  #[\AllowDynamicProperties]
   abstract class abstract_payment_module extends abstract_zoneable_module {
 
     function __construct() {

@@ -142,6 +142,7 @@
       return $this->link();
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
       return "$this";
     }
