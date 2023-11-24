@@ -35,7 +35,7 @@
       $output = '<table class="table table-striped mb-2">';
         $output .= '<thead class="thead-dark">';
           $output .= '<tr>';
-            $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_TITLE, "$current_version") . '</th>';
+            $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version") . '</th>';
           $output .= '</tr>';
         $output .= '</thead>';
         $output .= '<tbody>';
