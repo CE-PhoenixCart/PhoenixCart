@@ -73,7 +73,7 @@ EOJS;
        ($this->page_count <= 1)
        ? sprintf(TEXT_RESULT_PAGE, $this->page_count, $this->page_count)
        : '<div class="input-group">'
-         . '<div class="input-group-append">'
+         . '<div class="input-group-append ml-auto">'
            . '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>'
          . '</div>'
          . $table_definition['split']->draw_pages_form()
