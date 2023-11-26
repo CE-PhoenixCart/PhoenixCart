@@ -66,6 +66,15 @@
           return preg_replace('{ceid=[A-Z0-9,-]+[&]*}i', '', $row['last_page_url']);
         },
       ],
+      [
+        'name' => TABLE_HEADING_ACTION,
+        'class' => 'text-right',
+        'function' => function ($row) {
+          return (isset($row['info']->session_id) && ($row['session_id'] == $row['info']->session_id) )
+               ? '<i class="fas fa-chevron-circle-right text-info"></i>'
+               : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
+        },
+      ],
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_CUSTOMERS,
     'page' => $_GET['page'] ?? null,
