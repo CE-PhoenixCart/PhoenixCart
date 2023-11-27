@@ -61,7 +61,7 @@
 
       $successful = true;
       $details = [];
-      foreach ($purveyors as $purveyor) {
+      foreach (array_unique($purveyors, SORT_REGULAR) as $purveyor) {
         $successful = $this->act_on($purveyor, 'process', $details) && $successful;
       }
 
