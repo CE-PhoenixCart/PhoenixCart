@@ -144,6 +144,7 @@ CREATE TABLE countries (
   countries_iso_code_2 char(2) NOT NULL,
   countries_iso_code_3 char(3) NOT NULL,
   address_format_id int NOT NULL,
+  status int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

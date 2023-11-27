@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  $always_valid_actions = ['set_flag'];
   require 'includes/application_top.php';
   $link = $Admin->link()->retain_query_except(['action', 'cID']);
   require 'includes/segments/process_action.php';
@@ -27,6 +28,16 @@
         'name' => TABLE_HEADING_COUNTRY_CODES,
         'function' => function ($row) {
           return implode(', ', [$row['countries_iso_code_2'], $row['countries_iso_code_3']]);
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_STATUS,
+        'class' => 'text-right',
+        'function' => function (&$row) {
+          $href = (clone $row['onclick'])->set_parameter('action', 'set_flag');
+          return ($row['status'] == '1')
+               ? '<i class="fas fa-check-circle text-success"></i> <a href="' . $href->set_parameter('flag', '0')  . '"><i class="fas fa-times-circle text-muted"></i></a>'
+               : '<a href="' . $href->set_parameter('flag', '1') . '"><i class="fas fa-check-circle text-muted"></i></a> <i class="fas fa-times-circle text-danger"></i>';
         },
       ],
       [
