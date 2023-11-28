@@ -39,14 +39,14 @@
 
     public static function fetch_all() {
       if (empty(static::$countries)) {
-        static::$countries = $GLOBALS['db']->fetch_all("SELECT countries_id, countries_name FROM countries ORDER BY countries_name");
+        static::$countries = $GLOBALS['db']->fetch_all("SELECT countries_id, countries_name FROM countries WHERE status = 1 ORDER BY countries_name");
       }
 
       return static::$countries;
     }
 
     public static function fetch_options() {
-      return $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries ORDER BY countries_name");
+      return $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries WHERE status = 1 ORDER BY countries_name");
     }
 
     public static function draw_menu($name, $selected = '', $parameters = [], $default = PULL_DOWN_DEFAULT) {
