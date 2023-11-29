@@ -78,7 +78,7 @@ EOSQL
     <div class="form-group row" id="zDate">
       <label for="specialDate" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SPECIALS_EXPIRES_DATE ?></label>
       <div class="col-sm-9">
-        <?= new Input('expdate', ['class' => 'form-control w-25', 'value' => substr($sInfo->expires_date ?? '', 0, 10), 'onfocus' => 'this.showPicker?.()'], 'date') ?>
+        <?= new Input('expdate', ['min' => date('Y-m-d'), 'class' => 'form-control w-25', 'value' => substr($sInfo->expires_date ?? '', 0, 10), 'onfocus' => 'this.showPicker?.()'], 'date') ?>
       </div>
     </div>
 
