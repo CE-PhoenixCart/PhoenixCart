@@ -34,7 +34,7 @@
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require State module (if enabled)',
-          'value' => 'True',
+          'value' => 'False',
           'desc' => 'Do you want the state to be required in customer registration?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
