@@ -27,8 +27,7 @@
               . $GLOBALS['Admin']->catalog_image("includes/languages/{$lang['directory']}/images/{$lang['image']}", [], $lang['name']) . '</span></div>'
               . new Input('customer_data_groups_name[' . $lang['id'] . ']') . '</div>'
     ];
-    $contents[] = ['text' => sprintf(TEXT_INFO_VERTICAL_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $lang['id'] . ']')];
-    $contents[] = ['text' => sprintf(TEXT_INFO_HORIZONTAL_SORT_ORDER, null) . '<br>' . new Input('cdg_horizontal_sort_order[' . $lang['id'] . ']')];
+    $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $lang['id'] . ']')];
     $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $lang['id'] . ']', ['value' => '12'])];
   }
 

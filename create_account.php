@@ -33,10 +33,10 @@
 
   $grouped_modules = $customer_data->get_grouped_modules();
   $customer_data_group_query = $db->query(sprintf(<<<'EOSQL'
-SELECT customer_data_groups_id, customer_data_groups_name
+SELECT *
  FROM customer_data_groups
  WHERE language_id = %d
- ORDER BY cdg_vertical_sort_order, cdg_horizontal_sort_order
+ ORDER BY cdg_vertical_sort_order
 EOSQL
     , (int)$_SESSION['languages_id']));
 

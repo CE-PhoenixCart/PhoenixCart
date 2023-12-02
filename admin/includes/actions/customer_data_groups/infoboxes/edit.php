@@ -24,13 +24,8 @@
 
   $cdg_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT
-  cdg.customer_data_groups_name,
-  cdg.cdg_vertical_sort_order,
-  cdg.cdg_horizontal_sort_order,
-  cdg.customer_data_groups_width,
-  l.directory,
-  l.image,
-  l.name,
+  cdg.*,
+  l.*,
   l.languages_id AS id
  FROM customer_data_groups cdg INNER JOIN languages l ON cdg.language_id = l.languages_id
  WHERE customer_data_groups_id = %d
@@ -43,8 +38,7 @@ EOSQL
               . $GLOBALS['Admin']->catalog_image("includes/languages/{$cdg['directory']}/images/{$cdg['image']}", [], $cdg['name']) . '</span></div>'
               . new Input('customer_data_groups_name[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_name']]) . '</div>',
     ];
-    $contents[] = ['text' => sprintf(TEXT_INFO_VERTICAL_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $cdg['id'] . ']', ['value' => $cdg['cdg_vertical_sort_order']])];
-    $contents[] = ['text' => sprintf(TEXT_INFO_HORIZONTAL_SORT_ORDER, null) . '<br>' . new Input('cdg_horizontal_sort_order[' . $cdg['id'] . ']', ['value' => $cdg['cdg_horizontal_sort_order']])];
+    $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $cdg['id'] . ']', ['value' => $cdg['cdg_vertical_sort_order']])];
     $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_width']])];
   }
 

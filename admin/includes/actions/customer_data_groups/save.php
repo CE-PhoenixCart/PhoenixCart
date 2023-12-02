@@ -20,7 +20,6 @@
     $sql_data = [
       'customer_data_groups_name' => Text::prepare($customer_data_groups_name),
       'cdg_vertical_sort_order' => Text::input($_POST['cdg_vertical_sort_order'][$index]),
-      'cdg_horizontal_sort_order' => Text::input($_POST['cdg_horizontal_sort_order'][$index]),
       'customer_data_groups_width' => Text::input($_POST['customer_data_groups_width'][$index]),
     ];
 
