@@ -17,3 +17,5 @@ const ENTRY_STATE = 'State/Province';
 const ENTRY_STATE_ERROR = 'Your State must contain a minimum of %d characters.';
 const ENTRY_STATE_ERROR_SELECT = 'Please select a state from the States pull down menu.';
 const ENTRY_STATE_TEXT = '';
+
+const ENTRY_STATE_SELECT_ONE = '--- Please Select ---';
