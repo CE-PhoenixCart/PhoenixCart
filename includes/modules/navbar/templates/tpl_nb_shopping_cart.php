@@ -22,7 +22,9 @@
       }
       echo '</div>', PHP_EOL;
       echo '<div class="dropdown-divider"></div>', PHP_EOL;
-      echo '<a class="dropdown-item" href="', $GLOBALS['Linker']->build('checkout_shipping.php'), '">', MODULE_NAVBAR_SHOPPING_CART_CHECKOUT, '</a>', PHP_EOL;
+      
+      $goto = ('true' === DISPLAY_CART) ? 'checkout_shipping.php' : 'shopping_cart.php';
+      echo '<a class="dropdown-item" href="', $GLOBALS['Linker']->build($goto), '">', MODULE_NAVBAR_SHOPPING_CART_CHECKOUT, '</a>', PHP_EOL;
     }
     ?>
   </div>
