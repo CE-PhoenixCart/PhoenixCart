@@ -39,7 +39,7 @@
         ],
         'MODULE_NAVBAR_CURRENCIES_SORT_ORDER' => [
           'title' => 'Sort Order',
-          'value' => '530',
+          'value' => '525',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
       ];
