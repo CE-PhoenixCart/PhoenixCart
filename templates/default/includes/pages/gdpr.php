@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('gdpr.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build());
 
   $page_content = $Template->get_content('gdpr');
 
