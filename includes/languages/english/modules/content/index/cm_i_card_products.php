@@ -13,4 +13,5 @@
   const MODULE_CONTENT_CARD_PRODUCTS_TITLE       = 'New Products';
   const MODULE_CONTENT_CARD_PRODUCTS_DESCRIPTION = 'Shows the "New Products" module on your Index page.';
 
-  const MODULE_CONTENT_CARD_PRODUCTS_HEADING     = 'New Products For %s';
+  const MODULE_CONTENT_CARD_PRODUCTS_HEADING     = 'Our Latest Products';
+  const MODULE_CONTENT_CARD_PRODUCTS_VIEW_ALL    = 'View All';
