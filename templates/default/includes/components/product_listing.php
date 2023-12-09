@@ -50,6 +50,9 @@
           ?>
         </div>
       </li>
+      <?php
+      echo $GLOBALS['hooks']->cat('navItemFilters');
+      ?>
     </ul>
   </div>
 
