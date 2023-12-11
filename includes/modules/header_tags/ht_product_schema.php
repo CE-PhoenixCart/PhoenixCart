@@ -85,10 +85,13 @@
           foreach ($product->get('reviews') as $review) {
               $schema_product['review'][] = [
                 '@type'         => 'Review',
-                'author'        => htmlspecialchars($review['customers_name']),
                 'datePublished' => htmlspecialchars($review['date_added']),
                 'description'   => htmlspecialchars($review['text']),
                 'name'          => htmlspecialchars($product->get('name')),
+                'author'  => [
+                  '@type' => 'Person',
+                  'name'  => htmlspecialchars($review['customers_name']),
+                ],
                 'reviewRating'  => [
                   '@type'       => 'Rating',
                   'bestRating'  => '5',
