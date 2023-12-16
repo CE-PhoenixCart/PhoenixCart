@@ -25,10 +25,12 @@ Phoenix is a powerful ecommerce shop ready to use out of the box, putting you on
 
 Phoenix is packed with many first class utilities as standard but its modular software design lets you add many more with no programming skills required. The full suite of product, shipping and payment options included will let you sell thousands of products in any number of categories worldwide in any currency or language providing a seamless customer experience.
 
-### Demo Site
+### Demo Sites
 
-Core:  https://phoenixcart.org/demo/  
-Pro:  https://template.me.uk/index.php
+Version | URL
+------- | ---
+Core|https://phoenixcart.org/demo/  
+PRO|https://phoenixcart.org/PROdemo/
 
 ## Installation
 
