@@ -33,9 +33,8 @@
     #[\ReturnTypeWillChange]
     public function read($key) {
       $value_query = $GLOBALS['db']->query("SELECT value FROM sessions WHERE sesskey = '" . $GLOBALS['db']->escape($key) . "'");
-      $value = $value_query->fetch_assoc();
 
-      return $value['value'] ?? false;
+      return $value_query ? ($value_query->fetch_assoc()['value'] ?? '') : false;
     }
 
     public function updateTimestamp($key, $ignore) : bool {
