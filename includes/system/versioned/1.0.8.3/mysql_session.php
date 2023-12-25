@@ -12,13 +12,11 @@
 
   class mysql_session extends SessionHandler implements SessionHandlerInterface, SessionUpdateTimestampHandlerInterface {
 
-    #[\ReturnTypeWillChange]
-    public function close() {
+    public function close() : bool {
       return true;
     }
 
-    #[\ReturnTypeWillChange]
-    public function destroy($key) {
+    public function destroy($key) : bool {
       return false !== $GLOBALS['db']->query("DELETE FROM sessions WHERE sesskey = '" . $GLOBALS['db']->escape($key) . "'");
     }
 
@@ -27,8 +25,7 @@
       return false !== $GLOBALS['db']->query("DELETE FROM sessions WHERE expiry < '" . (int)(time() - $maxlifetime) . "'");
     }
 
-    #[\ReturnTypeWillChange]
-    public function open($save_path, $session_name) {
+    public function open($save_path, $session_name) : bool {
       return true;
     }
 
@@ -40,8 +37,7 @@
       return $value['value'] ?? '';
     }
 
-    #[\ReturnTypeWillChange]
-    public function updateTimestamp($key, $ignore) {
+    public function updateTimestamp($key, $ignore) : bool {
       return false !== $GLOBALS['db']->query("UPDATE sessions SET expiry = " . (int)time() . " WHERE sesskey = '" . $GLOBALS['db']->escape($key) . "'");
     }
 

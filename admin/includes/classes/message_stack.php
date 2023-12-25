@@ -17,14 +17,12 @@
   if ($messageStack->size > 0) echo $messageStack->output();
 */
 
-  #[\AllowDynamicProperties]
   class messageStack {
 
     public $size = 0;
+    public $errors = [];
 
-	  public function __construct() {
-      $this->errors = [];
-
+    public function __construct() {
       foreach (($_SESSION['messageToStack'] ?? []) as $message) {
         $this->add($message['text'], $message['type']);
       }

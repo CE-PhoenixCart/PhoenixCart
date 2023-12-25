@@ -10,8 +10,10 @@
   Released under the GNU General Public License
 */
 
-  #[\AllowDynamicProperties]
   abstract class abstract_payment_module extends abstract_zoneable_module {
+
+    public $public_title;
+    public $order_status;
 
     function __construct() {
       parent::__construct();
