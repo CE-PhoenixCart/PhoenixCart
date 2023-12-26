@@ -55,7 +55,7 @@
     public function display_input($customer_details = null) {
       $label_text = ENTRY_PASSWORD_CONFIRMATION;
 
-      $input_id = 'inputPassword';
+      $input_id = 'inputPasswordConfirmation';
       $parameters = [
         'id' => $input_id,
         'autocapitalize' => 'none',
