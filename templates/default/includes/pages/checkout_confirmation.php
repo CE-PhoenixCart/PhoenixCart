@@ -32,7 +32,7 @@
 
   <div class="row">
     <div class="col-sm-7">
-      <h5 class="mb-1"><?= LIST_PRODUCTS ?><small><a class="font-weight-lighter ml-2" href="<?= $Linker->build('shopping_cart.php') ?>"><?= TEXT_EDIT ?></a></small></h5>
+      <h5 class="mb-1"><?= LIST_PRODUCTS . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('shopping_cart.php')) ?></h5>
       <div class="border">
         <ul class="list-group list-group-flush">
           <?php
@@ -70,27 +70,27 @@
   $address = $customer_data->get_module('address');
   if ($_SESSION['sendto']) {
     echo '<li class="list-group-item">';
-    echo '<i class="fas fa-shipping-fast fa-fw fa-3x float-right text-black-50"></i>';
-    echo '<h5 class="mb-0">' . HEADING_DELIVERY_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_shipping_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+    echo SHIPPING_FA_ICON;
+    echo '<h5 class="mb-0">' . HEADING_DELIVERY_ADDRESS . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_shipping_address.php')) . '</h5>';
     echo '<p class="w-100 mb-1">' . $address->format($order->delivery, 1, ' ', '<br>') . '</p>';
     echo '</li>';
   }
 
   echo '<li class="list-group-item">';
-  echo '<i class="fas fa-file-invoice-dollar fa-fw fa-3x float-right text-black-50"></i>';
-  echo '<h5 class="mb-0">' . HEADING_BILLING_ADDRESS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment_address.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+  echo PAYMENT_FA_ICON;
+  echo '<h5 class="mb-0">' . HEADING_BILLING_ADDRESS . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_payment_address.php')) . '</h5>';
   echo '<p class="w-100 mb-1">' . $address->format($order->billing, 1, ' ', '<br>') . '</p>';
   echo '</li>';
 
   if ($order->info['shipping_method']) {
     echo '<li class="list-group-item">';
-    echo '<h5 class="mb-1">' . HEADING_SHIPPING_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_shipping.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+    echo '<h5 class="mb-1">' . HEADING_SHIPPING_METHOD . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_shipping.php')) . '</h5>';
     echo '<p class="w-100 mb-1">' . $order->info['shipping_method'] . '</p>';
     echo '</li>';
   }
 
   echo '<li class="list-group-item">';
-  echo '<h5 class="mb-1">' . HEADING_PAYMENT_METHOD . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment.php') . '">' . TEXT_EDIT . '</a></small></h5>';
+  echo '<h5 class="mb-1">' . HEADING_PAYMENT_METHOD . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_payment.php')) . '</h5>';
   echo '<p class="w-100 mb-1">' . $order->info['payment_method'] . '</p>';
   echo '</li>';
 ?>
@@ -103,7 +103,7 @@
   <?php
   if (!Text::is_empty($order->info['comments'])) {
 ?>
-  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . '<small><a class="font-weight-lighter ml-2" href="' . $Linker->build('checkout_payment.php') . '">' .TEXT_EDIT . '</a></small>' ?></h5>
+  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_payment.php')) ?></h5>
 
   <div class="border mb-3">
     <ul class="list-group list-group-flush">
