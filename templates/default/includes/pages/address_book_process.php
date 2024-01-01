@@ -65,7 +65,7 @@
 
   <div class="buttonSet">
     <div class="text-right"><?= $action_button ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $back_link) ?></p>
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $back_link) ?></p>
   </div>
 
 </form>
