@@ -21,6 +21,7 @@
   $advert_image_target = Text::input($_POST['advert_image_target']);
 
   $advert_image = new upload('advert_image');
+  $advert_image->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
   $advert_image->parse();
 
   if (empty($advert_image->filename)) {

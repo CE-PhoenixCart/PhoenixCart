@@ -55,7 +55,7 @@
   $contents[] = [
     'text' => TEXT_EDIT_CATEGORIES_IMAGE
             . '<div class="custom-file mb-2">'
-            . new Input('categories_image', ['id' => 'cImg', 'class' => 'custom-file-input'], 'file')
+            . new Input('categories_image', ['accept' => 'image/*', 'id' => 'cImg', 'class' => 'custom-file-input'], 'file')
             . '<label class="custom-file-label" for="cImg">&nbsp;</label></div>'
   ];
   $contents[] = ['text' => TEXT_SORT_ORDER . '<br>' . new Input('sort_order', ['size' => '2'])];

@@ -17,7 +17,7 @@
   $contents = ['form' => new Form('manufacturers', (clone $link)->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data'])];
   $contents[] = ['text' => TEXT_EDIT_INTRO];
   $contents[] = ['text' => TEXT_MANUFACTURERS_NAME . '<br>' . new Input('manufacturers_name', ['value' => $mInfo->manufacturers_name])];
-  $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . $mInfo->manufacturers_image . '</label></div>'];
+  $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['accept' => 'image/*', 'id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . $mInfo->manufacturers_image . '</label></div>'];
 
   $manufacturer_inputs_string = $manufacturer_description_string = $manufacturer_seo_description_string = $manufacturer_seo_title_string = '';
   foreach (language::load_all() as $l) {

@@ -15,7 +15,7 @@
   $contents = ['form' => new Form('manufacturers', $GLOBALS['Admin']->link()->set_parameter('action', 'insert'), 'post', ['enctype' => 'multipart/form-data'])];
   $contents[] = ['text' => TEXT_NEW_INTRO];
   $contents[] = ['text' => TEXT_MANUFACTURERS_NAME . '<br>' . new Input('manufacturers_name')];
-  $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . TEXT_MANUFACTURERS_IMAGE_LABEL . '</label></div>'];
+  $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['accept' => 'image/*', 'id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . TEXT_MANUFACTURERS_IMAGE_LABEL . '</label></div>'];
 
   $manufacturer_inputs_string = $manufacturer_description_string = $manufacturer_seo_description_string = $manufacturer_seo_title_string = '';
 

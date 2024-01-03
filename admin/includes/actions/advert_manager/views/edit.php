@@ -87,7 +87,7 @@ EOSQL
         <div class="row">
           <div class="col">
             <div class="custom-file mb-2">
-              <?= new Input('advert_image', ['id' => 'advert_image', 'class' => 'custom-file-input'], 'file') ?>
+              <?= new Input('advert_image', ['accept' => 'image/*', 'id' => 'advert_image', 'class' => 'custom-file-input'], 'file') ?>
               <label class="custom-file-label" for="advert_image"></label>
             </div>
           </div>

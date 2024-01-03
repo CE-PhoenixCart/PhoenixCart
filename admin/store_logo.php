@@ -29,7 +29,7 @@
       <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
 
         <div class="custom-file mb-2">
-          <?= (new Input('store_logo', ['id' => 'inputLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
+          <?= (new Input('store_logo', ['accept' => 'image/*', 'id' => 'inputLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
 
           <label class="custom-file-label" for="inputLogo"><?= TEXT_LOGO_IMAGE ?></label>
         </div>
