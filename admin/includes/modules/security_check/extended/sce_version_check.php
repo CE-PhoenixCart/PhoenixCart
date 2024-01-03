@@ -14,6 +14,7 @@
 
     const URL = 'https://github.com/CE-PhoenixCart/PhoenixCart/blob/master/includes/version.php';
 
+    public $title;
     public $type = 'warning';
     public $has_doc = true;
     protected $version;

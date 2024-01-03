@@ -12,6 +12,7 @@
 
   class sce_mysql_utf8 {
 
+    public $title;
     public $type = 'warning';
     public $has_doc = true;
 

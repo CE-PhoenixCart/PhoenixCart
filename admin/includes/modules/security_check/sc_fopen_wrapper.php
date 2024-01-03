@@ -12,6 +12,7 @@
 
   class sc_fopen_wrapper {
 
+    public $title;
     public $type = 'warning';
     public $has_doc = false;
 

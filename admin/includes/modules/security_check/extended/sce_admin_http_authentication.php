@@ -12,6 +12,7 @@
 
   class sce_admin_http_authentication {
 
+    public $title;
     public $type = 'warning';
 
     public function __construct() {
