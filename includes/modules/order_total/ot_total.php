@@ -20,7 +20,7 @@
       global $order;
 
       $this->output[] = [
-        'title' => $this->title . ':',
+        'title' => $this->title,
         'text' => '<strong>' . Guarantor::ensure_global('currencies')->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']) . '</strong>',
         'value' => $order->info['total'],
       ];

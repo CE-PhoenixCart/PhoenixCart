@@ -22,7 +22,7 @@
       foreach ($order->info['tax_groups'] as $key => $value) {
         if ($value > 0) {
           $this->output[] = [
-            'title' => $key . ':',
+            'title' => $key,
             'text' => Guarantor::ensure_global('currencies')->format($value, true, $order->info['currency'], $order->info['currency_value']),
             'value' => $value,
           ];
