@@ -36,10 +36,10 @@ EOSQL
       'text' => TEXT_INFO_CUSTOMER_DATA_GROUP_NAME
               . '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text">'
               . $GLOBALS['Admin']->catalog_image("includes/languages/{$cdg['directory']}/images/{$cdg['image']}", [], $cdg['name']) . '</span></div>'
-              . new Input('customer_data_groups_name[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_name']]) . '</div>',
+              . new Input('customer_data_groups_name[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_name'], 'id' => "gName-{$cdg['code']}"]) . '</div>',
     ];
-    $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $cdg['id'] . ']', ['value' => $cdg['cdg_vertical_sort_order']])];
-    $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_width']])];
+    $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $cdg['id'] . ']', ['value' => $cdg['cdg_vertical_sort_order'], 'id' => "gSort-{$cdg['code']}"])];
+    $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $cdg['id'] . ']', ['value' => $cdg['customer_data_groups_width'], 'id' => "gWidth-{$cdg['code']}"])];
   }
 
   $contents[] = [

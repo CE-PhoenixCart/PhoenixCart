@@ -18,7 +18,7 @@
 
   $orders_status_inputs_string = '';
   foreach (language::load_all() as $l) {
-    $orders_status_inputs_string .= '<div class="input-group"><div class="input-group-prepend"><span class="input-group-text">' . $GLOBALS['Admin']->catalog_image('includes/languages/' . $l['directory'] . '/images/' . $l['image'], [], $l['name']) . '</span></div>' . new Input('orders_status_name[' . $l['id'] . ']') . '</div>';
+    $orders_status_inputs_string .= '<div class="input-group mb-1"><div class="input-group-prepend"><span class="input-group-text">' . $GLOBALS['Admin']->catalog_image('includes/languages/' . $l['directory'] . '/images/' . $l['image'], [], $l['name']) . '</span></div>' . new Input('orders_status_name[' . $l['id'] . ']', ['id' => "osName-{$l['code']}"]) . '</div>';
   }
 
   $contents[] = ['text' => TEXT_INFO_ORDERS_STATUS_NAME . $orders_status_inputs_string];

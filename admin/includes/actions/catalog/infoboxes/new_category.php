@@ -23,28 +23,28 @@
       $category_inputs_string .= '<div class="input-group-prepend">';
         $category_inputs_string .= '<span class="input-group-text">' . $language_icon . '</span>';
       $category_inputs_string .= '</div>';
-      $category_inputs_string .= (new Input("categories_name[{$l['id']}]"))->require();
+      $category_inputs_string .= (new Input("categories_name[{$l['id']}]", ['id' => "cName-{$l['code']}"]))->require();
     $category_inputs_string .= '</div>';
 
     $category_seo_title_string .= '<div class="input-group mb-1">';
       $category_seo_title_string .= '<div class="input-group-prepend">';
         $category_seo_title_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_seo_title_string .= '</div>';
-      $category_seo_title_string .= new Input("categories_seo_title[{$l['id']}]");
+      $category_seo_title_string .= new Input("categories_seo_title[{$l['id']}]", ['id' => "cSeoTitle-{$l['code']}"]);
     $category_seo_title_string .= '</div>';
 
     $category_description_string .= '<div class="input-group mb-1">';
       $category_description_string .= '<div class="input-group-prepend">';
         $category_description_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_description_string .= '</div>';
-      $category_description_string .= new Textarea("categories_description[{$l['id']}]", ['cols' => '80', 'rows' => '10']);
+      $category_description_string .= new Textarea("categories_description[{$l['id']}]", ['id' => "cDescription-{$l['code']}", 'cols' => '80', 'rows' => '10']);
     $category_description_string .= '</div>';
 
     $category_seo_description_string .= '<div class="input-group mb-1">';
       $category_seo_description_string .= '<div class="input-group-prepend">';
         $category_seo_description_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_seo_description_string .= '</div>';
-      $category_seo_description_string .= new Textarea("categories_seo_description[{$l['id']}]", ['cols' => '80', 'rows' => '10']);
+      $category_seo_description_string .= new Textarea("categories_seo_description[{$l['id']}]", ['id' => "cSeoDescription-{$l['code']}", 'cols' => '80', 'rows' => '10']);
     $category_seo_description_string .= '</div>';
   }
 

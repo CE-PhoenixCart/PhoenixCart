@@ -132,7 +132,7 @@ function updateNet() {
     <div class="tab-content pt-3">
       <div class="tab-pane fade show active" id="section_data_content" role="tabpanel">
         <div class="form-group row align-items-center" id="zStatus">
-          <label class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_STATUS ?></label>
+          <div class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_STATUS ?></div>
           <div class="col-sm-9">
             <div class="custom-control custom-radio custom-control-inline">
               <?= $pIn, '<label class="custom-control-label" for="pIn">', TEXT_PRODUCT_AVAILABLE, '</label>' ?>
@@ -233,62 +233,62 @@ function updateNet() {
               </div>
               <div id="<?= $l['directory'] ?>" class="collapse<?= $show ?>" aria-labelledby="heading<?= $l['directory'] ?>" data-parent="#productLanguageAccordion">
                 <div class="card-body">
-                  <div class="form-group row" id="zName<?= $l['directory'] ?>">
-                    <label for="pName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_NAME ?></label>
+                  <div class="form-group row" id="zName_<?= $l['code'] ?>">
+                    <label for="pName-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_NAME ?></label>
                     <div class="col-sm-9">
-                      <?= (new Input("products_name[{$l['id']}]", ['id' => 'pName']))->require()->default_value($translations[$l['id']]['name'] ?? '') ?>
+                      <?= (new Input("products_name[{$l['id']}]", ['id' => "pName-{$l['code']}"]))->require()->default_value($translations[$l['id']]['name'] ?? '') ?>
                     </div>
                   </div>
 
-                  <div class="form-group row" id="zDesc<?= $l['directory'] ?>">
-                    <label for="pDesc" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_DESCRIPTION ?></label>
+                  <div class="form-group row" id="zDesc_<?= $l['code'] ?>">
+                    <label for="pDesc-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_DESCRIPTION ?></label>
                     <div class="col-sm-9">
-                      <?= (new Textarea("products_description[{$l['id']}]", ['id' => 'pDesc', 'cols' => '70', 'rows' => '15']))->require()->set_text($translations[$l['id']]['description'] ?? '') ?>
+                      <?= (new Textarea("products_description[{$l['id']}]", ['id' => "pDesc-{$l['code']}", 'cols' => '70', 'rows' => '15']))->require()->set_text($translations[$l['id']]['description'] ?? '') ?>
                     </div>
                   </div>
 
-                  <div class="form-group row" id="zUrl<?= $l['directory'] ?>">
-                    <label for="pUrl" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_URL ?></label>
+                  <div class="form-group row" id="zUrl_<?= $l['code'] ?>">
+                    <label for="pUrl-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_URL ?></label>
                     <div class="col-sm-9">
-                      <?= (new Input("products_url[{$l['id']}]", ['id' => 'pUrl', 'aria-describedby' => 'pUrlHelp']))->default_value($translations[$l['id']]['url'] ?? '') ?>
-                      <small id="pUrlHelp" class="form-text text-muted">
+                      <?= (new Input("products_url[{$l['id']}]", ['id' => "pUrl-{$l['code']}", 'aria-describedby' => "pUrlHelp_{$l['code']}"]))->default_value($translations[$l['id']]['url'] ?? '') ?>
+                      <small id="pUrlHelp_<?= $l['code'] ?>" class="form-text text-muted">
                         <?= TEXT_PRODUCTS_URL_WITHOUT_HTTP ?>
                       </small>
                     </div>
                   </div>
 
-                  <div class="form-group row" id="zSeoTitle<?= $l['directory'] ?>">
-                    <label for="pSeoTitle" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_TITLE ?></label>
+                  <div class="form-group row" id="zSeoTitle_<?= $l['code'] ?>">
+                    <label for="pSeoTitle-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_TITLE ?></label>
                     <div class="col-sm-9">
-                      <?= (new Input("products_seo_title[{$l['id']}]", ['id' => 'pSeoTitle', 'aria-describedby' => 'pSeoTitleHelp']))->default_value($translations[$l['id']]['seo_title'] ?? '') ?>
-                      <small id="pSeoTitleHelp" class="form-text text-muted">
+                      <?= (new Input("products_seo_title[{$l['id']}]", ['id' => "pSeoTitle-{$l['code']}", 'aria-describedby' => "pSeoTitleHelp_{$l['code']}"]))->default_value($translations[$l['id']]['seo_title'] ?? '') ?>
+                      <small id="pSeoTitleHelp_<?= $l['code'] ?>" class="form-text text-muted">
                         <?= TEXT_PRODUCTS_SEO_TITLE_HELP ?>
                       </small>
                     </div>
                   </div>
 
-                  <div class="form-group row" id="zSeoDesc<?= $l['directory'] ?>">
-                    <label for="pSeoDesc" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_DESCRIPTION ?></label>
+                  <div class="form-group row" id="zSeoDesc_<?= $l['code'] ?>">
+                    <label for="pSeoDesc-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_DESCRIPTION ?></label>
                     <div class="col-sm-9">
                       <?= (new Textarea("products_seo_description[{$l['id']}]", [
-                             'id' => 'pSeoDesc',
-                             'aria-describedby' => 'pSeoDescHelp',
+                             'id' => "pSeoDesc-{$l['code']}",
+                             'aria-describedby' => "pSeoDescHelp_{$l['code']}",
                              'cols' => '70',
                              'rows' => '15',
                            ]))->set_text($translations[$l['id']]['seo_description'] ?? '') ?>
-                      <small id="pSeoDescHelp" class="form-text text-muted">
+                      <small id="pSeoDescHelp_<?= $l['code'] ?>" class="form-text text-muted">
                         <?= TEXT_PRODUCTS_SEO_DESCRIPTION_HELP ?>
                       </small>
                     </div>
                   </div>
 
-                  <div class="form-group row" id="zSeoKeywords<?= $l['directory'] ?>">
-                    <label for="pSeoKeywords" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_KEYWORDS ?></label>
+                  <div class="form-group row" id="zSeoKeywords_<?= $l['code'] ?>">
+                    <label for="pSeoKeywords-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_SEO_KEYWORDS ?></label>
                     <div class="col-sm-9">
                       <?= (new Input('products_seo_keywords[' . $l['id'] . ']', [
-                             'id' => 'pSeoKeywords',
+                             'id' => "pSeoKeywords-{$l['code']}",
                              'placeholder' => PLACEHOLDER_COMMA_SEPARATION,
-                             'aria-describedby' => 'pSeoKeywordsHelp',
+                             'aria-describedby' => "pSeoKeywordsHelp",
                            ]))->default_value($translations[$l['id']]['seo_keywords'] ?? '') ?>
                       <small id="pSeoKeywordsHelp" class="form-text text-muted">
                         <?= TEXT_PRODUCTS_SEO_KEYWORDS_HELP ?>

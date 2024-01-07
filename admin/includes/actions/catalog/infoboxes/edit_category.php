@@ -35,28 +35,28 @@ EOSQL
       $category_inputs_string .= '<div class="input-group-prepend">';
         $category_inputs_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_inputs_string .= '</div>';
-      $category_inputs_string .= (new Input("categories_name[{$l['languages_id']}]"))->set('value', $l['categories_name'] ?? '')->require();
+      $category_inputs_string .= (new Input("categories_name[{$l['languages_id']}]", ['id' => "cName-{$l['code']}"]))->set('value', $l['categories_name'] ?? '')->require();
     $category_inputs_string .= '</div>';
 
     $category_seo_title_string .= '<div class="input-group mb-1">';
       $category_seo_title_string .= '<div class="input-group-prepend">';
         $category_seo_title_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_seo_title_string .= '</div>';
-      $category_seo_title_string .= (new Input("categories_seo_title[{$l['languages_id']}]"))->set('value', $l['categories_seo_title'] ?? '');
+      $category_seo_title_string .= (new Input("categories_seo_title[{$l['languages_id']}]", ['id' => "cSeoTitle-{$l['code']}"]))->set('value', $l['categories_seo_title'] ?? '');
     $category_seo_title_string .= '</div>';
 
     $category_description_string .= '<div class="input-group mb-1">';
       $category_description_string .= '<div class="input-group-prepend">';
         $category_description_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_description_string .= '</div>';
-      $category_description_string .= (new Textarea("categories_description[{$l['languages_id']}]", ['cols' => '80', 'rows' => '10']))->set_text($l['categories_description'] ?? '');
+      $category_description_string .= (new Textarea("categories_description[{$l['languages_id']}]", ['id' => "cDescription-{$l['code']}", 'cols' => '80', 'rows' => '10']))->set_text($l['categories_description'] ?? '');
     $category_description_string .= '</div>';
 
     $category_seo_description_string .= '<div class="input-group mb-1">';
       $category_seo_description_string .= '<div class="input-group-prepend">';
         $category_seo_description_string .= '<span class="input-group-text">'. $language_icon . '</span>';
       $category_seo_description_string .= '</div>';
-      $category_seo_description_string .= (new Textarea("categories_seo_description[{$l['languages_id']}]", ['cols' => '80', 'rows' => '10']))->set_text($l['categories_seo_description'] ?? '');
+      $category_seo_description_string .= (new Textarea("categories_seo_description[{$l['languages_id']}]", ['id' => "cSeoDescription-{$l['code']}", 'cols' => '80', 'rows' => '10']))->set_text($l['categories_seo_description'] ?? '');
     $category_seo_description_string .= '</div>';
   }
 

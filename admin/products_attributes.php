@@ -313,14 +313,14 @@ EOSQL
                   $inputs .= '<div class="input-group-prepend">';
                     $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $inputs .= '</div>';
-                  $inputs .= (new Input("option_name[{$l['id']}]"))->require()->set('value', $option_name['products_options_name']);
+                  $inputs .= (new Input("option_name[{$l['id']}]", ['id' => "oName-{$l['code']}"]))->require()->set('value', $option_name['products_options_name']);
                 $inputs .= '</div>';
 
                 $sort .= '<div class="input-group mb-1">';
                   $sort .= '<div class="input-group-prepend">';
                     $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $sort .= '</div>';
-                  $sort .= (new Input("sort_order[{$l['id']}]"))->require()->set('value', $option_name['sort_order']);
+                  $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require()->set('value', $option_name['sort_order']);
                 $sort .= '</div>';
 
               }
@@ -369,14 +369,14 @@ EOSQL
               $inputs .= '<div class="input-group-prepend">';
                 $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
               $inputs .= '</div>';
-              $inputs .= (new Input("option_name[{$l['id']}]"))->require();
+              $inputs .= (new Input("option_name[{$l['id']}]",['id' => "oName-{$l['code']}"]))->require();
             $inputs .= '</div>';
 
             $sort .= '<div class="input-group mb-1">';
               $sort .= '<div class="input-group-prepend">';
                 $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
               $sort .= '</div>';
-              $sort .= (new Input("sort_order[{$l['id']}]"))->require();
+              $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require();
             $sort .= '</div>';
 
           }
@@ -504,14 +504,14 @@ EOSQL
                   $inputs .= '<div class="input-group-prepend">';
                     $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $inputs .= '</div>';
-                  $inputs .= (new Input("value_name[{$l['id']}]"))->require()->set('value', $value_name['products_options_values_name']);
+                  $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require()->set('value', $value_name['products_options_values_name']);
                 $inputs .= '</div>';
 
                 $sort .= '<div class="input-group mb-1">';
                   $sort .= '<div class="input-group-prepend">';
                     $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $sort .= '</div>';
-                  $sort .= (new Input("sort_order[{$l['id']}]"))->require()->set('value', $value_name['sort_order']);
+                  $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require()->set('value', $value_name['sort_order']);
                 $sort .= '</div>';
               }
               ?>
@@ -563,14 +563,14 @@ EOSQL
                 $inputs .= '<div class="input-group-prepend">';
                   $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                 $inputs .= '</div>';
-                $inputs .= (new Input("value_name[{$l['id']}]"))->require();
+                $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require();
               $inputs .= '</div>';
 
               $sort .= '<div class="input-group mb-1">';
                 $sort .= '<div class="input-group-prepend">';
                   $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                 $sort .= '</div>';
-                $sort .= (new Input("sort_order[{$l['id']}]"))->require();
+                $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require();
               $sort .= '</div>';
             }
             ?>
