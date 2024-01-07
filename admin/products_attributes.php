@@ -49,6 +49,8 @@ EOSQL
   foreach ($values as $value) {
     $grouped_values[] = ['id' => $value['id'], 'text' => $value['text'], 'parameters' => ['data-id' => $value['products_options_id']]];
   }
+  
+  $default_selection = [['id' => '', 'text' => PLEASE_SELECT_OPTION]];
 
   require 'includes/template_top.php';
   ?>
@@ -94,13 +96,13 @@ EOSQL
               <tr class="table-success">
                 <td>
                   <input type="hidden" name="attribute_id" value="<?= $attributes_values['products_attributes_id'] ?>">
-                  <?= $product_selector->set_selection($attributes_values['products_id']) ?>
+                  <?= $product_selector->set_selection($attributes_values['products_id'])->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                 </td>
                 <td>
-                  <?= (new Select('options_id', $options))->set_selection($attributes_values['options_id']) ?>
+                  <?= (new Select('options_id', array_merge($default_selection, $options)))->set_selection($attributes_values['options_id'])->require() ?>
                 </td>
                 <td>
-                  <?= (new Select('values_id', $values))->set_selection($attributes_values['options_values_id']) ?>
+                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->set_selection($attributes_values['options_values_id'])->require() ?>
                 </td>
                 <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
                 <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
@@ -169,17 +171,16 @@ EOSQL
           }
 
           if ($action != 'update_attribute') {
-            $default_selection = [['id' => '', 'text' => PLEASE_SELECT_OPTION]];
             ?>
             <tr class="bg-white">
               <td>
-                <?= $product_selector->set_selection()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
+                <?= $product_selector->set_selection()->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
               </td>
               <td>
-                <?= new Select('options_id', array_merge($default_selection, $options)) ?>
+                <?= (new Select('options_id', array_merge($default_selection, $options)))->require() ?>
               </td>
               <td>
-                <?= new Select('values_id', array_merge($default_selection, $grouped_values)) ?>
+                <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->require() ?>
               </td>
               <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
               <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>

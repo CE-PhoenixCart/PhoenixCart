@@ -22,6 +22,13 @@ addat;
 
       return $helper;
     }
+    elseif ($action == 'update_attribute') {
+      $helper = <<<addat
+<script>var selectedOption = $('select[name="options_id"]').find(':selected').val(); $('select[name="values_id"] option[data-id]:not([data-id*="' + selectedOption + '"])').hide(); $('select[name="options_id"]').change(function() { $('select[name="values_id"]').prop('selectedIndex',0); var id = $(this).val(); $('select[name="values_id"] option').show(); $('select[name="values_id"] option[data-id]:not([data-id*="' + id + '"])').hide(); });</script>
+addat;
+
+      return $helper;
+    }
   }
 
 }
