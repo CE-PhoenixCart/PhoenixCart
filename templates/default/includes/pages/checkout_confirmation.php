@@ -173,9 +173,9 @@
 
   <div class="progressBarHook">
     <?php
-  $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 3, 'min' => 0, 'max' => 100, 'now' => 100]];
-  echo $hooks->cat('progressBar', $parameters);
-?>
+    $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 3, 'min' => 0, 'max' => 100, 'now' => 100]];
+    echo $hooks->cat('progressBar', $parameters);
+    ?>
   </div>
 
 </form>

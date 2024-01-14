@@ -159,10 +159,12 @@
     <div class="text-right"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
   </div>
 
-  <?php
-  $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 1, 'min' => 0, 'max' => 100, 'now' => 33]];
-  echo $hooks->cat('progressBar', $parameters);
-?>
+  <div class="progressBarHook">
+    <?php
+    $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 1, 'min' => 0, 'max' => 100, 'now' => 33]];
+    echo $hooks->cat('progressBar', $parameters);
+    ?>
+  </div>
 
 </form>
 
