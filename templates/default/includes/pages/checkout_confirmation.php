@@ -126,29 +126,25 @@
 
   <div class="row">
     <?php
-      if (!Text::is_empty($confirmation['title'])) {
-        echo '<div class="col">';
+    if (!Text::is_empty($confirmation['title'])) {
+      echo '<div class="col">';
         echo '<div class="bg-light border p-3">';
-        echo $confirmation['title'];
+          echo $confirmation['title'];
         echo '</div>';
-        echo '</div>';
-      }
+      echo '</div>';
+    }
 
-      if (isset($confirmation['fields'])) {
-        echo '<div class="col">';
-        echo '<div class="alert alert-info" role="alert">';
-        $fields = '';
+    if (isset($confirmation['fields'])) {
+      echo '<div class="col">';
+        echo '<div class="form-group row">';
         foreach ($confirmation['fields'] as $field) {
-          $fields .= $field['title'] . ' ' . $field['field'] . '<br>';
-        }
-
-        if (strlen($fields) > strlen('<br>')) {
-          echo substr($fields, 0, -strlen('<br>'));
+          echo '<div class="col-form-label col-sm-3 text-left text-sm-right">' . $field['title'] . '</div>';
+          echo '<div class="col-sm-9">' . $field['field'] . '</div>';
         }
         echo '</div>';
-        echo '</div>';
-      }
-?>
+      echo '</div>';
+    }
+    ?>
   </div>
 
   <div class="w-100"></div>
