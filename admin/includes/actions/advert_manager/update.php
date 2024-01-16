@@ -60,7 +60,7 @@
       $db->perform('advert_info', $sql_data, 'update', "advert_id = " . (int)$advert_id . " AND languages_id = " . (int)$language_id);
     }
 
-    $messageStack->add_session(SUCCESS_IMAGE_INSERTED, 'success');
+    $messageStack->add_session(SUCCESS_IMAGE_UPDATED, 'success');
 
     $admin_hooks->cat('insertAction');
   }
