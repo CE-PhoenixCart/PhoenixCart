@@ -27,7 +27,7 @@ const DATE_TIME_FORMAT = DATE_FORMAT_SHORT . ' %H:%M:%S';
 const LANGUAGE_CURRENCY = 'USD';
 
 // Global entries for the <html> tag
-const HTML_PARAMS = '';
+const HTML_PARAMS = ' lang="en"';
 
 // charset for web pages and emails
 const CHARSET = 'utf-8';
