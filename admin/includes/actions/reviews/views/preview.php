@@ -69,7 +69,7 @@ EOSQL
           <div class="col-sm-9"><?= $rInfo->reviews_text ?></div>
         </div>
 
-        <?= $admin_hooks->cat('formPreview'); ?>
+        <?= $admin_hooks->cat('formPreview') ?>
       </div>
       <div class="col-sm-2 text-right"><?= $Admin->catalog_image('images/' . $rInfo->products_image ?? '', [], $rInfo->products_name ?? '', SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) ?></div>
     </div>

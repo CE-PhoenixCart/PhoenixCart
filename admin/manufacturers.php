@@ -69,7 +69,7 @@
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE; ?></h1>
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col text-right align-self-center">
       <?=
