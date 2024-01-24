@@ -32,7 +32,7 @@
       $port_my_data['YOU']['SITE']['NEWSLETTER'] = $gdpr_newsletter;
       $port_my_data['YOU']['SITE']['ACCOUNTCREATED'] = $customer->get('date_account_created');
       $port_my_data['YOU']['SITE']['LOGONS']['COUNT'] = max($customer->get('number_of_logons'), 1);
-      $port_my_data['YOU']['SITE']['LOGONS']['MOSTRECENT'] = $customer->get('date_of_last_logon') ?? $customer->get('date_account_created');
+      $port_my_data['YOU']['SITE']['LOGONS']['MOSTRECENT'] = $customer->get('date_last_logon') ?? $customer->get('date_account_created');
       $port_my_data['YOU']['REVIEW']['COUNT'] = $r_data['reviews_count'];
       $port_my_data['YOU']['NOTIFICATION']['COUNT'] = $pn_data['notifications_count'];
 
