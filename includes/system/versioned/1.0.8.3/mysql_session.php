@@ -23,7 +23,7 @@
     #[\ReturnTypeWillChange]
     public function gc($maxlifetime) {
       $query = $GLOBALS['db']->query("DELETE FROM sessions WHERE expiry < '" . (int)(time() - $maxlifetime) . "'");
-      return $query ? mysqli_num_rows($query) : false;
+      return $query ? mysqli_affected_rows($GLOBALS['db']) : false;
     }
 
     public function open($save_path, $session_name) : bool {
