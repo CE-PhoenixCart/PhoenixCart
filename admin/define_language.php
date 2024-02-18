@@ -74,7 +74,7 @@
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE; ?></h1>
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col-sm-4 text-right align-self-center">
       <?=
@@ -109,7 +109,7 @@
 ?>
 
     <div class="alert alert-info mb-3">
-      <p class="lead mb-0"><?= $_GET['filename']; ?></p>
+      <p class="lead mb-0"><?= $_GET['filename'] ?></p>
     </div>
 
     <div class="form-group row" id="zFile">
@@ -127,14 +127,14 @@
   </form>
 
   <div class="alert alert-info mt-3">
-    <?= TEXT_EDIT_NOTE; ?>
+    <?= TEXT_EDIT_NOTE ?>
   </div>
 
 <?php
     } else {
 ?>
   <div class="alert alert-warning text-center">
-    <?= TEXT_FILE_DOES_NOT_EXIST; ?>
+    <?= TEXT_FILE_DOES_NOT_EXIST ?>
   </div>
 
 <?php

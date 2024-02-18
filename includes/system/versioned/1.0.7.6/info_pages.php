@@ -14,18 +14,18 @@
     /*
     Example getContainer
     $pages = info_pages::getContainer(['pd.languages_id' => '1',
-                                       'p.pages_status' => '1']);
+                                       'p.pages_status' => '1'], 'p.slug');
 
-    Makes array of pages in english (1) where the page status is active (1)
+    Makes array of pages in english (1) where the page status is active (1), ordered by slug
     */
-    public static function getContainer($container = []) {
+    public static function getContainer($container = [], $order_by = 'p.sort_order') {
       $pages_query_raw = "select * from pages p left join pages_description pd on p.pages_id = pd.pages_id where 1=1 ";
       if ( count($container) > 0 ) {
         foreach ($container as $k => $v) {
           $pages_query_raw .= "AND $k = '$v' ";
         }
       }
-      $pages_query_raw .= "order by p.sort_order";
+      $pages_query_raw .= "order by $order_by";
 
       return $GLOBALS['db']->fetch_all($pages_query_raw);
     }

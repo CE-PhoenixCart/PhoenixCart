@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('gdpr.php'));
+  $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
+  $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build());
 
   $page_content = $Template->get_content('gdpr');
 
@@ -23,6 +24,10 @@
 
   <div class="row">
     <?= $page_content ?>
+  </div>
+  
+  <div class="buttonSet">
+    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('account.php')) ?></p>
   </div>
 
 <?php

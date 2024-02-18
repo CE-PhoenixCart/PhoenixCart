@@ -34,24 +34,27 @@
 <?php
     }
 ?>
-    <div class="card mb-2 card-body alert-filters">
-      <ul class="nav">
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?><span class="caret"></span></a>
 
-          <div class="dropdown-menu">
-            <?php
-    foreach ($column_list as $i => $column) {
-      if ($column_specifications[$column]['sortable']) {
-        echo splitPageResults::create_sort_heading($_GET['sort'], $i+1, $column_specifications[$column]['heading']);
-      }
-    }
-            ?>
-          </div>
+  <div class="card card-body py-2 pl-1 mb-2 alert-filters">
+    <ul class="nav">
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?></a>
 
-        </li>
-      </ul>
-    </div>
+        <div class="dropdown-menu">
+          <?php
+          foreach ($column_list as $i => $column) {
+            if ($column_specifications[$column]['sortable']) {
+              echo splitPageResults::create_sort_heading($_GET['sort'], $i+1, $column_specifications[$column]['heading']);
+            }
+          }
+          ?>
+        </div>
+      </li>
+      <?php
+      echo $GLOBALS['hooks']->cat('navItemFilters');
+      ?>
+    </ul>
+  </div>
 
   <?php
     $listing_query = $GLOBALS['db']->query($listing_split->sql_query);

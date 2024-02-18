@@ -33,7 +33,7 @@
         $order->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + $tax_calculation;
 
         $this->output[] = [
-          'title' => $this->title . ':',
+          'title' => $this->title,
           'text' => Guarantor::ensure_global('currencies')->format($tax_price, true, $order->info['currency'], $order->info['currency_value']),
           'value' => $tax_price,
         ];

@@ -30,6 +30,6 @@
     $contents[] = ['text' => TEXT_INFO_NEW_PRICE . ' ' . $GLOBALS['currencies']->format($sInfo->specials_new_products_price)];
     $contents[] = ['text' => TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%'];
 
-    $contents[] = ['text' => TEXT_INFO_EXPIRES_DATE . ' <strong>' . Date::abridge($sInfo->expires_date) . '</strong>'];
-    $contents[] = ['text' => TEXT_INFO_STATUS_CHANGE . ' ' . Date::abridge($sInfo->date_status_change)];
+    if (!empty($sInfo->expires_date)) $contents[] = ['text' => TEXT_INFO_EXPIRES_DATE . ' ' . Date::abridge($sInfo->expires_date)];
+    if (!empty($sInfo->date_status_change)) $contents[] = ['text' => TEXT_INFO_STATUS_CHANGE . ' ' . Date::abridge($sInfo->date_status_change)];
   }

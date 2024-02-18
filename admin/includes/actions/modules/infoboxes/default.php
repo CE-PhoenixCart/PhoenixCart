@@ -15,7 +15,19 @@
     $heading = $mInfo->title;
 
     $link = $Admin->link('modules.php')->retain_query_except()->set_parameter('module', $mInfo->code);
-    if (in_array($mInfo->file, $modules_installed)) {
+    if (isset($_GET['list']) && ('new' === $_GET['list'])) {
+      $contents = ['form' => new Form('install_module', $link->delete_parameter('list')->set_parameter('action', 'install'))];
+      $contents[] = [
+        'class' => 'text-center',
+        'text' => new Button(IMAGE_MODULE_INSTALL, 'fas fa-plus', 'btn-warning'),
+      ];
+
+      if (isset($mInfo->api_version)) {
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
+      }
+
+      $contents[] = ['text' => $mInfo->description];
+    } else {
       $keys = '';
       foreach ($mInfo->keys as $value) {
         $keys .= '<strong>' . $value['title'] . '</strong><br>';
@@ -62,17 +74,5 @@
         'class' => 'text-break',
         'text' => $keys,
       ];
-    } elseif (isset($_GET['list']) && ($_GET['list'] == 'new')) {
-      $contents = ['form' => new Form('install_module', $link->delete_parameter('list')->set_parameter('action', 'install'))];
-      $contents[] = [
-        'class' => 'text-center',
-        'text' => new Button(IMAGE_MODULE_INSTALL, 'fas fa-plus', 'btn-warning'),
-      ];
-
-      if (isset($mInfo->api_version)) {
-        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
-      }
-
-      $contents[] = ['text' => $mInfo->description];
     }
   }

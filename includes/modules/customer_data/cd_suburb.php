@@ -88,6 +88,7 @@
         'id' => $input_id,
         'autocomplete' => $this->base_constant('AUTOCOMPLETE'),
         'placeholder' => ENTRY_SUBURB_TEXT,
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ]);
 
       if ($customer_details && is_array($customer_details)) {

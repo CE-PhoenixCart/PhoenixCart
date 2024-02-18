@@ -34,8 +34,8 @@
         ],
         static::CONFIG_KEY_BASE . 'REQUIRED' => [
           'title' => 'Require State module (if enabled)',
-          'value' => 'True',
-          'desc' => 'Do you want the state to be required in customer registration?',
+          'value' => 'False',
+          'desc' => 'Do you want the state to be required in customer registration?  Note that any State set up as a Zone will always be required.',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'ENTRY_STATE_MIN_LENGTH' => [
@@ -92,7 +92,8 @@
 
       $parameters = [
         'id' => $input_id,
-        'autocomplete' => 'address-level1'
+        'autocomplete' => 'address-level1',
+        'minlength' => ENTRY_STATE_MIN_LENGTH,
       ];
 
 
@@ -114,7 +115,14 @@
         }
 
         $input = (new Input('state', $parameters))->set('value', $state);
+        
+        if ($this->is_required()) {
+          $input->require();
+          $input .= FORM_REQUIRED_INPUT;
+        }
       } else {
+        array_unshift($zones, ['id' => '', 'text' => ENTRY_STATE_SELECT_ONE]);
+
         if (!Text::is_empty(ENTRY_STATE_TEXT)) {
           $parameters['aria-describedby'] = 'atState';
           $post_input .= '<span id="atState" class="form-text">' . ENTRY_STATE_TEXT . '</span>';
@@ -122,8 +130,6 @@
 
         $input = new Select('state', $zones, $parameters);
         $input->set_selection($state);
-      }
-      if ($this->is_required()) {
         $input->require();
         if (isset($post_input)) {
           $input .= $post_input;

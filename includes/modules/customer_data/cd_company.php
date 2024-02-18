@@ -82,6 +82,7 @@
         'id' => $input_id,
         'autocomplete' => 'organization',
         'placeholder' => ENTRY_COMPANY_TEXT,
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ];
 
       $input = new Input('company', $parameters);

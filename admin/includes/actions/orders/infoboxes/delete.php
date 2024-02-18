@@ -21,6 +21,11 @@
             . '<label for="oRestock" class="custom-control-label text-muted">' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY . '</label></div>',
   ];
   $contents[] = [
+    'text' => '<div class="custom-control custom-switch py-2">'
+            . new Tickable('reactivate', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'oStatus'], 'checkbox')
+            . '<label for="oStatus" class="custom-control-label text-muted">' . TEXT_INFO_REACTIVATE_PRODUCT_STATUS . '</label></div>',
+  ];
+  $contents[] = [
     'class' => 'text-center',
     'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),

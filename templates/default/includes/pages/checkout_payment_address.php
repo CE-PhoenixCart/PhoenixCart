@@ -75,7 +75,10 @@
 
     <h5 class="mb-1"><?= TABLE_HEADING_NEW_PAYMENT_ADDRESS ?></h5>
 
-    <p class="font-weight-lighter"><?= TEXT_CREATE_NEW_PAYMENT_ADDRESS ?></p>
+    <div class="row">
+      <div class="col-sm-9"><p class="font-weight-lighter"><?= TEXT_CREATE_NEW_PAYMENT_ADDRESS ?></p></div>
+      <div class="col-sm-3 text-left text-sm-right"><span class="text-danger"><?= FORM_REQUIRED_INFORMATION ?></span></div>
+    </div>
 
     <?php
     echo $form->hide('action', 'submit') . PHP_EOL;

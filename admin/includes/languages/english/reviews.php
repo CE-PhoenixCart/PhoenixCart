@@ -31,8 +31,8 @@ const TEXT_INFO_DATE_ADDED = 'Date Added: %s';
 const TEXT_INFO_LAST_MODIFIED = 'Last Modified: %s';
 const TEXT_INFO_REVIEW_AUTHOR = 'Author: %s';
 const TEXT_INFO_REVIEW_RATING = 'Rating: %s';
-const TEXT_INFO_REVIEW_READ = 'Read: %s';
-const TEXT_INFO_REVIEW_SIZE = 'Size: %s bytes';
+
+const TEXT_INFO_REVIEW_SIZE = 'Size: %s words';
 const TEXT_INFO_REVIEW_STATUS = 'Review Status: %s';
 const TEXT_INFO_PRODUCTS_AVERAGE_RATING = 'Average Rating: %s%%';
 

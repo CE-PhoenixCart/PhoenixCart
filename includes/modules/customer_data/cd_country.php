@@ -181,7 +181,7 @@
     public function draw_country_list($name, $parameters = []) {
       $countries = array_merge(
         [['id' => '', 'text' => PULL_DOWN_DEFAULT]],
-        $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries")
+        $GLOBALS['db']->fetch_all("SELECT countries_id AS id, countries_name AS text FROM countries WHERE status = 1 ORDER BY countries_name")
       );
 
       return new Select($name, $countries, $parameters);

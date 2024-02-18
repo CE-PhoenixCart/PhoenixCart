@@ -13,6 +13,7 @@
   System::set_time_limit(0);
 
   $sql_file = new upload('sql_file', DIR_FS_BACKUP);
+  $sql_file->set_extensions(['sql']);
 
   if ($sql_file->parse()) {
     $pathinfo = pathinfo($sql_file->tmp_filename);

@@ -14,7 +14,7 @@
 ?>
 
     <div class="form-group row align-items-center" id="zStatus">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PAGE_STATUS ?></label>
+      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PAGE_STATUS ?></div>
       <div class="col-sm-9">
         <div class="custom-control custom-radio custom-control-inline">
           <?= new Tickable('page_status', ['value' => '1', 'id' => 'inStatus', 'class' => 'custom-control-input'], 'radio') ?>
@@ -37,27 +37,27 @@
         $navbar_title .= '<div class="input-group-prepend">';
           $navbar_title .= '<span class="input-group-text">' . $flag_image . '</span>';
         $navbar_title .= '</div>';
-        $navbar_title .= (new Input("navbar_title[{$l['id']}]"))->require();
+        $navbar_title .= (new Input("navbar_title[{$l['id']}]", ['id' => "iNavbarTitle-{$l['code']}"]))->require();
       $navbar_title .= '</div>';
 
       $page_title .= '<div class="input-group mb-1">';
         $page_title .= '<div class="input-group-prepend">';
           $page_title .= '<span class="input-group-text">' . $flag_image . '</span>';
         $page_title .= '</div>';
-        $page_title .= (new Input("page_title[{$l['id']}]"))->require();
+        $page_title .= (new Input("page_title[{$l['id']}]", ['id' => "iPageTitle-{$l['code']}"]))->require();
       $page_title .= '</div>';
 
       $page_text .= '<div class="input-group mb-1">';
         $page_text .= '<div class="input-group-prepend">';
           $page_text .= '<span class="input-group-text">' . $flag_image . '</span>';
         $page_text .= '</div>';
-        $page_text .= (new Textarea("page_text[{$l['id']}]", ['cols' => '80', 'rows' => '10', 'class' => 'form-control editor']))->require();
+        $page_text .= (new Textarea("page_text[{$l['id']}]", ['id' => "iPageText-{$l['code']}", 'cols' => '80', 'rows' => '10', 'class' => 'form-control editor']))->require();
       $page_text .= '</div>';
     }
 ?>
 
     <div class="form-group row" id="zNavbarTitle">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= NAVBAR_TITLE ?></label>
+      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= NAVBAR_TITLE ?></div>
       <div class="col-sm-9">
         <?= $navbar_title ?>
       </div>
@@ -66,14 +66,14 @@
     <hr>
 
     <div class="form-group row" id="zPageTitle">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_TITLE ?></label>
+      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_TITLE ?></div>
       <div class="col-sm-9">
         <?= $page_title ?>
       </div>
     </div>
 
     <div class="form-group row" id="zPageText">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_TEXT ?></label>
+      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_TEXT ?></div>
       <div class="col-sm-9">
         <?= $page_text ?>
       </div>
@@ -84,7 +84,8 @@
     <div class="form-group row" id="zInputSlug">
       <label for="inputSlug" class="col-form-label col-sm-3 text-left text-sm-right"><?= PAGE_SLUG ?></label>
       <div class="col-sm-9">
-        <?= (new Input('slug', ['id' => 'inputSlug', 'class' => 'form-control w-50']))->require() ?>
+        <?= (new Input('slug', ['id' => 'inputSlug', 'class' => 'form-control w-50', 'aria-describedby' => 'zSlugHelp']))->require() ?>
+        <small id="zSlugHelp" class="form-text text-muted"><?= TEXT_PAGE_SLUG_HELP ?></small>
       </div>
     </div>
 

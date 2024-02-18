@@ -129,9 +129,11 @@
     <div class="mBox">
       <div class="mBoxContents"></div>
     </div>
-
-    <h2 class="display-4"><?= TEXT_DATABASE_SERVER ?></h2>
-    <p class="text-danger pull-right text-right"><?= TEXT_REQUIRED_INFORMATION ?></p>
+    
+    <div class="row">
+      <h2 class="display-4 col-12 col-md-9"><?= TEXT_DATABASE_SERVER ?></h2>
+      <p class="col-12 col-md-3 text-danger text-md-right my-auto"><?= TITLE_REQUIRED_INFORMATION ?></p>
+    </div>
 
     <form name="install" id="installForm" action="install.php?step=2" method="post" role="form">
 

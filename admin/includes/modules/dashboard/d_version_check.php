@@ -35,14 +35,14 @@
       $output = '<table class="table table-striped mb-2">';
         $output .= '<thead class="thead-dark">';
           $output .= '<tr>';
-            $output .= '<th colspan="2">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_TITLE . '</th>';
+            $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version") . '</th>';
           $output .= '</tr>';
         $output .= '</thead>';
         $output .= '<tbody>';
         if (version_compare($current_version, $compared_version, '<')) {
           $link = Guarantor::ensure_global('Admin')->link('version_check.php');
           $output .= '<tr>';
-            $output .= '<td class="bg-danger text-white">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE . '</td>';
+            $output .= '<td class="bg-danger text-white">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE, "$compared_version") . '</td>';
             $output .= '<td class="bg-danger text-right"><a class="btn btn-info btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
           $output .= '</tr>';
         } else {

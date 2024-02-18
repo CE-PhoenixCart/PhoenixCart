@@ -25,15 +25,9 @@
         },
       ],
       [
-        'name' => TABLE_HEADING_SORT_ORDER_V,
+        'name' => TABLE_HEADING_SORT_ORDER,
         'function' => function ($row) {
           return $row['cdg_vertical_sort_order'];
-        },
-      ],
-      [
-        'name' => TABLE_HEADING_SORT_ORDER_H,
-        'function' => function ($row) {
-          return $row['cdg_horizontal_sort_order'];
         },
       ],
       [
@@ -58,10 +52,10 @@
     'db_id' => 'customer_data_groups_id',
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
     'sql' => sprintf(<<<'EOSQL'
-SELECT customer_data_groups_id, customer_data_groups_name, cdg_vertical_sort_order, cdg_horizontal_sort_order, customer_data_groups_width
+SELECT *
  FROM customer_data_groups
  WHERE language_id = %d
- ORDER BY cdg_vertical_sort_order, cdg_horizontal_sort_order
+ ORDER BY cdg_vertical_sort_order
 EOSQL
       , (int)$_SESSION['languages_id']),
   ];

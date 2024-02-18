@@ -84,6 +84,7 @@
         'id' => $input_id,
         'autocomplete' => 'given-name',
         'placeholder' => ENTRY_FIRST_NAME_TEXT,
+        'minlength' => ENTRY_FIRST_NAME_MIN_LENGTH,
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {
@@ -95,7 +96,7 @@
         $input .= FORM_REQUIRED_INPUT;
       }
 
-      include DIR_FS_CATALOG . Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
+      include Guarantor::ensure_global('Template')->map($this->base_constant('TEMPLATE'));
     }
 
     public function process(&$customer_details) {

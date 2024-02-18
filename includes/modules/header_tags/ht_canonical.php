@@ -41,6 +41,13 @@
         case 'specials.php':
           return $GLOBALS['Linker']->build(null, ['view' => 'all'], false);
 
+        case 'info.php':
+          if (isset($_GET['pages_id'])) {
+            return $GLOBALS['Linker']->build(null, [
+              'pages_id' => (int) $_GET['pages_id']
+            ], false);
+          }
+          // otherwise fall through to
         default:
           return $GLOBALS['Linker']->build(null, [], false);
       }

@@ -73,7 +73,7 @@ const TEXT_SORT_ORDER = 'Sort Order';
 
 const TEXT_PRODUCTS_STATUS = 'Products Status';
 const TEXT_PRODUCTS_DATE_AVAILABLE = 'Date Available';
-const TEXT_PRODUCTS_DATE_AVAILABLE_HELP = 'YYYY-MM-DD';
+const TEXT_PRODUCTS_DATE_AVAILABLE_HELP = '';
 const TEXT_PRODUCT_AVAILABLE = 'In Stock';
 const TEXT_PRODUCT_NOT_AVAILABLE = 'Out of Stock';
 const TEXT_PRODUCTS_MANUFACTURER = 'Products Manufacturer';

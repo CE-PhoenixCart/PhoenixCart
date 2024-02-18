@@ -71,7 +71,7 @@
         <div class="row">
           <div class="col">
             <div class="custom-file mb-2">
-              <?= new Input('advert_image', ['id' => 'advert_image', 'class' => 'custom-file-input'], 'file') ?>
+              <?= new Input('advert_image', ['accept' => 'image/*', 'id' => 'advert_image', 'class' => 'custom-file-input'], 'file') ?>
               <label class="custom-file-label" for="advert_image"></label>
             </div>
           </div>
@@ -91,14 +91,14 @@
     foreach (language::load_all() as $l) {
       $language_icon = $Admin->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", [], $l['name']);
       ?>
-      <div class="form-group row" id="zText<?= $l['directory'] ?>">
-        <label for="aText<?= $l['id'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_HTML_TEXT ?></label>
+      <div class="form-group row" id="zText_<?= $l['code'] ?>">
+        <label for="aText-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_HTML_TEXT ?></label>
         <div class="col-sm-9">
           <div class="input-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><?= $language_icon ?></span>
             </div>
-            <?= (new Textarea('advert_html_text[' . $l['id'] . ']', ['cols' => '60', 'rows' => '15', 'id' => 'aText' . $l['id']])) ?>
+            <?= (new Textarea('advert_html_text[' . $l['id'] . ']', ['cols' => '60', 'rows' => '15', 'id' => "aText-{$l['code']}"])) ?>
           </div>
         </div>
       </div>

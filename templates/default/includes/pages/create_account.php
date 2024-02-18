@@ -33,6 +33,8 @@
 <?php
   echo (new Form('create_account', $Linker->build(), 'post', [], true))->hide('action', 'process');
 
+  echo '<div class="row">';
+  
   while ($customer_data_group = $customer_data_group_query->fetch_assoc()) {
     $modules = $grouped_modules[$customer_data_group['customer_data_groups_id']] ?? [];
     $modules = array_filter($modules, function ($v) use ($page_fields) {
@@ -44,13 +46,22 @@
     }
     ?>
 
-    <h4><?= $customer_data_group['customer_data_groups_name'] ?></h4>
+    <div class="<?= $customer_data_group['customer_data_groups_width'] ?>">
 
+      <h4><?= $customer_data_group['customer_data_groups_name'] ?></h4>
+
+      <?php
+      foreach ($modules as $module) {
+        $module->display_input($customer_details);
+      }
+      ?>
+      
+    </div>
+    
     <?php
-    foreach ($modules as $module) {
-      $module->display_input($customer_details);
-    }
   }
+
+  echo '</div>';
 
   echo $hooks->cat('injectFormDisplay');
 ?>

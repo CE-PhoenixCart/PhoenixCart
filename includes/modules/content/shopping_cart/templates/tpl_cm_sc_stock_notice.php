@@ -1,6 +1,6 @@
 <style>.cm-sc-stock-notice {margin-top: 10px;}</style>
 
-<div class="col-sm-<?php echo $content_width ?> cm-sc-stock-notice">
+<div class="col-sm-<?= $content_width ?> cm-sc-stock-notice">
 	<?php
 	if (STOCK_ALLOW_CHECKOUT == 'true') {
       echo '<div class="alert alert-warning" role="alert">', MODULE_CONTENT_SC_STOCK_NOTICE_CAN_CHECKOUT, '</div>';

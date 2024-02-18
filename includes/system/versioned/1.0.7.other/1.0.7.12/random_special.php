@@ -19,6 +19,7 @@ SELECT RAND() * COUNT(*) AS `offset`
    INNER JOIN products_description pd ON p.products_id = pd.products_id
    INNER JOIN specials s ON pd.products_id = s.products_id
   WHERE p.products_status = 1 AND s.status = 1 AND pd.language_id = %d
+  HAVING COUNT(*) > 0
   ORDER BY s.specials_id DESC
 EOSQL
         , (int)$_SESSION['languages_id']));

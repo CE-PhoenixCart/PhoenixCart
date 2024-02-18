@@ -28,6 +28,7 @@
   ];
 
   $products_image = new upload('products_image');
+  $products_image->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
   $products_image->set_destination(DIR_FS_CATALOG_IMAGES);
   if ($products_image->parse() && $products_image->save()) {
     $sql_data['products_image'] = Text::prepare($products_image->filename);
@@ -64,6 +65,7 @@
       $sql_data = ['htmlcontent' => Text::prepare($_POST['products_image_htmlcontent_' . $matches[1]]), 'sort_order' => $pi_sort_order];
 
       $t = new upload($key);
+      $t->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
       $t->set_destination(DIR_FS_CATALOG_IMAGES);
       if ($t->parse() && $t->save()) {
         $sql_data['image'] = Text::prepare($t->filename);
@@ -77,6 +79,7 @@
       $sql_data = ['products_id' => (int)$products_id, 'htmlcontent' => Text::prepare($_POST['products_image_htmlcontent_new_' . $matches[1]])];
 
       $t = new upload($key);
+      $t->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
       $t->set_destination(DIR_FS_CATALOG_IMAGES);
       if ($t->parse() && $t->save()) {
         $pi_sort_order++;

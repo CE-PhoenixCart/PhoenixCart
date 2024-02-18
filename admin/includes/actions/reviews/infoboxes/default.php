@@ -27,7 +27,6 @@
     $contents[] = ['text' => $GLOBALS['Admin']->catalog_image("images/{$rInfo->products_image}", [], $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT)];
     $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_AUTHOR, $rInfo->customers_name)];
     $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_RATING, new star_rating((float)$rInfo->reviews_rating))];
-    $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_READ, $rInfo->reviews_read)];
-    $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_SIZE, $rInfo->reviews_text_size)];
+    $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_SIZE, str_word_count($rInfo->reviews_text))];
     $contents[] = ['text' => sprintf(TEXT_INFO_PRODUCTS_AVERAGE_RATING, number_format($rInfo->average_rating, 2))];
   }

@@ -11,6 +11,8 @@
 */
 
   class sc_github_directory {
+    
+    public $title;
     public $type = 'warning';
 
     public function __construct() {
@@ -24,4 +26,5 @@
     public function get_message() {
       return MODULE_SECURITY_CHECK_GITHUB_DIRECTORY_EXISTS;
     }
+    
   }

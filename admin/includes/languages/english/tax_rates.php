@@ -15,7 +15,7 @@ const HEADING_TITLE = 'Tax Rates';
 const TABLE_HEADING_TAX_RATE_PRIORITY = 'Priority';
 const TABLE_HEADING_TAX_CLASS_TITLE = 'Tax Class';
 const TABLE_HEADING_COUNTRIES_NAME = 'Country';
-const TABLE_HEADING_ZONE = 'Zone';
+const TABLE_HEADING_ZONE = 'Tax Zone';
 const TABLE_HEADING_TAX_RATE = 'Tax Rate';
 const TABLE_HEADING_ACTION = 'Action';
 
@@ -24,7 +24,7 @@ const TEXT_INFO_DATE_ADDED = 'Date Added: %s';
 const TEXT_INFO_LAST_MODIFIED = 'Last Modified: %s';
 const TEXT_INFO_CLASS_TITLE = 'Tax Class Title:';
 const TEXT_INFO_COUNTRY_NAME = 'Country:';
-const TEXT_INFO_ZONE_NAME = 'Zone:';
+const TEXT_INFO_ZONE_NAME = 'Tax Zone:';
 const TEXT_INFO_TAX_RATE = 'Tax Rate (%):';
 const TEXT_INFO_TAX_RATE_PRIORITY = 'Tax rates at the same priority are added, others are compounded.<br /><br />Priority:';
 const TEXT_INFO_RATE_DESCRIPTION = 'Description:<br>%s';

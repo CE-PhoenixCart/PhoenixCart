@@ -1,5 +1,5 @@
-<div class="col-sm-<?php echo $content_width; ?> title cm-i-title">
-  <h1 class="display-4"><?php echo sprintf(MODULE_CONTENT_I_TITLE_PUBLIC_TITLE, STORE_NAME); ?></h1>
+<div class="col-sm-<?= $content_width ?> title cm-i-title">
+  <h1 class="display-4"><?= sprintf(MODULE_CONTENT_I_TITLE_PUBLIC_TITLE, STORE_NAME) ?></h1>
 </div>
 
 <?php

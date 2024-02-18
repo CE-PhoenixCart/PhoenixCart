@@ -42,7 +42,7 @@
     public function expireEntries() {
       $GLOBALS['db']->query("DELETE FROM action_recorder WHERE module = '" . $this->code . "' AND date_added < DATE_SUB(NOW(), INTERVAL " . (int)$this->minutes  . " MINUTE)");
 
-      return mysqli_affected_rows();
+      return mysqli_affected_rows($GLOBALS['db']);
     }
 
   }

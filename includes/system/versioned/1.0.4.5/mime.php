@@ -12,9 +12,8 @@
   mime.php - a class to assist in building mime-HTML eMails
 
   The original class was made by Richard Heyes <richard@phpguru.org>
-  and can be found here: http://www.phpguru.org
 
-  Modified by Jan Wildeboer
+  Modified by Jan Wildeboer, et. al.
 */
 
   class mime {
@@ -24,6 +23,7 @@
     protected $_encoded = [];
     protected $_headers = [];
     protected $_body;
+    protected $lf = "\r\n";
 
 /**
  * Constructor.
@@ -41,14 +41,10 @@
  * @access public
  */
     function __construct($body, $params = []) {
-// Make sure we use the correct linfeed sequence
-      if (EMAIL_LINEFEED == 'CRLF') {
-        $this->lf = "\r\n";
-      } else {
-        $this->lf = "\n";
-      }
+// Make sure we use the correct linefeed sequence
+      $this->lf = (EMAIL_LINEFEED === 'CRLF') ? "\r\n" : "\n";
 
-      foreach($params as $key => $value) {
+      foreach ($params as $key => $value) {
         switch ($key) {
           case 'content_type':
             $headers['Content-Type'] = $value . (isset($charset) ? '; charset="' . $charset . '"' : '');

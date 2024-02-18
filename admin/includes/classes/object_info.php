@@ -10,6 +10,7 @@
   Released under the GNU General Public License
 */
 
+  #[\AllowDynamicProperties]
   class objectInfo {
 
     public function __construct($object_data) {

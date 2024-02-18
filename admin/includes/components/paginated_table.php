@@ -12,7 +12,7 @@
 ?>
 
   <div class="row no-gutters">
-    <div class="col-12 col-sm-8">
+    <div class="col-12 col-sm-<?= $table_definition['width'] ?? 8 ?>">
       <div class="table-responsive"><?= $table_definition['form'] ?? '' ?>
         <table class="table table-striped table-hover">
           <thead class="thead-dark">
@@ -73,7 +73,7 @@ EOJS;
        ($this->page_count <= 1)
        ? sprintf(TEXT_RESULT_PAGE, $this->page_count, $this->page_count)
        : '<div class="input-group">'
-         . '<div class="input-group-append">'
+         . '<div class="input-group-append ml-auto">'
            . '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>'
          . '</div>'
          . $table_definition['split']->draw_pages_form()
@@ -84,7 +84,7 @@ EOJS;
     </div>
 
 <?php
-  if (isset($GLOBALS['action']) && ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action']))) {
+  if ($action_file = $GLOBALS['Admin']->locate('/infoboxes', $GLOBALS['action'] ?? 'default')) {
     require DIR_FS_ADMIN . 'includes/components/infobox.php';
   }
 ?>

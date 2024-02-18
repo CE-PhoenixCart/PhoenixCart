@@ -10,27 +10,28 @@
   Released under the GNU General Public License
 */
 
-  $page = info_pages::get_page([
+  $containers = info_pages::getContainer([
     'pd.pages_id' => (int)$_GET['pages_id'],
     'pd.languages_id' => (int)$_SESSION['languages_id'],
     'p.pages_status' => 1,
   ]);
 
-  if (count($page) > 0) {
-    $breadcrumb->add($page['pages_title'], $Linker->build('info.php', ['pages_id' => (int)$page['pages_id']]));
+  if (empty($containers)) {
+    Href::redirect($Linker->build('index.php'));
+  }
 
-    require $Template->map('template_top.php', 'component');
+  $page = $containers[0];
+  $breadcrumb->add($page['pages_title'], $Linker->build('info.php', ['pages_id' => (int)$page['pages_id']]));
 
-    $page_content = $Template->get_content('info');
-    ?>
+  require $Template->map('template_top.php', 'component');
+
+  $page_content = $Template->get_content('info');
+  ?>
 
     <div class="row">
       <?= $page_content ?>
     </div>
 
-    <?php
-    require $Template->map('template_bottom.php', 'component');
-  } else {
-    Href::redirect($Linker->build('index.php'));
-  }
+  <?php
+  require $Template->map('template_bottom.php', 'component');
 ?>

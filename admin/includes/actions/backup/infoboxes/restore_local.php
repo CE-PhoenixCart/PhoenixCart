@@ -16,7 +16,7 @@
   $contents[] = ['text' => TEXT_INFO_RESTORE_LOCAL . '<br><br>' . TEXT_INFO_BEST_THROUGH_HTTPS];
   $contents[] = [
     'text' => '<div class="custom-file mb-2">'
-            . (new Input('sql_file', ['id' => 'upload', 'class' => 'custom-file-input'], 'file'))->require()
+            . (new Input('sql_file', ['accept' => '.sql', 'id' => 'upload', 'class' => 'custom-file-input'], 'file'))->require()
             . '<label class="custom-file-label" for="upload">&nbsp;</label></div>',
   ];
   $contents[] = ['text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE];

@@ -50,7 +50,7 @@
         $output .= '</table>';
       $output .= '</div>';
 
-      $output .= $Admin->button(MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL, 'far fa-list-alt', 'btn btn-success btn-block my-2', $Admin->link('certified_addons.php'));
+      $output .= '<a class="btn btn-success btn-block my-2" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22"><i class="far fa-list-alt mr-1"></i>'. MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL .'</a>';
 
       return $output;
     }
@@ -58,9 +58,9 @@
     protected function get_parameters() {
       return [
         'MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_STATUS' => [
-          'title' => 'Enable Latest Add-Ons Module',
+          'title' => 'Enable Certified Partners Module',
           'value' => 'True',
-          'desc' => 'Do you want to show the latest Phoenix Club Add-Ons on the dashboard?',
+          'desc' => 'Do you want to show the latest Partner news on the dashboard?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_CONTENT_WIDTH' => [

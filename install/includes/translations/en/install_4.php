@@ -13,7 +13,7 @@
 const TEXT_FINISHED_EXPLANATION = 'The installation of your online store was successful! Click on a button to start your online selling experience:';
 const TEXT_ADMIN = 'Admin (Backend)';
 const TEXT_STORE = 'Store (Frontend)';
-const TEXT_FORUM = 'Phoenix Club';
+const TEXT_FORUM = 'Phoenix Forum';
 const TEXT_STEP_4 = 'Step 4';
 const TEXT_STEP_4_EXPLANATION = <<<'EOT'
 <p>Congratulations on installing and configuring CE Phoenix as your online store solution!</p>

@@ -16,12 +16,12 @@
   $messageStack->add('general', 'Error: Error 2', 'warning');
   if ($messageStack->size('general') > 0) echo $messageStack->output('general');
 */
+
   class messageStack extends alertBlock {
 
-// class constructor
-    public function __construct() {
-      $this->messages = [];
+    public $messages = [];
 
+    public function __construct() {
       if (isset($_SESSION['messageToStack'])) {
         foreach ($_SESSION['messageToStack'] as $message) {
           $this->add($message['class'], $message['text'], $message['type']);
@@ -30,7 +30,6 @@
       }
     }
 
-// class methods
     public function add($class, $message, $type = 'error') {
       if ($type == 'error') {
         $this->messages[] = [

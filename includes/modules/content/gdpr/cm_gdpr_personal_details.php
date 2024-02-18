@@ -36,10 +36,8 @@
       }
       $port_my_data['YOU']['PERSONAL']['GENDER'] = $gdpr_gender;
 
-      $bad_dates = ['0000-00-00 00:00:00', '1970-01-01 00:00:01'];
-      $gdpr_dob = (in_array($customer->get('dob'), $bad_dates))
-                ? MODULE_CONTENT_GDPR_PERSONAL_DETAILS_UNKNOWN
-                : Date::abridge($customer->get('dob'));
+      $gdpr_dob = (empty($customer->get('dob'))) ? MODULE_CONTENT_GDPR_PERSONAL_DETAILS_UNKNOWN : Date::abridge($customer->get('dob'));
+
       $port_my_data['YOU']['PERSONAL']['DOB'] = $gdpr_dob;
 
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];

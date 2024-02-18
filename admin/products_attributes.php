@@ -39,12 +39,18 @@ SELECT products_options_id AS id, products_options_name AS text, products_option
 EOSQL
     , (int)$_SESSION['languages_id']));
   $values = $db->fetch_all(sprintf(<<<'EOSQL'
-SELECT products_options_values_id AS id, products_options_values_name AS text, products_options_values.*
- FROM products_options_values
- WHERE language_id = %d
- ORDER BY products_options_values_name
+SELECT pov.*, pov.products_options_values_id AS id, pov.products_options_values_name AS text, pov2po.products_options_id 
+ FROM products_options_values pov LEFT JOIN products_options_values_to_products_options pov2po ON pov.products_options_values_id = pov2po.products_options_values_id 
+ WHERE pov.language_id = %d 
+ ORDER BY pov.products_options_values_name 
 EOSQL
-    , (int)$_SESSION['languages_id']));
+    , (int)$_SESSION['languages_id']));    
+  $grouped_values = [];
+  foreach ($values as $value) {
+    $grouped_values[] = ['id' => $value['id'], 'text' => $value['text'], 'parameters' => ['data-id' => $value['products_options_id']]];
+  }
+  
+  $default_selection = [['id' => '', 'text' => PLEASE_SELECT_OPTION]];
 
   require 'includes/template_top.php';
   ?>
@@ -90,13 +96,13 @@ EOSQL
               <tr class="table-success">
                 <td>
                   <input type="hidden" name="attribute_id" value="<?= $attributes_values['products_attributes_id'] ?>">
-                  <?= $product_selector->set_selection($attributes_values['products_id']) ?>
+                  <?= $product_selector->set_selection($attributes_values['products_id'])->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                 </td>
                 <td>
-                  <?= (new Select('options_id', $options))->set_selection($attributes_values['options_id']) ?>
+                  <?= (new Select('options_id', array_merge($default_selection, $options)))->set_selection($attributes_values['options_id'])->require() ?>
                 </td>
                 <td>
-                  <?= (new Select('values_id', $values))->set_selection($attributes_values['options_values_id']) ?>
+                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->set_selection($attributes_values['options_values_id'])->require() ?>
                 </td>
                 <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
                 <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
@@ -165,17 +171,16 @@ EOSQL
           }
 
           if ($action != 'update_attribute') {
-            $default_selection = [['id' => '', 'text' => PLEASE_SELECT_OPTION]];
             ?>
             <tr class="bg-white">
               <td>
-                <?= $product_selector->set_selection()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
+                <?= $product_selector->set_selection()->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
               </td>
               <td>
-                <?= new Select('options_id', array_merge($default_selection, $options)) ?>
+                <?= (new Select('options_id', array_merge($default_selection, $options)))->require() ?>
               </td>
               <td>
-                <?= new Select('values_id', array_merge($default_selection, $values)) ?>
+                <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->require() ?>
               </td>
               <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
               <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>
@@ -309,14 +314,14 @@ EOSQL
                   $inputs .= '<div class="input-group-prepend">';
                     $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $inputs .= '</div>';
-                  $inputs .= (new Input("option_name[{$l['id']}]"))->require()->set('value', $option_name['products_options_name']);
+                  $inputs .= (new Input("option_name[{$l['id']}]", ['id' => "oName-{$l['code']}"]))->require()->set('value', $option_name['products_options_name']);
                 $inputs .= '</div>';
 
                 $sort .= '<div class="input-group mb-1">';
                   $sort .= '<div class="input-group-prepend">';
                     $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $sort .= '</div>';
-                  $sort .= (new Input("sort_order[{$l['id']}]"))->require()->set('value', $option_name['sort_order']);
+                  $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require()->set('value', $option_name['sort_order']);
                 $sort .= '</div>';
 
               }
@@ -365,14 +370,14 @@ EOSQL
               $inputs .= '<div class="input-group-prepend">';
                 $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
               $inputs .= '</div>';
-              $inputs .= (new Input("option_name[{$l['id']}]"))->require();
+              $inputs .= (new Input("option_name[{$l['id']}]",['id' => "oName-{$l['code']}"]))->require();
             $inputs .= '</div>';
 
             $sort .= '<div class="input-group mb-1">';
               $sort .= '<div class="input-group-prepend">';
                 $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
               $sort .= '</div>';
-              $sort .= (new Input("sort_order[{$l['id']}]"))->require();
+              $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require();
             $sort .= '</div>';
 
           }
@@ -500,14 +505,14 @@ EOSQL
                   $inputs .= '<div class="input-group-prepend">';
                     $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $inputs .= '</div>';
-                  $inputs .= (new Input("value_name[{$l['id']}]"))->require()->set('value', $value_name['products_options_values_name']);
+                  $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require()->set('value', $value_name['products_options_values_name']);
                 $inputs .= '</div>';
 
                 $sort .= '<div class="input-group mb-1">';
                   $sort .= '<div class="input-group-prepend">';
                     $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                   $sort .= '</div>';
-                  $sort .= (new Input("sort_order[{$l['id']}]"))->require()->set('value', $value_name['sort_order']);
+                  $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require()->set('value', $value_name['sort_order']);
                 $sort .= '</div>';
               }
               ?>
@@ -559,14 +564,14 @@ EOSQL
                 $inputs .= '<div class="input-group-prepend">';
                   $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                 $inputs .= '</div>';
-                $inputs .= (new Input("value_name[{$l['id']}]"))->require();
+                $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require();
               $inputs .= '</div>';
 
               $sort .= '<div class="input-group mb-1">';
                 $sort .= '<div class="input-group-prepend">';
                   $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                 $sort .= '</div>';
-                $sort .= (new Input("sort_order[{$l['id']}]"))->require();
+                $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require();
               $sort .= '</div>';
             }
             ?>

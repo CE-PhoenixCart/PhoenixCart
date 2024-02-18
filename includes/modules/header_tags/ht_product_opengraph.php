@@ -40,6 +40,9 @@
 
         $data['product:availability'] = ( $product->get('in_stock') > 0 ) ? MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_TEXT_IN_STOCK : MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_TEXT_OUT_OF_STOCK;
 
+        $parameters = ['data' => &$data];
+        $GLOBALS['hooks']->cat('injectHtOpenGraph', $parameters);
+
         $result = '';
         foreach ( $data as $property => $content ) {
           $result .= '<meta property="' . htmlspecialchars($property) . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;

@@ -82,6 +82,7 @@
         'id' => $input_id,
         'autocomplete' => 'address-level2',
         'placeholder' => ENTRY_CITY_TEXT,
+        'minlength' => $this->base_constant('MIN_LENGTH'),
       ];
 
       $input = new Input('city', $parameters);

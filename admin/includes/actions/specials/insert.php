@@ -23,11 +23,11 @@ EOSQL
     $specials_price = ($products_price - (($specials_price / 100) * $products_price));
   }
 
-  $expires_date = Text::input($_POST['expdate']);
-  if (Text::is_empty($expires_date)) {
+  $expdate = Text::input($_POST['expdate']);
+  if (Text::is_empty($expdate)) {
     $expires_date = 'NULL';
   } else {
-    $expires_date = substr($expires_date, 0, 4) . substr($expires_date, 5, 2) . substr($expires_date, 8, 2);
+    $expires_date = date($expdate . ' H:i:s', strtotime('tomorrow -1 second'));
   }
 
   $db->perform('specials', [

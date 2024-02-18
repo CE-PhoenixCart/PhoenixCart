@@ -16,8 +16,6 @@
 
     public function __construct() {
       parent::__construct(__FILE__);
-
-      $this->public_title = MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE;
     }
 
     public function execute() {
@@ -25,7 +23,7 @@
         $geo_location = $GLOBALS['customer']->get('country_id');
 
         $GLOBALS['Template']->_data['account']['gdpr'] = [
-          'title' => $this->public_title,
+          'title' => MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE,
           'sort_order' => 100,
           'links' => [],
         ];

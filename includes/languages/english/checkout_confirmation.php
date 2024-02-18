@@ -27,8 +27,6 @@ const HEADING_PAYMENT_METHOD = 'Payment Method';
 const HEADING_PAYMENT_INFORMATION = 'Payment Information';
 const HEADING_ORDER_COMMENTS = 'Comments About Your Order';
 
-const TEXT_EDIT = 'Edit';
-
 const IMAGE_BUTTON_FINALISE_ORDER = 'Finalise and Pay %s For my Order';
 
 const HEADING_QTY = 'Qty';

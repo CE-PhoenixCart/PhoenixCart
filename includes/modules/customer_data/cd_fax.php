@@ -81,6 +81,8 @@
       $input = new Input('fax', [
         'id' => $input_id,
         'placeholder' => ENTRY_FAX_TEXT,
+        'minlength' => $this->base_constant('MIN_LENGTH'),
+        'type' => 'tel',
       ]);
 
       if (isset($customer_details) && is_array($customer_details)) {

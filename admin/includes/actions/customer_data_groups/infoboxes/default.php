@@ -23,21 +23,15 @@
 
     $cdg_query = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
 SELECT
-  cdg.customer_data_groups_name,
-  cdg.cdg_vertical_sort_order,
-  cdg.cdg_horizontal_sort_order,
-  cdg.customer_data_groups_width,
-  l.directory,
-  l.image,
-  l.name
+  cdg.*,
+  l.*
  FROM customer_data_groups cdg INNER JOIN languages l ON cdg.language_id = l.languages_id
  WHERE customer_data_groups_id = %d
 EOSQL
       , (int)$cdgInfo->customer_data_groups_id));
     while ($cdg = $cdg_query->fetch_assoc()) {
       $contents[] = ['text' => TEXT_INFO_CUSTOMER_DATA_GROUP_NAME . '<br>' . $GLOBALS['Admin']->catalog_image("includes/languages/{$cdg['directory']}/images/{$cdg['image']}", [], $cdg['name']) . '&nbsp;' . $cdg['customer_data_groups_name']];
-      $contents[] = ['text' => sprintf(TEXT_INFO_VERTICAL_SORT_ORDER, $cdg['cdg_vertical_sort_order'])];
-      $contents[] = ['text' => sprintf(TEXT_INFO_HORIZONTAL_SORT_ORDER, $cdg['cdg_horizontal_sort_order'])];
+      $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, $cdg['cdg_vertical_sort_order'])];
       $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, $cdg['customer_data_groups_width'])];
     }
   }

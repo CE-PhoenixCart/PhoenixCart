@@ -127,12 +127,10 @@
   </div>
 
   <div class="progressBarHook">
-
-  <?php
-  $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 2, 'min' => 0, 'max' => 100, 'now' => 67]];
-  echo $hooks->cat('progressBar', $parameters);
-  ?>
-
+    <?php
+    $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 2, 'min' => 0, 'max' => 100, 'now' => 67]];
+    echo $hooks->cat('progressBar', $parameters);
+    ?>
   </div>
 
 </form>

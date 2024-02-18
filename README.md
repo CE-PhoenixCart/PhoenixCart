@@ -13,7 +13,7 @@
   - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart#user-checklist)
   - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart#one-click)
   - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart#language-packs)
-* [Certified Service Providers](https://github.com/CE-PhoenixCart/PhoenixCart#certified-service-providers)
+* [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart#certified-partners)
 * [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart#how-to-support-the-phoenix-project)
   - [Join the Phoenix Club](https://github.com/CE-PhoenixCart/PhoenixCart#join-the-phoenix-club)
 * [Links](https://github.com/CE-PhoenixCart/PhoenixCart#helpful-links)
@@ -25,10 +25,12 @@ Phoenix is a powerful ecommerce shop ready to use out of the box, putting you on
 
 Phoenix is packed with many first class utilities as standard but its modular software design lets you add many more with no programming skills required. The full suite of product, shipping and payment options included will let you sell thousands of products in any number of categories worldwide in any currency or language providing a seamless customer experience.
 
-### Demo Site
+### Demo Sites
 
-Core:  https://phoenixcart.org/demo/  
-Pro:  https://template.me.uk/index.php
+Version | URL
+------- | ---
+Core|https://phoenixcart.org/demo/  
+PRO|https://phoenixcart.org/PROdemo/
 
 ## Installation
 
@@ -87,12 +89,12 @@ Help Phoenix fly high...if you or your employer is commercially dependent on Pho
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
 
-### Certified Service Providers
+### Certified Partners
 
-[Certified service providers](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
 
-* These developers are certified by the Core Team
-* These developers support Phoenix by giving their time, code and financial support
+* These partners are certified by the Core Team
+* These partners support Phoenix by giving their time, code and financial support
 
 If you are looking for a developer for a paid-for project, please consider one of those at https://phoenixcart.org/forum/app.php/developers
 
@@ -104,13 +106,11 @@ If you wish to help steer the future direction of the software you need to join 
 
 Channel | URL 
 ------------ | -------------
-Phoenix Club | https://phoenixcart.org/forum/
-Phoenix (Youtube) | https://www.youtube.com/channel/UCjJe0ZX3-nGzeJFEzcVUyIA/
+Phoenix (Forum) | https://phoenixcart.org/forum/
+Phoenix (Youtube) | https://www.youtube.com/@PhoenixCart/
 Zipurman Coding (Youtube) | https://www.youtube.com/user/zipurman/videos
-Support (Discord) | https://discord.gg/3pzfrtMAX4
 User Guide (Phoenix Cart) | https://phoenixcart.org/phoenixcartwiki/index.php
 Add-ons Library (Phoenix Cart) | https://phoenixcart.org/forum/addons/
-Forum (Phoenix Cart) | https://phoenixcart.org/forum/
 
 ## Credits
 

@@ -12,6 +12,7 @@
 
   class sce_shopside_checklist {
 
+    public $title;
     public $type = 'info';
     public $has_doc = false;
 

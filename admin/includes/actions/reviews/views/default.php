@@ -33,7 +33,6 @@ EOSQL
       ],
       [
         'name' => TABLE_HEADING_DATE_ADDED,
-        'class' => 'text-right',
         'function' => function ($row) {
           return Date::abridge($row['date_added']);
         },
@@ -68,7 +67,7 @@ EOSQL
     $row['link'] = $GLOBALS['link']->set_parameter('rID', $row['reviews_id']);
     if (!isset($table_definition['info']) && (!isset($_GET['rID']) || ($_GET['rID'] === $row['reviews_id']))) {
       $reviews_text = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
-SELECT rd.*, LENGTH(rd.reviews_text) AS reviews_text_size
+SELECT rd.*
  FROM reviews r INNER JOIN reviews_description rd ON r.reviews_id = rd.reviews_id
  WHERE r.reviews_id = %d
 EOSQL

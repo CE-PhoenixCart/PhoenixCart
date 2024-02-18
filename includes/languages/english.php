@@ -27,7 +27,7 @@ const DATE_TIME_FORMAT = DATE_FORMAT_SHORT . ' %H:%M:%S';
 const LANGUAGE_CURRENCY = 'USD';
 
 // Global entries for the <html> tag
-const HTML_PARAMS = '';
+const HTML_PARAMS = ' lang="en"';
 
 // charset for web pages and emails
 const CHARSET = 'utf-8';
@@ -105,3 +105,5 @@ const PAYMENT_FA_ICON = '<i class="fas fa-file-invoice-dollar fa-fw fa-3x float-
 
 const ENTRY_COMMENTS = 'Anything we need to know?';
 const ENTRY_COMMENTS_PLACEHOLDER = 'Comment here...';
+
+const STAR_RATING = 'Rated %s Stars';

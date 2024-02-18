@@ -69,12 +69,7 @@
       $installed = implode(';', $modules_installed);
 
       if (constant($this->get($type, 'key')) !== $installed) {
-        $GLOBALS['db']->query(sprintf(<<<'EOSQL'
-UPDATE configuration
- SET configuration_value = '%s', last_modified = NOW()
- WHERE configuration_key = '%s'
-EOSQL
-          , $GLOBALS['db']->escape($installed), $GLOBALS['db']->escape($GLOBALS['module_key'])));
+        static::update_configuration($installed, $GLOBALS['module_key']);
         $GLOBALS['modules_installed'] = $modules_installed;
       }
     }
@@ -136,6 +131,15 @@ EOSQL
       $module_files['new'] = array_values($new_modules);
 
       return $module_files;
+    }
+
+    public static function update_configuration($value, $key) {
+      $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+UPDATE configuration
+ SET configuration_value = '%s', last_modified = NOW()
+ WHERE configuration_key = '%s'
+EOSQL
+        , $GLOBALS['db']->escape($value), $GLOBALS['db']->escape($key)));
     }
 
     public static function build_keys($module) {

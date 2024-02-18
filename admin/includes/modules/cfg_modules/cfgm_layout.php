@@ -22,7 +22,15 @@
       'product_info' => 'MODULE_CONTENT_PI_INSTALLED',
     ];
 
-    public static function fix_installed_constant($installed_modules) {
+    protected static function is_module_installed($module) {
+      if (!isset($GLOBALS[$module]) || !($GLOBALS[$module] instanceof $module)) {
+        $GLOBALS[$module] = new $module();
+      }
+
+      return $GLOBALS[$module]->isEnabled();
+    }
+
+    public static function fix_installed_constant(&$installed_modules) {
       if (empty($_GET['page'])) {
         if (empty($_GET['module'])) {
           foreach (static::GROUP_KEYS as $key) {
@@ -36,11 +44,11 @@
           return false;
         }
 
-        if (empty($GLOBALS[$_GET['module']]->group)) {
-          return true;
+        if (!class_exists($_GET['module'])) {
+          return false;
         }
 
-        $page = $GLOBALS[$_GET['module']]->group;
+        $page = basename(dirname($GLOBALS['class_index']->get($_GET['module'])));
       } else {
         $page = $_GET['page'];
       }
@@ -48,14 +56,27 @@
       $key = static::GROUP_KEYS[pathinfo($page, PATHINFO_FILENAME)] ?? null;
 
       if (is_null($key)) {
-        error_log("No key found for '{$_GET['page']}'");
+        error_log("No key found for '$page'");
         return false;
       }
 
       $GLOBALS['cfg_modules']->set(static::CODE, 'key', $key);
       $GLOBALS['module_key'] = $key;
+      $installed_modules = array_filter($installed_modules, function ($v) use ($page) {
+        if (isset($v['file']) && !isset($v['group'], $v['code'])) {
+          $v['code'] = pathinfo($v['file'], PATHINFO_FILENAME);
+          $v['group'] = basename(dirname($GLOBALS['class_index']->get($v['code'])));
+        }
 
-      return true;
+        return ($v['group'] == $page) && static::is_module_installed($v['code']);
+      });
+
+      $installed = implode(';', array_column($installed_modules, 'file'));
+      if (constant($key) !== $installed) {
+        cfg_modules::update_configuration($installed, $key);
+      }
+
+      return false;
     }
 
     public static function generate_modules() {
@@ -137,18 +158,6 @@
             'name' => TABLE_HEADING_WIDTH,
             'function' => function ($row) {
               return $row['content_width'];
-            },
-          ],
-        ]);
-
-        array_splice($GLOBALS['table_definition']['columns'], -1, 0, [
-          [
-            'name' => TABLE_HEADING_ENABLED,
-            'class' => 'text-right',
-            'function' => function ($row) {
-              return ($row['status'] > 0)
-                   ? '<i class="fas fa-check-circle text-success"></i>'
-                   : '<i class="fas fa-times-circle text-danger"></i>';
             },
           ],
         ]);

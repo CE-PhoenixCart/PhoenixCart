@@ -28,7 +28,8 @@ const ICON_THUMB_DANGER = '<i class="fas fa-thumbs-down text-danger"></i>';
 const TEXT_ON = 'On';
 const TEXT_OFF = 'Off';
 
-const TEXT_REQUIRED_INFORMATION = '<i class="fas fa-asterisk text-danger"></i> Required information';
+const TEXT_REQUIRED_INFORMATION = '<i class="fas fa-asterisk text-danger form-control-feedback"></i>';
+const TITLE_REQUIRED_INFORMATION = '<i class="fas fa-asterisk text-danger"></i> Required information';
 
 const TEXT_NEW_INSTALLATION = 'New Installation';
 const TEXT_WEB_INSTALL = <<<'EOT'

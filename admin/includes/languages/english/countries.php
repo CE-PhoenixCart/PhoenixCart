@@ -14,6 +14,7 @@ const HEADING_TITLE = 'Countries';
 
 const TABLE_HEADING_COUNTRY_NAME = 'Country';
 const TABLE_HEADING_COUNTRY_CODES = 'ISO Codes';
+const TABLE_HEADING_STATUS = 'Status';
 const TABLE_HEADING_ACTION = 'Action';
 
 const TEXT_INFO_EDIT_INTRO = 'Please make any necessary changes';

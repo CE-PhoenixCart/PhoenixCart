@@ -58,6 +58,7 @@
      * @param string $resultmode
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function query($sql, $resultmode = MYSQLI_STORE_RESULT) {
       if (defined('STORE_DB_TRANSACTIONS') && (STORE_DB_TRANSACTIONS == 'true')) {
         error_log('QUERY: ' . $sql . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);

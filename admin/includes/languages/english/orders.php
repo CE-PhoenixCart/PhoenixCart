@@ -64,6 +64,7 @@ const ENTRY_PRINTABLE = 'Print Invoice';
 const TEXT_INFO_HEADING_DELETE_ORDER = 'Delete Order';
 const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this order?';
 const TEXT_INFO_RESTOCK_PRODUCT_QUANTITY = 'Restock product quantity';
+const TEXT_INFO_REACTIVATE_PRODUCT_STATUS = 'Reactivate products';
 const TEXT_DATE_ORDER_CREATED = 'Date Created: %s';
 const TEXT_DATE_ORDER_LAST_MODIFIED = 'Last Modified: %s';
 const TEXT_INFO_PAYMENT_METHOD = 'Payment Method: %s';

@@ -17,13 +17,13 @@ const TABLE_HEADING_COUNTRY_ZONE = 'Zone';
 const TABLE_HEADING_TAX_ZONES = 'Tax Zones';
 const TABLE_HEADING_ACTION = 'Action';
 
-const TEXT_INFO_HEADING_NEW_ZONE = 'New Zone';
-const TEXT_INFO_NEW_ZONE_INTRO = 'Please enter the new zone information';
+const TEXT_INFO_HEADING_NEW_ZONE = 'New Tax Zone';
+const TEXT_INFO_NEW_ZONE_INTRO = 'Please enter the new tax zone information';
 
-const TEXT_INFO_HEADING_EDIT_ZONE = 'Edit Zone';
+const TEXT_INFO_HEADING_EDIT_ZONE = 'Edit Tax Zone';
 const TEXT_INFO_EDIT_ZONE_INTRO = 'Please make any necessary changes';
 
-const TEXT_INFO_HEADING_DELETE_ZONE = 'Delete Zone';
+const TEXT_INFO_HEADING_DELETE_ZONE = 'Delete Tax Zone';
 const TEXT_INFO_DELETE_ZONE_INTRO = 'Are you sure you want to delete this zone?';
 
 const TEXT_INFO_HEADING_NEW_SUB_ZONE = 'New Sub Zone';
@@ -37,7 +37,7 @@ const TEXT_INFO_DELETE_SUB_ZONE_INTRO = 'Are you sure you want to delete this su
 
 const TEXT_INFO_DATE_ADDED = 'Date Added: %s';
 const TEXT_INFO_LAST_MODIFIED = 'Last Modified: %s';
-const TEXT_INFO_ZONE_NAME = 'Zone Name:';
+const TEXT_INFO_ZONE_NAME = 'Tax Zone Name:';
 const TEXT_INFO_NUMBER_ZONES = 'Number of Zones: %s';
 const TEXT_INFO_ZONE_DESCRIPTION = 'Description: %s';
 const TEXT_INFO_COUNTRY = 'Country:';

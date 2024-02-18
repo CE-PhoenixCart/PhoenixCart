@@ -100,7 +100,7 @@
     public function getTree() {
       $display = new tree_display($this);
 
-      return $display->_buildBranch($this->root_id);
+      return "$display";
     }
 
 /**
