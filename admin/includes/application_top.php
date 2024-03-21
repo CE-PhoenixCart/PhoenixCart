@@ -22,9 +22,6 @@
   $admin_index = admin_autoloader::register();
   $class_index = catalog_autoloader::register();
 
-// include the database functions
-  require 'includes/functions/database.php';
-
   $db = new Database() or die('Unable to connect to database server!');
 
   $admin_hooks = new hooks('admin');
@@ -65,11 +62,6 @@
     function ($v) {
       define($v['configuration_key'], $v['configuration_value']);
     }]);
-
-// define our general functions used application-wide
-  require 'includes/functions/general.php';
-  require 'includes/functions/html_output.php';
-  require 'includes/functions/sessions.php';
 
   session_name('cepcAdminID');
   Session::set_save_location();
@@ -142,9 +134,6 @@
   if (file_exists($current_page_language_file)) {
     include $current_page_language_file;
   }
-
-// Include validation functions (right now only email address)
-  require 'includes/functions/validations.php';
 
 // initialize the message stack for output messages
   $messageStack = new messageStack();
