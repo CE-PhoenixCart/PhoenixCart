@@ -25,7 +25,6 @@
   $db = new Database() or die('Unable to connect to database server!');
 
   $admin_hooks = new hooks('admin');
-  $OSCOM_Hooks =& $admin_hooks;
   $all_hooks =& $admin_hooks;
   Guarantor::ensure_global('Admin');
   $admin_hooks->register('system');
