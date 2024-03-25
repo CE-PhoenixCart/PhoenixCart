@@ -38,13 +38,3 @@
     }
 
   }
-
-  function &tep_guarantee_subarray(&$data, $key) {
-    trigger_error('The tep_guarantee_subarray function has been deprecated.', E_USER_DEPRECATED);
-    return Guarantor::guarantee_subarray($data, $key);
-  }
-
-  function &tep_guarantee_all(&$data, ...$keys) {
-    trigger_error('The tep_guarantee_all function has been deprecated.', E_USER_DEPRECATED);
-    return Guarantor::guarantee_all($data, $keys);
-  }
