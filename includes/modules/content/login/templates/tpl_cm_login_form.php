@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_LOGIN_FORM_CONTENT_WIDTH ?> cm-login-form ">
+<div class="<?= MODULE_CONTENT_LOGIN_FORM_CONTENT_WIDTH ?> cm-login-form ">
 
   <p class="alert alert-success" role="alert"><?= MODULE_CONTENT_LOGIN_TEXT_RETURNING_CUSTOMER ?></p>
 
