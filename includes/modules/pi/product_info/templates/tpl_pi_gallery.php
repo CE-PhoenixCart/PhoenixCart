@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)PI_GALLERY_CONTENT_WIDTH ?> pi-gallery">
+<div class="<?= PI_GALLERY_CONTENT_WIDTH ?> pi-gallery">
   <a href="#lightbox" class="lb" data-toggle="modal" data-slide="0"><?=
     new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])])
   ?></a>

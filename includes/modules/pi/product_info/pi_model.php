@@ -15,7 +15,6 @@
     const CONFIG_KEY_BASE = 'PI_MODEL_';
 
     public $group = 'pi_modules_c';
-    public $content_width;
 
     public function __construct() {
       parent::__construct();
@@ -27,7 +26,6 @@
 
       if ( $this->enabled ) {
         $this->group = 'pi_modules_' . strtolower(PI_MODEL_GROUP);
-        $this->content_width = (int)PI_MODEL_CONTENT_WIDTH;
       }
     }
 
@@ -42,9 +40,9 @@
     protected function get_parameters() {
       return [
         'PI_MODEL_STATUS' => [
-          'title' => 'Enable Model',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'PI_MODEL_GROUP' => [
@@ -54,10 +52,9 @@
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
         'PI_MODEL_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-sm-12 mb-2',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'PI_MODEL_SORT_ORDER' => [
           'title' => 'Sort Order',
