@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH ?> cm-header-logo">
+<div class="<?= MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH ?> cm-header-logo">
   <a href="<?= $GLOBALS['Linker']->build('index.php') ?>"><?= new Image('images/' . STORE_LOGO, [], htmlspecialchars(STORE_NAME)) ?></a>
 </div>
 
