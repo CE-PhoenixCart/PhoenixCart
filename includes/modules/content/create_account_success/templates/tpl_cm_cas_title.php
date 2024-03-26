@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_CAS_TITLE_CONTENT_WIDTH ?> cm-cas-title">
+<div class="<?= MODULE_CONTENT_CAS_TITLE_CONTENT_WIDTH ?> cm-cas-title">
   <h1 class="display-4"><?= MODULE_CONTENT_CAS_TITLE_PUBLIC_TITLE ?></h1>
 </div>
 
