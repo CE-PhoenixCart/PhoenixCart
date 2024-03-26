@@ -2,7 +2,7 @@
   if (isset($testimonials_query)) {
 ?>
 
-<div class="col-sm-<?= (int)MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH ?> cm-t-list">
+<div class="<?= MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH ?> cm-t-list">
   <div class="row">
     <?php
     while ($testimonials = $testimonials_query->fetch_assoc()) {

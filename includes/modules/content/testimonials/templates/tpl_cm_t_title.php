@@ -1,4 +1,4 @@
-<div class="col-sm-<?= MODULE_CONTENT_TESTIMONIALS_TITLE_CONTENT_WIDTH ?> cm-t-title">
+<div class="<?= MODULE_CONTENT_TESTIMONIALS_TITLE_CONTENT_WIDTH ?> cm-t-title">
   <h1 class="display-4"><?= MODULE_CONTENT_TESTIMONIALS_TITLE_PUBLIC_TITLE ?></h1>
 </div>
 
