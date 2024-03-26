@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_OA_CONTENT_WIDTH ?> cm-pi-options-attributes">
+<div class="<?= MODULE_CONTENT_PI_OA_CONTENT_WIDTH ?> cm-pi-options-attributes">
   <h4><?= MODULE_CONTENT_PI_OA_HEADING_TITLE ?></h4>
 
   <?php

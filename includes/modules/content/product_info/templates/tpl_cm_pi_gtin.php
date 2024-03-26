@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_GTIN_CONTENT_WIDTH ?> cm-pi-gtin">
+<div class="<?= MODULE_CONTENT_PRODUCT_INFO_GTIN_CONTENT_WIDTH ?> cm-pi-gtin">
   <ul class="list-group">
     <li class="list-group-item d-flex justify-content-between align-items-center">
       <?= sprintf(MODULE_CONTENT_PRODUCT_INFO_GTIN_PUBLIC_TITLE, $gtin) ?>

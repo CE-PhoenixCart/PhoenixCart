@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
+<div class="<?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
   <h4><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE ?></h4>
   <div class="row">
     <?php
