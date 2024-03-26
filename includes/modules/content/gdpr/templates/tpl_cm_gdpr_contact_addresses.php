@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_CONTENT_WIDTH ?> cm-gdpr-contact-addresses">
+<div class="<?= MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_CONTENT_WIDTH ?> cm-gdpr-contact-addresses">
   <table class="table">
     <thead class="thead-dark">
       <tr>
