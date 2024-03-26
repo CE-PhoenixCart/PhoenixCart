@@ -21,8 +21,6 @@
     function execute() {
       global $page;
 
-      $content_width = MODULE_CONTENT_INFO_TEXT_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -30,15 +28,15 @@
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_INFO_TEXT_STATUS' => [
-          'title' => 'Enable Text Module',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_INFO_TEXT_CONTENT_WIDTH' => [
           'title' => 'Content Width',
           'value' => 'col-12',
-          'desc' => 'What width container should the content be shown in?',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_INFO_TEXT_SORT_ORDER' => [
           'title' => 'Sort Order',
