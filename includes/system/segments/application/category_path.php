@@ -32,7 +32,3 @@
   }
 
   $cPath = isset($cPath_array) ? implode('_', $cPath_array) : '';
-
-  if (isset($category_tree)) {
-    $OSCOM_category = &$category_tree;
-  }

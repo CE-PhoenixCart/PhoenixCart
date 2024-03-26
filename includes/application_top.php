@@ -18,13 +18,10 @@
   require 'includes/system/autoloader.php';
   $class_index = catalog_autoloader::register();
 
-  require 'includes/functions/database.php';
-
 // make a connection to the database... now
   $db = new Database() or die('Unable to connect to database server!');
 
   $hooks = new hooks('shop');
-  $OSCOM_Hooks =& $hooks;
   $all_hooks =& $hooks;
   $hooks->register('system');
   foreach ($hooks->generate('startApplication') as $result) {

@@ -55,7 +55,7 @@
       }
 
       class_exists('Text');
-      $GLOBALS['oscTemplate'] =& Guarantor::ensure_global('Template');
+      Guarantor::ensure_global('Template');
       $GLOBALS['class_index']->set_translator('language::map_to_translation');
       $this->fix_numeric_locale();
       return language::map_to_translation('.php');

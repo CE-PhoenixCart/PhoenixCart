@@ -184,14 +184,3 @@
     }
 
   }
-
-  function tep_find_all_hooks_under(string $directory, &$class_files) {
-    trigger_error('The tep_find_all_hooks_under function has been deprecated.', E_USER_DEPRECATED);
-    $GLOBALS['class_index']->find_all_hooks_under($directory);
-    // adds to the regular autoloader, so it isn't necessary to set anything in class files
-  }
-
-  function tep_normalize_class_name($original_class) {
-    trigger_error('The tep_normalize_class_name function has been deprecated.', E_USER_DEPRECATED);
-    return class_index::normalize_class_name($original_class);
-  }

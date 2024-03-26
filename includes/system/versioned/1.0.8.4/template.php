@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class Template extends oscTemplate {
+  class Template {
 
     protected $_title;
     protected $_blocks = [];
