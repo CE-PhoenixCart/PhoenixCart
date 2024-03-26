@@ -19,8 +19,6 @@
     }
 
     public function execute() {
-      $content_width = (int)MODULE_CONTENT_CS_CONTINUE_BUTTON_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -28,16 +26,15 @@
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_CS_CONTINUE_BUTTON_STATUS' => [
-          'title' => 'Enable Continue Button',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CS_CONTINUE_BUTTON_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-sm-12 my-2',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_CS_CONTINUE_BUTTON_SORT_ORDER' => [
           'title' => 'Sort Order',

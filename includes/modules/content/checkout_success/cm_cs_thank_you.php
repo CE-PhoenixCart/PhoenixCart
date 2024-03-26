@@ -19,8 +19,6 @@
     }
 
     public function execute() {
-      $content_width = MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_CONTENT_WIDTH;
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }
@@ -28,16 +26,15 @@
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_STATUS' => [
-          'title' => 'Enable Thank You Module',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should the thank you block be shown on the checkout success page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_CONTENT_WIDTH' => [
           'title' => 'Content Width',
-          'value' => '7',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'value' => 'col-sm-7',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_SORT_ORDER' => [
           'title' => 'Sort Order',

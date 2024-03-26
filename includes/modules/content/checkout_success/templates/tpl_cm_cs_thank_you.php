@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> cm-cs-thank-you">
+<div class="<?= MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_CONTENT_WIDTH ?> cm-cs-thank-you">
   <h5 class="mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_TEXT_THANKS_FOR_SHOPPING ?></h5>
 
   <div class="border">

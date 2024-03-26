@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> cm-cs-continue-button my-2">
+<div class="<?= MODULE_CONTENT_CS_CONTINUE_BUTTON_CONTENT_WIDTH ?> cm-cs-continue-button">
   <?= new Button(MODULE_CONTENT_CS_CONTINUE_BUTTON_TEXT, 'fas fa-thumbs-up', 'btn-success btn-block btn-lg') ?>
 </div>
 
