@@ -79,16 +79,15 @@ EOSQL
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_IP_PRODUCT_LISTING_STATUS' => [
-          'title' => 'Enable Product Listing Module',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be enabled?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_IP_PRODUCT_LISTING_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_IP_PRODUCT_LISTING_SORT_ORDER' => [
           'title' => 'Sort Order',

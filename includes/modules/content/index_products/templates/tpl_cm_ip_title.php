@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_IP_TITLE_CONTENT_WIDTH ?> title cm-ip-title">
+<div class="<?= MODULE_CONTENT_IP_TITLE_CONTENT_WIDTH ?> cm-ip-title">
   <h1 class="display-4"><?= sprintf(MODULE_CONTENT_IP_TITLE_PUBLIC_TITLE, $cm_name) ?></h1>
 </div>
 

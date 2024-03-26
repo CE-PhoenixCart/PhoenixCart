@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> title cm-i-title">
+<div class="<?= MODULE_CONTENT_I_TITLE_CONTENT_WIDTH ?> cm-i-title">
   <h1 class="display-4"><?= sprintf(MODULE_CONTENT_I_TITLE_PUBLIC_TITLE, STORE_NAME) ?></h1>
 </div>
 

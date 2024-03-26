@@ -1,4 +1,4 @@
-<div class="col-sm-<?= MODULE_CONTENT_CUSTOMER_GREETING_CONTENT_WIDTH ?> cm-i-customer-greeting">
+<div class="<?= MODULE_CONTENT_CUSTOMER_GREETING_CONTENT_WIDTH ?> cm-i-customer-greeting">
   <div class="alert alert-info" role="alert">
     <?= $customer_greeting ?>
   </div>

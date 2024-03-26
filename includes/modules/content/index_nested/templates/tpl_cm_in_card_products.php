@@ -1,4 +1,4 @@
-<div class="col-sm-<?= MODULE_CONTENT_IN_CARD_PRODUCTS_CONTENT_WIDTH ?> cm-in-card-products">
+<div class="<?= MODULE_CONTENT_IN_CARD_PRODUCTS_CONTENT_WIDTH ?> cm-in-card-products">
   <h4><?php printf(MODULE_CONTENT_IN_CARD_PRODUCTS_HEADING, strftime('%B')); ?></h4>
 
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">

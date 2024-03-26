@@ -44,16 +44,15 @@ EOSQL
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_UPCOMING_PRODUCTS_STATUS' => [
-          'title' => 'Enable Upcoming Products Module',
+          'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_UPCOMING_PRODUCTS_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_UPCOMING_PRODUCTS_MAX_DISPLAY' => [
           'title' => 'Maximum Display',
