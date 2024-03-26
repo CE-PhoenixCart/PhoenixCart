@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_SC_NO_PRODUCTS_CONTENT_WIDTH ?> cm-sc-no-products">
+<div class="<?= MODULE_CONTENT_SC_NO_PRODUCTS_CONTENT_WIDTH ?> cm-sc-no-products">
   <div class="alert alert-danger"><?= MODULE_CONTENT_SC_NO_PRODUCTS_TEXT_CART_EMPTY ?></div>
 
   <p class="text-right"><?= new Button(MODULE_CONTENT_SC_NO_PRODUCTS_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-danger btn-lg btn-block', [], $GLOBALS['Linker']->build('index.php')) ?></p>

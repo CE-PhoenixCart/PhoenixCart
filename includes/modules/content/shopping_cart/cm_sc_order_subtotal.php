@@ -31,7 +31,6 @@
 
     function execute() {
       if ($_SESSION['cart']->count_contents() > 0) {
-        $content_width = (int)MODULE_CONTENT_SC_ORDER_SUBTOTAL_CONTENT_WIDTH;
         $cart_total = sprintf(MODULE_CONTENT_SC_ORDER_SUBTOTAL_SUB_TOTAL, $GLOBALS['currencies']->format($_SESSION['cart']->show_total()));
 
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
@@ -42,16 +41,15 @@
     protected function get_parameters() {
       return [
         'MODULE_CONTENT_SC_ORDER_SUBTOTAL_STATUS' => [
-          'title' => 'Enable Shopping Cart Order SubTotal',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Do you want to add the module to your shop?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_SC_ORDER_SUBTOTAL_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-sm-12 mt-5',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_SC_ORDER_SUBTOTAL_SORT_ORDER' => [
           'title' => 'Sort Order',
