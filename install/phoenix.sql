@@ -1549,12 +1549,12 @@ insert into configuration (configuration_title, configuration_key, configuration
 
 # Logo
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Header Logo Module', 'MODULE_CONTENT_HEADER_LOGO_STATUS', 'True', 'Do you want to enable the Logo content module?', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Content Container', 'MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH', 'col-sm-4', 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).', 6, 1, NOW());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Content Container', 'MODULE_CONTENT_HEADER_LOGO_CONTENT_WIDTH', 'col-sm-6', 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).', 6, 1, NOW());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_CONTENT_HEADER_LOGO_SORT_ORDER', '10', 'Sort order of display. Lowest is displayed first.', '6', '0', now());
 
 # Searchbox
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Search Box Module', 'MODULE_CONTENT_HEADER_SEARCH_STATUS', 'True', 'Do you want to enable the Search Box content module?', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Content Container', 'MODULE_CONTENT_HEADER_SEARCH_CONTENT_WIDTH', 'col-sm-8 align-self-center', 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).', 6, 1, NOW());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Content Container', 'MODULE_CONTENT_HEADER_SEARCH_CONTENT_WIDTH', 'col-sm-6 align-self-center', 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).', 6, 1, NOW());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_CONTENT_HEADER_SEARCH_SORT_ORDER', '20', 'Sort order of display. Lowest is displayed first.', '6', '0', now());
 
 # Stack
