@@ -25,18 +25,18 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_HEADER_BUTTONS_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_HEADER_BUTTONS_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-4 text-right',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_HEADER_BUTTONS_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

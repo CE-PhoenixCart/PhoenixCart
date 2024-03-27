@@ -42,35 +42,34 @@ EOSQL
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-6',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH_EACH' => [
-          'title' => 'Content Width',
-          'value' => '6',
-          'desc' => 'What width container should each Review be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH_EACH' => [
+          'title' => 'Review Container',
+          'value' => 'col-sm-6',
+          'desc' => 'What container should each Review be shown in?',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_LIMIT' => [
+        $this->config_key_base . 'CONTENT_LIMIT' => [
           'title' => 'Number of Reviews',
           'value' => '99',
           'desc' => 'How many reviews should be shown?',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_ORDER' => [
+        $this->config_key_base . 'ORDER' => [
           'title' => 'Sort Order',
           'value' => 'reviews_rating',
           'desc' => 'Display Reviews by Rating (High to Low) or Date Added (New to Old)',
           'set_func' => "Config::select_one(['reviews_rating', 'date_added'], ",
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_REVIEWS_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

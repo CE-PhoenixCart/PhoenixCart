@@ -74,36 +74,36 @@
 
     protected function get_parameters() {
       return [
-        'PI_OA_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_OA_GROUP' => [
+        $this->config_key_base . 'GROUP' => [
           'title' => 'Module Display',
           'value' => 'C',
           'desc' => 'Where should this module display on the product info page?',
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
-        'PI_OA_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-12 mt-2',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'PI_OA_HELPER' => [
+        $this->config_key_base . 'HELPER' => [
           'title' => 'Add Helper Text',
           'value' => 'True',
           'desc' => 'Should first option in dropdown be Helper Text?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_OA_ENFORCE' => [
+        $this->config_key_base . 'ENFORCE' => [
           'title' => 'Enforce Selection',
           'value' => 'True',
           'desc' => 'Should customer be forced to select option(s)?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_OA_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '310',
           'desc' => 'Sort order of display. Lowest is displayed first.',

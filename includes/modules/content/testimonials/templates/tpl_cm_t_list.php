@@ -6,7 +6,7 @@
   <div class="row">
     <?php
     while ($testimonials = $testimonials_query->fetch_assoc()) {
-      echo '<div class="col-sm-' . (int)MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH_EACH . '">' . PHP_EOL;
+      echo '<div class="' . MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH_EACH . '">' . PHP_EOL;
         echo '<blockquote class="blockquote">' . PHP_EOL;
           echo nl2br($testimonials['testimonials_text']) . PHP_EOL;
           echo '<footer class="blockquote-footer">',

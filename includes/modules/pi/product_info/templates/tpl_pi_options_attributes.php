@@ -1,4 +1,4 @@
-<div class="<?= (int)PI_OA_CONTENT_WIDTH ?> pi-options-attributes">
+<div class="<?= PI_OA_CONTENT_WIDTH ?> pi-options-attributes">
   <h6><?= PI_OA_HEADING_TITLE ?></h6>
 
   <?php

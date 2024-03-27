@@ -32,24 +32,24 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_PI_DATE_AVAILABLE_STATUS' => [
+       $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_PI_DATE_AVAILABLE_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-12',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_PI_DATE_AVAILABLE_STYLE' => [
+        $this->config_key_base . 'STYLE' => [
           'title' => 'Date Style',
           'value' => 'Long',
           'desc' => 'How should the date look?',
           'set_func' => "Config::select_one(['Long', 'Short'], ",
         ],
-        'MODULE_CONTENT_PI_DATE_AVAILABLE_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '70',
           'desc' => 'Sort order of display. Lowest is displayed first.',
