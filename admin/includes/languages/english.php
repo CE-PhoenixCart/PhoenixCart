@@ -137,3 +137,5 @@ const FORM_REQUIRED_INPUT = '<span class="form-control-feedback text-danger"><i 
 const TEXT_IMAGE_NON_EXISTENT = 'IMAGE DOES NOT EXIST';
 
 const STAR_RATING = 'Rated %s Stars';
+
+const GET_HELP = 'Help';
