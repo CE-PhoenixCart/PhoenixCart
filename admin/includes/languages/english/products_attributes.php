@@ -36,3 +36,5 @@ const TEXT_OPTION_NAME = 'Option Name';
 const PLEASE_SELECT_OPTION = '--- Please Select ---';
 
 const TABLE_HEADING_OPT_SORT_ORDER = 'Sort Order';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Products_Attributes';

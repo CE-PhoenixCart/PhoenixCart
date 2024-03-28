@@ -52,3 +52,5 @@ const TEXT_EDIT_MANUFACTURERS_SEO_TITLE = 'Edit the Manufacturer Title for SEO:<
 const BUTTON_INSERT_NEW_MANUFACTURER = 'New Manufacturer';
 
 const TEXT_MANUFACTURERS_IMAGE_LABEL = 'Select Manufacturer';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Manufacturers';

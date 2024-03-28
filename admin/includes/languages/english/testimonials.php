@@ -42,3 +42,5 @@ const TEXT_DISPLAY_NUMBER_OF_TESTIMONIALS = 'Displaying <b>%s</b> to <b>%s</b> (
 const IMAGE_BUTTON_ADD_TESTIMONIAL = 'Add A Testimonial';
 
 const ENTRY_TESTIMONIAL_HTML_DISPLAYED = 'HTML is displayed as part of the Testimonial.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Testimonials';
