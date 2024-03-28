@@ -44,3 +44,5 @@ const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this Special Off
 const BUTTON_INSERT_SPECIAL = 'Add a new Special Offer';
 
 const WARNING_NO_PRODUCTS = 'You need to add a product before you can put it on special.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Specials';

@@ -44,3 +44,5 @@ const TEXT_BAD = '<span class="text-danger font-weight-bold">BAD</span>';
 const TEXT_INFO_HEADING_DELETE_REVIEW = 'Delete Review';
 
 const IMAGE_BUTTON_ADD_REVIEW = 'Add A Review';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Reviews';
