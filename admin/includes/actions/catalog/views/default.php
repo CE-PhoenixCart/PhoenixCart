@@ -12,12 +12,14 @@
 ?>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-8 col-md-5">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-sm-6 col-md-4 text-right align-self-center">
-      <?=
-        (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
+    <div class="col-4 col-md-2 text-right align-self-center">
+      <?= $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]) ?>
+    </div>
+    <div class="col-sm-6 col-md-3 text-right align-self-center">
+      <?= (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',

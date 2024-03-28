@@ -122,3 +122,5 @@ const TEXT_CATEGORIES_SEO_TITLE = 'Category Title for SEO:<br><small>Replaces th
 const TEXT_EDIT_CATEGORIES_SEO_TITLE = 'Edit the Category Title for SEO:<br><small>Replaces the category name in the &lt;title&gt; Meta Element<br>and optionally in the Breadcrumb Trail.<br>Leave blank to default to category name.</small>';
 
 const TEXT_PRODUCTS_OTHER_IMAGES = 'Gallery Images';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Categories/Products';
