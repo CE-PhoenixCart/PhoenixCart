@@ -72,6 +72,7 @@
     </div>
     <div class="col text-right align-self-center">
       <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
         empty($action)
       ? $Admin->button(IMAGE_NEW_TAX_CLASS, 'fas fa-funnel-dollar', 'btn-danger', (clone $link)->set_parameter('action', 'new'))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mt-2', $link)

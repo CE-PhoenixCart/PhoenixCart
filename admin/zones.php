@@ -83,7 +83,9 @@
   <div class="row">
     <div class="col"><h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1></div>
     <div class="col text-right align-self-center">
-      <?= empty($action)
+      <?= 
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
+      empty($action)
         ? $Admin->button(IMAGE_NEW_ZONE, 'fas fa-map-marker-alt', 'btn-danger', $Admin->link('zones.php', ['action' => 'new']))
         : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $link)
       ?>
