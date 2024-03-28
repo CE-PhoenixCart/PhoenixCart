@@ -87,6 +87,7 @@
     </div>
     <div class="col text-right align-self-center">
       <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       empty($action)
       ? $Admin->button(IMAGE_NEW_LANGUAGE, 'fas fa-comment-dots', 'btn-danger', $Admin->link('languages.php', ['action' => 'new']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('languages.php'))

@@ -23,9 +23,23 @@
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_NEW_LOGO ?></h1>
-      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION ?></div>
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
+    <div class="col text-right align-self-center">
+      <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true])
+      ?>
+    </div>
+  </div>
 
+  <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
+  <small><?= DIR_FS_CATALOG . 'images/' .  STORE_LOGO ?></small>
+  <hr>
+  
+  <h3 class="display-4 mb-2"><?= HEADING_NEW_LOGO ?></h3>
+    
+  <div class="row">
+    <div class="col">
       <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
 
         <div class="custom-file mb-2">
@@ -41,10 +55,7 @@
       </form>
     </div>
     <div class="col">
-      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
-
-      <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
-      <br><small><?= DIR_FS_CATALOG . 'images/' .  STORE_LOGO ?></small>
+      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION ?></div>
     </div>
   </div>
 
