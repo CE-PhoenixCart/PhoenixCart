@@ -104,6 +104,11 @@ EOSQL
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
+    <div class="col-md-2 text-right align-self-center">
+      <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true])
+      ?>
+    </div>
     <div class="col text-right align-self-center">
       <?=
        (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
