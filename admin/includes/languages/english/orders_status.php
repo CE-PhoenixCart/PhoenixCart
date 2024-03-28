@@ -31,3 +31,5 @@ const TEXT_SET_DOWNLOADS_STATUS = 'Allow downloads of virtual products at this o
 const ERROR_REMOVE_DEFAULT_ORDER_STATUS = '<strong>Error:</strong> The default order status can not be removed. Please set another order status as default, and try again.';
 const ERROR_STATUS_USED_IN_ORDERS = '<strong>Error:</strong> This order status is currently used in orders.';
 const ERROR_STATUS_USED_IN_HISTORY = '<strong>Error:</strong> This order status is currently used in the order status history.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Orders_Status';
