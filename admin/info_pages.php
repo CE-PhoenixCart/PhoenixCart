@@ -23,6 +23,7 @@
     <div class="col"><h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1></div>
     <div class="col text-right align-self-center">
       <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
         empty($action)
       ? $Admin->button(IMAGE_BUTTON_ADD_PAGE, 'fas fa-pen', 'btn-danger', $Admin->link()->set_parameter('action', 'new'))
       : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link())

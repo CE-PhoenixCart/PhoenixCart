@@ -41,7 +41,16 @@
   require 'includes/template_top.php';
 ?>
 
-  <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
+    <div class="col text-right align-self-center">
+      <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]) 
+      ?>
+    </div>
+  </div>
 
   <p class="lead"><?php printf(TITLE_INSTALLED_VERSION, $current_version); ?></p>
 

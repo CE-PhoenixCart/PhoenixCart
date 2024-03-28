@@ -16,3 +16,5 @@ const TABLE_HEADING_DIRECTORIES = 'Directories';
 const TABLE_HEADING_RECOMMENDED = 'Recommended';
 
 const TEXT_DIRECTORY = 'Directory:  %s<br><a href="https://phoenixcart.org/phoenixcartwiki/index.php?title=Security_Directory_Permissions">User Guide</a>';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Security_Directory_Permissions';

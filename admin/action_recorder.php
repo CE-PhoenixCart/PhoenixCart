@@ -146,8 +146,11 @@
       '</form>'
       ?>
     </div>
-    <div class="col-4 col-sm-2">
-      <?= $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger btn-block btn-sm', $delete_link) ?>
+    <div class="col-4 col-sm-2 align-self-center">
+      <?= 
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
+      $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $delete_link) 
+      ?>
     </div>
   </div>
 

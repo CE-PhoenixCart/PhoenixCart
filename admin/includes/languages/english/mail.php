@@ -25,3 +25,5 @@ const TEXT_NEWSLETTER_CUSTOMERS = 'To All Newsletter Subscribers';
 const NOTICE_EMAIL_SENT_TO = '<strong>Notice:</strong> Email sent to: %s';
 const ERROR_NO_CUSTOMER_SELECTED = '<strong>Error:</strong> No customer has been selected.';
 const ERROR_INVALID_EMAIL = '<strong>Error:</strong> "%s" is not a valid email address.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Send_Email';

@@ -25,3 +25,5 @@ const TABLE_HEADING_SHOPPING_CART = 'Users Shopping Cart';
 const TEXT_SHOPPING_CART_ITEM = '%s x %s';
 const TEXT_SHOPPING_CART_SUBTOTAL = 'Subtotal: %s';
 const TEXT_SHOPPING_CART_NA = 'N/A';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Who%27s_Online';
