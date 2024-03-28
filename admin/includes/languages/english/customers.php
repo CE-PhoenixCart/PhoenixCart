@@ -34,3 +34,5 @@ const PULL_DOWN_DEFAULT = PLEASE_SELECT;
 const ERROR_PAGE_HAS_UNMET_REQUIREMENT = <<<'EOT'
   The customers page requires the 'sortable_name', 'name', 'email_address', 'country_id', and 'id' customer data modules to be installed.  Missing:
 EOT;
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Customers';

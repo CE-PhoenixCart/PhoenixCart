@@ -43,3 +43,5 @@ const ERROR_CURRENCY_INVALID = '<strong>Error:</strong> The exchange rate for %s
 const WARNING_PRIMARY_SERVER_FAILED = '<strong>Warning:</strong> The primary exchange rate server (%s) failed for %s (%s) - trying the secondary exchange rate server.';
 
 const ERROR_INSTALL_CURRENCY_CONVERTER = 'You do not have a Currency Conversion module installed.  <a class="alert-link font-weight-bold" href="%s">Install Now</a>';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Currencies';

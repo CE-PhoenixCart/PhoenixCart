@@ -32,6 +32,11 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col text-right align-self-center">
+      <?= 
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]) 
+      ?>
+    </div>
+    <div class="col text-right align-self-center">
       <?=
       isset($_GET['action'])
       ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $Admin->link('customers.php')->retain_query_except(['action']))
