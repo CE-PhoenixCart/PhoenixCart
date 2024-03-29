@@ -18,5 +18,7 @@
     const KEY = 'MODULE_ADMIN_CURRENCIES_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_CURRENCIES_TITLE;
     const TEMPLATE_INTEGRATION = false;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Currencies';
 
   }

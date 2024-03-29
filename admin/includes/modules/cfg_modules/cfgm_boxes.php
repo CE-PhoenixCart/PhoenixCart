@@ -18,5 +18,7 @@
     const KEY = 'MODULE_BOXES_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_BOXES_TITLE;
     const TEMPLATE_INTEGRATION = true;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Boxes';
 
   }

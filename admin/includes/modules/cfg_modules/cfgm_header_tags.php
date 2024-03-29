@@ -18,5 +18,7 @@
     const KEY = 'MODULE_HEADER_TAGS_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_HEADER_TAGS_TITLE;
     const TEMPLATE_INTEGRATION = true;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Header_Tags';
 
   }

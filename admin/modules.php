@@ -25,6 +25,8 @@
   $module_key = $cfg_modules->get($set, 'key');
   define('HEADING_TITLE', $cfg_modules->get($set, 'title'));
   $template_integration = $cfg_modules->get($set, 'template_integration');
+  
+  $get_help_link = $cfg_modules->get($set, 'get_help_link');
 
   $modules_installed = (defined($module_key) && constant($module_key)) ? explode(';', constant($module_key)) : [];
   $link = $Admin->link()->retain_query_except(['action', 'module'])->set_parameter('set', $set);
@@ -115,8 +117,9 @@
 <?php
   }
 ?>
-    <div class="col-sm-4 text-right align-self-center">
+    <div class="col text-right align-self-center">
       <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', $get_help_link, ['newwindow' => true]),
       isset($_GET['list'])
       ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', (clone $GLOBALS['link'])->delete_parameter('list'))
       : $Admin->button(IMAGE_MODULE_INSTALL . ' (' . count($module_files['new']) . ')', 'fas fa-plus', 'btn-danger', (clone $GLOBALS['link'])->set_parameter('list', 'new'))

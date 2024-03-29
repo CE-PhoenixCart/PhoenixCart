@@ -21,6 +21,8 @@
       'index' => 'MODULE_CONTENT_I_INSTALLED',
       'product_info' => 'MODULE_CONTENT_PI_INSTALLED',
     ];
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Layout';
 
     protected static function is_module_installed($module) {
       if (!isset($GLOBALS[$module]) || !($GLOBALS[$module] instanceof $module)) {

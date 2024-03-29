@@ -18,5 +18,7 @@
     const KEY = 'MODULE_ACTION_RECORDER_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_ACTION_RECORDER_TITLE;
     const TEMPLATE_INTEGRATION = false;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Action_Recorder_(modules)';
 
   }

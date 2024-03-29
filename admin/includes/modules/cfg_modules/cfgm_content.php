@@ -16,6 +16,8 @@
     const DIRECTORY = DIR_FS_CATALOG . 'includes/modules/content/';
     const KEY = 'MODULE_CONTENT_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_CONTENT_TITLE;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Content';
 
     public static function list_modules() {
       $installed_modules = [];

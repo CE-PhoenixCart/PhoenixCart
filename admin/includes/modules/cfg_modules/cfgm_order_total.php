@@ -18,5 +18,7 @@
     const KEY = 'MODULE_ORDER_TOTAL_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_ORDER_TOTAL_TITLE;
     const TEMPLATE_INTEGRATION = false;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Order_Total';
 
   }

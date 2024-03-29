@@ -29,6 +29,7 @@
               'key' => $class::KEY,
               'title' => $class::TITLE,
               'template_integration' => $class::TEMPLATE_INTEGRATION,
+              'get_help_link' => $class::GET_HELP_LINK,
             ];
           }
         }
