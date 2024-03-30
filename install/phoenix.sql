@@ -132,6 +132,7 @@ CREATE TABLE configuration_group (
   configuration_group_id int NOT NULL auto_increment,
   configuration_group_title varchar(64) NOT NULL,
   configuration_group_description varchar(255) NOT NULL,
+  configuration_group_help_link varchar(255) NULL,
   sort_order int(5) NULL,
   visible int(1) DEFAULT '1' NULL,
   PRIMARY KEY (configuration_group_id)
@@ -832,20 +833,20 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Bootstrap Container', 'BOOTSTRAP_CONTAINER', 'container-fluid', 'What type of container should the page content be shown in? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/layout/overview/#containers"><u>overview/#containers</u></a>', 16, 1, 'Config::select_one([\'container\', \'container-sm\', \'container-md\', \'container-lg\', \'container-xl\', \'container-fluid\'], ', NOW());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Bootstrap Content', 'BOOTSTRAP_CONTENT', '8', 'What width should the page content default to?  (8 = two thirds width, 6 = half width, 4 = one third width) Note that the Side Column(s) will adjust automatically.', 16, 2, 'Config::select_one([\'10\', \'8\', \'6\', \'5\', \'3\', \'2\'], ', NOW());
 
-INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', '1', '1');
-INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', '3', '1');
-INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', '4', '1');
-INSERT INTO configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', '6', '0');
-INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', '7', '1');
-INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing configuration options', '8', '1');
-INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', '9', '1');
-INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', '10', '1');
-INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', '11', '1');
-INSERT INTO configuration_group VALUES ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', '12', '1');
-INSERT INTO configuration_group VALUES ('13', 'Download', 'Downloadable products options', '13', '1');
-INSERT INTO configuration_group VALUES ('14', 'GZip Compression', 'GZip compression options', '14', '1');
-INSERT INTO configuration_group VALUES ('15', 'Sessions', 'Session options', '15', '1');
-INSERT INTO configuration_group VALUES ('16', 'Bootstrap Setup', 'Basic Bootstrap Options', '16', '1');
+INSERT INTO configuration_group VALUES ('1', 'My Store', 'General information about my store', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=My_Store', '1', '1');
+INSERT INTO configuration_group VALUES ('3', 'Maximum Values', 'The maximum values for functions / data', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Maximum_Values', '3', '1');
+INSERT INTO configuration_group VALUES ('4', 'Images', 'Image parameters', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Images', '4', '1');
+INSERT INTO configuration_group VALUES ('6', 'Module Options', 'Hidden from configuration', 'https://phoenixcart.org/phoenixcartwiki/index.php', '6', '0');
+INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping options available at my store', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Shipping/Packaging', '7', '1');
+INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Product_Listing', '8', '1');
+INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Stock', '9', '1');
+INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Logging', '10', '1');
+INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Cache', '11', '1');
+INSERT INTO configuration_group VALUES ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=E-Mail_Options', '12', '1');
+INSERT INTO configuration_group VALUES ('13', 'Download', 'Downloadable products options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Download', '13', '1');
+INSERT INTO configuration_group VALUES ('14', 'GZip Compression', 'GZip compression options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=GZip_Compression', '14', '1');
+INSERT INTO configuration_group VALUES ('15', 'Sessions', 'Session options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Sessions', '15', '1');
+INSERT INTO configuration_group VALUES ('16', 'Bootstrap Setup', 'Basic Bootstrap Options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Bootstrap_Setup', '16', '1');
 
 INSERT INTO countries VALUES (1,'Afghanistan','AF','AFG','1','1');
 INSERT INTO countries VALUES (2,'Albania','AL','ALB','1','1');

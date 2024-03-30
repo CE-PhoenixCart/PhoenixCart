@@ -17,7 +17,7 @@
 
   $gID = $_GET['gID'] ?? 1;
 
-  $cfg_group = $db->query("SELECT configuration_group_title FROM configuration_group WHERE configuration_group_id = " . (int)$gID)->fetch_assoc();
+  $cfg_group = $db->query("SELECT configuration_group_title, configuration_group_help_link FROM configuration_group WHERE configuration_group_id = " . (int)$gID)->fetch_assoc();
 
   $table_definition = [
     'columns' => [
@@ -114,7 +114,16 @@ EOSQL
   require 'includes/template_top.php';
 ?>
 
-  <h1 class="display-4 mb-2"><?= $cfg_group['configuration_group_title'] ?></h1>
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= $cfg_group['configuration_group_title'] ?></h1>
+    </div>
+    <div class="col text-right align-self-center">
+      <?=
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', $cfg_group['configuration_group_help_link'], ['newwindow' => true])
+      ?>
+    </div>
+  </div>
 
 <?php
   $table_definition['split']->display_table();
