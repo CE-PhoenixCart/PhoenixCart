@@ -18,3 +18,5 @@ const TABLE_HEADING_CLASS    = 'Class';
 const TABLE_HEADING_METHOD   = 'Method';
 
 const TEXT_ACTIONS_DIRECTORY = 'Actions Directory:';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Actions';

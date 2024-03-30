@@ -10,12 +10,14 @@
   Released under the GNU General Public License
 */
 
-define('HEADING_TITLE', 'Hooks');
+const HEADING_TITLE = 'Hooks';
 
-define('TABLE_HEADING_LOCATION', '<span class="text-uppercase">%s</span>');
-define('TABLE_HEADING_GROUP', 'Group');
-define('TABLE_HEADING_FILE', 'File');
-define('TABLE_HEADING_METHOD', 'Method');
-define('TABLE_HEADING_VERSION', 'Version');
+const TABLE_HEADING_LOCATION = '<span class="text-uppercase">%s</span>';
+const TABLE_HEADING_GROUP = 'Group';
+const TABLE_HEADING_FILE = 'File';
+const TABLE_HEADING_METHOD = 'Method';
+const TABLE_HEADING_VERSION = 'Version';
 
-define('TEXT_HOOKS_DIRECTORY', 'Hooks Directory:');
+const TEXT_HOOKS_DIRECTORY = 'Hooks Directory:';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Hooks';
