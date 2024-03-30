@@ -87,7 +87,7 @@
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
       empty($action)
         ? $Admin->button(IMAGE_NEW_ZONE, 'fas fa-map-marker-alt', 'btn-danger', $Admin->link('zones.php', ['action' => 'new']))
-        : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $link)
+        : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $link)
       ?>
     </div>
   </div>

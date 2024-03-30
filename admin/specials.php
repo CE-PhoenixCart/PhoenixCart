@@ -29,7 +29,7 @@
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       empty($action)
       ? $Admin->button(BUTTON_INSERT_SPECIAL, 'fas fa-funnel-dollar', 'btn-danger', $Admin->link('specials.php', ['action' => 'new']))
-      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link('specials.php')->retain_query_except(['action']))
+      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $Admin->link('specials.php')->retain_query_except(['action']))
       ?>
     </div>
   </div>
