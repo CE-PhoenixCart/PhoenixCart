@@ -20,5 +20,6 @@
     const TEMPLATE_INTEGRATION = false;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Customer_Data';
+    const GET_ADDONS_LINKS = [];
 
   }

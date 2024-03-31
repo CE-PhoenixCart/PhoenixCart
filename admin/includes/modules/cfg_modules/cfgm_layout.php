@@ -23,6 +23,7 @@
     ];
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Layout';
+    const GET_ADDONS_LINKS = [];
 
     protected static function is_module_installed($module) {
       if (!isset($GLOBALS[$module]) || !($GLOBALS[$module] instanceof $module)) {

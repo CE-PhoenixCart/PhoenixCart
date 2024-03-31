@@ -20,5 +20,6 @@
     const TEMPLATE_INTEGRATION = true;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Boxes';
+    const GET_ADDONS_LINKS = [];
 
   }

@@ -20,5 +20,6 @@
     const TEMPLATE_INTEGRATION = false;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Notifications';
+    const GET_ADDONS_LINKS = [];
 
   }

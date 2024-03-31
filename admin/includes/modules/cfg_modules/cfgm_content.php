@@ -18,6 +18,7 @@
     const TITLE = MODULE_CFG_MODULE_CONTENT_TITLE;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Content';
+    const GET_ADDONS_LINKS = [];
 
     public static function list_modules() {
       $installed_modules = [];

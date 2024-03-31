@@ -139,3 +139,7 @@ const TEXT_IMAGE_NON_EXISTENT = 'IMAGE DOES NOT EXIST';
 const STAR_RATING = 'Rated %s Stars';
 
 const GET_HELP = 'Help';
+const GET_ADDONS = 'Addons';
+const ADDONS_FREE = 'Free';
+const ADDONS_COMMERCIAL = 'Commercial';
+const ADDONS_PRO = 'PRO';
