@@ -23,7 +23,9 @@
     ];
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Layout';
-    const GET_ADDONS_LINKS = [];
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/layout-26',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/layout-32',
+                              ADDONS_PRO => 'https://phoenixcart.org/forum/app.php/addons/supporters/layout-44',];
 
     protected static function is_module_installed($module) {
       if (!isset($GLOBALS[$module]) || !($GLOBALS[$module] instanceof $module)) {

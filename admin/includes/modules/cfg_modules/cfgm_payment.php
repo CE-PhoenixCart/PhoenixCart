@@ -20,6 +20,7 @@
     const TEMPLATE_INTEGRATION = false;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Payment';
-    const GET_ADDONS_LINKS = [];
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/payment-21',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/payment-35',];
 
   }

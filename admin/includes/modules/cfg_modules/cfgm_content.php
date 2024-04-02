@@ -18,7 +18,9 @@
     const TITLE = MODULE_CFG_MODULE_CONTENT_TITLE;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Content';
-    const GET_ADDONS_LINKS = [];
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/content-25',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/content-33',
+                              ADDONS_PRO => 'https://phoenixcart.org/forum/app.php/addons/supporters/content-43',];
 
     public static function list_modules() {
       $installed_modules = [];

@@ -20,6 +20,8 @@
     const TEMPLATE_INTEGRATION = false;
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Notifications';
-    const GET_ADDONS_LINKS = [];
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/other-29',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/other-36',
+                              ADDONS_PRO => 'https://phoenixcart.org/forum/app.php/addons/supporters/other-45',];
 
   }
