@@ -77,7 +77,7 @@ EOSQL
         ],
         'MODULE_ADMIN_DASHBOARD_ORDERS_CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-md-6',
+          'value' => 'col-md-6 mb-2',
           'desc' => 'What container should the content be shown in? (Default: XS-SM full width, MD and above half width).',
         ],
         'MODULE_ADMIN_DASHBOARD_ORDERS_SORT_ORDER' => [
