@@ -51,7 +51,6 @@
   if ($action === 'edit' || $action === 'update') {
     $hooks =& $admin_hooks;
     $Template = new Template();
-    $oscTemplate =& $Template;
     echo (new Form('customers', $Admin->link('customers.php')->retain_query_except()->set_parameter('action', 'update'), 'post'))
       ->hide('default_address_id', $customer_data->get('default_address_id', $customer_details));
 

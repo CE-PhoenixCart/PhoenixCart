@@ -84,7 +84,7 @@
   and will indicate that shipping is not available to that destination.
   PLEASE NOTE THAT THE ORDER CAN STILL BE COMPLETED AND PROCESSED!
 
-  It appears that the osC shipping system automatically rounds the
+  It appears that the shipping system automatically rounds the
   shipping weight up to the nearest whole unit.  This makes it more
   difficult to design precise shipping tables.  If you want to, you
   can modify this module to duplicate the weight calculation without
