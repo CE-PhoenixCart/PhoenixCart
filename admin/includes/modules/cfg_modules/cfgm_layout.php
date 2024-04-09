@@ -126,6 +126,8 @@
           if ($module->base_constant('CONTENT_WIDTH') && !isset($installed_modules[$key]['content_width'])) {
             $installed_modules[$key]['content_width'] = $module->base_constant('CONTENT_WIDTH');
           }
+          
+          $installed_modules[$key]['display_group'] = $module->base_constant('GROUP');
         } else {
           $key = "{$page}-{$module->title}-" . count($new_modules);
 
@@ -153,11 +155,22 @@
       ]);
 
       if (!isset($_GET['list']) || ('new' !== $_GET['list'])) {
-        array_splice($GLOBALS['table_definition']['columns'], 2, 0, [
+        array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
           [
             'name' => TABLE_HEADING_WIDTH,
+            'class' => 'text-right',
             'function' => function ($row) {
               return $row['content_width'];
+            },
+          ],
+        ]);
+        
+        array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
+          [
+            'name' => TABLE_HEADING_DISPLAY_GROUP,
+            'class' => 'text-right',
+            'function' => function ($row) {
+              return $row['display_group'];
             },
           ],
         ]);

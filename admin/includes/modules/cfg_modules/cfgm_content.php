@@ -39,6 +39,8 @@
           }
           $installed_modules[$key]['file'] = sprintf('%s/%s',
             $installed_modules[$key]['group'], $installed_modules[$key]['code']);
+            
+          $installed_modules[$key]['content_width'] = $module->base_constant('CONTENT_WIDTH') ?? 'N/A';
         } else {
           $key = "{$page}-{$module->title}-" . count($new_modules);
 
@@ -68,6 +70,18 @@
           },
         ],
       ]);
+      
+      if (!isset($_GET['list']) || ('new' !== $_GET['list'])) {
+        array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
+          [
+            'name' => TABLE_HEADING_WIDTH,
+            'class' => 'text-right',
+            'function' => function ($row) {
+              return $row['content_width'];
+            },
+          ],
+        ]);
+      }
     }
 
   }
