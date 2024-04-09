@@ -14,13 +14,13 @@
 
     const CONFIG_KEY_BASE = 'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_';
 
-    public $content_width = 6;
+    public $content_width;
 
     public function __construct() {
       parent::__construct();
 
       if ($this->enabled) {
-        $this->content_width = (int)($this->base_constant('CONTENT_WIDTH') ?? 6);
+        $this->content_width = $this->base_constant('CONTENT_WIDTH');
       }
     }
 
@@ -116,10 +116,9 @@ EOD;
           'desc' => 'This is the Y Axis Step Size in Currency Units.  Make this a number that is about half or so of your average daily revenue, you can play with this to suit the Graph output.',
         ],
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '6',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-md-6',
+          'desc' => 'What container should the content be shown in? (Default: XS-SM full width, MD and above half width).',
         ],
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_SORT_ORDER' => [
           'title' => 'Sort Order',
