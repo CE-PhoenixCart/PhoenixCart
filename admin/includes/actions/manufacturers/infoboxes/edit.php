@@ -11,7 +11,7 @@
 */
 
   $mInfo = &$table_definition['info'];
-  $heading = TEXT_HEADING_EDIT_MANUFACTURER . ' <small>' . TEXT_EDIT_INTRO . '</small>';
+  $heading = TEXT_HEADING_EDIT_MANUFACTURER;
   $link = $GLOBALS['link']->set_parameter('mID', (int)$mInfo->manufacturers_id);
 
   $contents = ['form' => new Form('manufacturers', (clone $link)->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data'])];
