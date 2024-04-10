@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const HEADING_TITLE = 'Page Manager';
+const HEADING_TITLE = 'Info Pages';
 
 const TABLE_HEADING_PAGE_ID = 'ID';
 const TABLE_HEADING_PAGE_TITLE = 'Page Title';
