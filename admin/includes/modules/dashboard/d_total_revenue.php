@@ -135,9 +135,9 @@ EOD;
     protected function get_parameters() {
       return [
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STATUS' => [
-          'title' => 'Enable Total Revenue Module',
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Do you want to show the total revenue chart on the dashboard?',
+          'desc' => 'Do you want to show this module on the dashboard?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS' => [
