@@ -17,7 +17,24 @@
 
   $gID = $_GET['gID'] ?? 1;
 
-  $cfg_group = $db->query("SELECT configuration_group_title, configuration_group_help_link FROM configuration_group WHERE configuration_group_id = " . (int)$gID)->fetch_assoc();
+  $cfg_group = $db->query("SELECT configuration_group_title, configuration_group_help_link, configuration_group_addons_links FROM configuration_group WHERE configuration_group_id = " . (int)$gID)->fetch_assoc();
+  
+  $get_addons_link = '';
+  if (!empty($cfg_group['configuration_group_addons_links'])) {
+    $addons = json_decode($cfg_group['configuration_group_addons_links'], true);
+
+    $get_addons_link = '';
+    $get_addons_link .= '<div class="btn-group" role="group">';
+      $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+        $get_addons_link .= '<img src="images/icon_phoenix.png" class="mr-2">' . GET_ADDONS;
+      $get_addons_link .= '</button>';
+      $get_addons_link .= '<div class="dropdown-menu">';
+      foreach ($addons as $k => $v) {
+        $get_addons_link .= '<a class="dropdown-item" target="_blank" href="' . $v . '">' . constant($k) . '</a>';
+      }
+      $get_addons_link .= '</div>';
+    $get_addons_link .= '</div>';
+  }
 
   $table_definition = [
     'columns' => [
@@ -120,6 +137,7 @@ EOSQL
     </div>
     <div class="col text-right align-self-center">
       <?=
+      $get_addons_link,
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', $cfg_group['configuration_group_help_link'], ['newwindow' => true])
       ?>
     </div>
