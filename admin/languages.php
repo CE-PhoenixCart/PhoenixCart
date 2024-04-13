@@ -12,6 +12,19 @@
 
   $always_valid_actions = ['delete'];
   require 'includes/application_top.php';
+  
+  $get_addons_link = '';
+  $get_addons_link .= '<div class="btn-group" role="group">';
+    $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+      $get_addons_link .= '<img src="images/icon_phoenix.png" class="mr-2">' . GET_ADDONS;
+    $get_addons_link .= '</button>';
+    $get_addons_link .= '<div class="dropdown-menu">';
+    foreach (GET_ADDONS_LINKS as $k => $v) {
+      $get_addons_link .= '<a class="dropdown-item" target="_blank" href="' . $v . '">' . $k . '</a>';
+    }
+    $get_addons_link .= '</div>';
+  $get_addons_link .= '</div>';
+  
   $link = $Admin->link()->retain_query_except(['action', 'lID']);
 
   require 'includes/segments/process_action.php';
@@ -87,6 +100,7 @@
     </div>
     <div class="col text-right align-self-center">
       <?=
+      $get_addons_link,
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       empty($action)
       ? $Admin->button(IMAGE_NEW_LANGUAGE, 'fas fa-comment-dots', 'btn-danger', $Admin->link('languages.php', ['action' => 'new']))

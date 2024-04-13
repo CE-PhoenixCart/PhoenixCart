@@ -38,3 +38,4 @@ const PLEASE_SELECT_OPTION = '--- Please Select ---';
 const TABLE_HEADING_OPT_SORT_ORDER = 'Sort Order';
 
 const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Products_Attributes';
+const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free_addon/ajax_attribute_manager/',];
