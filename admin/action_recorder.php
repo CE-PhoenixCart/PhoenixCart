@@ -133,10 +133,10 @@
 ?>
 
   <div class="row">
-    <div class="col-12 col-sm-6">
+    <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-8 col-sm-4">
+    <div class="col self-align-center">
       <?=
       (new Form('search', $Admin->link('action_recorder.php'), 'get'))->hide_session_id()->hide('module', ''),
         new Input('search', ['placeholder' => TEXT_FILTER_SEARCH, 'class' => 'form-control form-control-sm mb-1']),
@@ -146,7 +146,7 @@
       '</form>'
       ?>
     </div>
-    <div class="col-4 col-sm-2 align-self-center">
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?= 
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
       $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $delete_link) 

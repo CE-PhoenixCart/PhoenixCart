@@ -127,11 +127,11 @@
   $cfgm = "cfgm_$set";
   if (is_callable([$cfgm, 'menu'])) {
 ?>
-    <div class="col-sm-2 text-right align-self-center"><?= $cfgm::menu() ?></div>
+    <div class="col text-right align-self-center"><?= $cfgm::menu() ?></div>
 <?php
   }
 ?>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', $get_help_link, ['newwindow' => true]),

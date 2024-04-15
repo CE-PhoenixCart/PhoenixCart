@@ -76,16 +76,16 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-sm-2 text-right align-self-center">
-      <?= 
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true])
-      ?>
-    </div>
-    <div class="col-sm-2 text-right align-self-center">
+    <div class="col text-right align-self-center">
       <?=
         (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
         (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
         '</form>'
+      ?>
+    </div>
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+      <?= 
+      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true])
       ?>
     </div>
   </div>
