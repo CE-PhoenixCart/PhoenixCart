@@ -24,7 +24,7 @@ const VERSION_UPGRADES_AVAILABLE = <<<'EOT'
 <strong>CE Phoenix %s</strong> is the latest version available for you!<hr>
 <a class="alert-link" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22">Certified Partners</a>
  and detailed "<a class="alert-link" target="_blank" href="https://phoenixcart.org/forum/app.php/tag/phoenix-update">Do It Yourself</a>"
- instructions are available in the Phoenix Club.
+ instructions are available in the Phoenix Forum.
 EOT;
 
 const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Version_Checker';
