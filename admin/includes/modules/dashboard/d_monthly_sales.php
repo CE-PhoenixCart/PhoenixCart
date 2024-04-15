@@ -140,8 +140,8 @@ EOD;
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_MONTHS' => [
           'title' => 'Months',
-          'value' => '12',
-          'desc' => 'Months to display.',
+          'value' => '3,6,12',
+          'desc' => 'Months to display.  Comma separated list will display each period in a tabbed interface.',
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_STEP' => [
           'title' => 'Step Size',

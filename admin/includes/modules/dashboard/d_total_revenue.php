@@ -142,8 +142,8 @@ EOD;
         ],
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_DAYS' => [
           'title' => 'Days',
-          'value' => '7',
-          'desc' => 'Days to display.',
+          'value' => '7,30',
+          'desc' => 'Days to display.  Comma separated list will display each period in a tabbed interface.',
         ],
         'MODULE_ADMIN_DASHBOARD_TOTAL_REVENUE_STEP' => [
           'title' => 'Step Size',
