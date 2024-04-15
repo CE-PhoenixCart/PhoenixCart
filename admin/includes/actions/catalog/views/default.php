@@ -42,7 +42,7 @@
       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       isset($_GET['search'])
       ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
-      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger m2-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
+      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
         . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
       ?>
     </div>
