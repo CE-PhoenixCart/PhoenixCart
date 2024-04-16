@@ -58,7 +58,7 @@
     protected function get_parameters() {
       return [
         'MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_STATUS' => [
-          'title' => 'Enable Certified Partners Module',
+          'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to show the latest Partner news on the dashboard?',
           'set_func' => "Config::select_one(['True', 'False'], ",
