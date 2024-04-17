@@ -66,7 +66,7 @@
     <hr>
 
     <div class="form-group row" id="zImage">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_IMAGE ?></label>
+      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_IMAGE ?></div>
       <div class="col-sm-9">
         <div class="row">
           <div class="col">
