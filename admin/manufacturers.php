@@ -86,7 +86,9 @@
 ?>
 
   <script>
-    document.querySelector('#inputManufacturersImage').addEventListener('change', function (event) {
+  var upload = document.querySelector('#inputManufacturersImage');
+  if (upload) {
+    upload.addEventListener('change', function (event) {
       var labels = document.querySelectorAll('LABEL.custom-file-label');
       for (var i = 0; i < labels.length; i++) {
         if ('inputManufacturersImage' === labels[i].htmlFor) {
@@ -94,6 +96,7 @@
         }
       }
     });
+  }
   </script>
 
 <?php

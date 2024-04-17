@@ -60,7 +60,9 @@
   </div>
 
   <script>
-    document.querySelector('#inputLogo').addEventListener('change', function (event) {
+  var upload = document.querySelector('#inputLogo');
+  if (upload) {
+    upload.addEventListener('change', function (event) {
       var labels = document.querySelectorAll('LABEL.custom-file-label');
       for (var i = 0; i < labels.length; i++) {
         if ('inputLogo' === labels[i].htmlFor) {
@@ -68,6 +70,7 @@
         }
       }
     });
+  }
   </script>
 
 <?php
