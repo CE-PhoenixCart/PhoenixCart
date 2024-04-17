@@ -61,6 +61,7 @@
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
     'sql' => $customers_sql,
     'row_count' => $db->query("SELECT COUNT(DISTINCT customers_id) AS row_count FROM orders")->fetch_assoc()['row_count'],
+    'width' => 12,
   ];
 
   $table_definition['split'] = new Paginator($table_definition);
