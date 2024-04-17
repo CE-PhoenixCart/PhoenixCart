@@ -14,8 +14,8 @@
 
   $contents = ['form' => new Form('administrator', $GLOBALS['Admin']->link('administrators.php', ['aID' => $GLOBALS['aInfo']->id, 'action' => 'save']), 'post', ['autocomplete' => 'off'])];
   $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-  $contents[] = ['text' => TEXT_INFO_USERNAME . (new Input('username', ['value' => $GLOBALS['aInfo']->user_name, 'autocapitalize' => 'none']))->require()];
-  $contents[] = ['text' => TEXT_INFO_NEW_PASSWORD . (new Input('password', ['autocapitalize' => 'none'], 'password'))->require()];
+  $contents[] = ['text' => TEXT_INFO_USERNAME . (new Input('username', ['value' => $GLOBALS['aInfo']->user_name, 'autocomplete' => 'off', 'autocapitalize' => 'none']))->require()];
+  $contents[] = ['text' => TEXT_INFO_NEW_PASSWORD . (new Input('password', ['autocomplete' => 'off', 'autocapitalize' => 'none'], 'password'))->require()];
 
   if (is_array($GLOBALS['htpasswd_lines'])) {
     $checkbox = new Tickable('htaccess', ['class' => 'custom-control-input', 'id' => 'aHtpasswd', 'value' => 'true'], 'checkbox');

@@ -14,7 +14,7 @@
 
   $contents = ['form' => new Form('languages', $GLOBALS['Admin']->link()->set_parameter('action', 'insert'))];
   $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-  $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_NAME, null) . '<br>' . new Input('name')];
+  $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_NAME, null) . '<br>' . new Input('name', ['autocomplete' => 'off'])];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_CODE, null) . '<br>' . new Input('code')];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_IMAGE, null) . '<br>' . new Input('image', ['value' => 'icon.gif'])];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_DIRECTORY, null, null) . '<br>' . new Input('directory')];

@@ -14,8 +14,8 @@
 
   $contents = ['form' => new Form('administrator', $GLOBALS['Admin']->link('administrators.php', ['action' => 'insert']), 'post', ['autocomplete' => 'off'])];
   $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-  $contents[] = ['text' => TEXT_INFO_USERNAME . (new Input('username', ['autocapitalize' => 'none']))->require()];
-  $contents[] = ['text' => TEXT_INFO_PASSWORD . (new Input('password', ['autocapitalize' => 'none'], 'password'))->require()];
+  $contents[] = ['text' => TEXT_INFO_USERNAME . (new Input('username', ['autocomplete' => 'off', 'autocapitalize' => 'none']))->require()];
+  $contents[] = ['text' => TEXT_INFO_PASSWORD . (new Input('password', ['autocomplete' => 'off', 'autocapitalize' => 'none'], 'password'))->require()];
 
   if (is_array($GLOBALS['htpasswd_lines'])) {
     $contents[] = [
