@@ -41,6 +41,8 @@
     'THB' => ['title' => 'Thai Baht', 'code' => 'THB', 'symbol_left' => '', 'symbol_right' => '฿', 'decimal_point' => '.', 'thousands_point' => ',', 'decimal_places' => '2'],
     'TWD' => ['title' => 'Taiwan New Dollar', 'code' => 'TWD', 'symbol_left' => 'NT$', 'symbol_right' => '', 'decimal_point' => '.', 'thousands_point' => ',', 'decimal_places' => '2'],
   ];
+  
+  array_multisort($currency_select);
 
   $currency_select_array = [['id' => '', 'text' => TEXT_INFO_COMMON_CURRENCIES]];
   foreach (array_diff_key($currency_select, Guarantor::ensure_global('currencies')->currencies) as $cs) {
