@@ -86,7 +86,7 @@
         }
 
         if ($db->errno) {
-          exit("[[0|$db_error]]");
+          exit("[[0|{$db->error}]]");
         }
 
         exit('[[1]]');
