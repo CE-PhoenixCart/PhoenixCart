@@ -28,6 +28,7 @@ EOSQL
     'columns' => [
       [
         'name' => TABLE_HEADING_NUMBER,
+        'class' => 'col-1',
         'function' => function ($row) {
           static $count = 0;
           return str_pad(++$count, 2, '0', STR_PAD_LEFT) . '.';
@@ -36,7 +37,7 @@ EOSQL
       [
         'name' => TABLE_HEADING_PRODUCTS,
         'function' => function ($row) {
-          return '<a href="' . $row['onclick'] . '">' . $row['products_name'] . '</a>';
+          return '<a target="_blank" class="stretched-link" href="' . $row['onclick'] . '">' . $row['products_name'] . '</a>';
         },
       ],
       [
