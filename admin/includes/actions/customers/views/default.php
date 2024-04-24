@@ -18,7 +18,6 @@
         'date_account_created',
         'date_account_last_modified',
         'date_last_logon',
-        'date_last_logon',
       ],
       'customers');
       
@@ -35,6 +34,13 @@
 
   $table_definition = [
     'columns' => [
+      [
+        'name' => TABLE_HEADING_ID,
+        'class' => 'col-1',
+        'function' => function (&$row) use ($customer_data) {
+            return $customer_data->get('id', $row);
+          },
+      ],
       [
         'name' => TABLE_HEADING_NAME,
         'function' => function (&$row) use ($customer_data) {
