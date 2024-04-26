@@ -23,7 +23,8 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-       $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+       $admin_hooks->cat('extraButtons'),
        $Admin->button(IMAGE_ORDERS_INVOICE, 'fas fa-file-invoice-dollar', 'btn-info mr-2', $Admin->link('invoice.php')->set_parameter('oID', $_GET['oID']), ['newwindow' => true]),
        $Admin->button(IMAGE_ORDERS_PACKINGSLIP, 'fas fa-file-contract', 'btn-info mr-2', $Admin->link('packingslip.php')->set_parameter('oID', $_GET['oID']), ['newwindow' => true]),
        $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('orders.php')->retain_query_except(['action']))

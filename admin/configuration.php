@@ -26,7 +26,7 @@
     $get_addons_link = '';
     $get_addons_link .= '<div class="btn-group" role="group">';
       $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
-        $get_addons_link .= '<img src="images/icon_phoenix.png" class="mr-2">' . GET_ADDONS;
+        $get_addons_link .= GET_ADDONS;
       $get_addons_link .= '</button>';
       $get_addons_link .= '<div class="dropdown-menu">';
       foreach ($addons as $k => $v) {
@@ -138,7 +138,8 @@ EOSQL
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', $cfg_group['configuration_group_help_link'], ['newwindow' => true])
+      $Admin->button(GET_HELP, '', 'btn-dark', $cfg_group['configuration_group_help_link'], ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
       ?>
     </div>
   </div>

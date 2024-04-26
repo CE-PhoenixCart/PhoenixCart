@@ -39,7 +39,8 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       isset($_GET['search'])
       ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
       : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))

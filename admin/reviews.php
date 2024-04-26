@@ -28,7 +28,8 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-star', 'btn-danger', $Admin->link('reviews.php', ['action' => 'new']))
       : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $link)

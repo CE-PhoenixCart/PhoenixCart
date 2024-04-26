@@ -138,8 +138,8 @@ const TEXT_IMAGE_NON_EXISTENT = 'IMAGE DOES NOT EXIST';
 
 const STAR_RATING = 'Rated %s Stars';
 
-const GET_HELP = 'Help';
-const GET_ADDONS = 'Addons';
+const GET_HELP = '<img src="images/icon_phoenix.png" class="mr-2">Help';
+const GET_ADDONS = '<img src="images/icon_phoenix.png" class="mr-2">Addons';
 const ADDONS_FREE = 'Free';
 const ADDONS_COMMERCIAL = 'Paid';
 const ADDONS_PRO = 'PRO';

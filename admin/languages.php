@@ -16,7 +16,7 @@
   $get_addons_link = '';
   $get_addons_link .= '<div class="btn-group" role="group">';
     $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
-      $get_addons_link .= '<img src="images/icon_phoenix.png" class="mr-2">' . GET_ADDONS;
+      $get_addons_link .= GET_ADDONS;
     $get_addons_link .= '</button>';
     $get_addons_link .= '<div class="dropdown-menu">';
     foreach (GET_ADDONS_LINKS as $k => $v) {
@@ -101,7 +101,8 @@
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(IMAGE_NEW_LANGUAGE, 'fas fa-comment-dots', 'btn-danger', $Admin->link('languages.php', ['action' => 'new']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('languages.php'))

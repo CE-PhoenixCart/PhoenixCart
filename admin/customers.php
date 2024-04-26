@@ -47,7 +47,8 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?= 
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       isset($_GET['action']) ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'ml-2 btn-light', $Admin->link('customers.php')->retain_query_except(['action'])) : ''; 
       ?>
     </div>

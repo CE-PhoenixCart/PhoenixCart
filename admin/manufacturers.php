@@ -73,8 +73,9 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
-        empty($action)
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action)
       ? $Admin->button(BUTTON_INSERT_NEW_MANUFACTURER, 'fas fa-id-card', 'btn-danger', $Admin->link('manufacturers.php', ['action' => 'new']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link)
       ?>

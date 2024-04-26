@@ -89,8 +89,9 @@ function update_zone(theForm) {
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]), 
-        empty($action)
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action)
       ? $Admin->button(TEXT_INFO_HEADING_NEW_ZONE, 'fas fa-atlas', 'btn-danger', (clone $link)->set_parameter('action', 'new_zone'))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', isset($_GET['zID']) ? $Admin->link()->set_parameter('zID', (int)$_GET['zID']) : $Admin->link())
       ?>

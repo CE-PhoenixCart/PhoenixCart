@@ -125,8 +125,9 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button('<img src="images/icon_phoenix.png" class="mr-2">' . GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
-        empty($action)
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action)
       ? new Button(IMAGE_INSERT_NEW_ADMIN, 'fas fa-users', 'btn-danger', [], $Admin->link('administrators.php', ['action' => 'new']))
       : new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', [], $Admin->link('administrators.php'))
       ?>
