@@ -98,6 +98,8 @@ EOSQL
       $hook['hooks_code']
     )[] = $callable;
   }
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>

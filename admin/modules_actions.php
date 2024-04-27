@@ -13,6 +13,8 @@
   require 'includes/application_top.php';
 
   $directory = DIR_FS_CATALOG . 'includes/actions/';
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>
