@@ -76,7 +76,7 @@ EOSQL
     <div class="form-group row" id="zText">
       <label for="inputText" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_TESTIMONIAL ?></label>
       <div class="col-sm-9">
-        <?= (new Textarea('testimonials_text', ['cols' => '60', 'rows' => '15', 'id' => 'inputText', 'aria-describedby' => 'TextHelp']))->require()->set_text($tInfo->testimonials_text) ?>
+        <?= (new Textarea('testimonials_text', ['cols' => '60', 'rows' => '15', 'id' => 'inputText', 'aria-describedby' => 'TextHelp']))->require()->set_text($tInfo->testimonials_text ?? '') ?>
         <small id="TextHelp" class="form-text text-muted"><?= ENTRY_TESTIMONIAL_HTML_DISPLAYED ?></small>
       </div>
     </div>

@@ -115,7 +115,7 @@ EOSQL
             <div class="input-group-prepend">
               <span class="input-group-text"><?= $language_icon ?></span>
             </div>
-            <?= (new Textarea('advert_html_text[' . $l['id'] . ']', ['cols' => '60', 'rows' => '15', 'id' => "aText-{$l['code']}"]))->set_text($advert_text) ?>
+            <?= (new Textarea('advert_html_text[' . $l['id'] . ']', ['cols' => '60', 'rows' => '15', 'id' => "aText-{$l['code']}"]))->set_text($advert_text ?? '') ?>
           </div>
         </div>
       </div>

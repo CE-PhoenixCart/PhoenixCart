@@ -64,7 +64,7 @@
         $page_text .= '<div class="input-group-prepend">';
           $page_text .= '<span class="input-group-text">' . $flag_image . '</span>';
         $page_text .= '</div>';
-        $page_text .= (new Textarea("page_text[{$l['id']}]", ['id' => "iPageText-{$l['code']}", 'cols' => '80', 'rows' => '10', 'class' => 'form-control editor']))->require()->set_text($info_page['pages_text']);
+        $page_text .= (new Textarea("page_text[{$l['id']}]", ['id' => "iPageText-{$l['code']}", 'cols' => '80', 'rows' => '10', 'class' => 'form-control editor']))->require()->set_text($info_page['pages_text'] ?? '');
       $page_text .= '</div>';
     }
 ?>
