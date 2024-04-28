@@ -19,14 +19,21 @@
   $customers_sql .= ", orders_products op, orders o WHERE " . customer_query::TABLE_ALIASES['customers'];
   $customers_sql .= ".customers_id = o.customers_id AND o.orders_id = op.orders_id GROUP BY o.customers_id ORDER BY ordersum DESC";
 
-  $row_number = MAX_DISPLAY_SEARCH_RESULTS * ((int)($_GET['page'] ?? 1) - 1);
-
   $table_definition = [
     'columns' => [
       [
         'name' => TABLE_HEADING_NUMBER,
-        'function' => function ($row) use (&$row_number) {
-          return ++$row_number;
+        'class' => 'col-1',
+        'function' => function ($row) {
+          static $count = 0;
+          return str_pad(++$count, 2, '0', STR_PAD_LEFT) . '.';
+        },
+      ],
+      [
+        'name' => TABLE_HEADING_CUSTOMERS_ID,
+        'class' => 'col-1',
+        'function' => function ($row) use ($customer_data) {
+          return $customer_data->get('id', $row);
         },
       ],
       [
