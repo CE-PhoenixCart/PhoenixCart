@@ -27,54 +27,20 @@
     </div>
     <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
-      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
-      $admin_hooks->cat('extraButtons')
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action)
+      ? $Admin->button(BUTTON_EDIT_LOGO, 'fas fa-id-card', 'btn-danger', $Admin->link('store_logo.php', ['action' => 'edit']))
+      : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('store_logo.php'))
       ?>
     </div>
   </div>
 
-  <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
-  <small><?= DIR_FS_CATALOG . 'images/' .  STORE_LOGO ?></small>
-  <hr>
-  
-  <h3 class="display-4 mb-2"><?= HEADING_NEW_LOGO ?></h3>
-    
-  <div class="row">
-    <div class="col">
-      <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
-
-        <div class="custom-file mb-2">
-          <?= (new Input('store_logo', ['accept' => 'image/*', 'id' => 'inputLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
-
-          <label class="custom-file-label" for="inputLogo"><?= TEXT_LOGO_IMAGE ?></label>
-        </div>
-
-        <?= $admin_hooks->cat('editForm'),
-            new Button(IMAGE_UPLOAD, 'fas fa-file-upload', 'btn-danger btn-block')
-        ?>
-
-      </form>
-    </div>
-    <div class="col">
-      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION ?></div>
-    </div>
-  </div>
-
-  <script>
-  var upload = document.querySelector('#inputLogo');
-  if (upload) {
-    upload.addEventListener('change', function (event) {
-      var labels = document.querySelectorAll('LABEL.custom-file-label');
-      for (var i = 0; i < labels.length; i++) {
-        if ('inputLogo' === labels[i].htmlFor) {
-          labels[i].innerHTML = event.target.files[0].name;
-        }
-      }
-    });
-  }
-  </script>
-
 <?php
+  if ($view_file = $Admin->locate('/views', $action)) {
+    require $view_file;
+  }
+  
   require 'includes/template_bottom.php';
   require 'includes/application_bottom.php';
 ?>
