@@ -11,6 +11,8 @@
 */
 
   require 'includes/application_top.php';
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';  
 ?>
