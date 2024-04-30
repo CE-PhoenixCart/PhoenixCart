@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_CONFIGURATION_ADMINISTRATORS', 'Administrators');
+  const MODULES_ADMIN_MENU_CONFIGURATION_ADMINISTRATORS = 'Administrators';

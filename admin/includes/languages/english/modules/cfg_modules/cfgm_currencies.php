@@ -10,5 +10,5 @@
   Released under the GNU General Public License
 */
 
-define('MODULE_CFG_MODULE_CURRENCIES_TITLE', 'Update Currency');
+const MODULE_CFG_MODULE_CURRENCIES_TITLE = 'Update Currency';
 

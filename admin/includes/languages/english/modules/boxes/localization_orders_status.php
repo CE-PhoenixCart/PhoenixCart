@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_LOCALIZATION_ORDERS_STATUS', 'Orders Status');
+  const MODULES_ADMIN_MENU_LOCALIZATION_ORDERS_STATUS = 'Orders Status';

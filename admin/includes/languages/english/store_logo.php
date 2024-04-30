@@ -12,12 +12,12 @@
 
 const HEADING_TITLE = 'Store Logo';
 
-const TEXT_EXISTING_LOGO = '<b>This is your existing Store Logo.</b><br><br>It is used both in your Shop & in your Admin area (eg on your invoice and packing slip.';
+const TEXT_EXISTING_LOGO = '<b>This is your existing Store Logo.</b><br><br>It is used both in your Shop & in your Admin area (eg on your invoice and packing slip).';
 
 const BUTTON_EDIT_LOGO = 'Upload a New Logo';
 
 const TEXT_LOGO_IMAGE = 'New Logo';
-const TEXT_FORMAT_AND_LOCATION = '<b>Your existing Logo will be OVERWRITTEN.</b><br><br>The new Store Logo must be in one of png/gif/jpg/svg/webp formats.';
+const TEXT_FORMAT_AND_LOCATION = '<b>Your existing Logo will be OVERWRITTEN.</b><br><br>The new Store Logo must be in one a standard image format: png/gif/jpg/svg/webp';
 
 const SUCCESS_LOGO_UPDATED = '<strong>Success:</strong> The Store Logo has successfully been updated!';
 
