@@ -85,6 +85,7 @@
            . new Select($this->table_definition['page_name'] ?? 'page', $pages, [
                'value' => $this->current_page_number,
                'onchange' => 'this.form.submit();',
+               'class' => 'custom-select rounded-0',
              ]) . '</form>';
     }
 
