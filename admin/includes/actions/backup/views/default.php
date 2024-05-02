@@ -32,7 +32,7 @@
                 $contents[] = $file;
               }
             }
-            sort($contents);
+            rsort($contents);
 
             foreach ($contents as $entry) {
               if (!isset($buInfo) && (!isset($_GET['file']) || ($_GET['file'] == $entry))) {
