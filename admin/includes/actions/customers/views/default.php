@@ -30,7 +30,7 @@
     });
   }
   
-  $customers_sql = $customer_data->add_order_by($customers_sql, ['sortable_name']);
+  $customers_sql = $customer_data->add_order_by($customers_sql, ['id' => 'DESC']);
 
   $table_definition = [
     'columns' => [
