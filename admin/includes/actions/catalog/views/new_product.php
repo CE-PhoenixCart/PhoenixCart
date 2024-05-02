@@ -299,6 +299,9 @@ function updateNet() {
                       </small>
                     </div>
                   </div>
+                  
+                  <?= $admin_hooks->cat('injectLanguageRow') ?>
+                  
                 </div>
               </div>
             </div>
