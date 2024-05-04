@@ -40,7 +40,7 @@ Installation of Phoenix takes no more than a few minutes - you will need a hosti
 
 Software | Minimum | Maximum (tested)
 -------- | ------- | ----------------
-PHP | 7.0 | 8.0
+PHP | 7.0 | 8.3
 MariaDB | 10.2.2 | 10.5
 MySQL | 5.7.7 | 8.0
 
