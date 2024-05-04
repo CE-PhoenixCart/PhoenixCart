@@ -7,7 +7,7 @@
 ## Table of Contents
 
 * [What is Phoenix](https://github.com/CE-PhoenixCart/PhoenixCart#description)
-  - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart#demo-site)
+  - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart#demo-sites)
 * [Installation](https://github.com/CE-PhoenixCart/PhoenixCart#installation)
   - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart#requirements)
   - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart#user-checklist)
@@ -84,14 +84,13 @@ Please be aware that language packs (other than ES) are maintained by shop owner
 
 ## How to Support the Phoenix Project
 
-Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix...
+Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
-
 ### Certified Partners
 
-[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to the Phoenix core principle of `no core changes`. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
 
 * These partners are certified by the Core Team
 * These partners support Phoenix by giving their time, code and financial support
@@ -100,7 +99,7 @@ If you are looking for a developer for a paid-for project, please consider one o
 
 ### Join the Phoenix Club
 
-If you wish to help steer the future direction of the software you need to join the [Phoenix Club](https://phoenixcart.org/forum/)
+If you wish to help steer the future direction of the software, please [sponsor](https://phoenixcart.org/phoenix_gopro.php) Phoenix and join the [Forum](https://phoenixcart.org/forum/).
 
 ## Helpful Links
 
