@@ -28,7 +28,7 @@
           'is_dir' => is_dir($filepath),
           'writable' => File::is_writable($filepath),
           'size' => filesize($filepath),
-          'last_modified' => strftime(DATE_TIME_FORMAT, filemtime($filepath)),
+          'last_modified' => $GLOBALS['date_time_formatter']->format(filemtime($filepath)),
         ];
       } elseif (('.' !== $filename[0]) && is_dir("$path$filename")) {
         yield from phoenix_opendir("$path$filename");
@@ -168,7 +168,7 @@
         <tr>
           <td><a href="<?= $link ?>"><?= $filename ?></a></td>
           <td class="text-center"><?= File::is_writable(DIR_FS_CATALOG_LANGUAGES . $filename) ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>' ?></td>
-          <td class="text-right"><?= strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)) ?></td>
+          <td class="text-right"><?= $GLOBALS['date_time_formatter']->format(filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)) ?></td>
         </tr>
 <?php
     foreach (phoenix_opendir(DIR_FS_CATALOG_LANGUAGES . $_GET['lngdir']) as $file) {

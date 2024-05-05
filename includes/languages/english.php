@@ -18,10 +18,11 @@
 // 'en_AU.UTF-8', 'en_AU.UTF8', 'ena_au'
 @setlocale(LC_ALL, ['en_US.UTF-8', 'en_US.UTF8', 'enu_usa']);
 
-const DATE_FORMAT_SHORT = '%m/%d/%Y';  // this is used for strftime()
-const DATE_FORMAT_LONG = '%A %d %B, %Y'; // this is used for strftime()
+$long_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+$short_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+$date_time_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::LONG);
+
 const DATE_FORMAT = 'm/d/Y'; // this is used for date()
-const DATE_TIME_FORMAT = DATE_FORMAT_SHORT . ' %H:%M:%S';
 
 // if USE_DEFAULT_LANGUAGE_CURRENCY is true, use the following currency, instead of the application's default currency (used when changing language)
 const LANGUAGE_CURRENCY = 'USD';

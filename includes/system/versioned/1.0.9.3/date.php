@@ -36,27 +36,34 @@
     }
 
     /**
-     * Format this date with strftime.
-     * @param string $format A strftime format string.
+     * Format this date with IntlDateFormatter.
+     * @param string $format An IntlDateFormatter format string.
      * @return mixed
      */
     public function format($format) {
       return $this->timestamp
-           ? strftime($format, $this->timestamp)
+           ? (new IntlDateFormatter('en', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, IntlDateFormatter::GREGORIAN, $format))->format($this->timestamp)
            : false;
+    }
+
+    /**
+     * Return the timestamp.
+     */
+    public function get_timestamp() : int {
+      return $this->timestamp;
     }
 
 // Output in the selected locale date format, long version
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
     public static function expound($raw_date) {
-      return (new Date($raw_date))->format(DATE_FORMAT_LONG);
+      return $GLOBALS['long_date_formatter']->format((new Date($raw_date))->get_timestamp());
     }
 
 ////
 // Output in the selected locale date format, shorter version
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
     public static function abridge($raw_date) {
-      return (new Date($raw_date))->format(DATE_FORMAT_SHORT);
+      return $GLOBALS['short_date_formatter']->format((new Date($raw_date))->get_timestamp());
     }
 
     /**

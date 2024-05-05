@@ -56,7 +56,7 @@
         'name' => TABLE_HEADING_DATE_ADDED,
         'class' => 'text-right',
         'function' => function (&$row) {
-          return (new Date($row['date_added']))->format(DATE_TIME_FORMAT);
+          return $GLOBALS['date_time_formatter']->format((new Date($row['date_added']))->get_timestamp());
         },
       ],
       [
