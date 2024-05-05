@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_ORDERS_ORDERS', 'Orders');
+  const MODULES_ADMIN_MENU_ORDERS_ORDERS = 'Orders';

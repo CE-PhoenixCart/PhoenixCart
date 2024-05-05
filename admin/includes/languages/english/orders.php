@@ -83,3 +83,5 @@ const ENTRY_NOTIFY_COMMENTS_TEXT = 'This will append your comments to the order 
 
 const TEXT_ORDER_STATUS = '<strong>%s</strong> [%s]';
 const TEXT_ORDER_PAYMENT = '<strong>%s</strong> [%s]';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Orders';

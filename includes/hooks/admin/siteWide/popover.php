@@ -18,7 +18,7 @@ class hook_admin_siteWide_popover {
 $(function () {
   $('[data-toggle="popover"]').popover({
     container: 'body',
-    trigger: 'hover click'
+    trigger: 'hover focus'
   })
 })
 </script>

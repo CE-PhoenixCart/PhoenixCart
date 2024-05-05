@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MOULES_ADMIN_MENU_TAXES_TAX_RATES', 'Tax Rates');
+  const MOULES_ADMIN_MENU_TAXES_TAX_RATES = 'Tax Rates';

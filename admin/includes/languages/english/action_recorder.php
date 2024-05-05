@@ -25,3 +25,5 @@ const TEXT_INFO_IDENTIFIER = 'Identifier:';
 const TEXT_INFO_DATE_ADDED = 'Date Added: %s';
 
 const SUCCESS_EXPIRED_ENTRIES = '<strong>Success:</strong> %s expired entries were removed.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Action_Recorder';

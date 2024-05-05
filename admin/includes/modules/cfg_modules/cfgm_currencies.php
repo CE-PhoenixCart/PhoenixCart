@@ -18,5 +18,10 @@
     const KEY = 'MODULE_ADMIN_CURRENCIES_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_CURRENCIES_TITLE;
     const TEMPLATE_INTEGRATION = false;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Currencies';
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/other-29',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/other-36',
+                              ADDONS_PRO => 'https://phoenixcart.org/forum/app.php/addons/supporters/other-45',];
 
   }

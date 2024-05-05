@@ -57,7 +57,7 @@ class hook_admin_siteWide_hMenu {
       $mr = '';
       foreach ($cl_box_groups as $groups) {
         $mr .= '<li class="nav-item dropdown">';
-          $mr .= '<a class="nav-link dropdown-toggle" href="#" id="navbar_' . $n . '" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $groups['heading'] . '</a>';
+          $mr .= '<a class="nav-link text-light dropdown-toggle" href="#" id="navbar_' . $n . '" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $groups['heading'] . '</a>';
           $al = ($n > 6) ? ' dropdown-menu-right' : '';
           $mr .= '<div class="dropdown-menu' . $al . '" aria-labelledby="navbar_' . $n . '">';
           foreach ($groups['apps'] as $app) {

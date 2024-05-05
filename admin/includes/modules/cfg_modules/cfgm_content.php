@@ -16,6 +16,11 @@
     const DIRECTORY = DIR_FS_CATALOG . 'includes/modules/content/';
     const KEY = 'MODULE_CONTENT_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_CONTENT_TITLE;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Content';
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/content-25',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/content-33',
+                              ADDONS_PRO => 'https://phoenixcart.org/forum/app.php/addons/supporters/content-43',];
 
     public static function list_modules() {
       $installed_modules = [];
@@ -39,6 +44,8 @@
           }
           $installed_modules[$key]['file'] = sprintf('%s/%s',
             $installed_modules[$key]['group'], $installed_modules[$key]['code']);
+            
+          $installed_modules[$key]['content_width'] = $module->base_constant('CONTENT_WIDTH') ?? 'N/A';
         } else {
           $key = "{$page}-{$module->title}-" . count($new_modules);
 
@@ -68,6 +75,18 @@
           },
         ],
       ]);
+      
+      if (!isset($_GET['list']) || ('new' !== $_GET['list'])) {
+        array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
+          [
+            'name' => TABLE_HEADING_WIDTH,
+            'class' => 'text-right',
+            'function' => function ($row) {
+              return $row['content_width'];
+            },
+          ],
+        ]);
+      }
     }
 
   }

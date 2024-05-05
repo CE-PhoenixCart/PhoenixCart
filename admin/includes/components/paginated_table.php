@@ -67,14 +67,14 @@ EOJS;
         isset($table_definition['form']) ? $table_definition['form']->close() : ''
       ?></div>
 
-      <div class="row my-1">
-        <div class="col"><?= $table_definition['split']->display_count() ?></div>
-        <div class="col text-right mr-2"><?=
+      <div class="d-flex mr-1 mb-3">
+        <div class="mr-auto align-self-center"><?= $table_definition['split']->display_count() ?></div>
+        <div class="align-self-center"><?=
        ($this->page_count <= 1)
        ? sprintf(TEXT_RESULT_PAGE, $this->page_count, $this->page_count)
        : '<div class="input-group">'
-         . '<div class="input-group-append ml-auto">'
-           . '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>'
+         . '<div class="input-group-prepend">'
+           . '<span class="input-group-text rounded-0" id="p">' . SPLIT_PAGES . '</span>'
          . '</div>'
          . $table_definition['split']->draw_pages_form()
        . '</div>'

@@ -27,3 +27,6 @@ const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this country?';
 const TEXT_INFO_HEADING_NEW_COUNTRY = 'New Country';
 const TEXT_INFO_HEADING_EDIT_COUNTRY = 'Edit Country';
 const TEXT_INFO_HEADING_DELETE_COUNTRY = 'Delete Country';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Countries';
+

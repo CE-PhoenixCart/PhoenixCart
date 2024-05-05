@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const HEADING_TITLE = 'Page Manager';
+const HEADING_TITLE = 'Info Pages';
 
 const TABLE_HEADING_PAGE_ID = 'ID';
 const TABLE_HEADING_PAGE_TITLE = 'Page Title';
@@ -50,3 +50,5 @@ const TABLE_HEADING_SORT_ORDER = 'Sort Order';
 const MISSING_SLUGS_ERROR = 'Required Slugs are Missing:  <b>%s</b><hr>These Slugs are required to power certain functionality of your site.';
 
 const TEXT_PAGE_SLUG_HELP = 'Slug *must* be Unique';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Info_Pages';

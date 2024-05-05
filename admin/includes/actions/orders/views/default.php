@@ -125,6 +125,12 @@ EOSQL
        $admin_hooks->cat('injectFilterForm')
       ?>
     </div>
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
+      ?>
+    </div>
   </div>
 
 <?php

@@ -7,17 +7,16 @@
 
   Copyright (c) 2021 Phoenix Cart
 
-  Released under the GNU General Public License
+  Released under the GNU General Public License 
 */
 ?>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-sm-6 col-md-4 text-right align-self-center">
-      <?=
-        (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
+    <div class="col text-right align-self-center">
+      <?= (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
@@ -38,13 +37,14 @@
        '</form>'
       ?>
     </div>
-    <div class="col-sm-6 col-md-2 text-right align-self-center">
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
       <?=
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       isset($_GET['search'])
-      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('catalog.php'))
-      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger btn-block mb-1', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
-        . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger btn-block mb-1', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
-
+      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
+      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
+        . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
       ?>
     </div>
   </div>

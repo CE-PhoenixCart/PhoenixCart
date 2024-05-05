@@ -50,10 +50,12 @@
         $module = new $class();
 
         if ( $module->isEnabled() ) {
-          $module_width = $module->content_width ?? 6;
+          $module_width = $module->content_width;
 
-          echo '<div class="col-md-' . $module_width . '">';
-            echo $module->getOutput();
+          echo '<div class="' . $module_width . '">';
+            echo '<div class="h-100 card p-1">';
+              echo $module->getOutput();
+            echo '</div>';
           echo '</div>' . PHP_EOL;
         }
       }

@@ -33,3 +33,6 @@ const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this tax rate?';
 const TEXT_INFO_HEADING_NEW_TAX_RATE = 'New Tax Rate';
 const TEXT_INFO_HEADING_EDIT_TAX_RATE = 'Edit Tax Rate';
 const TEXT_INFO_HEADING_DELETE_TAX_RATE = 'Delete Tax Rate';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Tax_Rates';
+

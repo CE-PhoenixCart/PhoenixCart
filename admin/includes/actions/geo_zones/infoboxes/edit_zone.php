@@ -11,7 +11,7 @@
 */
 
   $zInfo = $GLOBALS['table_definition']['info'];
-  $heading = '<strong>' . TEXT_INFO_HEADING_EDIT_ZONE . '</strong>';
+  $heading = TEXT_INFO_HEADING_EDIT_ZONE;
   $link = $GLOBALS['link']->set_parameter('zID', (int)$zInfo->geo_zone_id);
 
   $contents = ['form' => new Form('zones', (clone $link)->set_parameter('action', 'save_zone'))];

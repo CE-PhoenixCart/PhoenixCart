@@ -12,7 +12,10 @@
 
   session_write_close();
 
-  if (STORE_PAGE_PARSE_TIME == 'true') {
-    echo Guarantor::ensure_global('logger')->timer_stop(DISPLAY_PAGE_PARSE_TIME);
+  if ('true' === STORE_PAGE_PARSE_TIME) {
+    $timer_total = Logger::stop_timer();
+    if ('true' === DISPLAY_PAGE_PARSE_TIME) {
+      echo Logger::format($timer_total);
+    }
   }
 ?>

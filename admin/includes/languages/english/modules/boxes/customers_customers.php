@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_CUSTOMERS_CUSTOMERS', 'Customers');
+  const MODULES_ADMIN_MENU_CUSTOMERS_CUSTOMERS = 'Customers';

@@ -16,7 +16,7 @@
 
   $contents = ['form' => new Form('languages', (clone $link)->set_parameter('action', 'save'))];
   $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
-  $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_NAME, null) . '<br>' . new Input('name', ['value' => $lInfo->name])];
+  $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_NAME, null) . '<br>' . new Input('name', ['autocomplete' => 'off', 'value' => $lInfo->name])];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_CODE, null) . '<br>' . new Input('code', ['value' => $lInfo->code])];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_IMAGE, null) . '<br>' . new Input('image', ['value' => $lInfo->image])];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_DIRECTORY, null, null) . '<br>' . new Input('directory', ['value' => $lInfo->directory])];

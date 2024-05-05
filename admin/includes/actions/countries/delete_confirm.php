@@ -13,5 +13,7 @@
   $country_id = Text::input($_GET['cID']);
 
   $db->query("DELETE FROM countries WHERE countries_id = " . (int)$country_id);
+  $db->query("DELETE FROM zones WHERE zone_country_id = " . (int)$country_id);
+  $db->query("DELETE FROM zones_to_geo_zones WHERE zone_country_id = " . (int)$country_id);
 
   return $link;

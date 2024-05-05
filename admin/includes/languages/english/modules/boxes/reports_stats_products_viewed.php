@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_REPORTS_PRODUCTS_VIEWED', 'Products Viewed');
+  const MODULES_ADMIN_MENU_REPORTS_PRODUCTS_VIEWED = 'Products Viewed';

@@ -18,7 +18,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title><?= TITLE ?></title>
 <base href="<?= HTTP_SERVER . DIR_WS_ADMIN ?>" />
-
+<link rel="icon" type="image/png" href="images/icon_phoenix.png">
 <?= $admin_hooks->cat('injectSiteStart') ?>
 
 </head>

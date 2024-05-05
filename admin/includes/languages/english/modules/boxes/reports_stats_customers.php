@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_REPORTS_ORDERS_TOTAL', 'Customer Orders-Total');
+  const MODULES_ADMIN_MENU_REPORTS_ORDERS_TOTAL = 'Customer Orders-Total';

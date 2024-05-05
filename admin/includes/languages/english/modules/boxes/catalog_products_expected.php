@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_CATALOG_PRODUCTS_EXPECTED', 'Products Expected');
+  const MODULES_ADMIN_MENU_CATALOG_PRODUCTS_EXPECTED = 'Products Expected';

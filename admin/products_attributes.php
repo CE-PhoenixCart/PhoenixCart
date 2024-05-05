@@ -11,6 +11,19 @@
 */
 
   require 'includes/application_top.php';
+  
+  $get_addons_link = '';
+  $get_addons_link .= '<div class="btn-group" role="group">';
+    $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+      $get_addons_link .= GET_ADDONS;
+    $get_addons_link .= '</button>';
+    $get_addons_link .= '<div class="dropdown-menu">';
+    foreach (GET_ADDONS_LINKS as $k => $v) {
+      $get_addons_link .= '<a class="dropdown-item" target="_blank" href="' . $v . '">' . $k . '</a>';
+    }
+    $get_addons_link .= '</div>';
+  $get_addons_link .= '</div>';
+  
   $languages = language::load_all();
   foreach ($languages as $i => $l) {
     $languages[$i]['icon'] = (string)$Admin->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", ['alt' => $l['name']]);
@@ -54,8 +67,19 @@ EOSQL
 
   require 'includes/template_top.php';
   ?>
-
-    <h1 class="display-4"><?= HEADING_TITLE_ATRIB ?></h1>
+  
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE_ATRIB ?></h1>
+    </div>
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $get_addons_link,
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
+      ?>
+    </div>
+  </div>
 
   <?php
   $attributes_sql = sprintf(<<<'EOSQL'

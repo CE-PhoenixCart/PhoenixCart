@@ -76,11 +76,17 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-sm-4 text-right align-self-center">
+    <div class="col text-right align-self-center">
       <?=
         (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
         (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
         '</form>'
+      ?>
+    </div>
+    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+      <?= 
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
       ?>
     </div>
   </div>
@@ -93,7 +99,7 @@
       $textarea = new Textarea('file_contents', ['cols' => '80', 'rows' => '25', 'id' => 'dlFile']);
       $textarea->set_text(file_get_contents($file));
 
-      $tickable = new Tickable('download', ['value' => '1'], 'checkbox');
+      $tickable = new Tickable('download', ['class' => 'custom-control-input', 'id' => 'mDownloadOnly', 'value' => '1'], 'checkbox');
 
       if (!File::is_writable($file)) {
         $tickable->set('readonly')->tick();
@@ -117,9 +123,13 @@
         <?= $textarea ?>
       </div>
     </div>
+    
+    <div class="custom-control custom-switch mb-2">
+      <?= $tickable ?>
+      <label for="mDownloadOnly" class="custom-control-label text-muted"><small><?= TEXT_INFO_DOWNLOAD_ONLY ?></small></label>
+    </div>
 
     <?=
-      $tickable, TEXT_INFO_DOWNLOAD_ONLY,
       new Button(IMAGE_SAVE, 'fas fa-pen-alt', 'btn-success btn-lg btn-block mr-2'),
       $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light mt-2', $link)
     ?>

@@ -30,3 +30,5 @@ const TEXT_EXPORT_INTRO = 'You can save the information to a file by clicking Sa
 const TEXT_EXPORT_INFO = 'Export Server Information';
 
 const BUTTON_SAVE_TO_DISK = 'Save to your Hard Drive';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Server_Info';

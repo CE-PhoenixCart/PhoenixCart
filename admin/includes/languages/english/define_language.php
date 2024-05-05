@@ -39,3 +39,5 @@ const TEXT_FILE_DOES_NOT_EXIST = 'File does not exist.';
 const TEXT_INFO_DOWNLOAD_ONLY = 'Download only (do not store server side)';
 
 const ERROR_FILE_NOT_WRITEABLE = '<strong>Error:</strong> I can not write to this file, so will download instead of saving. Please set the right user permissions on %s if you want to save in place.';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Define_Languages';

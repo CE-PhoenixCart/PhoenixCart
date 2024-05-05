@@ -13,7 +13,7 @@
 
   $heading = TEXT_INFO_HEADING_NEW_COUNTRY;
 
-  $address_formats = $GLOBALS['db']->fetch_all("SELECT address_format_id AS id, address_format_id AS text FROM address_format ORDER BY address_format_id");
+  $address_formats = $GLOBALS['db']->fetch_all("SELECT address_format_id AS id, address_summary AS text FROM address_format ORDER BY address_format_id");
 
   $contents = ['form' => new Form('countries', (clone $GLOBALS['link'])->set_parameter('action', 'insert'))];
   $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];

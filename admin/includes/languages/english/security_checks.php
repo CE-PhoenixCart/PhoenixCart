@@ -17,3 +17,5 @@ const TABLE_HEADING_MODULE = 'Module';
 const TABLE_HEADING_INFO = 'Info';
 
 const BUTTON_TEXT_RELOAD = 'Reload';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Security_Checks';
