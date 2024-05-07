@@ -17,6 +17,8 @@
 // remove entries that have expired
   $db->query("DELETE FROM whos_online WHERE time_last_click < " . (int)$xx_mins_ago);
 
+  require 'includes/segments/process_action.php';
+  
   require 'includes/template_top.php';
 ?>
 

@@ -13,6 +13,8 @@
   require 'includes/application_top.php';
 
   $security_checks = new security_checks(true);
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>

@@ -55,6 +55,8 @@
 
     return $results;
   }
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>
