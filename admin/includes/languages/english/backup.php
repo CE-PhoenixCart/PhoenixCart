@@ -38,6 +38,8 @@ const TEXT_BACKUP_DIRECTORY = 'Backup Directory:<br>%s';
 const TEXT_LAST_RESTORATION = 'Last Restoration:<br>%s';
 const TEXT_FORGET = 'Forget';
 
+const PHP_DATE_TIME_FORMAT = 'm/d/Y H:i:s'; // this is used for date()
+
 const ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST = '<strong>Error:</strong> Backup directory does not exist. Please set this in configure.php.';
 const ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE = '<strong>Error:</strong> Backup directory is not writeable.';
 const ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE = '<strong>Error:</strong> Download link not acceptable.';

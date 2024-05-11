@@ -22,9 +22,6 @@ $long_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::FULL, Intl
 $short_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
 $date_time_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::LONG);
 
-const DATE_FORMAT = 'm/d/Y'; // this is used for date()
-const PHP_DATE_TIME_FORMAT = 'm/d/Y H:i:s'; // this is used for date()
-
 // Global entries for the <html> tag
 const HTML_PARAMS = 'dir="ltr" lang="en"';
 
