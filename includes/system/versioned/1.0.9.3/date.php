@@ -56,14 +56,16 @@
 // Output in the selected locale date format, long version
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
     public static function expound($raw_date) {
-      return $GLOBALS['long_date_formatter']->format((new Date($raw_date))->get_timestamp());
+      $timestamp = (new Date($raw_date))->get_timestamp();
+      return $timestamp ? $GLOBALS['long_date_formatter']->format($timestamp) : false;
     }
 
 ////
 // Output in the selected locale date format, shorter version
 // $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
     public static function abridge($raw_date) {
-      return $GLOBALS['short_date_formatter']->format((new Date($raw_date))->get_timestamp());
+      $timestamp = (new Date($raw_date))->get_timestamp();
+      return $timestamp ? $GLOBALS['short_date_formatter']->format($timestamp) : false;
     }
 
     /**
