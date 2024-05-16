@@ -26,8 +26,6 @@ EOSQL;
       $Linker = Guarantor::ensure_global('Linker');
       if (is_array($parameters)) {
         $link = $Linker->build('product_info.php', $parameters);
-      } elseif (is_string($parameters)) {
-        $link = $Linker->build('product_info.php', phoenix_parameterize($parameters));
       } else {
         $link = $Linker->build('product_info.php')->retain_query_except();
       }
