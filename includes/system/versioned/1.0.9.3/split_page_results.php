@@ -77,8 +77,6 @@
     public function display_links($max_page_links, $link = null) {
       if (is_null($link)) {
         $link = $GLOBALS['Linker']->build()->retain_query_except(['page', 'info']);
-      } else if (is_string($link)) {
-        $link = $GLOBALS['Linker']->build(null, phoenix_parameterize(rtrim($link, '&')));
       }
 
       $display_links_string = '<nav aria-label="...">';
