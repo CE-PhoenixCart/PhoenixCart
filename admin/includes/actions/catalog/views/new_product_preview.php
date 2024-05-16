@@ -52,17 +52,8 @@
       <?php
   }
 
-  if (isset($_GET['origin'])) {
-    $pos_params = strpos($_GET['origin'], '?', 0);
-    if ($pos_params) {
-      $back_link = $Admin->link(
-        substr($_GET['origin'], 0, $pos_params),
-        phoenix_parameterize(substr($_GET['origin'], $pos_params + 1)));
-    } else {
-      $back_link = $Admin->link($_GET['origin']);
-    }
-  } else {
-    $back_link = $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$product->get('id')]);
-  }
+  $back_link = isset($_GET['origin'])
+             ? $Admin->relink($_GET['origin'])
+             : $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$product->get('id')]);
 
   echo $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $back_link);
