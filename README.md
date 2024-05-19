@@ -50,9 +50,12 @@ Type | Name | Value
 ---- | ---- | -----
 PHP setting | allow_url_fopen | ON
 PHP extension | MySQLi | enabled
+PHP extension | intl | enabled
 PHP setting | session.use_trans_sid | OFF
 PHP setting | session.auto_start | OFF
 PHP setting | file_uploads | ON
+
+Internationalization of date names will not work properly without intl enabled.
 
 ### User Checklist
 
