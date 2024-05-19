@@ -173,6 +173,10 @@ $(function() {
         <th colspan="3"><?= TEXT_RECOMMENDED_EXTENSIONS ?></th>
       </tr>
       <tr>
+        <th>intl</th>
+        <td colspan="2" class="text-right"><?= extension_loaded('intl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
+      </tr>
+      <tr>
         <th>GD</th>
         <td colspan="2" class="text-right"><?= extension_loaded('gd') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
