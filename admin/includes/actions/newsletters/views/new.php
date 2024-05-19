@@ -53,7 +53,7 @@
     <div class="form-group row" id="zModule">
       <label for="Module" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_NEWSLETTER_MODULE ?></label>
       <div class="col-sm-9">
-        <?= (new Select('module', $modules, ['id' => 'Module']))->require()->set_selection($nInfo->module) ?>
+        <?= (new Select('module', $modules, ['class' => 'custom-select', 'id' => 'Module']))->require()->set_selection($nInfo->module) ?>
       </div>
     </div>
 

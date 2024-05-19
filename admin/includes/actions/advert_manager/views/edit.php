@@ -70,7 +70,7 @@ EOSQL
       <div class="col-sm-9">
         <div class="row">
           <div class="col">
-           <?= (new Select('advert_group', $groups_array, ['id' => 'aGroup']))->set_selection($aInfo->advert_group ?? '') ?>
+           <?= (new Select('advert_group', $groups_array, ['class' => 'custom-select', 'id' => 'aGroup']))->set_selection($aInfo->advert_group ?? '') ?>
           </div>
           <div class="col">
             <?= new Input('new_advert_group', ['id' => 'aNewGroup', 'placeholder' => TEXT_ADVERT_NEW_GROUP, 'aria-describedby' => 'aGroupHelp']) ?>

@@ -21,7 +21,7 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_NAME, null) . '<br>' . (new Input('countries_name'))->require()];
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_CODE_2, null)  . '<br>' . (new Input('countries_iso_code_2'))->require()];
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_CODE_3, null)  . '<br>' . (new Input('countries_iso_code_3'))->require()];
-  $contents[] = ['text' => sprintf(TEXT_INFO_ADDRESS_FORMAT, null)  . '<br>' . (new Select('address_format_id', $address_formats, []))->require()];
+  $contents[] = ['text' => sprintf(TEXT_INFO_ADDRESS_FORMAT, null)  . '<br>' . (new Select('address_format_id', $address_formats, ['class' => 'custom-select']))->require()];
 
 
   $contents[] = [

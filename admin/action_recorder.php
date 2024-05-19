@@ -61,7 +61,7 @@
         new Input('search', ['placeholder' => TEXT_FILTER_SEARCH, 'class' => 'form-control form-control-sm mb-1']),
       '</form>',
       (new Form('filter', $Admin->link('action_recorder.php'), 'get'))->hide_session_id()->hide('module', ''),
-        new Select('module', $modules_list, ['onchange' => 'this.form.submit();', 'class' => 'form-control form-control-sm']),
+        new Select('module', $modules_list, ['onchange' => 'this.form.submit();', 'class' => 'custom-select custom-select-sm']),
       '</form>'
       ?>
     </div>

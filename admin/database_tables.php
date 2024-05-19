@@ -123,12 +123,12 @@
   <div class="row">
     <div class="col">
       <?=
-        new Select('action', $actions, ['id' => 'sqlActionsMenu']),
+        new Select('action', $actions, ['class' => 'custom-select', 'id' => 'sqlActionsMenu']),
         new Button(BUTTON_ACTION_GO, 'fas fa-cogs', 'btn-success btn-block mt-2')
       ?>
     </div>
     <div class="col">
-      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
+      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets, ['class' => 'custom-select']) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
     </div>
   </div>
 

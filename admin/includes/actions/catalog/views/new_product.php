@@ -169,7 +169,7 @@ function updateNet() {
         <div class="form-group row" id="zBrand">
           <label for="pBrand" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_MANUFACTURER ?></label>
           <div class="col-sm-9">
-            <?= (new Select('manufacturers_id', $manufacturers_array, ['id' => 'pBrand']))->set_selection($product->get('manufacturers_id') ?? '') ?>
+            <?= (new Select('manufacturers_id', $manufacturers_array, ['class' => 'custom-select', 'id' => 'pBrand']))->set_selection($product->get('manufacturers_id') ?? '') ?>
           </div>
         </div>
 

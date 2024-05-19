@@ -15,7 +15,7 @@
   $contents = ['form' => (new Form('copy_to', $Admin->link('catalog.php', ['action' => 'copy_to_confirm', 'cPath' => $cPath])))->hide('products_id', $product->get('id'))];
   $contents[] = ['text' => TEXT_INFO_COPY_TO_INTRO];
   $contents[] = ['text' => TEXT_INFO_CURRENT_CATEGORIES . '<br><i>' . Categories::draw_breadcrumbs($product->get('categories')) . '</i>'];
-  $contents[] = ['text' => TEXT_CATEGORIES . '<br>' . (new Select('categories_id', $category_tree->get_selections([['id' => '0', 'text' => TEXT_TOP]])))->set_selection($current_category_id)];
+  $contents[] = ['text' => TEXT_CATEGORIES . '<br>' . (new Select('categories_id', $category_tree->get_selections([['id' => '0', 'text' => TEXT_TOP]]), ['class' => 'custom-select']))->set_selection($current_category_id)];
   $contents[] = [
     'text' => TEXT_HOW_TO_COPY
             . '<br><div class="custom-control custom-radio custom-control-inline">'

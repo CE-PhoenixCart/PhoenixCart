@@ -27,11 +27,11 @@
     }
 
     public static function select_country($country_id) {
-      return (new Select('configuration_value', Country::fetch_options()))->set_selection($country_id);
+      return (new Select('configuration_value', Country::fetch_options(), ['class' => 'custom-select']))->set_selection($country_id);
     }
 
     public static function select_customer_data_group($id, $key = '') {
-      return (new Select(static::name($key), customer_data_group::fetch_options()))->set_selection($id);
+      return (new Select(static::name($key), customer_data_group::fetch_options(), ['class' => 'custom-select']))->set_selection($id);
     }
 
     public static function select_geo_zone($zone_class_id, $key) {
@@ -40,7 +40,7 @@
         array_merge(
           [['id' => '0', 'text' => TEXT_NONE]],
           geo_zone::fetch_options()
-        )))->set_selection($zone_class_id);
+        ), ['class' => 'custom-select']))->set_selection($zone_class_id);
     }
 
     public static function select_at_least_one($selections, $key_values, $key_name = null) {
@@ -114,7 +114,7 @@ SELECT orders_status_id AS id, orders_status_name AS text
 EOSQL
         , (int)$_SESSION['languages_id'])));
 
-      return (new Select(static::name($key), $statuses))->set_selection($order_status_id);
+      return (new Select(static::name($key), $statuses, ['class' => 'custom-select']))->set_selection($order_status_id);
     }
 
     public static function select_tax_class($tax_class_id, $key = '') {
@@ -122,7 +122,7 @@ EOSQL
 
       return (new Select($name, array_merge(
         [['id' => '0', 'text' => TEXT_NONE]],
-        Tax::fetch_classes())))->set_selection($tax_class_id);
+        Tax::fetch_classes()), ['class' => 'custom-select']))->set_selection($tax_class_id);
     }
 
     public static function select_template($key_value, $key = null) {
@@ -139,7 +139,7 @@ EOSQL
     public static function select_zone_by($country_id = STORE_COUNTRY, $zone_id = '') {
       $zones = Zone::fetch_by_country($country_id);
       return (is_array($zones) && count($zones))
-           ? (new Select('configuration_value', $zones))->set_selection($zone_id)
+           ? (new Select('configuration_value', $zones, ['class' => 'custom-select']))->set_selection($zone_id)
            : new Input('configuration_value', ['value' => $zone_id]);
     }
 

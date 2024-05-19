@@ -79,7 +79,7 @@
     <div class="col text-right align-self-center">
       <?=
         (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
-        (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
+        (new Select('lngdir', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
         '</form>'
       ?>
     </div>

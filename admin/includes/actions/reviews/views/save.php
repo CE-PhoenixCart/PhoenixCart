@@ -18,7 +18,7 @@
         <?=
         isset($rInfo->products_name)
         ? new Input('products_name', ['value' => $rInfo->products_name, 'readonly' => null, 'class' => 'form-control-plaintext', 'id' => 'reviewProduct'])
-        : Products::select('products_id', ['id' => 'reviewProduct'])->require()
+        : Products::select('products_id', ['class' => 'custom-select', 'id' => 'reviewProduct'])->require()
         ?>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <?=
         isset($rInfo->customers_name)
         ? new Input('customers_name', ['value' => $rInfo->customers_name, 'readonly' => null, 'class' => 'form-control-plaintext', 'id' => 'reviewCustomer'])
-        : Customers::select('customer_id', ['id' => 'reviewCustomer'])->require()
+        : Customers::select('customer_id', ['class' => 'custom-select', 'id' => 'reviewCustomer'])->require()
         ?>
       </div>
     </div>

@@ -32,7 +32,7 @@
            (new Select(
              'cPath',
              Guarantor::ensure_global('category_tree')->get_selections([['id' => '0', 'text' => TEXT_TOP]], '0'),
-             ['onchange' => 'this.form.submit();']))->set_selection($current_category_id),
+             ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($current_category_id),
          '</div>',
        '</form>'
       ?>

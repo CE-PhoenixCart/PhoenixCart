@@ -130,7 +130,7 @@
           <div class="form-group row" id="zStatus">
             <label for="oStatus" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_STATUS ?></label>
             <div class="col-sm-9">
-              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'form-control']) ?>
+              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'custom-select']) ?>
             </div>
           </div>
 
