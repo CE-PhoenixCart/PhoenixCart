@@ -10,14 +10,15 @@
   Released under the GNU General Public License
 */
 
-const HEADING_TITLE = 'Main Images';
+const HEADING_TITLE = 'Store Logo';
 
 const TEXT_EXISTING_STORE_LOGO = '<b>This is your current Main Shop Logo.</b><br><br>It is used in your Admin area (eg on your invoice and packing slip) and possibly in your Shop (depending on the Logo module being installed).';
 const TEXT_EXISTING_MINI_LOGO = '<b>This is your existing Mini Logo.</b><br><br>It is possibly used in the Navbar of your Shop (depending on the module being installed).';
-
+const TEXT_EXISTING_FAVICON_LOGO = '<b>This is your existing Favicon.</b><br><br>It is used when a user saves your site in their bookmarks.';
 
 const BUTTON_EDIT_LOGO = 'New Logo';
 const BUTTON_EDIT_MINI_LOGO = 'New Mini Logo';
+const BUTTON_EDIT_FAVICON_LOGO = 'New Favicon';
 
 const TEXT_LOGO_IMAGE = 'Select an Image';
 const TEXT_FORMAT = 'The existing Image will be OVERWRITTEN.';
