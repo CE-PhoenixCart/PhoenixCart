@@ -11,16 +11,16 @@
 */
 ?>
 
-  <h2 class="font-weight-normal"><?= BUTTON_EDIT_LOGO ?></h2>
+  <h2 class="font-weight-normal"><?= BUTTON_EDIT_MINI_LOGO ?></h2>
 
   <div class="row">
     <div class="col">
-      <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
+      <?= new Form('logo', $Admin->link()->set_parameter('action', 'save_mini'), 'post', ['enctype' => 'multipart/form-data']) ?>
 
         <div class="custom-file mb-2">
-          <?= (new Input('store_logo', ['accept' => 'image/*', 'id' => 'inputLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
+          <?= (new Input('mini_logo', ['accept' => 'image/*', 'id' => 'inputMiniLogo', 'class' => 'custom-file-input'], 'file'))->require() ?>
 
-          <label class="custom-file-label" for="inputLogo"><?= TEXT_LOGO_IMAGE ?></label>
+          <label class="custom-file-label" for="inputMiniLogo"><?= TEXT_LOGO_IMAGE ?></label>
         </div>
 
         <?= $admin_hooks->cat('editForm'),
@@ -37,19 +37,19 @@
           <?= TEXT_FORMAT ?>
         </div>
         <div class="card-body bg-white py-5">
-          <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
+          <?= $Admin->catalog_image('images/' .  MINI_LOGO) ?>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-  var upload = document.querySelector('#inputLogo');
+  var upload = document.querySelector('#inputMiniLogo');
   if (upload) {
     upload.addEventListener('change', function (event) {
       var labels = document.querySelectorAll('LABEL.custom-file-label');
       for (var i = 0; i < labels.length; i++) {
-        if ('inputLogo' === labels[i].htmlFor) {
+        if ('inputMiniLogo' === labels[i].htmlFor) {
           labels[i].innerHTML = event.target.files[0].name;
         }
       }

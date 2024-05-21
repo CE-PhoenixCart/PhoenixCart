@@ -30,7 +30,7 @@
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
-      ? $Admin->button(BUTTON_EDIT_LOGO, 'fas fa-id-card', 'btn-danger', $Admin->link('store_logo.php', ['action' => 'edit']))
+      ?  $Admin->button(BUTTON_EDIT_MINI_LOGO, 'fas fa-id-card', 'btn-danger mr-2', $Admin->link('store_logo.php', ['action' => 'edit_mini'])) . $Admin->button(BUTTON_EDIT_LOGO, 'fas fa-id-card', 'btn-danger', $Admin->link('store_logo.php', ['action' => 'edit']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('store_logo.php'))
       ?>
     </div>
