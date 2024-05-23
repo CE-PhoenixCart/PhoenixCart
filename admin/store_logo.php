@@ -25,12 +25,12 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
-      ?  $Admin->button(BUTTON_EDIT_MINI_LOGO, 'fas fa-id-card', 'btn-danger mr-2', $Admin->link('store_logo.php', ['action' => 'edit_mini'])) . $Admin->button(BUTTON_EDIT_LOGO, 'fas fa-id-card', 'btn-danger', $Admin->link('store_logo.php', ['action' => 'edit']))
+      ? $Admin->button(BUTTON_EDIT_FAVICON_LOGO, 'fas fa-heart fa-fw', 'btn-danger mr-2', $Admin->link('store_logo.php', ['action' => 'edit_favicon'])) . $Admin->button(BUTTON_EDIT_MINI_LOGO, 'fas fa-minimize fa-fw', 'btn-danger mr-2', $Admin->link('store_logo.php', ['action' => 'edit_mini'])) . $Admin->button(BUTTON_EDIT_LOGO, 'fas fa-maximize fa-fw', 'btn-danger', $Admin->link('store_logo.php', ['action' => 'edit'])) 
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('store_logo.php'))
       ?>
     </div>
