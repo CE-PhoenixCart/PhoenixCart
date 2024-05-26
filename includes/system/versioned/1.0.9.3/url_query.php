@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  class html_query {
+  class url_query {
 
     public static function parse(string $query) : array {
       parse_str($query, $parameters);
