@@ -117,7 +117,7 @@ function updateNet() {
     <div class="col">
       <h1 class="display-4 mb-2"><?= (isset($_GET['pID']) ? sprintf(TEXT_EXISTING_PRODUCT, $product->get('name'), Categories::draw_breadcrumbs([$current_category_id])) : sprintf(TEXT_NEW_PRODUCT, Categories::draw_breadcrumbs([$current_category_id]))) ?: TEXT_TOP ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?= 
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),

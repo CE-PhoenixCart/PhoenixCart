@@ -131,7 +131,7 @@
 <?php
   }
 ?>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', $get_help_link, ['newwindow' => true]),
