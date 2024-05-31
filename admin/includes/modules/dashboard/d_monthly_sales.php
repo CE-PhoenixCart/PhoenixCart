@@ -33,8 +33,11 @@
 
       $chart_months = max($data);
 
-      for($i = 0; $i < $chart_months; $i++) {
-        $months[date('m/y', strtotime("-$i months"))] = 0;
+      $month = time();
+      for ($i = 1; $i <= $chart_months; $i++) {
+        $month = strtotime('last month', $month);
+        
+        $months[date('m/y', $month)] = 0;
       }
 
       $orders_query = $GLOBALS['db']->query("select date_format(o.date_purchased, '%m/%y') as datemonth, sum(ot.value) as total from orders o, orders_total ot where date_sub(curdate(), interval '" . (int)$chart_months . "' month) <= o.date_purchased and o.orders_id = ot.orders_id and ot.class = 'ot_total' group by datemonth");
