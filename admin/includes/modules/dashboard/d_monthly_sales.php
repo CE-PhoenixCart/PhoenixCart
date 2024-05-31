@@ -36,7 +36,7 @@
       $month = time();
       for ($i = 1; $i <= $chart_months; $i++) {
         $month = strtotime('last month', $month);
-        
+
         $months[date('m/y', $month)] = 0;
       }
 
@@ -62,7 +62,7 @@
       foreach (array_keys($m) as $n) {
         $np_active = ($x == 1) ? ' active' : '';
         $tc_active = ($x == 1) ? ' show active' : '';
-        
+
         $btn = sprintf(MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_MONTHS_BUTTON, $n);
 
 $np .= <<<"EOD"
