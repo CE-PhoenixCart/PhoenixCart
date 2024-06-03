@@ -34,7 +34,8 @@
       $chart_months = max($data);
 
       $month = time();
-      for ($i = 1; $i <= $chart_months; $i++) {
+      $months[date('m/y')] = 0;
+      for ($i = 2; $i <= $chart_months; $i++) {
         $month = strtotime('last month', $month);
 
         $months[date('m/y', $month)] = 0;
