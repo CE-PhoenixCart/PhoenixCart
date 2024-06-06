@@ -105,7 +105,7 @@ var monthlySales_{$n} = new Chart(ctx_{$n}, {
     }]
   },
   options: {
-    scales: {yAxes: [{ticks: {stepSize: {$step_size}}}]},
+    scales: {yAxes: [{ticks: {stepSize: {$step_size}, beginAtZero: true}}]},
     responsive: true,
     title: {display: false},
     legend: {display: false},
@@ -149,7 +149,7 @@ EOD;
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_STEP' => [
           'title' => 'Step Size',
-          'value' => '500',
+          'value' => '0',
           'desc' => 'This is the Y Axis Step Size in Currency Units.  Make this a number that is about half or so of your average monthly sales, you can play with this to suit the Graph output.',
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_CONTENT_WIDTH' => [
