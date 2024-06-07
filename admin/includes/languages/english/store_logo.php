@@ -21,8 +21,9 @@ const BUTTON_EDIT_MINI_LOGO = 'New Mini Logo';
 const BUTTON_EDIT_FAVICON_LOGO = 'New Favicon';
 
 const TEXT_LOGO_IMAGE = 'Select an Image';
-const TEXT_FORMAT = 'The existing Image will be OVERWRITTEN.';
+const TEXT_FORMAT = 'Warning: The existing Image may be OVERWRITTEN.';
 const TEXT_LOCATION = 'The new Image must be in one of png/gif/jpg/svg/webp formats.';
+const TEXT_LOCATION_FAVICON = 'For best results, the new Image must be a png, square and sized at least 300px by 300px.';
 
 const SUCCESS_LOGO_UPDATED = '<strong>Success:</strong> The Image has successfully been updated!';
 

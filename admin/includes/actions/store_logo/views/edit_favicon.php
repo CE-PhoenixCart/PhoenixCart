@@ -27,7 +27,7 @@
             new Button(IMAGE_UPLOAD, 'fas fa-file-upload', 'btn-success btn-block')
         ?>
         
-        <p class="mt-2 text-muted"><?= TEXT_LOCATION ?></p>
+        <p class="mt-2 text-muted"><?= TEXT_LOCATION_FAVICON ?></p>
 
       </form>
     </div>
@@ -37,7 +37,12 @@
           <?= TEXT_FORMAT ?>
         </div>
         <div class="card-body bg-white py-5">
-          <?= $Admin->catalog_image('images/' .  FAVICON_LOGO) ?>
+          <?php
+          $array = ['256', '192', '128', '16'];
+          foreach ($array as $size) {
+            echo $Admin->catalog_image('images/favicon/' .  $size . '_' . FAVICON_LOGO);
+          }
+          ?>
         </div>
       </div>
     </div>
