@@ -33,8 +33,12 @@
 
       $chart_months = max($data);
 
-      for($i = 0; $i < $chart_months; $i++) {
-        $months[date('m/y', strtotime("-$i months"))] = 0;
+      $month = time();
+      $months[date('m/y')] = 0;
+      for ($i = 2; $i <= $chart_months; $i++) {
+        $month = strtotime('last month', $month);
+
+        $months[date('m/y', $month)] = 0;
       }
 
       $orders_query = $GLOBALS['db']->query("select date_format(o.date_purchased, '%m/%y') as datemonth, sum(ot.value) as total from orders o, orders_total ot where date_sub(curdate(), interval '" . (int)$chart_months . "' month) <= o.date_purchased and o.orders_id = ot.orders_id and ot.class = 'ot_total' group by datemonth");
@@ -59,7 +63,7 @@
       foreach (array_keys($m) as $n) {
         $np_active = ($x == 1) ? ' active' : '';
         $tc_active = ($x == 1) ? ' show active' : '';
-        
+
         $btn = sprintf(MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_MONTHS_BUTTON, $n);
 
 $np .= <<<"EOD"
@@ -101,7 +105,7 @@ var monthlySales_{$n} = new Chart(ctx_{$n}, {
     }]
   },
   options: {
-    scales: {yAxes: [{ticks: {stepSize: {$step_size}}}]},
+    scales: {yAxes: [{ticks: {stepSize: {$step_size}, beginAtZero: true}}]},
     responsive: true,
     title: {display: false},
     legend: {display: false},
@@ -145,7 +149,7 @@ EOD;
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_STEP' => [
           'title' => 'Step Size',
-          'value' => '500',
+          'value' => '0',
           'desc' => 'This is the Y Axis Step Size in Currency Units.  Make this a number that is about half or so of your average monthly sales, you can play with this to suit the Graph output.',
         ],
         'MODULE_ADMIN_DASHBOARD_MONTHLY_SALES_CONTENT_WIDTH' => [

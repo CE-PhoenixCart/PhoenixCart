@@ -95,7 +95,7 @@ EOSQL
   $attributes_split = new splitPageResults($attribute_page, MAX_ROW_LISTS_OPTIONS, $attributes_sql, $attributes_query_numrows);
   ?>
 
-  <p class="my-2 text-right mr-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, 'option_page=' . $option_page . '&value_page=' . $value_page, 'attribute_page') ?></p>
+  <p class="my-2 text-right mr-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, ['option_page' => $option_page, 'value_page' => $value_page], 'attribute_page') ?></p>
 
   <div class="table-responsive">
     <?= new Form('attributes', (clone $link)->set_parameter('action', ('update_attribute' === $action) ? 'update_product_attribute' : 'add_product_attributes')) ?>

@@ -14,6 +14,8 @@
 
   $GLOBALS['db']->query("UPDATE products SET products_date_available = NULL WHERE NOW() > products_date_available");
 
+  require 'includes/segments/process_action.php';
+  
   require 'includes/template_top.php';
 ?>
 

@@ -42,7 +42,7 @@
           $count = 0;
           foreach ($feed->entry as $item) {
             $dateTime = new DateTime($item->updated);
-            $formattedDate = $dateTime->format('M d, Y');
+            $formattedDate = $GLOBALS['short_date_formatter']->format($dateTime);
 
             if ($count < MODULE_ADMIN_DASHBOARD_ADDONS_DISPLAY) {
               $output .= '<tr>';

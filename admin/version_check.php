@@ -37,6 +37,8 @@
       'message' => sprintf(VERSION_UPGRADES_AVAILABLE, $new_versions[0]->title),
     ];
   }
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>

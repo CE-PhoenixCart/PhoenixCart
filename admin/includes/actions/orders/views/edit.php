@@ -56,7 +56,7 @@
                 <p><?= $address->format($order->customer, 1, '', '<br>') ?></p>
                 <p><?= $customer_data->get('telephone', $order->customer) . '<br><a href="mailto:' . $email_address . '"><u>' . $email_address . '</u></a>' ?></p>
               </td>
-              <td><p><?= $address->format($order->delivery, 1, '', '<br>') ?></p></td>
+              <td><p><?= $order->delivery ? $address->format($order->delivery, 1, '', '<br>') : TEXT_NO_DELIVERY_ADDRESS ?></p></td>
               <td><p><?= $address->format($order->billing, 1, '', '<br>') ?></p></td>
             </tr>
           </tbody>

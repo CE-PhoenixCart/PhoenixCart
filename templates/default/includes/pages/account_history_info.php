@@ -53,7 +53,7 @@
     echo '</td>';
 
     if (count($order->info['tax_groups']) > 1) {
-      echo '<td valign="top" class="text-right">' . Tax::display($product['tax']) . '%</td>';
+      echo '<td valign="top" class="text-right">' . Tax::format($product['tax']) . '%</td>';
     }
 
     echo '<td class="text-right">' . $currencies->format(Tax::price($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';

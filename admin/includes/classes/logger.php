@@ -25,7 +25,7 @@
     }
 
     public static function write($uri, $message) {
-      error_log(Text::input(strftime(STORE_PARSE_DATE_TIME_FORMAT)) . " [$message] $uri\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      error_log(Text::input(date('Y-m-d H:i:s')) . " [$message] $uri\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
   }

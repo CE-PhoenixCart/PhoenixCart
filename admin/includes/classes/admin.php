@@ -43,6 +43,16 @@
       return $this->linker->build($page, $parameters, $add_session_id);
     }
 
+    public function relink($url) {
+      $pos_params = strpos($url, '?', 0);
+      if (false === $pos_params) {
+        return $GLOBALS['Admin']->link($url);
+      }
+
+      parse_str(substr($url, $pos_params + 1), $parameters);
+      return $GLOBALS['Admin']->link(substr($url, 0, $pos_params), $parameters);
+    }
+
     public function catalog($page = null, $parameters = []) {
       static $hooks = null;
 
