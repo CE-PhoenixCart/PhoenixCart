@@ -30,25 +30,24 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_PRODUCT_INFO_GTIN_STATUS' => [
-          'title' => 'Enable GTIN Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_GTIN_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '6',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-6',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_GTIN_LENGTH' => [
+        $this->config_key_base . 'LENGTH' => [
           'title' => 'Length of GTIN',
           'value' => '13',
           'desc' => 'Length of GTIN. 14 (Industry Standard), 13 (eg ISBN codes and EAN UCC-13), 12 (UPC), 8 (EAN UCC-8)',
           'set_func' => "Config::select_one(['14', '13', '12', '8'], ",
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_GTIN_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

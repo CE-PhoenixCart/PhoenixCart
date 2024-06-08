@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> cm-i-text-main">
+<div class="<?= MODULE_CONTENT_TEXT_MAIN_CONTENT_WIDTH ?> cm-i-text-main">
   <?= MODULE_CONTENT_TEXT_MAIN_TEXT ?>
 </div>
 

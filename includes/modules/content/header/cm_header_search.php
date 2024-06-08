@@ -25,19 +25,18 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_HEADER_SEARCH_STATUS' => [
-          'title' => 'Enable Search Box Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Do you want to enable the Search Box content module?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_HEADER_SEARCH_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '4',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-6 align-self-center',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_HEADER_SEARCH_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

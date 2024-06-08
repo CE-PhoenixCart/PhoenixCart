@@ -37,36 +37,35 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_TESTIMONIALS_LIST_STATUS' => [
-          'title' => 'Enable List Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_TESTIMONIALS_LIST_ALL' => [
+        $this->config_key_base . 'ALL' => [
           'title' => 'View Testimonials',
           'value' => 'All',
           'desc' => 'Do you want to show all Testimonials or language specific Testimonials?',
           'set_func' => "Config::select_one(['All', 'Language Specific'], ",
         ],
-        'MODULE_CONTENT_TESTIMONIALS_LIST_PAGING' => [
+        $this->config_key_base . 'PAGING' => [
           'title' => 'Number of Testimonials',
           'value' => '12',
           'desc' => 'How many Testimonials to display per page.',
         ],
-        'MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH_EACH' => [
+        $this->config_key_base . 'CONTENT_WIDTH_EACH' => [
           'title' => 'Item Width',
           'value' => '6',
           'desc' => 'What width container should the each Testimonial be shown in? (12 = full width, 6 = half width).',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_TESTIMONIALS_LIST_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '200',
           'desc' => 'Sort order of display. Lowest is displayed first.',

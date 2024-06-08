@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_CAS_MESSAGE_CONTENT_WIDTH ?> cm-cas-message">
+<div class="<?= MODULE_CONTENT_CAS_MESSAGE_CONTENT_WIDTH ?> cm-cas-message">
   <div class="alert alert-success" role="alert">
     <?= sprintf(MODULE_CONTENT_CAS_MESSAGE_PUBLIC_TITLE, $contact_us_href, $account_href) ?>
   </div>

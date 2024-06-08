@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_SITE_ACTIONS_CONTENT_WIDTH ?> cm-gdpr-site-actions">
+<div class="<?= MODULE_CONTENT_GDPR_SITE_ACTIONS_CONTENT_WIDTH ?> cm-gdpr-site-actions">
   <table class="table table-striped table-hover">
     <thead class="thead-dark">
       <tr>

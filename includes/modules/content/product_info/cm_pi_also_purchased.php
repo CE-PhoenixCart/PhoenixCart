@@ -48,24 +48,23 @@ EOSQL
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_STATUS' => [
-          'title' => 'Enable Also Purchased Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_LIMIT' => [
+        $this->config_key_base . 'CONTENT_LIMIT' => [
           'title' => 'Number of Products',
           'value' => '4',
           'desc' => 'How many products (maximum) should be shown?',
         ],
-        'MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '120',
           'desc' => 'Sort order of display. Lowest is displayed first.',

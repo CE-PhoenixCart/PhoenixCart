@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH ?> cm-pi-modular">
+<div class="<?= MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH ?> cm-pi-modular">
   <div class="row">
     <?php
     foreach ($slots as $k => $v) {

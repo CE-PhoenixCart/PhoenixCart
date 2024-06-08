@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_DESCRIPTION_CONTENT_WIDTH ?> cm-pi-description">
+<div class="<?= MODULE_CONTENT_PI_DESCRIPTION_CONTENT_WIDTH ?> cm-pi-description">
   <div class="description">
     <?= $product_description ?>
   </div>

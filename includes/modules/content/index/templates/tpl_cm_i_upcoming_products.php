@@ -1,4 +1,4 @@
-<div class="col-sm-<?= MODULE_CONTENT_UPCOMING_PRODUCTS_CONTENT_WIDTH ?> cm-i-upcoming-products">
+<div class="<?= MODULE_CONTENT_UPCOMING_PRODUCTS_CONTENT_WIDTH ?> cm-i-upcoming-products">
   <table class="table table-striped table-sm">
     <tbody>
       <tr>

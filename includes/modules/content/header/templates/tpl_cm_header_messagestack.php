@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_MESSAGESTACK_CONTENT_WIDTH ?> cm-header-messagestack">
+<div class="<?= MODULE_CONTENT_HEADER_MESSAGESTACK_CONTENT_WIDTH ?> cm-header-messagestack">
   <?= $GLOBALS['messageStack']->output('header') ?>
 </div>
 

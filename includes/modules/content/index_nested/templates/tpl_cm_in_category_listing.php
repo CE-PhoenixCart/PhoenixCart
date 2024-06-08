@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_IN_CATEGORY_LISTING_CONTENT_WIDTH ?> cm-in-category-listing">
+<div class="<?= MODULE_CONTENT_IN_CATEGORY_LISTING_CONTENT_WIDTH ?> cm-in-category-listing">
   <div class="<?= MODULE_CONTENT_IN_CATEGORY_LISTING_DISPLAY_ROW ?>">
     <?php
     foreach ($categories as $v) {

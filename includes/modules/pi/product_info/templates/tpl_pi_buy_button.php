@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)PI_BUY_CONTENT_WIDTH ?> pi-buy-button mt-2">
+<div class="<?= PI_BUY_CONTENT_WIDTH ?> pi-buy-button">
   <?=
     new Button(PI_BUY_BUTTON_TEXT, 'fas fa-shopping-cart', 'btn-success btn-block btn-lg btn-product-info btn-buy', [
       'data-has-attributes' => (int)$GLOBALS['product']->get('has_attributes'),

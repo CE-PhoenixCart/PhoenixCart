@@ -1,4 +1,4 @@
-<div class="<?= $content_width ?> cm-info-title">
+<div class="<?= MODULE_CONTENT_INFO_TITLE_CONTENT_WIDTH ?> cm-info-title">
   <h1 class="display-4"><?= $page['pages_title'] ?></h1>
 </div>
 

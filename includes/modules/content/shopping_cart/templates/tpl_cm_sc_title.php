@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> cm-sc-title">
+<div class="<?= MODULE_CONTENT_SC_TITLE_CONTENT_WIDTH ?> cm-sc-title">
   <h1 class="display-4"><?= MODULE_CONTENT_SC_TITLE_PUBLIC_TITLE ?></h1>
 </div>
 

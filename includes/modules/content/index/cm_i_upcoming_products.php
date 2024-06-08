@@ -43,36 +43,35 @@ EOSQL
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_STATUS' => [
-          'title' => 'Enable Upcoming Products Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_MAX_DISPLAY' => [
+        $this->config_key_base . 'MAX_DISPLAY' => [
           'title' => 'Maximum Display',
           'value' => '6',
           'desc' => 'Maximum Number of products that should show in this module?',
         ],
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_EXPECTED_SORT' => [
+        $this->config_key_base . 'EXPECTED_SORT' => [
           'title' => 'Sort Order',
           'value' => 'DESC',
           'desc' => 'This is the sort order used in the output.',
           'set_func' => "Config::select_one(['ASC', 'DESC'], ",
         ],
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_EXPECTED_FIELD' => [
+        $this->config_key_base . 'EXPECTED_FIELD' => [
           'title' => 'Sort Field',
           'value' => 'date_expected',
           'desc' => 'The column to sort by in the output.',
           'set_func' => "Config::select_one(['products_name', 'date_expected'], ",
         ],
-        'MODULE_CONTENT_UPCOMING_PRODUCTS_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '400',
           'desc' => 'Sort order of display. Lowest is displayed first.',

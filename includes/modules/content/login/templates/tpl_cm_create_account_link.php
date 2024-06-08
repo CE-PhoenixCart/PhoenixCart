@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_CREATE_ACCOUNT_LINK_CONTENT_WIDTH ?> cm-create-account-link">
+<div class="<?= MODULE_CONTENT_CREATE_ACCOUNT_LINK_CONTENT_WIDTH ?> cm-create-account-link">
   <p class="alert alert-info" role="alert"><?= MODULE_CONTENT_LOGIN_TEXT_NEW_CUSTOMER ?></p>
   <p><?= MODULE_CONTENT_LOGIN_TEXT_NEW_CUSTOMER_INTRODUCTION ?></p>
 

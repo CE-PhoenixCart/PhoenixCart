@@ -1,9 +1,9 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
+<div class="<?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
   <h4><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE ?></h4>
   <div class="row">
     <?php
   while ($review = $review_query->fetch_assoc()) {
-    echo '<div class="col-sm-' . (int)MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH_EACH . '">';
+    echo '<div class="' . MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH_EACH . '">';
     echo '<blockquote class="blockquote">';
     echo '<p class="font-weight-lighter">' . htmlspecialchars($review['reviews_text']) . '</p>';
     echo '<footer class="blockquote-footer">'

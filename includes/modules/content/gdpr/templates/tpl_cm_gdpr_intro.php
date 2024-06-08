@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_GDPR_INTRO_CONTENT_WIDTH ?> cm-gdpr-intro">
+<div class="<?= MODULE_CONTENT_GDPR_INTRO_CONTENT_WIDTH ?> cm-gdpr-intro">
   <div class="alert alert-info">
     <?= MODULE_CONTENT_GDPR_INTRO_PUBLIC_TEXT ?>
   </div>

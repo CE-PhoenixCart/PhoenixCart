@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_FORGOT_PASSWORD_CONTENT_WIDTH ?> cm-forgot-password">
+<div class="<?= MODULE_CONTENT_FORGOT_PASSWORD_CONTENT_WIDTH ?> cm-forgot-password">
 
   <div class="alert alert-warning" role="alert"><?= MODULE_CONTENT_FORGOT_PASSWORD_INTRO_TEXT ?></div>
 
