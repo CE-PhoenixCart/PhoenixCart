@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_MODULES_HOOKS', 'Hooks');
+  const MODULES_ADMIN_MENU_MODULES_HOOKS = 'Hooks';

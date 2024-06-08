@@ -28,7 +28,7 @@
           'is_dir' => is_dir($filepath),
           'writable' => File::is_writable($filepath),
           'size' => filesize($filepath),
-          'last_modified' => strftime(DATE_TIME_FORMAT, filemtime($filepath)),
+          'last_modified' => $GLOBALS['date_time_formatter']->format(filemtime($filepath)),
         ];
       } elseif (('.' !== $filename[0]) && is_dir("$path$filename")) {
         yield from phoenix_opendir("$path$filename");
@@ -76,11 +76,17 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-sm-4 text-right align-self-center">
+    <div class="col text-right align-self-center">
       <?=
         (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
-        (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
+        (new Select('lngdir', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
         '</form>'
+      ?>
+    </div>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?= 
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
       ?>
     </div>
   </div>
@@ -93,7 +99,7 @@
       $textarea = new Textarea('file_contents', ['cols' => '80', 'rows' => '25', 'id' => 'dlFile']);
       $textarea->set_text(file_get_contents($file));
 
-      $tickable = new Tickable('download', ['value' => '1'], 'checkbox');
+      $tickable = new Tickable('download', ['class' => 'custom-control-input', 'id' => 'mDownloadOnly', 'value' => '1'], 'checkbox');
 
       if (!File::is_writable($file)) {
         $tickable->set('readonly')->tick();
@@ -117,9 +123,13 @@
         <?= $textarea ?>
       </div>
     </div>
+    
+    <div class="custom-control custom-switch mb-2">
+      <?= $tickable ?>
+      <label for="mDownloadOnly" class="custom-control-label text-muted"><small><?= TEXT_INFO_DOWNLOAD_ONLY ?></small></label>
+    </div>
 
     <?=
-      $tickable, TEXT_INFO_DOWNLOAD_ONLY,
       new Button(IMAGE_SAVE, 'fas fa-pen-alt', 'btn-success btn-lg btn-block mr-2'),
       $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light mt-2', $link)
     ?>
@@ -158,7 +168,7 @@
         <tr>
           <td><a href="<?= $link ?>"><?= $filename ?></a></td>
           <td class="text-center"><?= File::is_writable(DIR_FS_CATALOG_LANGUAGES . $filename) ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>' ?></td>
-          <td class="text-right"><?= strftime(DATE_TIME_FORMAT, filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)) ?></td>
+          <td class="text-right"><?= $GLOBALS['date_time_formatter']->format(filemtime(DIR_FS_CATALOG_LANGUAGES . $filename)) ?></td>
         </tr>
 <?php
     foreach (phoenix_opendir(DIR_FS_CATALOG_LANGUAGES . $_GET['lngdir']) as $file) {

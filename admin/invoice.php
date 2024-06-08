@@ -42,7 +42,14 @@
       <ul class="list-group">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SOLD_TO ?></h6></li>
         <li class="list-group-item border-0"><?= $address->format($order->billing, 1, '', '<br>') ?></li>
-        <li class="list-group-item border-0"><i class="fas fa-phone fa-fw"></i> <?= $customer_data->get('telephone', $order->customer) ?? '' ?> <i class="fas fa-at fa-fw"></i> <?= $customer_data->get('email_address', $order->customer) ?? '' ?></li>
+        <li class="list-group-item border-0">
+          <?php
+          if (!Text::is_empty($customer_data->get('telephone', $order->customer))) {
+            echo '<i class="fas fa-phone fa-fw"></i>', $customer_data->get('telephone', $order->customer), ' ';
+          }
+          echo '<i class="fas fa-at fa-fw"></i>', $customer_data->get('email_address', $order->customer);
+          ?>
+        </li>
      </ul>
     </div>
     <div class="col text-right">

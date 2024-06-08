@@ -21,8 +21,10 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= sprintf(HEADING_TITLE_ORDER, (int)$oID) ?></h1>
     </div>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
+       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+       $admin_hooks->cat('extraButtons'),
        $Admin->button(IMAGE_ORDERS_INVOICE, 'fas fa-file-invoice-dollar', 'btn-info mr-2', $Admin->link('invoice.php')->set_parameter('oID', $_GET['oID']), ['newwindow' => true]),
        $Admin->button(IMAGE_ORDERS_PACKINGSLIP, 'fas fa-file-contract', 'btn-info mr-2', $Admin->link('packingslip.php')->set_parameter('oID', $_GET['oID']), ['newwindow' => true]),
        $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $Admin->link('orders.php')->retain_query_except(['action']))
@@ -54,7 +56,7 @@
                 <p><?= $address->format($order->customer, 1, '', '<br>') ?></p>
                 <p><?= $customer_data->get('telephone', $order->customer) . '<br><a href="mailto:' . $email_address . '"><u>' . $email_address . '</u></a>' ?></p>
               </td>
-              <td><p><?= $address->format($order->delivery, 1, '', '<br>') ?></p></td>
+              <td><p><?= $order->delivery ? $address->format($order->delivery, 1, '', '<br>') : TEXT_NO_DELIVERY_ADDRESS ?></p></td>
               <td><p><?= $address->format($order->billing, 1, '', '<br>') ?></p></td>
             </tr>
           </tbody>
@@ -128,7 +130,7 @@
           <div class="form-group row" id="zStatus">
             <label for="oStatus" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_STATUS ?></label>
             <div class="col-sm-9">
-              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'form-control']) ?>
+              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'custom-select']) ?>
             </div>
           </div>
 

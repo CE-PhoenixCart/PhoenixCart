@@ -141,8 +141,8 @@
 
     public function add_message($email_text) {
       // Build the text version
-      $text = strip_tags($email_text);
-      if (EMAIL_USE_HTML == 'true') {
+      $text = strip_tags(html_entity_decode($email_text, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, $this->build_params['text_charset']));
+      if (EMAIL_USE_HTML === 'true') {
         $this->add_html($email_text, $text);
       } else {
         $this->add_text($text);

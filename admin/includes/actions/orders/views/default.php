@@ -119,10 +119,16 @@ EOSQL
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_STATUS, '</span>',
            '</div>',
-           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['onchange' => 'this.form.submit()']),
+           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['class' => 'custom-select', 'onchange' => 'this.form.submit()']),
          '</div>',
        '</form>',
        $admin_hooks->cat('injectFilterForm')
+      ?>
+    </div>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
       ?>
     </div>
   </div>

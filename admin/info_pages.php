@@ -21,11 +21,13 @@
 
   <div class="row">
     <div class="col"><h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1></div>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
-        empty($action)
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action)
       ? $Admin->button(IMAGE_BUTTON_ADD_PAGE, 'fas fa-pen', 'btn-danger', $Admin->link()->set_parameter('action', 'new'))
-      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link())
+      : $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light', $Admin->link())
       ?>
     </div>
   </div>

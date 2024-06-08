@@ -33,7 +33,7 @@
       ?>
       <div class="col-sm-4 text-right"><?=
         (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
-        (new Select('language', $languages, ['onchange' => 'this.form.submit();']))->set_selection($language_selected),
+        (new Select('language', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
         '</form>'
       ?></div>
       <?php
@@ -50,10 +50,12 @@
         $module = new $class();
 
         if ( $module->isEnabled() ) {
-          $module_width = $module->content_width ?? 6;
+          $module_width = $module->content_width;
 
-          echo '<div class="col-md-' . $module_width . '">';
-            echo $module->getOutput();
+          echo '<div class="' . $module_width . '">';
+            echo '<div class="h-100 card p-1">';
+              echo $module->getOutput();
+            echo '</div>';
           echo '</div>' . PHP_EOL;
         }
       }

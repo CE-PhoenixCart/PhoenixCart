@@ -30,7 +30,7 @@
   <div class="form-group row" id="zCustomer">
     <label for="Customer" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_CUSTOMER ?></label>
     <div class="col-sm-9">
-      <?= (new Select('customers_email_address', $customers, ['id' => 'Customer']))->require()->set_selection($_GET['customer'] ?? '') ?>
+      <?= (new Select('customers_email_address', $customers, ['class' => 'custom-select', 'id' => 'Customer']))->require()->set_selection($_GET['customer'] ?? '') ?>
     </div>
   </div>
 

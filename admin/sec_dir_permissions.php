@@ -55,45 +55,29 @@
 
     return $results;
   }
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>
 
-  <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
-
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th><?= TABLE_HEADING_DIRECTORIES ?></th>
-          <th class="text-center"><?= TABLE_HEADING_RECOMMENDED ?></th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-      foreach (generate_phoenix_directories(DIR_FS_CATALOG) as $file) {
-        if (empty($_GET['show_all']) && ($file['whitelisted'] == $file['writable'])) {
-          continue;
-        }
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')      
       ?>
-        <tr>
-          <td><?= Text::ltrim_once($file['name'], DIR_FS_CATALOG) ?></td>
-          <td class="text-center"><i class="fas fa-<?=
-            $file['whitelisted'] ? 'edit' : 'lock',
-            ' text-',
-            ($file['whitelisted'] == $file['writable']) ? 'success' : 'danger'
-          ?>"></i></td>
-        </tr>
-        <?php
-      }
-      ?>
-      </tbody>
-    </table>
+    </div>
   </div>
 
-  <p><?= sprintf(TEXT_DIRECTORY, DIR_FS_CATALOG) ?></p>
-
 <?php
+  if ($view_file = $Admin->locate('/views', $action)) {
+    require $view_file;
+  }
+  
   require 'includes/template_bottom.php';
   require 'includes/application_bottom.php';
 ?>

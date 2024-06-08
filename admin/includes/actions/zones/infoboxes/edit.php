@@ -18,7 +18,7 @@
   $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
   $contents[] = ['text' => TEXT_INFO_ZONES_NAME . '<br>' . new Input('zone_name', ['value' => $cInfo->zone_name])];
   $contents[] = ['text' => TEXT_INFO_ZONES_CODE . '<br>' . new Input('zone_code', ['value' => $cInfo->zone_code])];
-  $contents[] = ['text' => TEXT_INFO_COUNTRY_NAME . '<br>' . new Select('zone_country_id', Country::fetch_options(), ['value' => $cInfo->countries_id])];
+  $contents[] = ['text' => TEXT_INFO_COUNTRY_NAME . '<br>' . new Select('zone_country_id', Country::fetch_options(), ['class' => 'custom-select', 'value' => $cInfo->countries_id])];
   $contents[] = [
     'class' => 'text-center',
     'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')

@@ -11,6 +11,19 @@
 */
 
   require 'includes/application_top.php';
+  
+  $get_addons_link = '';
+  $get_addons_link .= '<div class="btn-group" role="group">';
+    $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+      $get_addons_link .= GET_ADDONS;
+    $get_addons_link .= '</button>';
+    $get_addons_link .= '<div class="dropdown-menu">';
+    foreach (GET_ADDONS_LINKS as $k => $v) {
+      $get_addons_link .= '<a class="dropdown-item" target="_blank" href="' . $v . '">' . $k . '</a>';
+    }
+    $get_addons_link .= '</div>';
+  $get_addons_link .= '</div>';
+  
   $languages = language::load_all();
   foreach ($languages as $i => $l) {
     $languages[$i]['icon'] = (string)$Admin->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", ['alt' => $l['name']]);
@@ -30,7 +43,7 @@
 
   $get_link = (clone $link)->set_parameter('formid', $_SESSION['sessiontoken']);
 
-  $product_selector = new Select('products_id', Products::list_options());
+  $product_selector = new Select('products_id', Products::list_options(), ['class' => 'custom-select']);
   $options = $db->fetch_all(sprintf(<<<'EOSQL'
 SELECT products_options_id AS id, products_options_name AS text, products_options.*
  FROM products_options
@@ -54,8 +67,19 @@ EOSQL
 
   require 'includes/template_top.php';
   ?>
-
-    <h1 class="display-4"><?= HEADING_TITLE_ATRIB ?></h1>
+  
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE_ATRIB ?></h1>
+    </div>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $get_addons_link,
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')
+      ?>
+    </div>
+  </div>
 
   <?php
   $attributes_sql = sprintf(<<<'EOSQL'
@@ -71,7 +95,7 @@ EOSQL
   $attributes_split = new splitPageResults($attribute_page, MAX_ROW_LISTS_OPTIONS, $attributes_sql, $attributes_query_numrows);
   ?>
 
-  <p class="my-2 text-right mr-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, 'option_page=' . $option_page . '&value_page=' . $value_page, 'attribute_page') ?></p>
+  <p class="my-2 text-right mr-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, ['option_page' => $option_page, 'value_page' => $value_page], 'attribute_page') ?></p>
 
   <div class="table-responsive">
     <?= new Form('attributes', (clone $link)->set_parameter('action', ('update_attribute' === $action) ? 'update_product_attribute' : 'add_product_attributes')) ?>
@@ -99,10 +123,10 @@ EOSQL
                   <?= $product_selector->set_selection($attributes_values['products_id'])->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                 </td>
                 <td>
-                  <?= (new Select('options_id', array_merge($default_selection, $options)))->set_selection($attributes_values['options_id'])->require() ?>
+                  <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->set_selection($attributes_values['options_id'])->require() ?>
                 </td>
                 <td>
-                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->set_selection($attributes_values['options_values_id'])->require() ?>
+                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->set_selection($attributes_values['options_values_id'])->require() ?>
                 </td>
                 <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
                 <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
@@ -177,10 +201,10 @@ EOSQL
                 <?= $product_selector->set_selection()->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
               </td>
               <td>
-                <?= (new Select('options_id', array_merge($default_selection, $options)))->require() ?>
+                <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->require() ?>
               </td>
               <td>
-                <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->require() ?>
+                <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->require() ?>
               </td>
               <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
               <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>
@@ -522,7 +546,7 @@ EOSQL
                     <input type="hidden" name="value_id" value="<?= $values_values['products_options_values_id'] ?>">
                     <div class="form-row">
                       <div class="col-3">
-                        <?= (new Select('option_id', $options))->set_selection($values_values['products_options_id']) ?>
+                        <?= (new Select('option_id', $options, ['class' => 'custom-select']))->set_selection($values_values['products_options_id']) ?>
                       </div>
                       <div class="col-3">
                         <?= $inputs ?>
@@ -580,7 +604,7 @@ EOSQL
                 <?= new Form('values', $link->set_parameter('action', 'add_product_option_values')) ?>
                   <div class="form-row">
                     <div class="col-3">
-                      <?= (new Select('option_id', $options)) ?>
+                      <?= (new Select('option_id', $options, ['class' => 'custom-select'])) ?>
                     </div>
                     <div class="col-3">
                       <input type="hidden" name="value_id" value="<?= $next_id ?>">

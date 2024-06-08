@@ -41,7 +41,7 @@
       $sql_query .= " LIMIT " . max($offset, 0) . ", " . $max_rows_per_page;
     }
 
-    public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = '', $page_name = 'page') {
+    public function display_links($query_numrows, $max_rows_per_page, $max_page_links, $current_page_number, $parameters = [], $page_name = 'page') {
 // calculate number of pages needing links
       $num_pages = ceil($query_numrows / $max_rows_per_page);
 
@@ -54,11 +54,8 @@
         $form = new Form('pages', $GLOBALS['Admin']->link(), 'get');
         $form->hide_session_id();
 
-        if (!Text::is_empty($parameters)) {
-          foreach (explode('&', rtrim($parameters, '&')) as $pair) {
-            list($key, $value) = explode('=', $pair);
-            $form->hide(rawurldecode($key), rawurldecode($value));
-          }
+        foreach ($parameters as $key => $value) {
+          $form->hide(rawurldecode($key), rawurldecode($value));
         }
 
         $display_links = "$form";
@@ -67,10 +64,10 @@
             $display_links .= '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>';
           $display_links .= '</div>';
 
-          $display_links .= (new Select($page_name, $pages_array, ['onchange' => 'this.form.submit();']))->set_selection($this->current_page_number);
+          $display_links .= (new Select($page_name, $pages_array, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($this->current_page_number);
 
-          $display_links .= '</form>';
         $display_links .= '</div>';
+        $display_links .= '</form>';
       } else {
         $display_links = sprintf(TEXT_RESULT_PAGE, $num_pages, $num_pages);
       }

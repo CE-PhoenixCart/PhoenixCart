@@ -2,51 +2,30 @@
 /*
   $Id$
 
-  osCommerce, Open Source E-Commerce Solutions
-  http://www.oscommerce.com
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
 
-  Copyright (c) 2003 osCommerce
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class logger {
-    var $timer_start, $timer_stop, $timer_total;
+  class Logger {
 
-// class constructor
-    function __construct() {
-      $this->timer_start();
+    public static function stop_timer() {
+      $timer_total = number_format(microtime(true) - PAGE_PARSE_START_TIME, 3);
+
+      static::write(getenv('REQUEST_URI'), $timer_total . 's');
+
+      return $timer_total;
     }
 
-    function timer_start() {
-      if (defined("PAGE_PARSE_START_TIME")) {
-        $this->timer_start = PAGE_PARSE_START_TIME;
-      } else {
-        $this->timer_start = microtime();
-      }
+    public static function format($timer_total) {
+      return '<span class="smallText">Parse Time: ' . $timer_total . 's</span>';
     }
 
-    function timer_stop($display = 'false') {
-      $this->timer_stop = microtime();
-
-      $time_start = explode(' ', $this->timer_start);
-      $time_end = explode(' ', $this->timer_stop);
-
-      $this->timer_total = number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3);
-
-      $this->write(getenv('REQUEST_URI'), $this->timer_total . 's');
-
-      if ($display == 'true') {
-        return $this->timer_display();
-      }
+    public static function write($uri, $message) {
+      error_log(Text::input(date('Y-m-d H:i:s')) . " [$message] $uri\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
 
-    function timer_display() {
-      return '<span class="smallText">Parse Time: ' . $this->timer_total . 's</span>';
-    }
-
-    function write($message, $type) {
-      error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' [' . $type . '] ' . $message . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
-    }
   }
-?>

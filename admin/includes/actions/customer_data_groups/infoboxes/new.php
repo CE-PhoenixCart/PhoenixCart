@@ -28,7 +28,7 @@
               . new Input('customer_data_groups_name[' . $lang['id'] . ']', ['id' => "gName-{{$lang['code']}}"]) . '</div>'
     ];
     $contents[] = ['text' => sprintf(TEXT_INFO_SORT_ORDER, null) . '<br>' . new Input('cdg_vertical_sort_order[' . $lang['id'] . ']', ['id' => "gSort-{$lang['code']}"])];
-    $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $lang['id'] . ']', ['value' => '12', 'id' => "gWidth-{$lang['code']}"])];
+    $contents[] = ['text' => sprintf(TEXT_INFO_WIDTH, null) . '<br>' . new Input('customer_data_groups_width[' . $lang['id'] . ']', ['value' => 'col-sm-12', 'id' => "gWidth-{$lang['code']}"])];
   }
 
   $contents[] = [

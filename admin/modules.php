@@ -25,6 +25,22 @@
   $module_key = $cfg_modules->get($set, 'key');
   define('HEADING_TITLE', $cfg_modules->get($set, 'title'));
   $template_integration = $cfg_modules->get($set, 'template_integration');
+  
+  $get_help_link = $cfg_modules->get($set, 'get_help_link');
+  
+  $get_addons_link = '';
+  if (!empty($cfg_modules->get($set, 'get_addons_links'))) {
+    $get_addons_link .= '<div class="btn-group" role="group">';
+      $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+        $get_addons_link .= GET_ADDONS;
+      $get_addons_link .= '</button>';
+      $get_addons_link .= '<div class="dropdown-menu">';
+      foreach ($cfg_modules->get($set, 'get_addons_links') as $k => $v) {
+        $get_addons_link .= '<a class="dropdown-item" target="_blank" href="' . $v . '">' . $k . '</a>';
+      }
+      $get_addons_link .= '</div>';
+    $get_addons_link .= '</div>';
+  }
 
   $modules_installed = (defined($module_key) && constant($module_key)) ? explode(';', constant($module_key)) : [];
   $link = $Admin->link()->retain_query_except(['action', 'module'])->set_parameter('set', $set);
@@ -111,12 +127,15 @@
   $cfgm = "cfgm_$set";
   if (is_callable([$cfgm, 'menu'])) {
 ?>
-    <div class="col-sm-2 text-right align-self-center"><?= $cfgm::menu() ?></div>
+    <div class="col text-right align-self-center"><?= $cfgm::menu() ?></div>
 <?php
   }
 ?>
-    <div class="col-sm-4 text-right align-self-center">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
+      $get_addons_link,
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', $get_help_link, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
       isset($_GET['list'])
       ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', (clone $GLOBALS['link'])->delete_parameter('list'))
       : $Admin->button(IMAGE_MODULE_INSTALL . ' (' . count($module_files['new']) . ')', 'fas fa-plus', 'btn-danger', (clone $GLOBALS['link'])->set_parameter('list', 'new'))

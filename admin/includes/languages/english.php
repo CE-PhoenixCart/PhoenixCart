@@ -17,11 +17,10 @@
 // 'en_AU.UTF-8', 'en_AU.UTF8', 'ena_au'
 
 setlocale(LC_ALL, ['en_US.UTF-8', 'en_US.UTF8', 'enu_usa']);
-const DATE_FORMAT_SHORT = '%m/%d/%Y';  // this is used for strftime()
-const DATE_FORMAT_LONG = '%A %d %B, %Y'; // this is used for strftime()
-const DATE_FORMAT = 'm/d/Y'; // this is used for date()
-const PHP_DATE_TIME_FORMAT = 'm/d/Y H:i:s'; // this is used for date()
-const DATE_TIME_FORMAT = DATE_FORMAT_SHORT . ' %H:%M:%S';
+
+$long_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+$short_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+$date_time_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::LONG);
 
 // Global entries for the <html> tag
 const HTML_PARAMS = 'dir="ltr" lang="en"';
@@ -34,7 +33,7 @@ const TITLE = 'CE Phoenix Cart Administration Tool';
 
 // header text in includes/hooks/admin/siteWide/hMenu.php
 const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Your Shop</span>';
-const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Help</span>';
+const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Forum</span>';
 const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">User Guide</span>';
 const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Certified Partners</span>';
 const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Add-ons</span>';
@@ -137,3 +136,9 @@ const FORM_REQUIRED_INPUT = '<span class="form-control-feedback text-danger"><i 
 const TEXT_IMAGE_NON_EXISTENT = 'IMAGE DOES NOT EXIST';
 
 const STAR_RATING = 'Rated %s Stars';
+
+const GET_HELP = '<img src="images/icon_phoenix.png" class="mr-2">Help';
+const GET_ADDONS = '<img src="images/icon_phoenix.png" class="mr-2">Addons';
+const ADDONS_FREE = 'Free';
+const ADDONS_COMMERCIAL = 'Paid';
+const ADDONS_PRO = 'PRO';

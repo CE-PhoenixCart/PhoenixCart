@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_TOOLS_NEWSLETTER_MANAGER', 'Newsletter Manager');
+  const MODULES_ADMIN_MENU_TOOLS_NEWSLETTER_MANAGER = 'Newsletter Manager';

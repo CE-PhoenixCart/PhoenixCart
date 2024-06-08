@@ -17,8 +17,8 @@
 
       $contents = ['form' => new Form('zones', (clone $GLOBALS['link'])->set_parameter('saction', 'insert_sub'))];
       $contents[] = ['text' => TEXT_INFO_NEW_SUB_ZONE_INTRO];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['onchange' => 'update_zone(this.form);'])];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . new Select('zone_id', [['id' => '', 'text' => TYPE_BELOW]])];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'custom-select', 'onchange' => 'update_zone(this.form);'])];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . new Select('zone_id', [['id' => '', 'text' => TYPE_BELOW]], ['class' => 'custom-select'])];
       $contents[] = [
         'class' => 'text-center',
         'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
@@ -31,8 +31,8 @@
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'save_sub'))];
       $contents[] = ['text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . (new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['onchange' => 'update_zone(this.form);']))->set_selection($sInfo->zone_country_id)];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . (new Select('zone_id', array_merge([['id' => '', 'text' => PLEASE_SELECT]], Zone::fetch_by_country($sInfo->zone_country_id))))->set_selection($sInfo->zone_id)];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . (new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'custom-select', 'onchange' => 'update_zone(this.form);']))->set_selection($sInfo->zone_country_id)];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . (new Select('zone_id', array_merge([['id' => '', 'text' => PLEASE_SELECT]], Zone::fetch_by_country($sInfo->zone_country_id)), ['class' => 'custom-select']))->set_selection($sInfo->zone_id)];
       $contents[] = [
         'class' => 'text-center',
         'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')

@@ -14,13 +14,13 @@
 
     const CONFIG_KEY_BASE = 'MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_';
 
-    public $content_width = 6;
+    public $content_width;
 
     public function __construct() {
       parent::__construct();
 
       if ($this->enabled) {
-        $this->content_width = (int)($this->base_constant('CONTENT_WIDTH') ?? 6);
+        $this->content_width = $this->base_constant('CONTENT_WIDTH');
       }
     }
 
@@ -46,7 +46,7 @@ EOSQL
             $output .= '<td>'
                      . (($logins['success'] == '1') ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>')
                      . ' <a href="' . $GLOBALS['Admin']->link('action_recorder.php', 'module=ar_admin_login&aID=' . (int)$logins['id']) . '">' . htmlspecialchars($logins['user_name']) . '</a></td>';
-            $output .= '<td class="text-right">' . (new Date($logins['date_added']))->format(DATE_TIME_FORMAT) . '</td>';
+            $output .= '<td class="text-right">' . $GLOBALS['date_time_formatter']->format((new Date($logins['date_added']))->get_timestamp()) . '</td>';
           $output .= '</tr>';
         }
 
@@ -70,10 +70,9 @@ EOSQL
           'desc' => 'This number of Logins will display, ordered by latest access.',
         ],
         'MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '6',
-          'desc' => 'What width container should the content be shown in? (12 = full width, 6 = half width).',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+          'title' => 'Content Container',
+          'value' => 'col-md-6 mb-2',
+          'desc' => 'What container should the content be shown in? (Default: XS-SM full width, MD and above half width).',
         ],
         'MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_SORT_ORDER' => [
           'title' => 'Sort Order',

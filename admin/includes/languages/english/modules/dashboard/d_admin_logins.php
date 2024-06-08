@@ -10,6 +10,6 @@
   Released under the GNU General Public License
 */
 
-const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE = 'Last Administrator Logins';
-const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DESCRIPTION = 'Show the last successful and failed administrator logins';
+const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE = 'Recent Administrator Logins';
+const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DESCRIPTION = 'Show recent administrator logins';
 const MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DATE = 'Date';

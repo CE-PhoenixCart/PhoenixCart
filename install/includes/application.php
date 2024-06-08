@@ -40,4 +40,4 @@
   }
 
   const PHP_VERSION_MIN = '7.0';
-  const PHP_VERSION_MAX = '8.1';
+  const PHP_VERSION_MAX = '8.4';

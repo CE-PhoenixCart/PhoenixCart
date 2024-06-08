@@ -18,5 +18,9 @@
     const KEY = 'MODULE_SHIPPING_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_SHIPPING_TITLE;
     const TEMPLATE_INTEGRATION = false;
+    
+    const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Shipping';
+    const GET_ADDONS_LINKS = [ADDONS_FREE => 'https://phoenixcart.org/forum/app.php/addons/free/shipping-18',
+                              ADDONS_COMMERCIAL => 'https://phoenixcart.org/forum/app.php/addons/commercial/shipping-24',];
 
   }

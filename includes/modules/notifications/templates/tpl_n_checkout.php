@@ -16,7 +16,7 @@
      . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_ORDER_NUMBER . ' ' . $order->get_id() . "\n"
      . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_INVOICE_URL . ' '
      . $GLOBALS['Linker']->build('account_history_info.php', ['order_id' => $order->get_id()], false) . "\n"
-     . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_DATE_ORDERED . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
+     . MODULE_NOTIFICATIONS_CHECKOUT_TEXT_DATE_ORDERED . ' ' . $GLOBALS['long_date_formatter']->format(time()) . "\n\n";
 
   if (!empty($order->info['comments'])) {
     echo htmlspecialchars($order->info['comments']) . "\n";

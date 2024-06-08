@@ -89,7 +89,7 @@
         return true;
       }
 
-      foreach (str_split("DB: [{$this->errno}] {$this->error} from <$path>", 1024) as $line) {
+      foreach (str_split("DB: [{$GLOBALS['db']->errno}] {$GLOBALS['db']->error} from <$path>", 1024) as $line) {
         trigger_error($line, E_USER_WARNING);
       }
 

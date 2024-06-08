@@ -6,18 +6,18 @@
 
 ## Table of Contents
 
-* [What is Phoenix](https://github.com/CE-PhoenixCart/PhoenixCart#description)
-  - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart#demo-site)
-* [Installation](https://github.com/CE-PhoenixCart/PhoenixCart#installation)
-  - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart#requirements)
-  - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart#user-checklist)
-  - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart#one-click)
-  - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart#language-packs)
-* [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart#certified-partners)
-* [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart#how-to-support-the-phoenix-project)
-  - [Join the Phoenix Club](https://github.com/CE-PhoenixCart/PhoenixCart#join-the-phoenix-club)
-* [Links](https://github.com/CE-PhoenixCart/PhoenixCart#helpful-links)
-* [Credits](https://github.com/CE-PhoenixCart/PhoenixCart#credits)
+* [What is Phoenix](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#description)
+  - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#demo-sites)
+* [Installation](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#installation)
+  - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#requirements)
+  - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#user-checklist)
+  - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#one-click)
+  - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#language-packs)
+* [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#certified-partners)
+* [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#how-to-support-the-phoenix-project)
+  - [Join the Phoenix Forum](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#join-the-phoenix-forum)
+* [Links](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#helpful-links)
+* [Credits](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#credits)
 
 ## Description
 
@@ -40,7 +40,7 @@ Installation of Phoenix takes no more than a few minutes - you will need a hosti
 
 Software | Minimum | Maximum (tested)
 -------- | ------- | ----------------
-PHP | 7.0 | 8.0
+PHP | 7.0 | 8.3
 MariaDB | 10.2.2 | 10.5
 MySQL | 5.7.7 | 8.0
 
@@ -50,9 +50,12 @@ Type | Name | Value
 ---- | ---- | -----
 PHP setting | allow_url_fopen | ON
 PHP extension | MySQLi | enabled
+PHP extension | intl | enabled
 PHP setting | session.use_trans_sid | OFF
 PHP setting | session.auto_start | OFF
 PHP setting | file_uploads | ON
+
+Internationalization of date names will not work properly without intl enabled.
 
 ### User Checklist
 
@@ -60,7 +63,7 @@ PHP setting | file_uploads | ON
 - [ ] download Phoenix & perform installation
 - [ ] check security page in administrative area;  
       admin > tools > security checks
-- [ ] join Phoenix club
+- [ ] join Phoenix Forum
 - [ ] install modules;  
       admin > modules > navbar<br>
       admin > modules > content<br>
@@ -80,27 +83,26 @@ PHP setting | file_uploads | ON
 
 See the list at https://phoenixcart.org/forum/app.php/addons/free/language-23
 
-Please be aware that language packs (other than ES) are maintained by shop owners so may not be up to date, may be incomplete, or may contain non-core files and definitions.
+Please be aware that most language packs are maintained by shop owners so may not be up to date, may be incomplete, or may contain non-core files and definitions.
 
 ## How to Support the Phoenix Project
 
-Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix...
+Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
-
 ### Certified Partners
 
-[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to Phoenix's core principle of no core changes. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to the Phoenix core principle of `no core changes`. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
 
 * These partners are certified by the Core Team
 * These partners support Phoenix by giving their time, code and financial support
 
 If you are looking for a developer for a paid-for project, please consider one of those at https://phoenixcart.org/forum/app.php/developers
 
-### Join the Phoenix Club
+### Join the Phoenix Forum
 
-If you wish to help steer the future direction of the software you need to join the [Phoenix Club](https://phoenixcart.org/forum/)
+If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider [sponsoring](https://phoenixcart.org/phoenix_gopro.php) Phoenix.
 
 ## Helpful Links
 

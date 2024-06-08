@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  const MODULE_CONTENT_IN_CARD_PRODUCTS_TITLE       = 'New Products';
-  const MODULE_CONTENT_IN_CARD_PRODUCTS_DESCRIPTION = 'Shows the "New Products" module on your Index page.';
+  const MODULE_CONTENT_IN_CARD_PRODUCTS_TITLE       = 'Latest Products';
+  const MODULE_CONTENT_IN_CARD_PRODUCTS_DESCRIPTION = 'Shows the "Latest Products" module on your Index page.';
 
-  const MODULE_CONTENT_IN_CARD_PRODUCTS_HEADING     = 'New Products For %s';
+  const MODULE_CONTENT_IN_CARD_PRODUCTS_HEADING     = 'Latest Products';

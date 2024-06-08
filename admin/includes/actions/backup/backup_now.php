@@ -43,7 +43,7 @@ EOSQL
 
       $schema .= '  ' . $fields['Field'] . ' ' . $fields['Type'];
 
-      if (strlen($fields['Default']) > 0) {
+      if (strlen($fields['Default'] ?? '') > 0) {
         $schema .= ' default \'' . $fields['Default'] . '\'';
       }
 

@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  define('MODULES_ADMIN_MENU_TOOLS_WHOS_ONLINE', 'Who\'s Online');
+  const MODULES_ADMIN_MENU_TOOLS_WHOS_ONLINE = 'Who\'s Online';

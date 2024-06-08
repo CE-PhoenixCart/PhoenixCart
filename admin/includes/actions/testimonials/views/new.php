@@ -16,7 +16,7 @@
     <div class="form-group row" id="zFrom">
       <label for="inputFrom" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_FROM ?></label>
       <div class="col-sm-9">
-        <?= Customers::select('customers_id', ['id' => 'inputFrom']) ?>
+        <?= Customers::select('customers_id', ['class' => 'custom-select', 'id' => 'inputFrom']) ?>
       </div>
     </div>
 

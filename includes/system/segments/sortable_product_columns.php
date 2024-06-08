@@ -36,11 +36,6 @@
       'heading' => TABLE_HEADING_QUANTITY,
       'sortable' => true,
     ],
-    'PRODUCT_LIST_IMAGE' => [
-      'order_by' => " ORDER BY pd.products_name",
-      'heading' => TABLE_HEADING_IMAGE,
-      'sortable' => false,
-    ],
     'PRODUCT_LIST_WEIGHT' => [
       'order_by' => " ORDER BY p.products_weight%s, pd.products_name",
       'heading' => TABLE_HEADING_WEIGHT,

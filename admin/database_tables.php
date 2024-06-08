@@ -79,14 +79,13 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <?=
-      empty($action)
-    ? ''
-    : '<div class="col-sm-4 text-right align-self-center">'
-      . (new Button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light'))->set(
-          'href', $Admin->link())
-    . '</div>'
-    ?>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      empty($action) ? '' : (new Button(IMAGE_BACK, 'fas fa-angle-left', 'ml-2 btn-light'))->set('href', $Admin->link())
+      ?>
+    </div>
   </div>
 
   <?= new Form('sql', $Admin->link()) ?>
@@ -124,12 +123,12 @@
   <div class="row">
     <div class="col">
       <?=
-        new Select('action', $actions, ['id' => 'sqlActionsMenu']),
+        new Select('action', $actions, ['class' => 'custom-select', 'id' => 'sqlActionsMenu']),
         new Button(BUTTON_ACTION_GO, 'fas fa-cogs', 'btn-success btn-block mt-2')
       ?>
     </div>
     <div class="col">
-      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
+      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets, ['class' => 'custom-select']) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
     </div>
   </div>
 

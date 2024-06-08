@@ -71,6 +71,7 @@ const TEXT_INFO_PAYMENT_METHOD = 'Payment Method: %s';
 
 const TEXT_ALL_ORDERS = 'All Orders';
 const TEXT_NO_ORDER_HISTORY = 'No Order History Available';
+const TEXT_NO_DELIVERY_ADDRESS = 'No delivery address';
 
 const ERROR_ORDER_DOES_NOT_EXIST = '<strong>Error:</strong> Order <strong>%s</strong> does not exist.';
 const SUCCESS_ORDER_UPDATED = '<strong>Success:</strong> Order has been successfully updated.';
@@ -83,3 +84,5 @@ const ENTRY_NOTIFY_COMMENTS_TEXT = 'This will append your comments to the order 
 
 const TEXT_ORDER_STATUS = '<strong>%s</strong> [%s]';
 const TEXT_ORDER_PAYMENT = '<strong>%s</strong> [%s]';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Orders';

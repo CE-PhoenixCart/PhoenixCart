@@ -78,3 +78,5 @@ const TEXT_ADVERT_INTERNAL_URL = '<i class="fas fa-link mr-1"></i> internal link
 const IMAGE_IMPORT_ADVERT = 'Attempt Banner Import';
 const IMAGE_IMPORT_ADVERT_EXPLANATION = 'This will import data from the "banners" database table.  You may need to delete some of the data after import as "banners" was never meant for Carousel use...';
 const SUCCESS_BANNERS_IMPORTED = '<strong>Success:</strong>  Banners Table Imported!';
+
+const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Advert_Manager';

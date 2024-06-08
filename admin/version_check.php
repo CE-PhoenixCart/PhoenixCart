@@ -37,47 +37,27 @@
       'message' => sprintf(VERSION_UPGRADES_AVAILABLE, $new_versions[0]->title),
     ];
   }
+  
+  require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
 ?>
 
-  <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
-
-  <p class="lead"><?php printf(TITLE_INSTALLED_VERSION, $current_version); ?></p>
-
-  <div class="<?= $check_message['class'] ?>">
-    <p class="lead"><?= $check_message['message'] ?></p>
+  <div class="row">
+    <div class="col">
+      <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
+    </div>
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons')      
+      ?>
+    </div>
   </div>
 
 <?php
-  if (!empty($new_versions)) {
-  ?>
-  <div class="table-responsive">
-    <table class="table table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th><?= TABLE_HEADING_VERSION ?></th>
-          <th><?= TABLE_HEADING_RELEASED ?></th>
-          <th class="text-right"><?= TABLE_HEADING_ACTION ?></th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-      foreach ($new_versions as $version) {
-        $date = DateTime::createFromFormat(DATE_ATOM, $version->date);
-        ?>
-        <tr>
-          <td><?= '<a href="' . $version->link . '" target="_blank" rel="noreferrer">' . $version->title . '</a>' ?></td>
-          <td><?= $date->format('l jS F, Y') ?></td>
-          <td class="text-right"><?= '<a href="' . $version->link . '" target="_blank" rel="noreferrer"><i class="fas fa-info-circle text-info"></i></a>' ?></td>
-        </tr>
-        <?php
-      }
-      ?>
-      </tbody>
-    </table>
-  </div>
-  <?php
+  if ($view_file = $Admin->locate('/views', $action)) {
+    require $view_file;
   }
 
   require 'includes/template_bottom.php';
