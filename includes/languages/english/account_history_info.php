@@ -35,6 +35,7 @@ const HEADING_ORDER_HISTORY = 'Order History';
 const HEADING_COMMENT = 'Comments';
 const TEXT_NO_COMMENTS_AVAILABLE = 'No comments available.';
 
-const TABLE_HEADING_DOWNLOAD_DATE = 'Link expires: ';
-const TABLE_HEADING_DOWNLOAD_COUNT = ' downloads remaining';
-const HEADING_DOWNLOAD = 'Download links';
+const TABLE_HEADING_DOWNLOAD_FILE = 'File';
+const TABLE_HEADING_DOWNLOAD_DATE = 'Expiry date';
+const TABLE_HEADING_DOWNLOAD_COUNT = 'Downloads Remaining';
+const HEADING_DOWNLOAD = 'Download your products here...';

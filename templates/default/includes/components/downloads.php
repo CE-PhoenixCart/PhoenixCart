@@ -42,10 +42,17 @@ EOSQL
   if (mysqli_num_rows($downloads_query) > 0) {
 ?>
 
-  <h3><?= HEADING_DOWNLOAD ?></h3>
+    <h5 class="mb-1"><?= HEADING_DOWNLOAD ?></h5>
 
-  <div class="contentText">
-    <table class="table table-striped">
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col"><?= TABLE_HEADING_DOWNLOAD_FILE ?></th>
+          <th scope="col" ><?= TABLE_HEADING_DOWNLOAD_COUNT ?></th>
+          <th scope="col" class="text-right"><?= TABLE_HEADING_DOWNLOAD_DATE ?></th>
+        </tr>
+      </thead>
+      <tbody>
 
 <?php
     while ($downloads = $downloads_query->fetch_assoc()) {
@@ -62,17 +69,18 @@ EOSQL
 // - No expiry date is enforced (maxdays == 0), OR
 // - The expiry date is not reached
         if ( ($downloads['download_count'] > 0) && (file_exists(DIR_FS_CATALOG . 'download/' . $downloads['orders_products_filename'])) && ( ($downloads['download_maxdays'] == 0) || ($download_timestamp > time())) ) {
-          echo '<td><a href="' . $GLOBALS['Linker']->build('download.php', ['order' => $last_order, 'id' => $downloads['orders_products_download_id']]) . '">' . $downloads['products_name'] . '</a></td>' . "\n";
+          echo '<td><a role="button" class="btn btn-sm btn-block btn-dark" href="' . $GLOBALS['Linker']->build('download.php', ['order' => $last_order, 'id' => $downloads['orders_products_download_id']]) . '">' . $downloads['products_name'] . '</a></td>' . "\n";
         } else {
           echo '<td>' . $downloads['products_name'] . '</td>' . "\n";
         }
 
-        echo '<td>' . TABLE_HEADING_DOWNLOAD_DATE . Date::expound($download_expiry) . '</td>';
-        echo '<td class="text-right">' . $downloads['download_count'] . TABLE_HEADING_DOWNLOAD_COUNT . '</td>';
+        echo '<td>' . $downloads['download_count'] . '</td>';
+        echo '<td class="text-right">' . Date::expound($download_expiry) . '</td>';
       echo '</tr>';
     }
 ?>
 
+      </tbody>
     </table>
 
 <?php
@@ -83,10 +91,5 @@ EOSQL
 
 <?php
     }
-?>
-
-  </div>
-
-<?php
   }
 ?>
