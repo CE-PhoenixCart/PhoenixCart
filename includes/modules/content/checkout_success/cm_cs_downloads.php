@@ -22,9 +22,9 @@
       if ( 'true' === DOWNLOAD_ENABLED ) {
         ob_start();
         extract($GLOBALS, EXTR_SKIP);
-        include $Template->map('downloads.php', 'component');
-
-        $Template->add_content(ob_get_clean(), $this->group);
+        
+        $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
+        include 'includes/modules/content/cm_template.php';
       }
     }
 
@@ -35,6 +35,11 @@
           'value' => 'True',
           'desc' => 'Should ordered product download links be shown on the checkout success page?',
           'set_func' => "Config::select_one(['True', 'False'], ",
+        ],
+        'MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_SORT_ORDER' => [
           'title' => 'Sort Order',
