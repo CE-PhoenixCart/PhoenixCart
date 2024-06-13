@@ -41,22 +41,23 @@
 
   <?=
     $hooks->cat('injectBodyStart'),
-    $Template->get_content('navigation')
+    $Template->get_content('navigation'),
+    $hooks->cat('injectBeforeHeader')
   ?>
-
+  
+  <div class="header">
+    <div class="<?= BOOTSTRAP_CONTAINER ?>">
+      <?php require $Template->map('header.php', 'component'); ?>
+    </div>
+  </div>
+  
+  <?= $hooks->cat('injectAfterHeader') ?>
+  
   <div id="bodyWrapper" class="<?= BOOTSTRAP_CONTAINER ?> pt-2">
 
-    <?php
-    echo $hooks->cat('injectBodyWrapperStart');
-
-    echo $hooks->cat('injectBeforeHeader');
-
-    require $Template->map('header.php', 'component');
-
-    echo $hooks->cat('injectAfterHeader');
-    ?>
+    <?= $hooks->cat('injectBodyWrapperStart') ?>
 
     <div class="row">
-      <div id="bodyContent" class="col order-1 order-md-6">
+      <div id="bodyContent" class="col order-1 order-md-2">
 
         <?= $hooks->cat('injectBodyContentStart') ?>

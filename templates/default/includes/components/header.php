@@ -15,8 +15,6 @@
   <?= $Template->get_content('header') ?>
 </div>
 
-<div class="body-sans-header">
-
 <?php
   if (isset($_GET['error_message']) && !Text::is_empty($_GET['error_message'])) {
 ?>
