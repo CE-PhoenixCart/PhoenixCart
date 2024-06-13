@@ -34,7 +34,7 @@ INSERT INTO products VALUES (3, 1000, 'PEA-1', 'sample/pear-1.jpg', 4.99, NOW(),
 INSERT INTO products VALUES (4, 1000, 'APP-1', 'sample/apple-1.jpg', 4.99, NOW(), NULL, NULL, 0.30, 1, 1, 2, 0, NULL);
 INSERT INTO products VALUES (5, 1000, 'TOM-1', 'sample/tomatoes-1.jpg', 1.99, NOW(), NULL, NULL, 0.50, 1, 1, 2, 0, NULL);
 INSERT INTO products VALUES (6, 1, 'GTOM-1', 'sample/green-tomatoes-1.jpg', 1.9900, NOW(), NULL, NULL, 0.50, 1, 0, 2, 0, NULL);
-INSERT INTO products VALUES (7, 10, 'GAPP-1', 'sample/green-apple-1.jpg', 4.9900, NOW(), NULL, NULL, 0.30, 1, 0, 2, 0, NULL);
+INSERT INTO products VALUES (7, 10, 'GAPP-1', 'sample/green-apple-1.jpg', 4.9900, NOW(), NULL, NULL, 0, 1, 0, 2, 0, NULL);
 INSERT INTO products VALUES (8, 0, 'GPF-1', 'sample/grapefruit-1.jpg', 8.9900, NOW(), NULL, NOW() + INTERVAL 90 DAY, 0.40, 1, 0, 2, 0, NULL);
 INSERT INTO products VALUES (9, 1000, 'LIM-1', 'sample/lime-1.jpg', 8.4900, NOW(), NULL, NULL, 0.35, 1, 0, 2, 0, NULL);
 
@@ -54,14 +54,21 @@ INSERT INTO products_attributes VALUES (3, 2, 1, 1, '0.0000', '+');
 INSERT INTO products_attributes VALUES (4, 2, 1, 2, '4.5000', '+');
 INSERT INTO products_attributes VALUES (5, 5, 1, 1, '0.0000', '+');
 INSERT INTO products_attributes VALUES (6, 5, 1, 2, '4.9900', '+');
+INSERT INTO products_attributes VALUES (7, 7, 2, 3, '0.0000', '+');
+
+INSERT INTO products_attributes_download VALUES (7, 'apple-pie.zip', 7, 5);
 
 INSERT INTO products_options VALUES (1, 1, 'Box Size', 10);
+INSERT INTO products_options VALUES (2, 1, 'Download', 10);
 
 INSERT INTO products_options_values VALUES (1, 1, '12', 10);
 INSERT INTO products_options_values VALUES (2, 1, '24', 20);
+INSERT INTO products_options_values VALUES (3, 1, 'apple-pie.zip', 10);
+
 
 INSERT INTO products_options_values_to_products_options VALUES (1, 1, 1);
 INSERT INTO products_options_values_to_products_options VALUES (2, 1, 2);
+INSERT INTO products_options_values_to_products_options VALUES (3, 2, 3);
 
 INSERT INTO products_to_categories VALUES (1, 4);
 INSERT INTO products_to_categories VALUES (2, 4);
