@@ -340,7 +340,8 @@ function updateNet() {
           <div class="form-group row" id="zPiList">
             <div class="col-sm-3 text-left text-sm-right">
               <?= TEXT_PRODUCTS_OTHER_IMAGES ?>
-              <br><a class="btn btn-info btn-sm text-white mt-2" role="button" href="#" id="add_image" onclick="addNewPiForm();return false;"><?= TEXT_PRODUCTS_ADD_LARGE_IMAGE ?></a>
+              <br><a class="btn btn-info text-white mt-2" role="button" href="#" id="add_image" onclick="addNewPiForm();return false;"><?= TEXT_PRODUCTS_ADD_LARGE_IMAGE ?></a>
+              <br><a class="btn btn-danger btn-sm text-white mt-2" role="button" href="#" id="piDelAll"><?= TEXT_PRODUCTS_DELETE_LARGE_IMAGES ?></a>
             </div>
             <div class="col-sm-9" id="piList">
               <?php
@@ -384,6 +385,12 @@ function updateNet() {
           $('a.piDel').click(function(e){
             var p = $(this).data('pi-id');
             $('#piId' + p).effect('blind').remove();
+
+            e.preventDefault();
+          });
+          
+          $('a#piDelAll').click(function(e){
+            $('div[id^="piId"]').effect('blind').remove();
 
             e.preventDefault();
           });
