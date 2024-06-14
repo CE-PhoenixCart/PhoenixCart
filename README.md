@@ -124,5 +124,6 @@ Phoenix Logo | Phoenix Cart | https://phoenixcart.org Phoenix Logo may not be us
 Oranges, Lemons, Pears, Apples | Eelffica from Pixabay | https://pixabay.com/service/license/
 Tomatoes | Rocky_H from Pixabay | https://pixabay.com/service/license/
 Heart | Gerhard Gellinger from Pixabay | https://pixabay.com/service/license/
+Glasses | Alexander Lesnitsky from Pixabay | https://pixabay.com/service/license/
 
 Other fruit images are based on modified images from the named owners.
