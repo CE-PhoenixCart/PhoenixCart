@@ -45,7 +45,7 @@
     $hooks->cat('injectBeforeHeader')
   ?>
   
-  <div class="header">
+  <div class="header bg-light border-bottom">
     <div class="<?= BOOTSTRAP_CONTAINER ?>">
       <?php require $Template->map('header.php', 'component'); ?>
     </div>
