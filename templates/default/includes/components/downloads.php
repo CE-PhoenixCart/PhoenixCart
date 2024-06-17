@@ -42,11 +42,12 @@ EOSQL
   if (mysqli_num_rows($downloads_query) > 0) {
 ?>
 
-    <h5 class="mb-1"><?= HEADING_DOWNLOAD ?></h5>
+    <h5 class="my-2"><?= HEADING_DOWNLOAD ?></h5>
 
     <table class="table table-borderless">
       <thead class="thead-light">
         <tr>
+          <th scope="col"><?= TABLE_HEADING_DOWNLOAD_PRODUCT ?></th>
           <th scope="col"><?= TABLE_HEADING_DOWNLOAD_FILE ?></th>
           <th scope="col" ><?= TABLE_HEADING_DOWNLOAD_COUNT ?></th>
           <th scope="col" class="text-right"><?= TABLE_HEADING_DOWNLOAD_DATE ?></th>
@@ -56,12 +57,14 @@ EOSQL
 
 <?php
     while ($downloads = $downloads_query->fetch_assoc()) {
+      
 // MySQL 3.22 does not have INTERVAL
       list($dt_year, $dt_month, $dt_day) = explode('-', $downloads['date_purchased_day']);
       $download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
       $download_expiry = date('Y-m-d H:i:s', $download_timestamp);
 
       echo '<tr>';
+        echo '<th>' . $downloads['products_name'] . '</th>' . PHP_EOL;
 
 // The link will appear only if:
 // - Download remaining count is > 0, AND
@@ -69,9 +72,9 @@ EOSQL
 // - No expiry date is enforced (maxdays == 0), OR
 // - The expiry date is not reached
         if ( ($downloads['download_count'] > 0) && (file_exists(DIR_FS_CATALOG . 'download/' . $downloads['orders_products_filename'])) && ( ($downloads['download_maxdays'] == 0) || ($download_timestamp > time())) ) {
-          echo '<td><a role="button" class="btn btn-sm btn-block btn-dark" href="' . $GLOBALS['Linker']->build('download.php', ['order' => $last_order, 'id' => $downloads['orders_products_download_id']]) . '">' . $downloads['products_name'] . '</a></td>' . "\n";
+          echo '<td>', new Button($downloads['orders_products_filename'], 'fas fa-download', 'btn btn-sm btn-block btn-dark', [], $GLOBALS['Linker']->build('download.php', ['order' => $last_order, 'id' => $downloads['orders_products_download_id']])), '</td>' . PHP_EOL;
         } else {
-          echo '<td>' . $downloads['products_name'] . '</td>' . "\n";
+          echo '<td>' . $downloads['orders_products_filename'] . '</td>' . PHP_EOL;
         }
 
         echo '<td>' . $downloads['download_count'] . '</td>';

@@ -13,6 +13,7 @@
   const MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_TITLE = 'Product Downloads';
   const MODULE_CONTENT_CHECKOUT_SUCCESS_DOWNLOADS_DESCRIPTION = 'Show ordered product download links on the checkout success page';
 
+  const TABLE_HEADING_DOWNLOAD_PRODUCT = 'Product';
   const TABLE_HEADING_DOWNLOAD_FILE = 'File';
   const TABLE_HEADING_DOWNLOAD_DATE = 'Expiry date';
   const TABLE_HEADING_DOWNLOAD_COUNT = 'Downloads Remaining';
