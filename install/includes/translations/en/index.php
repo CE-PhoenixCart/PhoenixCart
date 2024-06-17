@@ -15,6 +15,7 @@ const TEXT_MINIMUM_VERSION = 'The version of PHP must be at least <strong>%s</st
 const TEXT_MAXIMUM_VERSION = 'Performance on versions <strong>%s and higher has not been tested</strong>.  The version here is %s.';
 const TEXT_FOPEN_WRAPPERS_REQUIRED = 'Fopen Wrappers should be turned on.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
 const TEXT_CURL_REQUIRED = 'cURL should be turned on.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
+const TEXT_INTL_PREFERRED = 'intl should be turned on, as internationalization of date names may not work properly without intl enabled.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
 const TEXT_WELCOME_TO = 'Welcome to CE Phoenix Cart';
 const TEXT_HELPS_YOU_SELL = <<<'EOT'
 <p>CE Phoenix Cart helps you sell products worldwide with your own online store.
