@@ -11,7 +11,7 @@
 */
 
   $store_logo = new upload('store_logo');
-  $store_logo->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
+  $store_logo->set_extensions(['png', 'gif', 'jpg', 'jpeg', 'svg', 'webp']);
   $store_logo->set_destination(DIR_FS_CATALOG . 'images/');
   $admin_hooks->cat('saveValidation', $store_logo);
 

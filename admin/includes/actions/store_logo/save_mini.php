@@ -11,7 +11,7 @@
 */
 
   $mini_logo = new upload('mini_logo');
-  $mini_logo->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
+  $mini_logo->set_extensions(['png', 'gif', 'jpg', 'jpeg', 'svg', 'webp']);
   $mini_logo->set_destination(DIR_FS_CATALOG . 'images/');
   $admin_hooks->cat('saveValidation', $mini_logo);
 
