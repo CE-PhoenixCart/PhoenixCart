@@ -1,5 +1,5 @@
 <div class="<?= MODULE_CONTENT_I_SLIDER_CONTENT_WIDTH ?> cm-i-slider">
-  <div id="cmislider" class="carousel slide<?= $cm_i_slider_fade ?>" data-ride="carousel">
+  <div id="cmislider" class="carousel slide<?= $cm_i_slider_fade ?>" data-ride="carousel" data-interval="<?= $cm_i_slider_interval ?>">
     <?= $cm_i_indicator_output ?>
     <div class="carousel-inner">
       <?= $cm_i_slider_output ?>

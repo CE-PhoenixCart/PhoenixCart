@@ -81,6 +81,8 @@ sc;
           if (MODULE_CONTENT_I_SLIDER_FADE == 'Fade') {
             $cm_i_slider_fade = ' carousel-fade';
           }
+          
+          $cm_i_slider_interval = MODULE_CONTENT_I_SLIDER_INTERVAL;
 
           $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
           include 'includes/modules/content/cm_template.php';
@@ -125,6 +127,11 @@ sc;
           'value' => 'Fade',
           'desc' => 'Slide from the right or Fade In?',
           'set_func' => "Config::select_one(['Fade', 'Slide'], ",
+        ],
+        $this->config_key_base . 'INTERVAL' => [
+          'title' => 'Interval',
+          'value' => '10000',
+          'desc' => 'How long a slide is seen before the next.  10000 = 10 seconds.',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
