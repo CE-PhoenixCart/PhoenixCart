@@ -12,6 +12,14 @@
 #       * Please take note of the table structure, and use this
 #         structure as a standard for future modifications!
 
+INSERT INTO advert VALUES ('1', 'Our Farm', 'products_new.php', '', 'our-farm.png', 'carousel', NOW(), NULL, '20', '1');
+INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.png', 'carousel', NOW(), NULL, '10', '1');
+
+INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
+INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
+
+UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
+
 INSERT INTO categories VALUES (1, 'sample/fruit.jpg', 0, 10, NOW(), NULL);
 INSERT INTO categories VALUES (2, 'sample/vegetables-1.jpg', 0, 20, NOW(), NULL);
 INSERT INTO categories VALUES (3, 'sample/apples-pears.jpg', 1, 10, NOW(), NULL);
