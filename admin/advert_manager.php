@@ -50,6 +50,7 @@
             n.innerHTML = event.target.files[0].name;
           }
         }
+        document.querySelector('#aNewImage').value = '';
       });
     }
   </script>
