@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH ?> cm-sc-product-listing">
+<div class="<?= MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH ?> cm-sc-product-listing">
   <?= $form ?>
   <div class="table-responsive">
     <table class="table mb-0">

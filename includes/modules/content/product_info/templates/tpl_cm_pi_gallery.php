@@ -1,5 +1,5 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_GALLERY_CONTENT_WIDTH ?> cm-pi-gallery">
-  <a href="#lightbox" class="lb" data-toggle="modal" data-slide="0"><?=
+<div class="<?= MODULE_CONTENT_PI_GALLERY_CONTENT_WIDTH ?> cm-pi-gallery">
+  <a role="button" data-target="#lightbox" data-toggle="modal" data-slide="0"><?=
     new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])])
   ?></a>
   <?php
@@ -10,7 +10,7 @@
     $pi_thumb = '<div class="row">';
     foreach ($other_images as $k => $v) {
       $pi_thumb .= '<div class="' . MODULE_CONTENT_PI_GALLERY_CONTENT_WIDTH_EACH . '">';
-      $pi_thumb .= '<a href="#lightbox" class="lb" data-toggle="modal" data-slide="' . ($k+1) . '">';
+      $pi_thumb .= '<a role="button" data-target="#lightbox" data-toggle="modal" data-slide="' . ($k+1) . '">';
       $pi_thumb .= new Image('images/' . $v['image'], ['loading' => 'lazy']);
       $pi_thumb .= '</a>';
       $pi_thumb .= '</div>';
@@ -76,11 +76,6 @@ EOHTML;
 EOHTML;
 
     $GLOBALS['Template']->add_block($modal_gallery_footer, 'footer_scripts');
-
-    $modal_clicker = <<<'EOJS'
-<script>$(document).ready(function() { $('a.lb').click(function(e) { var s = $(this).data('slide'); $('#lightbox').carousel(s); }); });</script>
-EOJS;
-    $GLOBALS['Template']->add_block($modal_clicker, 'footer_scripts');
 
     echo $pi_thumb;
   }

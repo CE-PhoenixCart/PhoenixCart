@@ -21,7 +21,7 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= sprintf(HEADING_TITLE_ORDER, (int)$oID) ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
        $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
        $admin_hooks->cat('extraButtons'),
@@ -130,7 +130,7 @@
           <div class="form-group row" id="zStatus">
             <label for="oStatus" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_STATUS ?></label>
             <div class="col-sm-9">
-              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'form-control']) ?>
+              <?= new Select('status', $orders_statuses, ['value' => $order->info['orders_status_id'], 'id' => 'oStatus', 'class' => 'custom-select']) ?>
             </div>
           </div>
 

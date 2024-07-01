@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_HEADER_BREADCRUMB_CONTENT_WIDTH ?> cm-header-breadcrumb">
+<div class="<?= MODULE_CONTENT_HEADER_BREADCRUMB_CONTENT_WIDTH ?> cm-header-breadcrumb">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <?php

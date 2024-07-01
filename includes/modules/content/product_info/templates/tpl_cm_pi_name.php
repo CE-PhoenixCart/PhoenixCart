@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_NAME_CONTENT_WIDTH ?> cm-pi-name">
+<div class="<?= MODULE_CONTENT_PI_NAME_CONTENT_WIDTH ?> cm-pi-name">
   <h1 class="display-4"><?= sprintf(MODULE_CONTENT_PI_NAME_DISPLAY_NAME, $GLOBALS['product']->get('name')) ?></h1>
 </div>
 

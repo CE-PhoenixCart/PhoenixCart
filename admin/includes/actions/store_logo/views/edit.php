@@ -11,6 +11,8 @@
 */
 ?>
 
+  <h2 class="font-weight-normal"><?= BUTTON_EDIT_LOGO ?></h2>
+
   <div class="row">
     <div class="col">
       <?= new Form('logo', $Admin->link()->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data']) ?>
@@ -22,13 +24,22 @@
         </div>
 
         <?= $admin_hooks->cat('editForm'),
-            new Button(IMAGE_UPLOAD, 'fas fa-file-upload', 'btn-danger btn-block')
+            new Button(IMAGE_UPLOAD, 'fas fa-file-upload', 'btn-success btn-block')
         ?>
+        
+        <p class="mt-2 text-muted"><?= TEXT_LOCATION ?></p>
 
       </form>
     </div>
     <div class="col">
-      <div class="alert alert-danger"><?= TEXT_FORMAT_AND_LOCATION ?></div>
+      <div class="card text-center bg-danger text-white">
+        <div class="card-header">
+          <?= TEXT_FORMAT ?>
+        </div>
+        <div class="card-body bg-white py-5">
+          <?= $Admin->catalog_image('images/' .  STORE_LOGO) ?>
+        </div>
+      </div>
     </div>
   </div>
 

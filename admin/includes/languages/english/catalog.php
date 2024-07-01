@@ -86,6 +86,7 @@ const TEXT_PRODUCTS_MAIN_IMAGE = 'Main Image';
 const TEXT_PRODUCTS_LARGE_IMAGE = 'Large Image';
 const TEXT_PRODUCTS_LARGE_IMAGE_HTML_CONTENT = 'HTML Content';
 const TEXT_PRODUCTS_ADD_LARGE_IMAGE = '<i class="fas fa-plus mr-2"></i>Add New Gallery Image';
+const TEXT_PRODUCTS_DELETE_LARGE_IMAGES = '<i class="fas fa-trash mr-2"></i>Delete All</a>';
 const TEXT_PRODUCTS_URL = 'Products URL';
 const TEXT_PRODUCTS_URL_WITHOUT_HTTP = 'Make sure to include http:// or https://';
 const TEXT_PRODUCTS_PRICE_NET = 'Products Price (Net)';

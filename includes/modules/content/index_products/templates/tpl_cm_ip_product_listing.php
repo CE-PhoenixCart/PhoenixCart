@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_IP_PRODUCT_LISTING_CONTENT_WIDTH ?> cm-ip-product-listing">
+<div class="<?= MODULE_CONTENT_IP_PRODUCT_LISTING_CONTENT_WIDTH ?> cm-ip-product-listing">
   <?php include $GLOBALS['Template']->map('product_listing.php', 'component'); ?>
 </div>
 

@@ -104,33 +104,39 @@ EOSQL
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
-       (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ml-2', $Admin->link('orders.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $admin_hooks->cat('extraButtons')
+      ?>
+    </div>
+  </div>
+  
+  <div class="collapse row mb-1" id="collapseSearch">
+    <div class="col-6 align-self-center">
+      <?= (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
            '</div>',
            new Input('oID', [], 'number'),
          '</div>',
-       '</form>',
-       (new Form('status', $Admin->link('orders.php'), 'get'))->hide_session_id(),
+       '</form>'
+      ?>
+    </div>
+    <div class="col-6 align-self-center">
+      <?= (new Form('status', $Admin->link('orders.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_STATUS, '</span>',
            '</div>',
-           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['onchange' => 'this.form.submit()']),
+           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['class' => 'custom-select', 'onchange' => 'this.form.submit()']),
          '</div>',
-       '</form>',
-       $admin_hooks->cat('injectFilterForm')
-      ?>
+       '</form>'
+       ?>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
-      <?=
-      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
-      $admin_hooks->cat('extraButtons')
-      ?>
-    </div>
+    <?= $admin_hooks->cat('injectFilterForm') ?>
   </div>
 
 <?php

@@ -1,4 +1,4 @@
-<div class="col-sm-<?= MODULE_CONTENT_CARD_PRODUCTS_CONTENT_WIDTH ?> cm-i-card-products">
+<div class="<?= MODULE_CONTENT_CARD_PRODUCTS_CONTENT_WIDTH ?> cm-i-card-products">
   <h4><?= MODULE_CONTENT_CARD_PRODUCTS_HEADING ?> <a href="<?= $GLOBALS['Linker']->build('products_new.php') ?>" class="float-right float-lg-none font-weight-normal badge badge-light"><?= MODULE_CONTENT_CARD_PRODUCTS_VIEW_ALL ?></a></h4>
 
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">

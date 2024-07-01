@@ -15,7 +15,6 @@
     const CONFIG_KEY_BASE = 'PI_BUY_';
 
     public $group = 'pi_modules_c';
-    public $content_width;
 
     public function __construct() {
       parent::__construct();
@@ -27,7 +26,6 @@
 
       if ( $this->enabled ) {
         $this->group = 'pi_modules_' . strtolower(PI_BUY_GROUP);
-        $this->content_width = (int)PI_BUY_CONTENT_WIDTH;
       }
     }
 
@@ -38,25 +36,24 @@
 
     protected function get_parameters() {
       return [
-        'PI_BUY_STATUS' => [
-          'title' => 'Enable Buy Button',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_BUY_GROUP' => [
+        $this->config_key_base . 'GROUP' => [
           'title' => 'Module Display',
           'value' => 'C',
           'desc' => 'Where should this module display on the product info page?',
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
-        'PI_BUY_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12 mt-2',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'PI_BUY_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '320',
           'desc' => 'Sort order of display. Lowest is displayed first.',

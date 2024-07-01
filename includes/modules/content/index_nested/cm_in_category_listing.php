@@ -31,24 +31,23 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_IN_CATEGORY_LISTING_STATUS' => [
-          'title' => 'Enable Sub-Category Listing Module',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be enabled?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_IN_CATEGORY_LISTING_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_IN_CATEGORY_LISTING_DISPLAY_ROW' => [
+        $this->config_key_base . 'DISPLAY_ROW' => [
           'title' => 'Categories Per Row',
           'value' => 'row row-cols-2 row-cols-sm-3 row-cols-md-4',
           'desc' => 'How many categories should display per Row per viewport?  Default:  XS 2, SM 3, MD and above 4',
         ],
-        'MODULE_CONTENT_IN_CATEGORY_LISTING_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '200',
           'desc' => 'Sort order of display. Lowest is displayed first.',

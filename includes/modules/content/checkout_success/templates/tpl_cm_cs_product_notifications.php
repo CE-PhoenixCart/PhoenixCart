@@ -1,4 +1,4 @@
-<div class="col-sm-<?= $content_width ?> cm-cs-product-notifications">
+<div class="<?= MODULE_CONTENT_CHECKOUT_SUCCESS_PRODUCT_NOTIFICATIONS_CONTENT_WIDTH ?> cm-cs-product-notifications">
   <h5 class="mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_PRODUCT_NOTIFICATIONS_TEXT_NOTIFY_PRODUCTS ?></h5>
 
   <div class="border">

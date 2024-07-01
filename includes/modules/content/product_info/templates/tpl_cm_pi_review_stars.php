@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PI_REVIEW_STARS_CONTENT_WIDTH ?> cm-pi-review-stars">
+<div class="<?= MODULE_CONTENT_PI_REVIEW_STARS_CONTENT_WIDTH ?> cm-pi-review-stars">
   <ul class="list-inline">
     <?php
   foreach ($review_ratings as $i => $rating) {

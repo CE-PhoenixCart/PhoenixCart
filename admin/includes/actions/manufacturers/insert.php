@@ -18,7 +18,7 @@
   ];
 
   $manufacturers_image = new upload('manufacturers_image');
-  $manufacturers_image->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
+  $manufacturers_image->set_extensions(['png', 'gif', 'jpg', 'jpeg', 'svg', 'webp']);
   $manufacturers_image->set_destination(DIR_FS_CATALOG . 'images/');
 
   if ($manufacturers_image->parse() && $manufacturers_image->save()) {

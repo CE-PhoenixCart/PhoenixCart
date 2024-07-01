@@ -79,11 +79,11 @@
     <div class="col text-right align-self-center">
       <?=
         (new Form('lng', $Admin->link(), 'get'))->hide_session_id(),
-        (new Select('lngdir', $languages, ['onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
+        (new Select('lngdir', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($_GET['lngdir']),
         '</form>'
       ?>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-5 text-left text-lg-right align-self-center pb-1">
       <?= 
       $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons')

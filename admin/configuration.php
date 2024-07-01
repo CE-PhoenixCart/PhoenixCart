@@ -43,7 +43,7 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= $cfg_group['configuration_group_title'] ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
       $Admin->button(GET_HELP, '', 'btn-dark', $cfg_group['configuration_group_help_link'], ['newwindow' => true]),

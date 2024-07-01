@@ -12,8 +12,6 @@
 
 ?>
 
-</div>
-
 <footer class="pt-2">
   <div class="bg-light m-0 pt-2 pb-2">
     <div class="<?= BOOTSTRAP_CONTAINER ?>">

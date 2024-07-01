@@ -1,6 +1,4 @@
-<style>.cm-sc-order-subtotal > h4 {padding: 14px;}</style>
-
-<div class="col-sm-<?= $content_width ?> cm-sc-order-subtotal">
+<div class="<?= MODULE_CONTENT_SC_ORDER_SUBTOTAL_CONTENT_WIDTH ?> cm-sc-order-subtotal">
   <h4 class="text-right">
     <?= $cart_total ?>
   </h4>

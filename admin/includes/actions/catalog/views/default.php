@@ -15,7 +15,21 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-6 text-left text-lg-right align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons'),
+      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light mr-2', $Admin->link('catalog.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      isset($_GET['search'])
+      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
+      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
+        . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
+      ?>
+    </div>
+  </div>
+  
+  <div class="collapse row" id="collapseSearch">
+    <div class="col-6 align-self-center">
       <?= (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
@@ -23,8 +37,11 @@
            '</div>',
            new Input('search'),
          '</div>',
-       '</form>',
-       (new Form('goto', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
+       '</form>'
+      ?>
+    </div>
+    <div class="col-6 align-self-center">
+      <?= (new Form('goto', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_GOTO, '</span>',
@@ -32,20 +49,10 @@
            (new Select(
              'cPath',
              Guarantor::ensure_global('category_tree')->get_selections([['id' => '0', 'text' => TEXT_TOP]], '0'),
-             ['onchange' => 'this.form.submit();']))->set_selection($current_category_id),
+             ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($current_category_id),
          '</div>',
        '</form>'
-      ?>
-    </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
-      <?=
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
-      $admin_hooks->cat('extraButtons'),
-      isset($_GET['search'])
-      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
-      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
-        . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
-      ?>
+       ?>
     </div>
   </div>
 

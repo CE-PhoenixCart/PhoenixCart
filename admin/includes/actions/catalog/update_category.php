@@ -21,7 +21,7 @@
   ];
 
   $categories_image = new upload('categories_image');
-  $categories_image->set_extensions(['png', 'gif', 'jpg', 'svg', 'webp']);
+  $categories_image->set_extensions(['png', 'gif', 'jpg', 'jpeg', 'svg', 'webp']);
   $categories_image->set_destination(DIR_FS_CATALOG_IMAGES);
 
   if ($categories_image->parse() && $categories_image->save()) {

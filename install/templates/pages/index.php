@@ -38,6 +38,10 @@
   if (!extension_loaded('cURL')) {
     $warnings['curl'] = TEXT_CURL_REQUIRED;
   }
+  
+  if (!extension_loaded('intl')) {
+    $warnings['intl'] = TEXT_INTL_PREFERRED;
+  }
 ?>
 
 <div class="alert alert-info" role="alert">

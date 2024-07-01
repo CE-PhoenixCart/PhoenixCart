@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_IP_CATEGORY_DESCRIPTION_CONTENT_WIDTH ?> cm-ip-category-manufacturer-description">
+<div class="<?= MODULE_CONTENT_IP_CATEGORY_DESCRIPTION_CONTENT_WIDTH ?> cm-ip-category-manufacturer-description">
   <div class="card mb-2 card-body">
     <?= $cm_description ?>
   </div>

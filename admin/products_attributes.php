@@ -43,7 +43,7 @@
 
   $get_link = (clone $link)->set_parameter('formid', $_SESSION['sessiontoken']);
 
-  $product_selector = new Select('products_id', Products::list_options());
+  $product_selector = new Select('products_id', Products::list_options(), ['class' => 'custom-select']);
   $options = $db->fetch_all(sprintf(<<<'EOSQL'
 SELECT products_options_id AS id, products_options_name AS text, products_options.*
  FROM products_options
@@ -72,7 +72,7 @@ EOSQL
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE_ATRIB ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
       $get_addons_link,
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
@@ -123,10 +123,10 @@ EOSQL
                   <?= $product_selector->set_selection($attributes_values['products_id'])->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                 </td>
                 <td>
-                  <?= (new Select('options_id', array_merge($default_selection, $options)))->set_selection($attributes_values['options_id'])->require() ?>
+                  <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->set_selection($attributes_values['options_id'])->require() ?>
                 </td>
                 <td>
-                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->set_selection($attributes_values['options_values_id'])->require() ?>
+                  <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->set_selection($attributes_values['options_values_id'])->require() ?>
                 </td>
                 <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
                 <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
@@ -201,10 +201,10 @@ EOSQL
                 <?= $product_selector->set_selection()->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
               </td>
               <td>
-                <?= (new Select('options_id', array_merge($default_selection, $options)))->require() ?>
+                <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->require() ?>
               </td>
               <td>
-                <?= (new Select('values_id', array_merge($default_selection, $grouped_values)))->require() ?>
+                <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->require() ?>
               </td>
               <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
               <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>
@@ -546,7 +546,7 @@ EOSQL
                     <input type="hidden" name="value_id" value="<?= $values_values['products_options_values_id'] ?>">
                     <div class="form-row">
                       <div class="col-3">
-                        <?= (new Select('option_id', $options))->set_selection($values_values['products_options_id']) ?>
+                        <?= (new Select('option_id', $options, ['class' => 'custom-select']))->set_selection($values_values['products_options_id']) ?>
                       </div>
                       <div class="col-3">
                         <?= $inputs ?>
@@ -604,7 +604,7 @@ EOSQL
                 <?= new Form('values', $link->set_parameter('action', 'add_product_option_values')) ?>
                   <div class="form-row">
                     <div class="col-3">
-                      <?= (new Select('option_id', $options)) ?>
+                      <?= (new Select('option_id', $options, ['class' => 'custom-select'])) ?>
                     </div>
                     <div class="col-3">
                       <input type="hidden" name="value_id" value="<?= $next_id ?>">

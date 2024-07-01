@@ -16,7 +16,7 @@
     <div class="form-group row" id="zProduct">
       <label for="specialProduct" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SPECIALS_PRODUCT ?></label>
       <div class="col-sm-9">
-        <?= (new Select('products_id', $discountables ?? Products::list_discountable(), ['id' => 'specialProduct']))->require() ?>
+        <?= (new Select('products_id', $discountables ?? Products::list_discountable(), ['class' => 'custom-select', 'id' => 'specialProduct']))->require() ?>
       </div>
     </div>
 

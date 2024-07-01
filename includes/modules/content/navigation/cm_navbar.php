@@ -70,7 +70,7 @@
         ],
         'MODULE_CONTENT_NAVBAR_STYLE_BG' => [
           'title' => 'Background Colour Scheme',
-          'value' => 'bg-light',
+          'value' => 'bg-light border-bottom',
           'desc' => 'What background colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/utilities/colors/#background-color"><u>colors/#background-color</u></a>',
           'set_func' => "Config::select_one(['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white'], ",
         ],

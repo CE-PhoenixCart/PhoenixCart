@@ -30,8 +30,6 @@
     }
 
     function execute() {
-      $content_width = (int)MODULE_CONTENT_SC_STOCK_NOTICE_CONTENT_WIDTH;
-
       if (($_SESSION['cart']->count_contents() > 0) && !empty($GLOBALS['any_out_of_stock'])) {
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
@@ -40,19 +38,18 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_SC_STOCK_NOTICE_STATUS' => [
-          'title' => 'Enable Shopping Cart Stock Notice',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Do you want to add the module to your shop?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_SC_STOCK_NOTICE_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12 mt-5',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_SC_STOCK_NOTICE_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '140',
           'desc' => 'Sort order of display. Lowest is displayed first.',

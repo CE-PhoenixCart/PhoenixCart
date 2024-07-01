@@ -51,73 +51,72 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_PI_MODULAR_STATUS' => [
-          'title' => 'Enable &pi; Modular product_info',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Should this module be shown on the product info page?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_PI_MODULAR_A_WIDTH' => [
+        $this->config_key_base . 'A_WIDTH' => [
           'title' => 'Slot Width: A',
           'value' => '12',
           'desc' => 'What width should Slot A be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_B_WIDTH' => [
+        $this->config_key_base . 'B_WIDTH' => [
           'title' => 'Slot Width: B',
           'value' => '6',
           'desc' => 'What width should Slot B be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_C_WIDTH' => [
+        $this->config_key_base . 'C_WIDTH' => [
           'title' => 'Slot Width: C',
           'value' => '6',
           'desc' => 'What width should Slot C be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_D_WIDTH' => [
+        $this->config_key_base . 'D_WIDTH' => [
           'title' => 'Slot Width: D',
           'value' => '4',
           'desc' => 'What width should Slot D be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_E_WIDTH' => [
+        $this->config_key_base . 'E_WIDTH' => [
           'title' => 'Slot Width: E',
           'value' => '4',
           'desc' => 'What width should Slot E be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_F_WIDTH' => [
+        $this->config_key_base . 'F_WIDTH' => [
           'title' => 'Slot Width: F',
           'value' => '4',
           'desc' => 'What width should Slot F be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_G_WIDTH' => [
+        $this->config_key_base . 'G_WIDTH' => [
           'title' => 'Slot Width: G',
           'value' => '6',
           'desc' => 'What width should Slot G be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_H_WIDTH' => [
+        $this->config_key_base . 'H_WIDTH' => [
           'title' => 'Slot Width: H',
           'value' => '6',
           'desc' => 'What width should Slot H be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_I_WIDTH' => [
+        $this->config_key_base . 'I_WIDTH' => [
           'title' => 'Slot Width: I',
           'value' => '12',
           'desc' => 'What width should Slot I be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
-        'MODULE_CONTENT_PI_MODULAR_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '59',
           'desc' => 'Sort order of display. Lowest is displayed first.',

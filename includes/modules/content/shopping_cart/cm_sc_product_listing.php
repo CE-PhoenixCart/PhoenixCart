@@ -31,8 +31,6 @@
 
     public function execute() {
       if ($_SESSION['cart']->count_contents() > 0) {
-        $content_width = (int)MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH;
-
         $GLOBALS['any_out_of_stock'] = false;
         $products = $_SESSION['cart']->get_products();
         $form = new Form('cart_quantity', $GLOBALS['Linker']->build('shopping_cart.php', ['action' => 'update_product']));
@@ -51,19 +49,18 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_SC_PRODUCT_LISTING_STATUS' => [
-          'title' => 'Enable Shopping Cart Product Listing',
+        $this->config_key_base . 'STATUS' => [
+          'title' => 'Enable Module',
           'value' => 'True',
-          'desc' => 'Do you want to add the module to your shop?',
+          'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_SC_PRODUCT_LISTING_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => '12',
-          'desc' => 'What width container should the content be shown in?',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
+        $this->config_key_base . 'CONTENT_WIDTH' => [
+          'title' => 'Content Container',
+          'value' => 'col-sm-12',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_SC_PRODUCT_LISTING_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '120',
           'desc' => 'Sort order of display. Lowest is displayed first.',

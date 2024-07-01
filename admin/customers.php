@@ -31,11 +31,20 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col text-right align-self-center">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+      <?= 
+      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
+      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ml-2', $Admin->link('customers.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $admin_hooks->cat('extraButtons'),
+      isset($_GET['action']) ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'ml-2 btn-light', $Admin->link('customers.php')->retain_query_except(['action'])) : ''; 
+      ?>
+    </div>
+  </div>
+  
+  <div class="collapse mb-2" id="collapseSearch">
+    <div class="align-self-center">
       <?=
-      isset($_GET['action'])
-      ? ''
-      : (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
+      (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
         . '<div class="input-group mt-0">'
           . '<div class="input-group-prepend">'
             . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
@@ -43,13 +52,6 @@
           . new Input('search')
         . '</div>'
       . '</form>'
-      ?>
-    </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
-      <?= 
-      $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
-      $admin_hooks->cat('extraButtons'),
-      isset($_GET['action']) ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'ml-2 btn-light', $Admin->link('customers.php')->retain_query_except(['action'])) : ''; 
       ?>
     </div>
   </div>

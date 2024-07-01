@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_WIDTH ?> cm-pi-also-purchased">
+<div class="<?= MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_CONTENT_WIDTH ?> cm-pi-also-purchased">
   <h4><?= MODULE_CONTENT_PRODUCT_INFO_ALSO_PURCHASED_PUBLIC_TITLE ?></h4>
 
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">

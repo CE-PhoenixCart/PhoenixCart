@@ -22,7 +22,7 @@
 
   $contents = ['form' => new Form('currencies', $link)];
   $contents[] = ['text' => TEXT_INFO_INSERT_INTRO];
-  $contents[] = ['text' => new Select('cs', $GLOBALS['currency_select_array'], ['onchange' => 'updateForm();'])];
+  $contents[] = ['text' => new Select('cs', $GLOBALS['currency_select_array'], ['class' => 'custom-select', 'onchange' => 'updateForm();'])];
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_TITLE, null) . '<br>' . new Input('title')];
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_CODE, null) . '<br>' . new Input('code')];
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_SYMBOL_LEFT, null) . '<br>' . new Input('symbol_left')];

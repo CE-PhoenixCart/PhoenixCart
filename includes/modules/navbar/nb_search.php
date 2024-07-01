@@ -1,0 +1,52 @@
+<?php
+/*
+  $Id$
+
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
+
+  Copyright (c) 2024 Phoenix Cart
+
+  Released under the GNU General Public License
+*/
+
+  class nb_search extends abstract_block_module {
+
+    const CONFIG_KEY_BASE = 'MODULE_NAVBAR_SEARCH_';
+
+    public $group = 'navbar_modules_left';
+
+    function getOutput() {
+      $form = new Form('quick_find', $GLOBALS['Linker']->build('advanced_search_result.php')->set_include_session(false), 'get');
+      $form->hide_session_id()->hide('search_in_description', '0');
+      $input = new Input('keywords', ['autocomplete' => 'off'], 'search');
+      $input->require();
+      
+      $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
+      include 'includes/modules/block_template.php';
+    }
+
+    public function get_parameters() {
+      return [
+        'MODULE_NAVBAR_SEARCH_STATUS' => [
+          'title' => 'Enable Module',
+          'value' => 'True',
+          'desc' => 'Do you want to add the module to your Navbar?',
+          'set_func' => "Config::select_one(['True', 'False'], ",
+        ],
+        'MODULE_NAVBAR_SEARCH_CONTENT_PLACEMENT' => [
+          'title' => 'Content Placement Group',
+          'value' => 'Left',
+          'desc' => 'Where should the module be loaded?  Lowest is loaded first, per Group.',
+          'set_func' => "Config::select_one(['Home', 'Left', 'Center', 'Right'], ",
+        ],
+        'MODULE_NAVBAR_SEARCH_SORT_ORDER' => [
+          'title' => 'Sort Order',
+          'value' => '525',
+          'desc' => 'Sort order of display. Lowest is displayed first.',
+        ],
+      ];
+    }
+
+  }
+  

@@ -1,4 +1,4 @@
-<div class="col-sm-<?= (int)MODULE_CONTENT_FOOTER_EXTRA_ICONS_CONTENT_WIDTH ?> text-center text-sm-right cm-footer-extra-icons">
+<div class="<?= MODULE_CONTENT_FOOTER_EXTRA_ICONS_CONTENT_WIDTH ?> cm-footer-extra-icons">
   <p><?php
 
   if ( is_string($brand_icons)) {

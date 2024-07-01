@@ -117,7 +117,7 @@ function updateNet() {
     <div class="col">
       <h1 class="display-4 mb-2"><?= (isset($_GET['pID']) ? sprintf(TEXT_EXISTING_PRODUCT, $product->get('name'), Categories::draw_breadcrumbs([$current_category_id])) : sprintf(TEXT_NEW_PRODUCT, Categories::draw_breadcrumbs([$current_category_id]))) ?: TEXT_TOP ?></h1>
     </div>
-    <div class="col-12 col-lg-4 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?= 
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
@@ -169,7 +169,7 @@ function updateNet() {
         <div class="form-group row" id="zBrand">
           <label for="pBrand" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PRODUCTS_MANUFACTURER ?></label>
           <div class="col-sm-9">
-            <?= (new Select('manufacturers_id', $manufacturers_array, ['id' => 'pBrand']))->set_selection($product->get('manufacturers_id') ?? '') ?>
+            <?= (new Select('manufacturers_id', $manufacturers_array, ['class' => 'custom-select', 'id' => 'pBrand']))->set_selection($product->get('manufacturers_id') ?? '') ?>
           </div>
         </div>
 
@@ -340,7 +340,8 @@ function updateNet() {
           <div class="form-group row" id="zPiList">
             <div class="col-sm-3 text-left text-sm-right">
               <?= TEXT_PRODUCTS_OTHER_IMAGES ?>
-              <br><a class="btn btn-info btn-sm text-white mt-2" role="button" href="#" id="add_image" onclick="addNewPiForm();return false;"><?= TEXT_PRODUCTS_ADD_LARGE_IMAGE ?></a>
+              <br><a class="btn btn-info text-white mt-2" role="button" href="#" id="add_image" onclick="addNewPiForm();return false;"><?= TEXT_PRODUCTS_ADD_LARGE_IMAGE ?></a>
+              <br><a class="btn btn-danger btn-sm text-white mt-2" role="button" href="#" id="piDelAll"><?= TEXT_PRODUCTS_DELETE_LARGE_IMAGES ?></a>
             </div>
             <div class="col-sm-9" id="piList">
               <?php
@@ -384,6 +385,12 @@ function updateNet() {
           $('a.piDel').click(function(e){
             var p = $(this).data('pi-id');
             $('#piId' + p).effect('blind').remove();
+
+            e.preventDefault();
+          });
+          
+          $('a#piDelAll').click(function(e){
+            $('div[id^="piId"]').effect('blind').remove();
 
             e.preventDefault();
           });
