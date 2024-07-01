@@ -66,7 +66,7 @@ INSERT INTO products_attributes VALUES (7, 7, 2, 3, '0.0000', '+');
 
 INSERT INTO products_attributes_download VALUES (7, 'apple-pie.zip', 7, 5);
 
-INSERT INTO products_images VALUES (1, 2, 'sample/lemons-2.png', '', 1);
+INSERT INTO products_images VALUES (1, 2, 'sample/lemons-2.webp', '', 1);
 
 INSERT INTO products_options VALUES (1, 1, 'Box Size', 10);
 INSERT INTO products_options VALUES (2, 1, 'Download', 10);
