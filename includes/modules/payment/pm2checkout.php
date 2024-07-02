@@ -91,7 +91,7 @@
     }
 
     public function before_process() {
-      if ( ($_POST['credit_card_processed'] != 'Y') && ($_POST['credit_card_processed'] != 'K') ){
+      if (!in_array(Request::value('credit_card_processed'), ['Y', 'K'])) {
         Href::redirect(Guarantor::ensure_global('Linker')->build('checkout_payment.php', ['payment_error' => $this->code]));
       }
     }
@@ -109,9 +109,13 @@
         ];
 
         $GLOBALS['db']->perform('orders_status_history', $sql_data);
-      } elseif (!Text::is_empty(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD) && (MODULE_PAYMENT_2CHECKOUT_TESTMODE == 'Production')) {
+      } elseif (!Text::is_empty(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD) && (MODULE_PAYMENT_2CHECKOUT_TESTMODE === 'Production')) {
 // The KEY value returned from the gateway is intentionally broken for Test transactions so it is only checked in Production mode
-        if (strtoupper(md5(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD . MODULE_PAYMENT_2CHECKOUT_LOGIN . $_POST['order_number'] . $this->order_format($order->info['total'], MODULE_PAYMENT_2CHECKOUT_CURRENCY))) != strtoupper($_POST['key'])) {
+        $key = md5(MODULE_PAYMENT_2CHECKOUT_SECRET_WORD
+                 . MODULE_PAYMENT_2CHECKOUT_LOGIN
+                 . $order->get_id()
+                 . $GLOBALS['currencies']->format_raw($order->info['total'], true, MODULE_PAYMENT_2CHECKOUT_CURRENCY));
+        if ((Request::value('order_number') != $order->get_id()) || strtoupper($key) !== strtoupper(Request::value('key'))) {
           $sql_data = [
             'orders_id' => (int)$order->get_id(),
             'orders_status_id' => (int)$order->info['order_status'],
