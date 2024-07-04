@@ -3,7 +3,7 @@
     <?= MODULE_BOXES_CURRENCIES_BOX_TITLE ?>
   </div>
   <div class="card-body">
-    <?= $form, $menu->append_css('custom-form-input w-100') ?>
+    <?= $form, $menu->append_css('custom-select w-100') ?>
     </form>
   </div>
 </div>

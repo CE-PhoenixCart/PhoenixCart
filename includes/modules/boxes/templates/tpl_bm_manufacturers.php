@@ -20,7 +20,7 @@
     $manufacturers = array_merge(
       [['id' => '', 'text' => PULL_DOWN_DEFAULT]],
       $GLOBALS['db']->fetch_all($manufacturers_query));
-    $menu = new Select('manufacturers_id', $manufacturers, ['onchange' => 'this.form.submit();', 'class' => 'custom-form-input w-100']);
+    $menu = new Select('manufacturers_id', $manufacturers, ['onchange' => 'this.form.submit();', 'class' => 'custom-select w-100']);
     if (isset($_GET['manufacturers_id'])) {
       $menu->set_selection($_GET['manufacturers_id']);
     }
