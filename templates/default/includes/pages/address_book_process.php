@@ -42,10 +42,8 @@
     </div>
   </div>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn-danger btn-lg btn-block', [], $Linker->build('address_book_process.php', ['delete' => $_GET['delete'], 'action' => 'deleteconfirm', 'formid' => $_SESSION['sessiontoken']])) ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('address_book.php')) ?></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn-danger btn-lg btn-block', [], $Linker->build('address_book_process.php', ['delete' => $_GET['delete'], 'action' => 'deleteconfirm', 'formid' => $_SESSION['sessiontoken']])) ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('address_book.php')) ?></p>
 
 <?php
   } else {
@@ -63,10 +61,8 @@
     include $Template->map('address_book_details.php', 'component');
 ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= $action_button ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $back_link) ?></p>
-  </div>
+  <p><?= $action_button ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $back_link) ?></p>
 
 </form>
 

@@ -27,9 +27,7 @@
 
   <div class="alert alert-info" role="alert"><?= TEXT_SUCCESS ?></div>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('index.php')) ?></div>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('index.php')) ?></p>
 
 <?php
   } else {
@@ -72,9 +70,7 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-block btn-lg') ?></div>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-block btn-lg') ?></p>
 
 </form>
 

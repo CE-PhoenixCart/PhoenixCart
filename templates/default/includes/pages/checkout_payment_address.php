@@ -50,7 +50,7 @@
   }
 ?>
         </table>
-        <div class="buttonSet mt-1">
+        <div class="mt-1">
           <?= new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block') ?>
         </div>
       </form></div>
@@ -89,9 +89,7 @@
   }
 ?>
 
-  <div class="buttonSet">
-    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-1', [], $Linker->build('checkout_payment.php')) ?>
-  </div>
+  <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-1', [], $Linker->build('checkout_payment.php')) ?>
 
 <?php
   require $Template->map('template_bottom.php', 'component');

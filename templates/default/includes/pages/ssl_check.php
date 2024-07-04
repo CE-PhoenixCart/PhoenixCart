@@ -30,9 +30,7 @@
     </div>
   </div>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('login.php')) ?></div>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('login.php')) ?></p>
 
 <?php
   require $Template->map('template_bottom.php', 'component');

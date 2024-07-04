@@ -62,10 +62,8 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', 'btn-success btn-lg btn-block') ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-2', [], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']])) ?></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', 'btn-success btn-lg btn-block') ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-2', [], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']])) ?></p>
 
   <hr>
 

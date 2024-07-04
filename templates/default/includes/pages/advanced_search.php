@@ -34,10 +34,8 @@
     </div>
   </div>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_SEARCH, 'fas fa-search', 'btn-success btn-lg btn-block') ?></div>
-    <p><a data-toggle="modal" href="#helpSearch" class="btn btn-light"><?= TEXT_SEARCH_HELP_LINK ?></a></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_SEARCH, 'fas fa-search', 'btn-success btn-lg btn-block') ?></p>
+  <p><a data-toggle="modal" href="#helpSearch" class="btn btn-light"><?= TEXT_SEARCH_HELP_LINK ?></a></p>
 
   <div class="modal fade" id="helpSearch" tabindex="-1" role="dialog" aria-labelledby="helpSearchLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

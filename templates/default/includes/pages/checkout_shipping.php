@@ -155,9 +155,7 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
-  </div>
+  <p><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
 
   <div class="progressBarHook">
     <?php

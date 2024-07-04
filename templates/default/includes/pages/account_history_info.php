@@ -123,7 +123,7 @@ EOSQL
   echo $hooks->cat('orderDetails');
 ?>
 
-  <div class="buttonSet my-2">
+  <div class="my-2">
     <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account_history.php')->retain_query_except(['order_id'])) ?>
   </div>
 

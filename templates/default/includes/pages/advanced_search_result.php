@@ -22,9 +22,7 @@
   require 'includes/system/segments/sortable_product_listing.php';
 ?>
 
-  <br>
-
-  <div class="buttonSet">
+  <div class="mt-3">
     <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', null, [], $Linker->build('advanced_search.php')->retain_query_except(['sort', 'page'])) ?>
   </div>
 
