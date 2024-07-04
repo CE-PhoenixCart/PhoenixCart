@@ -181,7 +181,7 @@
       $title = sprintf(($selected && $ascending) ? TEXT_DESCENDINGLY : TEXT_ASCENDINGLY, $heading);
       $text = sprintf(($selected ? ($ascending ? LISTING_SORT_DOWN : LISTING_SORT_UP) : LISTING_SORT_UNSELECTED), $heading);
 
-      return '<a href="' . $link. '" title="' . Text::output($title) . '" class="' . $class . '" rel="nollow">' . $text . '</a>';
+      return '<a href="' . $link. '" title="' . Text::output($title) . '" class="' . $class . '" rel="nofollow">' . $text . '</a>';
     }
 
   }
