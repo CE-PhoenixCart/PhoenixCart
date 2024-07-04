@@ -45,7 +45,7 @@
         <li class="list-group-item border-0">
           <?php
           if (!Text::is_empty($customer_data->get('telephone', $order->customer))) {
-            echo '<i class="fas fa-phone fa-fw"></i>', $customer_data->get('telephone', $order->customer), ' ';
+            echo '<i class="fas fa-phone fa-fw"></i>', $customer_data->get('telephone', $order->customer), '<br>';
           }
           echo '<i class="fas fa-at fa-fw"></i>', $customer_data->get('email_address', $order->customer);
           ?>
