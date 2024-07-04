@@ -62,7 +62,7 @@
         $this->config_key_base . 'CONTENT_WIDTH_EACH' => [
           'title' => 'Item Width',
           'value' => '6',
-          'desc' => 'What width container should the each Testimonial be shown in? (12 = full width, 6 = half width).',
+          'desc' => 'What width container should each Testimonial be shown in? (12 = full width, 6 = half width).',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [

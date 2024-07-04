@@ -23,7 +23,7 @@ Your order has been updated to the following status.
 
 New status: %s
 
-Please reply to this email if you have any questions.
+Please reply to this e-mail if you have any questions.
 
 
 EOT;

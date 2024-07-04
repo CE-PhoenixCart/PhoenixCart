@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Account';
+const NAVBAR_TITLE_1 = 'My Profile';
 const NAVBAR_TITLE_2 = 'Newsletter Subscriptions';
 
 const HEADING_TITLE = 'Newsletter Subscriptions';

@@ -30,14 +30,14 @@ const LANGUAGE_CURRENCY = 'USD';
 // Global entries for the <html> tag
 const HTML_PARAMS = ' lang="en"';
 
-// charset for web pages and emails
+// charset for web pages and e-mails
 const CHARSET = 'utf-8';
 
 // page title
 const TITLE = STORE_NAME;
 
 // text in includes/modules/downloads.php
-const HEADER_TITLE_MY_ACCOUNT = 'My Account';
+const HEADER_TITLE_MY_ACCOUNT = 'My Profile';
 
 // checkout procedure text
 const CHECKOUT_BAR_DELIVERY = 'Delivery Information';

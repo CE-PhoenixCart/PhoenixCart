@@ -11,4 +11,4 @@
 */
 
 const MODULE_CUSTOMER_DATA_DEFAULT_ADDRESS_ID_TEXT_TITLE = 'Default Address ID';
-const MODULE_CUSTOMER_DATA_DEFAULT_ADDRESS_ID_TEXT_DESCRIPTION = 'Show the default address ID for the account.';
+const MODULE_CUSTOMER_DATA_DEFAULT_ADDRESS_ID_TEXT_DESCRIPTION = 'Show the default address ID for the profile.';
