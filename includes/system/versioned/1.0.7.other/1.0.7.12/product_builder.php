@@ -40,6 +40,9 @@ EOSQL;
       $data['data-is-special'] = $product->get('is_special');
       $data['data-product-price'] = $product->format_raw();
       $data['data-product-manufacturer'] = $product->get('manufacturers_id');
+      $data['data-in-stock'] = $product->get('in_stock');
+      $data['data-product-id'] = $product->get('id');
+      $data['data-has-attributes'] = $product->get('has_attributes');
 
       $product->set('data_attributes', implode(array_map(function ($key, $value) {
         return ' ' . htmlspecialchars($key) . '="' . htmlspecialchars($value) . '"';

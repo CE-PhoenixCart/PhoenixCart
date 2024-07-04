@@ -19,7 +19,7 @@
         IS_PRODUCT_BUTTON_BUY,
         '',
         'btn-light btn-product-listing btn-buy',
-        ['data-has-attributes' => '0', 'data-in-stock' => (int)$product->get('in_stock'), 'data-product-id' => (int)$product->get('id')],
+        [],
         $GLOBALS['Linker']->build()->retain_query_except()->set_parameter('action', 'buy_now')->set_parameter('products_id', (int)$product->get('id')));
     }
 ?>
