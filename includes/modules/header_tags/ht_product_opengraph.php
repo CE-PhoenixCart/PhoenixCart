@@ -29,8 +29,7 @@
         $product_description = substr(trim(preg_replace('/\s\s+/', ' ', strip_tags($product->get('description')))), 0, 197) . '...';
         $data['og:description'] = $product_description;
 
-        $images = $product->get('images');
-        $products_image = $images[0]['image'] ?? $product->get('image');
+        $products_image = $product->get('image');
         $data['og:image'] = $GLOBALS['Linker']->build("images/$products_image", [], false);
 
         $data['product:price:amount'] = $product->format_raw();
