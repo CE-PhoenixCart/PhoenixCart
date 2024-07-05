@@ -37,7 +37,7 @@
         ],
         'MODULE_NAVBAR_SPECIAL_OFFERS_SORT_ORDER' => [
           'title' => 'Sort Order',
-          'value' => '530',
+          'value' => '520',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
       ];
