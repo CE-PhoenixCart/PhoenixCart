@@ -10,7 +10,7 @@
 ?>
 
   <div class="card-footer bg-white pt-0 border-0">
-    <div class="btn-group" role="group">
+    <div class="d-flex justify-content-between">
       <?php
     echo new Button(IS_PRODUCT_BUTTON_VIEW, '', 'btn-info btn-product-listing btn-view', [], $product->get('link'));
 
