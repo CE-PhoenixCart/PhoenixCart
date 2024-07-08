@@ -4,7 +4,7 @@
     foreach ($categories as $v) {
       $link = $GLOBALS['Linker']->build('index.php', ['cPath' => $v['id']]);
       echo '<div class="col">';
-        echo '<div class="card is-category mb-2 text-center">';
+        echo '<div class="card is-category mb-2 text-center h-100">';
           echo '<div class="card-body">';
             echo '<a href="' . $link . '">' . new Image('images/' . $v['image'], [], htmlspecialchars($v['title'])) . '</a>';
           echo '</div>';
