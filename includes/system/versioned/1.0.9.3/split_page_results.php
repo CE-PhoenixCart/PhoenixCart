@@ -80,7 +80,7 @@
       }
 
       $display_links_string = '<nav aria-label="...">';
-        $display_links_string .= '<ul class="pagination pagination-lg justify-content-end">';
+        $display_links_string .= '<ul class="pagination pagination-lg justify-content-center justify-content-md-end">';
 
 // previous button - not displayed on first page
         if ($this->current_page_number > 1) {
@@ -105,11 +105,13 @@
         }
 
 // previous window of pages
+        /*
         if ($cur_window_num > 1) {
           $display_links_string .= '<li class="page-item">';
             $display_links_string .= '<a class="page-link" href="' . $link->set_parameter($this->page_name, ($cur_window_num - 1) * $max_page_links) . '" title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a>';
           $display_links_string .= '</li>';
         }
+        */
 
 // page nn button
         for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $this->number_of_pages); $jump_to_page++) {
@@ -125,11 +127,13 @@
         }
 
 // next window of pages
+        /*
         if ($cur_window_num < $max_window_num) {
           $display_links_string .= '<li class="page-item">';
             $display_links_string .= '<a class="page-link" href="' . $link->set_parameter($this->page_name, $cur_window_num * $max_page_links + 1) . '" title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a>';
           $display_links_string .= '</li>';
         }
+        */
 
 // next button
         if (($this->current_page_number < $this->number_of_pages) && ($this->number_of_pages != 1)) {
