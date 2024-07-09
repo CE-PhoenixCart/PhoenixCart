@@ -32,7 +32,7 @@
           '@context'    => 'https://schema.org',
           '@type'       => 'Product',
           'name'        => htmlspecialchars($product->get('name')),
-          'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false);
+          'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false),
           'url'         => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$product->get('id')], false),
           'description' => substr(trim(preg_replace('/\s\s+/', ' ', strip_tags($product->get('description')))), 0, 197) . '...',
         ];
