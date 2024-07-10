@@ -19,7 +19,7 @@
 
     $other_img_indicator = $other_img = '';
     foreach ($other_images as $k => $v) {
-      $other_img_indicator .= '<li data-target="#carousel" data-slide-to="' . ($k+1) . '" class="pointer"></li>';
+      $other_img_indicator .= '<li data-target="#carousel" data-slide-to="' . ($k+1) . '" class="pointer border border-white bg-secondary rounded"></li>';
       $other_img .= '<div class="carousel-item text-center">';
       $other_img .= new Image('images/' . $v['image'], ['loading' => 'lazy']);
       if (!Text::is_empty($v['htmlcontent'])) {
@@ -33,15 +33,15 @@
     $swipe_arrows = '';
     if (MODULE_CONTENT_PI_GALLERY_SWIPE_ARROWS == 'True') {
       $swipe_arrows = <<<'EOHTML'
-<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a>
-<a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>
+<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-prev-icon mt-1"></span></span></a>
+<a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-next-icon mt-1"></span></span></a>
 
 EOHTML;
     }
 
     if (MODULE_CONTENT_PI_GALLERY_INDICATORS == 'True') {
       $indicators = '<ol class="carousel-indicators">';
-      $indicators .= '<li data-target="#carousel" data-slide-to="0" class="pointer active"></li>';
+      $indicators .= '<li data-target="#carousel" data-slide-to="0" class="pointer border border-white bg-secondary rounded active"></li>';
       $indicators .= $other_img_indicator;
       $indicators .= '</ol>';
     } else {
