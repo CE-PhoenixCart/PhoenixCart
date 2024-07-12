@@ -15,7 +15,7 @@ const HEADING_TITLE = '<i class="fa fa-lock"></i> Secure Login Access';
 const TEXT_USERNAME = 'Username';
 const TEXT_PASSWORD = 'Password';
 
-const TEXT_CREATE_FIRST_ADMINISTRATOR = '<div class="card-body"><div class="alert alert-danger card-text">No administrators exist in the database table. Please use this form to create the first administrator.<br><strong>A manual login is still required after this step.</strong></div></div>';
+const TEXT_CREATE_FIRST_ADMINISTRATOR = 'No administrators exist in the database table. Please use this form to create the first administrator.<br><strong>A manual login is still required after this step.</strong>';
 
 const ERROR_INVALID_ADMINISTRATOR = '<strong>Error:</strong> Invalid administrator login attempt.';
 

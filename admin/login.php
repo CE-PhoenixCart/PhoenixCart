@@ -38,11 +38,9 @@
   if (mysqli_num_rows($db->query("SELECT id FROM administrators LIMIT 1")) < 1) {
     $messageStack->add(TEXT_CREATE_FIRST_ADMINISTRATOR, 'warning');
     $button_text = BUTTON_CREATE_ADMINISTRATOR;
-    $intro_text = TEXT_CREATE_FIRST_ADMINISTRATOR;
     $parameters = ['action' => 'create'];
   } else {
     $button_text = BUTTON_LOGIN;
-    $intro_text = '';
     $parameters = ['action' => 'process'];
   }
 
@@ -72,7 +70,6 @@
       </form>
 
 <?php
-  echo $intro_text;
   if (count($languages) > 1) {
 ?>
       <div class="card-footer">
