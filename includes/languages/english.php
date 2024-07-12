@@ -47,11 +47,6 @@ const CHECKOUT_BAR_CONFIRMATION = 'Confirmation';
 // pull down default text
 const PULL_DOWN_DEFAULT = 'Please Select';
 
-// javascript messages
-const JS_ERROR = 'Errors have occured during the process of your form.\n\nPlease make the following corrections:\n\n';
-
-const JS_ERROR_NO_PAYMENT_MODULE_SELECTED = '* Please select a payment method for your order.\n';
-
 const ERROR_NO_PAYMENT_MODULE_SELECTED = 'Please select a payment method for your order.';
 
 const IMAGE_BUTTON_ADD_ADDRESS = 'Add Address';

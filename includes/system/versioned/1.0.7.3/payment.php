@@ -72,22 +72,7 @@
     function javascript_validation() {
       $js = '';
       if (is_array($this->modules)) {
-        $js = '<script><!-- ' . "\n" .
-              'function check_form() {' . "\n" .
-              '  var error = 0;' . "\n" .
-              '  var error_message = "' . JS_ERROR . '";' . "\n" .
-              '  var payment_value = null;' . "\n" .
-              '  if (document.checkout_payment.payment.length) {' . "\n" .
-              '    for (var i=0; i<document.checkout_payment.payment.length; i++) {' . "\n" .
-              '      if (document.checkout_payment.payment[i].checked) {' . "\n" .
-              '        payment_value = document.checkout_payment.payment[i].value;' . "\n" .
-              '      }' . "\n" .
-              '    }' . "\n" .
-              '  } else if (document.checkout_payment.payment.checked) {' . "\n" .
-              '    payment_value = document.checkout_payment.payment.value;' . "\n" .
-              '  } else if (document.checkout_payment.payment.value) {' . "\n" .
-              '    payment_value = document.checkout_payment.payment.value;' . "\n" .
-              '  }' . "\n\n";
+        $js = '<script><!-- ' . "\n";
 
         foreach($this->modules as $value) {
           $class = pathinfo($value, PATHINFO_FILENAME);
@@ -96,17 +81,7 @@
           }
         }
 
-        $js .= "\n" . '  if (payment_value == null) {' . "\n" .
-               '    error_message = error_message + "' . JS_ERROR_NO_PAYMENT_MODULE_SELECTED . '";' . "\n" .
-               '    error = 1;' . "\n" .
-               '  }' . "\n\n" .
-               '  if (error == 1) {' . "\n" .
-               '    alert(error_message);' . "\n" .
-               '    return false;' . "\n" .
-               '  } else {' . "\n" .
-               '    return true;' . "\n" .
-               '  }' . "\n" .
-               '}' . "\n" .
+        $js .= "\n" . 
                '//--></script>' . "\n";
       }
 
