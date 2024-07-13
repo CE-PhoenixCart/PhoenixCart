@@ -18,7 +18,7 @@
       echo PHP_EOL, new Button(
         IS_PRODUCT_BUTTON_BUY,
         '',
-        'btn-light btn-product-listing btn-buy',
+        'btn-success btn-product-listing btn-buy',
         [],
         $GLOBALS['Linker']->build()->retain_query_except()->set_parameter('action', 'buy_now')->set_parameter('products_id', (int)$product->get('id')));
     }
