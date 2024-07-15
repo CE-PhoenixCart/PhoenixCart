@@ -17,8 +17,10 @@
     public function execute() {
       if ($product = random_review::build()) {
         $card = [
-          'extra' => new star_rating((float)$product->get('reviews_rating')) . '<br>'
-                   . htmlspecialchars($product->get('reviews_text')) . '...',
+          'extra' => [
+            'review' => new star_rating((float)$product->get('reviews_rating')) . '<br>'
+                      . htmlspecialchars($product->get('reviews_text')) . '...',
+          ],
         ];
 
         $box = [
