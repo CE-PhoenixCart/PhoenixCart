@@ -1114,12 +1114,12 @@ INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','1.0000', now
 
 INSERT INTO customer_data_groups_sequence (customer_data_groups_id) VALUES (1), (2), (3), (4), (5), (6);
 
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (1, 1, 'Your Personal Information', 10, 'col-sm-12');
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (2, 1, 'Your Address', 20, 'col-sm-12');
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (3, 1, 'Your Contact Information', 30, 'col-sm-12');
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (4, 1, 'Company Details', 15, 'col-sm-12');
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (5, 1, 'Options', 50, 'col-sm-12');
-INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (6, 1, 'Your Password', 60, 'col-sm-12');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (1, 1, 'Your Personal Information', 10, 'col-12 col-md-6');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (2, 1, 'Your Address', 20, 'col-12 col-md-6');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (3, 1, 'Your Contact Information', 30, 'col-12 col-md-6');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (4, 1, 'Company Details', 15, 'col-12 col-md-6');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (5, 1, 'Options', 50, 'col-12 col-md-6');
+INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) VALUES (6, 1, 'Your Password', 60, 'col-12 col-md-6');
 
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'system', 'hrefLink', '_01_href_link', '', 'Href::hook');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'system', 'hrefLink', '_01_href_link', '', 'Href::hook');
