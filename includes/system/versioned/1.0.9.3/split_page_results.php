@@ -80,7 +80,7 @@
       }
 
       $display_links_string = '<nav aria-label="...">';
-        $display_links_string .= '<ul class="pagination pagination-lg justify-content-center justify-content-md-end">';
+        $display_links_string .= '<ul class="pagination justify-content-center justify-content-sm-end mb-1">';
 
 // previous button - not displayed on first page
         if ($this->current_page_number > 1) {
@@ -150,7 +150,7 @@
         $display_links_string .= '</ul>';
       $display_links_string .= '</nav>';
 
-      return $display_links_string;
+      if ($this->number_of_pages > 1) return $display_links_string;
     }
 
     public function display_count($text_output) {
