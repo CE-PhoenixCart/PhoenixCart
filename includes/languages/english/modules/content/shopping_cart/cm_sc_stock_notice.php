@@ -24,12 +24,12 @@
 const MODULE_CONTENT_SC_STOCK_NOTICE_TITLE = 'Out of Stock Notice';
 const MODULE_CONTENT_SC_STOCK_NOTICE_DESCRIPTION = 'Show Stock Notice on the shopping cart page.';
 
-const MODULE_CONTENT_SC_STOCK_NOTICE_CANT_CHECKOUT = '<p class="lead">Products marked ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . <<<'EOT'
- don't exist in the desired quantity in our stock.</p>
+const MODULE_CONTENT_SC_STOCK_NOTICE_CANT_CHECKOUT = '<p><b>Products marked <span class="align-middle">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . <<<'EOT'
+</span> don't exist in the desired quantity in our stock.</b></p>
 <p>Please alter the quantity of products marked with 
 EOT
 . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ', thank you.</p>';
-const MODULE_CONTENT_SC_STOCK_NOTICE_CAN_CHECKOUT = '<p class="lead">Products marked ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . <<<'EOT'
- don't exist in the desired quantity in our stock.</p>
+const MODULE_CONTENT_SC_STOCK_NOTICE_CAN_CHECKOUT = '<p><b>Products marked <span class="align-middle">' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . <<<'EOT'
+</span> don't exist in the desired quantity in our stock.</b></p>
 <p>You can buy them anyway, and we will immediately ship what is in stock and follow up later with the rest.</p>
 EOT;
