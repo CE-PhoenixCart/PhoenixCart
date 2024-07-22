@@ -18,8 +18,8 @@
       if ($product = random_review::build()) {
         $card = [
           'extra' => [
-            'review' => new star_rating((float)$product->get('reviews_rating')) . '<br>'
-                      . htmlspecialchars($product->get('reviews_text')) . '...',
+            'reviews_rating' => new star_rating((float)$product->get('reviews_rating')),
+            'reviews_text' => htmlspecialchars($product->get('reviews_text')),
           ],
         ];
 
