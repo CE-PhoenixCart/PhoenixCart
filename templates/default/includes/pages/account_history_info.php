@@ -17,7 +17,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<div class="row">
+<div class="row mb-4">
   <div class="col-7"><h1 class="display-4"><?= HEADING_TITLE ?></h1></div>
   <div class="col text-right">
     <h4><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge badge-secondary">' . $order->info['orders_status'] . '</span>' ?></h4>

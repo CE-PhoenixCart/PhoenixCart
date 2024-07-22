@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<div class="row">
+<div class="row mb-4">
   <h1 class="display-4 col-sm-8"><?= $product->get('name') ?></h1>
   <h2 class="display-4 col-sm-4 text-left text-sm-right"><?= $product->hype_price() ?></h2>
 </div>

@@ -20,7 +20,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= $page['pages_title'] ?></h1>
+<h1 class="display-4 mb-4"><?= $page['pages_title'] ?></h1>
 
   <?= $page['pages_text'] ?>
 

@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE_2 ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE_2 ?></h1>
 
 <?php
   require 'includes/system/segments/sortable_product_listing.php';

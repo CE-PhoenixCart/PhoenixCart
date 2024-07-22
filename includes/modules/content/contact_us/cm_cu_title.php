@@ -35,7 +35,7 @@
         ],
         'MODULE_CONTENT_CU_TITLE_CONTENT_WIDTH' => [
           'title' => 'Content Width',
-          'value' => 'col-12',
+          'value' => 'col-12 mb-4',
           'desc' => 'What width container should the content be shown in?',
         ],
         'MODULE_CONTENT_CU_TITLE_SORT_ORDER' => [

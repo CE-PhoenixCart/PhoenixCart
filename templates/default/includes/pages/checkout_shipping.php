@@ -18,7 +18,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?= (new Form('checkout_address', $Linker->build('checkout_shipping.php')))->hide('action', 'process') ?>
 

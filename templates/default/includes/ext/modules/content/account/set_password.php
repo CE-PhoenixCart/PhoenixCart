@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= MODULE_CONTENT_ACCOUNT_SET_PASSWORD_HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= MODULE_CONTENT_ACCOUNT_SET_PASSWORD_HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size('account_password') > 0) {
