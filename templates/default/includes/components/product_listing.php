@@ -67,9 +67,7 @@
       ];
 
       if (!Text::is_empty($product->get('seo_description'))) {
-        $card['extra'] = '<div class="pt-2 font-weight-lighter">'
-                       . $product->get('seo_description')
-                       . '</div>' . PHP_EOL;
+        $card['extra']['seo_description'] = $product->get('seo_description');
       }
 
       $prod_list_contents .= '<div class="col mb-2">';
