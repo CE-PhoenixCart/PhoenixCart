@@ -106,10 +106,12 @@ SELECT os.orders_status_name, osh.date_added, osh.comments
 EOSQL
     , (int)$_GET['order_id'], (int)$_SESSION['languages_id']));
   while ($status = $statuses_query->fetch_assoc()) {
-    echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
-    echo '<h6>' . $status['orders_status_name'] . '</h6>';
-    echo (empty($status['comments']) ? '' : '<p>' . nl2br(htmlspecialchars($status['comments'])) . '</p>');
-    echo '<span class="badge badge-secondary badge-pill"><i class="far fa-clock mr-1"></i>' . $status['date_added'] . '</span>';
+    echo '<li class="list-group-item">';
+      echo '<div class="d-flex justify-content-between align-items-center">';
+        echo '<h6>' . $status['orders_status_name'] . '</h6>';
+        echo '<span class="badge badge-secondary badge-pill"><i class="far fa-clock mr-1"></i>' . $status['date_added'] . '</span>';
+      echo '</div>';
+      echo (empty($status['comments']) ? '' : nl2br(htmlspecialchars($status['comments'])));
     echo '</li>';
   }
 ?>
