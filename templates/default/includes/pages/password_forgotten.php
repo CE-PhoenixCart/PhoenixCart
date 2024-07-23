@@ -41,7 +41,7 @@
   ?>
 
   <p><?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning btn-lg btn-block') ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('login.php')) ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('login.php')) ?></p>
 
 </form>
 

@@ -26,7 +26,7 @@
     <?= $page_content ?>
   </div>
   
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('account.php')) ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 <?php
   require $Template->map('template_bottom.php', 'component');
