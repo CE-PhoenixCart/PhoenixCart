@@ -19,3 +19,5 @@ const ENTRY_MATC_TEXT = 'By clicking this box you agree to our <a href="#" role=
 
 // for the modal popup
 const MATC_BUTTON_CLOSE = 'Close';
+
+const ENTRY_MATC_ERROR = 'You must agree to our Terms and Conditions to continue using our site.';
