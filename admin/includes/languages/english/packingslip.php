@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
+const HEADING_TITLE = 'Packing Slip';
+
 const TABLE_HEADING_COMMENTS = 'Comments';
 const TABLE_HEADING_PRODUCTS_MODEL = 'Model';
 const TABLE_HEADING_PRODUCTS = 'Products';

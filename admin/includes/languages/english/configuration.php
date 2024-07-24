@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
+const HEADING_TITLE = 'Configuration';
+
 const TABLE_HEADING_CONFIGURATION_TITLE = 'Title';
 const TABLE_HEADING_CONFIGURATION_VALUE = 'Value';
 const TABLE_HEADING_ACTION = 'Action';

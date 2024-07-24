@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
+const HEADING_TITLE = 'Invoice';
+
 const TABLE_HEADING_COMMENTS = 'Comments';
 
 const TABLE_HEADING_QTY = 'Qty';
