@@ -11,6 +11,7 @@
 */
 
 const HEADING_TITLE = 'Invoice';
+const PRINT_TITLE = 'Invoice #%s';
 
 const TABLE_HEADING_COMMENTS = 'Comments';
 
