@@ -43,13 +43,18 @@
   
   <div class="collapse mb-2" id="collapseSearch">
     <div class="align-self-center">
-      <?=
-      (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
+      <?php
+      $keywords = '';
+      if (!Text::is_empty($_GET['search'] ?? '')) {
+        $keywords = Text::input($_GET['search']);
+      }
+      
+      echo (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
         . '<div class="input-group mt-0">'
           . '<div class="input-group-prepend">'
             . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
           . '</div>'
-          . new Input('search')
+          . new Input('search', ['value' => $keywords])
         . '</div>'
       . '</form>'
       ?>
