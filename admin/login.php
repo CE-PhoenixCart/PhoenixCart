@@ -63,7 +63,7 @@
 
       <?= new Form('login', $Admin->link('login.php', $parameters)) ?>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border-top"><?= new Input('username', $input_parameters + ['placeholder' => TEXT_USERNAME, 'autocomplete' => 'username']) ?></li>
+          <li class="list-group-item border-top"><?= new Input('username', $input_parameters + ['placeholder' => TEXT_USERNAME, 'autocomplete' => 'username', 'autofocus' => 'autofocus']) ?></li>
           <li class="list-group-item"><?= new Input('password', $input_parameters + ['placeholder' => TEXT_PASSWORD, 'autocomplete' => 'current-password'], 'password') ?></li>
           <li class="list-group-item border-bottom-0"><?= new Button($button_text, 'fas fa-key', 'btn-success btn-block') ?></li>
         </ul>
