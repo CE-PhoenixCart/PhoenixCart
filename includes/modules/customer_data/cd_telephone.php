@@ -126,5 +126,9 @@
       Guarantor::guarantee_subarray($db_tables, 'customers');
       $db_tables['customers']['customers_telephone'] = 'telephone';
     }
+    
+    public function is_searchable() {
+      return true;
+    }
 
   }
