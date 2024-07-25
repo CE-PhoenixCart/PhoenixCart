@@ -24,6 +24,11 @@
     <div class="col">
       <h1 class="display-4"><?= STORE_NAME ?></h1>
       <p class="font-weight-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
+      <?php
+      if (!Text::is_empty(STORE_TAX_ID)) {
+        echo '<p class="mt-1 mb-2 p-0">' . sprintf(ENTRY_INVOICE_TAX_ID, STORE_TAX_ID) . '</p>';
+      }
+      ?>
       <p class="my-1 p-0">
         <?php
         if (!Text::is_empty(STORE_PHONE)) {

@@ -35,3 +35,5 @@ const ENTRY_TOTAL = 'Total:';
 
 const ENTRY_INVOICE_NUMBER = 'Order ID: %s';
 const ENTRY_INVOICE_DATE = 'Order Date: %s';
+
+const ENTRY_INVOICE_TAX_ID = 'Tax ID: %s';
