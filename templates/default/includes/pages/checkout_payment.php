@@ -54,7 +54,7 @@
           foreach ($selection as $choice) {
             ?>
             <tr class="table-selection">
-              <td><label for="p_<?= $choice['id'] ?>"><?= $choice['module'] ?></label></td>
+              <td><?= $choice['module'] ?></td>
               <td class="text-right">
                 <?php
                 if (count($selection) > 1) {
