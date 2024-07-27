@@ -33,6 +33,7 @@ const ENTRY_TAX = 'Tax:';
 const ENTRY_SHIPPING = 'Shipping:';
 const ENTRY_TOTAL = 'Total:';
 
+const ENTRY_INVOICE = 'Invoice';
 const ENTRY_INVOICE_NUMBER = 'Order ID: %s';
 const ENTRY_INVOICE_DATE = 'Order Date: %s';
 

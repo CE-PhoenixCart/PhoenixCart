@@ -24,11 +24,6 @@
     <div class="col">
       <h1 class="display-4"><?= STORE_NAME ?></h1>
       <p class="font-weight-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
-      <?php
-      if (!Text::is_empty(STORE_TAX_ID)) {
-        echo '<p class="mt-1 mb-2 p-0">' . sprintf(ENTRY_INVOICE_TAX_ID, STORE_TAX_ID) . '</p>';
-      }
-      ?>
       <p class="my-1 p-0">
         <?php
         if (!Text::is_empty(STORE_PHONE)) {
@@ -39,7 +34,15 @@
       </p>
       <p class="my-1 p-0"><i class="fas fa-home fa-fw mr-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
     </div>
-    <div class="col text-right"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
+    <div class="col text-right">
+      <?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?>
+      <h6 class="lead font-weight-bold m-0"><?= ENTRY_INVOICE ?></h6>
+      <?php
+      if (!Text::is_empty(STORE_TAX_ID)) {
+        echo '<p class="mt-1 mb-2 p-0">' . sprintf(ENTRY_INVOICE_TAX_ID, STORE_TAX_ID) . '</p>';
+      }
+      ?>
+    </div>
   </div>
 
   <hr>
