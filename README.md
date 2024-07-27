@@ -123,7 +123,6 @@ Image | Owner | Usage
 Phoenix Logos | Phoenix Cart | https://phoenixcart.org Phoenix Logos may not be used without prior written permission from the copyright owner.
 Oranges, Lemons, Pears, Apples | [Eelffica](https://pixabay.com/users/eelffica-52436/) from Pixabay | https://pixabay.com/service/license/
 Tomatoes | [Rocky_H](https://pixabay.com/users/rocky_h-11790006/) from Pixabay | https://pixabay.com/service/license/
-Heart | [Gerhard Gellinger](https://pixabay.com/users/garten-gg-201217/) from Pixabay | https://pixabay.com/service/license/
 Glasses | [Alexander Lesnitsky](https://pixabay.com/users/alles-2597842/) from Pixabay | https://pixabay.com/service/license/
 Farm | [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) from Pixabay | https://pixabay.com/service/license/
 Strawberries | [Gerd Altman](https://pixabay.com/users/geralt-9301/) from Pixabay | https://pixabay.com/service/license/
