@@ -44,10 +44,10 @@
             $keys .= call_user_func($use_function, $value['value']);
           } else {
             $keys .= '0';
-            $messageStack->add(sprintf(
+            $messageStack->add_session(sprintf(
               WARNING_INVALID_USE_FUNCTION,
               $value['use_function'],
-              $value['configuration_title']
+              $value['title']
              ), 'warning');
           }
         } else {
