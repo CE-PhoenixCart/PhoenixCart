@@ -37,10 +37,6 @@ EOSQL
 
       $num_card_products = mysqli_num_rows($card_products_query);
       if ($num_card_products > 0) {
-        $card = [
-          'show_buttons' => true,
-        ];
-
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }

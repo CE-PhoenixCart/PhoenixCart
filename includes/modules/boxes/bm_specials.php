@@ -16,6 +16,10 @@
 
     function execute() {
       if ($product = random_special::build()) {
+        $card = [
+          'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
+        ];
+        
         $box = [
           'parameters' => ['product_card.php', 'component'],
           'classes' => 'is-product bm-specials',

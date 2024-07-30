@@ -3,6 +3,10 @@
 
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">
     <?php
+    $card = [
+      'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
+    ];
+        
     while ($card_product = $card_products_query->fetch_assoc()) {
       $product = new Product($card_product);
       ?>

@@ -21,6 +21,7 @@
             'reviews_rating' => new star_rating((float)$product->get('reviews_rating')),
             'reviews_text' => htmlspecialchars($product->get('reviews_text')),
           ],
+          'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
         ];
 
         $box = [

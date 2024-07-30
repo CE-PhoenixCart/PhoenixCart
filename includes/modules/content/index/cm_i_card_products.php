@@ -49,10 +49,6 @@ EOSQL;
         (int)MODULE_CONTENT_CARD_PRODUCTS_MAX_DISPLAY));
 
       if (mysqli_num_rows($card_products_query) > 0) {
-        $card = [
-          'show_buttons' => true,
-        ];
-
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }
