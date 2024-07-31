@@ -27,7 +27,7 @@
   }
 
   echo $form;
-  echo new Input('username', ['value' => $customer->get('username'), 'readonly' => null, 'autocomplete' => 'username'], 'hidden');
+  echo new Input('username', ['value' => $customer->get('username'), 'style' => 'display: none;', 'readonly' => null, 'autocomplete' => 'username']);
 ?>
 
   <p class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
