@@ -17,7 +17,7 @@ const EMAIL_SUBJECT = 'Enquiry from %s';
 
 const ENTRY_NAME = 'Full Name';
 const ENTRY_NAME_TEXT = '';
-const ENTRY_EMAIL = 'E-Mail Address';
+const ENTRY_EMAIL = 'E-mail Address';
 const ENTRY_EMAIL_TEXT = '';
 const ENTRY_ENQUIRY = 'Enquiry';
 const ENTRY_ENQUIRY_TEXT = '';

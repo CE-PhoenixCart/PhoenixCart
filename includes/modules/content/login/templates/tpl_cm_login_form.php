@@ -8,7 +8,7 @@
   $GLOBALS['customer_data']->act_on('password', 'display_input');
 ?>
 
-  <p class="text-right"><?= new Button(IMAGE_BUTTON_LOGIN, 'fas fa-sign-in-alt', 'btn-success btn-block') ?></p>
+  <p><?= new Button(IMAGE_BUTTON_LOGIN, 'fas fa-sign-in-alt', 'btn-success btn-block') ?></p>
 
   </form>
 

@@ -1,8 +1,6 @@
 <div class="<?= MODULE_CONTENT_SC_CHECKOUT_CONTENT_WIDTH ?> cm-sc-checkout">
 
-  <div class="buttonSet">
-    <?= new Button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', 'btn-success btn-lg btn-block', [], $GLOBALS['Linker']->build('checkout_shipping.php')) ?>
-  </div>
+  <?= new Button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', 'btn-success btn-lg btn-block', [], $GLOBALS['Linker']->build('checkout_shipping.php')) ?>
 
 <?php
     if (!empty($initialize_checkout_methods)) {

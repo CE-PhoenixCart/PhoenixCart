@@ -26,16 +26,13 @@
       global $product;
 
       if (isset($product) && ($product instanceof Product) && $product->get('status')) {
-        $images = $product->get('images');
-        $products_image = ( count($images) > 0 )
-                        ? $images[0]['image']
-                        : $product->get('image');
+        $products_image = $product->get('image');
 
         $schema_product = [
           '@context'    => 'https://schema.org',
           '@type'       => 'Product',
           'name'        => htmlspecialchars($product->get('name')),
-          'image'       => $GLOBALS['Linker']->build('images/' . $products_image, '', 'NONSSL', false, false),
+          'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false),
           'url'         => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$product->get('id')], false),
           'description' => substr(trim(preg_replace('/\s\s+/', ' ', strip_tags($product->get('description')))), 0, 197) . '...',
         ];

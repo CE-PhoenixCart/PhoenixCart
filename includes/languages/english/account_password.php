@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Account';
+const NAVBAR_TITLE_1 = 'My Profile';
 const NAVBAR_TITLE_2 = 'Change Password';
 
 const HEADING_TITLE = 'My Password';

@@ -115,12 +115,18 @@ EOSQL
   
   <div class="collapse row mb-1" id="collapseSearch">
     <div class="col-6 align-self-center">
-      <?= (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
+      <?=
+      $keywords = '';
+      if (!Text::is_empty($_GET['oID'] ?? '')) {
+        $keywords = Text::input($_GET['oID']);
+      }
+
+      echo (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
          '<div class="input-group mb-1">',
            '<div class="input-group-prepend">',
              '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
            '</div>',
-           new Input('oID', [], 'number'),
+           new Input('oID', ['value' => $keywords], 'number'),
          '</div>',
        '</form>'
       ?>

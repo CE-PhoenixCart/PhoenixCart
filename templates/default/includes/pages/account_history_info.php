@@ -17,7 +17,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<div class="row">
+<div class="row mb-4">
   <div class="col-7"><h1 class="display-4"><?= HEADING_TITLE ?></h1></div>
   <div class="col text-right">
     <h4><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge badge-secondary">' . $order->info['orders_status'] . '</span>' ?></h4>
@@ -32,40 +32,42 @@
           <tr>
             <th colspan="2"><?= HEADING_PRODUCTS ?></th>
             <?php
-  if (count($order->info['tax_groups']) > 1) {
-?>
+            if (count($order->info['tax_groups']) > 1) {
+              ?>
             <th class="text-right"><?= HEADING_TAX ?></th>
               <?php
-  }
-?>
+            }
+            ?>
             <th class="text-right"><?= HEADING_TOTAL ?></th>
           </tr>
         </thead>
         <tbody>
           <?php
-  foreach ($order->products as $product) {
-    echo '<tr>';
-    echo '<td align="right" width="30">' . $product['qty'] . '</td>';
-    echo '<td>' . $product['name'];
-    foreach (($product['attributes'] ?? []) as $attribute) {
-      echo '<br><small><i> - ' . $attribute['option'] . ': ' . $attribute['value'] . '</i></small>';
-    }
-    echo '</td>';
+          foreach ($order->products as $product) {
+            echo '<tr>';
+            echo '<td align="right" width="30">' . $product['qty'] . '</td>';
+            echo '<td>' . $product['name'];
+            foreach (($product['attributes'] ?? []) as $attribute) {
+              echo '<br><small><i> - ' . $attribute['option'] . ': ' . $attribute['value'] . '</i></small>';
+            }
+            echo '</td>';
 
-    if (count($order->info['tax_groups']) > 1) {
-      echo '<td valign="top" class="text-right">' . Tax::format($product['tax']) . '%</td>';
-    }
+            if (count($order->info['tax_groups']) > 1) {
+              echo '<td valign="top" class="text-right">' . Tax::format($product['tax']) . '%</td>';
+            }
 
-    echo '<td class="text-right">' . $currencies->format(Tax::price($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-    echo '</tr>';
-  }
+            echo '<td class="text-right">' . $currencies->format(Tax::price($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
+            echo '</tr>';
+          }
 
-  foreach ($order->totals as $total) {
-    echo '<tr>';
-    echo '<td colspan="4" class="text-right">' . $total['title'] . ' ' . $total['text'] . '</td>';
-    echo '</tr>';
-  }
-?>
+          $colspan = count($order->info['tax_groups']) > 1 ? 3 : 2;
+          foreach ($order->totals as $total) {
+            echo '<tr>';
+              echo '<td colspan="' . $colspan . '" class="border-right-0">' . $total['title'] . '</td>';
+              echo '<td class="text-right border-left-0">' . $total['text'] . '</td>';
+            echo '</tr>';
+          }
+          ?>
         <tbody>
       </table>
     </div>
@@ -73,21 +75,21 @@
       <div class="border">
         <ul class="list-group list-group-flush">
           <?php
-  $address = $customer_data->get_module('address');
-  if ($order->delivery) {
-    echo '<li class="list-group-item">';
-    echo SHIPPING_FA_ICON;
-    echo '<b>' . HEADING_DELIVERY_ADDRESS . '</b><br>';
-    echo $address->format($order->delivery, 1, ' ', '<br>');
-    echo '</li>';
-  }
-?>
+          $address = $customer_data->get_module('address');
+          if ($order->delivery) {
+            echo '<li class="list-group-item">';
+              echo SHIPPING_FA_ICON;
+              echo '<b>' . HEADING_DELIVERY_ADDRESS . '</b><br>';
+              echo $address->format($order->delivery, 1, ' ', '<br>');
+            echo '</li>';
+          }
+          ?>
           <li class="list-group-item">
             <?php
-  echo PAYMENT_FA_ICON;
-  echo '<b>' . HEADING_BILLING_ADDRESS . '</b><br>';
-  echo $address->format($order->billing, 1, ' ', '<br>');
-?>
+            echo PAYMENT_FA_ICON;
+            echo '<b>' . HEADING_BILLING_ADDRESS . '</b><br>';
+            echo $address->format($order->billing, 1, ' ', '<br>');
+            ?>
           </li>
         </ul>
       </div>
@@ -106,10 +108,12 @@ SELECT os.orders_status_name, osh.date_added, osh.comments
 EOSQL
     , (int)$_GET['order_id'], (int)$_SESSION['languages_id']));
   while ($status = $statuses_query->fetch_assoc()) {
-    echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
-    echo '<h6>' . $status['orders_status_name'] . '</h6>';
-    echo (empty($status['comments']) ? '' : '<p>' . nl2br(htmlspecialchars($status['comments'])) . '</p>');
-    echo '<span class="badge badge-secondary badge-pill"><i class="far fa-clock mr-1"></i>' . $status['date_added'] . '</span>';
+    echo '<li class="list-group-item">';
+      echo '<div class="d-flex justify-content-between align-items-center">';
+        echo '<h6>' . $status['orders_status_name'] . '</h6>';
+        echo '<span class="badge badge-secondary badge-pill"><i class="far fa-clock mr-1"></i>' . $status['date_added'] . '</span>';
+      echo '</div>';
+      echo (empty($status['comments']) ? '' : nl2br(htmlspecialchars($status['comments'])));
     echo '</li>';
   }
 ?>
@@ -123,7 +127,7 @@ EOSQL
   echo $hooks->cat('orderDetails');
 ?>
 
-  <div class="buttonSet my-2">
+  <div class="my-2">
     <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account_history.php')->retain_query_except(['order_id'])) ?>
   </div>
 

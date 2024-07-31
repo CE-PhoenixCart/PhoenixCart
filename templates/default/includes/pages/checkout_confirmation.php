@@ -18,7 +18,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size('checkout_confirmation') > 0) {
@@ -155,8 +155,8 @@
   echo $hooks->cat('injectFormDisplay');
 ?>
 
-  <div class="buttonSet mt-3">
-    <div class="text-right">
+  <div class="mt-3">
+    <p>
       <?php
   if (is_array($payment_modules->modules)) {
     echo $payment_modules->process_button();
@@ -164,7 +164,7 @@
 
   echo new Button(sprintf(IMAGE_BUTTON_FINALISE_ORDER, $currencies->format($order->info['total'])), 'fas fa-check-circle', 'btn-success btn-block btn-lg');
 ?>
-    </div>
+    </p>
   </div>
 
   <div class="progressBarHook">

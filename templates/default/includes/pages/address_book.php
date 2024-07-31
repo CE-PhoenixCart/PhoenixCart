@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size('addressbook') > 0) {
@@ -70,16 +70,14 @@
     ?>
   </div>
 
-  <div class="buttonSet">
-    <?php
-    if ($customer->count_addresses() < MAX_ADDRESS_BOOK_ENTRIES) {
-      ?>
-      <div class="text-right"><?= new Button(IMAGE_BUTTON_ADD_ADDRESS, 'fas fa-home', 'btn-success btn-lg btn-block', [], $Linker->build('address_book_process.php')) ?></div>
-      <?php
-      }
+  <?php
+  if ($customer->count_addresses() < MAX_ADDRESS_BOOK_ENTRIES) {
     ?>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
-  </div>
+    <p><?= new Button(IMAGE_BUTTON_ADD_ADDRESS, 'fas fa-home', 'btn-success btn-lg btn-block', [], $Linker->build('address_book_process.php')) ?></p>
+    <?php
+    }
+  ?>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 <?php
   require $Template->map('template_bottom.php', 'component');

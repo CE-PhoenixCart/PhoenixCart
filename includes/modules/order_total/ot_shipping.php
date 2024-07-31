@@ -36,9 +36,9 @@
         $order->info['shipping_cost'] = 0;
       }
 
-      $module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
-
       if (!Text::is_empty($order->info['shipping_method'])) {
+        $module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
+
         if (($GLOBALS[$module]->tax_class ?? 0) > 0) {
           $shipping_tax = Tax::get_rate($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);
           $shipping_tax_description = Tax::get_description($GLOBALS[$module]->tax_class, $order->delivery['country']['id'], $order->delivery['zone_id']);

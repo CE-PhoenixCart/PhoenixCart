@@ -11,7 +11,7 @@
 */
 
 const NAVBAR_TITLE = 'Specials';
-const HEADING_TITLE = 'Get Them While They\'re Hot!';
+const HEADING_TITLE = 'Special Offers';
 
 const TEXT_NO_PRODUCTS = 'There are no special offers available.';
 

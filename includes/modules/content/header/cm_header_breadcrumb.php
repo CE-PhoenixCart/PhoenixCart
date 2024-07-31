@@ -84,7 +84,7 @@ EOSQL;
             'position' => "$i",
             'item' => [
               '@id' => "{$v['link']}",
-              'name' => strip_tags($v['title']),
+              'name' => strip_tags($v['title'] ?? ''),
             ],
           ];
         }

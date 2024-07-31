@@ -19,7 +19,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size($message_stack_area) > 0) {
@@ -27,7 +27,7 @@
   }
 
   echo $form;
-  echo new Input('username', ['value' => $customer->get('username'), 'readonly' => null, 'autocomplete' => 'username'], 'hidden');
+  echo new Input('username', ['value' => $customer->get('username'), 'style' => 'display: none;', 'readonly' => null, 'autocomplete' => 'username']);
 ?>
 
   <p class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
@@ -48,10 +48,8 @@
   $customer_data->display_input($page_fields);
 ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 </form>
 

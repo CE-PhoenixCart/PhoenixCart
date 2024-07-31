@@ -20,13 +20,11 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= $page['pages_title'] ?></h1>
+<h1 class="display-4 mb-4"><?= $page['pages_title'] ?></h1>
 
   <?= $page['pages_text'] ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('index.php')) ?></div>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('index.php')) ?></p>
 
 <?php
   require $Template->map('template_bottom.php', 'component');

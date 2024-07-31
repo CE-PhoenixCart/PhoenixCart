@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   if ($messageStack->size('password_forgotten') > 0) {
@@ -40,10 +40,8 @@
   $customer_data->display_input(['email_address']);
   ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning btn-lg btn-block') ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', '', [], $Linker->build('login.php')) ?></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning btn-lg btn-block') ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('login.php')) ?></p>
 
 </form>
 

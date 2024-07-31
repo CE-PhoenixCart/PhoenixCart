@@ -30,6 +30,10 @@
 
       $product = product_by_id::build((int)$random_selection['products_id']);
 
+      $card = [
+        'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
+      ];
+        
       $box = [
         'parameters' => ['product_card.php', 'component'],
         'classes' => 'is-product bm-whats-new',

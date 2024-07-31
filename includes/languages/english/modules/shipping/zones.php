@@ -12,6 +12,6 @@
 
 const MODULE_SHIPPING_ZONES_TEXT_TITLE = 'Zone Rates';
 const MODULE_SHIPPING_ZONES_TEXT_DESCRIPTION = 'Zone Based Rates';
-const MODULE_SHIPPING_ZONES_TEXT_WAY = 'Shipping to %s : %d lb(s)';
-const MODULE_SHIPPING_ZONES_INVALID_ZONE = 'No shipping available to the selected country';
-const MODULE_SHIPPING_ZONES_UNDEFINED_RATE = 'The shipping rate cannot be determined at this time';
+const MODULE_SHIPPING_ZONES_TEXT_WAY = 'Delivery to %s : %s lb(s)';
+const MODULE_SHIPPING_ZONES_INVALID_ZONE = 'No delivery available to the selected country';
+const MODULE_SHIPPING_ZONES_UNDEFINED_RATE = 'The delivery rate cannot be determined at this time';

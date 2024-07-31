@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<div class="row">
+<div class="row mb-4">
   <h1 class="display-4 col-sm-8"><?= $product->get('name') ?></h1>
   <h2 class="display-4 col-sm-4 text-left text-sm-right"><?= $product->hype_price() ?></h2>
 </div>
@@ -47,7 +47,7 @@
   </div>
 
   <div class="form-group row align-items-center">
-    <label class="col-form-label col-sm-3 text-left text-sm-right"><?= SUB_TITLE_RATING ?></label>
+    <div class="col-sm-3 text-left text-sm-right"><?= SUB_TITLE_RATING ?></div>
     <div class="col-sm-9">
       <div class="rating d-flex justify-content-end flex-row-reverse align-items-baseline">
         <?= sprintf(TEXT_GOOD, 5) ?>
@@ -62,10 +62,8 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', 'btn-success btn-lg btn-block') ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-2', [], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']])) ?></p>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_ADD_REVIEW, 'fas fa-pen', 'btn-success btn-lg btn-block') ?></p>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-2', [], $Linker->build('product_info.php', ['products_id' => (int)$_GET['products_id']])) ?></p>
 
   <hr>
 

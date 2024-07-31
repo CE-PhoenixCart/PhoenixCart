@@ -37,10 +37,6 @@ EOSQL
 
       $num_card_products = mysqli_num_rows($card_products_query);
       if ($num_card_products > 0) {
-        $card = [
-          'show_buttons' => true,
-        ];
-
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }
@@ -56,7 +52,7 @@ EOSQL
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-12',
+          'value' => 'col-sm-12 mb-4',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         $this->config_key_base . 'MAX_DISPLAY' => [

@@ -75,6 +75,7 @@
         'id' => $input_id,
         'onfocus' => 'this.showPicker?.()',
         'autocomplete' => 'bday',
+        'max' => date('Y-m-d'),
       ], 'date');
 
       if (isset($customer_details) && is_array($customer_details)) {

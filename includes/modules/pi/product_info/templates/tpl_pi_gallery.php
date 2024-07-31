@@ -35,16 +35,16 @@
   }
 
   if (PI_GALLERY_SWIPE_ARROWS === 'True') {
-    $swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a>';
+    $swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-prev-icon mt-1"></span></span></a><a class="carousel-control-next" href="#carousel" role="button" data-slide="next"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-next-icon mt-1"></span></span></a>';
   } else {
     $swipe_arrows = '';
   }
 
   if (PI_GALLERY_INDICATORS === 'True') {
     $indicators = '<ol class="carousel-indicators">';
-      $indicators .= '<li data-target="#carousel" data-slide-to="0" class="pointer active"></li>';
+      $indicators .= '<li data-target="#carousel" data-slide-to="0" class="pointer border border-white bg-secondary rounded active"></li>';
       for ($i = 1, $n = count($other_images); $i <= $n; $i++) {
-        $indicators .= '<li data-target="#carousel" data-slide-to="' . $i . '" class="pointer"></li>';
+        $indicators .= '<li data-target="#carousel" data-slide-to="' . $i . '" class="pointer border border-white bg-secondary rounded"></li>';
       }
     $indicators .= '</ol>';
   } else {

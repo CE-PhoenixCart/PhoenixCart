@@ -33,7 +33,7 @@ class hook_shop_siteWide_breadCrumb {
     
     $trail = <<<bc
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb bg-transparent px-0 mb-0">
+  <ol class="breadcrumb bg-transparent px-0 mb-1">
     {$crumbs}
   </ol>
 </nav>

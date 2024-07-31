@@ -18,7 +18,7 @@
   const MODULE_CONTENT_FOOTER_INFORMATION_DATA = [
     'privacy.php' => 'Privacy &amp; Cookie Policy',
     'conditions.php' => 'Terms &amp; Conditions',
-    'shipping.php' => 'Shipping &amp; Returns',
+    'shipping.php' => 'Delivery &amp; Returns',
     'contact_us.php' => 'Contact Us',
   ];
 

@@ -14,8 +14,12 @@
 
     public function __construct() {
       $hook_directory = DIR_FS_CATALOG . 'templates/override/includes/hooks/';
-      if (is_dir($hook_directory)) {
+      if (file_exists($hook_directory) && is_dir($hook_directory)) {
         $this->_base_hook_directories[] = $hook_directory;
+      }
+      $override_directory = DIR_FS_CATALOG . 'templates/override/includes/override/';
+      if (file_exists($override_directory) && is_dir($override_directory)) {
+        $this->_base_override_directories[] = $override_directory;
       }
 
       parent::__construct();

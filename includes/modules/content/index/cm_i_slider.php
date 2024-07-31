@@ -30,7 +30,7 @@
 
             if ($s == 1) {
               $carousel_active = ' active';
-              $indicator_active = ' class="active"';
+              $indicator_active = ' class="border border-white bg-secondary rounded active" aria-current="true"';
             }
 
             if (!Text::is_empty($a['advert_url'])) {
@@ -57,9 +57,9 @@
             $cm_i_slider_output .= '</div>';
 
             if ($s == 1) {
-              $cm_i_indicator .= '<li data-target="#cmislider" data-slide-to="' . $s . '"' . $indicator_active . '></li>';
+              $cm_i_indicator .= '<li data-target="#cmislider" data-slide-to="0"' . $indicator_active . ' aria-label="Slide 1"></li>';
             } else {
-              $cm_i_indicator .= '<li data-target="#cmislider" data-slide-to="' . $s . '"></li>';
+              $cm_i_indicator .= '<li class="border border-white bg-secondary rounded" data-target="#cmislider" data-slide-to="' . $s-1 . '" aria-label="Slide ' . $s . '"></li>';
             }
           }
 
@@ -74,7 +74,7 @@
             $next = MODULE_CONTENT_I_SLIDER_CONTROLS_NEXT;
 
             $cm_i_slider_controls .= <<<sc
-            <a class="carousel-control-prev" href="#cmislider" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="sr-only">{$previous}</span></a><a class="carousel-control-next" href="#cmislider" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="sr-only">{$next}</span></a>
+            <a class="carousel-control-prev" href="#cmislider" role="button" data-slide="prev"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-prev-icon mt-1"></span></span><span class="sr-only">{$previous}</span></a><a class="carousel-control-next" href="#cmislider" role="button" data-slide="next"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-next-icon mt-1"></span></span><span class="sr-only">{$next}</span></a>
 sc;
           }
 

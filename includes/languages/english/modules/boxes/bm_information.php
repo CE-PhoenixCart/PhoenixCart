@@ -17,7 +17,7 @@
   const MODULE_BOXES_INFORMATION_BOX_DATA = [
     'privacy.php' => 'Privacy Notice',
     'conditions.php' => 'Conditions of Use',
-    'shipping.php' => 'Shipping &amp; Returns',
+    'shipping.php' => 'Delivery &amp; Returns',
     'contact_us.php' => 'Contact Us',
   ];
 

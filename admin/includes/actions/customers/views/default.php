@@ -18,6 +18,7 @@
         'date_account_created',
         'date_account_last_modified',
         'date_last_logon',
+        'telephone',
       ],
       'customers');
       

@@ -16,5 +16,5 @@
   const MODULE_CONTENT_CAS_MESSAGE_PUBLIC_TITLE = <<<'EOT'
 <p class="lead">Congratulations! Your profile has been successfully created!</p>
 <p>You can now take advantage of member privileges to enhance your online shopping experience with us.  If you have any questions about the operation of this online shop, please <a class="alert-link" href="%1$s">contact us</a> or view your <a class="alert-link" href="%2$s">profile</a>.</p>
-<p>A confirmation has been sent to your email address.</p>
+<p>A confirmation has been sent to your e-mail address.</p>
 EOT;

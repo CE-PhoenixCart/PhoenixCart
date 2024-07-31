@@ -22,33 +22,48 @@
   require 'includes/template_top.php';
 ?>
 
-  <div class="row align-items-center mx-1">
-    <div class="col"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
-    <div class="col text-right">
+  <div class="row align-items-center">
+    <div class="col">
       <h1 class="display-4"><?= STORE_NAME ?></h1>
-      <p><?= nl2br(STORE_ADDRESS) ?></p>
-      <p><?= STORE_PHONE ?></p>
+      <p class="font-weight-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
+      <p class="my-1 p-0">
+        <?php
+        if (!Text::is_empty(STORE_PHONE)) {
+          echo '<i class="fas fa-phone fa-fw mr-1"></i>' . STORE_PHONE;
+        }
+        ?>
+        <i class="fas fa-at fa-fw mr-1"></i><?= STORE_OWNER_EMAIL_ADDRESS ?>
+      </p>
+      <p class="my-1 p-0"><i class="fas fa-home fa-fw mr-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
     </div>
+    <div class="col text-right"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
   </div>
 
   <hr>
 
   <div class="row">
     <div class="col">
-      <ul class="list-group">
+      <ul class="list-group border h-100">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SHIP_TO ?></h6></li>
         <li class="list-group-item border-0 font-weight-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
       </ul>
     </div>
     <div class="col">
-      <ul class="list-group">
+      <ul class="list-group border h-100">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SOLD_TO ?></h6></li>
         <li class="list-group-item border-0"><?= $address->format($order->billing, 1, '', '<br>') ?></li>
-        <li class="list-group-item border-0"><i class="fas fa-phone fa-fw"></i> <?= $customer_data->get('telephone', $order->customer) ?? '' ?> <i class="fas fa-at fa-fw"></i> <?= $customer_data->get('email_address', $order->customer) ?? '' ?></li>
+        <li class="list-group-item border-0">
+          <?php
+          if (!Text::is_empty($customer_data->get('telephone', $order->customer))) {
+            echo '<i class="fas fa-phone fa-fw"></i>', $customer_data->get('telephone', $order->customer), '<br>';
+          }
+          echo '<i class="fas fa-at fa-fw"></i>', $customer_data->get('email_address', $order->customer);
+          ?>
+        </li>
      </ul>
     </div>
-    <div class="col text-right">
-      <ul class="list-group">
+    <div class="col">
+      <ul class="list-group border h-100">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= sprintf(ENTRY_INVOICE_NUMBER, (int)$_GET['oID']) ?></h6></li>
         <li class="list-group-item border-0"><?= sprintf(ENTRY_INVOICE_DATE, Date::abridge($order->info['date_purchased'])) ?></li>
         <li class="list-group-item border-0"><?= sprintf(ENTRY_PAYMENT_METHOD, $order->info['payment_method']) ?></li>

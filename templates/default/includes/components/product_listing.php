@@ -50,9 +50,7 @@
           ?>
         </div>
       </li>
-      <?php
-      echo $GLOBALS['hooks']->cat('navItemFilters');
-      ?>
+      <?= $GLOBALS['hooks']->cat('navItemFilters') ?>
     </ul>
   </div>
 
@@ -65,13 +63,11 @@
       $listing['link'] = Product::build_link($listing['products_id'], null);
       $product = new Product($listing);
       $card = [
-        'show_buttons' => true,
+        'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
       ];
 
       if (!Text::is_empty($product->get('seo_description'))) {
-        $card['extra'] = '<div class="pt-2 font-weight-lighter">'
-                       . $product->get('seo_description')
-                       . '</div>' . PHP_EOL;
+        $card['extra']['seo_description'] = $product->get('seo_description');
       }
 
       $prod_list_contents .= '<div class="col mb-2">';

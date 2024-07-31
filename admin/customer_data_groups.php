@@ -19,7 +19,7 @@
 ?>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
     <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">

@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE = 'Login';
+const NAVBAR_TITLE = 'Sign In';

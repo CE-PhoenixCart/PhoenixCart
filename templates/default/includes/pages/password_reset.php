@@ -16,7 +16,7 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 <?php
   if ($messageStack->size('password_reset') > 0) {
     echo $messageStack->output('password_reset');
@@ -32,9 +32,8 @@
   echo $hooks->cat('injectFormDisplay');
   ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
-  </div>
+  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
+
 </form>
 
 <?php

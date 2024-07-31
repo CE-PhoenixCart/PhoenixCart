@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE = 'Shipping &amp; Returns';
+const NAVBAR_TITLE = 'Delivery &amp; Returns';
 
 /*
 Define the Title and Text of this page using the Info Pages Manager.

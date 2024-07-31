@@ -26,6 +26,8 @@
       'id' => $customer_details['id'],
       'address_book_id' => (int)$_POST['default_address_id'],
     ]);
+    
+    $db->query("UPDATE customers_info SET customers_info_date_account_last_modified = NOW() WHERE customers_info_id = " . (int)$customer_details['id']);
 
     return $Admin->link('customers.php')->retain_query_except(['action'])->set_parameter('cID', $customer_details['id']);
   }

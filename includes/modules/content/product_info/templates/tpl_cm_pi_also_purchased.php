@@ -4,7 +4,7 @@
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">
     <?php
     $card = [
-      'show_buttons' => true,
+      'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
     ];
 
     while ($also_purchased = $also_purchased_query->fetch_assoc()) {

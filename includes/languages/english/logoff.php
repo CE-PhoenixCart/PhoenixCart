@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-const HEADING_TITLE = 'Log Off';
-const NAVBAR_TITLE = 'Log Off';
+const HEADING_TITLE = 'Sign Out';
+const NAVBAR_TITLE = 'Sign Out';
 const TEXT_MAIN = <<<'EOT'
-You have been logged off your account.  It is now safe to leave the computer.<br><br>
-Your shopping cart has been saved, the items inside it will be restored whenever you log back into your account.
+You have successfully signed out of your profile.  It is now safe to leave the computer.<br><br>
+Your shopping cart has been saved, the items inside it will be restored whenever you sign in to your profile.
 EOT;

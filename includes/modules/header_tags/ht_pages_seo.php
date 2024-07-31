@@ -23,18 +23,25 @@
     public function execute() {
       global $Template, $page;
 
-      if ( (defined('META_SEO_TITLE')) && (strlen(META_SEO_TITLE) > 0) || (!empty($page['navbar_title'])) || (!empty($page['pages_title'])) ) {
-        $title = defined('META_SEO_TITLE') ? META_SEO_TITLE : $page['navbar_title'] ?? $page['pages_title'] ?? null;
-        if (!Text::is_empty($title)) {
-          $Template->set_title(Text::output($title)  . MODULE_HEADER_TAGS_PAGES_SEO_SEPARATOR . $Template->get_title());
-        }
+      $title = (defined('META_SEO_TITLE') && (strlen(META_SEO_TITLE) > 0))
+             ? META_SEO_TITLE
+             : ($page['navbar_title'] ?? $page['pages_title'] ?? null);
+      $description = (defined('META_SEO_DESCRIPTION') && (strlen(META_SEO_DESCRIPTION) > 0))
+                   ? META_SEO_DESCRIPTION
+                   : ($page['pages_seo_description'] ?? null);
+
+      $chain = [
+        'title' => &$title,
+        'description' => &$description,
+      ];
+      $chain = $GLOBALS['hooks']->chain('htPagesSeo', $chain);
+
+      if (is_string($chain['title']) && !Text::is_empty($chain['title'])) {
+        $Template->set_title(Text::output($chain['title'])  . MODULE_HEADER_TAGS_PAGES_SEO_SEPARATOR . $Template->get_title());
       }
 
-      if ( (defined('META_SEO_DESCRIPTION')) && (strlen(META_SEO_DESCRIPTION) > 0) || (!empty($page['pages_seo_description'])) ) {
-        $desc = defined('META_SEO_DESCRIPTION') ? META_SEO_DESCRIPTION : $page['pages_seo_description'] ?? null;
-        if (!Text::is_empty($desc)) {
-          $Template->add_block('<meta name="description" content="' . Text::output($desc) . '" />' . "\n", $this->group);
-        }
+      if (is_string($chain['description']) && !Text::is_empty($chain['description'])) {
+        $Template->add_block('<meta name="description" content="' . Text::output($chain['description']) . '" />' . "\n", $this->group);
       }
     }
 

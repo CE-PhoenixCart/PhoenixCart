@@ -27,11 +27,22 @@
         && in_array(basename(Request::get_page()),
              page_selection::_get_pages($this->base_constant('PAGES'))))
       {
-        $GLOBALS['Template']->add_block(<<<'EOCSS'
-<script>$('.table tr.table-selection').click(function() {
-  $('.table tr.table-selection').removeClass('success').find('input').prop('checked', false);
-  $(this).addClass('success').find('input').prop('checked', true);
-});</script>
+        $tr_background = MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND;
+        
+        $GLOBALS['Template']->add_block(<<<EOCSS
+<script>
+document.querySelectorAll('tr.table-selection').forEach(function(row) {
+  row.addEventListener('click', function() {
+    document.querySelectorAll('tr.table-selection').forEach(function(r) {
+      r.classList.remove('{$tr_background}');
+      r.querySelector('input').checked = false;
+    });
+    row.classList.add('{$tr_background}');
+    row.querySelector('input').checked = true;
+  });
+});
+</script>
+
 EOCSS
           , $this->group);
       }
@@ -51,6 +62,11 @@ EOCSS
           'desc' => 'The pages to add the jQuery Scripts to.',
           'use_func' => 'page_selection::_show_pages',
           'set_func' => 'page_selection::_edit_pages(',
+        ],
+        'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND' => [
+          'title' => 'Background Colour',
+          'value' => 'table-success',
+          'desc' => 'The background colour of the clicked Row.  See https://getbootstrap.com/docs/4.6/content/tables/#contextual-classes',
         ],
         'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_SORT_ORDER' => [
           'title' => 'Sort Order',

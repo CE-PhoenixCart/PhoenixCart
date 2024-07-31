@@ -30,7 +30,7 @@
   echo $payment_modules->javascript_validation();
 ?>
 
-<h1 class="display-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
   echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['onsubmit' => 'return check_form();'], true);
@@ -54,7 +54,7 @@
           foreach ($selection as $choice) {
             ?>
             <tr class="table-selection">
-              <td><label for="p_<?= $choice['id'] ?>"><?= $choice['module'] ?></label></td>
+              <td><?= $choice['module'] ?></td>
               <td class="text-right">
                 <?php
                 if (count($selection) > 1) {
@@ -122,9 +122,7 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></div>
-  </div>
+  <p><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
 
   <div class="progressBarHook">
     <?php

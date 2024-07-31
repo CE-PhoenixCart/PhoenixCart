@@ -18,14 +18,26 @@
       DIR_FS_CATALOG . 'templates/default/includes/hooks/',
     ];
 
+    protected $_base_override_directories = [
+      DIR_FS_CATALOG . 'templates/default/includes/override/',
+    ];
+
     protected $_template_mapping = [
     ];
 
     public function __construct() {
       $hooks =& Guarantor::ensure_global('hooks', 'shop');
       foreach ($this->_base_hook_directories as $directory) {
-        $hooks->add_directory($directory);
-        $GLOBALS['class_index']->find_all_hooks_under($directory);
+        if (file_exists($directory) && is_dir($directory)) {
+          $hooks->add_directory($directory);
+          $GLOBALS['class_index']->find_all_hooks_under($directory);
+        }
+      }
+
+      foreach ($this->_base_override_directories as $directory) {
+        if (file_exists($directory) && is_dir($directory)) {
+          $GLOBALS['class_index']->find_all_files_under($directory);
+        }
       }
 
       $GLOBALS['breadcrumb'] = new breadcrumb();

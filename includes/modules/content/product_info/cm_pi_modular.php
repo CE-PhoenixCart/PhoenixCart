@@ -16,6 +16,8 @@
 
     public function __construct() {
       parent::__construct(__FILE__);
+      
+      $this->description .= cm_pi_modular::display_layout();
     }
 
     public function execute() {
