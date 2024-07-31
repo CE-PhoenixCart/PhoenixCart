@@ -23,7 +23,7 @@
       global $port_my_data, $customer;
 
       $port_my_data['YOU']['CONTACT']['EMAIL'] = $customer->get('email_address');
-      $port_my_data['YOU']['CONTACT']['PHONE'] = $customer->get('telephone');
+      $port_my_data['YOU']['CONTACT']['PHONE'] = $customer->get('telephone') ?: MODULE_CONTENT_GDPR_CONTACT_DETAILS_UNKNOWN;
 
       $port_my_data['YOU']['CONTACT']['FAX'] = $customer->get('fax') ?: MODULE_CONTENT_GDPR_CONTACT_DETAILS_UNKNOWN;
 
