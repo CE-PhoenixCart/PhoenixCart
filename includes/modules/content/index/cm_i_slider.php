@@ -59,7 +59,7 @@
             if ($s == 1) {
               $cm_i_indicator .= '<li data-target="#cmislider" data-slide-to="0"' . $indicator_active . ' aria-label="Slide 1"></li>';
             } else {
-              $cm_i_indicator .= '<li class="border border-white bg-secondary rounded" data-target="#cmislider" data-slide-to="' . $s-1 . '" aria-label="Slide ' . $s . '"></li>';
+              $cm_i_indicator .= '<li class="border border-white bg-secondary rounded" data-target="#cmislider" data-slide-to="' . ($s-1) . '" aria-label="Slide ' . $s . '"></li>';
             }
           }
 
