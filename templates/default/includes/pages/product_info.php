@@ -22,7 +22,7 @@
   }
 ?>
 
-  <div class="row is-product">
+  <div class="row is-product"<?= $product->get('data_attributes') ?>>
     <?= $Template->get_content('product_info') ?>
   </div>
 
