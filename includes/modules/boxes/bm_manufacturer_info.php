@@ -24,8 +24,6 @@
           $_url   = $bm_brand->getData('manufacturers_url');
           $_id    = $bm_brand->getData('manufacturers_id');
 
-          $box_title = '<a href="' . $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$_id]) . '">' . $_brand . '</a>';
-
           $tpl_data = ['group' => $this->group, 'file' => __FILE__];
           include 'includes/modules/block_template.php';
         }

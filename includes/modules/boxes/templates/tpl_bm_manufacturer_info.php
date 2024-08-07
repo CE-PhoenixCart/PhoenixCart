@@ -14,7 +14,7 @@
   $link = $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$_id]);
 ?>
   <div class="card-body">
-    <h5 class="card-title mb-0"><?= $box_title ?></h5>
+    <h5 class="card-title mb-0"><a href="<?= $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$_id]) ?>"><?= $_brand ?></a></h5>
   </div>
   <div class="list-group list-group-flush">
     <a class="list-group-item list-group-item-action text-muted" href="<?= $link ?>"><?= MODULE_BOXES_MANUFACTURER_INFO_BOX_OTHER_PRODUCTS ?></a>
