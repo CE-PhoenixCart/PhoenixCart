@@ -25,22 +25,6 @@
       $menu_array[] = MODULE_CONTENT_HEADER_MENU_COLLAPSE;
       $menu_style = implode(' ', $menu_array);
 
-      $cm_header_menu_manufacturers = null;
-      if (MODULE_CONTENT_HEADER_MANUFACTURERS == 'True') {
-        $cm_manufacturers_query = $GLOBALS['db']->query("SELECT manufacturers_id, manufacturers_name FROM manufacturers ORDER BY manufacturers_name");
-
-        if (mysqli_num_rows($cm_manufacturers_query)) {
-          $cm_header_menu_manufacturers .= '<ul class="navbar-nav ml-auto">';
-            $cm_header_menu_manufacturers .= '<a class="nav-link dropdown-toggle" href="#" id="cm-hm-brands" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . MODULE_CONTENT_HEADER_MENU_MANUFACTURER_DROPDOWN . '</a>';
-            $cm_header_menu_manufacturers .= '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="cm-hm-brands">';
-              while ($cm_manufacturers = $cm_manufacturers_query->fetch_assoc()) {
-                $cm_header_menu_manufacturers .= '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$cm_manufacturers['manufacturers_id']]) . '">' . $cm_manufacturers['manufacturers_name'] . '</a>';
-              }
-            $cm_header_menu_manufacturers .= '</div>';
-          $cm_header_menu_manufacturers .= '</ul>' . PHP_EOL;
-        }
-      }
-
       $tpl_data = ['group' => $this->group, 'file' => __FILE__];
       include 'includes/modules/content/cm_template.php';
     }
