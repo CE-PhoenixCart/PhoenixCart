@@ -15,11 +15,6 @@
     const CONFIG_KEY_BASE = 'MODULE_BOXES_SEARCH_';
 
     function execute() {
-      $form = new Form('quick_find', $GLOBALS['Linker']->build('advanced_search_result.php')->set_include_session(false), 'get');
-      $form->hide_session_id()->hide('search_in_description', '0');
-      $input = new Input('keywords', ['autocomplete' => 'off', 'placeholder' => TEXT_SEARCH_PLACEHOLDER], 'search');
-      $input->require();
-
       $tpl_data = ['group' => $this->group, 'file' => __FILE__];
       include 'includes/modules/block_template.php';
     }
