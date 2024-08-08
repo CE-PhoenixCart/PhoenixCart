@@ -28,16 +28,6 @@
       if (count($lng->catalog_languages) > 1) {
         $link = $GLOBALS['Linker']->build()->retain_query_except(['currency']);
 
-        $languages_string = '';
-        foreach ($lng->catalog_languages as $key => $value) {
-          $image = Text::ltrim_once(
-            language::map_to_translation("images/{$value['image']}", $value['directory']),
-            DIR_FS_CATALOG);
-          $languages_string .= ' <a href="' . $link->set_parameter('language', $key) . '">'
-                             . (new Image($image, [], htmlspecialchars($value['name'])))->set_responsive(false)
-                             . '</a> ';
-        }
-
         $tpl_data = ['group' => $this->group, 'file' => __FILE__];
         include 'includes/modules/block_template.php';
       }
