@@ -34,7 +34,6 @@ EOSQL
 
 
   $writable_directory = "$dir_fs_document_root/includes/work/";
-  installer::configure('DIR_FS_CACHE', Text::sanitize($writable_directory));
   installer::configure('SESSION_WRITE_DIRECTORY', Text::sanitize($writable_directory));
 
   if ($handle = opendir($writable_directory)) {
