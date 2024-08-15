@@ -29,7 +29,7 @@ const TEXT_ADVERT_IMAGE_LOCAL = 'OR enter local file name';
 const TEXT_ADVERT_IMAGE_TARGET = 'Save To Directory';
 const TEXT_ADVERT_HTML_TEXT = 'HTML Text';
 
-const TEXT_ADVERT_TITLE_HELP = 'This is only used in the Listing of Adverts as a reminder for you.';
+const TEXT_ADVERT_TITLE_HELP = 'This is used in the Listing of Adverts (Admin Side) as a reminder for you and as the Image ALT text (Shop Side).';
 const TEXT_ADVERT_URL_HELP = 'Include https:// for external links or just a page name for internal links (eg product_info.php or advanced_search_result.php)';
 const TEXT_ADVERT_FRAGMENT_HELP = 'Only used in conjunction with internal links in your Shop!  Fragment URL is (for example) products_id=3 or keywords=xyz';
 const TEXT_ADVERT_SORT_HELP = 'This determines the Advert Sort Order *inside* it\'s group.';
