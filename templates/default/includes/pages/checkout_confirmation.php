@@ -108,7 +108,7 @@
   <div class="border mb-3">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        <i class="fas fa-comments fa-fw fa-3x float-right text-black-50"></i>
+        <i class="fas fa-comments fa-fw fa-3x float-right text-secondary"></i>
         <?= nl2br(htmlspecialchars($order->info['comments'])) . new Input('comments', ['value' => $order->info['comments']], 'hidden') ?>
       </li>
     </ul>
