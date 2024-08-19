@@ -23,7 +23,7 @@
 
       $cm_i_slider_output .= '<div class="carousel-item' . $carousel_active . '">';
         $cm_i_slider_output .= $s_link;
-          $cm_i_slider_output .= new Image('images/' . $a['advert_image'], [], htmlspecialchars($a['advert_title']));
+          $cm_i_slider_output .= (new Image('images/' . $a['advert_image'], [], htmlspecialchars($a['advert_title'])))->append_css('d-block w-100');
           if (!Text::is_empty($a['advert_html_text'])) {
             $cm_i_slider_output .= '<div class="carousel-caption d-none d-md-block">';
               $cm_i_slider_output .= $a['advert_html_text'];
