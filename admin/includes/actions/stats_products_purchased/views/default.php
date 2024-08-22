@@ -33,7 +33,7 @@ EOSQL
       [
         'name' => TABLE_HEADING_PRODUCTS,
         'function' => function ($row) {
-          return '<a target="_blank" class="stretched-link" href="' . $row['onclick'] . '">' . $row['products_name'] . '</a>';
+          return '<a target="_blank" class="position-relative stretched-link" href="' . $row['onclick'] . '">' . $row['products_name'] . '</a>';
         },
       ],
       [
