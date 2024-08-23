@@ -696,6 +696,33 @@ CREATE TABLE zones_to_geo_zones (
    KEY idx_zones_to_geo_zones_country_id (zone_country_id)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS outgoing;
+CREATE TABLE outgoing (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  customer_id int(11) NOT NULL,
+  identifier varchar(255) NULL DEFAULT NULL,
+  send_at datetime NOT NULL,
+  fname varchar(255) NOT NULL,
+  lname varchar(255) NOT NULL,
+  email_address varchar(255) NOT NULL,
+  slug varchar(255) NOT NULL,
+  merge_tags longtext,
+  date_added datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_modified datetime DEFAULT NULL,
+  PRIMARY KEY (id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS outgoing_tpl;
+CREATE TABLE outgoing_tpl (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  slug varchar(255) NOT NULL,
+  title varchar(255) NOT NULL,
+  text longtext NOT NULL,
+  date_added datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_modified datetime DEFAULT NULL,
+  PRIMARY KEY (id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 # data
 
 # 1 - Default, 2 - USA, 3 - Spain, 4 - Singapore, 5 - Germany
@@ -1422,7 +1449,7 @@ INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zamora','
 INSERT INTO zones (zone_country_id, zone_code, zone_name) VALUES (195,'Zaragoza','Zaragoza');
 
 # Header Tags
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_HEADER_TAGS_INSTALLED', 'ht_category_seo.php;ht_manufacturer_seo.php;ht_pages_seo.php;ht_manufacturer_title.php;ht_category_title.php;ht_product_title.php;ht_robot_noindex.php;ht_table_click_jquery.php;ht_product_meta.php;ht_product_opengraph.php;ht_product_schema.php', 'List of header tag module filenames separated by a semi-colon. This is automatically updated. No need to edit.', '6', '0', now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_HEADER_TAGS_INSTALLED', 'ht_category_seo.php;ht_manufacturer_seo.php;ht_pages_seo.php;ht_manufacturer_title.php;ht_category_title.php;ht_product_title.php;ht_robot_noindex.php;ht_table_click_jquery.php;ht_product_meta.php;ht_product_opengraph.php;ht_product_schema.php;ht_outgoing.php', 'List of header tag module filenames separated by a semi-colon. This is automatically updated. No need to edit.', '6', '0', now());
 
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Product Meta Module', 'MODULE_HEADER_TAGS_PRODUCT_META_STATUS', 'True', 'Do you want to allow product meta tags to be added to the page header?', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Keyword Search Engine', 'MODULE_HEADER_TAGS_PRODUCT_META_KEYWORDS_STATUS', 'True', 'Enable Keyword Search Engine', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
@@ -1462,6 +1489,8 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, use_function, set_function, date_added) values ('Pages', 'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_PAGES', 'checkout_payment.php;checkout_shipping.php', 'The pages to add the jQuery Scripts to.', 6, 2, 'page_selection::_show_pages', 'page_selection::_edit_pages(', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Background Colour', 'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND', 'table-success', 'The background colour of the clicked Row.  See https://getbootstrap.com/docs/4.6/content/tables/#contextual-classes', 6, 3, now());       
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_SORT_ORDER', '800', 'Sort order of display. Lowest is displayed first.', 6, 4, now());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Queued E-mail Module', 'MODULE_HEADER_TAGS_O_STATUS', 'True', 'Do you want to enable the this module?', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_HEADER_TAGS_O_SORT_ORDER', '810', 'Sort order of display. Lowest is displayed first.', 6, 2, now());
 
 # Administration Tool Dashboard
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Installed Modules', 'MODULE_ADMIN_DASHBOARD_INSTALLED', 'd_total_revenue.php;d_monthly_sales.php;d_orders.php;d_customers.php;d_phoenix_addons.php;d_addons.php;d_security_checks.php;d_admin_logins.php;d_version_check.php;d_reviews.php', 'List of Administration Tool Dashboard module filenames separated by a semi-colon. This is automatically updated. No need to edit.', '6', '0', now());
@@ -1937,3 +1966,6 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Content Width', 'CU_FORM_CONTENT_WIDTH', 'col-12', 'What width container should the content be shown in?', 6, 3, now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Sort Order', 'CU_FORM_SORT_ORDER', '115', 'Sort order of display. Lowest is displayed first.', 6, 4, now());
 
+INSERT INTO outgoing_tpl (id, slug, title, text, date_added) VALUES ('1', 'no_checkout', '{{FNAME}}, no checkout?', 'Hi {{FNAME}}\r\n\r\nWe noticed you created an account back on the {{SIGN_UP_DAY}} of {{SIGN_UP_MONTH}} but you did not checkout.\r\n\r\nIf you had a problem with our site, please do not hesitate to contact us.', NOW());
+INSERT INTO outgoing_tpl (id, slug, title, text, date_added) VALUES ('2', 'order_thanks', '{{FNAME}} thank you for Order #{{ORDER_ID}}', 'Hi {{FNAME}}\r\n\r\nThank you for Order #{{ORDER_ID}} made on {{ORDER_DATE}}.  We are working to pick and pack your Order and will update you at each stage of the process.\r\n\r\nYou ordered:\r\n{{ORDER_PRODUCTS}}\r\n\r\nIf you have any questions about this Order or our site, please do not hesitate to contact us.', NOW());
+INSERT INTO outgoing_tpl (id, slug, title, text, date_added) VALUES ('3', 'winback', '{{FNAME}}, we\'ve missed you', 'Hi {{FNAME}}\r\n\r\nWe really hope you enjoyed your products that you ordered back on {{ORDER_DATE}}\r\n\r\nWe have new products we think you might be interested in.', NOW());
