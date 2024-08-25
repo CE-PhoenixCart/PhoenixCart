@@ -63,6 +63,7 @@ EOSQL
       $GLOBALS['db']->query("DELETE FROM customers_basket_attributes WHERE products_id = " . (int)$product_id . " OR products_id LIKE '" . (int)$product_id . "{%'");
       $GLOBALS['db']->query("DELETE r, rd FROM reviews r INNER JOIN reviews_description rd ON r.reviews_id = rd.reviews_id WHERE r.products_id = " . (int)$product_id);
       $GLOBALS['db']->query("DELETE FROM products WHERE products_id = " . (int)$product_id);
+      $GLOBALS['db']->query("DELETE FROM outgoing WHERE identifier LIKE '%product_id:" . (int)$product_id . "%'";
     }
 
     public static function select($name, $parameters = []) {
