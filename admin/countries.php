@@ -28,10 +28,31 @@
     <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
       <?=
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light mr-2', $Admin->link('countries.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(IMAGE_NEW_COUNTRY, 'fas fa-map-marker-alt', 'btn-danger', $Admin->link('countries.php', ['action' => 'new']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link)
+      ?>
+    </div>
+  </div>
+  
+  <div class="collapse mb-2" id="collapseSearch">
+    <div class="align-self-center">
+      <?php
+      $keywords = '';
+      if (!Text::is_empty($_GET['search'] ?? '')) {
+        $keywords = Text::input($_GET['search']);
+      }
+      
+      echo (new Form('search', $Admin->link('countries.php'), 'get'))->hide_session_id()
+        . '<div class="input-group mt-0">'
+          . '<div class="input-group-prepend">'
+            . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
+          . '</div>'
+          . new Input('search', ['value' => $keywords])
+        . '</div>'
+      . '</form>'
       ?>
     </div>
   </div>

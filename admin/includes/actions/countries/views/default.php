@@ -10,6 +10,19 @@
   Released under the GNU General Public License
 */
 
+  $keywords = null; $search_sql = '';
+  if (!Text::is_empty($_GET['search'] ?? '')) {
+    $keywords = Text::input($_GET['search']);
+    
+    $search_sql = "WHERE countries_iso_code_2 = '" . $keywords . "' OR countries_iso_code_3 = '" . $keywords . "' OR countries_name LIKE '%" . $keywords. "%'";
+    
+    $admin_hooks->set('countriesListButtons', 'reset_keywords', function () {
+      return $GLOBALS['Admin']->button(IMAGE_RESET, 'fas fa-angle-left', 'btn-light', $GLOBALS['Admin']->link('countries.php'));
+    });
+  }
+  
+  $countries_sql = "SELECT * FROM countries $search_sql ORDER BY countries_name";
+
   $table_definition = [
     'columns' => [
       [
@@ -46,9 +59,12 @@
       ],
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_COUNTRIES,
+    'hooks' => [
+      'button' => 'countriesListButtons',
+    ],
     'page' => $_GET['page'] ?? null,
     'web_id' => 'cID',
-    'sql' => "SELECT * FROM countries ORDER BY countries_name",
+    'sql' => $countries_sql,
   ];
 
   $table_definition['split'] = new Paginator($table_definition);
