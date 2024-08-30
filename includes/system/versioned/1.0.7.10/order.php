@@ -69,7 +69,7 @@ EOSQL
       $GLOBALS['db']->query("DELETE FROM orders_status_history WHERE orders_id = " . (int)$order_id);
       $GLOBALS['db']->query("DELETE FROM orders_total WHERE orders_id = " . (int)$order_id);
       $GLOBALS['db']->query("DELETE FROM orders WHERE orders_id = " . (int)$order_id);
-      $GLOBALS['db']->query("DELETE FROM outgoing WHERE identifier LIKE '%order:" . (int)$order_id . "%'";
+      $GLOBALS['db']->query("DELETE FROM outgoing WHERE identifier LIKE '%order:" . (int)$order_id . "%'");
     }
 
   }
