@@ -21,12 +21,6 @@
     public function execute() {
       global $product;
 
-      $data_attributes = [
-        'data-has-attributes' => $product->get('has_attributes'),
-        'data-in-stock' => (int)$product->get('in_stock'),
-        'data-product-id' => (int)$product->get('id'),
-      ];
-
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }

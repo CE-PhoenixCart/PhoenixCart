@@ -66,7 +66,7 @@
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-6',
+          'value' => 'col-sm-6 mb-4',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         $this->config_key_base . 'SORT_ORDER' => [

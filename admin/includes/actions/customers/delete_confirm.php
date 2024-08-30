@@ -15,7 +15,7 @@
   if (isset($_POST['delete_reviews']) && ($_POST['delete_reviews'] === 'on')) {
     $db->query("DELETE r, rd FROM reviews r LEFT JOIN reviews_description rd ON r.reviews_id = rd.reviews_id WHERE r.customers_id = " . (int)$customers_id);
   } else {
-    $db->query("UPDATE reviews SET customers_id = NULL WHERE customers_id = " . (int)$customers_id);
+    $db->query("UPDATE reviews SET customers_id = NULL, customers_name = 'Verified Customer' WHERE customers_id = " . (int)$customers_id);
   }
 
   $db->query("DELETE FROM address_book WHERE customers_id = " . (int)$customers_id);
@@ -26,5 +26,6 @@
   $db->query("DELETE FROM whos_online WHERE customer_id = " . (int)$customers_id);
   $db->query("DELETE FROM products_notifications WHERE customers_id = " . (int)$customers_id);
   $db->query("DELETE t, td FROM testimonials t LEFT JOIN testimonials_description td ON t.testimonials_id = td.testimonials_id WHERE t.customers_id = " . (int)$customers_id);
+  $db->query("DELETE FROM outgoing WHERE customer_id = " . (int)$customers_id);
 
   return $Admin->link('customers.php')->retain_query_except(['cID', 'action']);

@@ -96,8 +96,8 @@ EOT;
 
 // for new style internal pages
 const LINK_TEXT_EDIT = '<small><a class="%s" href="%s">Edit</a></small>';
-const SHIPPING_FA_ICON = '<i class="fas fa-shipping-fast fa-fw fa-3x float-right text-black-50"></i>';
-const PAYMENT_FA_ICON = '<i class="fas fa-file-invoice-dollar fa-fw fa-3x float-right text-black-50"></i>';
+const SHIPPING_FA_ICON = '<i class="fas fa-shipping-fast fa-fw fa-3x float-right text-secondary"></i>';
+const PAYMENT_FA_ICON = '<i class="fas fa-file-invoice-dollar fa-fw fa-3x float-right text-secondary"></i>';
 
 const ENTRY_COMMENTS = 'Anything we need to know?';
 const ENTRY_COMMENTS_PLACEHOLDER = 'Comment here...';

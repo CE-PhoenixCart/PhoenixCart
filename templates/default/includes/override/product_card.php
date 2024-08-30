@@ -14,6 +14,8 @@
 
     public static function inject($parameters) {
       if ($parameters['card']['show_buttons'] ?? false) {
+        unset($parameters['buttons']['buy']);
+        
         $parameters['buttons']['view'] = new Button(IS_PRODUCT_BUTTON_VIEW, '', 'btn-info btn-product-listing btn-view', [], $parameters['product']->get('link'));
         if (!$parameters['product']->get('has_attributes')) {
           $parameters['buttons']['buy'] = new Button(

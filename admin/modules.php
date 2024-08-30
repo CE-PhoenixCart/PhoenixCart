@@ -124,7 +124,7 @@
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
 <?php
-  $cfgm = "cfgm_$set";
+  $cfgm = "uncallable_cfgm_$set";
   if (is_callable([$cfgm, 'menu'])) {
 ?>
     <div class="col text-right align-self-center"><?= $cfgm::menu() ?></div>

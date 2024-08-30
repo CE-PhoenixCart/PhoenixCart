@@ -30,3 +30,5 @@ const TEXT_INFO_HEADING_DELETE_COUNTRY = 'Delete Country';
 
 const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Countries';
 
+const HEADING_TITLE_SEARCH = 'Search';
+

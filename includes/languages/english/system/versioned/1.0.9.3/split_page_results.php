@@ -44,4 +44,4 @@ const TEXT_SORT_BY = 'Sort By ';
 // sitewide product listing
 const LISTING_SORT_DOWN = '%s <i class="fas fa-level-down-alt text-primary"></i>';
 const LISTING_SORT_UP = '%s <i class="fas fa-level-up-alt text-primary"></i>';
-const LISTING_SORT_UNSELECTED = '%s <i class="fas fa-level-up-alt text-black-50"></i>';
+const LISTING_SORT_UNSELECTED = '%s <i class="fas fa-level-up-alt text-secondary"></i>';

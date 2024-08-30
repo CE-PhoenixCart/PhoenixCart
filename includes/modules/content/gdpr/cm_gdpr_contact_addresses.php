@@ -16,7 +16,6 @@
 
     public function __construct() {
       parent::__construct(__FILE__);
-      $this->description .= '<div class="alert alert-warning">' . MODULE_CONTENT_BOOTSTRAP_ROW_DESCRIPTION . '</div>';
     }
 
     public function execute() {

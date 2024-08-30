@@ -34,7 +34,6 @@
         if ( [] !== $navbar_modules ) {
           $styles = [];
           $styles[] = MODULE_CONTENT_NAVBAR_STYLE_BG;
-          $styles[] = MODULE_CONTENT_NAVBAR_STYLE_FG;
           $styles[] = MODULE_CONTENT_NAVBAR_FIXED;
           $styles[] = MODULE_CONTENT_NAVBAR_COLLAPSE;
 
@@ -69,16 +68,9 @@
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_NAVBAR_STYLE_BG' => [
-          'title' => 'Background Colour Scheme',
-          'value' => 'bg-light border-bottom',
-          'desc' => 'What background colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/utilities/colors/#background-color"><u>colors/#background-color</u></a>',
-          'set_func' => "Config::select_one(['bg-primary', 'bg-secondary', 'bg-success', 'bg-danger', 'bg-warning', 'bg-info', 'bg-light', 'bg-dark', 'bg-white'], ",
-        ],
-        'MODULE_CONTENT_NAVBAR_STYLE_FG' => [
-          'title' => 'Link Colour Scheme',
-          'value' => 'navbar-light',
-          'desc' => 'What foreground colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#color-schemes"><u>navbar/#color-schemes</u></a>',
-          'set_func' => "Config::select_one(['navbar-dark', 'navbar-light'], ",
+          'title' => 'Navbar Colour Scheme',
+          'value' => 'bg-light navbar-light border-bottom',
+          'desc' => 'What background and foreground colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/utilities/colors/#background-color"><u>colors/#background-color</u></a> and <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#color-schemes"><u>navbar/#color-schemes</u></a>',
         ],
         'MODULE_CONTENT_NAVBAR_FIXED' => [
           'title' => 'Placement',
