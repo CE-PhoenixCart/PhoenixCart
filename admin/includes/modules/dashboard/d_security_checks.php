@@ -38,37 +38,37 @@
 
       if (empty($messages)) {
         return sprintf(<<<'EOHTML'
-          <div class="alert alert-success">
-            <div class="clearfix"><i class="fas fa-5x fa-thumbs-up float-left mr-2"></i><strong>%s</strong></div>
-          </div>
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-success d-flex align-items-center">
+              <i class="fas fa-5x fa-thumbs-up float-left mr-2"></i>
+              %s
+            </li>
+          </ul>
 EOHTML
         , MODULE_ADMIN_DASHBOARD_SECURITY_CHECKS_SUCCESS);
       }
 
-      $output = '';
-      if (isset($messages['error'])) {
-        $output .= '<div class="alert alert-danger">';
-        foreach ($messages['error'] as $error) {
-          $output .= '<div class="clearfix"><i class="fas fa-5x fa-times-circle float-left mr-2"></i> ' . $error . '</div>';
+      $output = '<ul class="list-group">';
+        foreach ($messages['error'] ?? [] as $error) {
+          $output .= '<li class="list-group-item list-group-item-danger d-flex align-items-center">';
+            $output .= '<i class="fas fa-5x fa-times-circle float-left mr-2 text-danger"></i>';
+            $output .= $error;
+          $output .= '</li>';
         }
-        $output .= '</div>';
-      }
+        foreach ($messages['warning'] ?? [] as $warning) {
+          $output .= '<li class="list-group-item list-group-item-warning d-flex align-items-center">';
+            $output .= '<i class="fas fa-5x fa-times-circle float-left mr-2 text-warning"></i>';
+            $output .= $warning;
+          $output .= '</li>';
+        }
+        foreach ($messages['info'] ?? [] as $info) {
+          $output .= '<li class="list-group-item list-group-item-info d-flex align-items-center">';
+            $output .= '<i class="fas fa-5x fa-exclamation-circle float-left mr-2 text-info"></i>';
+            $output .= $info;
+          $output .= '</li>';
+        }
 
-      if (isset($messages['warning'])) {
-        $output .= '<div class="alert alert-warning">';
-        foreach ($messages['warning'] as $warning) {
-          $output .= '<div class="clearfix"><i class="fas fa-5x fa-times-circle float-left mr-2"></i> ' . $warning . '</div>';
-        }
-        $output .= '</div>';
-      }
-
-      if (isset($messages['info'])) {
-        $output .= '<div class="alert alert-info">';
-        foreach ($messages['info'] as $info) {
-          $output .= '<div class="clearfix"><i class="fas fa-5x fa-exclamation-circle float-left mr-2"></i> ' . $info . '</div>';
-        }
-        $output .= '</div>';
-      }
+      $output .= '</ul>';
 
       return $output;
     }
