@@ -30,7 +30,7 @@
       if (!Text::is_empty($cInfo->last_modified)) {
         $contents[] = ['text' => TEXT_LAST_MODIFIED . ' ' . Date::abridge($cInfo->last_modified)];
       }
-      $contents[] = ['text' => $Admin->catalog_image("images/{$cInfo->categories_image}", [], $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . $cInfo->categories_image];
+      $contents[] = ['text' => $Admin->catalog_image("images/{$cInfo->categories_image}", [], $cInfo->categories_name) . '<br>' . $cInfo->categories_image];
 
       $contents[] = ['class' => 'text-center', 'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-light', $link->set_parameter('action', 'move_category'))];
     } elseif (isset($product) && ($product instanceof Product)) {
