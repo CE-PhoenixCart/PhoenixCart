@@ -17,8 +17,8 @@
         foreach ($products as $product) {
           echo new Input('products_id[]', ['value' => $product->get('uprid')], 'hidden');
           echo '<tr>';
-            echo '<td class="d-none d-md-table-cell">';
-              echo '<a href="', $product->get('link'), '">', new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name')), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT), '</a>';
+            echo '<td class="d-none d-md-table-cell" style="width: 200px;">';
+              echo '<a href="', $product->get('link'), '">', new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name'))), '</a>';
             echo '</td>';
             echo '<th class="align-middle">';
               echo '<a href="', $product->get('link'), '">', $product->get('name'), '</a>';

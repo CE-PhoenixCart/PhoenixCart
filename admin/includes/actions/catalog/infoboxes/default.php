@@ -50,7 +50,7 @@
       if (date('Y-m-d') < $product->get('date_available')) {
         $contents[] = ['text' => TEXT_DATE_AVAILABLE . ' ' . Date::abridge($product->get('date_available'))];
       }
-      $contents[] = ['text' => $Admin->catalog_image('images/' . $product->get('image'), [], $product->get('name'), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '<br>' . $product->get('image')];
+      $contents[] = ['text' => $Admin->catalog_image('images/' . $product->get('image'), [], $product->get('name')) . '<br>' . $product->get('image')];
       $contents[] = ['text' => TEXT_PRODUCTS_PRICE_INFO . ' ' . $product->format('price') . '<br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $product->get('quantity')];
       $contents[] = ['text' => TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($product->get('review_percentile'), 2) . '%'];
       $contents[] = [

@@ -24,7 +24,7 @@
     $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . Date::abridge($sInfo->specials_last_modified)];
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->catalog_image("images/{$sInfo->products_image}", [], $sInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT),
+      'text' => $GLOBALS['Admin']->catalog_image("images/{$sInfo->products_image}", [], $sInfo->products_name),
     ];
     $contents[] = ['text' => TEXT_INFO_ORIGINAL_PRICE . ' ' . $GLOBALS['currencies']->format($sInfo->products_price)];
     $contents[] = ['text' => TEXT_INFO_NEW_PRICE . ' ' . $GLOBALS['currencies']->format($sInfo->specials_new_products_price)];

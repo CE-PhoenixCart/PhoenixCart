@@ -7,7 +7,7 @@
   
   if (!Text::is_empty($_image)) {
     ?>
-    <a href="<?= $link ?>"><?= new Image("images/$_image", ['class' => 'card-img-top'], htmlspecialchars($_brand), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) ?></a>
+    <a href="<?= $link ?>"><?= new Image("images/$_image", ['class' => 'card-img-top'], htmlspecialchars($_brand)) ?></a>
     <?php
   }
   ?>
