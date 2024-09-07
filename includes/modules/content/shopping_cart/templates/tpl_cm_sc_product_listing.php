@@ -4,12 +4,12 @@
     <table class="table table-sm table-hover mb-0">
       <thead class="thead-light">
         <tr>
-          <th class="d-none d-md-table-cell">&nbsp;</th>
-          <th><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_PRODUCT ?></th>
-          <th class="d-none d-md-table-cell"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_AVAILABILITY ?></th>
-          <th><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_QUANTITY ?></th>
-          <th class="text-right"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_PRICE ?></th>
-          <th>&nbsp;</th>
+          <th scope="col" class="d-none d-md-table-cell">&nbsp;</th>
+          <th scope="col"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_PRODUCT ?></th>
+          <th scope="col" class="d-none d-md-table-cell"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_AVAILABILITY ?></th>
+          <th scope="col"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_QUANTITY ?></th>
+          <th scope="col" class="text-right"><?= MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_PRICE ?></th>
+          <th scope="col">&nbsp;</th>
         </tr>
       </thead>
       <tbody>
@@ -17,7 +17,7 @@
         foreach ($products as $product) {
           echo new Input('products_id[]', ['value' => $product->get('uprid')], 'hidden');
           echo '<tr>';
-            echo '<td class="d-none d-md-table-cell" style="width: 200px;">';
+            echo '<td scope="row" class="d-none d-md-table-cell" style="width: 200px;">';
               echo '<a href="', $product->get('link'), '">', new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name'))), '</a>';
             echo '</td>';
             echo '<th class="align-middle">';
