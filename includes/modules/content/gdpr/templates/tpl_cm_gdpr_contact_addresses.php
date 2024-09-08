@@ -5,7 +5,7 @@
         <th colspan="2"><?= MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_PUBLIC_TITLE ?></th>
       </tr>
     </thead>
-    </tbody>
+    <tbody>
       <tr>
         <td class="w-50"><p class="text-center"><?= sprintf(MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_NUM_ADDRESSES, $port_my_data['YOU']['CONTACT']['ADDRESS']['OTHER']['COUNT']) ?></p></td>
         <td>
