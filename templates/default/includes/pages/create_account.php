@@ -60,10 +60,10 @@
     
     <?php
   }
+  
+  echo $hooks->cat('injectFormDisplay');
 
   echo '</div>';
-
-  echo $hooks->cat('injectFormDisplay');
 ?>
 
   <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-user', 'btn-success btn-block btn-lg') ?></p>
