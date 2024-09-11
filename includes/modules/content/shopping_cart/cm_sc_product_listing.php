@@ -33,7 +33,7 @@
       if ($_SESSION['cart']->count_contents() > 0) {
         $GLOBALS['any_out_of_stock'] = false;
         $products = $_SESSION['cart']->get_products();
-        $form = new Form('cart_quantity', $GLOBALS['Linker']->build('shopping_cart.php', ['action' => 'update_product']));
+        $form = new Form('cart_quantities', $GLOBALS['Linker']->build('shopping_cart.php', ['action' => 'update_product']));
 
         foreach ($products as $product) {
           // Push all attributes information in an array
