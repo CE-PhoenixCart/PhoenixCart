@@ -55,9 +55,9 @@
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
         'CU_TEXT_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
-          'value' => 'col-12',
-          'desc' => 'What width container should the content be shown in?',
+          'title' => 'Content Container',
+          'value' => 'col-12 mb-3',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'CU_TEXT_SORT_ORDER' => [
           'title' => 'Sort Order',

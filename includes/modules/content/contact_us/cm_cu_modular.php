@@ -60,9 +60,9 @@
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CU_MODULAR_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
+          'title' => 'Content Container',
           'value' => 'col-sm-12',
-          'desc' => 'What width container should this module be shown in?',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_CU_MODULAR_A_WIDTH' => [
           'title' => 'Slot Width: A',

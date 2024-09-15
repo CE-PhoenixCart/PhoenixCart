@@ -78,7 +78,7 @@
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
-          'title' => 'Content Width',
+          'title' => 'Content Container',
           'value' => 'col-sm-12',
           'desc' => 'What width container should the content be shown in?',
         ],
