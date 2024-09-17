@@ -116,7 +116,7 @@
       <div class="form-group row">
         <label for="Zulu" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_TIME_ZONE ?></label>
         <div class="col-sm-9">
-          <?= (new Select('CFG_TIME_ZONE', Installer::load_time_zones()))->set_default_selection(date_default_timezone_get()),
+          <?= (new Select('CFG_TIME_ZONE', Installer::load_time_zones(), ['id' => 'Zulu']))->set_default_selection(date_default_timezone_get()),
               TEXT_REQUIRED_INFORMATION,
               TEXT_TIME_ZONE_EXPLANATION ?>
         </div>

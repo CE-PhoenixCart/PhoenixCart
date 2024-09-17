@@ -138,7 +138,7 @@
     <form name="install" id="installForm" action="install.php?step=2" method="post" role="form">
 
       <div class="form-group row">
-        <label for="dbServer" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_SERVER ?></label>
+        <label for="DB_SERVER" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_SERVER ?></label>
         <div class="col-sm-9">
           <?= (new Input('DB_SERVER', ['id' => 'DB_SERVER', 'placeholder' => 'localhost']))->require(),
               TEXT_REQUIRED_INFORMATION,
@@ -147,7 +147,7 @@
       </div>
 
       <div class="form-group row">
-        <label for="userName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_USERNAME ?></label>
+        <label for="DB_SERVER_USERNAME" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_USERNAME ?></label>
         <div class="col-sm-9">
           <?= new Input('DB_SERVER_USERNAME', ['id' => 'DB_SERVER_USERNAME', 'placeholder' => TEXT_USERNAME]),
               TEXT_REQUIRED_INFORMATION,
@@ -156,7 +156,7 @@
       </div>
 
       <div class="form-group row">
-        <label for="passWord" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PASSWORD ?></label>
+        <label for="DB_SERVER_PASSWORD" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_PASSWORD ?></label>
         <div class="col-sm-9">
           <?= new Input('DB_SERVER_PASSWORD', ['id' => 'DB_SERVER_PASSWORD'], 'password'),
               TEXT_REQUIRED_INFORMATION,
@@ -165,7 +165,7 @@
       </div>
 
       <div class="form-group row">
-        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_NAME ?></label>
+        <label for="DB_DATABASE" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_DATABASE_NAME ?></label>
         <div class="col-sm-9">
           <?= (new Input('DB_DATABASE', ['id' => 'DB_DATABASE', 'placeholder' => TEXT_DATABASE]))->require(),
               TEXT_REQUIRED_INFORMATION,
@@ -174,7 +174,7 @@
       </div>
 
       <div class="form-group row">
-        <label for="dbName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_IMPORT_SAMPLE_DATA ?></label>
+        <label for="DB_IMPORT_SAMPLE" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_IMPORT_SAMPLE_DATA ?></label>
         <div class="col-sm-9">
           <?= (new Select('DB_IMPORT_SAMPLE', [
                  ['id' => '0', 'text' => TEXT_SKIP_SAMPLE_DATA],
