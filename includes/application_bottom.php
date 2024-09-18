@@ -18,7 +18,7 @@
     error_log(date('Y-m-d H:i:s') . ' - ' . getenv('REQUEST_URI') . ' (' . $parse_time . "s)\n", 3, STORE_PAGE_PARSE_TIME_LOG);
 
     if ('true' === DISPLAY_PAGE_PARSE_TIME) {
-      echo '<span class="smallText">Parse Time: ' . $parse_time . 's</span>';
+      echo '<small class="font-monospace text-muted text-body-secondary">Parse Time: ' . $parse_time . 's</small>';
     }
   }
 ?>
