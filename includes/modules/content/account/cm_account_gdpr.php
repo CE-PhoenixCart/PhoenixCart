@@ -34,7 +34,7 @@
           $GLOBALS['Template']->_data['account']['gdpr']['links'][$this->group] = [
             'title' => MODULE_CONTENT_ACCOUNT_GDPR_SUB_TITLE,
             'link' => $GLOBALS['Linker']->build('gdpr.php'),
-            'icon' => 'fa fa-user-secret fa-5x',
+            'icon' => 'fas fa-address-card fa-5x',
           ];
         }
       }
