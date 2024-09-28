@@ -300,7 +300,7 @@ EOSQL
         }
       }
 
-      return $products;
+      return array_reverse($products);
     }
 
     public function show_total() {
