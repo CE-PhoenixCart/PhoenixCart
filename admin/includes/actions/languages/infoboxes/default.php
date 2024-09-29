@@ -20,10 +20,6 @@
       'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
               . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', (clone $link)->set_parameter('action', 'delete')),
     ];
-    $contents[] = [
-      'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_DETAILS, 'fas fa-eye', 'btn-info', $GLOBALS['Admin']->link('define_language.php', ['lngdir' => $lInfo->directory])),
-    ];
     $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_DIRECTORY, DIR_WS_CATALOG . 'includes/languages/', $lInfo->directory)];
     $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_SORT_ORDER, $lInfo->sort_order)];
   }

@@ -72,6 +72,15 @@
 
       return false;
     }
+    
+    public static function fetch_id_from_iso($iso) {
+      $location = Text::input($iso);
+      
+      $countries_query = $GLOBALS['db']->query("SELECT countries_id FROM countries WHERE countries_iso_code_2 = '" . $location . "' OR countries_iso_code_3 = '" . $location . "'");
+      $country = $countries_query->fetch_assoc();
+      
+      return $country['countries_id'] ?? '';
+    }
 
   }
 

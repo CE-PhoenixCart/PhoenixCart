@@ -93,6 +93,7 @@
       $parameters = [
         'id' => $input_id,
         'autocomplete' => 'address-level1',
+        'placeholder' => ENTRY_STATE_TEXT ?? '',
         'minlength' => ENTRY_STATE_MIN_LENGTH,
       ];
 
@@ -110,11 +111,11 @@
 
       $post_input = null;
       if (empty($zones)) {
-        if (!Text::is_empty(ENTRY_STATE_TEXT)) {
-          $parameters['placeholder'] = ENTRY_STATE_TEXT;
+        $input = (new Input('state', $parameters));
+        
+        if (isset($customer_details) && is_array($customer_details)) {
+          $input->set('value', $this->get('state', $customer_details));
         }
-
-        $input = (new Input('state', $parameters))->set('value', $state);
         
         if ($this->is_required()) {
           $input->require();

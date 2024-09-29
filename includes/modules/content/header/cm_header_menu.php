@@ -39,7 +39,7 @@
         ],
         'MODULE_CONTENT_HEADER_MENU_CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-12 mb-1 px-0',
+          'value' => 'col-sm-12 mb-1',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_HEADER_MENU_STYLE' => [

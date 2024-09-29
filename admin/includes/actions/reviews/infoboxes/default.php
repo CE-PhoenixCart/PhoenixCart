@@ -24,7 +24,7 @@
     if (!Text::is_empty($rInfo->last_modified)) {
       $contents[] = ['text' => sprintf(TEXT_INFO_LAST_MODIFIED, Date::abridge($rInfo->last_modified))];
     }
-    $contents[] = ['text' => $GLOBALS['Admin']->catalog_image("images/{$rInfo->products_image}", [], $rInfo->products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT)];
+    $contents[] = ['text' => $GLOBALS['Admin']->catalog_image("images/{$rInfo->products_image}", [], $rInfo->products_name)];
     $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_AUTHOR, $rInfo->customers_name)];
     $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_RATING, new star_rating((float)$rInfo->reviews_rating))];
     $contents[] = ['text' => sprintf(TEXT_INFO_REVIEW_SIZE, str_word_count($rInfo->reviews_text))];

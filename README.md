@@ -10,8 +10,8 @@
   - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#demo-sites)
 * [Installation](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#installation)
   - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#requirements)
-  - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#user-checklist)
   - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#one-click)
+  - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#user-checklist)  
   - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#language-packs)
 * [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#certified-partners)
 * [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#how-to-support-the-phoenix-project)
@@ -35,6 +35,10 @@ PRO|https://phoenixcart.org/PROdemo/
 ## Installation
 
 Installation of Phoenix takes no more than a few minutes - you will need a hosting account that supports PHP (programming language) and has at least one SQL database.  Phoenix can even be installed on your home computer for testing purposes.
+
+## One-click
+
+Phoenix can now be installed with just `one click` via [Softaculous](http://www.softaculous.com/apps/ecommerce/CE_Phoenix) or [Installatron](https://installatron.com/cephoenixcart/)
 
 ### Requirements
 
@@ -73,17 +77,11 @@ Internationalization of date names will not work properly without intl enabled.
 - [ ] perform a test checkout
 - [ ] load your categories and products
 
-### One-click
-
-<img align="left" src="http://www.softaculous.com/website/images/softac_products.gif" alt="Softaculous"><br>CE Phoenix can now be installed easily with just one click via [Softaculous](http://www.softaculous.com/apps/ecommerce/CE_Phoenix)<br><br>
-
-<img align="left" src="https://user-images.githubusercontent.com/104613/112981416-27a8e980-9129-11eb-97e7-a015f95d35b9.png" alt="Installatron">CE Phoenix can now be installed easily with just one click via [Installatron](https://installatron.com/cephoenixcart/)<br><br>
-
 ### Language Packs
 
 See the list at https://phoenixcart.org/forum/app.php/addons/free/language-23
 
-Please be aware that most language packs are maintained by shop owners so may not be up to date, may be incomplete, or may contain non-core files and definitions.
+Please be aware that most language packs are maintained by volunteers so may not be fully up to date.
 
 ## How to Support the Phoenix Project
 

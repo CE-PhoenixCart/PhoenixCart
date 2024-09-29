@@ -30,7 +30,7 @@
       if (!Text::is_empty($cInfo->last_modified)) {
         $contents[] = ['text' => TEXT_LAST_MODIFIED . ' ' . Date::abridge($cInfo->last_modified)];
       }
-      $contents[] = ['text' => $Admin->catalog_image("images/{$cInfo->categories_image}", [], $cInfo->categories_name, HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT) . '<br>' . $cInfo->categories_image];
+      $contents[] = ['text' => $Admin->catalog_image("images/{$cInfo->categories_image}", [], $cInfo->categories_name) . '<br>' . $cInfo->categories_image];
 
       $contents[] = ['class' => 'text-center', 'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-light', $link->set_parameter('action', 'move_category'))];
     } elseif (isset($product) && ($product instanceof Product)) {
@@ -50,7 +50,7 @@
       if (date('Y-m-d') < $product->get('date_available')) {
         $contents[] = ['text' => TEXT_DATE_AVAILABLE . ' ' . Date::abridge($product->get('date_available'))];
       }
-      $contents[] = ['text' => $Admin->catalog_image('images/' . $product->get('image'), [], $product->get('name'), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '<br>' . $product->get('image')];
+      $contents[] = ['text' => $Admin->catalog_image('images/' . $product->get('image'), [], $product->get('name')) . '<br>' . $product->get('image')];
       $contents[] = ['text' => TEXT_PRODUCTS_PRICE_INFO . ' ' . $product->format('price') . '<br>' . TEXT_PRODUCTS_QUANTITY_INFO . ' ' . $product->get('quantity')];
       $contents[] = ['text' => TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($product->get('review_percentile'), 2) . '%'];
       $contents[] = [

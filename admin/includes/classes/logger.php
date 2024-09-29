@@ -21,7 +21,7 @@
     }
 
     public static function format($timer_total) {
-      return '<span class="smallText">Parse Time: ' . $timer_total . 's</span>';
+      return '<small class="font-monospace text-muted text-body-secondary">Parse Time: ' . $timer_total . 's</small>';
     }
 
     public static function write($uri, $message) {

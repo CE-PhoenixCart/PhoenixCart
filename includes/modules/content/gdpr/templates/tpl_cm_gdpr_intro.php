@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_INTRO_CONTENT_WIDTH ?> cm-gdpr-intro">
   <div class="alert alert-info">
-    <?= MODULE_CONTENT_GDPR_INTRO_PUBLIC_TEXT ?>
+    <?= sprintf(MODULE_CONTENT_GDPR_INTRO_PUBLIC_TEXT, $GLOBALS['Linker']->build('account.php')) ?>
   </div>
 </div>
 

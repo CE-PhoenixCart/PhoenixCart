@@ -11,6 +11,6 @@
 */
 
 const NAVBAR_TITLE_1 = 'My Profile';
-const NAVBAR_TITLE_2 = 'Data Privacy';
+const NAVBAR_TITLE_2 = 'Data Overview';
 
-const HEADING_TITLE = 'What we know about you...';
+const HEADING_TITLE = 'My Profile Data Overview';

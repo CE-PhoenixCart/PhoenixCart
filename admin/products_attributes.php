@@ -524,7 +524,7 @@ SELECT po.*, pov.*, pov2po.*
    INNER JOIN products_options_values_to_products_options pov2po ON pov.products_options_values_id = pov2po.products_options_values_id
    INNER JOIN products_options po ON po.products_options_id = pov2po.products_options_id
  WHERE pov.language_id = %1$d AND po.language_id = %1$d
- ORDER BY po.sort_order, pov.sort_order
+ ORDER BY po.products_options_name, pov.sort_order
 EOSQL
               , (int)$_SESSION['languages_id']));
             ?>

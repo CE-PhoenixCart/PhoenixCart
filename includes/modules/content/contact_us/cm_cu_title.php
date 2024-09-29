@@ -34,9 +34,9 @@
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_CONTENT_CU_TITLE_CONTENT_WIDTH' => [
-          'title' => 'Content Width',
+          'title' => 'Content Container',
           'value' => 'col-12 mb-4',
-          'desc' => 'What width container should the content be shown in?',
+          'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         'MODULE_CONTENT_CU_TITLE_SORT_ORDER' => [
           'title' => 'Sort Order',

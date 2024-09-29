@@ -78,18 +78,21 @@
       $label_text = constant($entry_base);
 
       $input_id = 'inputPassword';
+      
+      $placeholder = '';
+      if (defined($entry_base . '_TEXT') && !Text::is_empty(constant($entry_base . '_TEXT'))) {
+        $placeholder = constant($entry_base . '_TEXT');
+      }      
+      
       $attributes = [
         'id' => $input_id,
         'autocapitalize' => 'none',
         'autocomplete' => isset($customer_details['password'])
                         ? 'current-password'
                         : 'new-password',
+        'placeholder' => $placeholder,
         'minlength' => $this->base_constant('MIN_LENGTH'),
-      ];
-
-      if (defined($entry_base . '_TEXT') && !Text::is_empty(constant($entry_base . '_TEXT'))) {
-        $attributes['placeholder'] = constant($entry_base . '_TEXT');
-      }
+      ];      
 
       $input = new Input('password', $attributes, 'password');
 

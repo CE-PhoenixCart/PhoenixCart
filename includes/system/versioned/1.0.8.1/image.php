@@ -60,8 +60,7 @@
 
       return ( (empty($this->parameters['width'])
              && empty($this->parameters['height']))
-        && (('true' !== CONFIG_CALCULATE_IMAGE_SIZE)
-         || (false === $this->size())) );
+        && (false === $this->size()) );
     }
 
     /**
@@ -169,7 +168,6 @@
 
       if ( empty($this->parameters['width'])
         && empty($this->parameters['height'])
-        && ('true' === CONFIG_CALCULATE_IMAGE_SIZE)
         && (false === $this->size($file_path)) )
       {
         return '';

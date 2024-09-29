@@ -80,7 +80,7 @@ const WARNING_ORDER_NOT_UPDATED = '<strong>Warning:</strong> Nothing to change. 
 const ENTRY_ADD_COMMENT = 'Add Comment:';
 
 const ENTRY_NOTIFY_CUSTOMER_TEXT = 'This will notify the customer that their order has been updated.';
-const ENTRY_NOTIFY_COMMENTS_TEXT = 'This will append your comments to the order and the email.';
+const ENTRY_NOTIFY_COMMENTS_TEXT = 'This will append your comments to the customer notification email.';
 
 const TEXT_ORDER_STATUS = '<strong>%s</strong> [%s]';
 const TEXT_ORDER_PAYMENT = '<strong>%s</strong> [%s]';
