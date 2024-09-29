@@ -121,5 +121,9 @@
       Guarantor::guarantee_subarray($db_tables, 'address_book');
       $db_tables['address_book']['entry_postcode'] = 'postcode';
     }
+    
+    public function is_searchable() {
+      return true;
+    }
 
   }
