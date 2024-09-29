@@ -1,0 +1,59 @@
+<?php
+/*
+  $Id$
+
+  CE Phoenix, E-Commerce made Easy
+  https://phoenixcart.org
+
+  Copyright (c) 2024 Phoenix Cart
+
+  Released under the GNU General Public License
+*/
+
+  class bootstrap5_template extends default_template {
+
+    public function __construct() {
+      $hook_directory = DIR_FS_CATALOG . 'templates/bootstrap5/includes/hooks/';
+      if (file_exists($hook_directory) && is_dir($hook_directory)) {
+        $this->_base_hook_directories[] = $hook_directory;
+      }
+      
+      $override_directory = DIR_FS_CATALOG . 'templates/bootstrap5/includes/override/';
+      if (file_exists($override_directory) && is_dir($override_directory)) {
+        $this->_base_override_directories[] = $override_directory;
+      }
+
+      parent::__construct();
+    }
+
+    public static function _get_template_mapping_for($file, $type) {
+      switch ($type) {
+        case 'page':
+          return DIR_FS_CATALOG . 'templates/bootstrap5/includes/pages/' . basename($file);
+        case 'component':
+          return DIR_FS_CATALOG . 'templates/bootstrap5/includes/components/' . basename($file);
+        case 'module':
+          $file = static::extract_relative_path($file);
+          $file = dirname($file) . '/tpl_' . basename($file);
+
+          return DIR_FS_CATALOG . "templates/bootstrap5/$file";
+        case 'ext':
+          $file = static::extract_relative_path($file);
+          return DIR_FS_CATALOG . "templates/bootstrap5/includes/$file";
+        case 'translation':
+        case 'literal':
+        default:
+          $file = static::extract_relative_path($file);
+          return DIR_FS_CATALOG . "templates/bootstrap5/$file";
+      }
+    }
+
+    public function get_template_mapping_for($file, $type) {
+      $template_file = static::_get_template_mapping_for($file, $type);
+
+      return file_exists($template_file)
+           ? $template_file
+           : parent::get_template_mapping_for($file, $type);
+    }
+
+  }
