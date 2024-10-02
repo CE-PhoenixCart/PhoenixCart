@@ -25,7 +25,7 @@
         $cm_i_slider_output .= $s_link;
           $cm_i_slider_output .= (new Image('images/' . $a['advert_image'], [], htmlspecialchars($a['advert_title'])))->append_css('d-block w-100');
           if (!Text::is_empty($a['advert_html_text'])) {
-            $cm_i_slider_output .= '<div class="carousel-caption d-none d-md-block">';
+            $cm_i_slider_output .= '<div class="carousel-caption">';
               $cm_i_slider_output .= $a['advert_html_text'];
             $cm_i_slider_output .= '</div>';
           }
@@ -58,6 +58,14 @@
     ?>
   </div>
 </div>
+
+<?php
+$slider_css = <<<EOCSS
+<style>@media (max-width: 575.98px) { .cm-i-slider h2 { font-size: 1rem !important; } .cm-i-slider h4 { font-size: 0.8rem !important; } .cm-i-slider .btn { display: none; } }</style>
+EOCSS;
+
+$GLOBALS['Template']->add_block($slider_css, 'footer_scripts');
+?>
 
 <?php
 /*
