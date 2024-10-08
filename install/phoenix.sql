@@ -887,7 +887,7 @@ INSERT INTO configuration_group VALUES ('7', 'Shipping/Packaging', 'Shipping opt
 INSERT INTO configuration_group VALUES ('8', 'Product Listing', 'Product Listing configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Product_Listing', '', '8', '1');
 INSERT INTO configuration_group VALUES ('9', 'Stock', 'Stock configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Stock', '', '9', '1');
 INSERT INTO configuration_group VALUES ('10', 'Logging', 'Logging configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Logging', '', '10', '1');
-INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Cache', '', '11', '1');
+INSERT INTO configuration_group VALUES ('11', 'Cache', 'Caching configuration options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Cache', '', '11', '0');
 INSERT INTO configuration_group VALUES ('12', 'E-Mail Options', 'General setting for E-Mail transport and HTML E-Mails', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=E-Mail_Options', '', '12', '1');
 INSERT INTO configuration_group VALUES ('13', 'Download', 'Downloadable products options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Download', '', '13', '1');
 INSERT INTO configuration_group VALUES ('14', 'GZip Compression', 'GZip compression options', 'https://phoenixcart.org/phoenixcartwiki/index.php?title=GZip_Compression', '', '14', '1');
