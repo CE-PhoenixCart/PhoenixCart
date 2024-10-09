@@ -15,10 +15,10 @@ const HEADING_TITLE = 'Security Check';
 
 const TEXT_INFORMATION = <<<'EOT'
 We have detected that your browser has generated a different SSL Session ID used throughout our secure pages.<br><br>
-For security purposes you will need to sign in to your profile again to continue shopping online.<br><br>
-Some browsers such as Konqueror 3.1 do not have the capability of generating a secure SSL Session ID automatically which we require. If you use such a browser, we recommend switching to another browser such as <a class="btn btn-light btn-sm" role="button" href="http://www.microsoft.com/ie/" target="_blank" rel="noreferrer">Microsoft Internet Explorer</a> or <a class="btn btn-light btn-sm" role="button" href="http://channels.netscape.com/ns/browsers/download_other.jsp" target="_blank" rel="noreferrer">Netscape</a> or <a class="btn btn-light btn-sm" role="button" href="http://www.mozilla.org/releases/" target="_blank" rel="noreferrer">Mozilla</a> to continue your online shopping experience.<br><br>
-We have taken this security measure for your benefit, and apologize up front if any inconveniences are caused.<br><br>
-Please <a class="btn btn-success btn-sm" role="button" href="%s">contact the store owner</a> if you have any questions about this requirement, or to continue purchasing products offline.
+For security purposes you will need to sign in to your profile again to continue shopping.<br><br>
+Some browsers do not have the capability of generating a secure SSL Session ID automatically. If you use such a browser, we recommend switching to a more modern browser such as <a href="https://www.microsoft.com/en-us/edge/download?form=MA13FJ" target="_blank" rel="noreferrer">Microsoft Edge</a> or <a  href="https://support.google.com/chrome/answer/95346" target="_blank" rel="noreferrer">Google Chrome</a> or <a href="https://www.mozilla.org/en-GB/firefox/" target="_blank" rel="noreferrer">Mozilla Firefox</a> to continue using our site.<br><br>
+We have taken this security measure for your benefit, and apologize for any inconvenience caused.<br><br>
+Please <a class="btn btn-success" role="button" href="%s">contact us</a> if you have any questions about this requirement.
 EOT;
 
 const BOX_INFORMATION_HEADING = 'Privacy and Security';
