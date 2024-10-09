@@ -13,8 +13,9 @@
 // main_page.php
 const TITLE = 'Starting Your Online Business with CE Phoenix Cart';
 const TEXT_SOFTWARE_NAME = 'CE Phoenix Cart';
-const TEXT_WEBSITE = 'Website';
-const TEXT_SUPPORT = 'Support';
+const TEXT_WEBSITE = '<img src="images/icon_phoenix.png" class="me-1">Website';
+const TEXT_SUPPORT = '<i class="fas fa-question-circle me-1 text-dark" aria-hidden="true"></i>Forum';
+const TEXT_USER_GUIDE = '<i class="fas fa-school me-1 text-dark" aria-hidden="true"></i>User Guide';
 const TEXT_COPYRIGHT = 'CE Phoenix Cart &copy; 2000-%d';
 
 // common
@@ -28,8 +29,8 @@ const ICON_THUMB_DANGER = '<i class="fas fa-thumbs-down text-danger"></i>';
 const TEXT_ON = 'On';
 const TEXT_OFF = 'Off';
 
-const TEXT_REQUIRED_INFORMATION = '<i class="fas fa-asterisk text-danger form-control-feedback"></i>';
-const TITLE_REQUIRED_INFORMATION = '<i class="fas fa-asterisk text-danger"></i> Required information';
+const TEXT_REQUIRED_INFORMATION = '';
+const TITLE_REQUIRED_INFORMATION = '';
 
 const TEXT_NEW_INSTALLATION = 'New Installation';
 const TEXT_WEB_INSTALL = <<<'EOT'
