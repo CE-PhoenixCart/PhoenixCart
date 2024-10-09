@@ -21,12 +21,7 @@
     public function execute() {
       global $product;
 
-      $price = $product->get('is_special')
-             ? sprintf(MODULE_CONTENT_PI_PRICE_DISPLAY_SPECIAL,
-                 $product->format(),
-                 $product->format('price'))
-             : sprintf(MODULE_CONTENT_PI_PRICE_DISPLAY,
-                 $product->format());
+      $price = $product->hype_price();
 
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
@@ -42,7 +37,7 @@
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-3',
+          'value' => 'col-sm-5',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
