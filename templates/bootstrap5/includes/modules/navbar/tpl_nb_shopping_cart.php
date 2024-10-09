@@ -5,7 +5,7 @@
 </li>
 
 <?php
-$push_to_footer = '<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">';
+$push_to_footer = '<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-theme="' . BOOTSTRAP_THEME . '" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">';
 
   $push_to_footer .= '<div class="offcanvas-header bg-body-tertiary">';  
     $push_to_footer .= '<h5 class="offcanvas-title" id="offcanvasCart">';
@@ -23,7 +23,13 @@ $push_to_footer = '<div class="offcanvas offcanvas-end" tabindex="-1" id="offcan
           
           $push_to_footer .= '<a href="' . $product->get('link') . '" class="list-group-item list-group-item-action">';
             $push_to_footer .= '<div class="d-flex w-100 justify-content-between align-items-center">';
-              $push_to_footer .= '<h6 class="mb-1">' . sprintf(MODULE_NAVBAR_SHOPPING_CART_PRODUCT, $product->get('quantity'), $product->get('name')) . '</h6>';
+              $push_to_footer .= '<div class="w-75">';
+                $push_to_footer .= '<h6 class="mb-1">' . sprintf(MODULE_NAVBAR_SHOPPING_CART_PRODUCT, $product->get('quantity'), $product->get('name')) . '</h6>';
+                $attributes = $product->get('attributes');
+                foreach (($product->get('attribute_selections') ?? []) as $option => $value) {
+                  $push_to_footer .= '<small class="text-muted">- ' . $attributes[$option]['name'] . ' ' . $attributes[$option]['values'][$value]['name'] . '</small><br>';
+                }
+                $push_to_footer .= '</div>';
               $push_to_footer .= '<div class="w-25">';
                 $push_to_footer .= new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name')));
               $push_to_footer .= '</div>';
@@ -34,7 +40,7 @@ $push_to_footer = '<div class="offcanvas offcanvas-end" tabindex="-1" id="offcan
     $push_to_footer .= '</div>';
 
     if ($_SESSION['cart']->count_contents() > 0) {
-      $push_to_footer .= '<div class="cart-buttons position-sticky bottom-0 bg-white pb-2" style="z-index:1;">';
+      $push_to_footer .= '<div class="cart-buttons position-sticky bottom-0 pb-2" style="z-index:1;">';
         $push_to_footer .= '<hr class="mt-0">';
         $push_to_footer .= '<div class="d-flex justify-content-between m-2">';
           $push_to_footer .= '<a href="' . $GLOBALS['Linker']->build('shopping_cart.php') . '" role="button" class="btn btn-info">' . MODULE_NAVBAR_SHOPPING_CART_VIEW_CART . '</a>';
