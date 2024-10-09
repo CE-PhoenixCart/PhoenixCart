@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_PI_GALLERY_CONTENT_WIDTH ?> cm-pi-gallery">
   <a role="button" data-target="#lightbox" data-toggle="modal" data-slide="0"><?=
-    new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])])
+    new Image('images/' . $active_image['image'], ['class' => 'img-fluid mx-auto d-block', 'alt' => htmlspecialchars( $active_image['htmlcontent'])])
   ?></a>
   <?php
   $first_img = new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars($active_image['htmlcontent']), 'loading' => 'lazy']);

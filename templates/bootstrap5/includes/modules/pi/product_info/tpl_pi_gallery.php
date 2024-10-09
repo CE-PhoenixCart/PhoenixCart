@@ -1,6 +1,6 @@
 <div class="<?= PI_GALLERY_CONTENT_WIDTH ?> pi-gallery">
   <a role="button" data-bs-target="#lightbox" data-bs-toggle="modal" data-bs-slide="0">
-    <?= new Image('images/' . $active_image['image'], ['alt' => htmlspecialchars( $active_image['htmlcontent'])]) ?>
+    <?= new Image('images/' . $active_image['image'], ['class' => 'img-fluid mx-auto d-block', 'alt' => htmlspecialchars( $active_image['htmlcontent'])]) ?>
   </a>
   
   <?php
