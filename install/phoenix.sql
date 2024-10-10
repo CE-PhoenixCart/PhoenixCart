@@ -1956,9 +1956,9 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, set_function) VALUES ('Add Spinner Buttons', 'PI_QTY_INPUT_BUTTONS', 'True', 'Add -/+ buttons onto the number input?', 6, 4, now(), 'Config::select_one([\'True\', \'False\'], ');
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Sort Order', 'PI_QTY_INPUT_SORT_ORDER', '319', 'Sort order of display. Lowest is displayed first.', 6, 5, now());
 
-INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (1, now(), 1, 'privacy', 10);
-INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (2, now(), 1, 'conditions', 20);
-INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (3, now(), 1, 'shipping', 30);
+INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (1, now(), 0, 'privacy', 10);
+INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (2, now(), 0, 'conditions', 20);
+INSERT INTO pages (pages_id, date_added, pages_status, slug, sort_order) VALUES (3, now(), 0, 'shipping', 30);
 INSERT INTO pages_description (pages_id, languages_id, pages_title, pages_text, navbar_title) VALUES (1, 1, 'Privacy & Cookie Policy', 'Put here your Privacy/Cookie Policies Text.', 'Privacy & Cookie Policy');
 INSERT INTO pages_description (pages_id, languages_id, pages_title, pages_text, navbar_title) VALUES (2, 1, 'Terms & Conditions', 'Put here your Terms & Conditions Text.', 'Terms & Conditions');
 INSERT INTO pages_description (pages_id, languages_id, pages_title, pages_text, navbar_title) VALUES (3, 1, 'Shipping & Returns', 'Put here your Shipping & Returns Text.', 'Shipping & Returns');
