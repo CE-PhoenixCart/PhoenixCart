@@ -2036,6 +2036,9 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added, use_function, set_function) VALUES ('Countries', 'MODULE_CONTENT_ACCOUNT_GDPR_NUKE_COUNTRIES', '', 'Restrict the Link to Account Holders in these Countries.  Leave Blank to show link to all Countries!', '6', '2', now(), 'cm_account_gdpr_nuke::show_countries', 'Config::select_multiple(Country::fetch_options(), ');
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Sort Order', 'MODULE_CONTENT_ACCOUNT_GDPR_NUKE_SORT_ORDER', '50', 'Sort order of display. Lowest is displayed first.', '6', '3', now());
 
+# Info Pages Layout Modules 
+INSERT INTO configuration (configuration_id, configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES (NULL, 'Installed Modules', 'MODULE_CONTENT_INFO_INSTALLED', '', 'List of &pi; Info Pages child modules separated by a semi-colon. This is automatically updated. No need to edit.', 6, 0, now());
+
 # bootstrap5
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Bootstrap Theme', 'BOOTSTRAP_THEME', 'auto', 'What theme (colour mode) should your site default to? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/customize/color-modes/"><u>/customize/color-modes/</u></a>.  <div class="alert alert-danger">This is an option for Bootstrap 5 only.</div>', 16, 3, 'Config::select_one([\'dark\', \'light\', \'auto\'], ', NOW());
 

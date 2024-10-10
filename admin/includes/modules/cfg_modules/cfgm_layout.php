@@ -20,6 +20,7 @@
       'contact_us' => 'MODULE_CONTENT_CU_INSTALLED',
       'index' => 'MODULE_CONTENT_I_INSTALLED',
       'product_info' => 'MODULE_CONTENT_PI_INSTALLED',
+      'info' => 'MODULE_CONTENT_INFO_INSTALLED',
     ];
     
     const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Layout';
