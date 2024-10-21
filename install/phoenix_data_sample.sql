@@ -14,11 +14,16 @@
 
 INSERT INTO advert VALUES ('1', 'Our Farm', 'products_new.php', '', 'our-farm.webp', 'carousel', NOW(), NULL, '20', '1');
 INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.webp', 'carousel', NOW(), NULL, '10', '1');
+INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.jpg', 'index', NOW(), NULL, '30', '1');
+INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.jpg', 'index', NOW(), NULL, '40', '1');
 
-INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
-INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
+INSERT INTO advert_info VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
+INSERT INTO advert_info VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
+INSERT INTO advert_info VALUES ('3', '1', '<h5 class=\"card-title\">If life gives you lemons... make Juice!</h5>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
+INSERT INTO advert_info VALUES ('4', '1', '<h5 class=\"card-title\">Checkout easily using our 3 step checkout!</h5>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
 
 UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
+UPDATE configuration SET configuration_value = 'index' WHERE configuration_key = 'I_ADVERTS_LINK';
 
 INSERT INTO categories VALUES (1, 'sample/fruit.jpg', 0, 10, NOW(), NULL);
 INSERT INTO categories VALUES (2, 'sample/vegetables-1.jpg', 0, 20, NOW(), NULL);

@@ -72,7 +72,7 @@
         ],
         $this->config_key_base . 'B_WIDTH' => [
           'title' => 'Slot Width: B',
-          'value' => '6',
+          'value' => '12',
           'desc' => 'What width should Slot B be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
@@ -84,7 +84,7 @@
         ],
         $this->config_key_base . 'D_WIDTH' => [
           'title' => 'Slot Width: D',
-          'value' => '4',
+          'value' => '6',
           'desc' => 'What width should Slot D be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
@@ -102,7 +102,7 @@
         ],
         $this->config_key_base . 'G_WIDTH' => [
           'title' => 'Slot Width: G',
-          'value' => '6',
+          'value' => '4',
           'desc' => 'What width should Slot G be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
@@ -114,13 +114,13 @@
         ],
         $this->config_key_base . 'I_WIDTH' => [
           'title' => 'Slot Width: I',
-          'value' => '12',
+          'value' => '6',
           'desc' => 'What width should Slot I be?  Note that Slots in a Row should totalise 12.',
           'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
-          'value' => '40',
+          'value' => '310',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
       ];
