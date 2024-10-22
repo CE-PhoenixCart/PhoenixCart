@@ -100,4 +100,7 @@ INSERT INTO products_to_categories VALUES (9, 4);
 INSERT INTO reviews VALUES (1, 4, 0, 'John Doe', 5, NOW(), NULL, 1, 0, 'n');
 INSERT INTO reviews_description VALUES (1, 1, 'Lovely box of crunchy apples and delivered very quickly.  Thank You!');
 
+INSERT INTO testimonials VALUES (1, 0, 'John Doe', NOW(), NULL, 1, 'n');
+INSERT INTO testimonials_description VALUES (1, 1, 'Amazing service! The products arrived quickly and exceeded my expectations. Will definitely shop here again!');
+
 INSERT INTO specials VALUES (1, 1, '2.9900', now(), null, null, null, '1');

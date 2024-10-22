@@ -9,10 +9,10 @@
     while ($testimonials = $testimonials_query->fetch_assoc()) {
       echo '<div class="' . MODULE_CONTENT_TESTIMONIALS_LIST_CONTENT_WIDTH_EACH . '">' . PHP_EOL;
         echo '<figure class="border-3 border-start px-3">';
-          echo '<blockquote class="blockquote">' . PHP_EOL;
+          echo '<blockquote class="blockquote lead">' . PHP_EOL;
             echo nl2br($testimonials['testimonials_text']) . PHP_EOL;
           echo '</blockquote>' . PHP_EOL;
-          echo '<figcaption class="blockquote-footer">',
+          echo '<figcaption class="blockquote-footer pt-2">',
                   sprintf(MODULE_CONTENT_TESTIMONIALS_LIST_WRITERS_NAME_DATE, htmlspecialchars($testimonials['customers_name']), Date::abridge($testimonials['date_added'])),
                '</figcaption>' . PHP_EOL;
         echo '</figure>';
