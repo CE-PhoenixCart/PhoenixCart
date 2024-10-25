@@ -21,8 +21,7 @@
     function execute() {
       $category_tree = &Guarantor::ensure_global('category_tree');
 
-      $menu_array[] = MODULE_CONTENT_HEADER_MENU_STYLE;
-      $menu_array[] = MODULE_CONTENT_HEADER_MENU_COLLAPSE;
+      $menu_array = [MODULE_CONTENT_HEADER_MENU_STYLE, MODULE_CONTENT_HEADER_MENU_COLLAPSE];
       $menu_style = implode(' ', $menu_array);
 
       $tpl_data = ['group' => $this->group, 'file' => __FILE__];
@@ -44,7 +43,7 @@
         ],
         $this->config_key_base . 'STYLE' => [
           'title' => 'Colour Scheme',
-          'value' => 'navbar-light bg-light rounded-sm',
+          'value' => '',
           'desc' => 'What colour scheme should this Navigation Bar have?  See https://getbootstrap.com/docs/4.6/components/navbar/#color-schemes'
         ],
         $this->config_key_base . 'COLLAPSE' => [
