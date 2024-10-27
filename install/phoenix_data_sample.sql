@@ -37,8 +37,8 @@ INSERT INTO categories_description VALUES ('2', '1', 'Vegetables', null, null, n
 INSERT INTO categories_description VALUES (3, 1, 'Apples & Pears', 'Fresh and crisp with a variety of flavours.', NULL, NULL);
 INSERT INTO categories_description VALUES (4, 1, 'Citrus Fruit', 'Tart, tangy and full of Vitamin C.', NULL, NULL);
 
-INSERT INTO manufacturers VALUES (1, 'Fiacre', 'brands/fiacre.jpg', now(), null);
-INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.jpg', now(), null);
+INSERT INTO manufacturers VALUES (1, 'Fiacre', 'brands/fiacre.webp', now(), null);
+INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.webp', now(), null);
 
 INSERT INTO manufacturers_info VALUES (1, 1, '', 0, null, null, null, null);
 INSERT INTO manufacturers_info VALUES (2, 1, '', 0, null, null, null, null);
