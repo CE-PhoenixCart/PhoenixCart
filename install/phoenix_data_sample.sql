@@ -14,8 +14,8 @@
 
 INSERT INTO advert VALUES ('1', 'Our Farm', 'products_new.php', '', 'our-farm.webp', 'carousel', NOW(), NULL, '20', '1');
 INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.webp', 'carousel', NOW(), NULL, '10', '1');
-INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.jpg', 'index', NOW(), NULL, '30', '1');
-INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.jpg', 'index', NOW(), NULL, '40', '1');
+INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.webp', 'index', NOW(), NULL, '30', '1');
+INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.webp', 'index', NOW(), NULL, '40', '1');
 
 INSERT INTO advert_info VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
 INSERT INTO advert_info VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
@@ -37,8 +37,8 @@ INSERT INTO categories_description VALUES ('2', '1', 'Vegetables', null, null, n
 INSERT INTO categories_description VALUES (3, 1, 'Apples & Pears', 'Fresh and crisp with a variety of flavours.', NULL, NULL);
 INSERT INTO categories_description VALUES (4, 1, 'Citrus Fruit', 'Tart, tangy and full of Vitamin C.', NULL, NULL);
 
-INSERT INTO manufacturers VALUES (1, 'Fiacre', 'brands/fiacre.webp', now(), null);
-INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.webp', now(), null);
+INSERT INTO manufacturers VALUES (1, 'Fiacre', 'brands/fiacre.jpg', now(), null);
+INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.jpg', now(), null);
 
 INSERT INTO manufacturers_info VALUES (1, 1, '', 0, null, null, null, null);
 INSERT INTO manufacturers_info VALUES (2, 1, '', 0, null, null, null, null);
