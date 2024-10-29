@@ -8,10 +8,11 @@
 <?php
 $form = new Form('quick_find', $GLOBALS['Linker']->build('advanced_search_result.php')->set_include_session(false), 'get');
 $form->hide_session_id()->hide('search_in_description', '0');
-$input = new Input('keywords', ['autocomplete' => 'off', 'id' => 'keywords'], 'search');
-$input->require();
-      
+
 $search_text = TEXT_SEARCH_PLACEHOLDER;
+
+$input = new Input('keywords', ['autocomplete' => 'off', 'id' => 'keywords', 'placeholder' => $search_text], 'search');
+$input->require();
 
 $searchModal = <<<SM
 <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
@@ -20,7 +21,6 @@ $searchModal = <<<SM
       <div class="modal-body p-5">
         {$form}
           <div class="input-group input-group-lg">
-            <span class="input-group-text">{$search_text}</span>
             {$input}
             <button type="submit" class="btn btn-secondary btn-search"><i class="fas fa-magnifying-glass"></i></button>
           </div>

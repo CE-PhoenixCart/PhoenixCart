@@ -51,7 +51,7 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12 col-md-9 order-last">
+  <div class="col order-last">
 
     <h2 class="display-4"><?= sprintf(TEXT_NEW_INSTALLATION_OF, Versions::get('Phoenix')) ?></h2>
 
@@ -103,27 +103,28 @@
     }
 ?>
 
-    <p><a href="index.php" class="btn btn-danger btn-block" role="button"><?= BUTTON_RETRY ?></a></p>
+    <p class="d-grid"><a href="index.php" class="btn btn-danger" role="button"><?= BUTTON_RETRY ?></a></p>
 
 <?php
   } else {
 ?>
 
-    <div class="alert alert-success" role="alert"><?= TEXT_PLEASE_PROCEED ?></div>
+    
 
     <div id="jsOn" style="display: none;">
-      <p><a href="install.php" class="btn btn-success btn-block" role="button"><?= BUTTON_START_INSTALL ?></a></p>
+      <p class="alert alert-success" role="alert"><?= TEXT_PLEASE_PROCEED ?></p>
+      <p class="d-grid"><a href="install.php" class="btn btn-success" role="button"><?= BUTTON_START_INSTALL ?></a></p>
     </div>
 
     <div id="jsOff">
-      <p class="text-danger"><?= TEXT_ENABLE_JS ?></p>
-      <p><a href="index.php" class="btn btn-danger btn-block" role="button"><?= BUTTON_RETRY ?></a></p>
+      <p class="alert alert-danger" role="alert"><?= TEXT_ENABLE_JS ?></p>
+      <p class="d-grid"><a href="index.php" class="btn btn-danger" role="button"><?= BUTTON_RETRY ?></a></p>
     </div>
 
 <script>
-$(function() {
-  $('#jsOff').hide();
-  $('#jsOn').show();
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('jsOff').style.display = 'none';
+  document.getElementById('jsOn').style.display = 'block';
 });
 </script>
 
@@ -132,7 +133,7 @@ $(function() {
 ?>
 
   </div>
-  <div class="col-sm-12 col-md-3 order-first">
+  <div class="col-sm-12 col-md-4 order-first">
     <h3><?= TEXT_SERVER_CAPABILITIES ?></h3>
 
     <table class="table table-condensed table-striped">
@@ -141,56 +142,56 @@ $(function() {
       </tr>
       <tr>
         <th><?= implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]) ?></th>
-        <td colspan="2" class="text-right"><?= $php_version_thumb ?></td>
+        <td colspan="2" class="text-end"><?= $php_version_thumb ?></td>
       </tr>
       <tr>
         <th colspan="3"><?= TEXT_PHP_SETTINGS ?></th>
       </tr>
       <tr>
         <th>file_uploads</th>
-        <td class="text-right"><?= ((int)ini_get('file_uploads') == 0) ? TEXT_OFF : TEXT_ON ?></td>
-        <td class="text-right"><?= ((int)ini_get('file_uploads') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
+        <td class="text-end"><?= ((int)ini_get('file_uploads') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-end"><?= ((int)ini_get('file_uploads') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>auto_start</th>
-        <td class="text-right"><?= ((int)ini_get('session.auto_start') == 0) ? TEXT_OFF : TEXT_ON ?></td>
-        <td class="text-right"><?= ((int)ini_get('session.auto_start') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
+        <td class="text-end"><?= ((int)ini_get('session.auto_start') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-end"><?= ((int)ini_get('session.auto_start') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>use_trans_sid</th>
-        <td class="text-right"><?= ((int)ini_get('session.use_trans_sid') == 0) ? TEXT_OFF : TEXT_ON ?></td>
-        <td class="text-right"><?= ((int)ini_get('session.use_trans_sid') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
+        <td class="text-end"><?= ((int)ini_get('session.use_trans_sid') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-end"><?= ((int)ini_get('session.use_trans_sid') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th colspan="3"><?= TEXT_REQUIRED_EXTENSIONS ?></th>
       </tr>
       <tr>
         <th>MySQLi</th>
-        <td colspan="2" class="text-right"><?= extension_loaded('mysqli') ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
+        <td colspan="2" class="text-end"><?= extension_loaded('mysqli') ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th>allow_url_fopen</th>
-        <td class="text-right"><?= ((int)ini_get('allow_url_fopen') == 0) ? TEXT_OFF : TEXT_ON ?></td>
-        <td class="text-right"><?= ((int)ini_get('allow_url_fopen') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
+        <td class="text-end"><?= ((int)ini_get('allow_url_fopen') == 0) ? TEXT_OFF : TEXT_ON ?></td>
+        <td class="text-end"><?= ((int)ini_get('allow_url_fopen') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
         <th colspan="3"><?= TEXT_RECOMMENDED_EXTENSIONS ?></th>
       </tr>
       <tr>
         <th>intl</th>
-        <td colspan="2" class="text-right"><?= extension_loaded('intl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
+        <td colspan="2" class="text-end"><?= extension_loaded('intl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
       <tr>
         <th>GD</th>
-        <td colspan="2" class="text-right"><?= extension_loaded('gd') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
+        <td colspan="2" class="text-end"><?= extension_loaded('gd') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
       <tr>
         <th>cURL</th>
-        <td colspan="2" class="text-right"><?= extension_loaded('curl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
+        <td colspan="2" class="text-end"><?= extension_loaded('curl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
       <tr>
         <th>OpenSSL</th>
-        <td colspan="2" class="text-right"><?= extension_loaded('openssl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
+        <td colspan="2" class="text-end"><?= extension_loaded('openssl') ? ICON_THUMB_SUCCESS : ICON_THUMB_WARNING ?></td>
       </tr>
     </table>
   </div>

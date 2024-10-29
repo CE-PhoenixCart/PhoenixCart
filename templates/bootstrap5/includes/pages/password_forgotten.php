@@ -16,7 +16,9 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
+<div class="row">
+
+  <div class="col-sm-6 offset-sm-3">
 
 <?php
   if ($messageStack->size('password_forgotten') > 0) {
@@ -41,7 +43,7 @@
   ?>
 
   <div class="d-grid">
-    <?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning btn-lg') ?>
+    <?= new Button(IMAGE_BUTTON_RESET_PASSWORD, 'fas fa-user-cog', 'btn-warning') ?>
   </div>
   
   <div class="my-2">
@@ -52,6 +54,12 @@
 
 <?php
   }
+  ?>
+  
+  </div>
+  
+</div>
 
+<?php
   require $Template->map('template_bottom.php', 'component');
 ?>

@@ -14,11 +14,18 @@
 
 INSERT INTO advert VALUES ('1', 'Our Farm', 'products_new.php', '', 'our-farm.webp', 'carousel', NOW(), NULL, '20', '1');
 INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.webp', 'carousel', NOW(), NULL, '10', '1');
+INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.webp', 'index', NOW(), NULL, '30', '1');
+INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.webp', 'index', NOW(), NULL, '40', '1');
 
-INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
-INSERT INTO advert_info (advert_id, languages_id, advert_html_text) VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
+INSERT INTO advert_info VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
+INSERT INTO advert_info VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
+INSERT INTO advert_info VALUES ('3', '1', '<h5 class=\"card-title\">If life gives you lemons... make Juice!</h5>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
+INSERT INTO advert_info VALUES ('4', '1', '<h5 class=\"card-title\">Checkout easily using our 3 step checkout!</h5>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
 
 UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
+UPDATE configuration SET configuration_value = 'index' WHERE configuration_key = 'I_ADVERTS_LINK';
+
+UPDATE configuration SET configuration_value = '1;2' WHERE configuration_key = 'I_BRAND_ICONS_CSV';
 
 INSERT INTO categories VALUES (1, 'sample/fruit.jpg', 0, 10, NOW(), NULL);
 INSERT INTO categories VALUES (2, 'sample/vegetables-1.jpg', 0, 20, NOW(), NULL);
@@ -30,8 +37,8 @@ INSERT INTO categories_description VALUES ('2', '1', 'Vegetables', null, null, n
 INSERT INTO categories_description VALUES (3, 1, 'Apples & Pears', 'Fresh and crisp with a variety of flavours.', NULL, NULL);
 INSERT INTO categories_description VALUES (4, 1, 'Citrus Fruit', 'Tart, tangy and full of Vitamin C.', NULL, NULL);
 
-INSERT INTO manufacturers VALUES (1, 'Fiacre', null, now(), null);
-INSERT INTO manufacturers VALUES (2, 'Von Peacock', null, now(), null);
+INSERT INTO manufacturers VALUES (1, 'Fiacre', 'brands/fiacre.jpg', now(), null);
+INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.jpg', now(), null);
 
 INSERT INTO manufacturers_info VALUES (1, 1, '', 0, null, null, null, null);
 INSERT INTO manufacturers_info VALUES (2, 1, '', 0, null, null, null, null);
@@ -92,5 +99,8 @@ INSERT INTO products_to_categories VALUES (9, 4);
 
 INSERT INTO reviews VALUES (1, 4, 0, 'John Doe', 5, NOW(), NULL, 1, 0, 'n');
 INSERT INTO reviews_description VALUES (1, 1, 'Lovely box of crunchy apples and delivered very quickly.  Thank You!');
+
+INSERT INTO testimonials VALUES (1, 0, 'John Doe', NOW(), NULL, 1, 'n');
+INSERT INTO testimonials_description VALUES (1, 1, 'Amazing service! The products arrived quickly and exceeded my expectations. Will definitely shop here again!');
 
 INSERT INTO specials VALUES (1, 1, '2.9900', now(), null, null, null, '1');

@@ -29,7 +29,7 @@
       $db->query("DELETE FROM products_notifications WHERE customers_id = " . (int)$_SESSION['customer_id']);
       $db->query("DELETE FROM whos_online WHERE customer_id = " . (int)$_SESSION['customer_id']);
       $db->query("DELETE r, rd FROM reviews r LEFT JOIN reviews_description rd ON r.reviews_id = rd.reviews_id WHERE r.customers_id = " . (int)$_SESSION['customer_id']);
-      $db->query("DELETE t, td FROM testimonials t LEFT JOIN testimonials_description rd ON t.testimonials_id = td.testimonials_id WHERE t.customers_id = " . (int)$_SESSION['customer_id']);
+      $db->query("DELETE t, td FROM testimonials t LEFT JOIN testimonials_description td ON t.testimonials_id = td.testimonials_id WHERE t.customers_id = " . (int)$_SESSION['customer_id']);
       $db->query("DELETE FROM outgoing WHERE customer_id = " . (int)$_SESSION['customer_id']);
 
 // delete cookies

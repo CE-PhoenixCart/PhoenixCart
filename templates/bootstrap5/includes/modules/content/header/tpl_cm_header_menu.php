@@ -31,7 +31,7 @@
         ?>
       </ul>
       <?php
-      if (MODULE_CONTENT_HEADER_MANUFACTURERS == 'True') {
+      if (MODULE_CONTENT_HEADER_MENU_MANUFACTURERS == 'True') {
         $cm_manufacturers_query = $GLOBALS['db']->query("SELECT manufacturers_id, manufacturers_name FROM manufacturers ORDER BY manufacturers_name");
 
         if (mysqli_num_rows($cm_manufacturers_query)) {

@@ -28,14 +28,12 @@
   </div>
   <div class="col-sm-3">
     <div class="card mb-2">
-      <div class="card-body">
-        <ol>
-          <li class="text-muted"><?= TEXT_DATABASE_SERVER ?></li>
-          <li class="text-success"><strong><?= TEXT_WEB_SERVER ?></strong></li>
-          <li class="text-muted"><?= TEXT_STORE_SETTINGS ?></li>
-          <li class="text-muted"><?= TEXT_FINISHED ?></li>
-        </ol>
-      </div>
+      <ol class="list-group list-group-flush list-group-numbered">
+        <li class="list-group-item bg-light text-muted"><?= TEXT_DATABASE_SERVER ?></li>
+        <li class="list-group-item active"><?= TEXT_WEB_SERVER ?></li>
+        <li class="list-group-item"><?= TEXT_STORE_SETTINGS ?></li>
+        <li class="list-group-item"><?= TEXT_FINISHED ?></li>
+      </ol>
       <div class="card-footer">
         <div class="progress">
           <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50%</div>
@@ -45,37 +43,28 @@
   </div>
 </div>
 
-<div class="w-100"></div>
-
 <div class="row">
   <div class="col-12 col-sm-9">
     
-    <div class="row">
-      <h2 class="display-4 col-12 col-md-9"><?= TEXT_WEB_SERVER ?></h2>
-      <p class="col-12 col-md-3 text-danger text-md-right my-auto"><?= TITLE_REQUIRED_INFORMATION ?></p>
-    </div>
+    <h2 class="display-4"><?= TEXT_WEB_SERVER ?></h2>
 
-    <form name="install" id="installForm" action="install.php?step=3" method="post" role="form">
+    <form name="install" class="was-validated" id="installForm" action="install.php?step=3" method="post" role="form">
 
-      <div class="form-group row">
-        <label for="wwwAddress" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_WWW_ADDRESS ?></label>
-        <div class="col-sm-9">
-          <?= (new Input('HTTP_WWW_ADDRESS', ['value' => $www_location, 'id' => 'wwwAddress', 'placeholder' => 'https://']))->require(),
+      <div class="form-floating mb-3">
+        <?= (new Input('HTTP_WWW_ADDRESS', ['value' => $www_location, 'id' => 'HTTP_WWW_ADDRESS', 'placeholder' => 'https://']))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_WWW_ADDRESS_EXPLANATION ?>
-        </div>
+        <label for="HTTP_WWW_ADDRESS"><?= TEXT_WWW_ADDRESS ?></label>
       </div>
-
-      <div class="form-group row">
-        <label for="webRoot" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_WEB_DIRECTORY ?></label>
-        <div class="col-sm-9">
-          <?= (new Input('DIR_FS_DOCUMENT_ROOT', ['value' => $dir_fs_www_root, 'id' => 'webRoot']))->require(),
+      
+      <div class="form-floating mb-3">
+        <?= (new Input('DIR_FS_DOCUMENT_ROOT', ['value' => $dir_fs_www_root, 'id' => 'DIR_FS_DOCUMENT_ROOT']))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_WEB_DIRECTORY_EXPLANATION ?>
-        </div>
+        <label for="DIR_FS_DOCUMENT_ROOT"><?= TEXT_WEB_DIRECTORY ?></label>
       </div>
 
-      <p><?= new Button(TEXT_CONTINUE_STEP_3, 'fas fa-angle-right mr-2', 'btn-success btn-block') ?></p>
+      <p class="d-grid"><?= new Button(TEXT_CONTINUE_STEP_3, 'fas fa-angle-right', 'btn-success') ?></p>
 
       <?php
       foreach ( array_diff_key($_POST, ['x' => 0, 'y' => 1]) as $key => $value ) {
@@ -87,6 +76,7 @@
   </div>
   <div class="col-12 col-sm-3">
     <h3 class="display-4"><?= TEXT_STEP_2 ?></h3>
+    
     <div class="card mb-2 card-body">
       <?= TEXT_WEB_SERVER_EXPLANATION ?>
     </div>

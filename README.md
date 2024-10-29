@@ -124,5 +124,6 @@ Tomatoes | [Rocky_H](https://pixabay.com/users/rocky_h-11790006/) from Pixabay |
 Glasses | [Alexander Lesnitsky](https://pixabay.com/users/alles-2597842/) from Pixabay | https://pixabay.com/service/license/
 Farm | [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) from Pixabay | https://pixabay.com/service/license/
 Strawberries | [Gerd Altman](https://pixabay.com/users/geralt-9301/) from Pixabay | https://pixabay.com/service/license/
+Fruit, Laptop | [Ylanite Koppens](https://pixabay.com/users/nietjuhart-30460544/) from Pixabay | https://pixabay.com/service/license/
 
 Other fruit images are based on modified images from the named owners.

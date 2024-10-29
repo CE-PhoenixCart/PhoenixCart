@@ -23,15 +23,15 @@ const TEXT_DB_CONNECTION_PROBLEM = <<<'EOT'
 <p class="text-danger"><strong>%s</strong></p>
 <p class="text-danger">Please verify the connection parameters and try again.</p>
 EOT;
-const TEXT_DATABASE_ADDRESS = '<small class="form-text text-muted">The address of the database server in the form of a hostname or IP address.</small>';
+const TEXT_DATABASE_ADDRESS = '<small class="form-text">The address of the database server in the form of a hostname or IP address.</small>';
 const TEXT_USERNAME = 'Username';
-const TEXT_USERNAME_DESCRIPTION = '<small class="form-text text-muted">The username used to connect to the database server.</small>';
+const TEXT_USERNAME_DESCRIPTION = '<small class="form-text">The username used to connect to the database server.</small>';
 const TEXT_PASSWORD = 'Password';
-const TEXT_PASSWORD_DESCRIPTION = '<small class="form-text text-muted">The password that is used together with the username to connect to the database server.</small>';
+const TEXT_PASSWORD_DESCRIPTION = '<small class="form-text">The password that is used together with the username to connect to the database server.</small>';
 const TEXT_DATABASE_NAME = 'Database Name';
-const TEXT_NAME_DESCRIPTION = '<small class="form-text text-muted">The name of the database to hold the data.</small>';
+const TEXT_NAME_DESCRIPTION = '<small class="form-text">The name of the database to hold the data.</small>';
 const TEXT_IMPORT_SAMPLE_DATA = 'Import Sample Data';
-const TEXT_SAMPLE_IMPORT_DESCRIPTION = '<small class="form-text text-muted">Import sample product and category data?</small>';
+const TEXT_SAMPLE_IMPORT_DESCRIPTION = '<small class="form-text">Import sample product and category data?</small>';
 const TEXT_CONTINUE_STEP_2 = 'Continue To Step 2';
 const TEXT_STEP_1 = 'Step 1';
 const TEXT_DB_EXPLANATION = <<<'EOT'

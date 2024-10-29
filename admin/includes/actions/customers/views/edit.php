@@ -13,7 +13,7 @@
   $cID = (int)$_GET['cID'];
   
   $hooks =& $admin_hooks;
-  $Template = new Template();
+  $Template = new Template('default');
     
   echo (new Form('customers', $Admin->link('customers.php')->retain_query_except()->set_parameter('action', 'update'), 'post'))
       ->hide('default_address_id', $customer_data->get('default_address_id', $customer_details));

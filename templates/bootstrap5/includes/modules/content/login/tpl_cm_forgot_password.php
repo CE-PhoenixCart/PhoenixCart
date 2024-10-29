@@ -1,10 +1,6 @@
 <div class="<?= MODULE_CONTENT_FORGOT_PASSWORD_CONTENT_WIDTH ?> cm-forgot-password">
-
-  <div class="alert alert-warning" role="alert"><?= MODULE_CONTENT_FORGOT_PASSWORD_INTRO_TEXT ?></div>
-
-  <div class="d-grid">
-    <?= new Button(MODULE_CONTENT_FORGOT_PASSWORD_BUTTON_TEXT, 'fas fa-unlock-alt', 'btn-warning', [], $GLOBALS['Linker']->build('password_forgotten.php')) ?>
-  </div>
+  
+  <?= new Button(MODULE_CONTENT_FORGOT_PASSWORD_INTRO_TEXT, 'fas fa-unlock-alt', 'btn-light', [], $GLOBALS['Linker']->build('password_forgotten.php')) ?>
 
 </div>
 

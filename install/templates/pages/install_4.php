@@ -150,15 +150,13 @@ EOPHP;
   </div>
   <div class="col-sm-3">
     <div class="card mb-2">
-      <div class="card-body">
-        <ol>
-          <li class="text-muted"><?= TEXT_DATABASE_SERVER ?></li>
-          <li class="text-muted"><?= TEXT_WEB_SERVER ?></li>
-          <li class="text-muted"><?= TEXT_STORE_SETTINGS ?></li>
-          <li class="text-success"><strong><?= TEXT_FINISHED ?></strong></li>
-        </ol>
-      </div>
-      <div class="text-footer">
+      <ol class="list-group list-group-flush list-group-numbered">
+        <li class="list-group-item bg-light text-muted"><?= TEXT_DATABASE_SERVER ?></li>
+        <li class="list-group-item bg-light text-muted"><?= TEXT_WEB_SERVER ?></li>
+        <li class="list-group-item bg-light text-muted"><?= TEXT_STORE_SETTINGS ?></li>
+        <li class="list-group-item active"><?= TEXT_FINISHED ?></li>
+      </ol>
+      <div class="card-footer">
         <div class="progress">
           <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
         </div>
@@ -167,23 +165,22 @@ EOPHP;
   </div>
 </div>
 
-<div class="w-100"></div>
-
 <div class="row">
   <div class="col-12 col-sm-9">
     <div class="row">
-      <div class="col"><?= new Button(TEXT_ADMIN, 'fas fa-lock mr-2', 'btn-info btn-block', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
-      <div class="col"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart mr-2', 'btn-success btn-block', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
-      <div class="col"><?= new Button('<img src="images/icon_phoenix.png" class="mr-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
+      <div class="col d-grid"><?= new Button(TEXT_ADMIN, 'fas fa-lock me-2', 'btn-info btn-block', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
+      <div class="col d-grid"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart me-2', 'btn-success btn-block', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
+      <div class="col d-grid"><?= new Button('<img src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
     </div>
   </div>
 
   <div class="col-12 col-sm-3">
     <h3 class="display-4"><?= TEXT_STEP_4 ?></h3>
+    
     <div class="card mb-2">
       <div class="card-body">
         <?= TEXT_STEP_4_EXPLANATION ?>
-        <p><?= new Button('<img src="images/icon_phoenix.png" class="mr-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></p>
+        <p><?= new Button('<img src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></p>
       </div>
       <div class="card-footer">
         - <a class="card-link" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer"><?= TEXT_TEAM ?></a>
