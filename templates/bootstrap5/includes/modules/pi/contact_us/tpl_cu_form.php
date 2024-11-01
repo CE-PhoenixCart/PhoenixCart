@@ -14,7 +14,7 @@
       <label for="inputFromName" class="col-sm-3 col-form-label text-start text-sm-end"><?= ENTRY_NAME ?></label>
       <div class="col-sm-9">
         <div class="input-group">
-          <?= (new Input('name', ['id' => 'inputFromName', 'placeholder' => ENTRY_NAME_TEXT]))->require(), FORM_REQUIRED_INPUT; ?>
+          <?= (new Input('name', ['autocomplete' => 'name', 'id' => 'inputFromName', 'placeholder' => ENTRY_NAME_TEXT]))->require(), FORM_REQUIRED_INPUT; ?>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
       <label for="inputFromEmail" class="col-sm-3 col-form-label text-start text-sm-end"><?= ENTRY_EMAIL ?></label>
       <div class="col-sm-9">
         <div class="input-group">
-          <?= (new Input('email', ['id' => 'inputFromEmail', 'placeholder' => ENTRY_EMAIL_TEXT], 'email'))->require(), FORM_REQUIRED_INPUT; ?>
+          <?= (new Input('email', ['autocomplete' => 'email', 'id' => 'inputFromEmail', 'placeholder' => ENTRY_EMAIL_TEXT], 'email'))->require(), FORM_REQUIRED_INPUT; ?>
         </div>
       </div>
     </div>
