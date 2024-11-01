@@ -16,3 +16,5 @@
   const MODULE_CONTENT_HEADER_MENU_TOGGLER = 'Toggle Menu';
 
   const MODULE_CONTENT_HEADER_MENU_MANUFACTURER_DROPDOWN = 'Manufacturers';
+  
+  const MODULE_CONTENT_HEADER_MENU_MENU = 'Navigation Menu';
