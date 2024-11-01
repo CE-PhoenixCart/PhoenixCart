@@ -16,7 +16,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="<?= $modal['name'] ?>Label"><?= $modal['title'] ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= IMAGE_BUTTON_CLOSE ?>"></button>
       </div>
       <div class="modal-body">
         <?= $modal['text'] ?>

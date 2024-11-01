@@ -7,7 +7,7 @@
     <div class="offcanvas offcanvas-start" id="nbHeader">
       <div class="offcanvas-header bg-body-tertiary">
         <h5 class="offcanvas-title"><?= MODULE_CONTENT_HEADER_MENU_MENU ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= IMAGE_BUTTON_CLOSE ?>"></button>
       </div>
       
       <div class="offcanvas-body justify-content-between">
