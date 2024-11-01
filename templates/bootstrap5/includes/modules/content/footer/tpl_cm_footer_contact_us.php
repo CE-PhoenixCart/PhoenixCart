@@ -1,5 +1,6 @@
 <div class="<?= MODULE_CONTENT_FOOTER_CONTACT_US_CONTENT_WIDTH ?> cm-footer-contact-us">
-  <h4><?= MODULE_CONTENT_FOOTER_CONTACT_US_HEADING_TITLE ?></h4>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_FOOTER_CONTACT_US_HEADING_TITLE ?></p>
+  
   <address class="mb-1">
     <strong><?= STORE_NAME ?></strong><br>
     <?= nl2br(STORE_ADDRESS) ?><br>

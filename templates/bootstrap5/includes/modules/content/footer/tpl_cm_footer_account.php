@@ -1,7 +1,7 @@
 <div class="<?= MODULE_CONTENT_FOOTER_ACCOUNT_CONTENT_WIDTH ?> cm-footer-account">
-  <h4><?= MODULE_CONTENT_FOOTER_ACCOUNT_HEADING_TITLE ?></h4>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_FOOTER_ACCOUNT_HEADING_TITLE ?></p>
+  
   <nav class="nav nav-pills flex-column">
-
 <?php
   if ( isset($_SESSION['customer_id']) ) {
 ?>

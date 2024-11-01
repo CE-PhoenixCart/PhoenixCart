@@ -5,7 +5,7 @@
     printf(FORM_CONTACT_US_SUCCESS, $contact_us_href);
   }
   else {
-    echo new Form('contact_us', $GLOBALS['Linker']->build('contact_us.php', ['action' => 'send']), 'post', ['class' => 'was-validated', 'role' => 'form'], true);
+    echo new Form('contact_us', $GLOBALS['Linker']->build('contact_us.php', ['action' => 'send']), 'post', ['class' => 'was-validated'], true);
 
     echo FORM_CONTACT_US;
     ?>

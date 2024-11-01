@@ -1,5 +1,6 @@
 <div class="<?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH ?> cm-pi-reviews">
-  <h4><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE ?></h4>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_PRODUCT_INFO_REVIEWS_TEXT_TITLE ?></p>
+  
   <div class="row">
     <?php
     while ($review = $review_query->fetch_assoc()) {

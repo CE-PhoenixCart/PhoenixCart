@@ -1,5 +1,5 @@
 <div class="<?= I_ADVERTS_CONTENT_WIDTH ?> i-adverts">
-  <div class="list-group list-group-horizontal-md">
+  <ul class="list-group list-group-horizontal-md">
     <?php
     $i_advert_output = '';
     foreach ($i_adverts_linkage as $i => $l) {
@@ -20,7 +20,7 @@
         
         $i_advert_output .= $start;
         $i_advert_output .= '<div class="card border-0">';
-          $i_advert_output .= new Image('images/' . $l['advert_image'], ['class' => 'card-img rounded-0']) . PHP_EOL;
+          $i_advert_output .= new Image('images/' . $l['advert_image'], ['alt' => '', 'class' => 'card-img rounded-0']) . PHP_EOL;
           if (!Text::is_empty($l['advert_html_text'])) {
             $i_advert_output .= '<div class="card-img-overlay text-white">';
               $i_advert_output .= $l['advert_html_text'];
@@ -34,7 +34,7 @@
 
     echo $i_advert_output;
     ?>
-  </div>
+  </ul>
 </div>
 
 <?php
