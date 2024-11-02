@@ -64,7 +64,7 @@
     return (constant($a) <=> constant($b));
   });
 
-  $num_list = (isset($_GET['view']) && ($_GET['view'] === 'all') ) ? 999999 : MAX_DISPLAY_SEARCH_RESULTS;
+  $num_list = (isset($_GET['view']) && ($_GET['view'] === 'all') ) ? 999999 : MAX_DISPLAY_PRODUCTS_PER_PAGE;
   $parameters = [
     'column_specifications' => &$column_specifications,
     'default_column' => &$default_column,
