@@ -48,7 +48,7 @@
 
     <div class="<?= $customer_data_group['customer_data_groups_width'] ?>">
 
-      <h4><?= $customer_data_group['customer_data_groups_name'] ?></h4>
+      <p class="fs-4 fw-semibold mb-1"><?= $customer_data_group['customer_data_groups_name'] ?></p>
 
       <?php
       foreach ($modules as $module) {

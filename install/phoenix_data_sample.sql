@@ -17,10 +17,10 @@ INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.webp', 'caro
 INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.webp', 'index', NOW(), NULL, '30', '1');
 INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.webp', 'index', NOW(), NULL, '40', '1');
 
-INSERT INTO advert_info VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
-INSERT INTO advert_info VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
-INSERT INTO advert_info VALUES ('3', '1', '<h5 class=\"card-title\">If life gives you lemons... make Juice!</h5>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
-INSERT INTO advert_info VALUES ('4', '1', '<h5 class=\"card-title\">Checkout easily using our 3 step checkout!</h5>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
+INSERT INTO advert_info VALUES ('1', '1', '<p class=\"fs-2 font-weight-bold fw-semibold mb-1\">Fresh fruit direct to your door</p>\r\n<p class=\"fs-4\">Grown with <i class="fas fa-heart fa-beat text-danger"></i> on our Devonshire Farm</p>\r\n<p><span class="btn btn-info">Click here to view our full range</span></p>');
+INSERT INTO advert_info VALUES ('2', '1', '<p class=\"fs-2 font-weight-bold fw-semibold mb-1\">Strawberries Coming Soon</p>\r\n<p class=\"fs-4\">Pick Your Own at our Farm or delivered direct to your door</p>');
+INSERT INTO advert_info VALUES ('3', '1', '<p class=\"fs-5 font-weight-bold fw-semibold card-title\">If life gives you lemons... make Juice!</p>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
+INSERT INTO advert_info VALUES ('4', '1', '<p class=\"fs-5 font-weight-bold fw-semibold card-title\">Checkout easily using our 3 step checkout!</p>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
 
 UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
 UPDATE configuration SET configuration_value = 'index' WHERE configuration_key = 'I_ADVERTS_LINK';
