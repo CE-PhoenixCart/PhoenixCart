@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-  const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TITLE = 'Payment Icons';
+  const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TITLE = 'Footer Icons';
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_DESCRIPTION = <<<'EOT'
-Adds Brand Icons to the Extra Footer Area of your site.<div class="alert alert-info">Available Brand Icons are shown here: https://fontawesome.com/search?q=shopping&o=r&m=free&f=brands</div>
+Adds FontAwesome Icons to the Footer Area of your site.<div class="alert alert-info">Available Icons are shown here: https://fontawesome.com/search?o=r&m=free</div>
 EOT;
 
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TEXT = '';
