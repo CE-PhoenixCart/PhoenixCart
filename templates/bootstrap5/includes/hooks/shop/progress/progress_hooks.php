@@ -20,7 +20,7 @@ class hook_shop_progress_progress_hooks {
 
     $output_progress = <<<eod
       <div class="progress-hooks pt-2">
-        <div class="progress rounded-0" role="progressbar" aria-label="" aria-valuenow="{$arr['markers']['now']}" aria-valuemin="{$arr['markers']['min']}" aria-valuemax="{$arr['markers']['max']}" style="height: 10px">
+        <div class="progress rounded-0" role="progressbar" aria-label="{$arr['markers']['now']}%" aria-valuenow="{$arr['markers']['now']}" aria-valuemin="{$arr['markers']['min']}" aria-valuemax="{$arr['markers']['max']}" style="height: 10px">
           <div class="progress-bar text-bg-secondary" style="width: {$arr['markers']['now']}%"></div>
         </div>
         <div class="row">

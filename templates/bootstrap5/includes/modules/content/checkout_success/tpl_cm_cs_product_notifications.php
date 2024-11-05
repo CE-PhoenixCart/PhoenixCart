@@ -1,5 +1,5 @@
 <div class="<?= MODULE_CONTENT_CHECKOUT_SUCCESS_PRODUCT_NOTIFICATIONS_CONTENT_WIDTH ?> cm-cs-product-notifications">
-  <h5 class="mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_PRODUCT_NOTIFICATIONS_TEXT_NOTIFY_PRODUCTS ?></h5>
+  <p class="fs-5 fw-semibold mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_PRODUCT_NOTIFICATIONS_TEXT_NOTIFY_PRODUCTS ?></p>
 
   <div class="border">
     <ul class="list-group list-group-flush">
