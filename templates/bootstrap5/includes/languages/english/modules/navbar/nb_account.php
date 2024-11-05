@@ -19,7 +19,7 @@ LI;
   
   const MODULE_NAVBAR_ACCOUNT_LOGGED_IN = <<<'LI'
   <span class="position-relative">
-    <i class="fas fa-user fa-fw fa-xl"></i>
+    <i title="My Profile" class="fas fa-user fa-fw fa-xl"></i>
     <span class="d-none d-sm-inline position-absolute top-0 start-100 translate-middle badge">
       <i class="fas fa-check fa-2xl text-info"></i>
     </span>

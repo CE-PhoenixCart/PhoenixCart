@@ -24,51 +24,35 @@
   }
 ?>
 
-  <h4><?= PRIMARY_ADDRESS_TITLE ?></h4>
+  <h2 class="fs-4"><?= PRIMARY_ADDRESS_TITLE ?></h2>
 
-  <div class="row">
+  <p><?= PRIMARY_ADDRESS_DESCRIPTION ?></p>
+  
+  <ul class="list-group mb-3">
+    <li class="list-group-item"><b><?= $customer->make_address_label($customer->get('default_address_id'), true, ' ', ', ') ?></b></li>
+  </ul>
 
-    <div class="col-sm-8">
-      <div class="alert alert-info" role="alert"><?= PRIMARY_ADDRESS_DESCRIPTION ?></div>
-    </div>
-
-    <div class="col-sm-4">
-      <div class="card mb-2 text-white bg-info">
-        <div class="card-header"><?= PRIMARY_ADDRESS_TITLE ?></div>
-
-        <div class="card-body"><?= $customer->make_address_label($customer->get('default_address_id'), true, ' ', '<br>') ?></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="w-100"></div>
-
-  <h4><?= ADDRESS_BOOK_TITLE ?></h4>
+  <h2 class="fs-4"><?= ADDRESS_BOOK_TITLE ?></h2>
 
   <div class="alert alert-danger" role="alert"><?= sprintf(TEXT_MAXIMUM_ENTRIES, MAX_ADDRESS_BOOK_ENTRIES) ?></div>
 
-  <div class="row">
+  <ul class="list-group mb-3">
     <?php
     $addresses_query = $customer->get_all_addresses_query();
     while ($address = $addresses_query->fetch_assoc()) {
       ?>
-      <div class="col-sm-4">
-        <div class="card mb-2 <?= ($address['address_book_id'] == $customer->get('default_address_id')) ? 'text-white bg-info' : '' ?>">
-          <div class="card-header"><?= htmlspecialchars($customer_data->get('name', $address)) ?></strong><?= ($customer->get('default_address_id') == $address['address_book_id']) ? '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>' : '' ?></div>
-          <div class="card-body">
-            <?= $customer_data->get_module('address')->format($address, true, ' ', '<br>') ?>
-          </div>
-          <div class="card-footer text-center"><?=
+      <li class="list-group-item d-flex justify-content-between">
+        <span><?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?><?= ($customer->get('default_address_id') == $address['address_book_id']) ? '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>' : '' ?></span>
+        <span><?=
             new Button(SMALL_IMAGE_BUTTON_EDIT, 'fas fa-file', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['edit' => $address['address_book_id']])) . ' '
           . new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['delete' => $address['address_book_id']]))
-          ?></div>
-        </div>
-      </div>
+          ?>
+        </span>
+      </li>
       <?php
       }
     ?>
-  </div>
+  </ul>
 
   <?php
   if ($customer->count_addresses() < MAX_ADDRESS_BOOK_ENTRIES) {

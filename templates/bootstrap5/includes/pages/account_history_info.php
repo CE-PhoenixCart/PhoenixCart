@@ -20,7 +20,7 @@
 <div class="row mb-4">
   <div class="col-7"><h1 class="display-4"><?= HEADING_TITLE ?></h1></div>
   <div class="col text-end">
-    <h4><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></h4>
+    <p class="fs-4"><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></p>
     <p><?= '<strong>' . HEADING_ORDER_DATE . '</strong> ' . Date::expound($order->info['date_purchased']) ?></p>
   </div>
 </div>
@@ -93,7 +93,7 @@
     </div>
   </div>
 
-  <h4><?= HEADING_ORDER_HISTORY ?></h4>
+  <h2 class="fs-4"><?= HEADING_ORDER_HISTORY ?></h2>
 
   <ul class="list-group">
 <?php
@@ -107,7 +107,7 @@ EOSQL
   while ($status = $statuses_query->fetch_assoc()) {
     echo '<li class="list-group-item">';
       echo '<div class="d-flex justify-content-between align-items-center">';
-        echo '<h6>' . $status['orders_status_name'] . '</h6>';
+        echo '<p class="fs-6 fw-semibold"">' . $status['orders_status_name'] . '</p>';
         echo '<span class="badge rounded-pill text-bg-primary"><i class="far fa-clock me-1"></i>' . $status['date_added'] . '</span>';
       echo '</div>';
       echo (empty($status['comments']) ? '' : nl2br(htmlspecialchars($status['comments'])));
