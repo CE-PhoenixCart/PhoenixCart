@@ -3,9 +3,7 @@
     <?php
     $Template =& Guarantor::ensure_global('Template');
     if ($Template->has_blocks('navbar_modules_home')) {
-      echo '<div class="navbar-header">' . PHP_EOL;
-        echo $Template->get_blocks('navbar_modules_home');
-      echo '</div>' . PHP_EOL;
+      echo $Template->get_blocks('navbar_modules_home');
     }
     ?>
     <div class="collapse navbar-collapse" id="collapseCoreNav">
