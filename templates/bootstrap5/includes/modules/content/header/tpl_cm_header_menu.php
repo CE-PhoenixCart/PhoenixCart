@@ -1,8 +1,10 @@
 <div class="<?= MODULE_CONTENT_HEADER_MENU_CONTENT_WIDTH ?> cm-header-menu">
   <nav class="navbar <?= $menu_style ?> cm-header-menu-navbar" data-bs-theme="<?= BOOTSTRAP_THEME ?>">
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#nbHeader" aria-controls="nbHeader" aria-expanded="false" aria-label="<?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?>">
-      <span class="navbar-toggler-icon"></span> <?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?>
+      <span class="navbar-toggler-icon"></span>
     </button>
+    
+    <span class="lead d-block d-sm-none"><?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?></span>
 
     <div class="offcanvas offcanvas-start" id="nbHeader">
       <div class="offcanvas-header bg-body-tertiary">
