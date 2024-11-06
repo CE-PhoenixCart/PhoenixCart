@@ -14,3 +14,7 @@
   const I_BRAND_ICONS_DESCRIPTION = 'Display Brand Icons with a link to the relevant brand page.<div class="alert alert-info">This is a child module for use with the &Pi; system.</div>';
   
   const I_BRAND_ICONS_HEADING     = 'Popular Brands';
+  
+  const I_BRAND_ICONS_PREV = 'Previous';
+  const I_BRAND_ICONS_NEXT = 'Next';
+  

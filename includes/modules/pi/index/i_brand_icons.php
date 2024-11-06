@@ -33,37 +33,15 @@
       if (!Text::is_empty(I_BRAND_ICONS_CSV)) {
         $brands = implode(',', explode(';', I_BRAND_ICONS_CSV));
 
-        $brand_query = $GLOBALS['db']->query("select * from manufacturers where manufacturers_id IN (" . $brands . ") order by manufacturers_id");
+        $brand_query = $GLOBALS['db']->fetch_all("select * from manufacturers where manufacturers_id IN (" . $brands . ") order by manufacturers_id");
+        
+        if (!empty($brand_query)) {
+          $i_brand_array = $brand_query;
+          $i_brand_xs_array = array_chunk($brand_query, (int)I_BRAND_ICONS_XS_CHUNK);
 
-        $i_brand_output = NULL;
-        $i_brand_xs_arr = [];
-        while ($brand = $brand_query->fetch_assoc()) {
-          $i_brand_output .= '<a class="list-group-item border-0 p-2" href="' . $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$brand['manufacturers_id']]) . '">'
-                           . new Image('images/' . $brand['manufacturers_image'], [], htmlspecialchars($brand['manufacturers_name'])) . '</a>';
-
-          $i_brand_xs_arr[] = $brand;
+          $tpl_data = ['group' => $this->group, 'file' => __FILE__];
+          include 'includes/modules/block_template.php';
         }
-
-        $n = 1;
-        $i_brand_xs_output = null;
-        $i_brand_xs_array = array_chunk($i_brand_xs_arr, (int)I_BRAND_ICONS_XS_CHUNK);
-
-        foreach ($i_brand_xs_array as $i => $o) {
-          $active = ($n == 1) ? ' active' : null;
-          $i_brand_xs_output .= '<div class="carousel-item' . $active . '">';
-            $i_brand_xs_output .= '<div class="list-group list-group-horizontal justify-content-center">';
-              foreach ($o as $item) {
-                $i_brand_xs_output .= '<a class="list-group-item border-0" href="' . $GLOBALS['Linker']->build('index.php', ['manufacturers_id' => (int)$item['manufacturers_id']]) . '">'
-                                    . new Image('images/' . $item['manufacturers_image'], [], htmlspecialchars($item['manufacturers_name'])) . '</a>';
-              }
-            $i_brand_xs_output .= '</div>';
-          $i_brand_xs_output .= '</div>';
-
-          $n++;
-        }
-
-        $tpl_data = ['group' => $this->group, 'file' => __FILE__];
-        include 'includes/modules/block_template.php';
       }
     }
 
