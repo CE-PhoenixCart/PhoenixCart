@@ -36,7 +36,7 @@
       </ol>
       <div class="card-footer">
         <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">50%</div>
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="<?= sprintf(INSTALLATION_PROGRESS, '50%') ?>" style="width: 50%">50%</div>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
     
     <h2 class="display-4"><?= TEXT_WEB_SERVER ?></h2>
 
-    <form name="install" class="was-validated" id="installForm" action="install.php?step=3" method="post" role="form">
+    <form name="install" class="was-validated" id="installForm" action="install.php?step=3" method="post">
 
       <div class="form-floating mb-3">
         <?= (new Input('HTTP_WWW_ADDRESS', ['value' => $www_location, 'id' => 'HTTP_WWW_ADDRESS', 'placeholder' => 'https://']))->require(),

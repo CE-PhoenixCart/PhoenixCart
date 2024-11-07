@@ -137,7 +137,7 @@ function prepareDB() {
       </ol>
       <div class="card-footer">
         <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25%</div>
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="<?= sprintf(INSTALLATION_PROGRESS, '25%') ?>" style="width: 25%">25%</div>
         </div>
       </div>
     </div>
@@ -153,7 +153,7 @@ function prepareDB() {
     
     <h2 class="display-4"><?= TEXT_DATABASE_SERVER ?></h2>
 
-    <form name="install" class="was-validated" id="installForm" action="install.php?step=2" method="post" role="form">
+    <form name="install" class="was-validated" id="installForm" action="install.php?step=2" method="post">
 
       <div class="form-floating mb-3">
         <?= (new Input('DB_SERVER', ['id' => 'DB_SERVER', 'placeholder' => 'localhost']))->require(),

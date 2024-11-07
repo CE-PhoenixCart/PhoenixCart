@@ -158,7 +158,7 @@ EOPHP;
       </ol>
       <div class="card-footer">
         <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">100%</div>
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-label="<?= sprintf(INSTALLATION_PROGRESS, '100%') ?>" style="width: 100%">100%</div>
         </div>
       </div>
     </div>
@@ -170,7 +170,7 @@ EOPHP;
     <div class="row">
       <div class="col d-grid"><?= new Button(TEXT_ADMIN, 'fas fa-lock me-2', 'btn-info btn-block', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
       <div class="col d-grid"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart me-2', 'btn-success btn-block', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
-      <div class="col d-grid"><?= new Button('<img src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
+      <div class="col d-grid"><?= new Button('<img alt="Phoenix" src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
     </div>
   </div>
 
