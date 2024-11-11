@@ -42,7 +42,7 @@ EOSQL
   if (mysqli_num_rows($downloads_query) > 0) {
 ?>
 
-  <h5 class="mb-1"><?= HEADING_DOWNLOAD ?></h5>
+  <p class="fs-5 fw-semibold mb-1"><?= HEADING_DOWNLOAD ?></p>
 
    <table class="table table-borderless">
       <thead class="thead-light">
