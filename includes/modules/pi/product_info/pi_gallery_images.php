@@ -5,16 +5,15 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
-  class pi_gallery extends abstract_module  {
+  class pi_gallery_images extends abstract_module  {
 
-    const CONFIG_KEY_BASE = 'PI_GALLERY_';
+    const CONFIG_KEY_BASE = 'PI_GALLERY_IMAGES_';
 
-    public $api_version;
     public $group;
 
     public function __construct() {
@@ -24,18 +23,18 @@
       $this->description .= '<div class="alert alert-warning">' . MODULE_CONTENT_BOOTSTRAP_ROW_DESCRIPTION . '</div>';
       $this->description .= '<div class="alert alert-info">' . cm_pi_modular::display_layout() . '</div>';
 
-      if ( defined('PI_GALLERY_STATUS') ) {
-        $this->group = 'pi_modules_' . strtolower(PI_GALLERY_GROUP);
+      if ( defined('PI_GALLERY_IMAGES_STATUS') ) {
+        $this->group = 'pi_modules_' . strtolower(PI_GALLERY_IMAGES_GROUP);
       }
     }
 
     public function getOutput() {
-      if (Text::is_empty($GLOBALS['product']->get('image'))) {
-        return;
-      }
+      $other_images = $GLOBALS['db']->fetch_all("SELECT image, htmlcontent FROM products_images WHERE products_id = '" . (int)$GLOBALS['product']->get('id') . "' ORDER BY sort_order");
 
-      $tpl_data = ['group' => $this->group, 'file' => __FILE__];
-      include 'includes/modules/block_template.php';
+      if (count($other_images) > 0) {
+        $tpl_data = ['group' => $this->group, 'file' => __FILE__];
+        include 'includes/modules/block_template.php';
+      }
     }
 
     protected function get_parameters() {
@@ -54,30 +53,17 @@
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-12 mb-2',
+          'value' => 'col-12',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        $this->config_key_base . 'MODAL_SIZE' => [
-          'title' => 'Modal Popup Size',
-          'value' => 'modal-md',
-          'desc' => 'Choose the size of the Popup.  sm = small, md = medium etc.',
-          'set_func' => "Config::select_one(['modal-sm', 'modal-md', 'modal-lg', 'modal-xl'], ",
-        ],
-        $this->config_key_base . 'SWIPE_ARROWS' => [
-          'title' => 'Show Swipe Arrows',
-          'value' => 'True',
-          'desc' => 'Swipe Arrows make for a better User Experience in some cases.',
-          'set_func' => "Config::select_one(['True', 'False'], ",
-        ],
-        $this->config_key_base . 'INDICATORS' => [
-          'title' => 'Show Indicators',
-          'value' => 'True',
-          'desc' => 'Indicators allow users to jump from image to image without having to swipe.',
-          'set_func' => "Config::select_one(['True', 'False'], ",
+        $this->config_key_base . 'CONTENT_WIDTH_EACH' => [
+          'title' => 'Thumbnail Container',
+          'value' => 'col-4 col-sm-6 col-lg-4 mb-1',
+          'desc' => 'What container should each thumbnail be shown in?',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
-          'value' => '200',
+          'value' => '210',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
       ];
