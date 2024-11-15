@@ -18,8 +18,9 @@ class hook_shop_product_info_gallery {
       
       $other_images = $GLOBALS['db']->fetch_all("SELECT image, htmlcontent FROM products_images WHERE products_id = '" . (int)$GLOBALS['product']->get('id') . "' ORDER BY sort_order");
       
+      $other_img_indicator = $other_img = '';
+
       if (count($other_images) > 0) {
-        $other_img_indicator = $other_img = '';
         foreach ($other_images as $k => $v) {
           $other_img .= '<div class="carousel-item text-center">';
           $other_img .= new Image('images/' . $v['image'], ['alt' => htmlspecialchars($GLOBALS['product']->get('name')), 'loading' => 'lazy']);
