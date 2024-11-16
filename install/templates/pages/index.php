@@ -138,14 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <table class="table table-condensed table-striped">
       <tr>
-        <th colspan="3"><?= TEXT_PHP_VERSION ?></th>
+        <th colspan="3" class="bg-dark text-white"><?= TEXT_PHP_VERSION ?></th>
       </tr>
       <tr>
         <th><?= implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]) ?></th>
         <td colspan="2" class="text-end"><?= $php_version_thumb ?></td>
       </tr>
       <tr>
-        <th colspan="3"><?= TEXT_PHP_SETTINGS ?></th>
+        <th colspan="3" class="bg-dark text-white"><?= TEXT_PHP_SETTINGS ?></th>
       </tr>
       <tr>
         <th>file_uploads</th>
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td class="text-end"><?= ((int)ini_get('session.use_trans_sid') == 0) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
-        <th colspan="3"><?= TEXT_REQUIRED_EXTENSIONS ?></th>
+        <th colspan="3" class="bg-dark text-white"><?= TEXT_REQUIRED_EXTENSIONS ?></th>
       </tr>
       <tr>
         <th>MySQLi</th>
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td class="text-end"><?= ((int)ini_get('allow_url_fopen') == 1) ? ICON_THUMB_SUCCESS : ICON_THUMB_DANGER ?></td>
       </tr>
       <tr>
-        <th colspan="3"><?= TEXT_RECOMMENDED_EXTENSIONS ?></th>
+        <th colspan="3" class="bg-dark text-white"><?= TEXT_RECOMMENDED_EXTENSIONS ?></th>
       </tr>
       <tr>
         <th>intl</th>
