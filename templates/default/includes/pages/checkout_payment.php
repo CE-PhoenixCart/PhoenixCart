@@ -15,16 +15,6 @@
   $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('checkout_shipping.php'));
   $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('checkout_payment.php'));
 
-  $comments_textarea = new Textarea('comments', [
-    'cols' => '60',
-    'rows' => '5',
-    'id' => 'inputComments',
-    'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,
-  ]);
-  if (isset($_SESSION['comments'])) {
-    $comments_textarea->set_text($_SESSION['comments']);
-  }
-
   require $Template->map('template_top.php', 'component');
 
   echo $payment_modules->javascript_validation();
@@ -113,16 +103,9 @@
     </div>
   </div>
 
-  <hr>
-
-  <div class="form-group row">
-    <label for="inputComments" class="col-form-label col-sm-4 text-sm-right"><?= ENTRY_COMMENTS ?></label>
-    <div class="col-sm-8"><?= $comments_textarea ?></div>
-  </div>
-
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <p><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
+  <p class="mt-3"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
 
   <div class="progressBarHook">
     <?php

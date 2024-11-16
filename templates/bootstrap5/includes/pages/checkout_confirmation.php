@@ -102,31 +102,22 @@
     </div>
   </div>
 
-  <?php
-  if (!Text::is_empty($order->info['comments'])) {
-?>
   <hr>
   
-  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment.php')) ?></h5>
-
-  <div class="border mb-3">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <i class="fas fa-comments fa-fw fa-3x float-end"></i>
-        <?= nl2br(htmlspecialchars($order->info['comments'])) . new Input('comments', ['value' => $order->info['comments']], 'hidden') ?>
-      </li>
-    </ul>
+  <p class="fs-5 fw-semibold mb-1"><?= HEADING_ORDER_COMMENTS ?></p>
+  
+  <div class="form-floating mb-2">
+    <?= new Textarea('comments', ['style' => 'height: 120px', 'id' => 'inputComments', 'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,]) ?>
+    <label for="inputComments"><?= ENTRY_COMMENTS ?></label>
   </div>
 
   <?php
-  }
-
   if (is_array($payment_modules->modules)) {
     if ($confirmation = $payment_modules->confirmation()) {
 ?>
   <hr>
 
-  <h5 class="mb-1"><?= HEADING_PAYMENT_INFORMATION ?></h5>
+  <p class="fs-5 fw-semibold mb-1"><?= HEADING_PAYMENT_INFORMATION ?></p>
 
   <div class="row">
     <?php

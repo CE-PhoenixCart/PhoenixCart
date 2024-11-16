@@ -116,15 +116,6 @@
       <?php
     }
   }
-  $comments_textarea = new Textarea('comments', [
-    'style' => 'height: 120px',
-    'id' => 'inputComments',
-    'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,
-  ]);
-
-  if (isset($_SESSION['comments'])) {
-    $comments_textarea->set_text($_SESSION['comments']);
-  }
   ?>
       </div>
     </div>
@@ -144,16 +135,9 @@
     </div>
   </div>
 
-  <hr>
-  
-  <div class="form-floating mb-2">
-    <?= $comments_textarea ?>
-    <label for="inputComments"><?= ENTRY_COMMENTS ?></label>
-  </div>
+ <?= $hooks->cat('injectFormDisplay') ?>
 
-  <?= $hooks->cat('injectFormDisplay') ?>
-
-  <div class="d-grid">
+  <div class="d-grid mt-3">
     <?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
   </div>
 

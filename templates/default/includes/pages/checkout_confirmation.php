@@ -99,24 +99,17 @@
       </div>
     </div>
   </div>
-
-  <?php
-  if (!Text::is_empty($order->info['comments'])) {
-?>
-  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-2', $Linker->build('checkout_payment.php')) ?></h5>
-
-  <div class="border mb-3">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <i class="fas fa-comments fa-fw fa-3x float-right text-secondary"></i>
-        <?= nl2br(htmlspecialchars($order->info['comments'])) . new Input('comments', ['value' => $order->info['comments']], 'hidden') ?>
-      </li>
-    </ul>
+  
+  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS ?></h5>
+  
+  <div class="form-group row">
+    <label for="inputComments" class="col-form-label col-sm-4 text-left text-sm-right"><?= ENTRY_COMMENTS ?></label>
+    <div class="col-sm-8">
+      <?= new Textarea('comments', ['cols' => '60', 'rows' => '5', 'id' => 'inputComments', 'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,]) ?>
+    </div>
   </div>
 
   <?php
-  }
-
   if (is_array($payment_modules->modules)) {
     if ($confirmation = $payment_modules->confirmation()) {
 ?>
