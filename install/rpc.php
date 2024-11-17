@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -18,80 +18,74 @@
   if (!empty($_GET['action'])) {
     switch ($_GET['action']) {
       case 'dbCheck':
-        $db = new Database(
-          trim($_GET['server']),
-          trim($_GET['username']),
-          trim($_GET['password']), '');
+        try {
+          $db = new Database(trim($_GET['server']), trim($_GET['username']), trim($_GET['password']), '');
 
-        if ($db->connect_errno) {
-          exit("[[0|{$db->connect_error}]]");
+          $version_query = mysqli_query($db, "SELECT VERSION() AS `v`");
+          if (!$version_query) {
+            exit("0|{$db->error}");
+          }
+
+          $version = $version_query->fetch_assoc()['v'];
+          list($number) = explode('-', $version);
+
+          if (version_compare($number, '5.7.7', '<')) {
+            exit("-5|Version [{$version}] not at least MySQL 5.7.7");
+          }
+
+          if (version_compare($number, '10.2.2', '>=') || version_compare($number, '10', '<')) {
+            exit("1|Success");
+          }
+
+          exit("-10|Version [{$version}] not at least MariaDB 10.2.2");
+
+        } catch (mysqli_sql_exception $e) {
+          exit($e->getCode() . '|' . $e->getMessage());
         }
-
-        $db->select_db(trim($_GET['name']));
-
-        if ($db->errno) {
-          exit("[[0|{$db->error}]]");
-        }
-
-        $version_query = mysqli_query($db, "SELECT VERSION() AS `v`");
-        if (!$version_query) {
-          exit("[[0|{$db->error}]]");
-        }
-
-        $version = $version_query->fetch_assoc()['v'];
-        list($number) = explode('-', $version);
-
-        if (version_compare($number, '5.7.7', '<')) {
-          error_log("Version [$version] not at least MySQL 5.7.7");
-          exit("[[-5|$version]]");
-        }
-
-        if (version_compare($number, '10.2.2', '>=')
-         || version_compare($number, '10', '<'))
-        {
-          exit('[[1]]');
-        }
-
-        error_log("Version [$version] not at least MariaDB 10.2.2");
-        exit("[[-10|$version]]");
-
+      break;
       case 'dbImport':
-        $db = new Database(
-          trim($_GET['server']),
-          trim($_GET['username']),
-          trim($_GET['password']), '');
+        try {
+          $db_name = trim($_GET['name']);
+          $db = new Database(trim($_GET['server']), trim($_GET['username']), trim($_GET['password']), $db_name);
 
-        if ($db->connect_errno) {
-          exit("[[0|{$db->connect_error}]]");
+          goto dbInstall;
+        } catch (mysqli_sql_exception $e) {
+          try {
+            $db = new Database(trim($_GET['server']), trim($_GET['username']), trim($_GET['password']), '');
+
+            try {
+              $db_name = trim($_GET['name']);
+              
+              $db->query("CREATE DATABASE " . $db->escape($db_name));
+
+              try {
+                $db->select_db($db_name);
+
+                goto dbInstall;
+              }
+              catch (mysqli_sql_exception $e) {
+                exit("1046|Could not select DB {$db_name}");
+              }
+            } catch (mysqli_sql_exception $e) {
+              exit("1006|Could Not Create Database, please create {$db_name} manually");
+            }
+          }
+          catch (mysqli_sql_exception $e) {
+            exit($e->getCode() . '|' . $e->getMessage());
+          }
         }
 
+        dbInstall:
+        
         installer::set_time_limit(0);
-
-        $db_name = trim($_GET['name']);
-        if (!$db->select_db($db_name)) {
-          $db->query("CREATE DATABASE " . $db->escape($db_name));
-          if ($db->errno) {
-            exit("[[0|{$db->error}]]");
-          }
-
-          if (!$db->select_db($db_name)) {
-            exit('[[0|dbSelectError]]');
-          }
-        }
-
         installer::load_sql($db, __DIR__ . '/phoenix.sql');
 
-        if (!$db->errno && (trim($_GET['importsample']) === '1')) {
+        if (trim($_GET['importsample'] ?? '0') === '1') {
           installer::load_sql($db, __DIR__ . '/phoenix_data_sample.sql');
         }
 
-        if ($db->errno) {
-          exit("[[0|{$db->error}]]");
-        }
+        exit("1|Success");
 
-        exit('[[1]]');
+      break;
     }
   }
-
-  echo '[[-100|noActionError]]';
-?>
