@@ -15,7 +15,7 @@ const TEXT_TESTING_DB = <<<'EOT'
   <div class="col-1 d-flex align-items-center">
     <i class="fas fa-spinner fa-spin fa-2x"></i>
   </div>
-  <div class="col d-flex align-items-center">
+  <div class="col">
     <p>Testing database connection..</p>
   </div>
 </div>
@@ -25,7 +25,7 @@ const TEXT_IMPORTING_DB = <<<'EOT'
   <div class="col-1 d-flex align-items-center">
     <i class="fas fa-spinner fa-spin fa-2x"></i>
   </div>
-  <div class="col d-flex align-items-center">
+  <div class="col">
     <p>The database structure is now being imported. Please be patient during this procedure.</p>
   </div>
 </div>
@@ -35,7 +35,7 @@ const TEXT_DB_SUCCESS = <<<'EOT'
   <div class="col-1 d-flex align-items-center">
     <i class="fas fa-thumbs-up fa-2x"></i>
   </div>
-  <div class="col d-flex align-items-center">
+  <div class="col">
     <p>Database imported successfully.</p>
   </div>
 </div>
@@ -45,7 +45,7 @@ const TEXT_DB_PROBLEM = <<<'EOT'
   <div class="col-1 d-flex align-items-center">
     <i class="fas fa-thumbs-down fa-2x text-danger"></i>
   </div>
-  <div class="col d-flex align-items-center">
+  <div class="col">
     <p class="text-danger">There was a problem importing the database:</p>
     <p class="text-danger font-monospace">%s</p>
     <p class="text-danger mb-0"><strong>Please double check your server, user & password details and try again.</strong></p>
@@ -57,7 +57,7 @@ const TEXT_DB_CONNECTION_PROBLEM = <<<'EOT'
   <div class="col-1 d-flex align-items-center">
     <i class="fas fa-thumbs-down fa-2x text-danger"></i>
   </div>
-  <div class="col d-flex align-items-center">
+  <div class="col">
     <p class="text-danger">There was a problem connecting to the database server:</p>
     <p class="text-danger font-monospace">%s</p>
     <p class="text-danger mb-0"><strong>Please double check your server, user & password details and try again.</strong></p>
