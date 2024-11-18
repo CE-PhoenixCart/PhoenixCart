@@ -20,7 +20,9 @@
 
   $product_info_query = $db->query("SELECT p.*, pd.* FROM products p, products_description pd where p.products_status = 1 and p.products_id = " . (int)$_GET['products_id'] . " and pd.products_id = p.products_id and pd.language_id = " . (int)$_SESSION['languages_id']);
   if ($product_info = $product_info_query->fetch_assoc()) {
-    $db->query("UPDATE products_description SET products_viewed = products_viewed+1 WHERE products_id = " . (int)$_GET['products_id'] . " and language_id = " . (int)$_SESSION['languages_id']);
+    if ($session_started) {
+      $db->query("UPDATE products_description SET products_viewed = products_viewed+1 WHERE products_id = " . (int)$_GET['products_id'] . " and language_id = " . (int)$_SESSION['languages_id']);
+    }
 
     require $Template->map(__FILE__, 'page');
   } else {
