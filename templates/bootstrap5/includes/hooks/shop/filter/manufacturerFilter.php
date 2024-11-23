@@ -78,8 +78,6 @@ EOSQL
       $li_item .= '</li>';
       
       return $li_item;
-      
-      //return '<li class="nav-item ms-auto">' . implode(PHP_EOL, $output) . '</li>';
     }
   }
 }
