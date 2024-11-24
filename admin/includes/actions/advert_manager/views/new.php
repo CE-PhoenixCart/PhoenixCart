@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $groups_array = $db->fetch_all("SELECT advert_group AS id, advert_group AS text FROM advert ORDER BY advert_group");
+  $groups_array = $db->fetch_all("SELECT DISTINCT advert_group AS id, advert_group AS text FROM advert ORDER BY advert_group");
 
   echo new Form('new_advert', $Admin->link('advert_manager.php', ['action' => 'add_new']), 'post', ['enctype' => 'multipart/form-data']);
 ?>
