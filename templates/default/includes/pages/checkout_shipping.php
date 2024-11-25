@@ -48,10 +48,14 @@
       foreach ($quotes as $quote) {
         $n2 = count($quote['methods']);
         foreach (($quote['methods'] ?? []) as $method) {
+          $bg = (isset($quote['error'])) ? 'table-danger' : 'table-selection';
 ?>
-          <tr class="table-selection">
+          <tr class="<?= $bg ?>">
             <td>
                   <?php
+                  
+                  $label_for = "d_{$method['id']}";
+                  
           echo $quote['module'];
 
           if (!Text::is_empty($quote['icon'] ?? '')) {
@@ -75,9 +79,11 @@
             <td class="text-right">
               <?php
             if (isset($quote['error'])) {
-              echo '<div class="alert alert-error">' . $quote['error'] . '</div>';
+              $error_input = new Tickable('error', [], 'radio');      
+      
+              echo $error_input->set('value', '')->set('id', $label_for)->set('hidden', '')->set('aria-hidden', 'true');
             } else {
-              $label_for = "d_{$method['id']}";
+              
               echo '<div class="custom-control custom-radio custom-control-inline">';
 
               if (isset($_SESSION['shipping']['id'])) {
