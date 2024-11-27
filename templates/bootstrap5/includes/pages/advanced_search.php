@@ -41,7 +41,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"><?= HEADING_SEARCH_HELP ?></h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="<?= IMAGE_BUTTON_CLOSE ?>">
             <span aria-hidden="true" class="fas fa-times"></span>
           </button>
         </div>

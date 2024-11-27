@@ -8,10 +8,10 @@
 $push_to_footer = '<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-theme="' . BOOTSTRAP_THEME . '" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">';
 
   $push_to_footer .= '<div class="offcanvas-header bg-body-tertiary">';  
-    $push_to_footer .= '<h5 class="offcanvas-title" id="offcanvasCart">';
+    $push_to_footer .= '<h5 class="offcanvas-title" id="offcanvasCartLabel">';
       $push_to_footer .= sprintf(MODULE_NAVBAR_SHOPPING_CART_HAS_CONTENTS, $_SESSION['cart']->count_contents(), $GLOBALS['currencies']->format($_SESSION['cart']->show_total()));
     $push_to_footer .= '</h5>';
-    $push_to_footer .= '<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
+    $push_to_footer .= '<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="' . IMAGE_BUTTON_CLOSE . '"></button>';
   $push_to_footer .= '</div>';
   $push_to_footer .= '<div class="offcanvas-body p-0 overflow-auto">'; 
     $push_to_footer .= '<div class="list-group list-group-flush list-group-cart">';

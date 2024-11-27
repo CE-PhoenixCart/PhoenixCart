@@ -31,15 +31,15 @@
           </a>
         </div>
         <div class="col-md-6 text-center text-md-end">
-          <ul class="nav justify-content-center justify-content-md-end">
+          <ul class="nav nav-underline justify-content-center justify-content-md-end">
             <li class="nav-item">
-              <a class="nav-link" href="https://phoenixcart.org/" target="_blank" rel="noreferrer"><?= TEXT_WEBSITE ?></a>
+              <a class="nav-link link-body-emphasis" href="https://phoenixcart.org/" target="_blank" rel="noreferrer"><?= TEXT_WEBSITE ?></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer"><?= TEXT_SUPPORT ?></a>
+              <a class="nav-link link-body-emphasis" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer"><?= TEXT_SUPPORT ?></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://phoenixcart.org/phoenixcartwiki/index.php?title=How_to_Install" target="_blank" rel="noreferrer"><?= TEXT_USER_GUIDE ?></a>
+              <a class="nav-link link-body-emphasis" href="https://phoenixcart.org/phoenixcartwiki/index.php?title=How_to_Install" target="_blank" rel="noreferrer"><?= TEXT_USER_GUIDE ?></a>
             </li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 <div class="<?= PI_OA_CONTENT_WIDTH ?> pi-options-attributes">
-  <h6><?= PI_OA_HEADING_TITLE ?></h6>
+  <p class="fs-6 fw-semibold mb-1"><?= PI_OA_HEADING_TITLE ?></p>
 
   <?php
   foreach ($options as $option) {

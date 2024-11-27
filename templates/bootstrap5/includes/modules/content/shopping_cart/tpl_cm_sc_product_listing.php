@@ -44,7 +44,7 @@
 
             echo '<td class="align-middle">';
               echo '<div class="input-group flex-nowrap">';
-                echo new Input('cart_quantity[]', ['value' => $product->get('quantity'), 'style' => 'width: 65px;', 'min' => '0'], 'number');
+                echo new Input('cart_quantity[]', ['value' => $product->get('quantity'), 'style' => 'width: 65px;', 'min' => '0', 'aria-label' => MODULE_CONTENT_SC_PRODUCT_LISTING_HEADING_QUANTITY], 'number');
                 echo new Input('products_id[]', ['value' => $product->get('uprid')], 'hidden');
                 echo new Button(MODULE_CONTENT_SC_PRODUCT_LISTING_TEXT_BUTTON_UPDATE, '', 'btn-info');
               echo '</div>';

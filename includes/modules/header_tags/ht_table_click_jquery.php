@@ -59,7 +59,7 @@ EOCSS
         'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_PAGES' => [
           'title' => 'Pages',
           'value' => 'checkout_payment.php;checkout_shipping.php',
-          'desc' => 'The pages to add the jQuery Scripts to.',
+          'desc' => 'The pages to add the necessary javascript to.',
           'use_func' => 'page_selection::_show_pages',
           'set_func' => 'page_selection::_edit_pages(',
         ],

@@ -1,8 +1,10 @@
 <div class="<?= MODULE_CONTENT_HEADER_MENU_CONTENT_WIDTH ?> cm-header-menu">
   <nav class="navbar <?= $menu_style ?> cm-header-menu-navbar">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nbHeader" aria-controls="nbHeader" aria-expanded="false" aria-label="<?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?>">
-      <span class="navbar-toggler-icon"></span> <?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?>
+      <span class="navbar-toggler-icon"></span>
     </button>
+    
+    <span class="lead d-block d-sm-none"><?= MODULE_CONTENT_HEADER_MENU_TOGGLER ?></span>
 
     <div class="collapse navbar-collapse" id="nbHeader">
       <ul class="navbar-nav mr-auto">

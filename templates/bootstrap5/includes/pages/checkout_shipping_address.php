@@ -28,7 +28,8 @@
 
   <div class="row">
     <div class="col-sm-7 mb-3">
-      <h5 class="mb-1"><?= TABLE_HEADING_ADDRESS_BOOK_ENTRIES ?></h5>
+      <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_ADDRESS_BOOK_ENTRIES ?></p>
+      
       <div><?= (new Form('select_address', $Linker->build('checkout_shipping_address.php'), 'post', ['class' => 'was-validated']))->hide('action', 'select') ?>
         <table class="table border table-hover m-0">
           <tbody>
@@ -65,7 +66,8 @@
       </form></div>
     </div>
     <div class="col-sm-5">
-      <h5 class="mb-1"><?= TABLE_HEADING_SHIPPING_ADDRESS ?></h5>
+      <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_SHIPPING_ADDRESS ?></p>
+      
       <div class="border">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><?= SHIPPING_FA_ICON . $customer->make_address_label($_SESSION['sendto'], true, ' ', '<br>') ?></li>
@@ -79,7 +81,7 @@
 ?>
     <hr>
 
-    <h5 class="mb-1"><?= TABLE_HEADING_NEW_SHIPPING_ADDRESS ?></h5>
+    <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_NEW_SHIPPING_ADDRESS ?></p>
 
     <p class="fw-lighter"><?= TEXT_CREATE_NEW_SHIPPING_ADDRESS ?></p>
 <?php

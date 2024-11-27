@@ -54,6 +54,7 @@ const IMAGE_BUTTON_BACK = 'Back';
 const IMAGE_BUTTON_BUY_NOW = 'Buy Now';
 const IMAGE_BUTTON_CHANGE_ADDRESS = 'Change Address';
 const IMAGE_BUTTON_CHECKOUT = 'Checkout';
+const IMAGE_BUTTON_CLOSE = 'Close';
 const IMAGE_BUTTON_CONFIRM_ORDER = 'Confirm Order';
 const IMAGE_BUTTON_CONTINUE = 'Continue';
 const IMAGE_BUTTON_DELETE = 'Delete';

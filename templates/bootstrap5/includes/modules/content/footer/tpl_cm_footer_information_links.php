@@ -1,9 +1,10 @@
 <div class="<?= MODULE_CONTENT_FOOTER_INFORMATION_CONTENT_WIDTH ?> cm-footer-information-links">
-  <h4><?= MODULE_CONTENT_FOOTER_INFORMATION_HEADING_TITLE ?></h4>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_FOOTER_INFORMATION_HEADING_TITLE ?></p>
+  
   <nav class="nav nav-pills flex-column">
     <?php
     foreach (MODULE_CONTENT_FOOTER_INFORMATION_DATA as $page => $text) {
-      echo '<a class="nav-link ps-0" href="' . $GLOBALS['Linker']->build($page) . '">' . $text . '</a>' . PHP_EOL;
+      echo '<a class="nav-link ps-0 text-body-emphasis" href="' . $GLOBALS['Linker']->build($page) . '">' . $text . '</a>' . PHP_EOL;
     }
     ?>
   </nav>

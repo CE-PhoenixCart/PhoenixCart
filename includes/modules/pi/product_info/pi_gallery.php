@@ -34,9 +34,6 @@
         return;
       }
 
-      $active_image = ['image' => $GLOBALS['product']->get('image'), 'htmlcontent' => $GLOBALS['product']->get('name')];
-      $other_images = $GLOBALS['db']->fetch_all("SELECT image, htmlcontent FROM products_images WHERE products_id = '" . (int)$GLOBALS['product']->get('id') . "' ORDER BY sort_order");
-
       $tpl_data = ['group' => $this->group, 'file' => __FILE__];
       include 'includes/modules/block_template.php';
     }
@@ -59,11 +56,6 @@
           'title' => 'Content Container',
           'value' => 'col-sm-12 mb-2',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
-        ],
-        $this->config_key_base . 'CONTENT_WIDTH_EACH' => [
-          'title' => 'Thumbnail Container',
-          'value' => 'col-4 col-sm-6 col-lg-4 mt-2',
-          'desc' => 'What container should each thumbnail be shown in?  Default: XS 3 each row, SM/MD 2 each row, LG/XL 3 each row.',
         ],
         $this->config_key_base . 'MODAL_SIZE' => [
           'title' => 'Modal Popup Size',

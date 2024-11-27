@@ -31,7 +31,7 @@
       </ol>
       <div class="card-footer">
         <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="<?= sprintf(INSTALLATION_PROGRESS, '75%') ?>" style="width: 75%">75%</div>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
 
     <h2 class="display-4"><?= TEXT_STORE_SETTINGS ?></h2>
 
-    <form name="install" class="was-validated" id="installForm" action="install.php?step=4" method="post" role="form">
+    <form name="install" class="was-validated" id="installForm" action="install.php?step=4" method="post">
 
       <div class="form-floating mb-3">
         <?= (new Input('CFG_STORE_NAME', ['id' => 'CFG_STORE_NAME', 'placeholder' => TEXT_STORE_NAME_PLACEHOLDER]))->require(),

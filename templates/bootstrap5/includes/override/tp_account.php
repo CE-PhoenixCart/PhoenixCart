@@ -90,7 +90,7 @@
       $output = null;
 
       foreach ( $Template->_data[$this->group] as $group ) {
-        $output .= '<h4 class="mt-2">' . $group['title'] . '</h4>';
+        $output .= '<h2 class="fs-4">' . $group['title'] . '</h2>';
         $output .= '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">';
 
         foreach ( $group['links'] as $entry ) {

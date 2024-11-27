@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -18,15 +18,15 @@ var dbPassword;
 var dbName;
 var dbImportSample;
 
-var formSubmited = false;
+var formSubmitted = false;
 var formSuccess = false;
 
 function prepareDB() {
-  if (formSubmited === true) {
+  if (formSubmitted === true) {
     return false;
   }
 
-  formSubmited = true;
+  formSubmitted = true;
 
   // Show the mBox
   document.querySelectorAll('.mBox').forEach(function(el) {
@@ -52,8 +52,7 @@ function prepareDB() {
         '&name=' + encodeURIComponent(dbName))
     .then(response => response.text())
     .then(response => {
-      var result = /\[\[([^|]*?)(?:\|([^|]*?)){0,1}\]\]/.exec(response);
-      result.shift();
+      var result = response.split("|");
 
       if (result[0] === '1') {
         document.querySelectorAll('.mBoxContents').forEach(function(el) {
@@ -68,8 +67,7 @@ function prepareDB() {
               '&importsample=' + encodeURIComponent(dbImportSample))
           .then(response2 => response2.text())
           .then(response2 => {
-            var result2 = /\[\[([^|]*?)(?:\|([^|]*?)){0,1}\]\]/.exec(response2);
-            result2.shift();
+            var result2 = response2.split("|");
 
             if (result2[0] === '1') {
               document.querySelectorAll('.mBoxContents').forEach(function(el) {
@@ -82,30 +80,30 @@ function prepareDB() {
                 document.getElementById('installForm').submit();
               }, 2000);
             } else {
-              var result2_error = result2[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+              var result2_error = result2[1];
 
               document.querySelectorAll('.mBoxContents').forEach(function(el) {
                 el.innerHTML = '<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_PROBLEM) ?>.replace('%s', result2_error) + '</div>';
               });
 
-              formSubmited = false;
+              formSubmitted = false;
             }
           })
           .catch(function() {
-            formSubmited = false;
+            formSubmitted = false;
           });
       } else {
-        var result_error = result[1].replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        var result_error = result[1];
 
         document.querySelectorAll('.mBoxContents').forEach(function(el) {
           el.innerHTML = '<div class="alert alert-danger">' + <?= json_encode(TEXT_DB_CONNECTION_PROBLEM) ?>.replace('%s', result_error) + '</div>';
         });
 
-        formSubmited = false;
+        formSubmitted = false;
       }
     })
     .catch(function() {
-      formSubmited = false;
+      formSubmitted = false;
     });
   }
 
@@ -113,8 +111,8 @@ function prepareDB() {
   document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('installForm').addEventListener('submit', function(e) {
       if (formSuccess === false) {
-        e.preventDefault(); // Prevent form submission
-        prepareDB(); // Call the prepareDB function
+        e.preventDefault();
+        prepareDB();
       }
     });
   });
@@ -137,7 +135,7 @@ function prepareDB() {
       </ol>
       <div class="card-footer">
         <div class="progress">
-          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%">25%</div>
+          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="<?= sprintf(INSTALLATION_PROGRESS, '25%') ?>" style="width: 25%">25%</div>
         </div>
       </div>
     </div>
@@ -153,7 +151,7 @@ function prepareDB() {
     
     <h2 class="display-4"><?= TEXT_DATABASE_SERVER ?></h2>
 
-    <form name="install" class="was-validated" id="installForm" action="install.php?step=2" method="post" role="form">
+    <form name="install" class="was-validated" id="installForm" action="install.php?step=2" method="post">
 
       <div class="form-floating mb-3">
         <?= (new Input('DB_SERVER', ['id' => 'DB_SERVER', 'placeholder' => 'localhost']))->require(),

@@ -13,7 +13,7 @@
     <div class="offcanvas offcanvas-start" tabindex="-1" id="collapseCoreNav" aria-labelledby="collapseCoreNavLabel">
       <div class="offcanvas-header bg-body-tertiary">
         <h5 class="offcanvas-title" id="collapseCoreNavLabel"><?= MODULE_CONTENT_NAVBAR_SITE_MENU ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="<?= IMAGE_BUTTON_CLOSE ?>"></button>
       </div>
       
       <div class="offcanvas-body justify-content-between">

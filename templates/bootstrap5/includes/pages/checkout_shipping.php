@@ -24,7 +24,7 @@
 
   <div class="row">
     <div class="col-sm-7 mb-3">
-      <h5 class="mb-1"><?= TABLE_HEADING_SHIPPING_METHOD ?></h5>
+      <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_SHIPPING_METHOD ?></p>
       <div>
         <?php
   if ($module_count > 0) {
@@ -48,93 +48,87 @@
       foreach ($quotes as $quote) {
         $n2 = count($quote['methods']);
         foreach (($quote['methods'] ?? []) as $method) {
-?>
-          <tr class="table-selection">
+          $bg = (isset($quote['error'])) ? 'table-danger' : 'table-selection';
+          ?>
+          <tr class="<?= $bg ?>">
             <td>
-                  <?php
-          echo $quote['module'];
+              <?php
+              $label_for = "d_{$method['id']}";
+              
+              echo '<label class="form-check-label" for="' . $label_for . '">' . $quote['module'] . '</label>';
 
-          if (!Text::is_empty($quote['icon'] ?? '')) {
-            echo '&nbsp;' . $quote['icon'];
-          }
+              if (!Text::is_empty($quote['icon'] ?? '')) {
+                echo '&nbsp;' . $quote['icon'];
+              }
 
-          if (isset($quote['error'])) {
-            echo '<div class="form-text">' . $quote['error'] . '</div>';
-          }
+              if (isset($quote['error'])) {
+                echo '<div class="form-text">' . $quote['error'] . '</div>';
+              }
 
-          if (!Text::is_empty($method['title'])) {
-            echo '<div class="form-text">' . $method['title'] . '</div>';
-          }
-?>
+              if (!Text::is_empty($method['title'])) {
+                echo '<div class="form-text">' . $method['title'] . '</div>';
+              }
+              ?>
             </td>
             <?php
-          $method_value = "{$quote['id']}_{$method['id']}";
-          $method_price = $currencies->format(Tax::price($method['cost'], $quote['tax'] ?? 0));
-          if ( ($n > 1) || ($n2 > 1) ) {
-?>
+            $method_value = "{$quote['id']}_{$method['id']}";
+            $method_price = $currencies->format(Tax::price($method['cost'], $quote['tax'] ?? 0));
+            if ( ($n > 1) || ($n2 > 1) ) {
+              ?>
             <td class="text-end">
               <?php
-            if (isset($quote['error'])) {
-              echo '<div class="alert alert-error">' . $quote['error'] . '</div>';
-            } else {
-              $label_for = "d_{$method['id']}";
-              echo '<div class="form-check form-check-inline">';
+              if (isset($quote['error'])) {
+                $error_input = new Tickable('error', [], 'radio');      
+      
+                echo $error_input->set('value', '')->set('id', $label_for)->set('hidden', '')->set('aria-hidden', 'true');
+              } else {
+                echo '<div class="form-check form-check-inline">';
+                if (isset($_SESSION['shipping']['id'])) {
+                  $method_input->tick($method_value === $_SESSION['shipping']['id']);
+                }
+                echo $method_input
+                       ->set('value', $method_value)
+                       ->set('id', $label_for)
+                       ->set('aria-describedby', $label_for);
 
-              if (isset($_SESSION['shipping']['id'])) {
-                $method_input->tick($method_value === $_SESSION['shipping']['id']);
+                echo '<span class="form-check-label" for="' . $label_for . '">' . $method_price . '</span>';
+                echo '</div>';
               }
-              echo $method_input
-                     ->set('value', $method_value)
-                     ->set('id', $label_for)
-                     ->set('aria-describedby', $label_for);
-
-              echo '<label class="form-check-label" for="' . $label_for . '">' . $method_price . '</label>';
-              echo '</div>';
-            }
-?>
+              ?>
             </td>
-              <?php
+            <?php
           } else {
             $method_input = new Input('shipping', ['value' => $method_value], 'hidden');
-?>
+            ?>
             <td class="text-end"><?= $method_price, $method_input ?></td>
-              <?php
+            <?php
           }
-?>
+          ?>
           </tr>
           <?php
         }
       }
     }
-?>
-        </table>
-        <?php
+    ?>
+    </table>
+    <?php
     if ( !$free_shipping && (1 === $module_count) ) {
-?>
-        <p class="m-2 fw-lighter"><?= TEXT_ENTER_SHIPPING_INFORMATION ?></p>
-          <?php
+      ?>
+      <p class="m-2 fw-lighter"><?= TEXT_ENTER_SHIPPING_INFORMATION ?></p>
+      <?php
     }
   }
-  $comments_textarea = new Textarea('comments', [
-    'style' => 'height: 120px',
-    'id' => 'inputComments',
-    'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,
-  ]);
-
-  if (isset($_SESSION['comments'])) {
-    $comments_textarea->set_text($_SESSION['comments']);
-  }
-?>
+  ?>
       </div>
     </div>
 
     <div class="col-sm-5">
-      <h5 class="mb-1">
+      <p class="fs-5 fw-semibold mb-1">
         <?=
         TABLE_HEADING_SHIPPING_ADDRESS,
         sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-3', $Linker->build('checkout_shipping_address.php'))
 ?>
-      </h5>
+      </p>
       <div class="border">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><?= SHIPPING_FA_ICON . $customer->make_address_label($_SESSION['sendto'], true, ' ', '<br>') ?></li>
@@ -143,16 +137,9 @@
     </div>
   </div>
 
-  <hr>
-  
-  <div class="form-floating mb-2">
-    <?= $comments_textarea ?>
-    <label for="inputComments"><?= ENTRY_COMMENTS ?></label>
-  </div>
+ <?= $hooks->cat('injectFormDisplay') ?>
 
-  <?= $hooks->cat('injectFormDisplay') ?>
-
-  <div class="d-grid">
+  <div class="d-grid mt-3">
     <?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
   </div>
 

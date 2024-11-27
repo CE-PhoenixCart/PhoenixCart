@@ -47,7 +47,7 @@
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
-      ? $Admin->button(BUTTON_INSERT_NEW_SLUG, 'fas fa-id-card', 'btn-danger', $Admin->link('outgoing_tpl.php', ['action' => 'new']))
+      ? ''
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link)
       ?>
     </div>
@@ -56,7 +56,7 @@
 <?php
   if (sizeof($missing_slugs) > 0) {
     $missing = implode(', ', $missing_slugs);
-    echo sprintf(MISSING_SLUGS, $missing);
+    echo sprintf(MISSING_SLUGS, $missing, $Admin->button(BUTTON_INSERT_NEW_SLUG, 'fas fa-id-card', 'btn-danger', $Admin->link('outgoing_tpl.php', ['action' => 'new'])));
   }
   
   if ($view_file = $Admin->locate('/views', $action)) {

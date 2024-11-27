@@ -13,7 +13,7 @@
 // main_page.php
 const TITLE = 'Starting Your Online Business with CE Phoenix Cart';
 const TEXT_SOFTWARE_NAME = 'CE Phoenix Cart';
-const TEXT_WEBSITE = '<img src="images/icon_phoenix.png" class="me-1">Website';
+const TEXT_WEBSITE = '<img src="images/icon_phoenix.png" alt="Phoenix Icon" class="me-1">Website';
 const TEXT_SUPPORT = '<i class="fas fa-question-circle me-1 text-dark" aria-hidden="true"></i>Forum';
 const TEXT_USER_GUIDE = '<i class="fas fa-school me-1 text-dark" aria-hidden="true"></i>User Guide';
 const TEXT_COPYRIGHT = 'CE Phoenix Cart &copy; 2000-%d';
@@ -38,6 +38,8 @@ const TEXT_WEB_INSTALL = <<<'EOT'
 <p>Please follow the on-screen instructions that will take you through the database server, web server, and store configuration options.
 If help is needed at any stage, please consult the documentation or seek help in the <a class="alert-link" href="https://phoenixcart.org/forum/index.php">Phoenix Forum</a>.</p>
 EOT;
+
+const INSTALLATION_PROGRESS = 'Installation Progress: %s';
 
 const TEXT_DATABASE_SERVER = 'Database Server';
 const TEXT_WEB_SERVER = 'Web Server';

@@ -66,9 +66,9 @@
     public function get_parameters() {
       return [
         'MODULE_ORDER_TOTAL_SHIPPING_STATUS' => [
-          'title' => 'Display Shipping',
+          'title' => 'Display Delivery Cost',
           'value' => 'True',
-          'desc' => 'Do you want to display the order shipping cost?',
+          'desc' => 'Do you want to display the order delivery cost?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER' => [
@@ -77,21 +77,21 @@
           'desc' => 'Sort order of display.',
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING' => [
-          'title' => 'Allow Free Shipping',
+          'title' => 'Allow Free Delivery',
           'value' => 'False',
-          'desc' => 'Do you want to allow free shipping?',
+          'desc' => 'Do you want to allow free delivery?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER' => [
-          'title' => 'Free Shipping For Orders Over',
+          'title' => 'Free Delivery For Orders Over',
           'value' => '50',
-          'desc' => 'Provide free shipping for orders over the set amount.',
+          'desc' => 'Provide free delivery for orders over the set amount.',
           'use_func' => 'currencies->format',
         ],
         'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION' => [
-          'title' => 'Provide Free Shipping For Orders Made',
+          'title' => 'Provide Free Delivery For Orders Made',
           'value' => 'national',
-          'desc' => 'Provide free shipping for orders sent to the set destination.',
+          'desc' => 'Provide free delivery for orders sent to the set destination.',
           'set_func' => "Config::select_one(['national', 'international', 'both'], ",
         ],
       ];

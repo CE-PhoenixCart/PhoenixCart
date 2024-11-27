@@ -5,7 +5,7 @@
     echo $brand_icons;
   } else {
     foreach ($brand_icons as $icon ) {
-      echo '<i class="fab fa-' . $icon . ' fa-lg"></i> ';
+      echo '<i class="' . $icon . ' mr-1 me-1"></i> ';
     }
   }
 

@@ -17,20 +17,20 @@ INSERT INTO advert VALUES ('2', 'Strawberries', '', '', 'strawberry.webp', 'caro
 INSERT INTO advert VALUES ('3', 'Lemons', 'index.php', 'cPath=1_4', 'fruit-8848715_640.webp', 'index', NOW(), NULL, '30', '1');
 INSERT INTO advert VALUES ('4', 'Easy Ordering', 'privacy.php', '', 'laptop-7723139_640.webp', 'index', NOW(), NULL, '40', '1');
 
-INSERT INTO advert_info VALUES ('1', '1', '<h2>Fresh fruit direct to your door</h2>\r\n<h4>Grown with <i class=\"fas fa-heart fa-beat text-danger\"></i> on our Devonshire Farm</h4>\r\n<p><span class=\"btn btn-info\">Click here to view our full range</span></p>');
-INSERT INTO advert_info VALUES ('2', '1', '<h2>Strawberries Coming Soon</h2>\r\n<h4>Pick Your Own at our Farm or delivered direct to your door</h4>');
-INSERT INTO advert_info VALUES ('3', '1', '<h5 class=\"card-title\">If life gives you lemons... make Juice!</h5>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
-INSERT INTO advert_info VALUES ('4', '1', '<h5 class=\"card-title\">Checkout easily using our 3 step checkout!</h5>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
+INSERT INTO advert_info VALUES ('1', '1', '<p class=\"fs-2 font-weight-bold fw-semibold mb-1\">Fresh fruit direct to your door</p>\r\n<p class=\"fs-4\">Grown with <i class="fas fa-heart fa-beat text-danger"></i> on our Devonshire Farm</p>\r\n<p><span class="btn btn-info">Click here to view our full range</span></p>');
+INSERT INTO advert_info VALUES ('2', '1', '<p class=\"fs-2 font-weight-bold fw-semibold mb-1\">Strawberries Coming Soon</p>\r\n<p class=\"fs-4\">Pick Your Own at our Farm or delivered direct to your door</p>');
+INSERT INTO advert_info VALUES ('3', '1', '<p class=\"fs-5 font-weight-bold fw-semibold card-title\">If life gives you lemons... make Juice!</p>\r\n<p class=\"card-text\">See our full range of Citrus Fruit now</p>');
+INSERT INTO advert_info VALUES ('4', '1', '<p class=\"fs-5 font-weight-bold fw-semibold card-title\">Checkout easily using our 3 step checkout!</p>\r\n<p class=\"card-text\">Your details are kept safe and secure</p>');
 
 UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
 UPDATE configuration SET configuration_value = 'index' WHERE configuration_key = 'I_ADVERTS_LINK';
 
 UPDATE configuration SET configuration_value = '1;2' WHERE configuration_key = 'I_BRAND_ICONS_CSV';
 
-INSERT INTO categories VALUES (1, 'sample/fruit.jpg', 0, 10, NOW(), NULL);
-INSERT INTO categories VALUES (2, 'sample/vegetables-1.jpg', 0, 20, NOW(), NULL);
-INSERT INTO categories VALUES (3, 'sample/apples-pears.jpg', 1, 10, NOW(), NULL);
-INSERT INTO categories VALUES (4, 'sample/citrus.jpg', 1, 20, NOW(), NULL);
+INSERT INTO categories VALUES (1, 'sample/fruit.webp', 0, 10, NOW(), NULL);
+INSERT INTO categories VALUES (2, 'sample/vegetables-1.webp', 0, 20, NOW(), NULL);
+INSERT INTO categories VALUES (3, 'sample/apples-pears.webp', 1, 10, NOW(), NULL);
+INSERT INTO categories VALUES (4, 'sample/citrus.webp', 1, 20, NOW(), NULL);
 
 INSERT INTO categories_description VALUES ('1', '1', 'Fruit', 'Fruit contains many nutrients and vitamins essential to health.  Eating fruit is an essential part of a healthy balanced diet.', null, null);
 INSERT INTO categories_description VALUES ('2', '1', 'Vegetables', null, null, null);
@@ -43,15 +43,15 @@ INSERT INTO manufacturers VALUES (2, 'Von Peacock', 'brands/von-peacock.jpg', no
 INSERT INTO manufacturers_info VALUES (1, 1, '', 0, null, null, null, null);
 INSERT INTO manufacturers_info VALUES (2, 1, '', 0, null, null, null, null);
 
-INSERT INTO products VALUES (1, 1000, 'ORA-1', 'sample/orange-1.jpg', 9.99, NOW(), NULL, NULL, 0.30, 1, 1, 1, 0, NULL);
-INSERT INTO products VALUES (2, 1000, 'LEM-1', 'sample/lemon-1.jpg', 7.99, NOW(), NULL, NULL, 0.30, 1, 1, 1, 0, NULL);
-INSERT INTO products VALUES (3, 1000, 'PEA-1', 'sample/pear-1.jpg', 4.99, NOW(), NULL, NULL, 0.30, 1, 1, 0, 0, NULL);
-INSERT INTO products VALUES (4, 1000, 'APP-1', 'sample/apple-1.jpg', 4.99, NOW(), NULL, NULL, 0.30, 1, 1, 2, 0, NULL);
-INSERT INTO products VALUES (5, 1000, 'TOM-1', 'sample/tomatoes-1.jpg', 1.99, NOW(), NULL, NULL, 0.50, 1, 1, 2, 0, NULL);
-INSERT INTO products VALUES (6, 1, 'GTOM-1', 'sample/green-tomatoes-1.jpg', 1.9900, NOW(), NULL, NULL, 0.50, 1, 0, 2, 0, NULL);
-INSERT INTO products VALUES (7, 10, 'GAPP-1', 'sample/green-apple-1.jpg', 4.9900, NOW(), NULL, NULL, 0, 1, 0, 2, 0, NULL);
-INSERT INTO products VALUES (8, 0, 'GPF-1', 'sample/grapefruit-1.jpg', 8.9900, NOW(), NULL, NOW() + INTERVAL 90 DAY, 0.40, 1, 0, 2, 0, NULL);
-INSERT INTO products VALUES (9, 1000, 'LIM-1', 'sample/lime-1.jpg', 8.4900, NOW(), NULL, NULL, 0.35, 1, 0, 2, 0, NULL);
+INSERT INTO products VALUES (1, 1000, 'ORA-1', 'sample/orange-1.webp', 9.99, NOW(), NULL, NULL, 0.30, 1, 1, 1, 0, NULL);
+INSERT INTO products VALUES (2, 1000, 'LEM-1', 'sample/lemon-1.webp', 7.99, NOW(), NULL, NULL, 0.30, 1, 1, 1, 0, NULL);
+INSERT INTO products VALUES (3, 1000, 'PEA-1', 'sample/pear-1.webp', 4.99, NOW(), NULL, NULL, 0.30, 1, 1, 0, 0, NULL);
+INSERT INTO products VALUES (4, 1000, 'APP-1', 'sample/apple-1.webp', 4.99, NOW(), NULL, NULL, 0.30, 1, 1, 2, 0, NULL);
+INSERT INTO products VALUES (5, 1000, 'TOM-1', 'sample/tomatoes-1.webp', 1.99, NOW(), NULL, NULL, 0.50, 1, 1, 2, 0, NULL);
+INSERT INTO products VALUES (6, 1, 'GTOM-1', 'sample/green-tomatoes-1.webp', 1.9900, NOW(), NULL, NULL, 0.50, 1, 0, 2, 0, NULL);
+INSERT INTO products VALUES (7, 10, 'GAPP-1', 'sample/green-apple-1.webp', 4.9900, NOW(), NULL, NULL, 0, 1, 0, 2, 0, NULL);
+INSERT INTO products VALUES (8, 0, 'GPF-1', 'sample/grapefruit-1.webp', 8.9900, NOW(), NULL, NOW() + INTERVAL 90 DAY, 0.40, 1, 0, 2, 0, NULL);
+INSERT INTO products VALUES (9, 1000, 'LIM-1', 'sample/lime-1.webp', 8.4900, NOW(), NULL, NULL, 0.35, 1, 0, 2, 0, NULL);
 
 INSERT INTO products_description VALUES (1, 1, 'Oranges', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis massa tincidunt dui ut ornare lectus sit amet est. Imperdiet proin fermentum leo vel orci porta. Cursus metus aliquam eleifend mi in nulla posuere. Nunc scelerisque viverra mauris in. Amet risus nullam eget felis eget nunc lobortis mattis aliquam. Blandit volutpat maecenas volutpat blandit aliquam. Fermentum iaculis eu non diam.</p>\r\n\r\n<p>Image by <a href=\"https://pixabay.com/users/Eelffica-52436/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=756390\">Eelffica</a> from <a href=\"https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=756390\">Pixabay</a></p>\r\n\r\n<p>Id donec ultrices tincidunt arcu non sodales. Id ornare arcu odio ut sem. Velit sed ullamcorper morbi tincidunt ornare massa eget. Mi eget mauris pharetra et ultrices neque. Pellentesque dignissim enim sit amet venenatis. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. Venenatis cras sed felis eget velit. Justo eget magna fermentum iaculis eu non diam phasellus vestibulum. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget. Ultrices tincidunt arcu non sodales neque sodales ut. Integer malesuada nunc vel risus.</p>\r\n\r\n<p>Nunc sed id semper risus in hendrerit gravida. In cursus turpis massa tincidunt dui ut ornare lectus. Mattis rhoncus urna neque viverra justo nec ultrices dui. Ac tincidunt vitae semper quis lectus nulla at. Dui vivamus arcu felis bibendum ut. Ultricies tristique nulla aliquet enim tortor. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Nisl nunc mi ipsum faucibus. Quis commodo odio aenean sed adipiscing. Tortor posuere ac ut consequat. Felis eget nunc lobortis mattis aliquam faucibus purus in. Aliquet lectus proin nibh nisl condimentum id venenatis a. Rhoncus mattis rhoncus urna neque viverra. Proin nibh nisl condimentum id. Dolor morbi non arcu risus.</p>', '', 0, 'Oranges are not the only fruit...', null, null);
 INSERT INTO products_description VALUES (2, 1, 'Lemons', '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis massa tincidunt dui ut ornare lectus sit amet est. Imperdiet proin fermentum leo vel orci porta. Cursus metus aliquam eleifend mi in nulla posuere. Nunc scelerisque viverra mauris in. Amet risus nullam eget felis eget nunc lobortis mattis aliquam. Blandit volutpat maecenas volutpat blandit aliquam. Fermentum iaculis eu non diam.</p>\r\n\r\n<p>Images by <a href=\"https://pixabay.com/users/Eelffica-52436/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=756390\">Eelffica</a> from <a href=\"https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=756390\">Pixabay</a> and <a href="https://pixabay.com/users/alles-2597842/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5069648">Alexander Lesnitsky</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5069648">Pixabay</a></p>\r\n\r\n<p>Id donec ultrices tincidunt arcu non sodales. Id ornare arcu odio ut sem. Velit sed ullamcorper morbi tincidunt ornare massa eget. Mi eget mauris pharetra et ultrices neque. Pellentesque dignissim enim sit amet venenatis. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. Venenatis cras sed felis eget velit. Justo eget magna fermentum iaculis eu non diam phasellus vestibulum. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus semper eget. Ultrices tincidunt arcu non sodales neque sodales ut. Integer malesuada nunc vel risus.</p>\r\n\r\n<p>Nunc sed id semper risus in hendrerit gravida. In cursus turpis massa tincidunt dui ut ornare lectus. Mattis rhoncus urna neque viverra justo nec ultrices dui. Ac tincidunt vitae semper quis lectus nulla at. Dui vivamus arcu felis bibendum ut. Ultricies tristique nulla aliquet enim tortor. Cras pulvinar mattis nunc sed blandit libero volutpat sed. Nisl nunc mi ipsum faucibus. Quis commodo odio aenean sed adipiscing. Tortor posuere ac ut consequat. Felis eget nunc lobortis mattis aliquam faucibus purus in. Aliquet lectus proin nibh nisl condimentum id venenatis a. Rhoncus mattis rhoncus urna neque viverra. Proin nibh nisl condimentum id. Dolor morbi non arcu risus.</p>', '', 0, 'When life gives you lemons...', null, null);

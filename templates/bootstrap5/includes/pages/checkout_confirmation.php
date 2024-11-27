@@ -32,14 +32,15 @@
 
   <div class="row">
     <div class="col-sm-7">
-      <h5 class="mb-1"><?= LIST_PRODUCTS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('shopping_cart.php')) ?></h5>
+      <p class="fs-5 fw-semibold mb-1"><?= LIST_PRODUCTS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('shopping_cart.php')) ?></p>
+      
       <div class="border">
         <ul class="list-group list-group-flush">
           <?php
           foreach ($order->products as $product) {
             echo '<li class="list-group-item">';
             echo '<span class="float-end">' . $currencies->display_price($product['final_price'], $product['tax'], $product['qty']) . '</span>';
-            echo '<h5 class="mb-1">' . $product['name'] . '<small> x ' . $product['qty'] . '</small></h5>';
+            echo '<p class="fs-5 fw-semibold mb-0">' . $product['name'] . '<small> x ' . $product['qty'] . '</small></p>';
 
             if ( (isset($product['attributes'])) && (count($product['attributes']) > 0) ) {
               echo '<p class="w-100 mb-1">';
@@ -63,7 +64,8 @@
       </div>
     </div>
     <div class="col-sm-5">
-      <h5 class="mb-1"><?= ORDER_DETAILS ?></h5>
+      <p class="fs-5 fw-semibold mb-1"><?= ORDER_DETAILS ?></p>
+      
       <div class="border">
         <ul class="list-group list-group-flush">
           <?php
@@ -71,26 +73,26 @@
           if ($_SESSION['sendto']) {
             echo '<li class="list-group-item">';
               echo SHIPPING_FA_ICON;
-              echo '<h5 class="mb-0">' . HEADING_DELIVERY_ADDRESS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_shipping_address.php')) . '</h5>';
+              echo '<p class="fs-5 fw-semibold">' . HEADING_DELIVERY_ADDRESS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_shipping_address.php')) . '</p>';
               echo '<p class="w-100 mb-1">' . $address->format($order->delivery, 1, ' ', '<br>') . '</p>';
             echo '</li>';
           }
   
           echo '<li class="list-group-item">';
             echo PAYMENT_FA_ICON;
-            echo '<h5 class="mb-0">' . HEADING_BILLING_ADDRESS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment_address.php')) . '</h5>';
+            echo '<p class="fs-5 fw-semibold">' . HEADING_BILLING_ADDRESS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment_address.php')) . '</p>';
             echo '<p class="w-100 mb-1">' . $address->format($order->billing, 1, ' ', '<br>') . '</p>';
           echo '</li>';
           
           if ($order->info['shipping_method']) {
             echo '<li class="list-group-item">';
-              echo '<h5 class="mb-1">' . HEADING_SHIPPING_METHOD . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_shipping.php')) . '</h5>';
+              echo '<p class="fs-5 fw-semibold">' . HEADING_SHIPPING_METHOD . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_shipping.php')) . '</p>';
               echo '<p class="w-100 mb-1">' . $order->info['shipping_method'] . '</p>';
             echo '</li>';
           }
           
           echo '<li class="list-group-item">';
-            echo '<h5 class="mb-1">' . HEADING_PAYMENT_METHOD . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment.php')) . '</h5>';
+            echo '<p class="fs-5 fw-semibold">' . HEADING_PAYMENT_METHOD . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment.php')) . '</p>';
             echo '<p class="w-100 mb-1">' . $order->info['payment_method'] . '</p>';
           echo '</li>';
           ?>
@@ -100,31 +102,22 @@
     </div>
   </div>
 
-  <?php
-  if (!Text::is_empty($order->info['comments'])) {
-?>
   <hr>
   
-  <h5 class="mb-1"><?= HEADING_ORDER_COMMENTS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('checkout_payment.php')) ?></h5>
-
-  <div class="border mb-3">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">
-        <i class="fas fa-comments fa-fw fa-3x float-end"></i>
-        <?= nl2br(htmlspecialchars($order->info['comments'])) . new Input('comments', ['value' => $order->info['comments']], 'hidden') ?>
-      </li>
-    </ul>
+  <p class="fs-5 fw-semibold mb-1"><?= HEADING_ORDER_COMMENTS ?></p>
+  
+  <div class="form-floating mb-2">
+    <?= new Textarea('comments', ['style' => 'height: 120px', 'id' => 'inputComments', 'placeholder' => ENTRY_COMMENTS_PLACEHOLDER,]) ?>
+    <label for="inputComments"><?= ENTRY_COMMENTS ?></label>
   </div>
 
   <?php
-  }
-
   if (is_array($payment_modules->modules)) {
     if ($confirmation = $payment_modules->confirmation()) {
 ?>
   <hr>
 
-  <h5 class="mb-1"><?= HEADING_PAYMENT_INFORMATION ?></h5>
+  <p class="fs-5 fw-semibold mb-1"><?= HEADING_PAYMENT_INFORMATION ?></p>
 
   <div class="row">
     <?php

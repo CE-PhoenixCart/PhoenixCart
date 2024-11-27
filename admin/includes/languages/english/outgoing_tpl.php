@@ -27,7 +27,10 @@ const TEXT_OUTGOING_SLUG = 'Template Name';
 const TEXT_OUTGOING_SLUG_TITLE = 'Email Title';
 const TEXT_OUTGOING_SLUG_TEXT = 'Email Text';
 
-const MISSING_SLUGS = '<div class="alert alert-danger">Attention:  These Scheduler Modules exist and MUST have a Template made for them!<br><b>%s</b></div>';
+const MISSING_SLUGS = '<div class="alert alert-danger d-flex justify-content-between">
+<span>Attention:  These Scheduler Modules exist and MUST have a Template made for them!<br><b>%s</b></span>
+<span>%s</span>
+</div>';
 
 const TEXT_HEADING_NEW_OUTGOING_EMAIL = 'Add New E-mail Template';
 const TEXT_HEADING_EDIT_OUTGOING_EMAIL = 'Edit E-mail Template';
