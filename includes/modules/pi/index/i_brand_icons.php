@@ -89,7 +89,7 @@
   function i_get_brand_name($key) {
     $brand = $GLOBALS['db']->query("select manufacturers_name from manufacturers where manufacturers_id = " . (int)$key . " limit 1")->fetch_assoc();
 
-    return $brand['manufacturers_name'];
+    return $brand['manufacturers_name'] ?? '';
   }
 
   function i_get_manufacturers($manufacturers = []) {
