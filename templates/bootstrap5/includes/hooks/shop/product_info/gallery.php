@@ -75,7 +75,7 @@ class hook_shop_product_info_gallery {
       </div>
     </div>
   </div>
-  mgf;
+mgf;
 
       return $modal_gallery_footer;
     }
