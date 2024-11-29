@@ -290,6 +290,8 @@ CREATE TABLE manufacturers (
   manufacturers_id int NOT NULL auto_increment,
   manufacturers_name varchar(255) NOT NULL,
   manufacturers_image varchar(255),
+  manufacturers_address TEXT NULL,
+  manufacturers_email varchar(255),
   date_added datetime NULL,
   last_modified datetime NULL,
   PRIMARY KEY (manufacturers_id),
