@@ -223,6 +223,7 @@ CREATE TABLE customer_data_groups_sequence (
   PRIMARY KEY(customer_data_groups_id)
 )  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS customers_gdpr;
 CREATE TABLE customers_gdpr (
    gdpr_id int NOT NULL auto_increment,
    customers_id int NOT NULL,
