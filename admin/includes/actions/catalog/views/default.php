@@ -127,11 +127,14 @@
               if ( !isset($product) && !isset($cInfo) && (!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['pID']) && ($_GET['pID'] == $p->get('id')))) && !Text::is_prefixed_by($action, 'new')) {
                 $product = $p;
               }
+              
+              $fragment = ['cPath' => Categories::get_path($cPath), 'products_id' => (int)$p->get('id')];
+              $catalog_link = $GLOBALS['Admin']->catalog('product_info.php', $fragment);
 
-              $icons = '<a href="' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id'), 'action' => 'new_product_preview', 'read' => 'only']) . '"><i class="fas fa-eye mr-2 text-dark"></i></a>'
+              $icons = '<a target="_blank" href="' . $catalog_link . '"><i class="fas fa-eye mr-2 text-dark"></i></a>'
                      . '<a href="' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id'), 'action' => 'new_product']) . '"><i class="fas fa-cogs mr-2 text-dark"></i></a>';
               if (isset($product) && ($p->get('id') == $product->get('id')) ) {
-                echo '<tr class="table-active" onclick="document.location.href=\'' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id'), 'action' => 'new_product_preview', 'read' => 'only']) . '\'">';
+                echo '<tr class="table-active">';
                 $icons .= '<i class="fas fa-chevron-circle-right text-info"></i>';
               } else {
                 echo '<tr onclick="document.location.href=\'' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id')]) . '\'">';
