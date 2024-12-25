@@ -29,11 +29,11 @@
       {
         $tr_background = MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND;
         
-        $GLOBALS['Template']->add_block(<<<EOCSS
+        $GLOBALS['Template']->add_block(<<<"EOCSS"
 <script>
 document.querySelectorAll('tr.table-selection').forEach(function(row) {
   row.addEventListener('click', function() {
-    document.querySelectorAll('tr.table-selection').forEach(function(r) {
+    row.closest('table').querySelectorAll('tr.table-selection').forEach(function(r) {
       r.classList.remove('{$tr_background}');
       r.querySelector('input').checked = false;
     });
