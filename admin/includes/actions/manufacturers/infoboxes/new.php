@@ -34,6 +34,17 @@
   $contents[] = ['text' => TEXT_MANUFACTURERS_SEO_TITLE . $manufacturer_seo_title_string];
   $contents[] = ['text' => TEXT_MANUFACTURERS_DESCRIPTION . $manufacturer_description_string];
   $contents[] = ['text' => TEXT_MANUFACTURERS_SEO_DESCRIPTION . $manufacturer_seo_description_string];
+  
+  $contents[] = ['class' => 'bg-danger text-white p-3', 'text' => TEXT_MANUFACTURER_NOT_IN_EU];
+  
+  $checkbox = new Tickable('in_eu', ['class' => 'custom-control-input', 'id' => 'mInEu', 'value' => 'true'], 'checkbox');
+  
+  $contents[] = ['text' => '<div class="custom-control custom-switch">' . $checkbox . '<label for="mInEu" class="custom-control-label text-muted"><small>' . TEXT_MANUFACTURERS_IN_EU . '</small></label></div>'];
+  
+  $contents[] = ['class' => 'hidden', 'text' => TEXT_IMPORTERS_NAME . '<br>' . new Input('importers_name', ['id' => 'iName'])];
+  $contents[] = ['class' => 'hidden', 'text' => sprintf(TEXT_IMPORTERS_ADDRESS, new Textarea("importers_address", ['cols' => '80', 'rows' => '10', 'id' => "iAddress"]))];
+  $contents[] = ['class' => 'hidden', 'text' => sprintf(TEXT_IMPORTERS_EMAIL, new Input('importers_email', ['id' => 'iEmail']))];
+  
   $contents[] = [
     'class' => 'text-center',
     'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')

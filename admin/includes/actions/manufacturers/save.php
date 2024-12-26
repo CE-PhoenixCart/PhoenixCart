@@ -14,11 +14,23 @@
   $manufacturers_name = Text::prepare($_POST['manufacturers_name']);
   $manufacturers_address = Text::prepare($_POST['manufacturers_address']);
   $manufacturers_email = Text::prepare($_POST['manufacturers_email']);
+  
+  $in_eu = 0;
+  if (isset($_POST['in_eu']) && ('true' === $_POST['in_eu'])) {
+    $in_eu = 1;
+  }
+  $importers_name = Text::prepare($_POST['importers_name']);
+  $importers_address = Text::prepare($_POST['importers_address']);
+  $importers_email = Text::prepare($_POST['importers_email']);
 
   $sql_data = [
     'manufacturers_name' => $manufacturers_name,
     'manufacturers_address' => $manufacturers_address,
     'manufacturers_email' => $manufacturers_email,
+    'importers_name' => $importers_name,
+    'importers_address' => $importers_address,
+    'importers_email' => $importers_email,
+    'in_eu' => $in_eu,
     'last_modified' => 'NOW()',
   ];
 
