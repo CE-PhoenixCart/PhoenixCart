@@ -49,7 +49,7 @@
       }
 
       if (!$sane_session_id) {
-        Href::redirect((new Href('index.php'))->set_include_session(false));
+        Href::redirect(Guarantor::ensure_global('Linker')->build('index.php')->set_include_session(false));
       }
 
       static::$started = session_start();
@@ -60,6 +60,8 @@
       if ( isset($_COOKIE[session_name()]) ) {
         static::clear_cookie(session_name());
       }
+
+      static::$started = false;
 
       return session_destroy();
     }
