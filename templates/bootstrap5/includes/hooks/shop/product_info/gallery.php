@@ -24,12 +24,12 @@ class hook_shop_product_info_gallery {
           $album_exit = MODULE_CONTENT_PI_GALLERY_ALBUM_CLOSE;
         }
         elseif (defined('PI_GALLERY_STATUS') && ('True' === PI_GALLERY_STATUS)) {
-          $swipe_arrows = GALLERY_SWIPE_ARROWS;
-          $gallery_indicators = GALLERY_INDICATORS;
+          $swipe_arrows = PI_GALLERY_SWIPE_ARROWS;
+          $gallery_indicators = PI_GALLERY_INDICATORS;
           
-          $modal_size = GALLERY_MODAL_SIZE;
-          $album_name = sprintf(GALLERY_ALBUM_NAME, $GLOBALS['product']->get('name'));
-          $album_exit = GALLERY_ALBUM_CLOSE;
+          $modal_size = PI_GALLERY_MODAL_SIZE;
+          $album_name = sprintf(PI_GALLERY_ALBUM_NAME, $GLOBALS['product']->get('name'));
+          $album_exit = PI_GALLERY_ALBUM_CLOSE;
         }
         else {
           $swipe_arrows = GALLERY_SWIPE_ARROWS;
