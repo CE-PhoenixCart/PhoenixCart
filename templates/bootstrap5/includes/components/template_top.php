@@ -62,3 +62,5 @@
       <div id="bodyContent" class="col order-1 order-md-2 mb-2 mb-md-0">
 
         <?= $hooks->cat('injectBodyContentStart') ?>
+        
+        <main>
