@@ -40,6 +40,9 @@ class hook_shop_product_info_gallery {
           $album_exit = GALLERY_ALBUM_CLOSE;
         }
         
+        $label_next = GALLERY_NEXT_ITEM;
+        $label_prev = GALLERY_PREV_ITEM;
+        
         $first_img = new Image('images/' . $GLOBALS['product']->get('image'), ['alt' => htmlspecialchars($GLOBALS['product']->get('name')), 'loading' => 'lazy']);
       
         $other_images = $GLOBALS['db']->fetch_all("SELECT image, htmlcontent FROM products_images WHERE products_id = '" . (int)$GLOBALS['product']->get('id') . "' ORDER BY sort_order");
@@ -62,14 +65,14 @@ class hook_shop_product_info_gallery {
         $display_swipe_arrows = $display_indicators = '';
       
         if ($swipe_arrows === 'True') {
-          $display_swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-prev-icon mt-1"></span></span></a><a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-next-icon mt-1"></span></span></a>';
+          $display_swipe_arrows = '<a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev" aria-label="' . $label_prev . '"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-prev-icon mt-1"></span></span></a><a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next" aria-label="' . $label_next . '"><span class="border border-white bg-secondary rounded" aria-hidden="true"><span class="carousel-control-next-icon mt-1"></span></span></a>';
         } 
 
         if ($gallery_indicators === 'True') {
           $display_indicators = '<div class="carousel-indicators">';
-            $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active border border-white bg-secondary rounded"></button>';
+            $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active border border-white bg-secondary rounded" aria-label="' . sprintf(GALLERY_TO_ITEM, '0') . '"></button>';
             for ($i = 1, $n = count($other_images); $i <= $n; $i++) {
-              $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="' . $i . '" class="border border-white bg-secondary rounded"></button>';
+              $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="' . $i . '" class="border border-white bg-secondary rounded" aria-label="' . sprintf(GALLERY_TO_ITEM, $i) . '"></button>';
             }
           $display_indicators .= '</div>';
         }
