@@ -66,7 +66,7 @@ class hook_shop_product_info_gallery {
         } 
 
         if ($gallery_indicators === 'True') {
-          $indicdisplay_indicatorsators = '<div class="carousel-indicators">';
+          $display_indicators = '<div class="carousel-indicators">';
             $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active border border-white bg-secondary rounded"></button>';
             for ($i = 1, $n = count($other_images); $i <= $n; $i++) {
               $display_indicators .= '<button type="button" data-bs-target="#carousel" data-bs-slide-to="' . $i . '" class="border border-white bg-secondary rounded"></button>';
