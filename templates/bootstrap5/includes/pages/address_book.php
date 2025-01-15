@@ -41,13 +41,13 @@
     $addresses_query = $customer->get_all_addresses_query();
     while ($address = $addresses_query->fetch_assoc()) {
       ?>
-      <li class="list-group-item d-flex justify-content-between">
-        <span><?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?><?= ($customer->get('default_address_id') == $address['address_book_id']) ? '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>' : '' ?></span>
-        <span><?=
-            new Button(SMALL_IMAGE_BUTTON_EDIT, 'fas fa-file', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['edit' => $address['address_book_id']])) . ' '
-          . new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn btn-dark btn-sm', [], $Linker->build('address_book_process.php', ['delete' => $address['address_book_id']]))
-          ?>
-        </span>
+      <li class="list-group-item d-flex justify-content-between p-2">
+        <div class="w-75">
+          <?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?><?= ($customer->get('default_address_id') == $address['address_book_id']) ? '&nbsp;<small><i>' . PRIMARY_ADDRESS . '</i></small>' : '' ?>
+        </div>
+        <div class="w-25 text-end">
+          <?= new Button(SMALL_IMAGE_BUTTON_EDIT, 'fas fa-file', 'btn btn-sm btn-dark mb-1', [], $Linker->build('address_book_process.php', ['edit' => $address['address_book_id']])) . new Button(SMALL_IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn btn-sm btn-danger ms-2 mb-1', [], $Linker->build('address_book_process.php', ['delete' => $address['address_book_id']])) ?>
+        </div>
       </li>
       <?php
       }
