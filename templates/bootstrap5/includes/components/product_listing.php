@@ -35,7 +35,7 @@
     }
 ?>
     <div class="card mb-2 card-body alert-filters">
-      <ul class="nav">
+      <ul class="nav d-flex gap-2">
         <li class="nav-item dropdown">
           <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?></a>
 
