@@ -73,8 +73,7 @@
       return $pages_split;
     }
 
-    public static function requirements() {
-      $required_slugs = ['conditions', 'privacy', 'shipping'];
+    public static function requirements($required_slugs = ['conditions', 'privacy', 'shipping']) {
 
       $missing_requirements = array_diff($required_slugs,
         array_column($GLOBALS['db']->fetch_all("SELECT slug FROM pages ORDER BY slug"), 'slug'));
