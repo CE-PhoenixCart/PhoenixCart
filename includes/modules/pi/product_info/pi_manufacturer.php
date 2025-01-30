@@ -57,13 +57,13 @@
         ],
         $this->config_key_base . 'GROUP' => [
           'title' => 'Module Display',
-          'value' => 'D',
+          'value' => 'F',
           'desc' => 'Where should this module display on the product info page?',
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-12 mb-2',
+          'value' => 'col-sm-6 mb-2',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
