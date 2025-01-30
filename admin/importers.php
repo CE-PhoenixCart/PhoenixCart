@@ -5,14 +5,14 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2022 Phoenix Cart
+  Copyright (c) 2025 Phoenix Cart
 
   Released under the GNU General Public License
 */
 
   require 'includes/application_top.php';
 
-  $link = $Admin->link()->retain_query_except(['mID', 'action']);
+  $link = $Admin->link()->retain_query_except(['iID', 'action']);
   require 'includes/segments/process_action.php';
 
   require 'includes/template_top.php';
@@ -27,7 +27,7 @@
       $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
-      ? $Admin->button(BUTTON_INSERT_NEW_MANUFACTURER, 'fas fa-id-card', 'btn-danger', $Admin->link('manufacturers.php', ['action' => 'new']))
+      ? $Admin->button(BUTTON_INSERT_NEW_IMPORTER, 'fas fa-id-card', 'btn-danger', $Admin->link('importers.php', ['action' => 'new']))
       : $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link)
       ?>
     </div>
@@ -40,12 +40,12 @@
 ?>
 
   <script>
-  var upload = document.querySelector('#inputManufacturersImage');
+  var upload = document.querySelector('#inputImportersImage');
   if (upload) {
     upload.addEventListener('change', function (event) {
       var labels = document.querySelectorAll('LABEL.custom-file-label');
       for (var i = 0; i < labels.length; i++) {
-        if ('inputManufacturersImage' === labels[i].htmlFor) {
+        if ('inputImportersImage' === labels[i].htmlFor) {
           labels[i].innerHTML = event.target.files[0].name;
         }
       }

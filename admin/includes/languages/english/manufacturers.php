@@ -57,10 +57,4 @@ const TEXT_MANUFACTURERS_ADDRESS = 'Address:<br>%s';
 const TEXT_MANUFACTURERS_EMAIL = 'Email: %s';
 const TEXT_NA = 'N/A';
 
-const TEXT_MANUFACTURERS_IN_EU = 'Is this Manufacturer located outside the EU?';
-const TEXT_MANUFACTURER_NOT_IN_EU = 'If your business is located in the EU and this Manufacturer is located outside the EU, you should state the details of the EU entity that imports this product.  This could be your business directly, or the supplier you source this product from.';
-const TEXT_IMPORTERS_NAME = 'Importers Name:';
-const TEXT_IMPORTERS_ADDRESS = 'Importers Address:<br>%s';
-const TEXT_IMPORTERS_EMAIL = 'Importers Email: %s';
-
 const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Manufacturers';
