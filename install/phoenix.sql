@@ -274,6 +274,30 @@ CREATE TABLE hooks (
   KEY idx_hooks_site_group (hooks_site, hooks_group)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS importers;
+CREATE TABLE importers (
+  importers_id int NOT NULL auto_increment,
+  importers_name varchar(255) NOT NULL,
+  importers_image varchar(255),
+  importers_address TEXT NULL,
+  importers_email varchar(255),
+  date_added datetime NULL,
+  last_modified datetime NULL,
+  PRIMARY KEY (importers_id),
+  KEY IDX_IMPORTERS_NAME (importers_name)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS importers_info;
+CREATE TABLE importers_info (
+  importers_id int NOT NULL,
+  languages_id int NOT NULL,
+  importers_url varchar(255) NOT NULL,
+  url_clicked int(5) NOT NULL default '0',
+  date_last_click datetime NULL,
+  importers_description TEXT NULL,
+  PRIMARY KEY (importers_id, languages_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
   languages_id int NOT NULL auto_increment,
@@ -491,6 +515,7 @@ CREATE TABLE products (
   manufacturers_id int NULL,
   products_ordered int NOT NULL default '0',
   products_gtin CHAR(14) NULL,
+  importers_id int NULL,
   PRIMARY KEY (products_id),
   KEY idx_products_model (products_model),
   KEY idx_products_date_added (products_date_added)
