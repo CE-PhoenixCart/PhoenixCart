@@ -38,6 +38,7 @@
           'products_tax_class_id' => null,
           'manufacturers_id' => null,
           'products_gtin' => null,
+          'importers_id' => null,
         ],
         'products_description' => [
           'products_id' => null,
