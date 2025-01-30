@@ -39,29 +39,6 @@
   }
 ?>
 
-  <style>
-  .hidden { display: none; }
-  </style>
-  
-  <script>
-  const checkbox = document.getElementById('mInEu');
-  const hiddenDivs = document.querySelectorAll('.hidden');
-
-  const updateVisibility = () => {
-    hiddenDivs.forEach(div => {
-      if (checkbox.checked) {
-        div.classList.remove('hidden');
-      } else {
-        div.classList.add('hidden');
-      }
-    });
-  };
-
-  updateVisibility();
-
-  checkbox.addEventListener('change', updateVisibility);
-  </script>
-
   <script>
   var upload = document.querySelector('#inputManufacturersImage');
   if (upload) {
@@ -75,11 +52,6 @@
     });
   }
   </script>
-
-    
-
-
-    
 
 <?php
   require 'includes/template_bottom.php';
