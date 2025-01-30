@@ -39,6 +39,7 @@
           $_brand   = $pim_brand->getData('manufacturers_name');
           $_image   = $pim_brand->getData('manufacturers_image');
           $filtered = array_intersect_key($pim_brand->_data, array_flip($show));
+          $filtered = array_filter($filtered);
 
           $tpl_data = ['group' => $this->group, 'file' => __FILE__];
           include 'includes/modules/block_template.php';
