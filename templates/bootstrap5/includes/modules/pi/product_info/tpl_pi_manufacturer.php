@@ -18,6 +18,7 @@
         ?>
       </ul>
     </div>
+  </div>
 </div>
 
 <?php
