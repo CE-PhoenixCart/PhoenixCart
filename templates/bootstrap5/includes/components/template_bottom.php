@@ -11,6 +11,8 @@
 */
 ?>
 
+        </main>
+      
       <?= $hooks->cat('injectBodyContentEnd') ?>
 
       </div> <!-- bodyContent //-->

@@ -35,7 +35,7 @@
     </div>
       
     <div class="form-floating mb-2">
-      <?= (new Textarea('text', ['style' => 'height: 150px', 'id' => 'inputText', 'placeholder' => SUB_TITLE_REVIEW_TEXT]))->require() . FORM_REQUIRED_INPUT ?>
+      <?= (new Textarea('review', ['style' => 'height: 150px', 'id' => 'inputText', 'placeholder' => SUB_TITLE_REVIEW_TEXT]))->require() . FORM_REQUIRED_INPUT ?>
       <label for="inputText"><?= SUB_TITLE_REVIEW ?></label>
     </div>
 

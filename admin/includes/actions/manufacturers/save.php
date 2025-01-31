@@ -12,9 +12,13 @@
 
   $manufacturers_id = Text::input($_GET['mID']);
   $manufacturers_name = Text::prepare($_POST['manufacturers_name']);
+  $manufacturers_address = Text::prepare($_POST['manufacturers_address']);
+  $manufacturers_email = Text::prepare($_POST['manufacturers_email']);
 
   $sql_data = [
     'manufacturers_name' => $manufacturers_name,
+    'manufacturers_address' => $manufacturers_address,
+    'manufacturers_email' => $manufacturers_email,
     'last_modified' => 'NOW()',
   ];
 

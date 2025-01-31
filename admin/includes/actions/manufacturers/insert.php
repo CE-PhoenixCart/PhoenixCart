@@ -11,9 +11,13 @@
 */
 
   $manufacturers_name = Text::prepare($_POST['manufacturers_name']);
+  $manufacturers_address = Text::prepare($_POST['manufacturers_address']);
+  $manufacturers_email = Text::prepare($_POST['manufacturers_email']);
 
   $sql_data = [
     'manufacturers_name' => $manufacturers_name,
+    'manufacturers_address' => $manufacturers_address,
+    'manufacturers_email' => $manufacturers_email,
     'date_added' => 'NOW()',
   ];
 

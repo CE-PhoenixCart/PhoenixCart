@@ -70,7 +70,7 @@ const TEXT_USERNAME_DESCRIPTION = '<small class="form-text">The username used to
 const TEXT_PASSWORD = 'Password';
 const TEXT_PASSWORD_DESCRIPTION = '<small class="form-text">The password that is used together with the username to connect to the database server.</small>';
 const TEXT_DATABASE_NAME = 'Database Name';
-const TEXT_NAME_DESCRIPTION = '<small class="form-text">The name of the database to hold the data.  If this Database does not exist, Phoenix will attempt to create it.</small>';
+const TEXT_NAME_DESCRIPTION = '<small class="form-text">The name of the database to hold the data.  If this database does not exist, Phoenix will attempt to create it.</small><br><small class="form-text text-danger fw-bold">WARNING: If you are using an already existing database, data contained in that database may be lost.</small>';
 const TEXT_IMPORT_SAMPLE_DATA = 'Import Sample Data';
 const TEXT_SAMPLE_IMPORT_DESCRIPTION = '<small class="form-text">Import sample product and category data?</small>';
 const TEXT_CONTINUE_STEP_2 = 'Continue To Step 2';

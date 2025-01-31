@@ -223,6 +223,7 @@ CREATE TABLE customer_data_groups_sequence (
   PRIMARY KEY(customer_data_groups_id)
 )  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS customers_gdpr;
 CREATE TABLE customers_gdpr (
    gdpr_id int NOT NULL auto_increment,
    customers_id int NOT NULL,
@@ -273,6 +274,30 @@ CREATE TABLE hooks (
   KEY idx_hooks_site_group (hooks_site, hooks_group)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS importers;
+CREATE TABLE importers (
+  importers_id int NOT NULL auto_increment,
+  importers_name varchar(255) NOT NULL,
+  importers_image varchar(255),
+  importers_address TEXT NULL,
+  importers_email varchar(255),
+  date_added datetime NULL,
+  last_modified datetime NULL,
+  PRIMARY KEY (importers_id),
+  KEY IDX_IMPORTERS_NAME (importers_name)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+DROP TABLE IF EXISTS importers_info;
+CREATE TABLE importers_info (
+  importers_id int NOT NULL,
+  languages_id int NOT NULL,
+  importers_url varchar(255) NOT NULL,
+  url_clicked int(5) NOT NULL default '0',
+  date_last_click datetime NULL,
+  importers_description TEXT NULL,
+  PRIMARY KEY (importers_id, languages_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 DROP TABLE IF EXISTS languages;
 CREATE TABLE languages (
   languages_id int NOT NULL auto_increment,
@@ -290,6 +315,8 @@ CREATE TABLE manufacturers (
   manufacturers_id int NOT NULL auto_increment,
   manufacturers_name varchar(255) NOT NULL,
   manufacturers_image varchar(255),
+  manufacturers_address TEXT NULL,
+  manufacturers_email varchar(255),
   date_added datetime NULL,
   last_modified datetime NULL,
   PRIMARY KEY (manufacturers_id),
@@ -488,6 +515,7 @@ CREATE TABLE products (
   manufacturers_id int NULL,
   products_ordered int NOT NULL default '0',
   products_gtin CHAR(14) NULL,
+  importers_id int NULL,
   PRIMARY KEY (products_id),
   KEY idx_products_model (products_model),
   KEY idx_products_date_added (products_date_added)
@@ -1617,7 +1645,7 @@ INSERT INTO configuration (configuration_title, configuration_key, configuration
 # Navbar
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Enable Navbar Module', 'MODULE_CONTENT_NAVBAR_STATUS', 'True', 'Should the Navbar be shown? ', 6, 1, 'Config::select_one([\'True\', \'False\'], ', NOW());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Background Colour Scheme', 'MODULE_CONTENT_NAVBAR_STYLE_BG', 'bg-light navbar-light bg-body-secondary border-bottom', 'What background colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/utilities/colors/#background-color"><u>colors/#background-color</u></a>', 6, 2, NOW());
-INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Placement', 'MODULE_CONTENT_NAVBAR_FIXED', 'floating', 'Should the Navbar be Placed or Floating? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#placement"><u>navbar/#placement</u></a>', 6, 4, 'Config::select_one([\'fixed-top\', \'fixed-bottom\', \'sticky-top\', \'floating\'], ', NOW());
+INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Placement', 'MODULE_CONTENT_NAVBAR_FIXED', 'sticky-top', 'Should the Navbar be Placed or Floating? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#placement"><u>navbar/#placement</u></a>', 6, 4, 'Config::select_one([\'fixed-top\', \'fixed-bottom\', \'sticky-top\', \'floating\'], ', NOW());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Placement Offset', 'MODULE_CONTENT_NAVBAR_OFFSET', '4rem', 'Offset if using fixed-* Placement.', '6', '0', now());
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Collapse', 'MODULE_CONTENT_NAVBAR_COLLAPSE', 'navbar-expand-sm', 'When should the Navbar Show? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/4.6/components/navbar/#how-it-works"><u>navbar/#how-it-works</u></a>', 6, 6, 'Config::select_one([\'navbar-expand\', \'navbar-expand-sm\', \'navbar-expand-md\', \'navbar-expand-lg\', \'navbar-expand-xl\'], ', NOW());
 insert into configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) values ('Sort Order', 'MODULE_CONTENT_NAVBAR_SORT_ORDER', '10', 'Sort order of display. Lowest is displayed first.', '6', '0', now());

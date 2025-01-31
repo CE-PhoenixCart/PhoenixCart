@@ -30,6 +30,7 @@ Phoenix is packed with many first class utilities as standard but its modular so
 Version | URL
 ------- | ---
 Core|https://phoenixcart.org/demo/  
+Admin|https://phoenixcart.org/demoadmin/admin/
 PRO|https://phoenixcart.org/PROdemo/
 
 ## Installation

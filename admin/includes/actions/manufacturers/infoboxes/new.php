@@ -16,6 +16,9 @@
   $contents[] = ['text' => TEXT_NEW_INTRO];
   $contents[] = ['text' => TEXT_MANUFACTURERS_NAME . '<br>' . new Input('manufacturers_name', ['id' => 'mName'])];
   $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['accept' => 'image/*', 'id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . TEXT_MANUFACTURERS_IMAGE_LABEL . '</label></div>'];
+  
+  $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_ADDRESS, new Textarea("manufacturers_address", ['cols' => '80', 'rows' => '10', 'id' => "mAddress"]))];
+  $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_EMAIL, new Input('manufacturers_email', ['id' => 'mEmail']))];
 
   $manufacturer_inputs_string = $manufacturer_description_string = $manufacturer_seo_description_string = $manufacturer_seo_title_string = '';
 

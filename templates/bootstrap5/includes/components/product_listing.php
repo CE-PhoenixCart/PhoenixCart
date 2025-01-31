@@ -11,6 +11,7 @@
 */
 
   $listing_split = new splitPageResults($listing_sql, $num_list, 'p.products_id');
+  $listing_parameters = ['listing_split' => &$listing_split];
 
   if ($GLOBALS['messageStack']->size('product_action') > 0) {
     echo $GLOBALS['messageStack']->output('product_action');
@@ -35,7 +36,7 @@
     }
 ?>
     <div class="card mb-2 card-body alert-filters">
-      <ul class="nav">
+      <ul class="nav d-flex gap-2">
         <li class="nav-item dropdown">
           <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?></a>
 
@@ -50,7 +51,7 @@
           </div>
 
         </li>
-        <?= $GLOBALS['hooks']->cat('navItemFilters') ?> 
+        <?= $GLOBALS['hooks']->cat('navItemFilters', $listing_parameters) ?>
       </ul>
     </div>
 

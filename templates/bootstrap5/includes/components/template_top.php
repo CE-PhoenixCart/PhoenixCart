@@ -29,6 +29,7 @@
 <meta charset="<?= CHARSET ?>">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="CE Phoenix Cart">
 <title><?= htmlspecialchars($Template->get_title()) ?></title>
 <base href="<?= HTTP_SERVER . DIR_WS_CATALOG ?>">
 
@@ -61,3 +62,5 @@
       <div id="bodyContent" class="col order-1 order-md-2 mb-2 mb-md-0">
 
         <?= $hooks->cat('injectBodyContentStart') ?>
+        
+        <main>

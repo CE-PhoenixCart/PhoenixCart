@@ -29,7 +29,7 @@
     ?>
   </div>
   
-  <span hidden id="spinner-label"><?= PI_QTY_INPUT_BUTTON_TEXT ?></div>
+  <span hidden id="spinner-label"><?= PI_QTY_INPUT_BUTTON_TEXT ?></span>
 
 </div>
 

@@ -18,6 +18,9 @@
   $contents[] = ['text' => TEXT_EDIT_INTRO];
   $contents[] = ['text' => TEXT_MANUFACTURERS_NAME . '<br>' . new Input('manufacturers_name', ['id' => 'mName', 'value' => $mInfo->manufacturers_name])];
   $contents[] = ['text' => TEXT_MANUFACTURERS_IMAGE . '<br><div class="custom-file mb-2">' . new Input('manufacturers_image', ['accept' => 'image/*', 'id' => 'inputManufacturersImage', 'class' => 'custom-file-input'], 'file') . '<label class="custom-file-label" for="inputManufacturersImage">' . $mInfo->manufacturers_image . '</label></div>'];
+  
+  $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_ADDRESS, (new Textarea("manufacturers_address", ['cols' => '80', 'rows' => '10', 'id' => "mAddress"]))->set_text($mInfo->manufacturers_address ?? ''))];
+  $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_EMAIL, new Input('manufacturers_email', ['id' => 'mEmail', 'value' => $mInfo->manufacturers_email ?? '']))];
 
   $manufacturer_inputs_string = $manufacturer_description_string = $manufacturer_seo_description_string = $manufacturer_seo_title_string = '';
   foreach (language::load_all() as $l) {

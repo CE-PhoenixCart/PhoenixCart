@@ -19,6 +19,8 @@ class manufacturer {
 
     if ( mysqli_num_rows($manufacturer_query) === 1 ) {
       $this->_data = $manufacturer_query->fetch_assoc();
+    } else {
+      error_log("No unique manufacturer for [$mID:{$_SESSION['languages_id']}]");
     }
   }
 
