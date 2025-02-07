@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  const BOX_HEADING_CUSTOMERS = '<i data-content="Customers" data-toggle="popover" data-placement="right" class="fas fa-users fa-fw mr-1"></i><span class="d-inline d-md-none">Customers</span>';
+  const BOX_HEADING_CUSTOMERS = '<i title="Customers" class="fas fa-users fa-fw me-1"></i><span title="Customers" class="d-xl-none">Customers</span>';

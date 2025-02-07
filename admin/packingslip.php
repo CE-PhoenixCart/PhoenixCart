@@ -25,18 +25,18 @@
   <div class="row align-items-center">
     <div class="col">
       <h1 class="display-4"><?= STORE_NAME ?></h1>
-      <p class="font-weight-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
+      <p class="fw-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
       <p class="my-1 p-0">
         <?php
         if (!Text::is_empty(STORE_PHONE)) {
-          echo '<i class="fas fa-phone fa-fw mr-1"></i>' . STORE_PHONE;
+          echo '<i class="fas fa-phone fa-fw me-1"></i>' . STORE_PHONE;
         }
         ?>
-        <i class="fas fa-at fa-fw mr-1"></i><?= STORE_OWNER_EMAIL_ADDRESS ?>
+        <i class="fas fa-at fa-fw me-1"></i><?= STORE_OWNER_EMAIL_ADDRESS ?>
       </p>
-      <p class="my-1 p-0"><i class="fas fa-home fa-fw mr-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
+      <p class="my-1 p-0"><i class="fas fa-home fa-fw me-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
     </div>
-    <div class="col text-right"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
+    <div class="col text-end"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
   </div>
 
   <hr>
@@ -45,7 +45,7 @@
     <div class="col">
       <ul class="list-group border h-100">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SHIP_TO ?></h6></li>
-        <li class="list-group-item border-0 font-weight-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
+        <li class="list-group-item border-0 fw-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
       </ul>
     </div>
     <div class="col">
@@ -72,7 +72,7 @@
   </div>
 
   <table class="table table-striped mt-3">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th><?= TABLE_HEADING_QTY ?></th>
         <th><?= TABLE_HEADING_PRODUCTS ?></th>

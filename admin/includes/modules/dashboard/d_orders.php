@@ -36,12 +36,12 @@ EOSQL
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-2">';
-          $output .= '<thead class="thead-dark">';
+          $output .= '<thead class="table-dark">';
             $output .= '<tr>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ORDERS_TITLE . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ORDERS_TOTAL . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ORDERS_DATE . '</th>';
-              $output .= '<th class="text-right">' . MODULE_ADMIN_DASHBOARD_ORDERS_ORDER_STATUS . '</th>';
+              $output .= '<th class="text-end">' . MODULE_ADMIN_DASHBOARD_ORDERS_ORDER_STATUS . '</th>';
             $output .= '</tr>';
           $output .= '</thead>';
           $output .= '<tbody>';
@@ -51,7 +51,7 @@ EOSQL
               $output .= '<td><a href="' . $GLOBALS['Admin']->link('orders.php', 'oID=' . (int)$order['orders_id'] . '&action=edit') . '">' . htmlspecialchars($order['customers_name']) . '</a></td>';
               $output .= '<td>' . strip_tags($order['order_total']) . '</td>';
               $output .= '<td>' . Date::abridge($order['date_last_modified']) . '</td>';
-              $output .= '<td class="text-right">' . $order['orders_status_name'] . '</td>';
+              $output .= '<td class="text-end">' . $order['orders_status_name'] . '</td>';
             $output .= '</tr>';
           }
 

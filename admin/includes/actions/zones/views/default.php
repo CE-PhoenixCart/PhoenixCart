@@ -26,14 +26,14 @@
       ],
       [
         'name' => TABLE_HEADING_ZONE_CODE,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return $row['zone_code'];
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($table_definition['info']->zone_id) && ($row['zone_id'] == $table_definition['info']->zone_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

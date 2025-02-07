@@ -37,6 +37,6 @@ EOSQL
        ->hide('date_added', $rInfo->date_added);
 
   $hook_action = 'formEdit';
-  $button = new Button(IMAGE_PREVIEW, 'fas fa-eye', 'btn-info mr-2')
+  $button = new Button(IMAGE_PREVIEW, 'fas fa-eye', 'btn-info me-2')
           . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link);
   $action = 'save';

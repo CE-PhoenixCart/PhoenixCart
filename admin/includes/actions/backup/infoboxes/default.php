@@ -15,7 +15,7 @@
     $link = $GLOBALS['link']->set_parameter('file', $buInfo->file);
     $heading = $buInfo->date;
 
-    $buttons = $GLOBALS['Admin']->button(IMAGE_RESTORE, 'fas fa-file-upload', 'btn-warning mr-2', (clone $GLOBALS['link'])->set_parameter('action', 'restore'));
+    $buttons = $GLOBALS['Admin']->button(IMAGE_RESTORE, 'fas fa-file-upload', 'btn-warning me-2', (clone $GLOBALS['link'])->set_parameter('action', 'restore'));
     if ($GLOBALS['dir_ok']) {
       $buttons .= $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $GLOBALS['link']->set_parameter('action', 'delete'));
     }

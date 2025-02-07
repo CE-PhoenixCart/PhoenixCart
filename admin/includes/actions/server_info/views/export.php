@@ -17,5 +17,7 @@
 
   <?= (new Textarea('server configuration', ['cols' => '100', 'rows' => '15']))->set_text("$system_info") ?>
   
-  <?= Admin::button(BUTTON_SAVE_TO_DISK, 'fas fa-save', 'btn-success btn-block btn-lg my-2', $Admin->link('server_info.php', ['action' => 'save'])) ?>
+  <div class="d-grid mt-2">
+    <?= Admin::button(BUTTON_SAVE_TO_DISK, 'fas fa-save', 'btn-success btn-lg', $Admin->link('server_info.php', ['action' => 'save'])) ?>
+  </div>
 

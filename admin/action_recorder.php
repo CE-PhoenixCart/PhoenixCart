@@ -55,11 +55,11 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-6 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-6 text-start text-lg-end align-self-center pb-1">
       <?= 
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
-      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light mr-2', $Admin->link('action_recorder.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light me-2', $Admin->link('action_recorder.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $delete_link) 
       ?>
     </div>
@@ -69,9 +69,7 @@
     <div class="col-6 align-self-center">
       <?= (new Form('search', $Admin->link('action_recorder.php'), 'get'))->hide_session_id()->hide('module', ''),
          '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', TEXT_FILTER_SEARCH, '</span>',
-           '</div>',
+          '<span class="input-group-text">', TEXT_FILTER_SEARCH, '</span>',
            new Input('search', ['placeholder' => TEXT_FILTER_SEARCH]),
          '</div>',
        '</form>'
@@ -80,10 +78,8 @@
     <div class="col-6 align-self-center">
       <?= (new Form('filter', $Admin->link('action_recorder.php'), 'get'))->hide_session_id()->hide('module', ''),
         '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', TABLE_HEADING_MODULE, '</span>',
-           '</div>',
-           new Select('module', $modules_list, ['onchange' => 'this.form.submit();', 'class' => 'custom-select']),
+           '<span class="input-group-text">', TABLE_HEADING_MODULE, '</span>',
+           new Select('module', $modules_list, ['onchange' => 'this.form.submit();', 'class' => 'form-select']),
          '</div>',
        '</form>'
       ?>

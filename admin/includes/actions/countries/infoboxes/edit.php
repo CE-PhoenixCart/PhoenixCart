@@ -20,7 +20,7 @@
 
   $link = $GLOBALS['link']->set_parameter('cID', $cInfo->countries_id);
 
-  $select = new Select('address_format_id', $GLOBALS['db']->fetch_all("SELECT address_format_id AS id, address_summary AS text FROM address_format ORDER BY address_format_id"), ['class' => 'custom-select']);
+  $select = new Select('address_format_id', $GLOBALS['db']->fetch_all("SELECT address_format_id AS id, address_summary AS text FROM address_format ORDER BY address_format_id"), ['class' => 'form-select']);
 
   $contents = ['form' => new Form('currencies', (clone $link)->set_parameter('action', 'save'))];
   $contents[] = ['text' => TEXT_INFO_EDIT_INTRO];
@@ -32,6 +32,6 @@
 
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

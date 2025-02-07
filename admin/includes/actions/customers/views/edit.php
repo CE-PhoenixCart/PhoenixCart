@@ -51,8 +51,10 @@ EOSQL
 
   echo $admin_hooks->cat('editForm');
   echo $admin_hooks->cat('injectFormDisplay');
-
-  echo new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-block btn-lg');
   ?>
+  
+  <div class="d-grid mt-2">
+    <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-lg') ?>
+  </div>
   
   </form>

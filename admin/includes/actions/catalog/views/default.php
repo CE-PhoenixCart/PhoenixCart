@@ -15,14 +15,14 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-6 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-6 text-start text-lg-end align-self-center pb-1">
       <?=
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
-      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light mr-2', $Admin->link('catalog.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light me-2', $Admin->link('catalog.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       isset($_GET['search'])
-      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php'))
-      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
+      ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light me-2', $Admin->link('catalog.php'))
+      : $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger me-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
         . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']))
       ?>
     </div>
@@ -32,9 +32,7 @@
     <div class="col-6 align-self-center">
       <?= (new Form('search', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
-           '</div>',
+          '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
            new Input('search'),
          '</div>',
        '</form>'
@@ -43,28 +41,26 @@
     <div class="col-6 align-self-center">
       <?= (new Form('goto', $Admin->link('catalog.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', HEADING_TITLE_GOTO, '</span>',
-           '</div>',
+           '<span class="input-group-text">', HEADING_TITLE_GOTO, '</span>',
            (new Select(
              'cPath',
              Guarantor::ensure_global('category_tree')->get_selections([['id' => '0', 'text' => TEXT_TOP]], '0'),
-             ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($current_category_id),
+             ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($current_category_id),
          '</div>',
        '</form>'
        ?>
     </div>
   </div>
 
-  <div class="row no-gutters">
+  <div class="row g-0">
     <div class="col-12 col-sm-8">
       <div class="table-responsive">
         <table class="table table-striped table-hover">
-          <thead class="thead-dark">
+          <thead class="table-dark">
             <tr>
               <th><?= TABLE_HEADING_CATEGORIES_PRODUCTS ?></th>
               <th class="text-center"><?= TABLE_HEADING_STATUS ?></th>
-              <th class="text-right"><?= TABLE_HEADING_ACTION ?></th>
+              <th class="text-end"><?= TABLE_HEADING_ACTION ?></th>
             </tr>
           </thead>
           <tbody>
@@ -100,9 +96,9 @@
               ?>
                 <th><?= $categories['categories_name'] ?></th>
                 <td>&nbsp;</td>
-                <td class="text-right">
+                <td class="text-end">
                   <?=
-                  '<a href="' . $link . '"><i class="fas fa-folder-open mr-2 text-dark"></i></a>',
+                  '<a href="' . $link . '"><i class="fas fa-folder-open me-2 text-dark"></i></a>',
                   $icon
                   ?>
                 </td>
@@ -131,8 +127,8 @@
               $fragment = ['cPath' => Categories::get_path($cPath), 'products_id' => (int)$p->get('id')];
               $catalog_link = $GLOBALS['Admin']->catalog('product_info.php', $fragment);
 
-              $icons = '<a target="_blank" href="' . $catalog_link . '"><i class="fas fa-eye mr-2 text-dark"></i></a>'
-                     . '<a href="' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id'), 'action' => 'new_product']) . '"><i class="fas fa-cogs mr-2 text-dark"></i></a>';
+              $icons = '<a target="_blank" href="' . $catalog_link . '"><i class="fas fa-eye me-2 text-dark"></i></a>'
+                     . '<a href="' . $Admin->link('catalog.php', ['cPath' => $cPath, 'pID' => (int)$p->get('id'), 'action' => 'new_product']) . '"><i class="fas fa-cogs me-2 text-dark"></i></a>';
               if (isset($product) && ($p->get('id') == $product->get('id')) ) {
                 echo '<tr class="table-active">';
                 $icons .= '<i class="fas fa-chevron-circle-right text-info"></i>';
@@ -152,7 +148,7 @@
                     . '"><i class="fas fa-check-circle text-muted"></i></a>  <i class="fas fa-times-circle text-danger"></i>'
                   ?>
                 </td>
-                <td class="text-right"><?= $icons ?></td>
+                <td class="text-end"><?= $icons ?></td>
               </tr>
               <?php
             }
@@ -164,15 +160,15 @@
 
       <div class="row my-1">
         <div class="col"><?= TEXT_CATEGORIES . '&nbsp;' . $categories_count . '<br>' . TEXT_PRODUCTS . '&nbsp;' . $products_count ?></div>
-        <div class="col text-right mr-2"><?php
+        <div class="col text-end me-2"><?php
         if (isset($cPath_array) && (count($cPath_array) > 0)) {
           $cPath_back = (count($cPath_array) > 1)
                       ? ['cPath' => implode('_', array_slice($cPath_array, 0, -1))]
                       : [];
-          echo $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mr-2', $Admin->link('catalog.php', $cPath_back));
+          echo $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light me-2', $Admin->link('catalog.php', $cPath_back));
         }
         if (!isset($_GET['search'])) {
-          echo $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger mr-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
+          echo $Admin->button(IMAGE_NEW_CATEGORY, 'fas fa-sitemap', 'btn-danger me-2', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_category']))
              . $Admin->button(IMAGE_NEW_PRODUCT, 'fas fa-boxes', 'btn-danger', $Admin->link('catalog.php', ['cPath' => $cPath, 'action' => 'new_product']));
         }
         ?></div>

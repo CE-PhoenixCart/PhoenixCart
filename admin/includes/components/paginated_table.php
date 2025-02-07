@@ -11,11 +11,11 @@
 */
 ?>
 
-  <div class="row no-gutters">
+  <div class="row g-0">
     <div class="col-12 col-sm-<?= $table_definition['width'] ?? 8 ?>">
       <div class="table-responsive"><?= $table_definition['form'] ?? '' ?>
         <table class="table table-striped table-hover">
-          <thead class="thead-dark">
+          <thead class="table-dark">
             <tr>
 <?php
   foreach ($table_definition['columns'] as $column) {
@@ -67,18 +67,13 @@ EOJS;
         isset($table_definition['form']) ? $table_definition['form']->close() : ''
       ?></div>
 
-      <div class="d-flex mr-1 mb-3">
-        <div class="mr-auto align-self-center"><?= $table_definition['split']->display_count() ?></div>
-        <div class="align-self-center"><?=
+      <div class="row me-1 mb-3">
+        <div class="col-lg-8 align-self-center"><?= $table_definition['split']->display_count() ?></div>
+        <div class="col-lg-4 align-self-center text-end pe-0"><?=
        ($this->page_count <= 1)
        ? sprintf(TEXT_RESULT_PAGE, $this->page_count, $this->page_count)
-       : '<div class="input-group">'
-         . '<div class="input-group-prepend">'
-           . '<span class="input-group-text rounded-0" id="p">' . SPLIT_PAGES . '</span>'
-         . '</div>'
-         . $table_definition['split']->draw_pages_form()
-       . '</div>'
-      ?></div>
+       : $table_definition['split']->draw_pages_form()
+       ?></div>
       </div>
       <?= $GLOBALS['admin_hooks']->cat($table_definition['hooks']['button'] ?? 'buttons') ?>
     </div>

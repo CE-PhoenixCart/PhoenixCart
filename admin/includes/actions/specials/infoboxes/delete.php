@@ -18,6 +18,6 @@
   $contents[] = ['text' => '<strong>' . $table_definition['info']->products_name . '</strong>'];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')
+    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

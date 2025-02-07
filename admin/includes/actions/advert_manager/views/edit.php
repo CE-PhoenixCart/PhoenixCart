@@ -31,16 +31,16 @@ EOSQL
 
   <?= $form ?>
 
-    <div class="form-group row" id="zTitle">
-      <label for="aTitle" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_TITLE ?></label>
+    <div class="row mb-2" id="zTitle">
+      <label for="aTitle" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_TITLE ?></label>
       <div class="col-sm-9">
         <?= (new Input('advert_title', ['value' => $aInfo->advert_title, 'id' => 'aTitle', 'aria-describedby' => 'aTitleHelp']))->require() ?>
         <small id="aTitleHelp" class="form-text text-muted"><?= TEXT_ADVERT_TITLE_HELP ?></small>
       </div>
     </div>
 
-    <div class="form-group row" id="zUrlFrag">
-      <label for="aUrl" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_URL ?></label>
+    <div class="row mb-2" id="zUrlFrag">
+      <label for="aUrl" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_URL ?></label>
       <div class="col-sm-9">
         <div class="row">
           <div class="col">
@@ -55,8 +55,8 @@ EOSQL
       </div>
     </div>
 
-    <div class="form-group row" id="zSort">
-      <label for="aSort" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_SORT_ORDER ?></label>
+    <div class="row mb-2" id="zSort">
+      <label for="aSort" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_SORT_ORDER ?></label>
       <div class="col-sm-9">
         <?= new Input('sort_order', ['value' => $aInfo->sort_order ?? 0, 'id' => 'aSort', 'class' => 'form-control w-25', 'aria-describedby' => 'aSortHelp']) ?>
         <small id="aSortHelp" class="form-text text-muted"><?= TEXT_ADVERT_SORT_HELP ?></small>
@@ -65,12 +65,12 @@ EOSQL
 
     <hr>
 
-    <div class="form-group row" id="zGroup">
-      <label for="aGroup" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_GROUP ?></label>
+    <div class="row mb-2" id="zGroup">
+      <label for="aGroup" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_GROUP ?></label>
       <div class="col-sm-9">
         <div class="row">
           <div class="col">
-           <?= (new Select('advert_group', $groups_array, ['class' => 'custom-select', 'id' => 'aGroup']))->set_selection($aInfo->advert_group ?? '') ?>
+           <?= (new Select('advert_group', $groups_array, ['class' => 'form-select', 'id' => 'aGroup']))->set_selection($aInfo->advert_group ?? '') ?>
           </div>
           <div class="col">
             <?= new Input('new_advert_group', ['id' => 'aNewGroup', 'placeholder' => TEXT_ADVERT_NEW_GROUP, 'aria-describedby' => 'aGroupHelp']) ?>
@@ -81,15 +81,13 @@ EOSQL
 
     <hr>
 
-    <div class="form-group row" id="zImage">
-      <div class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_IMAGE ?></div>
+    <div class="row mb-2" id="zImage">
+      <div class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_IMAGE ?></div>
       <div class="col-sm-9">
         <div class="row">
           <div class="col">
-            <div class="custom-file mb-2">
-              <?= new Input('advert_image', ['accept' => 'image/*', 'id' => 'advert_image', 'class' => 'custom-file-input'], 'file') ?>
-              <label class="custom-file-label" for="advert_image"></label>
-            </div>
+            <?= new Input('advert_image', ['accept' => 'image/*', 'id' => 'advert_image', 'class' => 'form-control'], 'file') ?>
+            <label class="form-label" for="advert_image"></label>
           </div>
           <div class="col">
             <?= new Input('advert_image_local', ['value' => $aInfo->advert_image ?? '', 'id' => 'aNewImage', 'placeholder' => TEXT_ADVERT_IMAGE_LOCAL]) ?>
@@ -108,13 +106,11 @@ EOSQL
       $advert_text = adverts::advert_get_html_text($aInfo->advert_id, $l['id']) ?? '';
       $language_icon = $Admin->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", [], $l['name']);
       ?>
-      <div class="form-group row" id="zText_<?= $l['code'] ?>">
-        <label for="aText-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_ADVERT_HTML_TEXT ?></label>
+      <div class="row mb-2" id="zText_<?= $l['code'] ?>">
+        <label for="aText-<?= $l['code'] ?>" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_ADVERT_HTML_TEXT ?></label>
         <div class="col-sm-9">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><?= $language_icon ?></span>
-            </div>
+            <span class="input-group-text"><?= $language_icon ?></span>
             <?= (new Textarea('advert_html_text[' . $l['id'] . ']', ['cols' => '60', 'rows' => '15', 'id' => "aText-{$l['code']}"]))->set_text($advert_text ?? '') ?>
           </div>
         </div>
@@ -122,8 +118,11 @@ EOSQL
       <?php
     }
 
-    echo $admin_hooks->cat('editForm'),
-         new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-block btn-lg');
+    echo $admin_hooks->cat('editForm');
     ?>
+    
+    <div class="d-grid mt-2">
+      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success') ?>
+    </div>
 
   </form>

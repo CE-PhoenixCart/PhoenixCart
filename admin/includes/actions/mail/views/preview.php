@@ -46,8 +46,9 @@
     <?= $admin_hooks->cat('formPreview') ?>
   </table>
 
-  <div class="buttonSet"><?=
-    new Button(IMAGE_SEND_EMAIL, 'fas fa-paper-plane', 'btn-success btn-block btn-lg'),
-    $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $Admin->link('mail.php'))
-?></div>
+  <div class="d-grid mt-2">
+    <?= new Button(IMAGE_SEND_EMAIL, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
+  </div>
+  
+  <?= $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-1', $Admin->link('mail.php')) ?>
 </form>

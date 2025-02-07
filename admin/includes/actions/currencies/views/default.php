@@ -39,7 +39,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return ((isset($row['info']->currencies_id))
                 ? '<i class="fas fa-chevron-circle-right text-info"></i>'
@@ -72,10 +72,10 @@
   
   $admin_hooks->set('buttons', 'update_installed_currencies', function () use ($Admin) {
     return ( defined('MODULE_ADMIN_CURRENCIES_INSTALLED') && !Text::is_empty(MODULE_ADMIN_CURRENCIES_INSTALLED) )
-         ? '<p class="mr-2">'
-           . $Admin->button(IMAGE_UPDATE_CURRENCIES, 'fas fa-money-bill-alt', 'btn-success btn-block', $Admin->link('currencies.php', ['action' => 'update', 'formid' => $_SESSION['sessiontoken']]))
+         ? '<p class="d-grid mt-2 me-2">'
+           . $Admin->button(IMAGE_UPDATE_CURRENCIES, 'fas fa-money-bill-alt', 'btn-success', $Admin->link('currencies.php', ['action' => 'update', 'formid' => $_SESSION['sessiontoken']]))
          . '</p>'
-         : '<div class="alert alert-warning mr-2">'
+         : '<div class="alert alert-warning me-2">'
            . sprintf(ERROR_INSTALL_CURRENCY_CONVERTER, $Admin->link('modules.php', ['set' => 'currencies']))
          . '</div>';
   });

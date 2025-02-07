@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  const BOX_HEADING_CONFIGURATION = '<i data-content="Configuration" data-toggle="popover" data-placement="right" class="fas fa-cogs fa-fw mr-1"></i><span class="d-inline d-md-none">Configuration</span>';
+  const BOX_HEADING_CONFIGURATION = '<i title="Configuration" class="fas fa-cogs fa-fw me-1"></i><span title="Configuration" class="d-xl-none">Configuration</span>';

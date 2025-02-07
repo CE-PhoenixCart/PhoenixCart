@@ -36,7 +36,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->languages_id) && ($row['languages_id'] == $row['info']->languages_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

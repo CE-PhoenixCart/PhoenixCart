@@ -20,12 +20,12 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_DIRECTORY, null, null) . '<br>' . new Input('directory')];
   $contents[] = ['text' => sprintf(TEXT_INFO_LANGUAGE_SORT_ORDER, null) . '<br>' . new Input('sort_order')];
   $contents[] = [
-    'text' => '<div class="custom-control custom-switch">'
-            . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'lDefault'], 'checkbox')
-            . '<label for="lDefault" class="custom-control-label text-muted"><small>' . TEXT_SET_DEFAULT . '</small></label></div>',
+    'text' => '<div class="form-check form-switch">'
+            . new Tickable('default', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'lDefault'], 'checkbox')
+            . '<label for="lDefault" class="form-check-label text-muted"><small>' . TEXT_SET_DEFAULT . '</small></label></div>',
   ];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
   ];

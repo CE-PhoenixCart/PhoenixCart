@@ -19,7 +19,7 @@
 ?>
 
   <div class="alert alert-info">
-    <i class="fas fa-spinner fa-5x fa-spin float-left mr-4"></i>
+    <i class="fas fa-spinner fa-5x fa-spin float-end me-4"></i>
     <?= TEXT_PLEASE_WAIT ?>
     <div class="clearfix"></div>
   </div>
@@ -31,7 +31,7 @@
 ?>
 
   <div class="alert alert-success">
-    <i class="fas fa-thumbs-up fa-5x float-left mr-4"></i>
+    <i class="fas fa-thumbs-up fa-5x float-end me-4"></i>
     <?= TEXT_FINISHED_SENDING_EMAILS ?>
     <div class="clearfix"></div>
   </div>

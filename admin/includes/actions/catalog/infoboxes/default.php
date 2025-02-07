@@ -23,8 +23,8 @@
 
       $contents[] = [
         'class' => 'text-center',
-        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit_category'))
-                . $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', $link->set_parameter('action', 'delete_category')),
+        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('action', 'edit_category'))
+                . $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2', $link->set_parameter('action', 'delete_category')),
       ];
       $contents[] = ['text' => TEXT_DATE_ADDED . ' ' . Date::abridge($cInfo->date_added)];
       if (!Text::is_empty($cInfo->last_modified)) {
@@ -40,8 +40,8 @@
 
       $contents[] = [
         'class' => 'text-center',
-        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'new_product'))
-                . $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', $link->set_parameter('action', 'delete_product')),
+        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('action', 'new_product'))
+                . $Admin->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2', $link->set_parameter('action', 'delete_product')),
       ];
       $contents[] = ['text' => TEXT_DATE_ADDED . ' ' . Date::abridge($product->get('date_added'))];
       if (!Text::is_empty($product->get('last_modified'))) {
@@ -55,7 +55,7 @@
       $contents[] = ['text' => TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($product->get('review_percentile'), 2) . '%'];
       $contents[] = [
         'class' => 'text-center',
-        'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-light mr-2', (clone $link)->set_parameter('action', 'move_product'))
+        'text' => $Admin->button(IMAGE_MOVE, 'fas fa-arrows-alt', 'btn-light me-2', (clone $link)->set_parameter('action', 'move_product'))
                 . $Admin->button(IMAGE_COPY_TO, 'fas fa-copy', 'btn-light', $link->set_parameter('action', 'copy_to')),
       ];
     }

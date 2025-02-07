@@ -30,7 +30,7 @@
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-0">';
-          $output .= '<thead class="thead-dark">';
+          $output .= '<thead class="table-dark">';
             $output .= '<tr>';
               $output .= '<th colspan="2">' . $Admin->image('images/icon_phoenix.png', ['alt' => 'Phoenix']) . ' ' . MODULE_ADMIN_DASHBOARD_PHOENIX_ADDONS_TITLE . '</th>';
             $output .= '</tr>';
@@ -49,8 +49,10 @@
           $output .= '</tbody>';
         $output .= '</table>';
       $output .= '</div>';
-
-      $output .= '<a class="btn btn-success btn-block my-2" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22"><i class="far fa-list-alt mr-1"></i>'. MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL .'</a>';
+      
+      $output .= '<div class="d-grid mt-2">';
+        $output .= '<a class="btn btn-success" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22"><i class="far fa-list-alt me-1"></i>'. MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL .'</a>';
+      $output .= '</div>';
 
       return $output;
     }

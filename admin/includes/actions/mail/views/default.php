@@ -27,36 +27,36 @@
   }
 ?>
 
-  <div class="form-group row" id="zCustomer">
-    <label for="Customer" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_CUSTOMER ?></label>
+  <div class="row mb-2" id="zCustomer">
+    <label for="Customer" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_CUSTOMER ?></label>
     <div class="col-sm-9">
-      <?= (new Select('customers_email_address', $customers, ['class' => 'custom-select', 'id' => 'Customer']))->require()->set_selection($_GET['customer'] ?? '') ?>
+      <?= (new Select('customers_email_address', $customers, ['class' => 'form-select', 'id' => 'Customer']))->require()->set_selection($_GET['customer'] ?? '') ?>
     </div>
   </div>
 
-  <div class="form-group row" id="zFromName">
-    <label for="FromName" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_FROM ?></label>
+  <div class="row mb-2" id="zFromName">
+    <label for="FromName" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_FROM ?></label>
     <div class="col-sm-9">
       <?= (new Input('from_name', ['value' => STORE_OWNER, 'id' => 'FromName']))->require() ?>
     </div>
   </div>
 
-  <div class="form-group row" id="zFromAddress">
-    <label for="FromAddress" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_FROM_ADDRESS ?></label>
+  <div class="row mb-2" id="zFromAddress">
+    <label for="FromAddress" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_FROM_ADDRESS ?></label>
     <div class="col-sm-9">
       <?= (new Input('from_address', ['value' => STORE_OWNER_EMAIL_ADDRESS, 'id' => 'FromAddress']))->require() ?>
     </div>
   </div>
 
-  <div class="form-group row" id="zSubject">
-    <label for="Subject" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_SUBJECT ?></label>
+  <div class="row mb-2" id="zSubject">
+    <label for="Subject" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_SUBJECT ?></label>
     <div class="col-sm-9">
       <?= (new Input('subject', ['id' => 'Subject']))->require() ?>
     </div>
   </div>
 
-  <div class="form-group row" id="zMessage">
-    <label for="Message" class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_MESSAGE ?></label>
+  <div class="row mb-2" id="zMessage">
+    <label for="Message" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_MESSAGE ?></label>
     <div class="col-sm-9">
       <?= (new Textarea('message', ['cols' => '60', 'rows' => '15', 'id' => 'Message']))->require() ?>
     </div>
@@ -64,8 +64,8 @@
 
   <?= $admin_hooks->cat('formNew') ?>
 
-  <div class="buttonSet">
-    <?= new Button(IMAGE_PREVIEW, 'fas fa-eye', 'btn-success btn-block btn-lg') ?>
+  <div class="d-grid mt-2">
+    <?= new Button(IMAGE_PREVIEW, 'fas fa-eye', 'btn-success btn-lg') ?>
   </div>
 
 </form>

@@ -50,14 +50,14 @@
       ],
       [
         'name' => TABLE_HEADING_ACCOUNT_CREATED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) use ($customer_data) {
           return Date::abridge($customer_data->get('date_account_created', $row));
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) use ($customer_data) {
           return (isset($row['info']->id) && ($row['info']->id === $customer_data->get('id', $row)))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

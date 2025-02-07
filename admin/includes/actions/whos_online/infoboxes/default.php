@@ -28,7 +28,7 @@
       }
 
       $contents[] = [
-        'class' => 'table-dark text-right',
+        'class' => 'table-dark text-end',
         'text' => sprintf(TEXT_SHOPPING_CART_SUBTOTAL, $currencies->format($shoppingCart->show_total())),
       ];
 

@@ -14,7 +14,7 @@
   
   $get_addons_link = '';
   $get_addons_link .= '<div class="btn-group" role="group">';
-    $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+    $get_addons_link .= '<button type="button" class="btn btn-dark me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
       $get_addons_link .= GET_ADDONS;
     $get_addons_link .= '</button>';
     $get_addons_link .= '<div class="dropdown-menu">';
@@ -43,7 +43,7 @@
 
   $get_link = (clone $link)->set_parameter('formid', $_SESSION['sessiontoken']);
 
-  $product_selector = new Select('products_id', Products::list_options(), ['class' => 'custom-select']);
+  $product_selector = new Select('products_id', Products::list_options(), ['class' => 'form-select']);
   $options = $db->fetch_all(sprintf(<<<'EOSQL'
 SELECT products_options_id AS id, products_options_name AS text, products_options.*
  FROM products_options
@@ -72,10 +72,10 @@ EOSQL
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE_ATRIB ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
       $get_addons_link,
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons')
       ?>
     </div>
@@ -96,26 +96,25 @@ EOSQL
   ?>
 
   <div class="accordion" id="accordionAttributes">
-    <div class="card">
-      <div class="card-header" id="headingAttrib">
-        <h2 class="mb-0">
-          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseAttrib" aria-expanded="true" aria-controls="collapseAttrib"><?= HEADING_TITLE_ATRIB ?></button>
-        </h2>
-      </div>
-
-      <div id="collapseAttrib" class="collapse show" aria-labelledby="headingAttrib" data-parent="#accordionAttributes">
-        <div class="card-body">
-          <div class="table-responsive">
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttrib" aria-expanded="false" aria-controls="collapseAttrib">
+          <?= HEADING_TITLE_ATRIB ?>
+        </button>
+      </h2>
+      <div id="collapseAttrib" class="accordion-collapse collapse" data-bs-parent="#accordionAttributes">
+        <div class="accordion-body">
+          <div class="table-responsive-sm">
             <?= new Form('attributes', (clone $link)->set_parameter('action', ('update_attribute' === $action) ? 'update_product_attribute' : 'add_product_attributes')) ?>
               <table class="table table-striped">
-                <thead class="thead-dark">
+                <thead class="table-dark">
                   <tr>
                     <th><?= TABLE_HEADING_PRODUCT ?></th>
                     <th><?= TABLE_HEADING_OPT_NAME ?></th>
                     <th><?= TABLE_HEADING_OPT_VALUE ?></th>
-                    <th class="text-right" style="width: 120px;"><?= TABLE_HEADING_OPT_PRICE ?></th>
+                    <th class="text-end" style="width: 120px;"><?= TABLE_HEADING_OPT_PRICE ?></th>
                     <th class="text-center" style="width: 120px;"><?= TABLE_HEADING_OPT_PRICE_PREFIX ?></th>
-                    <th class="text-right" style="width: 120px;"><?= TABLE_HEADING_ACTION ?></th>
+                    <th class="text-end" style="width: 120px;"><?= TABLE_HEADING_ACTION ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -131,14 +130,14 @@ EOSQL
                           <?= $product_selector->set_selection($attributes_values['products_id'])->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                         </td>
                         <td>
-                          <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->set_selection($attributes_values['options_id'])->require() ?>
+                          <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'form-select']))->set_selection($attributes_values['options_id'])->require() ?>
                         </td>
                         <td>
-                          <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->set_selection($attributes_values['options_values_id'])->require() ?>
+                          <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'form-select']))->set_selection($attributes_values['options_values_id'])->require() ?>
                         </td>
-                        <td class="text-right"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
-                        <td class="text-right"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
-                        <td class="text-right"><?=
+                        <td class="text-end"><?= new Input('value_price', ['value' => $attributes_values['options_values_price']]) ?></td>
+                        <td class="text-end"><?= new Input('price_prefix', ['size' => 2, 'value' => $attributes_values['price_prefix']]) ?></td>
+                        <td class="text-end"><?=
                           new Button('', 'fas fa-save text-success', 'btn-link'),
                           $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link)
                         ?></td>
@@ -176,9 +175,9 @@ EOSQL
                         <td><?= $attributes_values['products_name'] ?? '' ?></td>
                         <td><?= $attributes_values['products_options_name'] ?? '' ?></td>
                         <td><?= $attributes_values['products_options_values_name'] ?? '' ?></td>
-                        <td class="text-right"><?= $attributes_values["options_values_price"] ?></td>
+                        <td class="text-end"><?= $attributes_values["options_values_price"] ?></td>
                         <td class="text-center"><?= $attributes_values["price_prefix"] ?></td>
-                        <td class="text-right"><?=
+                        <td class="text-end"><?=
                           $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $get_link)->set_parameter('action', 'delete_attribute')->set_parameter('attribute_id', (int)$_GET['attribute_id'])),
                           $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link)
                         ?></td>
@@ -191,9 +190,9 @@ EOSQL
                       <td><?= $attributes_values['products_name'] ?? '' ?></td>
                       <td><?= $attributes_values['products_options_name'] ?? '' ?></td>
                       <td><?= $attributes_values['products_options_values_name'] ?? '' ?></td>
-                      <td class="text-right"><?= $attributes_values["options_values_price"] ?></td>
+                      <td class="text-end"><?= $attributes_values["options_values_price"] ?></td>
                       <td class="text-center"><?= $attributes_values["price_prefix"] ?></td>
-                      <td class="text-right"><?=
+                      <td class="text-end"><?=
                         $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $attribute_link)->set_parameter('action', 'update_attribute')),
                         $Admin->button('', 'fas fa-trash text-danger', 'btn-link', $attribute_link->set_parameter('action', 'delete_product_attribute'))
                       ?></td>
@@ -204,36 +203,31 @@ EOSQL
 
                   if ($action != 'update_attribute') {
                     ?>
-                    <tr class="bg-white">
+                    <tr class="table-success">
                       <td>
                         <?= $product_selector->set_selection()->require()->set_options(array_merge($default_selection, $product_selector->get_options())) ?>
                       </td>
                       <td>
-                        <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'custom-select']))->require() ?>
+                        <?= (new Select('options_id', array_merge($default_selection, $options), ['class' => 'form-select']))->require() ?>
                       </td>
                       <td>
-                        <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'custom-select']))->require() ?>
+                        <?= (new Select('values_id', array_merge($default_selection, $grouped_values), ['class' => 'form-select']))->require() ?>
                       </td>
-                      <td class="text-right"><?= new Input('value_price', ['value' => '0']) ?></td>
-                      <td class="text-right"><?= new Input('price_prefix', ['value' => '+']) ?></td>
-                      <td class="text-right"><?= new Button('', 'fas fa-plus text-success', 'btn-link') ?></td>
+                      <td class="text-end"><?= new Input('value_price', ['value' => '0']) ?></td>
+                      <td class="text-end"><?= new Input('price_prefix', ['value' => '+']) ?></td>
+                      <td class="text-end"><?= new Button('', 'fas fa-plus text-success', 'btn-link') ?></td>
                     </tr>
                     <?php
                     if (DOWNLOAD_ENABLED == 'true') {
                       ?>
-                      <tr>
-                        <td colspan="6" class="bg-white">
-                          <table>
-                            <tr>
-                              <td><?= TABLE_HEADING_DOWNLOAD ?></td>
-                              <td><?= TABLE_TEXT_FILENAME ?></td>
-                              <td><?= new Input('products_attributes_filename') ?></td>
-                              <td><?= TABLE_TEXT_MAX_DAYS ?></td>
-                              <td><?= (new Input('products_attributes_maxdays'))->set('value', DOWNLOAD_MAX_DAYS) ?></td>
-                              <td><?= TABLE_TEXT_MAX_COUNT ?></td>
-                              <td><?= (new Input('products_attributes_maxcount'))->set('value', DOWNLOAD_MAX_COUNT) ?></td>
-                            </tr>
-                          </table>
+                      <tr class="table-info">
+                        <td colspan="6">
+                          <h6><?= TABLE_HEADING_DOWNLOAD ?></h6>
+                          <div class="row">
+                            <div class="col"><?= TABLE_TEXT_FILENAME ?><br><?= new Input('products_attributes_filename') ?></div>
+                            <div class="col-3"><?= TABLE_TEXT_MAX_DAYS ?><br><?= (new Input('products_attributes_maxdays'))->set('value', DOWNLOAD_MAX_DAYS) ?></div>
+                            <div class="col-3"><?= TABLE_TEXT_MAX_COUNT ?><br><?= (new Input('products_attributes_maxcount'))->set('value', DOWNLOAD_MAX_COUNT) ?></div>
+                          </div>
                         </td>
                       </tr>
                       <?php
@@ -245,26 +239,27 @@ EOSQL
             </form>
           </div>
           
-          <p class="my-2 text-right mr-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, ['option_page' => $option_page, 'value_page' => $value_page], 'attribute_page') ?></p>
- 
+          <p class="my-2 text-end me-2"><?= $attributes_split->display_links($attributes_query_numrows, MAX_ROW_LISTS_OPTIONS, MAX_DISPLAY_PAGE_LINKS, $attribute_page, ['option_page' => $option_page, 'value_page' => $value_page], 'attribute_page') ?></p>
+
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingOpt">
-        <h2 class="mb-0">
-          <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseOpt" aria-expanded="false" aria-controls="collapseOpt"><?= HEADING_TITLE_OPT ?></button>
-        </h2>
-      </div>
-      <div id="collapseOpt" class="collapse" aria-labelledby="headingOpt" data-parent="#accordionAttributes">
-        <div class="card-body">
+    
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOpt" aria-expanded="false" aria-controls="collapseOpt">
+          <?= HEADING_TITLE_OPT ?>
+        </button>
+      </h2>
+      <div id="collapseOpt" class="accordion-collapse collapse" data-bs-parent="#accordionAttributes">
+        <div class="accordion-body">
           <?php
           if ($action == 'delete_product_option') {
             ?>
 
             <h2 class="lead"><?= array_column($options, 'text', 'id')[(int)$_GET['option_id']] ?></h2>
 
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
               <table class="table table-striped">
                 <?php
                 $products = $db->query(sprintf(<<<'EOSQL'
@@ -282,7 +277,7 @@ EOSQL
 
                 if (mysqli_num_rows($products)) {
                   ?>
-                  <thead class="thead-dark">
+                  <thead class="table-dark">
                     <tr>
                       <th><?= TABLE_HEADING_ID ?></th>
                       <th><?= TABLE_HEADING_PRODUCT ?></th>
@@ -302,10 +297,8 @@ EOSQL
                     }
                     ?>
                     <tr>
-                      <td class="bg-danger text-white" colspan="3"><?= TEXT_WARNING_OF_DELETE ?></td>
-                    </tr>
-                    <tr>
-                      <td colspan="3" class="text-right"><?= $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link) ?></td>
+                      <td class="table-danger" colspan="2"><?= TEXT_WARNING_OF_DELETE ?></td>
+                      <td class="table-danger text-end" colspan="1"><?= $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-danger btn-sm', $link) ?></td>
                     </tr>
                   </tbody>
                   <?php
@@ -313,12 +306,10 @@ EOSQL
                   ?>
                   <tbody>
                     <tr>
-                      <td class="bg-success text-white" colspan="3"><?= TEXT_OK_TO_DELETE ?></td>
-                    </tr>
-                    <tr>
-                      <td colspan="3"><?=
-                        $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $get_link)->set_parameter('action', 'delete_option')->set_parameter('option_id', (int)$_GET['option_id'])),
-                        $Admin->button('', 'fas fa-times text-dark', 'btn-light', $link)
+                      <td class="table-success" colspan="2"><?= TEXT_OK_TO_DELETE ?></td>
+                      <td class="table-success text-end" colspan="1"><?=
+                        $Admin->button('', 'fas fa-trash text-danger', 'btn-link btn-sm me-2', (clone $get_link)->set_parameter('action', 'delete_option')->set_parameter('option_id', (int)$_GET['option_id'])),
+                        $Admin->button('', 'fas fa-times text-dark', 'btn-light btn-sm', $link)
                       ?></td>
                     </tr>
                   </tbody>
@@ -330,14 +321,13 @@ EOSQL
             <?php
           } else {
             ?>
-
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
               <table class="table table-striped">
-                <thead class="thead-dark">
+                <thead class="table-dark">
                   <tr>
                     <th><?= TABLE_HEADING_OPT_NAME ?></th>
                     <th><?= TABLE_HEADING_OPT_SORT_ORDER ?></th>
-                    <th class="text-right" style="width: 120px;"><?= TABLE_HEADING_ACTION ?></th>
+                    <th class="text-end" style="width: 120px;"><?= TABLE_HEADING_ACTION ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -352,16 +342,12 @@ EOSQL
                         $option_name = $option_name->fetch_assoc();
 
                         $inputs .= '<div class="input-group mb-1">';
-                          $inputs .= '<div class="input-group-prepend">';
-                            $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                          $inputs .= '</div>';
+                          $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                           $inputs .= (new Input("option_name[{$l['id']}]", ['id' => "oName-{$l['code']}"]))->require()->set('value', $option_name['products_options_name']);
                         $inputs .= '</div>';
 
                         $sort .= '<div class="input-group mb-1">';
-                          $sort .= '<div class="input-group-prepend">';
-                            $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                          $sort .= '</div>';
+                          $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                           $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require()->set('value', $option_name['sort_order']);
                         $sort .= '</div>';
 
@@ -370,7 +356,7 @@ EOSQL
                     <tr class="table-success">
                       <td colspan="3">
                         <?= new Form('option', (clone $link)->set_parameter('action', 'update_option_name')) ?>
-                          <div class="form-row">
+                          <div class="row">
                             <div class="col-6">
                               <input type="hidden" name="option_id" value="<?= $options_values['products_options_id'] ?>">
                               <?= $inputs ?>
@@ -378,8 +364,8 @@ EOSQL
                             <div class="col-2">
                               <?= $sort ?>
                             </div>
-                            <div class="col-4 text-right">
-                              <?= new Button('', 'fas fa-save text-success', 'btn-link mr-2'), $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link) ?>
+                            <div class="col-4 text-end">
+                              <?= new Button('', 'fas fa-save text-success', 'btn-link me-2'), $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link) ?>
                             </div>
                           </div>
                         </form>
@@ -391,7 +377,7 @@ EOSQL
                     <tr>
                       <td><?= $options_values['products_options_name'] ?></td>
                       <td class="w-25"><?= $options_values['sort_order'] ?></td>
-                      <td class="w-25 text-right"><?=
+                      <td class="w-25 text-end"><?=
                         $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $get_link)->set_parameter('action', 'update_option')->set_parameter('option_id', (int)$options_values['products_options_id'])),
                         $Admin->button('', 'fas fa-trash text-danger', 'btn-link', (clone $get_link)->set_parameter('action', 'delete_product_option')->set_parameter('option_id', (int)$options_values['products_options_id']))
                       ?></td>
@@ -408,33 +394,29 @@ EOSQL
                   $inputs = $sort = '';
                   foreach ($languages as $l) {
                     $inputs .= '<div class="input-group mb-1">';
-                      $inputs .= '<div class="input-group-prepend">';
-                        $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                      $inputs .= '</div>';
+                      $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                       $inputs .= (new Input("option_name[{$l['id']}]",['id' => "oName-{$l['code']}"]))->require();
                     $inputs .= '</div>';
 
                     $sort .= '<div class="input-group mb-1">';
-                      $sort .= '<div class="input-group-prepend">';
-                        $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                      $sort .= '</div>';
+                      $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                       $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "oSort-{$l['code']}"]))->require();
                     $sort .= '</div>';
 
                   }
                   ?>
-                  <tr class="bg-white">
+                  <tr class="table-success">
                     <td colspan="3">
                       <?= new Form('options', (clone $link)->set_parameter('action', 'add_product_options')) ?>
                         <input type="hidden" name="products_options_id" value="<?= $next_id ?>">
-                        <div class="form-row">
+                        <div class="row">
                           <div class="col-6">
                             <?= $inputs ?>
                           </div>
                           <div class="col-2">
                             <?= $sort ?>
                           </div>
-                          <div class="col-4 text-right">
+                          <div class="col-4 text-end">
                             <?= new Button('', 'fas fa-plus text-success', 'btn-link') ?>
                           </div>
                         </div>
@@ -453,27 +435,28 @@ EOSQL
         </div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header" id="headingVal">
-        <h2 class="mb-0">
-          <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseVal" aria-expanded="false" aria-controls="collapseVal"><?= HEADING_TITLE_VAL ?></button>
-        </h2>
-      </div>
-      <div id="collapseVal" class="collapse" aria-labelledby="headingVal" data-parent="#accordionAttributes">
-        <div class="card-body">
+    
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVal" aria-expanded="false" aria-controls="collapseVal">
+          <?= HEADING_TITLE_VAL ?>
+        </button>
+      </h2>
+      <div id="collapseVal" class="accordion-collapse collapse" data-bs-parent="#accordionAttributes">
+        <div class="accordion-body">
           <?php
           if ($action == 'delete_option_value') {
             $values_values = $db->query("SELECT products_options_values_id, products_options_values_name FROM products_options_values WHERE products_options_values_id = " . (int)$_GET['value_id'] . " AND language_id = " . (int)$_SESSION['languages_id'])->fetch_assoc();
             ?>
 
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
               <table class="table table-striped">
                 <?php
                 $products = $db->query("SELECT p.products_id, pd.products_name, po.products_options_name FROM products p, products_attributes pa, products_options po, products_description pd WHERE pd.products_id = p.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " AND po.language_id = " . (int)$_SESSION['languages_id'] . " AND pa.products_id = p.products_id AND pa.options_values_id = " . (int)$_GET['value_id'] . " AND po.products_options_id = pa.options_id ORDER BY pd.products_name");
 
                 if (mysqli_num_rows($products)) {
                   ?>
-                  <thead class="thead-dark">
+                  <thead class="table-dark">
                     <tr>
                       <th><?= TABLE_HEADING_ID ?></th>
                       <th><?= TABLE_HEADING_PRODUCT ?></th>
@@ -493,21 +476,19 @@ EOSQL
                     }
                     ?>
                     <tr>
-                      <td class="bg-danger text-white" colspan="3"><?= TEXT_WARNING_OF_DELETE ?></td>
-                    </tr>
-                    <tr>
-                      <td class="text-right bg-white" colspan="3"><?= $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left text-dark', 'btn-light btn-block', $link) ?></td>
+                      <td class="table-danger" colspan="2"><?= TEXT_WARNING_OF_DELETE ?></td>
+                      <td class="table-danger text-end" colspan="1"><?= $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-danger btn-sm', $link) ?></td>
                     </tr>
                   </tbody>
-                    <?php
+                  <?php
                 } else {
                   ?>
                   <tr>
-                    <td class="bg-success text-white" colspan="3"><?= TEXT_OK_TO_DELETE ?></td>
+                    <td class="table-success" colspan="3"><?= TEXT_OK_TO_DELETE ?></td>
                   </tr>
                   <tr>
-                    <td class="text-right" colspan="3"><?=
-                      $Admin->button('', 'fas fa-trash text-danger', 'btn-link mr-2', (clone $get_link)->set_parameter('action', 'delete_value')->set_parameter('value_id', (int)$_GET['value_id'])),
+                    <td class="text-end" colspan="3"><?=
+                      $Admin->button('', 'fas fa-trash text-danger', 'btn-link me-2', (clone $get_link)->set_parameter('action', 'delete_value')->set_parameter('value_id', (int)$_GET['value_id'])),
                       $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link)
                     ?></td>
                   </tr>
@@ -529,14 +510,14 @@ EOSQL
               , (int)$_SESSION['languages_id']));
             ?>
 
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
               <table class="table table-striped">
-                <thead class="thead-dark">
+                <thead class="table-dark">
                   <tr>
                     <th class="w-25"><?= TABLE_HEADING_OPT_NAME ?></th>
                     <th class="w-25"><?= TABLE_HEADING_OPT_VALUE ?></th>
                     <th><?= TABLE_HEADING_OPT_SORT_ORDER ?></th>
-                    <th class="text-right"><?= TABLE_HEADING_ACTION ?></th>
+                    <th class="text-end"><?= TABLE_HEADING_ACTION ?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -548,16 +529,12 @@ EOSQL
                         $value_name = $db->query("SELECT products_options_values_name, sort_order FROM products_options_values WHERE products_options_values_id = " . (int)$values_values['products_options_values_id'] . " AND language_id = " . (int)$l['id'])->fetch_assoc();
 
                         $inputs .= '<div class="input-group mb-1">';
-                          $inputs .= '<div class="input-group-prepend">';
-                            $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                          $inputs .= '</div>';
+                          $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                           $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require()->set('value', $value_name['products_options_values_name']);
                         $inputs .= '</div>';
 
                         $sort .= '<div class="input-group mb-1">';
-                          $sort .= '<div class="input-group-prepend">';
-                            $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                          $sort .= '</div>';
+                          $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                           $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require()->set('value', $value_name['sort_order']);
                         $sort .= '</div>';
                       }
@@ -568,7 +545,7 @@ EOSQL
                             <input type="hidden" name="value_id" value="<?= $values_values['products_options_values_id'] ?>">
                             <div class="form-row">
                               <div class="col-3">
-                                <?= (new Select('option_id', $options, ['class' => 'custom-select']))->set_selection($values_values['products_options_id']) ?>
+                                <?= (new Select('option_id', $options, ['class' => 'form-select']))->set_selection($values_values['products_options_id']) ?>
                               </div>
                               <div class="col-3">
                                 <?= $inputs ?>
@@ -576,7 +553,7 @@ EOSQL
                               <div class="col-2">
                                 <?= $sort ?>
                               </div>
-                              <div class="col-4 text-right">
+                              <div class="col-4 text-end">
                                 <?= new Button('', 'fas fa-save text-success', 'btn-link'), $Admin->button('', 'fas fa-times text-dark', 'btn-link', $link) ?>
                               </div>
                             </div>
@@ -591,7 +568,7 @@ EOSQL
                         <td><?= $values_values['products_options_name'] ?></td>
                         <td><?= $values_values['products_options_values_name'] ?></td>
                         <td><?= $values_values['sort_order'] ?></td>
-                        <td class="text-right"><?=
+                        <td class="text-end"><?=
                           $Admin->button('', 'fas fa-cogs text-dark', 'btn-link', (clone $value_link)->set_parameter('action', 'update_option_value')),
                           $Admin->button('', 'fas fa-trash text-danger', 'btn-link', $value_link->set_parameter('action', 'delete_option_value'))
                         ?></td>
@@ -607,26 +584,22 @@ EOSQL
                     $inputs = $sort = '';
                     foreach ($languages as $l) {
                       $inputs .= '<div class="input-group mb-1">';
-                        $inputs .= '<div class="input-group-prepend">';
-                          $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                        $inputs .= '</div>';
+                        $inputs .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                         $inputs .= (new Input("value_name[{$l['id']}]", ['id' => "vName-{$l['code']}"]))->require();
                       $inputs .= '</div>';
 
                       $sort .= '<div class="input-group mb-1">';
-                        $sort .= '<div class="input-group-prepend">';
-                          $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
-                        $sort .= '</div>';
+                        $sort .= '<span class="input-group-text">'. $l['icon'] . '</span>';
                         $sort .= (new Input("sort_order[{$l['id']}]", ['id' => "vSort-{$l['code']}"]))->require();
                       $sort .= '</div>';
                     }
                     ?>
-                    <tr class="bg-white">
+                    <tr class="table-success">
                       <td colspan="4">
                         <?= new Form('values', $link->set_parameter('action', 'add_product_option_values')) ?>
-                          <div class="form-row">
+                          <div class="row">
                             <div class="col-3">
-                              <?= (new Select('option_id', $options, ['class' => 'custom-select'])) ?>
+                              <?= (new Select('option_id', $options, ['class' => 'form-select'])) ?>
                             </div>
                             <div class="col-3">
                               <input type="hidden" name="value_id" value="<?= $next_id ?>">
@@ -635,7 +608,7 @@ EOSQL
                             <div class="col-2">
                               <?= $sort ?>
                             </div>
-                            <div class="col-4 text-right">
+                            <div class="col-4 text-end">
                               <?= new Button('', 'fas fa-plus text-success', 'btn-link') ?>
                             </div>
                           </div>

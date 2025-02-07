@@ -16,13 +16,13 @@
 
   if ($GLOBALS['remove_language']) {
     $contents = ['form' => new Form('languages', (clone $link)->set_parameter('action', 'delete_confirm'))];
-    $button = new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2');
+    $button = new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2');
   } else {
     $button = '';
   }
   $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
   $contents[] = [
-    'class' => 'text-center text-uppercase font-weight-bold',
+    'class' => 'text-center text-uppercase fw-bold',
     'text' => $lInfo->name,
   ];
   $contents[] = [

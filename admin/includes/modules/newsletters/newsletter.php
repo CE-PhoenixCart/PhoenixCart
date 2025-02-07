@@ -49,11 +49,10 @@
       $confirm_string .= '</table>' . "\n";
 
       $GLOBALS['link']->set_parameter('nID', (int)$_GET['nID']);
-      $confirm_string .= '<div class="buttonSet">';
-      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-block btn-lg', (clone $GLOBALS['link'])->set_parameter('action', 'confirm_send'));
-      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $GLOBALS['link']);
+      $confirm_string .= '<div class="d-grid mt-2">';
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success', (clone $GLOBALS['link'])->set_parameter('action', 'confirm_send'));
       $confirm_string .= '</div>' . "\n";
-
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-1', $GLOBALS['link']);
       return $confirm_string;
     }
 

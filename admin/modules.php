@@ -31,7 +31,7 @@
   $get_addons_link = '';
   if (!empty($cfg_modules->get($set, 'get_addons_links'))) {
     $get_addons_link .= '<div class="btn-group" role="group">';
-      $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+      $get_addons_link .= '<button type="button" class="btn btn-dark me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
         $get_addons_link .= GET_ADDONS;
       $get_addons_link .= '</button>';
       $get_addons_link .= '<div class="dropdown-menu">';
@@ -60,7 +60,7 @@
       ],
       [
         'name' => TABLE_HEADING_ENABLED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return ($row['enabled'] > 0)
                ? '<i class="fas fa-check-circle text-success"></i>'
@@ -69,7 +69,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return isset($row['info']->code)
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
@@ -88,7 +88,7 @@
     array_splice($table_definition['columns'], -1, 0, [
       [
         'name' => TABLE_HEADING_SORT_ORDER,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return is_numeric($row['sort_order']) ? $row['sort_order'] : '';
         },
@@ -127,14 +127,14 @@
   $cfgm = "uncallable_cfgm_$set";
   if (is_callable([$cfgm, 'menu'])) {
 ?>
-    <div class="col text-right align-self-center"><?= $cfgm::menu() ?></div>
+    <div class="col text-end align-self-center"><?= $cfgm::menu() ?></div>
 <?php
   }
 ?>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
       $get_addons_link,
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', $get_help_link, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', $get_help_link, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       isset($_GET['list'])
       ? $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', (clone $GLOBALS['link'])->delete_parameter('list'))
@@ -143,11 +143,11 @@
     </div>
   </div>
 
-  <div class="row no-gutters">
+  <div class="row g-0">
     <div class="col-12 col-sm-8">
       <div class="table-responsive">
         <table class="table table-striped table-hover">
-          <thead class="thead-dark">
+          <thead class="table-dark">
             <tr>
 <?php
   foreach ($table_definition['columns'] as $column) {

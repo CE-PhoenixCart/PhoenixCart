@@ -13,10 +13,10 @@
 
   <div class="table-responsive">
     <table class="table table-striped table-hover">
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <th><?= TABLE_HEADING_DIRECTORIES ?></th>
-          <th class="text-right"><?= TABLE_HEADING_RECOMMENDED ?></th>
+          <th class="text-end"><?= TABLE_HEADING_RECOMMENDED ?></th>
         </tr>
       </thead>
       <tbody>
@@ -28,9 +28,9 @@
         ?>
         <tr>
           <td><?= Text::ltrim_once($file['name'], DIR_FS_CATALOG) ?></td>
-          <td class="text-right"><i class="fas fa-<?=
+          <td class="text-end"><i class="fas fa-<?=
             $file['whitelisted'] ? 'edit' : 'lock',
-            ' mr-2 text-',
+            ' me-2 text-',
             ($file['whitelisted'] == $file['writable']) ? 'success' : 'danger'
           ?>"></i></td>
         </tr>

@@ -32,7 +32,7 @@
       ],
       [
         'name' => TABLE_HEADING_STATUS,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           $flag_link = (clone $row['onclick'])->set_parameter('action', 'set_flag')->set_parameter('formid', $_SESSION['sessiontoken']);
           return ($row['testimonials_status'] == '1')
@@ -42,7 +42,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->testimonials_id) && ($row['testimonials_id'] == $row['info']->testimonials_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

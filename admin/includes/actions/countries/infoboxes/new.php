@@ -21,11 +21,11 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_NAME, null) . '<br>' . (new Input('countries_name'))->require()];
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_CODE_2, null)  . '<br>' . (new Input('countries_iso_code_2'))->require()];
   $contents[] = ['text' => sprintf(TEXT_INFO_COUNTRY_CODE_3, null)  . '<br>' . (new Input('countries_iso_code_3'))->require()];
-  $contents[] = ['text' => sprintf(TEXT_INFO_ADDRESS_FORMAT, null)  . '<br>' . (new Select('address_format_id', $address_formats, ['class' => 'custom-select']))->require()];
+  $contents[] = ['text' => sprintf(TEXT_INFO_ADDRESS_FORMAT, null)  . '<br>' . (new Select('address_format_id', $address_formats, ['class' => 'form-select']))->require()];
 
 
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
   ];

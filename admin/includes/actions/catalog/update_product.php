@@ -28,7 +28,6 @@
     'products_gtin' => (Text::is_empty($_POST['products_gtin']))
                      ? 'NULL'
                      : str_pad(Text::prepare($_POST['products_gtin']), 14, '0', STR_PAD_LEFT),
-    'importers_id' => (int)Text::input($_POST['importers_id']),
   ];
 
   $products_image = new upload('products_image');
@@ -60,7 +59,6 @@
 // Update existing large product images
     if (preg_match('{\Aproducts_image_large_([0-9]+)\z}', $key, $matches)) {
       $pi_sort_order++;
-
       $sql_data = ['htmlcontent' => Text::prepare($_POST['products_image_htmlcontent_' . $matches[1]]), 'sort_order' => $pi_sort_order];
 
       $t = new upload($key);
@@ -75,14 +73,14 @@
       $piArray[] = (int)$matches[1];
     } elseif (preg_match('{\Aproducts_image_large_new_([0-9]+)\z}', $key, $matches)) {
 // Insert new large product images
-      $sql_data = ['products_id' => (int)$products_id, 'htmlcontent' => Text::prepare($_POST['products_image_htmlcontent_new_' . $matches[1]])];
+      $sql_data = ['products_id' => (int)$products_id, 'htmlcontent' => Text::prepare($_POST['products_image_htmlcontent_new_' . $matches[1]]), 'sort_order' => (int)$_POST['sort_order_new_' . $matches[1]]];
 
       $t = new upload($key);
       $t->set_extensions(['png', 'gif', 'jpg', 'jpeg', 'svg', 'webp']);
       $t->set_destination(DIR_FS_CATALOG_IMAGES);
       if ($t->parse() && $t->save()) {
         $pi_sort_order++;
-
+        
         $sql_data['image'] = Text::prepare($t->filename);
         $sql_data['sort_order'] = $pi_sort_order;
 

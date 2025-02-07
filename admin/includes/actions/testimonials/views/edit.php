@@ -29,8 +29,8 @@ EOSQL
     $tInfo->testimonials_status = '1';
   }
 
-  $in_status_radio = new Tickable('testimonials_status', ['value' => '1', 'id' => 'inStatus', 'class' => 'custom-control-input'], 'radio');
-  $out_status_radio = new Tickable('testimonials_status', ['value' => '0', 'id' => 'outStatus', 'class' => 'custom-control-input'], 'radio');
+  $in_status_radio = new Tickable('testimonials_status', ['value' => '1', 'id' => 'inStatus', 'class' => 'form-check-input'], 'radio');
+  $out_status_radio = new Tickable('testimonials_status', ['value' => '0', 'id' => 'outStatus', 'class' => 'form-check-input'], 'radio');
   if ('1' === $tInfo->testimonials_status) {
     $in_status_radio->tick();
   } else {
@@ -45,45 +45,46 @@ EOSQL
 
   <?= $form ?>
 
-    <div class="form-group row align-items-center" id="zStatus">
-      <label class="col-form-label col-sm-3 text-left text-sm-right"><?= TEXT_INFO_TESTIMONIAL_STATUS ?></label>
+    <div class="row mb-2 align-items-center" id="zStatus">
+      <div class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_INFO_TESTIMONIAL_STATUS ?></div>
       <div class="col-sm-9">
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="form-check form-check-inline">
           <?= $in_status_radio ?>
-          <label class="custom-control-label" for="inStatus"><?= TEXT_TESTIMONIAL_PUBLISHED ?></label>
+          <label class="form-check-label" for="inStatus"><?= TEXT_TESTIMONIAL_PUBLISHED ?></label>
         </div>
-        <div class="custom-control custom-radio custom-control-inline">
+        <div class="form-check form-check-inline">
           <?= $out_status_radio ?>
-          <label class="custom-control-label" for="outStatus"><?= TEXT_TESTIMONIAL_NOT_PUBLISHED ?></label>
+          <label class="form-check-label" for="outStatus"><?= TEXT_TESTIMONIAL_NOT_PUBLISHED ?></label>
         </div>
       </div>
     </div>
 
-    <div class="form-group row" id="zFrom">
-      <label for="inputFrom" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_FROM ?></label>
+    <div class="row mb-2" id="zFrom">
+      <label for="inputFrom" class="col-form-label col-sm-3 text-start text-sm-end"><?= ENTRY_FROM ?></label>
       <div class="col-sm-9">
-        <?= Customers::select('customers_id', ['class' => 'custom-select', 'id' => 'inputFrom'], $tInfo->customers_id) ?>
+        <?= Customers::select('customers_id', ['class' => 'form-select', 'id' => 'inputFrom'], $tInfo->customers_id) ?>
       </div>
     </div>
 
-    <div class="form-group row" id="zNick">
-      <label for="inputNick" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_FROM_NICKNAME ?></label>
+    <div class="row mb-2" id="zNick">
+      <label for="inputNick" class="col-form-label col-sm-3 text-start text-sm-end"><?= ENTRY_FROM_NICKNAME ?></label>
       <div class="col-sm-9">
         <?= (new Input('customer_name', ['value' => $tInfo->customers_name, 'id' => 'inputNick']))->require() ?>
       </div>
     </div>
 
-    <div class="form-group row" id="zText">
-      <label for="inputText" class="col-form-label col-sm-3 text-left text-sm-right"><?= ENTRY_TESTIMONIAL ?></label>
+    <div class="row mb-2" id="zText">
+      <label for="inputText" class="col-form-label col-sm-3 text-start text-sm-end"><?= ENTRY_TESTIMONIAL ?></label>
       <div class="col-sm-9">
         <?= (new Textarea('testimonials_text', ['cols' => '60', 'rows' => '15', 'id' => 'inputText', 'aria-describedby' => 'TextHelp']))->require()->set_text($tInfo->testimonials_text ?? '') ?>
         <small id="TextHelp" class="form-text text-muted"><?= ENTRY_TESTIMONIAL_HTML_DISPLAYED ?></small>
       </div>
     </div>
 
-    <?=
-      $admin_hooks->cat('formEdit'),
-      new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-block btn-lg')
-    ?>
+    <?= $admin_hooks->cat('formEdit') ?>
+    
+    <div class="d-grid mt-2">
+      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-lg') ?>
+    </div>
 
   </form>

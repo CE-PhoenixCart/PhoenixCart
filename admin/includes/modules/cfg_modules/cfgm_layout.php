@@ -164,7 +164,7 @@
         array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
           [
             'name' => TABLE_HEADING_WIDTH,
-            'class' => 'text-right',
+            'class' => 'text-end',
             'function' => function ($row) {
               return $row['content_width'];
             },
@@ -174,7 +174,7 @@
         array_splice($GLOBALS['table_definition']['columns'], 3, 0, [
           [
             'name' => TABLE_HEADING_DISPLAY_GROUP,
-            'class' => 'text-right',
+            'class' => 'text-end',
             'function' => function ($row) {
               return $row['display_group'];
             },

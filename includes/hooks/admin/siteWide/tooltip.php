@@ -15,9 +15,8 @@ class hook_admin_siteWide_tooltip {
   public function listen_injectBodyEnd() {
     $tooltip = <<<tt
 <script>
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 </script>
 tt;
 

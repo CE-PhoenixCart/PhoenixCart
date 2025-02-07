@@ -16,17 +16,17 @@
   $contents = ['form' => new Form('orders', (clone $link)->set_parameter('action', 'delete_confirm'))];
   $contents[] = ['text' => TEXT_INFO_DELETE_INTRO . '<br><br><strong>' . $table_definition['info']->customers_name . '</strong>'];
   $contents[] = [
-    'text' => '<div class="custom-control custom-switch py-2">'
-            . new Tickable('restock', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'oRestock'], 'checkbox')
-            . '<label for="oRestock" class="custom-control-label text-muted">' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY . '</label></div>',
+    'text' => '<div class="form-check form-switch">'
+            . new Tickable('restock', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'oRestock'], 'checkbox')
+            . '<label for="oRestock" class="form-check-label text-muted">' . TEXT_INFO_RESTOCK_PRODUCT_QUANTITY . '</label></div>',
   ];
   $contents[] = [
-    'text' => '<div class="custom-control custom-switch py-2">'
-            . new Tickable('reactivate', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'oStatus'], 'checkbox')
-            . '<label for="oStatus" class="custom-control-label text-muted">' . TEXT_INFO_REACTIVATE_PRODUCT_STATUS . '</label></div>',
+    'text' => '<div class="form-check form-switch">'
+            . new Tickable('reactivate', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'oStatus'], 'checkbox')
+            . '<label for="oStatus" class="form-check-label text-muted">' . TEXT_INFO_REACTIVATE_PRODUCT_STATUS . '</label></div>',
   ];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')
+    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

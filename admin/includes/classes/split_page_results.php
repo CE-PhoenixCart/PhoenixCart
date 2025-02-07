@@ -64,7 +64,7 @@
             $display_links .= '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>';
           $display_links .= '</div>';
 
-          $display_links .= (new Select($page_name, $pages_array, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($this->current_page_number);
+          $display_links .= (new Select($page_name, $pages_array, ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($this->current_page_number);
 
         $display_links .= '</div>';
         $display_links .= '</form>';

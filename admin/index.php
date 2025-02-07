@@ -31,9 +31,9 @@
     <?php
     if (count($languages) > 1) {
       ?>
-      <div class="col-sm-4 text-right"><?=
+      <div class="col-sm-4 text-end"><?=
         (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
-        (new Select('language', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
+        (new Select('language', $languages, ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
         '</form>'
       ?></div>
       <?php

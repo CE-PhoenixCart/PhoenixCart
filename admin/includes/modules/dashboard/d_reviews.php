@@ -36,13 +36,13 @@ EOSQL
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-2">';
-          $output .= '<thead class="thead-dark">';
+          $output .= '<thead class="table-dark">';
             $output .= '<tr>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_REVIEWS_TITLE . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_REVIEWS_DATE . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_REVIEWS_REVIEWER . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_REVIEWS_RATING . '</th>';
-              $output .= '<th class="text-right">' . MODULE_ADMIN_DASHBOARD_REVIEWS_REVIEW_STATUS . '</th>';
+              $output .= '<th class="text-end">' . MODULE_ADMIN_DASHBOARD_REVIEWS_REVIEW_STATUS . '</th>';
             $output .= '</tr>';
           $output .= '</thead>';
           $output .= '<tbody>';
@@ -54,7 +54,7 @@ EOSQL
               $output .= '<td>' . Date::abridge($reviews['date_added']) . '</td>';
               $output .= '<td>' . htmlspecialchars($reviews['customers_name']) . '</td>';
               $output .= '<td>' . new star_rating((float)$reviews['reviews_rating']) . '</td>';
-              $output .= '<td class="text-right">' . $status_icon . '</td>';
+              $output .= '<td class="text-end">' . $status_icon . '</td>';
             $output .= '</tr>';
           }
 

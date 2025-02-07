@@ -15,12 +15,8 @@ class hook_admin_siteWide_popover {
   public function listen_injectBodyEnd() {
     $popover = <<<pp
 <script>
-$(function () {
-  $('[data-toggle="popover"]').popover({
-    container: 'body',
-    trigger: 'hover focus'
-  })
-})
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
 pp;
 

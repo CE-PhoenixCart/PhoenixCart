@@ -33,7 +33,7 @@
       $compared_version = preg_replace('/[^0-9.]/', '', $feed->channel->item[0]->title);
 
       $output = '<table class="table table-striped mb-2">';
-        $output .= '<thead class="thead-dark">';
+        $output .= '<thead class="table-dark">';
           $output .= '<tr>';
             $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version") . '</th>';
           $output .= '</tr>';
@@ -43,11 +43,11 @@
           $link = Guarantor::ensure_global('Admin')->link('version_check.php');
           $output .= '<tr>';
             $output .= '<td class="bg-danger text-white">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE, "$compared_version") . '</td>';
-            $output .= '<td class="bg-danger text-right"><a class="btn btn-info btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
+            $output .= '<td class="bg-danger text-end"><a class="btn btn-info btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
           $output .= '</tr>';
         } else {
           $output .= '<tr>';
-            $output .= '<td class="bg-success text-white" colspan="2">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_IS_LATEST . '</td>';
+            $output .= '<td class="table-success" colspan="2">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_IS_LATEST . '</td>';
           $output .= '</tr>';
         }
         $output .= '</tbody>';

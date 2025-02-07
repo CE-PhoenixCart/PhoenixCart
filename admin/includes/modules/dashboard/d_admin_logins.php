@@ -26,10 +26,10 @@
 
     function getOutput() {
       $output = '<table class="table table-striped table-hover mb-2">';
-        $output .= '<thead class="thead-dark">';
+        $output .= '<thead class="table-dark">';
           $output .= '<tr>';
             $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE . '</th>';
-            $output .= '<th class="text-right">'. MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DATE . '</th>';
+            $output .= '<th class="text-end">'. MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_DATE . '</th>';
           $output .= '</tr>';
         $output .= '</thead>';
         $output .= '<tbody>';
@@ -46,7 +46,7 @@ EOSQL
             $output .= '<td>'
                      . (($logins['success'] == '1') ? '<i class="fas fa-check-circle text-success"></i>' : '<i class="fas fa-times-circle text-danger"></i>')
                      . ' <a href="' . $GLOBALS['Admin']->link('action_recorder.php', 'module=ar_admin_login&aID=' . (int)$logins['id']) . '">' . htmlspecialchars($logins['user_name']) . '</a></td>';
-            $output .= '<td class="text-right">' . $GLOBALS['date_time_formatter']->format((new Date($logins['date_added']))->get_timestamp()) . '</td>';
+            $output .= '<td class="text-end">' . $GLOBALS['date_time_formatter']->format((new Date($logins['date_added']))->get_timestamp()) . '</td>';
           $output .= '</tr>';
         }
 

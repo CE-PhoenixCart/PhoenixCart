@@ -38,28 +38,28 @@
       ],
       [
         'name' => TABLE_HEADING_ENTRY_TIME,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return date('H:i:s', $row['time_entry']);
         },
       ],
       [
         'name' => TABLE_HEADING_LAST_CLICK,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return date('H:i:s', $row['time_last_click']);
         },
       ],
       [
         'name' => TABLE_HEADING_LAST_PAGE_URL,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return preg_replace('{ceid=[A-Z0-9,-]+[&]*}i', '', $row['last_page_url']);
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->session_id) && ($row['session_id'] == $row['info']->session_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

@@ -40,7 +40,7 @@
         return sprintf(<<<'EOHTML'
           <ul class="list-group">
             <li class="list-group-item list-group-item-success d-flex align-items-center">
-              <i class="fas fa-5x fa-thumbs-up float-left mr-2"></i>
+              <i class="fas fa-5x fa-thumbs-up me-2"></i>
               %s
             </li>
           </ul>
@@ -51,19 +51,19 @@ EOHTML
       $output = '<ul class="list-group">';
         foreach ($messages['error'] ?? [] as $error) {
           $output .= '<li class="list-group-item list-group-item-danger d-flex align-items-center">';
-            $output .= '<i class="fas fa-5x fa-times-circle float-left mr-2 text-danger"></i>';
+            $output .= '<i class="fas fa-5x fa-times-circle me-2 text-danger"></i>';
             $output .= $error;
           $output .= '</li>';
         }
         foreach ($messages['warning'] ?? [] as $warning) {
           $output .= '<li class="list-group-item list-group-item-warning d-flex align-items-center">';
-            $output .= '<i class="fas fa-5x fa-times-circle float-left mr-2 text-warning"></i>';
+            $output .= '<i class="fas fa-5x fa-times-circle me-2 text-warning"></i>';
             $output .= $warning;
           $output .= '</li>';
         }
         foreach ($messages['info'] ?? [] as $info) {
           $output .= '<li class="list-group-item list-group-item-info d-flex align-items-center">';
-            $output .= '<i class="fas fa-5x fa-exclamation-circle float-left mr-2 text-info"></i>';
+            $output .= '<i class="fas fa-5x fa-exclamation-circle me-2 text-info"></i>';
             $output .= $info;
           $output .= '</li>';
         }

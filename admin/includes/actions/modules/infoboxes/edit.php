@@ -32,6 +32,6 @@
   $contents[] = ['text' => $keys];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $Admin->link('modules.php', ['set' => $set, 'module' => $_GET['module']])),
   ];

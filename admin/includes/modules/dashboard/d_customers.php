@@ -36,9 +36,9 @@
       $output = sprintf(<<<'EOTEXT'
 <table class="table table-striped table-hover mb-2">
  <thead>
-    <tr class="thead-dark">
+    <tr class="table-dark">
       <th>%s</th>
-      <th class="text-right">%s</th>
+      <th class="text-end">%s</th>
     </tr>
   </thead>
   <tbody>
@@ -54,7 +54,7 @@ EOTEXT
         $output .= sprintf(<<<'EOTEXT'
     <tr>
       <td><a href="%s">%s</a></td>
-      <td class="text-right">%s</td>
+      <td class="text-end">%s</td>
     </tr>
 EOTEXT
 , $GLOBALS['Admin']->link('customers.php', 'cID=' . (int)$customer_data->get('id', $customers) . '&action=edit'),

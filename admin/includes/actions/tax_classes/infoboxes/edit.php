@@ -20,6 +20,6 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_CLASS_DESCRIPTION, null) . '<br>' . new Input('tax_class_description', ['value' => $tcInfo->tax_class_description])];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
   ];

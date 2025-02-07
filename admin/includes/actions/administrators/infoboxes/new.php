@@ -19,13 +19,13 @@
 
   if (is_array($GLOBALS['htpasswd_lines'])) {
     $contents[] = [
-      'text' => '<div class="custom-control custom-switch">'
-              . new Tickable('htaccess', ['class' => 'custom-control-input', 'id' => 'aHtpasswd', 'value' => 'true'], 'checkbox')
-              . '<label for="aHtpasswd" class="custom-control-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>'];
+      'text' => '<div class="form-check form-switch">'
+              . new Tickable('htaccess', ['class' => 'form-check-input', 'id' => 'aHtpasswd', 'value' => 'true'], 'checkbox')
+              . '<label for="aHtpasswd" class="form-check-label text-muted"><small>' . TEXT_INFO_PROTECT_WITH_HTPASSWD . '</small></label></div>'];
   }
 
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . new Button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', [], $GLOBALS['Admin']->link('administrators.php')),
   ];

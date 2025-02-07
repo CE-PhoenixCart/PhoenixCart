@@ -21,7 +21,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->manufacturers_id) && ($row['manufacturers_id'] == $row['info']->manufacturers_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  const BOX_HEADING_MODULES = '<i data-content="Modules" data-toggle="popover" data-placement="left" class="fas fa-folder-open fa-fw mr-1"></i><span class="d-inline d-md-none">Modules</span>';
+  const BOX_HEADING_MODULES = '<i title="Modules" class="fas fa-folder-open fa-fw me-1"></i><span title="Modules" class="d-xl-none">Modules</span>';

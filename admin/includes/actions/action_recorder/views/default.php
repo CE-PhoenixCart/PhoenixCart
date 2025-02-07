@@ -54,14 +54,14 @@
       ],
       [
         'name' => TABLE_HEADING_DATE_ADDED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return $GLOBALS['date_time_formatter']->format((new Date($row['date_added']))->get_timestamp());
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->id) && ($row['info']->id === $row['id']))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
