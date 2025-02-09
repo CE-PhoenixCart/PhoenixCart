@@ -1281,6 +1281,7 @@ INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_clas
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'modules', 'injectBodyStart', 'update_table_definition', '', 'cfg_modules::hook_injectBodyStart');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('admin', 'orders', 'updateOrderAction', 'zz_message_update', '', 'Orders::message_update');
 
+INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'advanced_search_result', 'productListing', 'filter_category_brand', 'product_searcher', 'hook');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'injectFormDisplay', 'display_matc', 'cd_matc', 'hook');
 INSERT INTO hooks (hooks_site, hooks_group, hooks_action, hooks_code, hooks_class, hooks_method) VALUES ('shop', 'checkout_confirmation', 'injectFormVerify', 'verify_matc', 'cd_matc', 'is_checked');
 
