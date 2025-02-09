@@ -9,7 +9,7 @@
             echo '<a href="' . $link . '">' . new Image('images/' . $v['image'], [], htmlspecialchars($v['title'])) . '</a>';
           echo '</div>';
           echo '<div class="card-footer">';
-            echo '<a class="card-link" href="' . $link . '">' . $v['title'] . '</a>';
+            echo '<a class="text-dark-emphasis" href="' . $link . '">' . $v['title'] . '</a>';
           echo '</div>';
         echo '</div>' . PHP_EOL;
       echo '</div>';

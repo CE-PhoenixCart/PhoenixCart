@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -32,15 +32,15 @@ EOSQL
 ?>
     <div class="table-responsive">
       <table class="table table-hover table-striped">
-        <caption class="sr-only"><?= $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS) ?></caption>
-        <thead class="thead-dark">
+        <caption class="visually-hidden"><?= $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS) ?></caption>
+        <thead class="table-dark">
           <tr>
             <th scope="col"><?= TEXT_ORDER_NUMBER ?></th>
             <th scope="col" class="d-none d-md-table-cell"><?= TEXT_ORDER_STATUS ?></th>
             <th scope="col"><?= TEXT_ORDER_DATE ?></th>
             <th scope="col" class="d-none d-md-table-cell"><?= TEXT_ORDER_PRODUCTS ?></th>
             <th scope="col"><?= TEXT_ORDER_COST ?></th>
-            <th class="text-right" scope="col"><?= TEXT_VIEW_ORDER ?></th>
+            <th class="text-end" scope="col"><?= TEXT_VIEW_ORDER ?></th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +56,7 @@ EOSQL
               <td><?= Date::abridge($history['date_purchased']) ?></td>
               <td class="d-none d-md-table-cell"><?= $products['count'] ?></td>
               <td><?= strip_tags($history['order_total']) ?></td>
-              <td class="text-right"><?= new Button(BUTTON_VIEW_ORDER, '', 'btn-primary btn-sm', [], $order_link) ?></td>
+              <td class="text-end"><?= new Button(BUTTON_VIEW_ORDER, '', 'btn-primary btn-sm', [], $order_link) ?></td>
             </tr>
             <?php
           }

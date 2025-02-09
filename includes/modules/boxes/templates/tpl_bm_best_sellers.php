@@ -1,6 +1,6 @@
-<div class="card mb-2 bm-best-sellers">
+<div class="card mt-2 bm-best-sellers">
   <div class="card-header"><?= MODULE_BOXES_BEST_SELLERS_BOX_TITLE ?></div>
-  <div class="list-group list-group-flush">
+  <div class="list-group list-group-flush list-group-numbered">
     <?php
     foreach ($best_sellers as $best_seller) {
       echo '<a class="list-group-item list-group-item-action" href="' . $best_seller['link'] . '">' . $best_seller['text'] . '</a>' . PHP_EOL;

@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_IP_CONTENT_WIDTH ?> cm-gdpr-ip-addresses">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_IP_PUBLIC_TITLE ?></th>
       </tr>
@@ -15,7 +15,7 @@
             <?php
             foreach ($port_my_data['YOU']['IP']['LIST'] as $k) {
               echo '<li class="list-group-item">';
-                echo '<span class="float-right"><a title="DELETE" role="button" id="delete" data-ip-id="' . $k . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-ip">' . MODULE_CONTENT_GDPR_IP_DELETE . '</a></span>';
+                echo '<span class="float-end"><a title="DELETE" role="button" id="delete" data-ip-id="' . $k . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-ip">' . MODULE_CONTENT_GDPR_IP_DELETE . '</a></span>';
                 echo $k;
               echo '</li>';
             }

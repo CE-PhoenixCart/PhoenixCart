@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -40,25 +40,27 @@
 </head>
 <body>
 
-  <?=
-    $hooks->cat('injectBodyStart'),
-    $Template->get_content('navigation'),
-    $hooks->cat('injectBeforeHeader')
+  <?= 
+    $hooks->cat('injectBodyStart'), 
+    $Template->get_content('navigation'), 
+    $hooks->cat('injectBeforeHeader') 
   ?>
-  
-  <div class="header bg-light border-bottom">
+    
+  <div class="header bg-body-tertiary border-bottom">
     <div class="<?= BOOTSTRAP_CONTAINER ?>">
       <?php require $Template->map('header.php', 'component'); ?>
     </div>
   </div>
-  
+    
   <?= $hooks->cat('injectAfterHeader') ?>
-  
-  <div id="bodyWrapper" class="<?= BOOTSTRAP_CONTAINER ?> pt-2">
+
+  <div id="bodyWrapper" class="<?= BOOTSTRAP_CONTAINER ?>">
 
     <?= $hooks->cat('injectBodyWrapperStart') ?>
 
     <div class="row">
-      <div id="bodyContent" class="col order-1 order-md-2">
+      <div id="bodyContent" class="col order-1 order-md-2 mb-2 mb-md-0">
 
         <?= $hooks->cat('injectBodyContentStart') ?>
+        
+        <main>

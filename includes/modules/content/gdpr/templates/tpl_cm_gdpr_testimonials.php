@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_TESTIMONIALS_CONTENT_WIDTH ?> cm-gdpr-testimonials">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_TESTIMONIALS_PUBLIC_TITLE ?></th>
       </tr>
@@ -18,7 +18,7 @@
             <?php
             foreach ($port_my_data['YOU']['TESTIMONIAL']['LIST'] as $k => $v) {
               echo '<li class="list-group-item">';
-                echo '<span class="float-right">';
+                echo '<span class="float-end">';
                   if ($v['ANON'] != 'Y')  {
                     echo '<a title="ANON" role="button" id="anonymize" data-testimonial-id="' . $v['ID'] . '" class="btn btn-sm btn-info btn-update btn-update-testimonial">' . MODULE_CONTENT_GDPR_TESTIMONIALS_ANONYMIZE . '</a>';
                   }

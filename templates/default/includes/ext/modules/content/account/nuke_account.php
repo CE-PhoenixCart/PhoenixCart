@@ -18,26 +18,23 @@
 
 <h1 class="display-4"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_HEADING_TITLE ?></h1>
 
-<?= (new Form('account_destroy', $Linker->build('ext/modules/content/account/nuke_account.php'), 'post', ['class' => 'form-horizontal']))->hide('action', 'process') ?>
+<?= (new Form('account_destroy', $Linker->build('ext/modules/content/account/nuke_account.php'), 'post', ['class' => 'was-validated']))->hide('action', 'process') ?>
 
-<div class="contentContainer">
   <div class="alert alert-danger"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TEXT ?></div>
 
-  <div class="form-group row">
-    <div class="col-form-label col-sm-3 text-left text-sm-right"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TICKBOX ?></div>
-    <div class="col-sm-9 custom-control custom-switch">
-      <?= (new Tickable('nuke', ['value' => '1', 'class' => 'custom-control-input', 'id' => 'inputNuke'], 'checkbox'))->require(),
-          '<label for="inputNuke" class="custom-control-label text-muted"><small>' . MODULE_CONTENT_ACCOUNT_GDPR_NUKE_HELPER_TEXT . '</small></label>'
-      ?>
+  <div class="row mb-2">
+    <div class="col-sm-3 text-start text-sm-end"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TICKBOX ?></div>
+    <div class="col-sm-9">
+      <div class="form-check">
+        <?= (new Tickable('nuke', ['value' => '1', 'class' => 'form-check-input', 'id' => 'inputNuke'], 'checkbox'))->require(),
+          '<label for="inputNuke" class="form-check-label text-body-secondary"><small>' . MODULE_CONTENT_ACCOUNT_GDPR_NUKE_HELPER_TEXT . '</small></label>'
+        ?>
+      </div>
     </div>
   </div>
-
-  <div class="buttonSet">
-    <div class="text-right"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-trash', 'btn-danger btn-lg btn-block mb-2') ?></div>
-    <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
-  </div>
-
-</div>
+  
+  <div class="d-grid"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-trash', 'btn-danger btn-lg btn-block mb-2') ?></div>
+  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 </form>
 

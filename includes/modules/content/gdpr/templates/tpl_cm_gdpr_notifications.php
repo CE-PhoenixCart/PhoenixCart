@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_NOTIFICATIONS_CONTENT_WIDTH ?> cm-gdpr-notifications">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_NOTIFICATIONS_PUBLIC_TITLE ?></th>
       </tr>
@@ -15,7 +15,7 @@
             <?php
             foreach ($port_my_data['YOU']['NOTIFICATION']['LIST'] as $k => $v) {
               echo '<li class="list-group-item">';
-                echo '<span class="float-right"><a title="DELETE" role="button" id="delete" data-notification-id="' . $v['PID'] . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-notification">' . MODULE_CONTENT_GDPR_NOTIFICATIONS_DELETE . '</a></span>';
+                echo '<span class="float-end"><a title="DELETE" role="button" id="delete" data-notification-id="' . $v['PID'] . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-notification">' . MODULE_CONTENT_GDPR_NOTIFICATIONS_DELETE . '</a></span>';
                 printf(MODULE_CONTENT_GDPR_NOTIFICATIONS_EACH, $v['DATE'], $v['PRODUCT']);
               echo '</li>';
             }

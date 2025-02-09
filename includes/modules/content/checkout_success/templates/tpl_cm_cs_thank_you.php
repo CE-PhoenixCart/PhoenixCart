@@ -1,9 +1,9 @@
 <div class="<?= MODULE_CONTENT_CHECKOUT_SUCCESS_THANK_YOU_CONTENT_WIDTH ?> cm-cs-thank-you">
-  <h5 class="mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_TEXT_THANKS_FOR_SHOPPING ?></h5>
+  <p class="fs-5 fw-semibold mb-1"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_TEXT_THANKS_FOR_SHOPPING ?></p>
 
   <div class="border">
     <ul class="list-group list-group-flush">
-      <li class="list-group-item bg-light"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_TEXT_SUCCESS ?></li>
+      <li class="list-group-item"><?= MODULE_CONTENT_CHECKOUT_SUCCESS_TEXT_SUCCESS ?></li>
     </ul>
 
     <div class="list-group list-group-flush">
@@ -23,7 +23,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */

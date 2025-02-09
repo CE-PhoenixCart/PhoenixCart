@@ -1,5 +1,5 @@
 <div class="<?= PI_MANUFACTURER_CONTENT_WIDTH ?> pi-manufacturer">
-  <h6><?= PI_MANUFACTURER_HEADING ?></h6>
+  <p class="fs-6 fw-semibold mb-1"><?= PI_MANUFACTURER_HEADING ?></p>
   
   <div class="row align-items-center">
     <?php
@@ -18,7 +18,7 @@
         ?>
       </ul>
     </div>
-  </div>    
+  </div>
 </div>
 
 <?php

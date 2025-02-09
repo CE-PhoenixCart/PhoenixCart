@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -26,12 +26,12 @@
 <div class="alert alert-warning" role="alert">
   <div class="row">
     <div class="col-sm-9"><?= sprintf(TEXT_ORIGIN_LOGIN, $Linker->build('login.php')->retain_query_except()) ?></div>
-    <div class="col-sm-3 text-left text-sm-right"><span class="text-danger"><?= FORM_REQUIRED_INFORMATION ?></span></div>
+    <div class="col-sm-3 text-start text-sm-end"><span class="text-danger"><?= FORM_REQUIRED_INFORMATION ?></span></div>
   </div>
 </div>
 
 <?php
-  echo (new Form('create_account', $Linker->build(), 'post', [], true))->hide('action', 'process');
+  echo (new Form('create_account', $Linker->build(), 'post', ['class' => 'was-validated'], true))->hide('action', 'process');
 
   echo '<div class="row">';
   
@@ -48,7 +48,7 @@
 
     <div class="<?= $customer_data_group['customer_data_groups_width'] ?>">
 
-      <h4><?= $customer_data_group['customer_data_groups_name'] ?></h4>
+      <p class="fs-4 fw-semibold mb-1"><?= $customer_data_group['customer_data_groups_name'] ?></p>
 
       <?php
       foreach ($modules as $module) {
@@ -66,7 +66,9 @@
   echo '</div>';
 ?>
 
-  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-user', 'btn-success btn-block btn-lg') ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-user', 'btn-success btn-lg mt-2') ?>
+  </div>
 
 </form>
 

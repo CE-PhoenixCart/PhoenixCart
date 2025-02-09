@@ -5,12 +5,14 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
-  Released under the GNU General Public License
+  Released under the GNU General Public License 
 */
 ?>
 
+        </main>
+      
       <?= $hooks->cat('injectBodyContentEnd') ?>
 
       </div> <!-- bodyContent //-->
@@ -19,7 +21,7 @@
   if ( $Template->has_blocks('boxes_column_left') && ($tpl_template->getGridColumnWidth() > 0) ) {
 ?>
 
-      <div id="columnLeft" class="col-md-<?= $tpl_template->getGridColumnWidth() ?> order-6 order-md-1">
+      <div id="columnLeft" class="col-md-<?= $tpl_template->getGridColumnWidth() ?> order-2 order-md-1">
         <?= $Template->get_blocks('boxes_column_left') ?>
       </div>
 

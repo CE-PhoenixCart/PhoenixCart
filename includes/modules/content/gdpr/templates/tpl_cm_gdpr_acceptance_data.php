@@ -3,19 +3,19 @@
   <?php
   foreach ($agreed_pages as $k => $v) {
     ?>
-    <table class="table table-striped table-hover">
-      <thead class="thead-dark">
+    <table class="table table-striped">
+      <thead class="table-dark">
         <tr>
           <th colspan="2"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_PUBLIC_TITLE, $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE']) ?></th>
         </tr>
         <tr>
-          <td colspan="2"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_EXPLANATION, $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE'], $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['ACCEPTED']) ?></td>
+          <td colspan="2" class="bg-white text-dark"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_EXPLANATION, $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE'], $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['ACCEPTED']) ?></td>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th class="w-50"><?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS ?></th>
-          <td><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#<?= $v ?>Modal"><?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS_VIEW_BUTTON ?></button></td>
+          <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#<?= $v ?>Modal"><?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS_VIEW_BUTTON ?></button></td>
         </tr>
         <tr>
           <th><?= MODULE_CONTENT_GDPR_ACCEPTANCE_LANGUAGE ?></th>
@@ -49,7 +49,7 @@ foreach ($agreed_pages as $k => $v) {
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2024 Phoenix Cart
+  Copyright (c) 2021 Phoenix Cart
 
   Released under the GNU General Public License
 */

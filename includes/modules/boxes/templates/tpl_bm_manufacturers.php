@@ -1,4 +1,4 @@
-<div class="card mb-2 bm-manufacturers">
+<div class="card mt-2 bm-manufacturers">
   <div class="card-header"><?= MODULE_BOXES_MANUFACTURERS_BOX_TITLE ?></div>
 <?php
   if ($number_of_rows <= MODULE_BOXES_MANUFACTURERS_MAX_LIST) {

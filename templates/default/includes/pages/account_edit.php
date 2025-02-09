@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -23,19 +23,20 @@
     echo $messageStack->output($message_stack_area);
   }
 
-  echo (new Form('account_edit', $Linker->build()))->hide('action', 'process');
-?>
+  echo (new Form('account_edit', $Linker->build(), 'post', ['class' => 'was-validated']))->hide('action', 'process');
 
-  <div class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></div>
-
-  <?php
   $customer_data->display_input($customer_data->get_fields_for_page('account_edit'), $customer->fetch_to_address());
   echo $hooks->cat('injectFormDisplay');
 ?>
 
-  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
-
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
+  </div>
+  
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?>
+  </div>
+  
 </form>
 
 <?php

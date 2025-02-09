@@ -5,7 +5,7 @@
     echo $brand_icons;
   } else {
     foreach ($brand_icons as $icon ) {
-      echo '<i class="' . $icon . ' mr-1 me-1"></i> ';
+      echo '<i class="fab fa-' . $icon . ' fa-lg"></i> ';
     }
   }
 
@@ -19,7 +19,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */

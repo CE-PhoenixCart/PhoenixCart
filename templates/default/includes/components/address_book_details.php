@@ -5,13 +5,11 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
 ?>
-
-  <p class="text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
 
   <div class="contentText">
 
@@ -29,11 +27,11 @@
   if ( !isset($_GET['edit']) || ($customer->get('default_address_id') != $_GET['edit']) ) {
 ?>
 
-      <div class="form-group row">
-        <label for="primary" class="col-form-label col-sm-3 text-left text-sm-right"><?= SET_AS_PRIMARY ?></label>
+      <div class="row mb-2">
+        <label for="primary" class="form-check-label col-sm-3 text-start text-sm-end"><?= SET_AS_PRIMARY ?></label>
         <div class="col-sm-9">
-          <div class="checkbox">
-            <label><?= new Tickable('primary', ['value' => 'on', 'id' => 'primary', 'class' => ''], 'checkbox') ?></label>
+          <div class="form-check">
+            <?= new Tickable('primary', ['value' => 'on', 'id' => 'primary', 'class' => 'form-check-input'], 'checkbox') ?>
           </div>
         </div>
       </div>

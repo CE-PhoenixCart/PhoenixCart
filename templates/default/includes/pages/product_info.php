@@ -14,7 +14,7 @@
 ?>
 
 
-<?= new Form('cart_quantity', $Linker->build('product_info.php')->retain_query_except()->set_parameter('action', 'add_product'), 'post', ['role' => 'form']) ?>
+<?= new Form('cart_quantity', $Linker->build('product_info.php')->retain_query_except()->set_parameter('action', 'add_product'), 'post', ['class' => 'was-validated']) ?>
 
 <?php
   if ($messageStack->size('product_action') > 0) {

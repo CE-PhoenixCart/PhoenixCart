@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -27,22 +27,23 @@
 ?>
 
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-7 mb-3">
       <h5 class="mb-1"><?= TABLE_HEADING_ADDRESS_BOOK_ENTRIES ?></h5>
-      <div><?= (new Form('select_address', $Linker->build('checkout_payment_address.php')))->hide('action', 'select') ?>
-        <table class="table border-right border-left border-bottom table-hover m-0">
+      <div><?= (new Form('select_address', $Linker->build('checkout_payment_address.php'), 'post', ['class' => 'was-validated']))->hide('action', 'select') ?>
+        <table class="table border table-hover m-0">
           <?php
   $addresses_query = $customer->get_all_addresses_query();
   while ($address = $addresses_query->fetch_assoc()) {
     $label_for = 'cpa_' . $address['address_book_id'];
-    $tickable = new Tickable('address', ['value' => $address['address_book_id'], 'id' => $label_for, 'aria-describedby' => $label_for, 'class' => 'custom-control-input'], 'radio');
+    $tickable = new Tickable('address', ['value' => $address['address_book_id'], 'id' => $label_for, 'aria-describedby' => $label_for, 'class' => 'form-check-input'], 'radio');
 ?>
           <tr class="table-selection">
-            <td><label for="cpa_<?= $address['address_book_id'] ?>"><?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?></label></td>
-            <td align="text-right">
-              <div class="custom-control custom-radio custom-control-inline">
+            <td>
+              <label for="<?= $label_for ?>"><?= $customer_data->get_module('address')->format($address, true, ' ', ', ') ?></label>
+            </td>
+            <td class="text-end">
+              <div class="form-check">
                 <?= $tickable->tick($address['address_book_id'] == $_SESSION['billto']) ?>
-                <label class="custom-control-label" for="<?= $label_for ?>">&nbsp;</label>
               </div>
             </td>
           </tr>
@@ -51,7 +52,9 @@
 ?>
         </table>
         <div class="mt-1">
-          <?= new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block') ?>
+          <div class="d-grid">
+            <?= new Button(BUTTON_SELECT_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg') ?>
+          </div>
         </div>
       </form></div>
     </div>
@@ -68,28 +71,30 @@
 
   <?php
   if ($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) {
-    $form = new Form('checkout_new_address', $Linker->build('checkout_payment_address.php'));
+    $form = new Form('checkout_new_address', $Linker->build('checkout_payment_address.php'), 'post', ['class' => 'was-validated']);
 ?>
 
     <hr>
 
     <h5 class="mb-1"><?= TABLE_HEADING_NEW_PAYMENT_ADDRESS ?></h5>
 
-    <div class="row">
-      <div class="col-sm-9"><p class="font-weight-lighter"><?= TEXT_CREATE_NEW_PAYMENT_ADDRESS ?></p></div>
-      <div class="col-sm-3 text-left text-sm-right"><span class="text-danger"><?= FORM_REQUIRED_INFORMATION ?></span></div>
-    </div>
+    <p class="fw-lighter"><?= TEXT_CREATE_NEW_PAYMENT_ADDRESS ?></p>
 
     <?php
     echo $form->hide('action', 'submit') . PHP_EOL;
     require $Template->map('checkout_new_address.php', 'component');
     echo $hooks->cat('injectFormDisplay');
-    echo new Button(BUTTON_ADD_NEW_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg btn-block');
+    
+    echo '<div class="d-grid">';
+    echo new Button(BUTTON_ADD_NEW_ADDRESS, 'fas fa-user-cog', 'btn-success btn-lg');
+    echo '</div>';
     echo '</form>' . PHP_EOL;
   }
 ?>
 
-  <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light mt-1', [], $Linker->build('checkout_payment.php')) ?>
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('checkout_payment.php')) ?>
+  </div>
 
 <?php
   require $Template->map('template_bottom.php', 'component');
