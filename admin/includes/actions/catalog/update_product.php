@@ -28,6 +28,7 @@
     'products_gtin' => (Text::is_empty($_POST['products_gtin']))
                      ? 'NULL'
                      : str_pad(Text::prepare($_POST['products_gtin']), 14, '0', STR_PAD_LEFT),
+    'importers_id' => (int)Text::input($_POST['importers_id']),
   ];
 
   $products_image = new upload('products_image');

@@ -34,11 +34,15 @@
       'products_seo_description' => '',
       'products_seo_keywords' => '',
       'products_seo_title' => '',
+      'importers_id' => '',
     ]);
   }
 
   $manufacturers_array = array_merge([['id' => '', 'text' => TEXT_NONE]],
     $db->fetch_all("SELECT manufacturers_id AS id, manufacturers_name AS text FROM manufacturers ORDER BY manufacturers_name"));
+    
+  $importers_array = array_merge([['id' => '', 'text' => TEXT_NONE]],
+    $db->fetch_all("SELECT importers_id AS id, importers_name AS text FROM importers ORDER BY importers_name"));
 
   $tax_classes = array_merge([['id' => '0', 'text' => TEXT_NONE]], Tax::fetch_classes());
   
@@ -170,6 +174,13 @@ function updateNet() {
           <label for="pBrand" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_PRODUCTS_MANUFACTURER ?></label>
           <div class="col-sm-9">
             <?= (new Select('manufacturers_id', $manufacturers_array, ['class' => 'form-select', 'id' => 'pBrand']))->set_selection($product->get('manufacturers_id') ?? '') ?>
+          </div>
+        </div>
+        
+        <div class="row mb-2" id="zImporter">
+          <label for="pImporter" class="col-form-label col-sm-3 text-start text-sm-end"><?= TEXT_PRODUCTS_IMPORTER ?></label>
+          <div class="col-sm-9">
+            <?= (new Select('importers_id', $importers_array, ['class' => 'form-select', 'id' => 'pImporter']))->set_selection($product->get('importers_id') ?? '') ?>
           </div>
         </div>
 

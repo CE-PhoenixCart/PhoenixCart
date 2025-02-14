@@ -76,6 +76,7 @@ const TEXT_PRODUCTS_DATE_AVAILABLE_HELP = '';
 const TEXT_PRODUCT_AVAILABLE = 'In Stock';
 const TEXT_PRODUCT_NOT_AVAILABLE = 'Out of Stock';
 const TEXT_PRODUCTS_MANUFACTURER = 'Products Manufacturer';
+const TEXT_PRODUCTS_IMPORTER = 'Products Importer';
 const TEXT_PRODUCTS_NAME = 'Products Name';
 const TEXT_PRODUCTS_DESCRIPTION = 'Products Description';
 const TEXT_PRODUCTS_QUANTITY = 'Products Quantity';
