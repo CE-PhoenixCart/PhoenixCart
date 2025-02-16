@@ -82,6 +82,7 @@
         
         $checkbox->set('id', 'check_' . $n);
         $checkbox->tick(isset($key_values[$key]) || array_key_exists($key, $key_values));
+        $checkbox->set('value', $key);
 
         $string .= <<<EOT
 <div class="form-check">
