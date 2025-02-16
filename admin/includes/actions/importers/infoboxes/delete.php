@@ -17,10 +17,10 @@
   $contents = ['form' => new Form('importers', (clone $link)->set_parameter('action', 'delete_confirm'))];
   $contents[] = ['text' => TEXT_DELETE_INTRO];
   $contents[] = ['text' => '<strong>' . $iInfo->importers_name . '</strong>'];
-  $contents[] = ['text' => '<div class="form-check form-switch">' . new Tickable('delete_image', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'mDeleteImg'], 'checkbox') . '<label for="mDeleteImg" class="form-check-label text-muted"><small>' . TEXT_DELETE_IMAGE . '</small></label></div>'];
+  $contents[] = ['text' => '<div class="form-check form-switch">' . new Tickable('delete_image', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'iDeleteImg'], 'checkbox') . '<label for="iDeleteImg" class="form-check-label text-muted"><small>' . TEXT_DELETE_IMAGE . '</small></label></div>'];
 
   if ($iInfo->products_count > 0) {
-    $contents[] = ['text' => '<div class="form-check form-switch">' . new Tickable('delete_products', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'mDeleteProducts'], 'checkbox') . '<label for="mDeleteProducts" class="form-check-label text-muted"><small>' . TEXT_DELETE_PRODUCTS . '</small></label></div>'];
+    $contents[] = ['text' => '<div class="form-check form-switch">' . new Tickable('delete_products', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'iDeleteProducts'], 'checkbox') . '<label for="iDeleteProducts" class="form-check-label text-muted"><small>' . TEXT_DELETE_PRODUCTS . '</small></label></div>'];
     $contents[] = ['text' => sprintf(TEXT_DELETE_WARNING_PRODUCTS, $iInfo->products_count)];
   }
 
