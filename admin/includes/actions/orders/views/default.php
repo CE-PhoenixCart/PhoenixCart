@@ -53,23 +53,23 @@ EOSQL
       ],
       [
         'name' => TABLE_HEADING_DATE_PURCHASED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return $row['date_purchased'];
         },
       ],
       [
         'name' => TABLE_HEADING_STATUS,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return $row['orders_status_name'];
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
-          return '<a href="' . $row['onclick'] . '"><i class="fas fa-cogs mr-2 text-dark"></i></a>'
+          return '<a href="' . $row['onclick'] . '"><i class="fas fa-cogs me-2 text-dark"></i></a>'
                . ((isset($row['info']->orders_id))
                 ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                 : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>');
@@ -104,10 +104,10 @@ EOSQL
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
       $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
-      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ml-2', $Admin->link('orders.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ms-2', $Admin->link('orders.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       $admin_hooks->cat('extraButtons')
       ?>
     </div>
@@ -123,9 +123,7 @@ EOSQL
 
       echo (new Form('orders', $Admin->link('orders.php'), 'get'))->hide_session_id()->hide('action', 'edit'),
          '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
-           '</div>',
+           '<span class="input-group-text">', HEADING_TITLE_SEARCH, '</span>',
            new Input('oID', ['value' => $keywords], 'number'),
          '</div>',
        '</form>'
@@ -134,10 +132,8 @@ EOSQL
     <div class="col-6 align-self-center">
       <?= (new Form('status', $Admin->link('orders.php'), 'get'))->hide_session_id(),
          '<div class="input-group mb-1">',
-           '<div class="input-group-prepend">',
-             '<span class="input-group-text">', HEADING_TITLE_STATUS, '</span>',
-           '</div>',
-           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['class' => 'custom-select', 'onchange' => 'this.form.submit()']),
+           '<span class="input-group-text">', HEADING_TITLE_STATUS, '</span>',
+           new Select('status', array_merge([['id' => '', 'text' => TEXT_ALL_ORDERS]], order_status::fetch_options()), ['class' => 'form-select', 'onchange' => 'this.form.submit()']),
          '</div>',
        '</form>'
        ?>

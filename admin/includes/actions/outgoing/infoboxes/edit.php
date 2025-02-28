@@ -26,6 +26,6 @@
 
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

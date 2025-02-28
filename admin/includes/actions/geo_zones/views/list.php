@@ -27,7 +27,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->association_id) && ($row['info']->association_id === $row['association_id']))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'
@@ -71,7 +71,7 @@ EOSQL
 
       return <<<"EOHTML"
           <div class="row">
-            <div class="col"><p class="pt-2 text-right">{$button}</p></div>
+            <div class="col"><p class="pt-2 text-end">{$button}</p></div>
           </div>
 EOHTML;
     }

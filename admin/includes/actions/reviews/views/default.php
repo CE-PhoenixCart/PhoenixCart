@@ -48,7 +48,7 @@ EOSQL
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) use ($customer_data) {
           return (isset($row['info']->reviews_id) && ($row['info']->reviews_id === $row['reviews_id']))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

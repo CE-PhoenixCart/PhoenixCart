@@ -22,9 +22,9 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(BUTTON_INSERT_NEW_IMPORTER, 'fas fa-id-card', 'btn-danger', $Admin->link('importers.php', ['action' => 'new']))

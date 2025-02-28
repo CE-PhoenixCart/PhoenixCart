@@ -30,8 +30,13 @@ EOSQL
   if ($subcategory_products_check['total'] > 0) {
     $contents[] = ['text' => TEXT_DELETE_WARNING];
   }
+  
+  $contents[] = [
+    'class' => 'd-grid',
+    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger btn-lg mb-1'),
+  ];
+  
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger btn-block btn-lg mb-1')
-            . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $Admin->link('catalog.php', ['cPath' => $cPath, 'cID' => $cInfo->categories_id])),
+    'text' => $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $Admin->link('catalog.php', ['cPath' => $cPath, 'cID' => $cInfo->categories_id])),
   ];

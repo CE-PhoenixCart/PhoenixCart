@@ -65,7 +65,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item border-top"><?= new Input('username', $input_parameters + ['placeholder' => TEXT_USERNAME, 'autocomplete' => 'username', 'autofocus' => 'autofocus']) ?></li>
           <li class="list-group-item"><?= new Input('password', $input_parameters + ['placeholder' => TEXT_PASSWORD, 'autocomplete' => 'current-password'], 'password') ?></li>
-          <li class="list-group-item border-bottom-0"><?= new Button($button_text, 'fas fa-key', 'btn-success btn-block') ?></li>
+          <li class="list-group-item border-bottom-0 d-grid"><?= new Button($button_text, 'fas fa-key', 'btn-success') ?></li>
         </ul>
       </form>
 
@@ -75,7 +75,7 @@
       <div class="card-footer">
         <?=
           (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
-          (new Select('language', $languages, ['class' => 'custom-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
+          (new Select('language', $languages, ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
           '</form>'
         ?>
       </div>

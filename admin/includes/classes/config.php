@@ -27,11 +27,11 @@
     }
 
     public static function select_country($country_id) {
-      return (new Select('configuration_value', Country::fetch_options(), ['class' => 'custom-select']))->set_selection($country_id);
+      return (new Select('configuration_value', Country::fetch_options(), ['class' => 'form-select']))->set_selection($country_id);
     }
 
     public static function select_customer_data_group($id, $key = '') {
-      return (new Select(static::name($key), customer_data_group::fetch_options(), ['class' => 'custom-select']))->set_selection($id);
+      return (new Select(static::name($key), customer_data_group::fetch_options(), ['class' => 'form-select']))->set_selection($id);
     }
 
     public static function select_geo_zone($zone_class_id, $key) {
@@ -40,7 +40,7 @@
         array_merge(
           [['id' => '0', 'text' => TEXT_NONE]],
           geo_zone::fetch_options()
-        ), ['class' => 'custom-select']))->set_selection($zone_class_id);
+        ), ['class' => 'form-select']))->set_selection($zone_class_id);
     }
 
     public static function select_at_least_one($selections, $key_values, $key_name = null) {
@@ -67,9 +67,9 @@
       }
 
       $key_name .= '[]';
-      $checkbox = new Tickable($key_name, ['class' => ' '], 'checkbox');
+      $checkbox = new Tickable($key_name, ['class' => 'form-check-input'], 'checkbox');
 
-      $string = '';
+      $string = ''; $n = 1;
       foreach ($selections as $key => $text) {
         if (is_int($key)) {
           if (is_array($text)) {
@@ -79,25 +79,38 @@
             $key = $text;
           }
         }
-
+        
+        $checkbox->set('id', 'check_' . $n);
         $checkbox->tick(isset($key_values[$key]) || array_key_exists($key, $key_values));
+        $checkbox->set('value', $key);
 
-        $string .= PHP_EOL . '<br><label>' . $checkbox->set('value', $key) . ' ' . $text . '</label>';
+        $string .= <<<EOT
+<div class="form-check">
+  $checkbox
+  <label class="form-check-label" for="check_{$n}">
+    {$text}
+  </label>
+</div>
+EOT;
+
+        $n++;
       }
 
       return $string;
     }
 
     public static function select_one($select_options, $key_value, $key = '') {
-      $string = '';
+      $string = ''; $n = 1;
       foreach ($select_options as $select_option) {
-        $radio = new Tickable(static::name($key), ['value' => $select_option, 'class' => ''], 'radio');
+        $radio = new Tickable(static::name($key), ['id' => 'select_one_' . $n, 'value' => $select_option, 'class' => 'form-check-input'], 'radio');
 
         if ($key_value == $select_option) {
           $radio->tick();
         }
 
-        $string .= "<br><label>$radio $select_option</label>";
+        $string .= "<div class=\"form-check\">$radio<label class=\"form-check-label\" for=\"select_one_$n\">$select_option</label></div>";
+        
+        $n++;
       }
 
       return $string;
@@ -114,7 +127,7 @@ SELECT orders_status_id AS id, orders_status_name AS text
 EOSQL
         , (int)$_SESSION['languages_id'])));
 
-      return (new Select(static::name($key), $statuses, ['class' => 'custom-select']))->set_selection($order_status_id);
+      return (new Select(static::name($key), $statuses, ['class' => 'form-select']))->set_selection($order_status_id);
     }
 
     public static function select_tax_class($tax_class_id, $key = '') {
@@ -122,7 +135,7 @@ EOSQL
 
       return (new Select($name, array_merge(
         [['id' => '0', 'text' => TEXT_NONE]],
-        Tax::fetch_classes()), ['class' => 'custom-select']))->set_selection($tax_class_id);
+        Tax::fetch_classes()), ['class' => 'form-select']))->set_selection($tax_class_id);
     }
 
     public static function select_template($key_value, $key = null) {
@@ -139,7 +152,7 @@ EOSQL
     public static function select_zone_by($country_id = STORE_COUNTRY, $zone_id = '') {
       $zones = Zone::fetch_by_country($country_id);
       return (is_array($zones) && count($zones))
-           ? (new Select('configuration_value', $zones, ['class' => 'custom-select']))->set_selection($zone_id)
+           ? (new Select('configuration_value', $zones, ['class' => 'form-select']))->set_selection($zone_id)
            : new Input('configuration_value', ['value' => $zone_id]);
     }
 

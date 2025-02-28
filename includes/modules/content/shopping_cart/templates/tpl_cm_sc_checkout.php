@@ -1,18 +1,20 @@
 <div class="<?= MODULE_CONTENT_SC_CHECKOUT_CONTENT_WIDTH ?> cm-sc-checkout">
 
-  <?= new Button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', 'btn-success btn-lg btn-block', [], $GLOBALS['Linker']->build('checkout_shipping.php')) ?>
+  <div class="d-grid">
+    <?= new Button(MODULE_CONTENT_SC_CHECKOUT_BUTTON_CHECKOUT, 'fas fa-angle-right', 'btn-success btn-lg', [], $GLOBALS['Linker']->build('checkout_shipping.php')) ?>
+  </div>
 
 <?php
     if (!empty($initialize_checkout_methods)) {
 ?>
   <div class="w-100"></div>
-  <p class="text-right"><?= MODULE_CONTENT_SC_CHECKOUT_ALTERNATIVE_CHECKOUT_METHODS ?></p>
+  <p class="text-end"><?= MODULE_CONTENT_SC_CHECKOUT_ALTERNATIVE_CHECKOUT_METHODS ?></p>
 
 <?php
       foreach($initialize_checkout_methods as $value) {
 ?>
 
-  <p class="text-right"><?= $value ?></p>
+  <p class="text-end"><?= $value ?></p>
 
 <?php
       }

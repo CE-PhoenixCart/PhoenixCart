@@ -1,5 +1,6 @@
 <div class="<?= MODULE_CONTENT_FOOTER_TEXT_CONTENT_WIDTH ?> cm-footer-text">
-  <h4><?= MODULE_CONTENT_FOOTER_TEXT_HEADING_TITLE ?></h4>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_FOOTER_TEXT_HEADING_TITLE ?></p>
+  
   <?= MODULE_CONTENT_FOOTER_TEXT_TEXT ?>
 </div>
 

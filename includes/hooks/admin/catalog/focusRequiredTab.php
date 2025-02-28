@@ -15,15 +15,43 @@ class hook_admin_catalog_focusRequiredTab {
   public function listen_injectSiteEnd() {
     $focusTab = <<<'ft'
 <script>
-$(function () {
-  $('button[type="submit"]').click(function() {
-    var id = $('.tab-pane').find(':required:invalid').closest('.tab-pane').attr('id');
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('button[type="submit"]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var invalidElement = Array.from(document.querySelectorAll('.tab-pane :required:invalid')).find(function (input) {
+        return input.closest('.tab-pane');
+      });
 
-    $('.nav a[href="#' + id + '"]').tab('show'); $('.tab-pane').find(':required:invalid').closest('.collapse').addClass('show');
+      if (invalidElement) {
+        var tabPane = invalidElement.closest('.tab-pane');
+        var tabId = tabPane ? tabPane.id : null;
 
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) { $("form[name='new_product']")[0].reportValidity(); })
-  })
-})
+        if (tabId) {
+          var tabLink = document.querySelector('.nav a[href="#' + tabId + '"]');
+          if (tabLink) {
+            var tabEvent = new Event('click');
+            tabLink.dispatchEvent(tabEvent);
+          }
+        }
+
+        var collapseSection = invalidElement.closest('.collapse');
+        if (collapseSection) {
+          collapseSection.classList.add('show');
+        }
+
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(function (tab) {
+          tab.addEventListener('shown.bs.tab', function () {
+            var form = document.querySelector("form[name='new_product']");
+            if (form) {
+              form.reportValidity();
+            }
+          });
+        });
+      }
+    });
+  });
+});
+
 </script>
 ft;
 

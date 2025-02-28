@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -42,27 +42,37 @@
     </div>
   </div>
 
-  <p><?= new Button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn-danger btn-lg btn-block', [], $Linker->build('address_book_process.php', ['delete' => $_GET['delete'], 'action' => 'deleteconfirm', 'formid' => $_SESSION['sessiontoken']])) ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('address_book.php')) ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_DELETE, 'fas fa-trash-alt', 'btn-danger btn-lg', [], $Linker->build('address_book_process.php', ['delete' => $_GET['delete'], 'action' => 'deleteconfirm', 'formid' => $_SESSION['sessiontoken']])) ?>
+  </div>
+  
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('address_book.php')) ?>
+  </div>
 
 <?php
   } else {
-    $form = new Form('addressbook', $Linker->build('address_book_process.php', (isset($_GET['edit']) ? ['edit' => $_GET['edit']] : [])));
+    $form = new Form('addressbook', $Linker->build('address_book_process.php', (isset($_GET['edit']) ? ['edit' => $_GET['edit']] : [])), 'post', ['class' => 'was-validated']);
     $form->hide('formid', $_SESSION['sessiontoken']);
     if (is_numeric($_GET['edit'] ?? null)) {
       $form->hide('action', 'update')->hide('edit', $_GET['edit']);
-      $action_button = new Button(IMAGE_BUTTON_UPDATE, 'fas fa-sync', 'btn-success btn-lg btn-block');
+      $action_button = new Button(IMAGE_BUTTON_UPDATE, 'fas fa-sync', 'btn-success btn-lg');
     } else {
       $form->hide('action', 'process');
-      $action_button = new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block');
+      $action_button = new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg');
     }
     echo $form;
 
     include $Template->map('address_book_details.php', 'component');
 ?>
 
-  <p><?= $action_button ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $back_link) ?></p>
+  <div class="d-grid">
+    <?= $action_button ?>
+  </div>
+  
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $back_link) ?>
+  </div>
 
 </form>
 

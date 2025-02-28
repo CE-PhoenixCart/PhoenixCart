@@ -17,8 +17,8 @@
     $link = $GLOBALS['Admin']->link('specials.php')->retain_query_except()->set_parameter('sID', $sInfo->specials_id);
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
-              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', $link->set_parameter('action', 'delete')),
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('action', 'edit'))
+              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2', $link->set_parameter('action', 'delete')),
     ];
     $contents[] = ['text' => TEXT_INFO_DATE_ADDED . ' ' . Date::abridge($sInfo->specials_date_added)];
     $contents[] = ['text' => TEXT_INFO_LAST_MODIFIED . ' ' . Date::abridge($sInfo->specials_last_modified)];

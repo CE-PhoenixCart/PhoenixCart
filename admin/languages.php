@@ -15,7 +15,7 @@
   
   $get_addons_link = '';
   $get_addons_link .= '<div class="btn-group" role="group">';
-    $get_addons_link .= '<button type="button" class="btn btn-dark mr-2 dropdown-toggle" data-toggle="dropdown" aria-expanded="false">';
+    $get_addons_link .= '<button type="button" class="btn btn-dark me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">';
       $get_addons_link .= GET_ADDONS;
     $get_addons_link .= '</button>';
     $get_addons_link .= '<div class="dropdown-menu">';
@@ -36,10 +36,10 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
       $get_addons_link,
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(IMAGE_NEW_LANGUAGE, 'fas fa-comment-dots', 'btn-danger', $Admin->link('languages.php', ['action' => 'new']))

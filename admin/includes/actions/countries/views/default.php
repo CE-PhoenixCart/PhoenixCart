@@ -40,7 +40,7 @@
       ],
       [
         'name' => TABLE_HEADING_STATUS,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           $href = (clone $row['onclick'])->set_parameter('action', 'set_flag');
           return ($row['status'] == '1')
@@ -50,7 +50,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return ((isset($row['info']->countries_id))
                 ? '<i class="fas fa-chevron-circle-right text-info"></i>'

@@ -35,7 +35,7 @@
       }
     }
 
-    public static function select($name, $parameters = [], $selected = '', $class = 'custom-select') {
+    public static function select($name, $parameters = [], $selected = '', $class = 'form-select') {
       return (new Select($name, array_merge(
         [['id' => '', 'text' => '--- ' . IMAGE_SELECT . ' ---']],
         iterator_to_array(static::generate(), false)

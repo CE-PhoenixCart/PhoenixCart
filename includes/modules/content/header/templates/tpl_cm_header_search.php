@@ -2,9 +2,7 @@
   <?= (new Form('quick_find', $GLOBALS['Linker']->build('advanced_search_result.php', [], false), 'get'))->hide_session_id() ?>
     <div class="input-group">
       <?= (new Input('keywords', ['autocomplete' => 'off', 'aria-label' => TEXT_SEARCH_PLACEHOLDER, 'placeholder' => TEXT_SEARCH_PLACEHOLDER], 'search'))->require() ?>
-      <div class="input-group-append">
-        <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
-      </div>
+      <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
     </div>
   </form>
 </div>
@@ -16,7 +14,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */

@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -23,7 +23,7 @@
 <h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
-  echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['onsubmit' => 'return check_form();'], true);
+  echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['class' => 'was-validated', 'onsubmit' => 'return check_form();'], true);
 
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
     echo '<div class="alert alert-danger">' . "\n";
@@ -36,22 +36,22 @@
 ?>
 
   <div class="row">
-    <div class="col-sm-7">
-      <h5 class="mb-1"><?= TABLE_HEADING_PAYMENT_METHOD ?></h5>
+    <div class="col-sm-7 mb-3">
+      <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_PAYMENT_METHOD ?></p>
+      
       <div>
-        <table class="table border-right border-left border-bottom table-hover m-0">
+        <table class="table border table-hover m-0">
           <?php
           foreach ($selection as $choice) {
             ?>
             <tr class="table-selection">
-              <td><?= $choice['module'] ?></td>
-              <td class="text-right">
+              <td><label class="form-check-label" for="p_<?= $choice['id'] ?>"><?= $choice['module'] ?></label></td>
+              <td class="text-end">
                 <?php
                 if (count($selection) > 1) {
-                  $tickable = new Tickable('payment', ['value' => $choice['id'], 'id' => "p_{$choice['id']}", 'class' => 'custom-control-input'], 'radio');
-                  echo '<div class="custom-control custom-radio custom-control-inline">';
-                  echo $tickable->require()->tick($choice['id'] === ($_SESSION['payment'] ?? false));
-                  echo '<label class="custom-control-label" for="p_' . $choice['id'] . '">&nbsp;</label>';
+                  $tickable = new Tickable('payment', ['value' => $choice['id'], 'id' => "p_{$choice['id']}", 'class' => 'form-check-input'], 'radio');
+                  echo '<div class="form-check form-check-inline">';
+                    echo $tickable->require()->tick($choice['id'] === ($_SESSION['payment'] ?? false));
                   echo '</div>';
                 } else {
                   echo new Input('payment', ['value' => $choice['id']], 'hidden');
@@ -82,18 +82,14 @@
 
         <?php
         if (count($selection) == 1) {
-          echo '<p class="m-2 font-weight-lighter">' . TEXT_ENTER_PAYMENT_INFORMATION . "</p>\n";
+          echo '<p class="m-2 fw-lighter">' . TEXT_ENTER_PAYMENT_INFORMATION . '</p>';
         }
         ?>
       </div>
     </div>
     <div class="col-sm-5">
-      <h5 class="mb-1">
-        <?=
-        TABLE_HEADING_BILLING_ADDRESS,
-        sprintf(LINK_TEXT_EDIT, 'font-weight-lighter ml-3', $Linker->build('checkout_payment_address.php'))
-        ?>
-      </h5>
+      <p class="fs-5 fw-semibold mb-1"><?= TABLE_HEADING_BILLING_ADDRESS, sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-3', $Linker->build('checkout_payment_address.php')) ?></p>
+        
       <div class="border">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><?= PAYMENT_FA_ICON . $customer->make_address_label($_SESSION['billto'], true, ' ', '<br>') ?>
@@ -105,13 +101,17 @@
 
   <?= $hooks->cat('injectFormDisplay') ?>
 
-  <p class="mt-3"><?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
+  <div class="d-grid mt-3">
+    <?= new Button(BUTTON_CONTINUE_CHECKOUT_PROCEDURE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
+  </div>
 
   <div class="progressBarHook">
-    <?php
-    $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 2, 'min' => 0, 'max' => 100, 'now' => 67]];
-    echo $hooks->cat('progressBar', $parameters);
-    ?>
+
+  <?php
+  $parameters = ['style' => 'progress-bar progress-bar-striped progress-bar-animated bg-info', 'markers' => ['position' => 2, 'min' => 0, 'max' => 100, 'now' => 67]];
+  echo $hooks->cat('progressBar', $parameters);
+  ?>
+
   </div>
 
 </form>

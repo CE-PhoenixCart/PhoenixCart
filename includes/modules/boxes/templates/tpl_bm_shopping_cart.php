@@ -1,4 +1,4 @@
-<div class="card mb-2 bm-shopping-cart">
+<div class="card mt-2 bm-shopping-cart">
   <div class="card-header"><a href="<?= $GLOBALS['Linker']->build('shopping_cart.php') ?>"><?= MODULE_BOXES_SHOPPING_CART_BOX_TITLE ?></a></div>
   <div class="list-group list-group-flush box-cart-list">
     <?php
@@ -18,7 +18,7 @@
   }
     ?>
   </div>
-  <div class="card-footer text-right">
+  <div class="card-footer text-end">
     <?= $cart_totalised ?>
   </div>
 </div>
@@ -30,7 +30,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */

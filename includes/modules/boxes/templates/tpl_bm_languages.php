@@ -1,4 +1,4 @@
-<div class="card mb-2 bm-languages">
+<div class="card mt-2 bm-languages">
   <div class="card-header">
     <?= MODULE_BOXES_LANGUAGES_BOX_TITLE ?>
   </div>

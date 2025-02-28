@@ -17,11 +17,11 @@
 
       $contents = ['form' => new Form('zones', (clone $GLOBALS['link'])->set_parameter('saction', 'insert_sub'))];
       $contents[] = ['text' => TEXT_INFO_NEW_SUB_ZONE_INTRO];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'custom-select', 'onchange' => 'update_zone(this.form);'])];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . new Select('zone_id', [['id' => '', 'text' => TYPE_BELOW]], ['class' => 'custom-select'])];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'form-select', 'onchange' => 'update_zone(this.form);'])];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . new Select('zone_id', [['id' => '', 'text' => TYPE_BELOW]], ['class' => 'form-select'])];
       $contents[] = [
         'class' => 'text-center',
-        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
                 . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
       ];
       break;
@@ -31,11 +31,11 @@
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'save_sub'))];
       $contents[] = ['text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . (new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'custom-select', 'onchange' => 'update_zone(this.form);']))->set_selection($sInfo->zone_country_id)];
-      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . (new Select('zone_id', array_merge([['id' => '', 'text' => PLEASE_SELECT]], Zone::fetch_by_country($sInfo->zone_country_id)), ['class' => 'custom-select']))->set_selection($sInfo->zone_id)];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY . '<br>' . (new Select('zone_country_id', array_merge([['id' => '', 'text' => TEXT_ALL_COUNTRIES]], Country::fetch_options()), ['class' => 'form-select', 'onchange' => 'update_zone(this.form);']))->set_selection($sInfo->zone_country_id)];
+      $contents[] = ['text' => TEXT_INFO_COUNTRY_ZONE . '<br>' . (new Select('zone_id', array_merge([['id' => '', 'text' => PLEASE_SELECT]], Zone::fetch_by_country($sInfo->zone_country_id)), ['class' => 'form-select']))->set_selection($sInfo->zone_id)];
       $contents[] = [
         'class' => 'text-center',
-        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+        'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
                 . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
       ];
       break;
@@ -45,10 +45,10 @@
 
       $contents = ['form' => new Form('zones', (clone $link)->set_parameter('saction', 'delete_confirm_sub'))];
       $contents[] = ['text' => TEXT_INFO_DELETE_SUB_ZONE_INTRO];
-      $contents[] = ['class' => 'text-center text-uppercase font-weight-bold', 'text' => $sInfo->countries_name . ' / ' . $sInfo->zone_name];
+      $contents[] = ['class' => 'text-center text-uppercase fw-bold', 'text' => $sInfo->countries_name . ' / ' . $sInfo->zone_name];
       $contents[] = [
         'class' => 'text-center',
-        'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2')
+        'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2')
                 . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
       ];
       break;
@@ -59,7 +59,7 @@
 
         $contents[] = [
           'class' => 'text-center',
-          'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('saction', 'edit'))
+          'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('saction', 'edit'))
                   . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $link->set_parameter('saction', 'delete')),
         ];
         $contents[] = ['text' => sprintf(TEXT_INFO_DATE_ADDED, null) . ' ' . Date::abridge($sInfo->date_added)];

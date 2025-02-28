@@ -16,17 +16,17 @@
       <?php
   foreach ( $contents as $site => $groups ) {
 ?>
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <th colspan="4"><?php printf(TABLE_HEADING_LOCATION, $site); ?></th>
         </tr>
       </thead>
-      <thead class="thead-light">
+      <thead class="table-light">
         <tr>
           <th><?= TABLE_HEADING_GROUP ?></th>
           <th><?= TABLE_HEADING_FILE ?></th>
           <th><?= TABLE_HEADING_METHOD ?></th>
-          <th class="text-right"><?= TABLE_HEADING_VERSION ?></th>
+          <th class="text-end"><?= TABLE_HEADING_VERSION ?></th>
         </tr>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@
           <td><?= $group ?></td>
           <td><?= $file ?></td>
           <td><?= $action ?></td>
-          <td class="text-right"><?= $version ?? 'N/A' ?></td>
+          <td class="text-end"><?= $version ?? 'N/A' ?></td>
         </tr>
         <?php
           }

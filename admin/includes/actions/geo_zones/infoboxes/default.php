@@ -17,8 +17,8 @@
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit_zone'))
-              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger mr-2', (clone $link)->set_parameter('action', 'delete_zone'))
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('action', 'edit_zone'))
+              . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2', (clone $link)->set_parameter('action', 'delete_zone'))
               . $GLOBALS['Admin']->button(IMAGE_DETAILS, 'fas fa-eye', 'btn-info', $link->set_parameter('action', 'list'))
     ];
     $contents[] = ['text' => sprintf(TEXT_INFO_NUMBER_ZONES, $zInfo->num_zones)];

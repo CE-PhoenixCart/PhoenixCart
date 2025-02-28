@@ -1,8 +1,8 @@
 <li class="nav-item dropdown nb-account">
-  <a class="nav-link dropdown-toggle" href="#" id="navDropdownAccount" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link" href="#" id="navDropdownAccount" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?= $navbarAccountText ?>
   </a>
-  <div class="dropdown-menu<?= (('Right' === MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT) ? ' dropdown-menu-right' : '') ?>" aria-labelledby="navDropdownAccount">
+  <div class="dropdown-menu<?= (('Right' === MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT) ? ' dropdown-menu-end' : '') ?>" aria-labelledby="navDropdownAccount">
     <?= isset($_SESSION['customer_id'])
       ? '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('logoff.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGOFF . '</a>' . PHP_EOL
       : ('<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('login.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGIN . '</a>' . PHP_EOL
@@ -23,7 +23,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */

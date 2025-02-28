@@ -30,11 +30,11 @@
 
       $output = '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-0">';
-          $output .= '<thead class="thead-dark">';
+          $output .= '<thead class="table-dark">';
             $output .= '<tr>';
               $output .= '<th>' . $Admin->image('images/icon_phoenix.png', ['alt' => 'Phoenix']) . ' ' . MODULE_ADMIN_DASHBOARD_ADDONS_TITLE . '</th>';
               $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ADDONS_AUTHOR . '</th>';
-              $output .= '<th class="text-right">' . MODULE_ADMIN_DASHBOARD_ADDONS_UPDATED . '</th>';
+              $output .= '<th class="text-end">' . MODULE_ADMIN_DASHBOARD_ADDONS_UPDATED . '</th>';
             $output .= '</tr>';
           $output .= '</thead>';
           $output .= '<tbody>';
@@ -48,7 +48,7 @@
               $output .= '<tr>';
                 $output .= '<td><a href="' . $item->id . '" target="_blank" rel="noreferrer">' . $item->title . '</a></td>';
                 $output .= '<td>' . $item->author->name . '</td>';
-                $output .= '<td class="text-right">' . $formattedDate . '</td>';
+                $output .= '<td class="text-end">' . $formattedDate . '</td>';
               $output .= '</tr>';
 
               $count++;
@@ -58,8 +58,10 @@
           $output .= '</tbody>';
         $output .= '</table>';
       $output .= '</div>';
-
-      $output .= $Admin->button(MODULE_ADMIN_DASHBOARD_ADDONS_VIEW_ALL, 'fas fa-external-link-alt', 'btn btn-success btn-block my-2', 'https://phoenixcart.org/forum/addons/', ['newwindow' => true]);
+      
+      $output .= '<div class="d-grid mt-2">';
+        $output .= $Admin->button(MODULE_ADMIN_DASHBOARD_ADDONS_VIEW_ALL, 'fas fa-external-link-alt', 'btn btn-success', 'https://phoenixcart.org/forum/addons/', ['newwindow' => true]);
+      $output .= '</div>';
 
       return $output;
     }

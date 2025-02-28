@@ -1,6 +1,6 @@
 <div class="<?= I_HERO_CONTENT_WIDTH ?> i-hero">
 
-  <div class="mt-2 py-4 text-center bg-light">
+  <div class="py-4 text-center bg-body-tertiary">
     <?= I_HERO_TEXT ?>
     <div class="d-inline-flex">
       <?= sprintf(I_HERO_BUTTONS, $GLOBALS['Linker']->build('testimonials.php')); ?>

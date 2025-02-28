@@ -14,4 +14,4 @@ const NAVBAR_TITLE = 'Create a Profile';
 
 const HEADING_TITLE = 'Create a Profile';
 
-const TEXT_ORIGIN_LOGIN = '<span class="text-danger"><strong>NOTE:</strong></span> If you have already created a Profile, you can access your details at our <a class="alert-link" href="%s"><u>sign in page</u></a>.';
+const TEXT_ORIGIN_LOGIN = '<strong>NOTE:</strong> If you have already created a Profile, you can access your details at our <a class="alert-link" href="%s"><u>sign in page</u></a>.';

@@ -1,11 +1,11 @@
 <div class="<?= MODULE_CONTENT_GDPR_REVIEWS_CONTENT_WIDTH ?> cm-gdpr-reviews">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_REVIEWS_PUBLIC_TITLE ?></th>
       </tr>
       <tr>
-        <td colspan="2"><?= MODULE_CONTENT_GDPR_REVIEWS_ANON ?></td>
+        <td colspan="2" class="bg-white text-dark"><?= MODULE_CONTENT_GDPR_REVIEWS_ANON ?></td>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +19,7 @@
             $r = 1;
             foreach ($port_my_data['YOU']['REVIEW']['LIST'] as $k => $v) {
               echo '<li class="list-group-item">';
-                echo '<span class="float-right">';
+                echo '<span class="float-end">';
                   if ($v['ANON'] != 'Y')  {
                     echo '<a title="ANON" role="button" id="anonymize" data-review-id="' . $v['ID'] . '" class="btn btn-sm btn-info btn-update btn-update-review">' . MODULE_CONTENT_GDPR_REVIEWS_ANONYMIZE . '</a>';
                   }

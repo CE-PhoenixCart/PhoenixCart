@@ -75,7 +75,7 @@
       }
 
       return $form
-           . new Select('page', static::list_page_options(), ['class' => 'custom-select', 'onchange' => 'this.form.submit();'])
+           . new Select('page', static::list_page_options(), ['class' => 'form-select', 'onchange' => 'this.form.submit();'])
            . '</form>';
     }
 

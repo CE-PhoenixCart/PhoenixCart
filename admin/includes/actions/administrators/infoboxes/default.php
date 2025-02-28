@@ -15,7 +15,7 @@
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => new Button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', [], $GLOBALS['Admin']->link('administrators.php', ['aID' => $GLOBALS['table_definition']['info']->id, 'action' => 'edit']))
+      'text' => new Button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', [], $GLOBALS['Admin']->link('administrators.php', ['aID' => $GLOBALS['table_definition']['info']->id, 'action' => 'edit']))
               . new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', [], $GLOBALS['Admin']->link('administrators.php', ['aID' => $GLOBALS['table_definition']['info']->id, 'action' => 'delete'])),
     ];
   }

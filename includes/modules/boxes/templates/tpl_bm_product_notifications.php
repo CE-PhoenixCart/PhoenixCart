@@ -1,4 +1,4 @@
-<div class="card mb-2 bm-product-notifications">
+<div class="card mt-2 bm-product-notifications">
   <div class="card-header"><?= MODULE_BOXES_PRODUCT_NOTIFICATIONS_BOX_TITLE ?></div>
   <div class="list-group list-group-flush">
     <?= $notification_exists

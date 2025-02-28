@@ -65,7 +65,7 @@
 
 $np .= <<<"EOD"
 <li class="nav-item m-2">
-  <a class="nav-link text-white{$np_active}" data-toggle="tab" href="#revenue_{$n}" role="tab">{$btn}</a>
+  <a class="nav-link text-white{$np_active}" data-bs-toggle="tab" href="#revenue_{$n}" role="tab">{$btn}</a>
 </li>
 EOD;
 
@@ -118,7 +118,7 @@ EOD;
       return <<<"EOD"
 <ul class="nav nav-pills bg-dark mb-1">
   <li class="nav-item m-2">
-    <span class="nav-link text-white font-weight-bold">{$table_header}</span>
+    <span class="nav-link text-white fw-bold">{$table_header}</span>
   </li>
   {$np}
 </ul>

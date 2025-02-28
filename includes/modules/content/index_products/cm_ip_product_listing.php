@@ -19,56 +19,31 @@
     }
 
     function execute() {
-      global $current_category_id;
-
-      $listing_sql = sprintf(<<<'EOSQL'
-SELECT m.*, %s
- FROM
-  products p
-    LEFT JOIN specials s ON p.products_id = s.products_id
-    INNER JOIN products_description pd ON p.products_id = pd.products_id
-    LEFT JOIN (SELECT products_id, COUNT(*) AS attribute_count FROM products_attributes GROUP BY products_id) a ON p.products_id = a.products_id
-EOSQL
-      , Product::COLUMNS);
-
-// show the products of a specified manufacturer
       if (empty($_GET['manufacturers_id'])) {
 // show the products in a given category
+        $criteria = [
+          'products_to_categories' => ['categories_id' => (int)$GLOBALS['current_category_id']],
+        ];
+
         if (isset($_GET['filter_id']) && !Text::is_empty($_GET['filter_id'])) {
 // We are asked to show only a specific manufacturer
-          $listing_sql .= sprintf(<<<'EOSQL'
-    INNER JOIN manufacturers m ON p.manufacturers_id = m.manufacturers_id
-    INNER JOIN products_to_categories p2c ON p.products_id = p2c.products_id
- WHERE p.products_status = 1 AND m.manufacturers_id = %d AND pd.language_id = %d AND p2c.categories_id = %d
-EOSQL
-          , (int)$_GET['filter_id'], (int)$_SESSION['languages_id'], (int)$current_category_id);
-        } else {
-// We show them all
-          $listing_sql .= sprintf(<<<'EOSQL'
-    INNER JOIN products_to_categories p2c ON p.products_id = p2c.products_id
-    LEFT JOIN manufacturers m ON p.manufacturers_id = m.manufacturers_id
-  WHERE p.products_status = 1 AND pd.language_id = %d AND p2c.categories_id = %d
-EOSQL
-          , (int)$_SESSION['languages_id'], (int)$current_category_id);
+          $criteria['manufacturers'] = ['manufacturers_id' => (int)$_GET['filter_id']];
         }
+// Otherwise, we show them all
       } else {
+// show the products of a specified manufacturer
+        $criteria = [
+          'manufacturers' => ['manufacturers_id' => (int)$_GET['manufacturers_id']],
+        ];
+
         if (isset($_GET['filter_id']) && !Text::is_empty($_GET['filter_id'])) {
 // We are asked to show only a specific category
-          $listing_sql .= sprintf(<<<'EOSQL'
-    INNER JOIN manufacturers m ON p.manufacturers_id = m.manufacturers_id
-    INNER JOIN products_to_categories p2c ON p.products_id = p2c.products_id
-  WHERE p.products_status = 1 AND m.manufacturers_id = %d AND pd.language_id = %d AND p2c.categories_id = %d
-EOSQL
-          , (int)$_GET['manufacturers_id'], (int)$_SESSION['languages_id'], (int)$_GET['filter_id']);
-        } else {
-// We show them all
-          $listing_sql .= sprintf(<<<'EOSQL'
-    INNER JOIN manufacturers m ON p.manufacturers_id = m.manufacturers_id
-  WHERE p.products_status = 1 AND pd.language_id = %d AND m.manufacturers_id = %d
-EOSQL
-          , (int)$_SESSION['languages_id'], (int)$_GET['manufacturers_id']);
+          $criteria['products_to_categories'] = ['categories_id' => (int)$_GET['filter_id']];
         }
+// Otherwise, we show them all
       }
+
+      $listing_sql = (new product_searcher([], $criteria))->find();
 
       require 'includes/system/segments/sortable_product_columns.php';
 

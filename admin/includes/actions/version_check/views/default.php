@@ -22,11 +22,11 @@ if (!empty($new_versions)) {
   ?>
   <div class="table-responsive">
     <table class="table table-striped table-hover">
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <th><?= TABLE_HEADING_VERSION ?></th>
           <th><?= TABLE_HEADING_RELEASED ?></th>
-          <th class="text-right"><?= TABLE_HEADING_ACTION ?></th>
+          <th class="text-end"><?= TABLE_HEADING_ACTION ?></th>
         </tr>
       </thead>
       <tbody>
@@ -37,7 +37,7 @@ if (!empty($new_versions)) {
         <tr>
           <td><?= '<a href="' . $version->link . '" target="_blank" rel="noreferrer">' . $version->title . '</a>' ?></td>
           <td><?= $date->format('l jS F, Y') ?></td>
-          <td class="text-right"><?= '<a href="' . $version->link . '" target="_blank" rel="noreferrer"><i class="fas fa-info-circle text-info"></i></a>' ?></td>
+          <td class="text-end"><?= '<a href="' . $version->link . '" target="_blank" rel="noreferrer"><i class="fas fa-info-circle text-info"></i></a>' ?></td>
         </tr>
         <?php
       }

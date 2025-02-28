@@ -21,7 +21,7 @@
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', (clone $link)->set_parameter('action', 'edit'))
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', (clone $link)->set_parameter('action', 'edit'))
               . $GLOBALS['Admin']->button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger', $link->set_parameter('action', 'delete')),
     ];
     $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_TITLE, $cInfo->title)];

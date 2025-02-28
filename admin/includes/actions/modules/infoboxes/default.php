@@ -23,7 +23,7 @@
       ];
 
       if (isset($mInfo->api_version)) {
-        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
       }
 
       $contents[] = ['text' => $mInfo->description];
@@ -61,12 +61,12 @@
       $contents = ['form' => new Form('remove_module', (clone $link)->set_parameter('action', 'remove'))];
       $contents[] = [
         'class' => 'text-center',
-        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-plus', 'btn-warning mr-2', $link->set_parameter('action', 'edit'))
+        'text' => $Admin->button(IMAGE_EDIT, 'fas fa-plus', 'btn-warning me-2', $link->set_parameter('action', 'edit'))
                 . new Button(IMAGE_MODULE_REMOVE, 'fas fa-minus', 'btn-warning'),
       ];
 
       if (isset($mInfo->api_version)) {
-        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark mr-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
       }
 
       $contents[] = ['text' => $mInfo->description];

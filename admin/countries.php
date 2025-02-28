@@ -25,10 +25,10 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
-      $Admin->button(GET_HELP, '', 'btn-dark mr-2', GET_HELP_LINK, ['newwindow' => true]),
-      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light mr-2', $Admin->link('countries.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
+      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light me-2', $Admin->link('countries.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       $admin_hooks->cat('extraButtons'),
       empty($action)
       ? $Admin->button(IMAGE_NEW_COUNTRY, 'fas fa-map-marker-alt', 'btn-danger', $Admin->link('countries.php', ['action' => 'new']))
@@ -47,9 +47,7 @@
       
       echo (new Form('search', $Admin->link('countries.php'), 'get'))->hide_session_id()
         . '<div class="input-group mt-0">'
-          . '<div class="input-group-prepend">'
-            . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
-          . '</div>'
+          . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
           . new Input('search', ['value' => $keywords])
         . '</div>'
       . '</form>'

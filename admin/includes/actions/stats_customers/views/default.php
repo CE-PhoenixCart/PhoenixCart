@@ -44,16 +44,16 @@
       ],
       [
         'name' => TABLE_HEADING_TOTAL_PURCHASED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) use ($currencies) {
           return $currencies->format($row['ordersum']);
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) use ($Admin) {
-          return '<a class="text-dark" href="' . $GLOBALS['link']->set_parameter('cID', $row['customers_id']) . '"><i class="fas fa-file-csv mr-2"></i></a>'
+          return '<a class="text-dark" href="' . $GLOBALS['link']->set_parameter('cID', $row['customers_id']) . '"><i class="fas fa-file-csv me-2"></i></a>'
                . '<a class="text-dark" href="' . $Admin->link('orders.php', ['cID' => $row['customers_id']]) . '"><i class="fas fa-eye"></i></a>';
         },
       ],

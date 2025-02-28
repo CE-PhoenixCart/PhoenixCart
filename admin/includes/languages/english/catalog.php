@@ -14,9 +14,9 @@ const HEADING_TITLE = 'Categories / Products';
 const HEADING_TITLE_SEARCH = 'Search';
 const HEADING_TITLE_GOTO = 'Go To';
 
-const SECTION_HEADING_GENERAL = '<i class="fas fa-language fa-fw mr-1"></i>Language specific';
-const SECTION_HEADING_DATA = '<i class="fas fa-box-open fa-fw mr-1"></i>Product specific';
-const SECTION_HEADING_IMAGES = '<i class="fas fa-images fa-fw mr-1"></i>Product Images';
+const SECTION_HEADING_GENERAL = '<i class="fas fa-language fa-fw me-1"></i>Language specific';
+const SECTION_HEADING_DATA = '<i class="fas fa-box-open fa-fw me-1"></i>Product specific';
+const SECTION_HEADING_IMAGES = '<i class="fas fa-images fa-fw me-1"></i>Product Images';
 
 const TABLE_HEADING_ID = 'ID';
 const TABLE_HEADING_CATEGORIES_PRODUCTS = 'Categories / Products';
@@ -44,7 +44,6 @@ const TEXT_PRODUCT_DATE_AVAILABLE = 'Date Available';
 const TEXT_EDIT_INTRO = 'Please make any necessary changes';
 const TEXT_EDIT_CATEGORIES_NAME = 'Category Name';
 const TEXT_EDIT_CATEGORIES_IMAGE = 'Category Image';
-const TEXT_EDIT_SORT_ORDER = 'Sort Order';
 
 const TEXT_INFO_COPY_TO_INTRO = 'Please choose a new category you wish to copy this product to';
 const TEXT_INFO_CURRENT_CATEGORIES = 'Current Categories';
@@ -77,6 +76,7 @@ const TEXT_PRODUCTS_DATE_AVAILABLE_HELP = '';
 const TEXT_PRODUCT_AVAILABLE = 'In Stock';
 const TEXT_PRODUCT_NOT_AVAILABLE = 'Out of Stock';
 const TEXT_PRODUCTS_MANUFACTURER = 'Products Manufacturer';
+const TEXT_PRODUCTS_IMPORTER = 'Products Importer';
 const TEXT_PRODUCTS_NAME = 'Products Name';
 const TEXT_PRODUCTS_DESCRIPTION = 'Products Description';
 const TEXT_PRODUCTS_QUANTITY = 'Products Quantity';
@@ -85,14 +85,16 @@ const TEXT_PRODUCTS_IMAGE = 'Products Image';
 const TEXT_PRODUCTS_MAIN_IMAGE = 'Main Image';
 const TEXT_PRODUCTS_LARGE_IMAGE = 'Large Image';
 const TEXT_PRODUCTS_LARGE_IMAGE_HTML_CONTENT = 'HTML Content';
-const TEXT_PRODUCTS_ADD_LARGE_IMAGE = '<i class="fas fa-plus mr-2"></i>Add New Gallery Image';
-const TEXT_PRODUCTS_DELETE_LARGE_IMAGES = '<i class="fas fa-trash mr-2"></i>Delete All</a>';
+const TEXT_PRODUCTS_LARGE_IMAGE_FILE = 'File';
+const TEXT_PRODUCTS_LARGE_IMAGE_SORT = 'Sort';
+const TEXT_PRODUCTS_LARGE_IMAGE_ACTION = 'Action';
+const TEXT_PRODUCTS_ADD_LARGE_IMAGE = '<i class="fas fa-plus me-2"></i>Add New Gallery Image';
+const TEXT_PRODUCTS_DELETE_LARGE_IMAGES = '<i class="fas fa-trash me-2"></i>Delete All</a>';
 const TEXT_PRODUCTS_URL = 'Products URL';
 const TEXT_PRODUCTS_URL_WITHOUT_HTTP = 'Make sure to include http:// or https://';
 const TEXT_PRODUCTS_PRICE_NET = 'Products Price (Net)';
 const TEXT_PRODUCTS_PRICE_GROSS = 'Products Price (Gross)';
 const TEXT_PRODUCTS_WEIGHT = 'Products Weight';
-const TEXT_PRODUCTS_IMPORTER = 'Products Importer';
 
 const EMPTY_CATEGORY = 'Empty Category';
 

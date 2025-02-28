@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -20,8 +20,8 @@ class hook_shop_progress_progress_hooks {
 
     $output_progress = <<<eod
       <div class="progress-hooks pt-2">
-        <div class="progress">
-          <div class="{$arr['style']}" role="progressbar" style="width: {$arr['markers']['now']}%" aria-valuenow="{$arr['markers']['now']}" aria-valuemin="{$arr['markers']['min']}" aria-valuemax="{$arr['markers']['max']}"></div>
+        <div class="progress rounded-0" role="progressbar" aria-label="{$arr['markers']['now']}%" aria-valuenow="{$arr['markers']['now']}" aria-valuemin="{$arr['markers']['min']}" aria-valuemax="{$arr['markers']['max']}" style="height: 10px">
+          <div class="progress-bar text-bg-secondary" style="width: {$arr['markers']['now']}%"></div>
         </div>
         <div class="row">
           <div class="col text-center">{$checkout_bar_delivery}</div>

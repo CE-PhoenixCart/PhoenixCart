@@ -31,7 +31,7 @@ EOSQL
   } else {
     $rInfo = new objectInfo($_POST);
 
-    $button = new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    $button = new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $Admin->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link);
 
     $form = new Form('update', (clone $link)->set_parameter('action', 'update'), 'post', ['enctype' => 'multipart/form-data']);
@@ -44,37 +44,37 @@ EOSQL
 ?>
     <div class="row">
       <div class="col-sm-10">
-        <div class="form-group row" id="zProduct">
-          <label for="reviewProduct" class="col-sm-3 text-left text-sm-right"><?= ENTRY_PRODUCT ?></label>
+        <div class="row mb-2" id="zProduct">
+          <label for="reviewProduct" class="col-sm-3 text-start text-sm-end"><?= ENTRY_PRODUCT ?></label>
           <div class="col-sm-9"><?= $rInfo->products_name ?? '' ?></div>
         </div>
 
-        <div class="form-group row" id="zCustomer">
-          <label for="reviewCustomer" class="col-sm-3 text-left text-sm-right"><?= ENTRY_FROM ?></label>
+        <div class="row mb-2" id="zCustomer">
+          <label for="reviewCustomer" class="col-sm-3 text-start text-sm-end"><?= ENTRY_FROM ?></label>
           <div class="col-sm-9"><?= $rInfo->customers_name ?></div>
         </div>
 
-        <div class="form-group row" id="zDate">
-          <label for="reviewDate" class="col-sm-3 text-left text-sm-right"><?= ENTRY_DATE ?></label>
+        <div class="row mb-2" id="zDate">
+          <label for="reviewDate" class="col-sm-3 text-start text-sm-end"><?= ENTRY_DATE ?></label>
           <div class="col-sm-9"><?= Date::abridge($rInfo->date_added) ?></div>
         </div>
 
-        <div class="form-group row" id="zRating">
-          <label for="reviewRating" class="col-sm-3 text-left text-sm-right"><?= ENTRY_RATING ?></label>
+        <div class="row mb-2" id="zRating">
+          <label for="reviewRating" class="col-sm-3 text-start text-sm-end"><?= ENTRY_RATING ?></label>
           <div class="col-sm-9"><?= new star_rating((float)$rInfo->reviews_rating) ?></div>
         </div>
 
-        <div class="form-group row" id="zReview">
-          <label for="reviewReview" class="col-sm-3 text-left text-sm-right"><?= ENTRY_REVIEW ?></label>
+        <div class="row mb-2" id="zReview">
+          <label for="reviewReview" class="col-sm-3 text-start text-sm-end"><?= ENTRY_REVIEW ?></label>
           <div class="col-sm-9"><?= $rInfo->reviews_text ?></div>
         </div>
 
         <?= $admin_hooks->cat('formPreview') ?>
       </div>
-      <div class="col-sm-2 text-right"><?= $Admin->catalog_image('images/' . $rInfo->products_image ?? '', [], $rInfo->products_name ?? '') ?></div>
+      <div class="col-sm-2 text-end"><?= $Admin->catalog_image('images/' . $rInfo->products_image ?? '', [], $rInfo->products_name ?? '') ?></div>
     </div>
 
-    <div class="text-right">
+    <div class="text-end">
       <?= $button ?>
     </div>
 <?php

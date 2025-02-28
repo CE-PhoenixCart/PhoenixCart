@@ -78,7 +78,7 @@ function selectAll(FormName, SelectBox) {
         $choose_audience_string .= '<div class="row mb-3">';
           $choose_audience_string .= '<div class="col-5">';
             $choose_audience_string .= '<h6>' . TEXT_PRODUCTS . '</h6>';
-            $choose_audience_string .= new Select('products', $products, ['class' => 'custom-select', 'size' => '20', 'multiple' => null]);
+            $choose_audience_string .= new Select('products', $products, ['class' => 'form-select', 'size' => '20', 'multiple' => null]);
           $choose_audience_string .= '</div>';
           $choose_audience_string .= '<div class="col-2 align-self-center text-center">';
             $choose_audience_string .= $GLOBALS['Admin']->button(BUTTON_GLOBAL, 'fas fa-globe', 'btn-info', (clone $link)->set_parameter('global', 'true'));
@@ -89,12 +89,14 @@ function selectAll(FormName, SelectBox) {
           $choose_audience_string .= '</div>';
           $choose_audience_string .= '<div class="col-5">';
             $choose_audience_string .= '<h6>' . TEXT_SELECTED_PRODUCTS . '</h6>';
-            $choose_audience_string .= new Select('chosen[]', [], ['class' => 'custom-select', 'size' => '20', 'multiple' => null]);
+            $choose_audience_string .= new Select('chosen[]', [], ['class' => 'form-select', 'size' => '20', 'multiple' => null]);
           $choose_audience_string .= '</div>';
         $choose_audience_string .= '</div>';
 
-        $choose_audience_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-lg btn-block');
-        $choose_audience_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', (clone $link)->delete_parameter('action'));
+        $choose_audience_string .= '<div class="d-grid mt-2">';
+          $choose_audience_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-lg');
+        $choose_audience_string .= '</div>';
+        $choose_audience_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-1', (clone $link)->delete_parameter('action'));
       $choose_audience_string .= '</form>';
 
       return $choose_audience_string;
@@ -136,11 +138,13 @@ function selectAll(FormName, SelectBox) {
         }
 
         $confirm_string .= $form;
-          $confirm_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-block btn-lg');
+          $confirm_string .= '<div class="d-grid mt-2">';
+            $confirm_string .= new Button(IMAGE_SEND, 'fas fa-paper-plane', 'btn-success btn-lg');
+          $confirm_string .= '</div>';
         $confirm_string .= '</form>';
       }
 
-      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-2', $link->set_parameter('action', 'send'));
+      $confirm_string .= $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-angle-left', 'btn-light mt-1', $link->set_parameter('action', 'send'));
 
       return $confirm_string;
     }

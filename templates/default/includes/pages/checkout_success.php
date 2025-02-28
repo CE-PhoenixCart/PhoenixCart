@@ -17,7 +17,7 @@
 
   require $Template->map('template_top.php', 'component');
 
-  echo new Form('order', $Linker->build('checkout_success.php', ['action' => 'update']), 'post', ['role' => 'form']);
+  echo new Form('order', $Linker->build('checkout_success.php', ['action' => 'update']), 'post');
 ?>
 
   <div class="row">

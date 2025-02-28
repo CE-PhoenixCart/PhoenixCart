@@ -81,12 +81,19 @@
         $form->hide($key, $value);
       }
 
-      return $form->hide_session_id()
-           . new Select($this->table_definition['page_name'] ?? 'page', $pages, [
-               'value' => $this->current_page_number,
-               'onchange' => 'this.form.submit();',
-               'class' => 'custom-select rounded-0',
-             ]) . '</form>';
+      $output = $form->hide_session_id();
+        $output .= '<div class="input-group">';
+          $output .= '<span class="input-group-text" id="p">' . SPLIT_PAGES . '</span>';
+          $output .= new Select($this->table_definition['page_name'] ?? 'page', $pages, [
+                 'value' => $this->current_page_number,
+                 'onchange' => 'this.form.submit();',
+                 'class' => 'form-select',
+                 'aria-describedby' => 'p',
+               ]);
+        $output .= '</div>';
+      $output .= '</form>';
+      
+      return $output;
     }
 
     public function process_default(&$row) {

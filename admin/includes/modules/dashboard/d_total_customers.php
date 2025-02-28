@@ -50,7 +50,7 @@ EOSQL
       return <<<"EOHTML"
 <div class="table-responsive">
   <table class="table mb-2">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th>{$table_header}</th>
       </tr>

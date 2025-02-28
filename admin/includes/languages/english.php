@@ -32,12 +32,12 @@ const CHARSET = 'utf-8';
 const TITLE = 'CE Phoenix Cart Administration Tool';
 
 // header text in includes/hooks/admin/siteWide/hMenu.php
-const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Your Shop</span>';
-const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Forum</span>';
-const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">User Guide</span>';
-const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Certified Partners</span>';
-const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus mr-1 text-primary" aria-hidden="true"></i><span class="border-bottom border-primary">Add-ons</span>';
-const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock mr-1" aria-hidden="true"></i><span class="border-bottom border-danger">%s, securely log off</span>';
+const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart me-1 text-primary" aria-hidden="true" title="Your Shop"></i><span class="border-bottom border-primary">Your Shop</span>';
+const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle me-1 text-primary" aria-hidden="true" title="Phoenix Forum"></i><span class="border-bottom border-primary d-none d-md-inline">Phoenix Forum</span>';
+const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school me-1 text-primary" aria-hidden="true" title="User Guide"></i><span class="border-bottom border-primary d-none d-md-inline">User Guide</span>';
+const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code me-1 text-primary" aria-hidden="true" title="Partners"></i><span class="border-bottom border-primary d-none d-md-inline">Certified Partners</span>';
+const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus me-1 text-primary" aria-hidden="true" title="Add-ons"></i><span class="border-bottom border-primary d-none d-md-inline">Add-ons</span>';
+const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock me-1" aria-hidden="true" title="Log off"></i><span class="border-bottom border-danger">%s, securely log off</span>';
 
 // images
 const IMAGE_BACK = 'Back';
@@ -137,8 +137,8 @@ const TEXT_IMAGE_NON_EXISTENT = 'IMAGE DOES NOT EXIST';
 
 const STAR_RATING = 'Rated %s Stars';
 
-const GET_HELP = '<img src="images/icon_phoenix.png" class="mr-2">Help';
-const GET_ADDONS = '<img src="images/icon_phoenix.png" class="mr-2">Addons';
+const GET_HELP = '<img alt="" src="images/icon_phoenix.png" class="me-2">Help';
+const GET_ADDONS = '<img alt="" src="images/icon_phoenix.png" class="me-2">Addons';
 const ADDONS_FREE = 'Free';
 const ADDONS_COMMERCIAL = 'Paid';
 const ADDONS_PRO = 'PRO';

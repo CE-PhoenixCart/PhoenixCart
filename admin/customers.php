@@ -31,12 +31,12 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?= 
       $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
-      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ml-2', $Admin->link('customers.php'), ['data-toggle' => 'collapse', 'data-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
+      isset($_GET['action']) ? '' : $Admin->button('<i class="fas fa-search"></i>', '', 'btn-light ms-2', $Admin->link('customers.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseSearch', 'aria-expanded' => 'false', 'aria-controls' => 'collapseSearch']),
       $admin_hooks->cat('extraButtons'),
-      isset($_GET['action']) ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'ml-2 btn-light', $Admin->link('customers.php')->retain_query_except(['action'])) : ''; 
+      isset($_GET['action']) ? $Admin->button(IMAGE_CANCEL, 'fas fa-angle-left', 'ms-2 btn-light', $Admin->link('customers.php')->retain_query_except(['action'])) : ''; 
       ?>
     </div>
   </div>
@@ -51,9 +51,7 @@
       
       echo (new Form('search', $Admin->link('customers.php'), 'get'))->hide_session_id()
         . '<div class="input-group mt-0">'
-          . '<div class="input-group-prepend">'
-            . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
-          . '</div>'
+          . '<span class="input-group-text">' . HEADING_TITLE_SEARCH . '</span>'
           . new Input('search', ['value' => $keywords])
         . '</div>'
       . '</form>'

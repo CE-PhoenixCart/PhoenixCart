@@ -5,7 +5,7 @@
   }
   ?>
   <table class="table table-striped table-hover">
-    <thead class="thead-light">
+    <thead class="table-light">
       <tr>
         <th><?= $heading ?></th>
       </tr>

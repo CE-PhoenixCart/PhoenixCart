@@ -1,11 +1,11 @@
 <div class="<?= MODULE_CONTENT_GDPR_COOKIES_CONTENT_WIDTH ?> cm-gdpr-cookies">
   <table class="table table-striped">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_COOKIES_PUBLIC_TITLE ?></th>
       </tr>
       <tr>
-        <td colspan="2"><?= MODULE_CONTENT_GDPR_COOKIES_EXPLANATION ?></td>
+        <td colspan="2" class="bg-white text-dark"><?= MODULE_CONTENT_GDPR_COOKIES_EXPLANATION ?></td>
       </tr>
     </thead>
     <tbody>
@@ -15,12 +15,12 @@
           echo '<th class="w-50">';
             echo $v['NAME'];
             if ($v['NAME'] == session_name()) {
-              echo '<span class="badge badge-secondary ml-2">' . MODULE_CONTENT_GDPR_COOKIES_REQUIRED . '</span>';
+              echo '<span class="badge bg-secondary ms-2">' . MODULE_CONTENT_GDPR_COOKIES_REQUIRED . '</span>';
             }
           echo '</th>';
           echo '<td>';
             if ($v['NAME'] != session_name()) {
-              echo '<span class="float-right"><a role="button" data-cookie-sess="' . $v['NAME'] . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-cookie">' . MODULE_CONTENT_GDPR_COOKIES_DELETE . '</a></span>';
+              echo '<span class="float-end"><a role="button" data-cookie-sess="' . $v['NAME'] . '" class="btn btn-sm btn-danger text-white btn-delete text-white btn-delete-cookie">' . MODULE_CONTENT_GDPR_COOKIES_DELETE . '</a></span>';
             }
             echo $v['CONTENT'];
           echo '</td>';

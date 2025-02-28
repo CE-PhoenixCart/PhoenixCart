@@ -35,13 +35,13 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_CURRENCY_VALUE, null) . '<br>' . new Input('value', ['value' => $cInfo->value])];
   if (DEFAULT_CURRENCY != $cInfo->code) {
     $contents[] = [
-      'text' => '<div class="custom-control custom-switch">'
-              . new Tickable('default', ['value' => 'on', 'class' => 'custom-control-input', 'id' => 'cDefault'], 'checkbox')
-              . '<label for="cDefault" class="custom-control-label text-muted"><small>' . TEXT_INFO_SET_AS_DEFAULT . '</small></label></div>',
+      'text' => '<div class="form-check form-switch">'
+              . new Tickable('default', ['value' => 'on', 'class' => 'form-check-input', 'id' => 'cDefault'], 'checkbox')
+              . '<label for="cDefault" class="form-check-label text-muted"><small>' . TEXT_INFO_SET_AS_DEFAULT . '</small></label></div>',
     ];
   }
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

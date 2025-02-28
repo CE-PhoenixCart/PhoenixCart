@@ -21,6 +21,6 @@
                 ($buInfo->compression == TEXT_NO_EXTENSION) ? '' : TEXT_INFO_UNPACK)];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_RESTORE, 'fas fa-file-upload', 'btn-warning mr-2')
+    'text' => new Button(IMAGE_RESTORE, 'fas fa-file-upload', 'btn-warning me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $GLOBALS['link']),
   ];

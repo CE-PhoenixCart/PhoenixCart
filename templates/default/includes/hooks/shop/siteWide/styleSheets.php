@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -15,8 +15,7 @@ class hook_shop_siteWide_styleSheets {
   public $sitestart = null;
 
   function listen_injectSiteStart() {
-    $this->sitestart .= '<!-- stylesheets hooked -->' . PHP_EOL;
-    $this->sitestart .= '<style>* {min-height: 0.01px;}.form-control-feedback { position: absolute; width: auto; top: 7px; right: 55px; margin-top: 0; } .carousel-control-prev:hover, .carousel-control-next:hover { background-color: rgba(255, 255, 255, 0.2); } @media (max-width: 575.98px) {.display-1 {font-size: 3rem;font-weight: 300;line-height: 1.0;}.display-2 {font-size: 2.75rem;font-weight: 300;line-height: 1.0;}.display-3 {font-size: 2.25rem;font-weight: 300;line-height: 1.0;}.display-4 {font-size: 1.75rem;font-weight: 300;line-height: 1.0;}h4 {font-size: 1rem;}}</style>' . PHP_EOL;
+    $this->sitestart .= '<style>* {min-height: 0.01px;} input:-webkit-autofill, select:-webkit-autofill { animation-name: onAutoFillStart; transition: background-color 50000s ease-in-out 0s; } input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; }</style>';
 
     $css_file = 'templates/' . TEMPLATE_SELECTION . '/static/user.css';
     if (file_exists($css_file)) {

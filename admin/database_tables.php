@@ -79,11 +79,11 @@
     <div class="col">
       <h1 class="display-4 mb-2"><?= HEADING_TITLE ?></h1>
     </div>
-    <div class="col-12 col-lg-8 text-left text-lg-right align-self-center pb-1">
+    <div class="col-12 col-lg-8 text-start text-lg-end align-self-center pb-1">
       <?=
       $Admin->button(GET_HELP, '', 'btn-dark', GET_HELP_LINK, ['newwindow' => true]),
       $admin_hooks->cat('extraButtons'),
-      empty($action) ? '' : (new Button(IMAGE_BACK, 'fas fa-angle-left', 'ml-2 btn-light'))->set('href', $Admin->link())
+      empty($action) ? '' : (new Button(IMAGE_BACK, 'fas fa-angle-left', 'ms-2 btn-light'))->set('href', $Admin->link())
       ?>
     </div>
   </div>
@@ -91,7 +91,7 @@
   <?= new Form('sql', $Admin->link()) ?>
   <div class="table-responsive">
     <table class="table table-striped table-hover">
-      <thead class="thead-dark">
+      <thead class="table-dark">
         <tr>
           <?php
           foreach ( $table_headers as $th ) {
@@ -120,15 +120,15 @@
   if ( !isset($_POST['dryrun']) ) {
  ?>
 
-  <div class="row">
-    <div class="col">
+  <div class="row mt-2">
+    <div class="col d-grid">
       <?=
-        new Select('action', $actions, ['class' => 'custom-select', 'id' => 'sqlActionsMenu']),
-        new Button(BUTTON_ACTION_GO, 'fas fa-cogs', 'btn-success btn-block mt-2')
+        new Select('action', $actions, ['class' => 'form-select', 'id' => 'sqlActionsMenu']),
+        new Button(BUTTON_ACTION_GO, 'fas fa-cogs', 'btn-success mt-2')
       ?>
     </div>
     <div class="col">
-      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets, ['class' => 'custom-select']) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
+      <span class="runUtf8"><?= new Select('from_charset', $mysql_charsets, ['class' => 'form-select']) . '<br>' . sprintf(ACTION_UTF8_DRY_RUN, new Tickable('dryrun', [], 'checkbox')) ?></span>
     </div>
   </div>
 

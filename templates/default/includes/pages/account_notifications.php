@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -24,13 +24,12 @@
     <?= MY_NOTIFICATIONS_DESCRIPTION ?>
   </div>
 
-  <div class="form-group row align-items-center">
-    <div class="col-form-label col-sm-4 text-left text-sm-right"><?= GLOBAL_NOTIFICATIONS_TITLE ?></div>
+  <div class="row mb-2 align-items-center">
+    <div class="col-form-label col-sm-4 text-start text-sm-end"><?= GLOBAL_NOTIFICATIONS_TITLE ?></div>
     <div class="col-sm-8">
-      <div class="custom-control custom-switch">
-        <?= (new Tickable('product_global', ['value' => '1', 'class' => 'custom-control-input', 'id' => 'inputGlobalNotification'], 'checkbox'))->tick($global['global_product_notifications'] == '1');
-        echo '<label for="inputGlobalNotification" class="custom-control-label">' . GLOBAL_NOTIFICATIONS_DESCRIPTION . '&nbsp;</label>';
-        ?>
+      <div class="form-check">
+        <?= (new Tickable('product_global', ['value' => '1', 'class' => 'form-check-input', 'id' => 'inputGlobalNotification'], 'checkbox'))->tick($global['global_product_notifications'] == '1') ?>
+        <label for="inputGlobalNotification" class="form-check-label text-body-secondary"><small><?= GLOBAL_NOTIFICATIONS_DESCRIPTION ?></small></label>
       </div>
     </div>
   </div>
@@ -45,15 +44,15 @@
     <div class="w-100"></div>
     <div class="alert alert-warning" role="alert"><?= NOTIFICATIONS_DESCRIPTION ?></div>
 
-    <div class="form-group row align-items-center">
-      <div class="col-form-label col-sm-4 text-left text-sm-right"><?= MY_NOTIFICATIONS_TITLE ?></div>
+    <div class="row mb-2 align-items-center">
+      <div class="col-form-label col-sm-4 text-start text-sm-end"><?= MY_NOTIFICATIONS_TITLE ?></div>
       <div class="col-sm-8">
         <?php
       $products_query = $db->query("SELECT pd.products_id, pd.products_name FROM products_description pd, products_notifications pn WHERE pn.customers_id = " . (int)$_SESSION['customer_id'] . " AND pn.products_id = pd.products_id AND pd.language_id = " . (int)$_SESSION['languages_id'] . " ORDER BY pd.products_name");
       while ($products = $products_query->fetch_assoc()) {
-        echo '<div class="custom-control custom-switch">';
-        echo (new Tickable('products[]', ['value' => $products['products_id'], 'class' => 'custom-control-input', 'id' => 'input_' . $products['products_id'] . 'Notification'], 'checkbox'))->tick();
-        echo '<label for="input_' . $products['products_id'] . 'Notification" class="custom-control-label">' . $products['products_name'] . '</label>';
+        echo '<div class="form-check">';
+        echo (new Tickable('products[]', ['value' => $products['products_id'], 'class' => 'form-check-input', 'id' => 'input_' . $products['products_id'] . 'Notification'], 'checkbox'))->tick();
+        echo '<label for="input_' . $products['products_id'] . 'Notification" class="form-check-label text-body-secondary"><small>' . $products['products_name'] . '</small></label>';
         echo '</div>';
       }
 ?>
@@ -73,8 +72,13 @@
   }
 ?>
 
-  <p><?= new Button(IMAGE_BUTTON_UPDATE_PREFERENCES, 'fas fa-users-cog', 'btn-success btn-lg btn-block') ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_UPDATE_PREFERENCES, 'fas fa-users-cog', 'btn-success btn-lg') ?>
+  </div>
+  
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?>
+  </div>
 
 </form>
 

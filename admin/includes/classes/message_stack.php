@@ -80,7 +80,7 @@
       foreach ($this->errors as $e) {
         $alert .= '<div class="' . $e['params'] . ' my-2 alert-dismissible fade show" role="alert">';
           $alert .= $e['text'];
-          $alert .= '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>';
+          $alert .= '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
         $alert .= '</div>';
       }
 

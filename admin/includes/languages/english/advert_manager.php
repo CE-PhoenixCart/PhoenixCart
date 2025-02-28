@@ -72,8 +72,8 @@ const ERROR_ADVERT_IMAGE_OR_TEXT_REQUIRED = '<strong>Error:</strong> You have no
 const TEXT_DISPLAY_NUMBER_OF_ADVERTS = 'Displaying <b>%s</b> to <b>%s</b> of <b>%s</b> Adverts';
 const IMAGE_NEW_ADVERT = 'New Advert';
 
-const TEXT_ADVERT_EXTERNAL_URL = '<i class="fas fa-external-link-alt mr-1"></i> external link:<br>%s';
-const TEXT_ADVERT_INTERNAL_URL = '<i class="fas fa-link mr-1"></i> internal link:<br>%s';
+const TEXT_ADVERT_EXTERNAL_URL = '<i class="fas fa-external-link-alt me-1"></i> external link:<br>%s';
+const TEXT_ADVERT_INTERNAL_URL = '<i class="fas fa-link me-1"></i> internal link:<br>%s';
 
 const IMAGE_IMPORT_ADVERT = 'Attempt Banner Import';
 const IMAGE_IMPORT_ADVERT_EXPLANATION = 'This will import data from the "banners" database table.  You may need to delete some of the data after import as "banners" was never meant for Carousel use...';

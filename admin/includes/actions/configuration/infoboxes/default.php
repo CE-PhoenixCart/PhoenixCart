@@ -17,7 +17,7 @@
 
     $contents[] = [
       'class' => 'text-center',
-      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning mr-2', $GLOBALS['link']->set_parameter('action', 'edit')),
+      'text' => $GLOBALS['Admin']->button(IMAGE_EDIT, 'fas fa-cogs', 'btn-warning me-2', $GLOBALS['link']->set_parameter('action', 'edit')),
     ];
     $contents[] = ['text' => $cInfo->configuration_description];
     $contents[] = ['text' => TEXT_INFO_DATE_ADDED . ' ' . Date::abridge($cInfo->date_added)];

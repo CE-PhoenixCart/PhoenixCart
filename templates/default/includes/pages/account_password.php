@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -13,7 +13,8 @@
   $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
   $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('account_password.php'));
 
-  $form = new Form('account_password', $Linker->build());
+  $form = new Form('account_password', $Linker->build(), 'post', ['class' => 'was-validated']);
+  
   $form->hide('action', 'process');
 
   require $Template->map('template_top.php', 'component');
@@ -27,12 +28,8 @@
   }
 
   echo $form;
-  echo new Input('username', ['value' => $customer->get('username'), 'style' => 'display: none;', 'readonly' => null, 'autocomplete' => 'username']);
-?>
+  echo new Input('username', ['value' => $customer->get('username'), 'readonly' => null, 'autocomplete' => 'username'], 'hidden');
 
-  <p class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
-
-  <?php
   $input_id = 'inputCurrent';
   $label_text = ENTRY_PASSWORD_CURRENT;
   $input = (new Input('password_current', [
@@ -48,8 +45,13 @@
   $customer_data->display_input($page_fields);
 ?>
 
-  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
-  <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
+  </div>
+  
+  <div class="my-2">
+    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?>
+  </div>
 
 </form>
 

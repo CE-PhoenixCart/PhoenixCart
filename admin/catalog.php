@@ -50,9 +50,19 @@
 ?>
 
 <script>
-$(document).on('change', '#cImg, [id^=pImg]', function (event) { $(this).next('.custom-file-label').html(event.target.files[0].name); });
-</script>
+document.addEventListener('change', function(event) {
+  var target = event.target;
 
+  if (target.id === 'cImg' || target.id.startsWith('pImg')) {
+    var fileName = target.files[0]?.name || 'No file chosen';
+    var nextElement = target.nextElementSibling;
+
+    if (nextElement && nextElement.classList.contains('form-label')) {
+      nextElement.textContent = fileName;
+    }
+  }
+});
+</script>
 
 <?php
   require 'includes/template_bottom.php';

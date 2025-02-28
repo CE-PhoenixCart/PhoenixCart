@@ -29,14 +29,14 @@ EOSQL
       ],
       [
         'name' => TABLE_HEADING_DATE_EXPECTED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function (&$row) {
           return Date::abridge($row['products_date_available']);
         },
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->products_id))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

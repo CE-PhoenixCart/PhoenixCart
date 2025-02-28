@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -35,25 +35,25 @@
 <?php
     }
 ?>
+    <div class="card mb-2 card-body alert-filters">
+      <ul class="nav d-flex gap-2">
+        <li class="nav-item dropdown">
+          <a href="#" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?></a>
 
-  <div class="card card-body py-2 pl-1 mb-2 alert-filters">
-    <ul class="nav">
-      <li class="nav-item dropdown">
-        <a href="#" class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= TEXT_SORT_BY ?></a>
+          <div class="dropdown-menu">
+            <?php
+    foreach ($column_list as $i => $column) {
+      if ($column_specifications[$column]['sortable']) {
+        echo splitPageResults::create_sort_heading($_GET['sort'], $i+1, $column_specifications[$column]['heading']);
+      }
+    }
+            ?>
+          </div>
 
-        <div class="dropdown-menu">
-          <?php
-          foreach ($column_list as $i => $column) {
-            if ($column_specifications[$column]['sortable']) {
-              echo splitPageResults::create_sort_heading($_GET['sort'], $i+1, $column_specifications[$column]['heading']);
-            }
-          }
-          ?>
-        </div>
-      </li>
-      <?= $GLOBALS['hooks']->cat('navItemFilters', $listing_parameters) ?>
-    </ul>
-  </div>
+        </li>
+        <?= $GLOBALS['hooks']->cat('navItemFilters', $listing_parameters) ?>
+      </ul>
+    </div>
 
   <?php
     $listing_query = $GLOBALS['db']->query($listing_split->sql_query);
@@ -66,10 +66,6 @@
       $card = [
         'show_buttons' => 'True' === PRODUCT_LIST_BUTTONS,
       ];
-
-      if (!Text::is_empty($product->get('seo_description'))) {
-        $card['extra']['seo_description'] = $product->get('seo_description');
-      }
 
       $prod_list_contents .= '<div class="col mb-2">';
         $prod_list_contents .= '<div class="card h-100 is-product"' . $product->get('data_attributes') . '>' . PHP_EOL;

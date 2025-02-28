@@ -32,7 +32,7 @@
       ],
       [
         'name' => TABLE_HEADING_VIEWED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return $row['products_viewed'];
         },

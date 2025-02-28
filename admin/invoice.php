@@ -23,20 +23,20 @@
   <div class="row align-items-center">
     <div class="col">
       <h1 class="display-4"><?= STORE_NAME ?></h1>
-      <p class="font-weight-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
+      <p class="fw-bold m-0 p-0"><?= STORE_ADDRESS ?></p>
       <p class="my-1 p-0">
         <?php
         if (!Text::is_empty(STORE_PHONE)) {
-          echo '<i class="fas fa-phone fa-fw mr-1"></i>' . STORE_PHONE;
+          echo '<i class="fas fa-phone fa-fw me-1"></i>' . STORE_PHONE;
         }
         ?>
-        <i class="fas fa-at fa-fw mr-1"></i><?= STORE_OWNER_EMAIL_ADDRESS ?>
+        <i class="fas fa-at fa-fw me-1"></i><?= STORE_OWNER_EMAIL_ADDRESS ?>
       </p>
-      <p class="my-1 p-0"><i class="fas fa-home fa-fw mr-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
+      <p class="my-1 p-0"><i class="fas fa-home fa-fw me-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
     </div>
-    <div class="col text-right">
+    <div class="col text-end">
       <?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?>
-      <h6 class="lead font-weight-bold m-0"><?= ENTRY_INVOICE ?></h6>
+      <h6 class="lead fw-bold m-0"><?= ENTRY_INVOICE ?></h6>
       <?php
       if (!Text::is_empty(STORE_TAX_ID)) {
         echo '<p class="mt-1 mb-2 p-0">' . sprintf(ENTRY_INVOICE_TAX_ID, STORE_TAX_ID) . '</p>';
@@ -51,7 +51,7 @@
     <div class="col">
       <ul class="list-group border h-100">
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= ENTRY_SHIP_TO ?></h6></li>
-        <li class="list-group-item border-0 font-weight-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
+        <li class="list-group-item border-0 fw-bold"><?= $address->format($order->delivery, 1, '', '<br>') ?></li>
       </ul>
     </div>
     <div class="col">
@@ -61,9 +61,9 @@
         <li class="list-group-item border-0">
           <?php
           if (!Text::is_empty($customer_data->get('telephone', $order->customer))) {
-            echo '<i class="fas fa-phone fa-fw mr-1"></i>', $customer_data->get('telephone', $order->customer), '<br>';
+            echo '<i class="fas fa-phone fa-fw me-1"></i>', $customer_data->get('telephone', $order->customer), '<br>';
           }
-          echo '<i class="fas fa-at fa-fw mr-1"></i>', $customer_data->get('email_address', $order->customer);
+          echo '<i class="fas fa-at fa-fw me-1"></i>', $customer_data->get('email_address', $order->customer);
           ?>
         </li>
      </ul>
@@ -79,16 +79,16 @@
   </div>
 
   <table class="table table-striped mt-3">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th><?= TABLE_HEADING_QTY ?></th>
         <th><?= TABLE_HEADING_PRODUCTS ?></th>
         <th><?= TABLE_HEADING_PRODUCTS_MODEL ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TAX ?></th>
-        <th class="text-right"><?= TABLE_HEADING_PRICE_EXCLUDING_TAX ?></th>
-        <th class="text-right"><?= TABLE_HEADING_PRICE_INCLUDING_TAX ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TOTAL_EXCLUDING_TAX ?></th>
-        <th class="text-right"><?= TABLE_HEADING_TOTAL_INCLUDING_TAX ?></th>
+        <th class="text-end"><?= TABLE_HEADING_TAX ?></th>
+        <th class="text-end"><?= TABLE_HEADING_PRICE_EXCLUDING_TAX ?></th>
+        <th class="text-end"><?= TABLE_HEADING_PRICE_INCLUDING_TAX ?></th>
+        <th class="text-end"><?= TABLE_HEADING_TOTAL_EXCLUDING_TAX ?></th>
+        <th class="text-end"><?= TABLE_HEADING_TOTAL_INCLUDING_TAX ?></th>
       </tr>
     </thead>
     <tbody>
@@ -106,18 +106,18 @@
           }
           echo '</th>';
           echo '<td>' . $product['model'] . '</td>';
-          echo '<td class="text-right">' . Tax::format($product['tax']) . '%</td>';
-          echo '<td class="text-right">' . $currencies->format($product['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-          echo '<td class="text-right">' . $currencies->format(Tax::add($product['final_price'], $product['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-          echo '<td class="text-right">' . $currencies->format($product['final_price'] * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-          echo '<th class="text-right">' . $currencies->format(Tax::add($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</th>';
+          echo '<td class="text-end">' . Tax::format($product['tax']) . '%</td>';
+          echo '<td class="text-end">' . $currencies->format($product['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
+          echo '<td class="text-end">' . $currencies->format(Tax::add($product['final_price'], $product['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>';
+          echo '<td class="text-end">' . $currencies->format($product['final_price'] * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
+          echo '<th class="text-end">' . $currencies->format(Tax::add($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</th>';
         echo '</tr>';
       }
 
       foreach ($order->totals as $order_total) {
         echo '<tr>';
-          echo '<th colspan="7" class="text-right bg-white border-0" scope="row">' . $order_total['title'] . '</th>';
-          echo '<th class="text-right bg-white border-0">' . $order_total['text'] . '</th>';
+          echo '<th colspan="7" class="text-end bg-white border-0" scope="row">' . $order_total['title'] . '</th>';
+          echo '<th class="text-end bg-white border-0">' . $order_total['text'] . '</th>';
         echo '</tr>';
       }
       ?>

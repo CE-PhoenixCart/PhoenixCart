@@ -57,7 +57,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->orders_id))
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

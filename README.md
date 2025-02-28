@@ -31,7 +31,6 @@ Version | URL
 ------- | ---
 Core|https://phoenixcart.org/demo/  
 Admin|https://phoenixcart.org/demoadmin/admin/
-PRO|https://phoenixcart.org/PROdemo/
 
 ## Installation
 

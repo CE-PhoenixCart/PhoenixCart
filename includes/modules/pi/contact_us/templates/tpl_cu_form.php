@@ -5,44 +5,43 @@
     printf(FORM_CONTACT_US_SUCCESS, $contact_us_href);
   }
   else {
-    echo new Form('contact_us', $GLOBALS['Linker']->build('contact_us.php', ['action' => 'send']), 'post', ['role' => 'form'], true);
+    echo new Form('contact_us', $GLOBALS['Linker']->build('contact_us.php', ['action' => 'send']), 'post', ['class' => 'was-validated'], true);
 
     echo FORM_CONTACT_US;
     ?>
 
-    <p class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
-    <div class="w-100"></div>
-
-    <div class="form-group row">
-      <label for="inputFromName" class="col-sm-3 col-form-label text-right"><?= ENTRY_NAME ?></label>
+    <div class="row mb-2">
+      <label for="inputFromName" class="col-sm-3 col-form-label text-start text-sm-end"><?= ENTRY_NAME ?></label>
       <div class="col-sm-9">
-        <?= (new Input('name', ['autocomplete' => 'name', 'id' => 'inputFromName', 'placeholder' => ENTRY_NAME_TEXT]))->require(),
-            FORM_REQUIRED_INPUT;
-        ?>
+        <div class="input-group">
+          <?= (new Input('name', ['autocomplete' => 'name', 'id' => 'inputFromName', 'placeholder' => ENTRY_NAME_TEXT]))->require(), FORM_REQUIRED_INPUT; ?>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="inputFromEmail" class="col-sm-3 col-form-label text-right"><?= ENTRY_EMAIL ?></label>
+    <div class="row mb-2">
+      <label for="inputFromEmail" class="col-sm-3 col-form-label text-start text-sm-end"><?= ENTRY_EMAIL ?></label>
       <div class="col-sm-9">
-        <?= (new Input('email', ['autocomplete' => 'email', 'id' => 'inputFromEmail', 'placeholder' => ENTRY_EMAIL_TEXT], 'email'))->require(),
-            FORM_REQUIRED_INPUT;
-        ?>
+        <div class="input-group">
+          <?= (new Input('email', ['autocomplete' => 'email', 'id' => 'inputFromEmail', 'placeholder' => ENTRY_EMAIL_TEXT], 'email'))->require(), FORM_REQUIRED_INPUT; ?>
+        </div>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label for="inputEnquiry" class="col-sm-3 col-form-label text-right"><?= ENTRY_ENQUIRY ?></label>
+    <div class="row mb-2">
+      <label for="inputEnquiry" class="col-sm-3 col-form-label text-start text-sm-end"><?= ENTRY_ENQUIRY ?></label>
       <div class="col-sm-9">
-        <?= (new Textarea('enquiry', ['cols' => '50', 'rows' => '15', 'id' => 'inputEnquiry', 'placeholder' => ENTRY_ENQUIRY_TEXT]))->require(),
-            FORM_REQUIRED_INPUT;
-        ?>
+        <div class="input-group">
+          <?= (new Textarea('enquiry', ['cols' => '50', 'rows' => '15', 'id' => 'inputEnquiry', 'placeholder' => ENTRY_ENQUIRY_TEXT]))->require(), FORM_REQUIRED_INPUT; ?>
+        </div>
       </div>
     </div>
   
     <?= $GLOBALS['hooks']->cat('injectFormDisplay') ?>
 
-    <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-block btn-lg') ?></p>
+    <div class="d-grid">
+      <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
+    </div>
     
     </form>
   

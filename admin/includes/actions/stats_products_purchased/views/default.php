@@ -38,7 +38,7 @@ EOSQL
       ],
       [
         'name' => TABLE_HEADING_PURCHASED,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return $row['products_ordered'];
         },

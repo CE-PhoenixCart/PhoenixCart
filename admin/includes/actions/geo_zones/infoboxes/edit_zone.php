@@ -20,6 +20,6 @@
   $contents[] = ['text' => sprintf(TEXT_INFO_ZONE_DESCRIPTION, null) . '<br>' . new Input('geo_zone_description', ['value' => $zInfo->geo_zone_description])];
   $contents[] = [
     'class' => 'text-center',
-    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success mr-2')
+    'text' => new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success me-2')
             . $GLOBALS['Admin']->button(IMAGE_CANCEL, 'fas fa-times', 'btn-light', $link),
   ];

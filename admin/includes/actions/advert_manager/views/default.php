@@ -32,7 +32,7 @@
       ],
       [
         'name' => TABLE_HEADING_STATUS,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           $flag_link = (clone $row['onclick'])->set_parameter('action', 'set_flag')->set_parameter('formid', $_SESSION['sessiontoken']);
           return ($row['status'] == '1')
@@ -42,7 +42,7 @@
       ],
       [
         'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-right',
+        'class' => 'text-end',
         'function' => function ($row) {
           return (isset($row['info']->advert_id) && ($row['advert_id'] == $row['info']->advert_id) )
                ? '<i class="fas fa-chevron-circle-right text-info"></i>'

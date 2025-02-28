@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -22,7 +22,7 @@
     echo $messageStack->output('password_reset');
   }
 
-  echo new Form('password_reset', $Linker->build('password_reset.php', ['account' => $email_address, 'key' => $password_key, 'action' => 'process']), 'post', [], true);
+  echo new Form('password_reset', $Linker->build('password_reset.php', ['account' => $email_address, 'key' => $password_key, 'action' => 'process']), 'post', ['class' => 'was-validated'], true);
 ?>
 
   <div class="alert alert-info" role="alert"><?= TEXT_MAIN ?></div>
@@ -32,7 +32,9 @@
   echo $hooks->cat('injectFormDisplay');
   ?>
 
-  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg btn-block') ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-success btn-lg') ?>
+  </div>
 
 </form>
 

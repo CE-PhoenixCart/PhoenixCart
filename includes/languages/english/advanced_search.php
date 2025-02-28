@@ -25,8 +25,8 @@ const ENTRY_MANUFACTURERS = 'Manufacturers';
 const ENTRY_PRICE_FROM = 'Price From';
 const ENTRY_PRICE_TO = 'Price To';
 
-const ENTRY_PRICE_FROM_TEXT = 'From';
-const ENTRY_PRICE_TO_TEXT = 'To';
+const ENTRY_PRICE_FROM_TEXT = 'Priced From';
+const ENTRY_PRICE_TO_TEXT = 'Priced To';
 
 const ENTRY_PRICE = 'Price';
 

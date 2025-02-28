@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -30,7 +30,9 @@
     </div>
   </div>
 
-  <p><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-block btn-lg', [], $Linker->build('login.php')) ?></p>
+  <div class="d-grid">
+    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-lg', [], $Linker->build('login.php')) ?>
+  </div>
 
 <?php
   require $Template->map('template_bottom.php', 'component');
