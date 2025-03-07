@@ -11,7 +11,7 @@
 */
 
   $link = $Admin->link('stats_customers.php', ['action' => 'docsv', 'formid' => $_SESSION['sessiontoken']]);
-  
+
   $db_tables = $customer_data->build_db_tables(['id', 'name'], 'customers');
 
   $customers_sql = "SELECT " . customer_query::build_columns($db_tables);
@@ -72,4 +72,3 @@
   };
 
   $table_definition['split']->display_table();
-  
