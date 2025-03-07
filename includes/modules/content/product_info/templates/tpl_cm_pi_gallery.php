@@ -16,6 +16,8 @@
       $pi_thumb .= '</div>';
     }
     $pi_thumb .= '</div>';
+    
+    echo $pi_thumb;
 
     $other_img = '';
     foreach ($other_images as $k => $v) {

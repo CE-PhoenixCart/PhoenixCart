@@ -20,6 +20,9 @@
 
     public function execute() {
       if (!Text::is_empty($GLOBALS['product']->get('image'))) {
+        $active_image = ['image' => $GLOBALS['product']->get('image'), 'htmlcontent' => $GLOBALS['product']->get('name')];
+        $other_images = $GLOBALS['db']->fetch_all("SELECT image, htmlcontent FROM products_images WHERE products_id = '" . (int)$GLOBALS['product']->get('id') . "' ORDER BY sort_order");
+
         $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
         include 'includes/modules/content/cm_template.php';
       }
