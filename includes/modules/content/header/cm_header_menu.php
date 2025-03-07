@@ -44,13 +44,13 @@
         $this->config_key_base . 'STYLE' => [
           'title' => 'Colour Scheme',
           'value' => '',
-          'desc' => 'What colour scheme should this Navigation Bar have?  See https://getbootstrap.com/docs/4.6/components/navbar/#color-schemes'
+          'desc' => 'What colour scheme should this Navigation Bar have?  See https://getbootstrap.com/docs/5.3/components/navbar/#color-schemes'
         ],
         $this->config_key_base . 'COLLAPSE' => [
           'title' => 'Collapse Breakpoint',
           'value' => 'navbar-expand-sm',
-          'desc' => 'When should this Navigation Bar Show? See https://getbootstrap.com/docs/4.6/components/navbar/#how-it-works',
-          'set_func' => "Config::select_one(['navbar-expand', 'navbar-expand-sm', 'navbar-expand-md', 'navbar-expand-lg', 'navbar-expand-xl'], ",
+          'desc' => 'When should this Navigation Bar Show? See https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works',
+          'set_func' => "Config::select_one(['navbar-expand', 'navbar-expand-sm', 'navbar-expand-md', 'navbar-expand-lg', 'navbar-expand-xl', 'navbar-expand-xxl'], ",
         ],
         $this->config_key_base . 'MANUFACTURERS' => [
           'title' => 'Display Manufacturers',

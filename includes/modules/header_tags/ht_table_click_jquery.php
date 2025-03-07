@@ -66,7 +66,7 @@ EOCSS
         'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND' => [
           'title' => 'Background Colour',
           'value' => 'table-success',
-          'desc' => 'The background colour of the clicked Row.  See https://getbootstrap.com/docs/4.6/content/tables/#contextual-classes',
+          'desc' => 'The background colour of the clicked Row.  See https://getbootstrap.com/docs/5.3/content/tables/#variants',
         ],
         'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_SORT_ORDER' => [
           'title' => 'Sort Order',
