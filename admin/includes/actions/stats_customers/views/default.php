@@ -16,7 +16,7 @@
 
   $customers_sql = "SELECT " . customer_query::build_columns($db_tables);
   $customers_sql .= "o.customers_id, SUM(op.products_quantity * op.final_price) AS ordersum FROM " . customer_query::build_joins($db_tables, []);
-  $customers_sql .= ", orders_products op, orders o WHERE " . customer_query::TABLE_ALIASES['customers'];
+  $customers_sql .= ", orders_products op, orders o WHERE " . customer_query::determine_alias('customers');
   $customers_sql .= ".customers_id = o.customers_id AND o.orders_id = op.orders_id GROUP BY o.customers_id ORDER BY ordersum DESC";
 
   $table_definition = [
