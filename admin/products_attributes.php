@@ -543,7 +543,7 @@ EOSQL
                         <td colspan="4">
                           <?= new Form('values', (clone $link)->set_parameter('action', 'update_value')) ?>
                             <input type="hidden" name="value_id" value="<?= $values_values['products_options_values_id'] ?>">
-                            <div class="form-row">
+                            <div class="row">
                               <div class="col-3">
                                 <?= (new Select('option_id', $options, ['class' => 'form-select']))->set_selection($values_values['products_options_id']) ?>
                               </div>
