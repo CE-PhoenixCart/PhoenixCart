@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_CONTENT_WIDTH ?> cm-gdpr-contact-addresses">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_CONTACT_ADDRESSES_PUBLIC_TITLE ?></th>
       </tr>
