@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_CART_CONTENT_WIDTH ?> cm-gdpr-cart">
   <table class="table">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_CART_PUBLIC_TITLE ?></th>
       </tr>

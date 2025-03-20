@@ -1,6 +1,6 @@
 <div class="<?= MODULE_CONTENT_GDPR_SITE_ACTIONS_CONTENT_WIDTH ?> cm-gdpr-site-actions">
   <table class="table table-striped table-hover">
-    <thead class="thead-dark">
+    <thead class="table-dark">
       <tr>
         <th colspan="2"><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_PUBLIC_TITLE ?></th>
       </tr>

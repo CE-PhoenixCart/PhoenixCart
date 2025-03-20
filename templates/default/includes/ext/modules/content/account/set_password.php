@@ -26,7 +26,7 @@
   echo (new Form('account_password', $Linker->build()))->hide('action', 'process');
 ?>
 
-  <p class="text-danger text-right"><?= FORM_REQUIRED_INFORMATION ?></p>
+  <p class="text-danger text-end"><?= FORM_REQUIRED_INFORMATION ?></p>
 
 <?php
   $customer_data->display_input($page_fields);
