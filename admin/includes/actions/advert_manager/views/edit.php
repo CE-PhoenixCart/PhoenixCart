@@ -122,7 +122,7 @@ EOSQL
     ?>
     
     <div class="d-grid mt-2">
-      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success') ?>
+      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-lg') ?>
     </div>
 
   </form>
