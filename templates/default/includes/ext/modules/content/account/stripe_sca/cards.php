@@ -1,7 +1,7 @@
 <?php
 /*
 * $Id: cards.php
-* $Loc: /templates/override/includes/ext/modules/content/account/stripe_sca/
+* $Loc: /templates/default/includes/ext/modules/content/account/stripe_sca/
 *
 * Name: StripeSCA
 * Version: 1.70
