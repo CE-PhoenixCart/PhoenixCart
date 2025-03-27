@@ -81,7 +81,7 @@ EOSQL
 
   </div>
 
-  <div class="buttonSet mt-3">
+  <div class="mt-3">
     <?= $back_button ?>
   </div>
 
