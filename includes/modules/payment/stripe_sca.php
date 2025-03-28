@@ -196,19 +196,19 @@ EOSQL
       } else {
         $content .= '<div id="stripe_table_new_card">' .
                       '<div class="form-group row mb-3">
-                        <label for="cardholder-name" class="col-form-label col-sm-4 ml-4 ml-sm-0 pr-0 text-left text-sm-right">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>' .
-                      ' <div class="col-sm-8 ml-3 ml-sm-0 cardholder"><input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required></text></div>
+                        <label for="cardholder-name" class="col-form-label col-sm-4 ms-4 ms-sm-0 pe-0 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>' .
+                      ' <div class="col-sm-8 ms-3 ms-sm-0 cardholder"><input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required></text></div>
                        </div>
-                       <div class="form-group row ml-3 mr-1 mb-3">
-                         <label for="card-number" class="col-form-label col-sm-4 text-left text-sm-right">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>' .
+                       <div class="form-group row ms-3 me-1 mb-3">
+                         <label for="card-number" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>' .
                       '  <div id="card-number" class="col-sm-8 card-details"></div>
                        </div>
-                       <div class="form-group row ml-3 mr-1 mb-3">
-                         <label for="card-expiry" class="col-form-label col-sm-4 text-left text-sm-right">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>' .
+                       <div class="form-group row ms-3 me-1 mb-3">
+                         <label for="card-expiry" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>' .
                       '  <div id="card-expiry" class="col-sm-8 card-details"></div>
                        </div>
-                       <div class="form-group row ml-3 mr-1 mb-3">
-                         <label for="card-cvc" class="col-form-label col-sm-4 text-left text-sm-right">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>' .
+                       <div class="form-group row ms-3 me-1 mb-3">
+                         <label for="card-cvc" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>' .
                       '  <div id="card-cvc" class="col-sm-8 card-details"></div>
                        </div>';
         if (MODULE_PAYMENT_STRIPE_SCA_TOKENS == 'True') {

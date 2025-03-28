@@ -45,7 +45,7 @@ EOSQL
   <p class="fs-5 fw-semibold mb-1"><?= HEADING_DOWNLOAD ?></p>
 
    <table class="table table-borderless">
-      <thead class="thead-light">
+      <thead class="table-light">
         <tr>
           <th scope="col"><?= TABLE_HEADING_DOWNLOAD_FILE ?></th>
           <th scope="col" ><?= TABLE_HEADING_DOWNLOAD_COUNT ?></th>

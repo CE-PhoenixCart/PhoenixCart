@@ -33,7 +33,7 @@
         ],
         $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
-          'value' => 'col-sm-6 text-center text-sm-left text-sm-start',
+          'value' => 'col-sm-6 text-center text-sm-start',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
