@@ -1,7 +1,7 @@
 <?php
 /*
 * $Id: cards.php
-* $Loc: /templates/override/includes/ext/modules/content/account/stripe_sca/
+* $Loc: /templates/default/includes/ext/modules/content/account/stripe_sca/
 *
 * Name: StripeSCA
 * Version: 1.70
@@ -81,7 +81,7 @@ EOSQL
 
   </div>
 
-  <div class="buttonSet mt-3">
+  <div class="mt-3">
     <?= $back_button ?>
   </div>
 

@@ -55,7 +55,7 @@
     'web_id' => 'aID',
     'db_id' => 'advert_id',
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
-    'sql' => "SELECT * FROM advert ORDER BY advert_id DESC",
+    'sql' => "SELECT * FROM advert ORDER BY advert_group, sort_order",
   ];
 
   $table_definition['function'] = function (&$row) use (&$table_definition) {

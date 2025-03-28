@@ -29,7 +29,7 @@
     <?= $admin_hooks->cat('preview') ?>
   </table>
 
-  <div class="buttonSet">
+  <div class="mt-2">
     <?= $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $link) ?>
   </div>
 
