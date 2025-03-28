@@ -212,7 +212,7 @@ EOSQL
                       '  <div id="card-cvc" class="col-sm-8 card-details"></div>
                        </div>';
         if (MODULE_PAYMENT_STRIPE_SCA_TOKENS == 'True') {
-          $content .= '<div class="form-check col-sm-8 offset-4 pl-5">' . 
+          $content .= '<div class="form-check col-sm-8 offset-4 ps-5">' . 
                         (new Tickable('card-save', ['value' => '1'], 'checkbox'))->append_css('form-check-input')->set('id', 'inputCardSave') . '
                         <label class="form-check-label" for="inputCardSave">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_SAVE . '</label>
                        </div>';
