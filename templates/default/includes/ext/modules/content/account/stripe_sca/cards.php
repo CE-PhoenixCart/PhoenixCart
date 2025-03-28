@@ -66,7 +66,7 @@ EOSQL
 ?>
 
       <div class="col-sm-6 mb-2"><strong><?= htmlspecialchars($tokens['card_type']) ?></strong>&nbsp;&nbsp;****<?= htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2)) ?></div>
-      <div class="col-sm-6 mb-2 text-right"><?= $delete_button ?></div>
+      <div class="col-sm-6 mb-2 text-end"><?= $delete_button ?></div>
 
 <?php
     }

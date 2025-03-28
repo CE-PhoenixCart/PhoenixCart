@@ -1,5 +1,5 @@
 <div class="<?= I_BRAND_ICONS_CONTENT_WIDTH ?> i-brand-icons">
-  <p class="fs-5 font-weight-bold fw-semibold card-title my-3"><?= I_BRAND_ICONS_HEADING ?></p>
+  <p class="fs-5 fw-semibold card-title my-3"><?= I_BRAND_ICONS_HEADING ?></p>
   
   <div class="d-none d-sm-block">
     <div class="d-flex flex-wrap">

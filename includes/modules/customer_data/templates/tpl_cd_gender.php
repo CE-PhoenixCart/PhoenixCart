@@ -12,7 +12,7 @@
 
   $parameters = [
     'aria-labelledby' => 'atGenderLabel',
-    'class' => 'custom-control-input',
+    'class' => 'form-check-input',
   ];
 
   if (!Text::is_empty(ENTRY_GENDER_TEXT)) {
