@@ -37,9 +37,9 @@
 
   if ($GLOBALS['dir_ok']) {
     $contents[] = [
-      'text' => '<div class="custom-control custom-switch">'
-              . new Tickable('download', ['value' => 'yes', 'class' => 'custom-control-input', 'id' => 'd'], 'checkbox')
-              . '<label for="d" class="custom-control-label text-muted"><small>' . TEXT_INFO_DOWNLOAD_ONLY . '<br>' . TEXT_INFO_BEST_THROUGH_HTTPS . '</small></label></div>',
+      'text' => '<div class="form-check form-switch">'
+              . new Tickable('download', ['value' => 'yes', 'class' => 'form-check-input', 'id' => 'd'], 'checkbox')
+              . '<label for="d" class="form-check-label text-muted"><small>' . TEXT_INFO_DOWNLOAD_ONLY . '<br>' . TEXT_INFO_BEST_THROUGH_HTTPS . '</small></label></div>',
     ];
   } else {
     $contents[] = [

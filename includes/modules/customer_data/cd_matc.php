@@ -65,7 +65,7 @@
     }
 
     public function display_input(&$customer_details = null) {
-      $input = new Tickable('matc', ['value' => '1', 'class' => 'custom-control-input'], 'checkbox');
+      $input = new Tickable('matc', ['value' => '1', 'class' => 'form-check-input'], 'checkbox');
       $input->require();
 
       if ($customer_details && is_array($customer_details)) {
