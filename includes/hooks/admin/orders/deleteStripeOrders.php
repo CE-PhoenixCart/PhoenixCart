@@ -1,7 +1,7 @@
 <?php
 /*
 * $Id: deleteStripeOrders.php
-* $Loc: /includes/hooks/admin/siteWide/
+* $Loc: /includes/hooks/admin/orders/
 *
 * Name: StripeSCA
 * Version: 1.70
@@ -22,14 +22,13 @@
 * 
 */
 
-class hook_admin_siteWide_deleteStripeOrders {
+class hook_admin_orders_deleteStripeOrders {
 
   function listen_injectSiteStart() {
     global $db;
 
     if ( defined('MODULE_PAYMENT_STRIPE_SCA_STATUS') 
          && MODULE_PAYMENT_STRIPE_SCA_STATUS == 'True' 
-         && $GLOBALS['PHP_SELF'] == 'orders.php' 
          && !empty(MODULE_PAYMENT_STRIPE_SCA_DAYS_DELETE) 
          && !isset($_SESSION['stripe_orders_deleted']) ) {
            
