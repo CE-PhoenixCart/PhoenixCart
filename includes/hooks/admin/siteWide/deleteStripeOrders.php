@@ -27,7 +27,12 @@ class hook_admin_siteWide_deleteStripeOrders {
   function listen_injectSiteStart() {
     global $db;
 
-    if ($GLOBALS['PHP_SELF'] == 'orders.php' && !empty(MODULE_PAYMENT_STRIPE_SCA_DAYS_DELETE) && !isset($_SESSION['stripe_orders_deleted']) ) {
+    if ( defined('MODULE_PAYMENT_STRIPE_SCA_STATUS') 
+         && MODULE_PAYMENT_STRIPE_SCA_STATUS == 'True' 
+         && $GLOBALS['PHP_SELF'] == 'orders.php' 
+         && !empty(MODULE_PAYMENT_STRIPE_SCA_DAYS_DELETE) 
+         && !isset($_SESSION['stripe_orders_deleted']) ) {
+           
       $this->load_lang();
 
       $delete_stripe_query = $db->query(sprintf(<<<'EOSQL'
