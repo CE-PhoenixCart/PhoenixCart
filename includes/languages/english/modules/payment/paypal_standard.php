@@ -18,7 +18,7 @@
 
 const MODULE_PAYMENT_PAYPAL_STANDARD_TEXT_TITLE = 'Paypal Standard Payments';
 const MODULE_PAYMENT_PAYPAL_STANDARD_TEXT_PUBLIC_TITLE = 'Paypal';
-const MODULE_PAYMENT_PAYPAL_STANDARD_TEXT_DESCRIPTION = '<div class="alert alert-warning text-break">Set Auto Return for Website Payments in your Paypal settings On and configure the return URL to:<br/>%s<br><br>Set PDT On and copy the identity token to the module.<br><br>Turn on Instant Payment Notification and set the Notification URL to:<br/>%s</div><i class="fas fa-external-link-alt"></i>&nbsp;<a href="https://www.paypal.com" target="_blank" rel="noreferrer">Paypal Website</a>';
+const MODULE_PAYMENT_PAYPAL_STANDARD_TEXT_DESCRIPTION = '<div class="alert alert-warning text-break">Set Auto Return for Website Payments in your Paypal settings On and configure the return URL to:<br/>%s<br><br>Set PDT On and copy the identity token to the module.<br><br>Turn on Instant Payment Notification and set the Notification URL to:<br/>%s</div><i class="fas fa-external-link-alt me-2"></i><a href="https://www.paypal.com" target="_blank" rel="noopener">Paypal Website</a>';
 
 const MODULE_PAYMENT_PAYPAL_STANDARD_TEXT_RETURN_BUTTON = 'Back to ' . STORE_NAME; // max length 60 chars
 

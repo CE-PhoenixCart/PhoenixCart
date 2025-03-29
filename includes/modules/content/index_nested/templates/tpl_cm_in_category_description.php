@@ -1,6 +1,8 @@
 <div class="<?= MODULE_CONTENT_IN_CATEGORY_DESCRIPTION_CONTENT_WIDTH ?> cm-in-category-description">
-  <div class="card mb-2 card-body">
-    <?= $category_description ?>
+  <div class="card">
+    <div class="card-body">
+      <?= $category_description ?>
+    </div>
   </div>
 </div>
 
