@@ -62,7 +62,7 @@
             foreach ($GLOBALS[$class]->output as $output) {
               $output_string .= '<tr>';
               $output_string .= '<td>' . $output['title'] . '</td>';
-              $output_string .= '<td class="text-right">' . $output['text'] . '</td>';
+              $output_string .= '<td class="text-end">' . $output['text'] . '</td>';
               $output_string .= '</tr>';
             }
           }

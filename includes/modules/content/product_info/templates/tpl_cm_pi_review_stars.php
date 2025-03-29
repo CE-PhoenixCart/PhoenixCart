@@ -5,7 +5,7 @@
     echo '<li class="list-inline-item ' . $i . '">' . $rating . '</li>';
   }
 ?>
-    <li class="list-inline-item border-left ml-2 pl-3"><a href="<?= $review_link ?>"><?= $do_review ?></a></li>
+    <li class="list-inline-item border-start ms-2 ps-3"><a href="<?= $review_link ?>"><?= $do_review ?></a></li>
   </ul>
 </div>
 

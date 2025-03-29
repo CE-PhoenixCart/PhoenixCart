@@ -43,7 +43,7 @@
   var upload = document.querySelector('#inputImportersImage');
   if (upload) {
     upload.addEventListener('change', function (event) {
-      var labels = document.querySelectorAll('LABEL.custom-file-label');
+      var labels = document.querySelectorAll('LABEL.form-label');
       for (var i = 0; i < labels.length; i++) {
         if ('inputImportersImage' === labels[i].htmlFor) {
           labels[i].innerHTML = event.target.files[0].name;

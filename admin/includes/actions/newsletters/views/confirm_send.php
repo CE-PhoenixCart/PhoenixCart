@@ -36,6 +36,6 @@
     <div class="clearfix"></div>
   </div>
 
-  <div class="buttonSet">
-    <?= $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light mt-2', $GLOBALS['link']) ?>
+  <div class="mt-2">
+    <?= $Admin->button(IMAGE_BACK, 'fas fa-angle-left', 'btn-light', $GLOBALS['link']) ?>
   </div>

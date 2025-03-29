@@ -23,7 +23,7 @@ EOSQL
   $aInfo = new objectInfo($advert);
   $link->set_parameter('aID', (string)(int)$aID);
 
-  $groups_array = $db->fetch_all("SELECT advert_group AS id, advert_group AS text FROM advert ORDER BY advert_group");
+  $groups_array = $db->fetch_all("SELECT DISTINCT advert_group AS id, advert_group AS text FROM advert ORDER BY advert_group");
 
   $form = new Form('edit_advert', $link->set_parameter('action', 'update'), 'post', ['enctype' => 'multipart/form-data']);
   $form->hide('advert_id', $aInfo->advert_id);
@@ -122,7 +122,7 @@ EOSQL
     ?>
     
     <div class="d-grid mt-2">
-      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success') ?>
+      <?= new Button(IMAGE_SAVE, 'fas fa-save', 'btn-success btn-lg') ?>
     </div>
 
   </form>
