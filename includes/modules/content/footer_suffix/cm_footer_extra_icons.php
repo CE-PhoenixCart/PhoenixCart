@@ -47,7 +47,7 @@
         ],
         $this->config_key_base . 'DISPLAY' => [
           'title' => 'Icons',
-          'value' => 'fab fa-paypal fa-lg,fab fa-cc-visa fa-lg',
+          'value' => 'paypal,cc-visa',
           'desc' => 'Icons to display.',
         ],
         $this->config_key_base . 'SORT_ORDER' => [
