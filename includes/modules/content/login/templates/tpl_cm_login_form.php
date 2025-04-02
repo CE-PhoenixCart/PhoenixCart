@@ -7,7 +7,7 @@
 ?>
 
   <div class="d-grid">
-    <?= new Button(IMAGE_BUTTON_LOGIN, 'fas fa-sign-in-alt', 'btn-success') ?>
+    <?= new Button(MODULE_CONTENT_LOGIN_BUTTON_LOGIN, 'fas fa-sign-in-alt', 'btn-success') ?>
   </div>
 
   </form>
