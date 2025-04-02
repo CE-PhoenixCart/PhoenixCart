@@ -10,8 +10,6 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE = 'Privacy Notice';
-
 /*
 Define the Title and Text of this page using the Info Pages Manager.
 Admin > Tools > Info Pages
