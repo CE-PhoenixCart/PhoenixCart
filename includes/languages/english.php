@@ -51,28 +51,16 @@ const ERROR_NO_PAYMENT_MODULE_SELECTED = 'Please select a payment method for you
 
 const IMAGE_BUTTON_ADD_ADDRESS = 'Add Address';
 const IMAGE_BUTTON_BACK = 'Back';
-const IMAGE_BUTTON_BUY_NOW = 'Buy Now';
-const IMAGE_BUTTON_CHANGE_ADDRESS = 'Change Address';
-const IMAGE_BUTTON_CHECKOUT = 'Checkout';
 const IMAGE_BUTTON_CLOSE = 'Close';
-const IMAGE_BUTTON_CONFIRM_ORDER = 'Confirm Order';
 const IMAGE_BUTTON_CONTACT_US = 'Contact Us';
 const IMAGE_BUTTON_CONTINUE = 'Continue';
 const IMAGE_BUTTON_DELETE = 'Delete';
-const IMAGE_BUTTON_LOGIN = 'Sign In';
-const IMAGE_BUTTON_IN_CART = 'Add to Cart';
 const IMAGE_BUTTON_SEARCH = 'Search';
 const IMAGE_BUTTON_UPDATE = 'Update';
 const IMAGE_BUTTON_UPDATE_PREFERENCES = 'Update Preferences';
 
 const SMALL_IMAGE_BUTTON_DELETE = 'Delete';
 const SMALL_IMAGE_BUTTON_EDIT = 'Edit';
-const SMALL_IMAGE_BUTTON_VIEW = 'View';
-const SMALL_IMAGE_BUTTON_BUY = 'Buy';
-
-const TEXT_CCVAL_ERROR_INVALID_DATE = 'The expiry date entered for the credit card is invalid. Please check the date and try again.';
-const TEXT_CCVAL_ERROR_INVALID_NUMBER = 'The credit card number entered is invalid. Please check the number and try again.';
-const TEXT_CCVAL_ERROR_UNKNOWN_CARD = 'The first four digits of the number entered are: %s. If that number is correct, we do not accept that type of credit card. If it is wrong, please try again.';
 
 const TEXT_SEARCH_PLACEHOLDER = 'Search';
 
