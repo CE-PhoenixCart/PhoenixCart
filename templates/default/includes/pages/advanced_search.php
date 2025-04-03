@@ -36,19 +36,18 @@
   
   <p class="mt-1"><a data-bs-toggle="modal" href="#helpSearch" class="btn btn-light"><?= TEXT_SEARCH_HELP_LINK ?></a></p>
 
-  <div class="modal fade" id="helpSearch" tabindex="-1" aria-labelledby="helpSearchLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="helpSearchLabel"><?= HEADING_SEARCH_HELP ?></h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= IMAGE_BUTTON_CLOSE ?>"></button>
-        </div>
-        <div class="modal-body">
-          <p><?= TEXT_SEARCH_HELP ?></p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <?php
+  $modal = [
+    'name' => 'helpSearch',
+    'title' => HEADING_SEARCH_HELP,
+    'text' => TEXT_SEARCH_HELP,
+    'close_button' => IMAGE_BUTTON_CLOSE,
+    'size' => 'modal-md',
+  ];
+
+  ob_start();
+  include Guarantor::ensure_global('Template')->map('modal.php', 'component');
+  ?>
 
   <hr>
 
