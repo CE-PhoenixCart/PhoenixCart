@@ -78,31 +78,28 @@ class hook_shop_product_info_gallery {
         }
         
         $bs_theme = BOOTSTRAP_THEME;
-
-        $modal_gallery_footer = <<<mgf
-<div id="lightbox" class="modal fade" role="dialog">
-  <div class="modal-dialog {$modal_size}" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="carousel slide" data-bs-theme="{$bs_theme}" data-bs-ride="carousel" tabindex="-1" id="carousel">
-          {$display_indicators}
-          <div class="carousel-inner">
-            <div class="carousel-item text-center active">{$first_img}</div>
-            {$other_img}
-          </div>
-          {$display_swipe_arrows}
-        </div>
-      </div>
-      <div class="modal-footer">
-        <h5 class="text-uppercase me-auto">{$album_name}</h5>
-        <a href="#" role="button" data-bs-dismiss="modal" class="btn btn-primary px-3">{$album_exit}</a>
-      </div>
-    </div>
+        
+        $modal_text = <<<mt
+<div class="carousel slide" data-bs-theme="{$bs_theme}" data-bs-ride="carousel" tabindex="-1" id="carousel">
+  {$display_indicators}
+  <div class="carousel-inner">
+    <div class="carousel-item text-center active">{$first_img}</div>
+    {$other_img}
   </div>
+  {$display_swipe_arrows}
 </div>
-mgf;
+mt;
+        
+        $modal = [
+          'name' => 'lightbox',
+          'title' => $album_name,
+          'text' => $modal_text,
+          'close_button' => $album_exit,
+          'size' => $modal_size,
+        ];
 
-        return $modal_gallery_footer;
+        ob_start();
+        include Guarantor::ensure_global('Template')->map('modal.php', 'component');
       }
     }
   }
