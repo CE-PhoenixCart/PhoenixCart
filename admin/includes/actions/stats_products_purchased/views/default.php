@@ -19,7 +19,7 @@ SELECT p.products_id, p.products_ordered, pd.products_name
 EOSQL
     , (int)$_SESSION['languages_id']);
 
-  $link = $Admin->link('catalog.php', ['action' => 'new_product_preview', 'read' => 'only', 'origin' => 'stats_products_purchased.php?page=' . (int)($_GET['page'] ?? 1)]);
+  $link = $Admin->link('catalog.php');
   $table_definition = [
     'columns' => [
       [
@@ -33,7 +33,7 @@ EOSQL
       [
         'name' => TABLE_HEADING_PRODUCTS,
         'function' => function ($row) {
-          return '<a target="_blank" class="position-relative stretched-link" href="' . $row['onclick'] . '">' . $row['products_name'] . '</a>';
+          return '<a target="_blank" class="stretched-link" href="' . $row['link'] . '">' . $row['products_name'] . '</a>';
         },
       ],
       [
@@ -53,8 +53,10 @@ EOSQL
 
   $table_definition['split'] = new Paginator($table_definition);
   $table_definition['function'] = function (&$row) use ($link, &$table_definition) {
-    $row['onclick'] = $link->set_parameter('pID', (int)$row['products_id']);
-    $row['css'] = '';
+    $link->set_parameter('search', $row['products_name']);
+
+    $row['link'] = $link;
+    $row['css'] = ' style="transform: rotate(0);"';
   };
   
   $table_definition['split']->display_table();
