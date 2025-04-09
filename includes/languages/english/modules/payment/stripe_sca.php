@@ -24,7 +24,7 @@
   const MODULE_PAYMENT_STRIPE_SCA_TEXT_TITLE = 'Stripe SCA';
   const MODULE_PAYMENT_STRIPE_SCA_TEXT_PUBLIC_TITLE = 'Credit Card (Stripe SCA)';
   const MODULE_PAYMENT_STRIPE_SCA_TEXT_DESCRIPTION = '<i class="fas fa-external-link-alt me-2"></i><a href="https://www.stripe.com" target="_blank" rel="noopener">Visit Stripe Website</a>';
-  const MODULE_PAYMENT_STRIPE_SCA_TEXT_INSTRUCTIONS = '<p>Instructions:<br><i class="fas fa-external-link-alt"></i>&nbsp;<a href="https://phoenixcart.org/phoenixcartwiki/index.php?title=Payment#Stripe_SCA" target="_blank" rel="noopener" style="text-decoration: underline; font-weight: bold;">Webhook Setup</a></p>';
+  const MODULE_PAYMENT_STRIPE_SCA_TEXT_INSTRUCTIONS = '<p>Instructions:<br><i class="fas fa-external-link-alt me-2"></i>&nbsp;<a href="https://phoenixcart.org/phoenixcartwiki/index.php?title=Payment#Stripe_SCA" target="_blank" rel="noopener">Webhook Setup</a></p>';
 
   const MODULE_PAYMENT_STRIPE_SCA_ERROR_ADMIN_CURL = 'This module requires cURL to be enabled in PHP and will not load until it has been enabled on this webserver.';
   const MODULE_PAYMENT_STRIPE_SCA_ERROR_ADMIN_CONFIGURATION = 'This module will not load until the Publishable Key and Secret Key parameters have been configured. Please edit and configure the settings of this module.';
