@@ -40,6 +40,9 @@
       $this->order_status = defined('MODULE_PAYMENT_STRIPE_SCA_PREPARE_ORDER_STATUS_ID') && ((int) MODULE_PAYMENT_STRIPE_SCA_PREPARE_ORDER_STATUS_ID > 0) ? (int) MODULE_PAYMENT_STRIPE_SCA_PREPARE_ORDER_STATUS_ID : 0;
 
       if (defined('MODULE_PAYMENT_STRIPE_SCA_STATUS')) {
+        
+        $this->description = MODULE_PAYMENT_STRIPE_SCA_TEXT_INSTRUCTIONS . $this->description;
+        
         if (MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_SERVER == 'Test') {
           $this->title .= ' [Test]';
           $this->public_title .= ' (Test)';
@@ -56,7 +59,7 @@
 
       if ($this->enabled === true) {
         if ((MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_SERVER == 'Live' && (Text::is_empty(MODULE_PAYMENT_STRIPE_SCA_LIVE_PUBLISHABLE_KEY) || Text::is_empty(MODULE_PAYMENT_STRIPE_SCA_LIVE_SECRET_KEY))) || (MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_SERVER == 'Test' && (Text::is_empty(MODULE_PAYMENT_STRIPE_SCA_TEST_PUBLISHABLE_KEY) || Text::is_empty(MODULE_PAYMENT_STRIPE_SCA_TEST_SECRET_KEY)))) {
-          $this->description = '<div class="alert alert-warning">' . MODULE_PAYMENT_STRIPE_SCA_ERROR_ADMIN_CONFIGURATION . '</div>' . $this->description;
+          $this->description .= '<div class="alert alert-warning">' . MODULE_PAYMENT_STRIPE_SCA_ERROR_ADMIN_CONFIGURATION . '</div>' . $this->description;
 
           $this->enabled = false;
         } elseif (isset($order) && $order instanceof order) {
