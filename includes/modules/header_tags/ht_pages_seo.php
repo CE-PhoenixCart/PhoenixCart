@@ -47,13 +47,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_PAGES_SEO_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Pages SEO Module',
           'value' => 'True',
           'desc' => 'Do you want to allow this module to write SEO to your Pages?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_PAGES_SEO_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

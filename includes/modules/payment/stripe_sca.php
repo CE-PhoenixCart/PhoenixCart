@@ -381,118 +381,118 @@ EOD;
       }
 
       $params = [
-        'MODULE_PAYMENT_STRIPE_SCA_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_STATUS_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_STATUS_DESC,
           'value' => 'True',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_SERVER' => [
+        $this->config_key_base . 'TRANSACTION_SERVER' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SERVER_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SERVER_DESC,
           'value' => 'Live',
           'set_func' => "Config::select_one(['Live', 'Test'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_LIVE_PUBLISHABLE_KEY' => [
+        $this->config_key_base . 'LIVE_PUBLISHABLE_KEY' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_PUB_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_PUB_DESC,
           'value' => '',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_LIVE_SECRET_KEY' => [
+        $this->config_key_base . 'LIVE_SECRET_KEY' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_SECRET_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_SECRET_DESC,
           'value' => '',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_LIVE_WEBHOOK_SECRET' => [
+        $this->config_key_base . 'LIVE_WEBHOOK_SECRET' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_WEBHOOK_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LIVE_WEBHOOK_DESC,
           'value' => '',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TEST_PUBLISHABLE_KEY' => [
+        $this->config_key_base . 'TEST_PUBLISHABLE_KEY' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_PUB_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_PUB_DESC,
           'value' => '',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TEST_SECRET_KEY' => [
+        $this->config_key_base . 'TEST_SECRET_KEY' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_SECRET_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_SECRET_DESC,
           'value' => ''],
-        'MODULE_PAYMENT_STRIPE_SCA_TEST_WEBHOOK_SECRET' => [
+        $this->config_key_base . 'TEST_WEBHOOK_SECRET' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_WEBHOOK_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TEST_WEBHOOK_DESC,
           'value' => '',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TOKENS' => [
+        $this->config_key_base . 'TOKENS' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TOKENS_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TOKENS_DESC,
           'value' => 'False',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_CARD_DATA_ONE_LINE' => [
+        $this->config_key_base . 'CARD_DATA_ONE_LINE' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_CARD_DATA_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_CARD_DATA_DESC,
           'value' => 'False',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_LOG' => [
+        $this->config_key_base . 'LOG' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LOG_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_LOG_DESC,
           'value' => 'False',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_METHOD' => ['title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_METHOD_TITLE,
+        $this->config_key_base . 'TRANSACTION_METHOD' => ['title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_METHOD_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_METHOD_DESC,
           'value' => 'Capture',
           'set_func' => "Config::select_one(['Authorize', 'Capture'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_PREPARE_ORDER_STATUS_ID' => [
+        $this->config_key_base . 'PREPARE_ORDER_STATUS_ID' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_NEW_ORDER_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_NEW_ORDER_DESC,
           'value' => self::ensure_order_status('MODULE_PAYMENT_STRIPE_SCA_PREPARE_ORDER_STATUS_ID', 'Preparing [Stripe SCA]'),
           'set_func' => 'Config::select_order_status(',
           'use_func' => 'order_status::fetch_name',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_ORDER_STATUS_ID' => [
+        $this->config_key_base . 'ORDER_STATUS_ID' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_PROCESSED_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_PROCESSED_DESC,
           'value' => '0',
           'set_func' => 'Config::select_order_status(',
           'use_func' => 'order_status::fetch_name',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_ORDER_STATUS_ID' => [
+        $this->config_key_base . 'TRANSACTION_ORDER_STATUS_ID' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TRANSACTION_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_TRANSACTION_DESC,
           'value' => self::ensure_order_status('MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_ORDER_STATUS_ID', 'Stripe SCA [Transactions]'),
           'set_func' => 'Config::select_order_status(',
           'use_func' => 'order_status::fetch_name',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_ZONE' => [
+        $this->config_key_base . 'ZONE' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_ZONE_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_ZONE_DESC,
           'value' => '0',
           'use_func' => 'geo_zone::fetch_name',
           'set_func' => 'Config::select_geo_zone(',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_VERIFY_SSL' => [
+        $this->config_key_base . 'VERIFY_SSL' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SSL_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SSL_DESC,
           'value' => 'True',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_PROXY' => [
+        $this->config_key_base . 'PROXY' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_PROXY_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_PROXY_DESC,
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_DEBUG_EMAIL' => [
+        $this->config_key_base . 'DEBUG_EMAIL' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_EMAIL_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_EMAIL_DESC
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_DAYS_DELETE' => [
+        $this->config_key_base . 'DAYS_DELETE' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_DAYS_DELETE_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_DAYS_DELETE_DESC,
           'value' => '2',
         ],
-        'MODULE_PAYMENT_STRIPE_SCA_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SORT_TITLE,
           'desc' => MODULE_PAYMENT_STRIPE_SCA_ADMIN_SOR_DESC,
           'value' => '0',

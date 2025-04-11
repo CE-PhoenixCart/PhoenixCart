@@ -50,25 +50,25 @@ EOCSS
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Clickable Table Rows Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Clickable Table Rows module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_PAGES' => [
+        $this->config_key_base . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'checkout_payment.php;checkout_shipping.php',
           'desc' => 'The pages to add the necessary javascript to.',
           'use_func' => 'page_selection::_show_pages',
           'set_func' => 'page_selection::_edit_pages(',
         ],
-        'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_TR_BACKGROUND' => [
+        $this->config_key_base . 'TR_BACKGROUND' => [
           'title' => 'Background Colour',
           'value' => 'table-success',
           'desc' => 'The background colour of the clicked Row.  See https://getbootstrap.com/docs/5.3/content/tables/#variants',
         ],
-        'MODULE_HEADER_TAGS_TABLE_CLICK_JQUERY_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

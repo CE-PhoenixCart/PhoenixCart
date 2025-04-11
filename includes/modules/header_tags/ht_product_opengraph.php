@@ -53,13 +53,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Product OpenGraph Module',
           'value' => 'True',
           'desc' => 'Do you want to allow Open Graph Meta Tags (good for Facebook and Pinterest and other sites) to be added to your product page?  Note that your product thumbnails MUST be at least 200px by 200px.',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_PRODUCT_OPENGRAPH_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '900',
           'desc' => 'Sort order of display. Lowest is displayed first.',

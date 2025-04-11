@@ -138,53 +138,53 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_PAYMENT_2CHECKOUT_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable 2Checkout',
           'value' => 'False',
           'desc' => 'Do you want to accept 2CheckOut payments?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_2CHECKOUT_LOGIN' => [
+        $this->config_key_base . 'LOGIN' => [
           'title' => 'Vendor Account',
           'value' => '',
           'desc' => 'The vendor account number for the 2Checkout gateway.',
         ],
-        'MODULE_PAYMENT_2CHECKOUT_TESTMODE' => [
+        $this->config_key_base . 'TESTMODE' => [
           'title' => 'Transaction Mode',
           'value' => 'Test',
           'desc' => 'Transaction mode used for the 2Checkout gateway.',
           'set_func' => "Config::select_one(['Test', 'Production'], ",
         ],
-        'MODULE_PAYMENT_2CHECKOUT_SECRET_WORD' => [
+        $this->config_key_base . 'SECRET_WORD' => [
           'title' => 'Secret Word',
           'value' => '',
           'desc' => 'The secret word to confirm transactions with. (Must be the same as defined on the Vendor Admin interface)',
         ],
-        'MODULE_PAYMENT_2CHECKOUT_ROUTINE' => [
+        $this->config_key_base . 'ROUTINE' => [
           'title' => 'Payment Routine',
           'value' => 'Multi-Page',
           'desc' => 'The payment routine to use on the 2Checkout gateway.',
           'set_func' => "Config::select_one(['Multi-Page', 'Single-Page'], ",
         ],
-        'MODULE_PAYMENT_2CHECKOUT_CURRENCY' => [
+        $this->config_key_base . 'CURRENCY' => [
           'title' => 'Processing Currency',
           'value' => DEFAULT_CURRENCY,
           'desc' => 'The currency to process transactions in. (Must be the same as defined on the Vendor Admin interface)',
           'set_func' => 'pm2checkout::getCurrencies(',
         ],
-        'MODULE_PAYMENT_2CHECKOUT_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. (Lowest is displayed first)',
         ],
-        'MODULE_PAYMENT_2CHECKOUT_ZONE' => [
+        $this->config_key_base . 'ZONE' => [
           'title' => 'Payment Zone',
           'value' => '0',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
           'use_func' => 'geo_zone::fetch_name',
           'set_func' => 'Config::select_geo_zone(',
         ],
-        'MODULE_PAYMENT_2CHECKOUT_ORDER_STATUS_ID' => [
+        $this->config_key_base . 'ORDER_STATUS_ID' => [
           'title' => 'Set Order Status',
           'value' => '0',
           'desc' => 'Set the status of orders made with this payment module to this value.',
