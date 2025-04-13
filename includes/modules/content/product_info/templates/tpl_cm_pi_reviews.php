@@ -4,7 +4,7 @@
   <div class="row">
     <?php
     while ($review = $review_query->fetch_assoc()) {
-      echo '<div class="col-sm-' . (int)MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH_EACH . '">';
+      echo '<div class="' . MODULE_CONTENT_PRODUCT_INFO_REVIEWS_CONTENT_WIDTH_EACH . '">';
         echo '<figure>';
           echo '<blockquote class="blockquote">';
             echo htmlspecialchars($review['reviews_text']);
