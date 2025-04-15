@@ -60,7 +60,7 @@
       </div>
 
       <div class="form-floating mb-3">
-        <?= (new Input('CFG_STORE_OWNER_EMAIL_ADDRESS', ['id' => 'CFG_STORE_OWNER_EMAIL_ADDRESS', 'placeholder' => TEXT_OWNER_EMAIL_PLACEHOLDER]))->require(),
+        <?= (new Input('CFG_STORE_OWNER_EMAIL_ADDRESS', ['id' => 'CFG_STORE_OWNER_EMAIL_ADDRESS', 'placeholder' => TEXT_OWNER_EMAIL_PLACEHOLDER], 'email'))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_OWNER_EMAIL_EXPLANATION ?>
         <label for="CFG_STORE_OWNER_EMAIL_ADDRESS"><?= TEXT_OWNER_EMAIL ?></label>
@@ -88,7 +88,7 @@
   if (Path::is_writable($dir_fs_document_root) && Path::is_writable($dir_fs_document_root . 'admin')) {
 ?>
       <div class="form-floating mb-3">
-        <?= (new Input('CFG_ADMIN_DIRECTORY', ['value' => 'admin', 'id' => 'CFG_ADMIN_DIRECTORY']))->require(),
+        <?= (new Input('CFG_ADMIN_DIRECTORY', ['title' => TEXT_ADMIN_DIRECTORY_ERROR, 'pattern' => '^(?![aA][dD][mM][iI][nN]$).*$', 'value' => 'admin', 'id' => 'CFG_ADMIN_DIRECTORY']))->require(),
               TEXT_REQUIRED_INFORMATION,
               TEXT_ADMIN_DIRECTORY_EXPLANATION ?>
         <label for="CFG_ADMIN_DIRECTORY"><?= TEXT_ADMIN_DIRECTORY ?></label>
