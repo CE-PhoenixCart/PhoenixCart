@@ -102,11 +102,11 @@
     }
     ?>
 
+    <?= $admin_hooks->cat('newForm') ?>
+
     <div class="alert alert-info">
       <?= TEXT_ADVERT_NOTE . TEXT_INSERT_NOTE ?>
     </div>
-
-    <?= $admin_hooks->cat('newForm') ?>
     
     <div class="d-grid mt-2">
       <?= new Button(IMAGE_SAVE, 'fas fa-images', 'btn-success btn-lg') ?>
