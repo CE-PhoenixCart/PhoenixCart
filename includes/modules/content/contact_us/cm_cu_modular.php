@@ -22,15 +22,15 @@
 
     public function execute() {
       $slots = [
-        'a' => (int)$this->base_constant('A_WIDTH'),
-        'b' => (int)$this->base_constant('B_WIDTH'),
-        'c' => (int)$this->base_constant('C_WIDTH'),
-        'd' => (int)$this->base_constant('D_WIDTH'),
-        'e' => (int)$this->base_constant('E_WIDTH'),
-        'f' => (int)$this->base_constant('F_WIDTH'),
-        'g' => (int)$this->base_constant('G_WIDTH'),
-        'h' => (int)$this->base_constant('H_WIDTH'),
-        'i' => (int)$this->base_constant('I_WIDTH'),
+        'a' => $this->base_constant('A_WIDTH'),
+        'b' => $this->base_constant('B_WIDTH'),
+        'c' => $this->base_constant('C_WIDTH'),
+        'd' => $this->base_constant('D_WIDTH'),
+        'e' => $this->base_constant('E_WIDTH'),
+        'f' => $this->base_constant('F_WIDTH'),
+        'g' => $this->base_constant('G_WIDTH'),
+        'h' => $this->base_constant('H_WIDTH'),
+        'i' => $this->base_constant('I_WIDTH'),
       ];
 
       if ( defined('MODULE_CONTENT_CU_INSTALLED') && !Text::is_empty(MODULE_CONTENT_CU_INSTALLED) ) {
@@ -66,57 +66,48 @@
         ],
         $this->config_key_base . 'A_WIDTH' => [
           'title' => 'Slot Width: A',
-          'value' => '12',
+          'value' => 'col-sm-12',
           'desc' => 'What width should Slot A be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'B_WIDTH' => [
           'title' => 'Slot Width: B',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot B be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'C_WIDTH' => [
           'title' => 'Slot Width: C',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot C be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'D_WIDTH' => [
           'title' => 'Slot Width: D',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot D be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'E_WIDTH' => [
           'title' => 'Slot Width: E',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot E be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'F_WIDTH' => [
           'title' => 'Slot Width: F',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot F be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'G_WIDTH' => [
           'title' => 'Slot Width: G',
-          'value' => '4',
+          'value' => 'col-sm-4',
           'desc' => 'What width should Slot G be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'H_WIDTH' => [
           'title' => 'Slot Width: H',
-          'value' => '12',
+          'value' => 'col-sm-12',
           'desc' => 'What width should Slot H be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'I_WIDTH' => [
           'title' => 'Slot Width: I',
-          'value' => '12',
+          'value' => 'col-sm-12',
           'desc' => 'What width should Slot I be?  Note that Slots in a Row should totalise 12.',
-          'set_func' => "Config::select_one(['12', '11', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'], ",
         ],
         $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
@@ -132,30 +123,18 @@
       }
 
       $slots = [
-        'A' => ['width' => MODULE_CONTENT_CU_MODULAR_A_WIDTH, 'color' => '96858f'],
-        'B' => ['width' => MODULE_CONTENT_CU_MODULAR_B_WIDTH, 'color' => '6d7993'],
-        'C' => ['width' => MODULE_CONTENT_CU_MODULAR_C_WIDTH, 'color' => '9099a2'],
-        'D' => ['width' => MODULE_CONTENT_CU_MODULAR_D_WIDTH, 'color' => 'd5d5d5'],
-        'E' => ['width' => MODULE_CONTENT_CU_MODULAR_E_WIDTH, 'color' => '96858f'],
-        'F' => ['width' => MODULE_CONTENT_CU_MODULAR_F_WIDTH, 'color' => '6d7993'],
-        'G' => ['width' => MODULE_CONTENT_CU_MODULAR_G_WIDTH, 'color' => '9099a2'],
-        'H' => ['width' => MODULE_CONTENT_CU_MODULAR_H_WIDTH, 'color' => 'd5d5d5'],
-        'I' => ['width' => MODULE_CONTENT_CU_MODULAR_I_WIDTH, 'color' => '96858f'],
+        'A' => ['width' => MODULE_CONTENT_CU_MODULAR_A_WIDTH],
+        'B' => ['width' => MODULE_CONTENT_CU_MODULAR_B_WIDTH],
+        'C' => ['width' => MODULE_CONTENT_CU_MODULAR_C_WIDTH],
+        'D' => ['width' => MODULE_CONTENT_CU_MODULAR_D_WIDTH],
+        'E' => ['width' => MODULE_CONTENT_CU_MODULAR_E_WIDTH],
+        'F' => ['width' => MODULE_CONTENT_CU_MODULAR_F_WIDTH],
+        'G' => ['width' => MODULE_CONTENT_CU_MODULAR_G_WIDTH],
+        'H' => ['width' => MODULE_CONTENT_CU_MODULAR_H_WIDTH],
+        'I' => ['width' => MODULE_CONTENT_CU_MODULAR_I_WIDTH],
       ];
 
-      $row_width = 0;
-      $layout = '';
-      foreach ($slots as $k => $slot) {
-        $layout .= '<span style="color: white; font-weight: bold; font-size: 20px; background: #' . $slot['color'] . '; font-family: courier;">' . $k . str_repeat('&nbsp;', $slot['width']-1) . '</span>';
-
-        $row_width += $slot['width'];
-        if ($row_width >= 12) {
-          $layout .= '<br>';
-          $row_width = 0;
-        }
-      }
-
-      return $layout;
+      return modular::display_layout($slots);
     }
 
     public function install($parameter_key = null) {
