@@ -40,24 +40,24 @@
 
     protected function get_parameters() {
       return [
-        'CU_FORM_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Form',
           'value' => 'True',
           'desc' => 'Should this module be shown?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'CU_FORM_GROUP' => [
+        $this->config_key_base . 'GROUP' => [
           'title' => 'Module Display',
           'value' => 'A',
           'desc' => 'Where should this module display?',
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
-        'CU_FORM_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-12 mb-3',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'CU_FORM_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '115',
           'desc' => 'Sort order of display. Lowest is displayed first.',

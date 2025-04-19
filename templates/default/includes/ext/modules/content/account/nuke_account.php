@@ -33,7 +33,7 @@
     </div>
   </div>
   
-  <div class="d-grid"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-trash', 'btn-danger btn-lg btn-block mb-2') ?></div>
+  <div class="d-grid mb-2"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-trash', 'btn-danger btn-lg') ?></div>
   <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 </form>

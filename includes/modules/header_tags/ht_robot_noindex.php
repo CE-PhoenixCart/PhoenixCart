@@ -28,13 +28,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_ROBOT_NOINDEX_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Robot NoIndex Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Robot NoIndex module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_ROBOT_NOINDEX_PAGES' => [
+        $this->config_key_base . 'PAGES' => [
           'title' => 'Pages',
           'value' => 'account.php;account_edit.php;account_history.php;'
                    . 'account_history_info.php;account_newsletters.php;'
@@ -51,7 +51,7 @@
           'use_func' => 'page_selection::_show_pages',
           'set_func' => 'page_selection::_edit_pages(',
         ],
-        'MODULE_HEADER_TAGS_ROBOT_NOINDEX_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

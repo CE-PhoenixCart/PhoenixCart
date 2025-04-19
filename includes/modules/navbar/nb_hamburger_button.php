@@ -23,19 +23,19 @@
 
     public function get_parameters() {
       return [
-        'MODULE_NAVBAR_HAMBURGER_BUTTON_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your Navbar?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_NAVBAR_HAMBURGER_BUTTON_CONTENT_PLACEMENT' => [
+        $this->config_key_base . 'CONTENT_PLACEMENT' => [
           'title' => 'Content Placement Group',
           'value' => 'Home',
           'desc' => 'This is a special module that must be placed in the Home Group.  Lowest is loaded first, per Group.',
           'set_func' => "Config::select_one(['Home'], ",
         ],
-        'MODULE_NAVBAR_HAMBURGER_BUTTON_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '500',
           'desc' => 'Sort order of display. Lowest is displayed first.',

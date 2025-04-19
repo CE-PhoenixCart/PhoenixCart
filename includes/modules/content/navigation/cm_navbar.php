@@ -61,35 +61,35 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_NAVBAR_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Navbar Module',
           'value' => 'True',
           'desc' => 'Should the Navbar be shown? ',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_NAVBAR_STYLE_BG' => [
+        $this->config_key_base . 'STYLE_BG' => [
           'title' => 'Navbar Colour Scheme',
           'value' => 'bg-light navbar-light border-bottom',
           'desc' => 'What background and foreground colour should the Navbar have?  See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/utilities/background/#background-color"><u>background/#background-color</u></a> and <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/components/navbar/#color-schemes"><u>navbar/#color-schemes</u></a>',
         ],
-        'MODULE_CONTENT_NAVBAR_FIXED' => [
+        $this->config_key_base . 'FIXED' => [
           'title' => 'Placement',
           'value' => 'default',
           'desc' => 'Should the Navbar be Fixed/Sticky/Default behaviour? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/components/navbar/#placement"><u>navbar/#placement</u></a>',
           'set_func' => "Config::select_one(['fixed-top', 'fixed-bottom', 'sticky-top', 'default'], ",
         ],
-        'MODULE_CONTENT_NAVBAR_OFFSET' => [
+        $this->config_key_base . 'OFFSET' => [
           'title' => 'Placement Offset',
           'value' => '4rem',
           'desc' => 'Offset if using fixed-* Placement.',
         ],
-        'MODULE_CONTENT_NAVBAR_COLLAPSE' => [
+        $this->config_key_base . 'COLLAPSE' => [
           'title' => 'Collapse',
           'value' => 'navbar-expand-sm',
           'desc' => 'When should the Navbar Show? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/components/navbar/#how-it-works"><u>navbar/#how-it-works</u></a>',
           'set_func' => "Config::select_one(['navbar-expand', 'navbar-expand-sm', 'navbar-expand-md', 'navbar-expand-lg', 'navbar-expand-xl', 'navbar-expand-xxl'], ",
         ],
-        'MODULE_CONTENT_NAVBAR_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '10',
           'desc' => 'Sort order of display. Lowest is displayed first.',

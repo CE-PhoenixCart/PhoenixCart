@@ -12,11 +12,11 @@
 ?>
 
 <div class="modal fade" id="<?= $modal['name'] ?>" tabindex="-1" role="dialog" aria-labelledby="<?= $modal['name'] ?>Label" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
+  <div class="modal-dialog <?= $modal['size'] ?? 'modal-xl' ?>" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="<?= $modal['name'] ?>Label"><?= $modal['title'] ?></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= IMAGE_BUTTON_CLOSE ?>"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<?= $modal['close_button'] ?>"></button>
       </div>
       <div class="modal-body">
         <?= $modal['text'] ?>

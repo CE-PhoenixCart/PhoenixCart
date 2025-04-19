@@ -32,13 +32,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_ORDER_TOTAL_TAX_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Display Tax',
           'value' => 'True',
           'desc' => 'Do you want to display the order tax value?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_ORDER_TOTAL_TAX_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '30',
           'desc' => 'Sort order of display.',

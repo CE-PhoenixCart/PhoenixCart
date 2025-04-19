@@ -10,28 +10,22 @@
   Released under the GNU General Public License
 */
 
-  $breadcrumb->add(NAVBAR_TITLE, $Linker->build('cookie_usage.php'));
+  $page = info_pages::get_page([
+    'p.slug' => 'cookie_usage',
+    'pd.languages_id' => (int)$_SESSION['languages_id'],
+  ]);
+
+  $breadcrumb->add($page['pages_title'], $Linker->build('cookie_usage.php'));
 
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
+<h1 class="display-4 mb-4"><?= $page['pages_title'] ?></h1>
 
-  <div class="card mb-2">
-    <div class="card-header"><?= BOX_INFORMATION_HEADING ?></div>
-    <div class="card-body">
-      <?= BOX_INFORMATION ?>
-    </div>
-  </div>
-
-  <div class="card mb-2 text-white bg-danger">
-    <div class="card-body">
-      <?= sprintf(TEXT_INFORMATION, $Linker->build('contact_us.php')) ?>
-    </div>
-  </div>
+  <?= $page['pages_text'] ?>
 
   <div class="d-grid">
-    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-lg', [], $Linker->build('login.php')) ?>
+    <?= new Button(IMAGE_BUTTON_CONTACT_US, 'fas fa-paper-plane', 'btn-light btn-lg', [], $Linker->build('contact_us.php')) ?>
   </div>
 
 <?php

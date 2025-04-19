@@ -15,7 +15,7 @@ class hook_shop_siteWide_styleSheets {
   public $sitestart = null;
 
   function listen_injectSiteStart() {
-    $this->sitestart .= '<style>* {min-height: 0.01px;} input:-webkit-autofill, select:-webkit-autofill { animation-name: onAutoFillStart; transition: background-color 50000s ease-in-out 0s; } input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; }</style>';
+    $this->sitestart .= '<style>* {min-height: 0.01px;} input:-webkit-autofill, select:-webkit-autofill { animation-name: onAutoFillStart; transition: background-color 50000s ease-in-out 0s; } input:not(:-webkit-autofill) { animation-name: onAutoFillCancel; } .carousel-control-prev:hover, .carousel-control-next:hover { background-color: rgba(255, 255, 255, 0.2); }@view-transition { navigation: auto; }</style>';
 
     $css_file = 'templates/' . TEMPLATE_SELECTION . '/static/user.css';
     if (file_exists($css_file)) {

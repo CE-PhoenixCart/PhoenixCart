@@ -110,19 +110,19 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_PRODUCT_SCHEMA_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Product Schema Module',
           'value' => 'True',
           'desc' => 'Do you want to add a product schema to your product page?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_PRODUCT_SCHEMA_PLACEMENT' => [
+        $this->config_key_base . 'PLACEMENT' => [
           'title' => 'Placement',
           'value' => 'Header',
           'desc' => 'Where should the code be placed?',
           'set_func' => "Config::select_one(['Header', 'Footer'], ",
         ],
-        'MODULE_HEADER_TAGS_PRODUCT_SCHEMA_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '950',
           'desc' => 'Sort order of display. Lowest is displayed first.',

@@ -45,30 +45,30 @@ EOJS;
 
     protected function get_parameters() {
       return [
-        'PI_QTY_INPUT_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Qty Module',
           'value' => 'True',
           'desc' => 'Should this module be shown in the &pi; layout?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_QTY_INPUT_GROUP' => [
+        $this->config_key_base . 'GROUP' => [
           'title' => 'Module Display',
           'value' => 'C',
           'desc' => 'Where should this module display on the product info page?',
           'set_func' => "Config::select_one(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'], ",
         ],
-        'PI_QTY_INPUT_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-12 mb-2',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'PI_QTY_INPUT_BUTTONS' => [
+        $this->config_key_base . 'BUTTONS' => [
           'title' => 'Add Spinner Buttons',
           'value' => 'True',
           'desc' => 'Add -/+ buttons onto the number input?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'PI_QTY_INPUT_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '319',
           'desc' => 'Sort order of display. Lowest is displayed first.',

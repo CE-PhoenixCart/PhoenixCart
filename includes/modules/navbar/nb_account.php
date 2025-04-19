@@ -29,19 +29,19 @@
 
     public function get_parameters() {
       return [
-        'MODULE_NAVBAR_ACCOUNT_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Module',
           'value' => 'True',
           'desc' => 'Do you want to add the module to your Navbar?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT' => [
+        $this->config_key_base . 'CONTENT_PLACEMENT' => [
           'title' => 'Content Placement Group',
           'value' => 'Left',
           'desc' => 'Where should the module be loaded?  Lowest is loaded first, per Group.',
           'set_func' => "Config::select_one(['Home', 'Left', 'Center', 'Right'], ",
         ],
-        'MODULE_NAVBAR_ACCOUNT_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '540',
           'desc' => 'Sort order of display. Lowest is displayed first.',

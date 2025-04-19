@@ -26,6 +26,7 @@ const TEXT_ADMIN_PASSWORD = 'Administrator Password';
 const TEXT_ADMIN_PASSWORD_EXPLANATION = '<small class="form-text">The password to use for the administrator account.</small>';
 const TEXT_ADMIN_DIRECTORY = 'Administration Directory Name';
 const TEXT_ADMIN_DIRECTORY_EXPLANATION = '<small class="form-text">This is the directory where the administration section will be installed. You should change this for security reasons.</small>';
+const TEXT_ADMIN_DIRECTORY_ERROR = 'You must change this from \'admin\' for security reasons.';
 const TEXT_TIME_ZONE = 'Time Zone';
 const TEXT_TIME_ZONE_EXPLANATION = '<small class="form-text">The time zone to base the date and time on.</small>';
 const TEXT_CONTINUE_STEP_4 = 'Continue To Step 4';

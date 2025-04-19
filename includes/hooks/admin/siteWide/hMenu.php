@@ -74,7 +74,7 @@ class hook_admin_siteWide_hMenu {
       
       $output = '';
       
-      $output .= '<nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Main Menu">';
+      $output .= '<nav class="navbar navbar-expand-xl navbar-dark bg-dark d-print-none" aria-label="Main Menu">';
         $output .= '<div class="container-fluid">';
           $output .= '<a class="navbar-brand" href="' . $GLOBALS['Admin']->link('index.php') . '">' . $icon->set_responsive(false) . '</a>';
           $output .= '<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarAdmin" aria-controls="navbarAdmin" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>';

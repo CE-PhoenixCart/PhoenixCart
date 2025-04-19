@@ -26,19 +26,19 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_PRODUCT_META_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Product Meta Module',
           'value' => 'True',
           'desc' => 'Do you want to allow product meta tags to be added to the page header?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_PRODUCT_META_KEYWORDS_STATUS' => [
+        $this->config_key_base . 'KEYWORDS_STATUS' => [
           'title' => 'Enable Keyword Search Engine',
           'value' => 'True',
           'desc' => 'Keywords can be used as an internal search engine...',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_PRODUCT_META_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

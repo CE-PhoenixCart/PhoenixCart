@@ -30,19 +30,19 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_CATEGORY_SEO_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Category Meta Module',
           'value' => 'True',
           'desc' => 'Do you want to allow Category Meta Tags to be added to the page header?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_CATEGORY_SEO_DESCRIPTION_STATUS' => [
+        $this->config_key_base . 'DESCRIPTION_STATUS' => [
           'title' => 'Display Category Meta Description',
           'value' => 'True',
           'desc' => "These help your site and your site's visitors.",
           'set_func' => "Config::select_one(['True'], ",
         ],
-        'MODULE_HEADER_TAGS_CATEGORY_SEO_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

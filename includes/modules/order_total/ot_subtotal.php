@@ -28,13 +28,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_ORDER_TOTAL_SUBTOTAL_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Display Sub-Total',
           'value' => 'True',
           'desc' => 'Do you want to display the order sub-total cost?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '10',
           'desc' => 'Sort order of display.',

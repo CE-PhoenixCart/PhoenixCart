@@ -32,18 +32,18 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_TESTIMONIALS_WRITE_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Write Testimonial Module',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_TESTIMONIALS_WRITE_CONTENT_WIDTH' => [
+        $this->config_key_base . 'CONTENT_WIDTH' => [
           'title' => 'Content Container',
           'value' => 'col-sm-6',
           'desc' => 'What container should the content be shown in? (col-*-12 = full width, col-*-6 = half width).',
         ],
-        'MODULE_CONTENT_TESTIMONIALS_WRITE_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '300',
           'desc' => 'Sort order of display. Lowest is displayed first.',
