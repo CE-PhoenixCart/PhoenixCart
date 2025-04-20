@@ -43,6 +43,7 @@
     'text' => TEXT_SEARCH_HELP,
     'close_button' => IMAGE_BUTTON_CLOSE,
     'size' => 'modal-md',
+    'show_footer' => false,
   ];
 
   ob_start();
