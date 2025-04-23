@@ -168,60 +168,78 @@ EOSQL
           $content .= '<table id="stripe_table" border="0" width="100%" cellspacing="0" cellpadding="2">';
 
           while ($tokens = $tokens_query->fetch_assoc()) {
-              // default to charging first saved card, changed by client directly calling payment_intent.php hook as selection changed
-              $content .= '<tr class="moduleRow" id="stripe_card_' . (int) $tokens['id'] . '">' .
-                      '  <td width="40" valign="top"><input type="radio" name="stripe_card" value="' . (int) $tokens['id'] . '" /></td>' .
-                      '  <td valign="top"><strong>' . htmlspecialchars($tokens['card_type']) . '</strong>&nbsp;&nbsp;****' . htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2)) . '</td>' .
-                      '</tr>';
+            // default to charging first saved card, changed by client directly calling payment_intent.php hook as selection changed
+            $content .= '<tr class="moduleRow" id="stripe_card_' . (int) $tokens['id'] . '">';
+              $content .= '<td width="40" valign="top">';
+                $content .= '<input type="radio" name="stripe_card" value="' . (int) $tokens['id'] . '" />';
+              $content .= '</td>';
+              $content .= '<td valign="top">';
+                $content .= '<strong>' . htmlspecialchars($tokens['card_type']) . '</strong>&nbsp;&nbsp;****' . htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2));
+              $content .= '</td>';
+            $content .= '</tr>';
           }
 
-          $content .= '<tr class="moduleRow" id="stripe_card_0">' .
-                  '  <td width="40" valign="top"><input type="radio" name="stripe_card" value="0" /></td>' .
-                  '  <td valign="top">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NEW . '</td>' .
-                  '</tr>' .
-                  '</table><div id="save-card-element"></div>';
+          $content .= '<tr class="moduleRow" id="stripe_card_0">';
+            $content .= '<td width="40" valign="top">';
+              $content .= '<input type="radio" name="stripe_card" value="0" />';
+            $content .= '</td>';
+            $content .= '<td valign="top">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NEW . '</td>';
+          $content .= '</tr>';
+          
+          $content .= '</table>';
+          
+          $content .= '<div id="save-card-element"></div>';
         }
       }
       
       if (MODULE_PAYMENT_STRIPE_SCA_CARD_DATA_ONE_LINE == 'True') {
-        $content .= '<div id="stripe_table_new_card">' .
-                    '<div class="form-group mb-3"><label for="cardholder-name" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>' .
-                    '<div class="col-sm-16"><input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required></text></div></div>' .
-                    '<div class="form-group mb-3"><label for="card-element" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_TYPE . '</label>' .
-                    '<div id="card-element" class="col-sm-16"></div></div>';
+        $content .= '<div id="stripe_table_new_card">';
+          $content .= '<div class="form-group mb-3">';
+            $content .= '<label for="cardholder-name" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
+            $content .= '<div class="col-sm-6">';
+              $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
+            $content .= '</div>';
+          $content .= '</div>';
+          $content .= '<div class="form-group mb-3">';
+            $content .= '<label for="card-element" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_TYPE . '</label>';
+            $content .= '<div id="card-element" class="col-sm-6"></div>';
+          $content .= '</div>';
                                
         if (MODULE_PAYMENT_STRIPE_SCA_TOKENS == 'True') {
-          $content .= '<div class="form-check">' . 
-                        (new Tickable('card-save', ['value' => '1'], 'checkbox'))->append_css('form-check-input')->set('id', 'inputCardSave') . '
-                        <label class="form-check-label" for="inputCardSave">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_SAVE . '</label>
-                       </div>';
+          $content .= '<div class="form-check">';
+            $content .= (new Tickable('card-save', ['value' => '1'], 'checkbox'))->append_css('form-check-input')->set('id', 'inputCardSave');
+            $content .= '<label class="form-check-label" for="inputCardSave">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_SAVE . '</label>';
+          $content .= '</div>';
         }
       } else {
-        $content .= '<div id="stripe_table_new_card">' .
-                      '<div class="form-group row mb-3">
-                        <label for="cardholder-name" class="col-form-label col-sm-4 ms-4 ms-sm-0 pe-0 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>' .
-                      ' <div class="col-sm-8 ms-3 ms-sm-0 cardholder"><input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required></text></div>
-                       </div>
-                       <div class="form-group row ms-3 me-1 mb-3">
-                         <label for="card-number" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>' .
-                      '  <div id="card-number" class="col-sm-8 card-details"></div>
-                       </div>
-                       <div class="form-group row ms-3 me-1 mb-3">
-                         <label for="card-expiry" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>' .
-                      '  <div id="card-expiry" class="col-sm-8 card-details"></div>
-                       </div>
-                       <div class="form-group row ms-3 me-1 mb-3">
-                         <label for="card-cvc" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>' .
-                      '  <div id="card-cvc" class="col-sm-8 card-details"></div>
-                       </div>';
+        $content .= '<div id="stripe_table_new_card">';
+          $content .= '<div class="form-group row mb-3">';
+            $content .= '<label for="cardholder-name" class="col-form-label col-sm-4 ms-4 ms-sm-0 pe-0 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
+            $content .= '<div class="col-sm-8 ms-3 ms-sm-0 cardholder">';
+              $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
+            $content .= '</div>';
+          $content .= '</div>';
+          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+            $content .= '<label for="card-number" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>';
+            $content .= '<div id="card-number" class="col-sm-8 card-details"></div>';
+          $content .= '</div>';
+          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+            $content .= '<label for="card-expiry" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>';
+            $content .= '<div id="card-expiry" class="col-sm-8 card-details"></div>';
+          $content .= '</div>';
+          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+            $content .= '<label for="card-cvc" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>';
+            $content .= '<div id="card-cvc" class="col-sm-8 card-details"></div>';
+          $content .= '</div>';
         if (MODULE_PAYMENT_STRIPE_SCA_TOKENS == 'True') {
-          $content .= '<div class="form-check col-sm-8 offset-4 ps-5">' . 
-                        (new Tickable('card-save', ['value' => '1'], 'checkbox'))->append_css('form-check-input')->set('id', 'inputCardSave') . '
-                        <label class="form-check-label" for="inputCardSave">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_SAVE . '</label>
-                       </div>';
+          $content .= '<div class="form-check col-sm-8 offset-4 ps-5">';
+            $content .= (new Tickable('card-save', ['value' => '1'], 'checkbox'))->append_css('form-check-input')->set('id', 'inputCardSave');
+            $content .= '<label class="form-check-label" for="inputCardSave">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_SAVE . '</label>';
+          $content .= '</div>';
         }
       }
-      $content .= '</div><div id="card-errors" role="alert" class="messageStackError payment-errors"></div>';
+      $content .= '</div>';
+      $content .= '<div id="card-errors" role="alert" class="messageStackError payment-errors"></div>';
 
       $address = [
         'address_line1' => $GLOBALS['customer_data']->get('street_address', $order->billing),
