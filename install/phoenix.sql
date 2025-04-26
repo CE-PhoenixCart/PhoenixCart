@@ -1019,7 +1019,7 @@ INSERT INTO countries VALUES (95,'Honduras','HN','HND','1','1');
 INSERT INTO countries VALUES (96,'Hong Kong','HK','HKG','1','1');
 INSERT INTO countries VALUES (97,'Magyarország','HU','HUN','1','1');
 INSERT INTO countries VALUES (98,'Ísland','IS','ISL','1','1');
-INSERT INTO countries VALUES (99,'Bharôt','IN','IND','1','1');
+INSERT INTO countries VALUES (99,'India','IN','IND','1','1');
 INSERT INTO countries VALUES (100,'Indonesia','ID','IDN','1','1');
 INSERT INTO countries VALUES (101,'Īrān (Islamic Republic of)','IR','IRN','1','1');
 INSERT INTO countries VALUES (102,'Al-\'Iraq','IQ','IRQ','1','1');
