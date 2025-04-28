@@ -1,5 +1,5 @@
 <li class="nav-item dropdown nb-languages">
-  <a class="nav-link" href="#" id="navDropdownLanguages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <a class="nav-link dropdown-toggle" href="#" id="navDropdownLanguages" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <?= MODULE_NAVBAR_LANGUAGES_SELECTED_LANGUAGE ?>
   </a>
   <div class="dropdown-menu<?= (('Right' === MODULE_NAVBAR_LANGUAGES_CONTENT_PLACEMENT) ? ' dropdown-menu-end' : '') ?>" aria-labelledby="navDropdownLanguages">
