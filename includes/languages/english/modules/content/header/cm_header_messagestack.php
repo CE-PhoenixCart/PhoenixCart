@@ -10,5 +10,5 @@
   Released under the GNU General Public License
 */
 
-  define('MODULE_CONTENT_HEADER_MESSAGESTACK_TITLE', 'Message Stack Notifications');
-  define('MODULE_CONTENT_HEADER_MESSAGESTACK_DESCRIPTION', 'Show the Message Stack Notifications on your site.');
+  const MODULE_CONTENT_HEADER_MESSAGESTACK_TITLE = 'Message Stack Notifications';
+  const MODULE_CONTENT_HEADER_MESSAGESTACK_DESCRIPTION = 'Show the Message Stack Notifications on your site.';

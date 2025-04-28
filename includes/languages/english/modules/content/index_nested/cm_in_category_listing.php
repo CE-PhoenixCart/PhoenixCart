@@ -10,5 +10,5 @@
   Released under the GNU General Public License
 */
 
-  define('MODULE_CONTENT_IN_CATEGORY_LISTING_TITLE', 'Sub Category List');
-  define('MODULE_CONTENT_IN_CATEGORY_LISTING_DESCRIPTION', 'If the Category has sub-categories, show them.');
+  const MODULE_CONTENT_IN_CATEGORY_LISTING_TITLE = 'Sub Category List';
+  const MODULE_CONTENT_IN_CATEGORY_LISTING_DESCRIPTION = 'If the Category has sub-categories, show them.';
