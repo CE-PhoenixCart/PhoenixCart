@@ -22,7 +22,7 @@ const TEXT_ALL_MANUFACTURERS = 'All Manufacturers';
 
 // seo
 if ( ($category_depth == 'top') && (!isset($_GET['manufacturers_id'])) ) {
-  const META_SEO_TITLE = 'Welcome to Our Online Store';
-  const META_SEO_DESCRIPTION = 'Discover a wide selection of products and enjoy easy online shopping with great customer service.';
+  define('META_SEO_TITLE', 'Welcome to Our Online Store');
+  define('META_SEO_DESCRIPTION', 'Discover a wide selection of products and enjoy easy online shopping with great customer service.');
 }
 
