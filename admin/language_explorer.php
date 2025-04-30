@@ -118,7 +118,7 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <?php
               $file_exists = DIR_FS_CATALOG . 'templates/' . $tpl . '/includes/languages/' .  Text::input($filename);
-              $copy_to = (file_exists($file_exists)) ? '<a href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => Text::input($filename), 'action' => 'delete_from_template']) . '"><i class="fas fa-trash text-danger me-5"></i></a><i class="fas fa-circle-check text-success"></i>' : '<a href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => Text::input($filename), 'action' => 'copy_to_template']) . '"><i class="fas fa-copy"></i></a>';
+              $copy_to = (file_exists($file_exists)) ? '<a class="stretched-link" href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => Text::input($filename), 'action' => 'delete_from_template']) . '"><i class="fas fa-trash text-danger me-5"></i></a><i class="fas fa-circle-check text-success"></i>' : '<a class="stretched-link" href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => Text::input($filename), 'action' => 'copy_to_template']) . '"><i class="fas fa-copy"></i></a>';
 
               echo $filename;
               ?>
@@ -143,7 +143,7 @@
                 $filename = Text::input($file['fullpath']);
                 $file_exists = DIR_FS_CATALOG . "templates/$tpl/includes/languages/$filename";
 
-                $copy_to = (file_exists($file_exists)) ? '<a href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => $filename, 'action' => 'delete_from_template']) . '"><i class="fas fa-trash text-danger me-5"></i></a><i class="fas fa-circle-check text-success"></i>' : '<a href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => $filename, 'action' => 'copy_to_template']) . '"><i class="fas fa-copy"></i></a>';
+                $copy_to = (file_exists($file_exists)) ? '<a class="stretched-link" href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => $filename, 'action' => 'delete_from_template']) . '"><i class="fas fa-trash text-danger me-5"></i></a><i class="fas fa-circle-check text-success"></i>' : '<a class="stretched-link" href="' . $Admin->link('language_explorer.php', ['lang' => $_GET['lngdir'], 'file' => $filename, 'action' => 'copy_to_template']) . '"><i class="fas fa-copy"></i></a>';
 
                 echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
                   echo basename($filename);

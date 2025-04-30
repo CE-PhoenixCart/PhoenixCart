@@ -4,7 +4,7 @@
     foreach ($slots as $k => $v) {
       $block_name = "ip_modules_$k";
       if ($GLOBALS['Template']->has_blocks($block_name)) {
-        echo '<div class="col-sm-' . $v . '">';
+        echo '<div class="' . $v . '">';
           echo '<div class="row">';
             echo $GLOBALS['Template']->get_blocks($block_name);
           echo '</div>';

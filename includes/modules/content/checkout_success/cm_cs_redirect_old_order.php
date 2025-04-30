@@ -35,18 +35,18 @@ EOSQL
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Redirect Old Order Module',
           'value' => 'True',
           'desc' => 'Should customers be redirected when viewing old checkout success orders?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_MINUTES' => [
+        $this->config_key_base . 'MINUTES' => [
           'title' => 'Redirect Minutes',
           'value' => '60',
           'desc' => 'Redirect customers to the My Account page after an order older than this amount is viewed.',
         ],
-        'MODULE_CONTENT_CHECKOUT_SUCCESS_REDIRECT_OLD_ORDER_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

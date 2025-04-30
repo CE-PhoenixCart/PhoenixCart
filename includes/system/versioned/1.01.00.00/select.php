@@ -76,7 +76,7 @@
     public function draw() {
 // default if not already set
       $this->parameters += [
-        'class' => 'form-select form-control',
+        'class' => 'form-select',
       ];
 
       if (isset($this->parameters['value'])) {

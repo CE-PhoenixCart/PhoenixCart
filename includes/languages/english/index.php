@@ -10,15 +10,15 @@
   Released under the GNU General Public License
 */
 
-define('TABLE_HEADING_NEW_PRODUCTS', 'New Products For %s');
+const TABLE_HEADING_NEW_PRODUCTS = 'New Products For %s';
 
-define('TEXT_NO_PRODUCTS', 'There are no products available in this category.');
-define('TEXT_NUMBER_OF_PRODUCTS', 'Number of Products: ');
-define('TEXT_SHOW', '<strong>Show:</strong>');
-define('TEXT_BUY', 'Buy 1 \'');
-define('TEXT_NOW', '\' now');
-define('TEXT_ALL_CATEGORIES', 'All Categories');
-define('TEXT_ALL_MANUFACTURERS', 'All Manufacturers');
+const TEXT_NO_PRODUCTS = 'There are no products available in this category.';
+const TEXT_NUMBER_OF_PRODUCTS = 'Number of Products: ';
+const TEXT_SHOW = '<strong>Show:</strong>';
+const TEXT_BUY = 'Buy 1 \'';
+const TEXT_NOW = '\' now';
+const TEXT_ALL_CATEGORIES = 'All Categories';
+const TEXT_ALL_MANUFACTURERS = 'All Manufacturers';
 
 // seo
 if ( ($category_depth == 'top') && (!isset($_GET['manufacturers_id'])) ) {

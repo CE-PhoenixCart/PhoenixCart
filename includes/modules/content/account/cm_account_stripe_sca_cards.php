@@ -67,13 +67,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_ACCOUNT_STRIPE_SCA_CARDS_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Stripe Card Management',
           'value' => 'True',
           'desc' => 'Do you want to enable the Stripe Card Management module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_ACCOUNT_STRIPE_SCA_CARDS_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

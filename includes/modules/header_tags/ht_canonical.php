@@ -59,13 +59,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_HEADER_TAGS_CANONICAL_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Canonical Module',
           'value' => 'True',
           'desc' => 'Do you want to enable the Canonical module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_HEADER_TAGS_CANONICAL_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

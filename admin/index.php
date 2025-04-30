@@ -21,25 +21,43 @@
     }
   }
 
+  require 'includes/segments/process_action.php';
+
   require 'includes/template_top.php';
 ?>
 
   <div class="row">
     <div class="col">
-      <h1 class="display-4"><?= STORE_NAME ?></h1>
+      <h1 class="display-4 mb-2"><?= STORE_NAME ?></h1>
+    </div>
+    <div class="col-12 col-lg-6 text-start text-lg-end align-self-center pb-1">
+      <?=
+      $Admin->button(GET_HELP, '', 'btn-dark me-2', GET_HELP_LINK, ['newwindow' => true]),
+      $admin_hooks->cat('extraButtons') ?>
+      <?php
+      if (count($languages) > 1) {
+        echo $Admin->button('<i class="fas fa-language"></i>', '', 'btn-light me-2', $Admin->link('index.php'), ['data-bs-toggle' => 'collapse', 'data-bs-target' => '#collapseLanguage', 'aria-expanded' => 'false', 'aria-controls' => 'collapseLanguage']);
+      }
+      ?>
+    </div>
+  </div>
+  
+  <?php
+  if (count($languages) > 1) {
+    ?>
+    <div class="collapse" id="collapseLanguage">
+      <?= 
+      (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
+       '<div class="input-group mb-2">',
+         '<span class="input-group-text">', HEADING_TITLE_LANGUAGE, '</span>',
+         (new Select('language', $languages, ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
+       '</div>',
+      '</form>'
+      ?>
     </div>
     <?php
-    if (count($languages) > 1) {
-      ?>
-      <div class="col-sm-4 text-end"><?=
-        (new Form('adminlanguage', $Admin->link('index.php'), 'get'))->hide_session_id(),
-        (new Select('language', $languages, ['class' => 'form-select', 'onchange' => 'this.form.submit();']))->set_selection($language_selected),
-        '</form>'
-      ?></div>
-      <?php
-    }
-    ?>
-  </div>
+  }
+  ?>
 
   <div class="row">
     <?php

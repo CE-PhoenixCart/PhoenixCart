@@ -53,19 +53,19 @@
 
     public function get_parameters() {
       return [
-        'MODULE_CONTENT_ACCOUNT_SET_PASSWORD_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Set Account Password',
           'value' => 'True',
           'desc' => 'Do you want to enable the Set Account Password module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_ACCOUNT_SET_PASSWORD_ALLOW_PASSWORD' => [
+        $this->config_key_base . 'ALLOW_PASSWORD' => [
           'title' => 'Allow Local Passwords',
           'value' => 'True',
           'desc' => 'Allow local account passwords to be set.',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_ACCOUNT_SET_PASSWORD_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',

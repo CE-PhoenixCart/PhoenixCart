@@ -65,30 +65,30 @@
 
     public function get_parameters() {
       return [
-        'MODULE_ORDER_TOTAL_SHIPPING_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Display Delivery Cost',
           'value' => 'True',
           'desc' => 'Do you want to display the order delivery cost?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '20',
           'desc' => 'Sort order of display.',
         ],
-        'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING' => [
+        $this->config_key_base . 'FREE_SHIPPING' => [
           'title' => 'Allow Free Delivery',
           'value' => 'False',
           'desc' => 'Do you want to allow free delivery?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER' => [
+        $this->config_key_base . 'FREE_SHIPPING_OVER' => [
           'title' => 'Free Delivery For Orders Over',
           'value' => '50',
           'desc' => 'Provide free delivery for orders over the set amount.',
           'use_func' => 'currencies->format',
         ],
-        'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION' => [
+        $this->config_key_base . 'DESTINATION' => [
           'title' => 'Provide Free Delivery For Orders Made',
           'value' => 'national',
           'desc' => 'Provide free delivery for orders sent to the set destination.',

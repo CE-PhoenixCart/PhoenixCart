@@ -42,20 +42,20 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_CONTENT_ACCOUNT_GDPR_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable GDPR Link',
           'value' => 'True',
           'desc' => 'Do you want to enable this module?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_CONTENT_ACCOUNT_GDPR_COUNTRIES' => [
+        $this->config_key_base . 'COUNTRIES' => [
           'title' => 'Countries',
           'value' => '',
           'desc' => 'Restrict the Link to Account Holders in these Countries.  Leave Blank to show link to all Countries!',
           'use_func' => 'gdpr_show_countries',
           'set_func' => 'Config::select_multiple(Country::fetch_options(), ',
         ],
-        'MODULE_CONTENT_ACCOUNT_GDPR_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '10',
           'desc' => 'Sort order of display. Lowest is displayed first.',

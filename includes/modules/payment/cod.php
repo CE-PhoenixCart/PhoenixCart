@@ -38,25 +38,25 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_PAYMENT_COD_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Enable Cash On Delivery Module',
           'value' => 'True',
           'desc' => 'Do you want to accept Cash On Delivery payments?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_PAYMENT_COD_ZONE' => [
+        $this->config_key_base . 'ZONE' => [
           'title' => 'Payment Zone',
           'value' => '0',
           'desc' => 'If a zone is selected, only enable this payment method for that zone.',
           'use_func' => 'geo_zone::fetch_name',
           'set_func' => 'Config::select_geo_zone(',
         ],
-        'MODULE_PAYMENT_COD_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort order of display.',
           'value' => '0',
           'desc' => 'Sort order of display. Lowest is displayed first.',
         ],
-        'MODULE_PAYMENT_COD_ORDER_STATUS_ID' => [
+        $this->config_key_base . 'ORDER_STATUS_ID' => [
           'title' => 'Set Order Status',
           'value' => '0',
           'desc' => 'Set the status of orders made with this payment module to this value',

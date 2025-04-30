@@ -28,13 +28,13 @@
 
     protected function get_parameters() {
       return [
-        'MODULE_ORDER_TOTAL_TOTAL_STATUS' => [
+        $this->config_key_base . 'STATUS' => [
           'title' => 'Display Total',
           'value' => 'True',
           'desc' => 'Do you want to display the total order value?',
           'set_func' => "Config::select_one(['True', 'False'], ",
         ],
-        'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER' => [
+        $this->config_key_base . 'SORT_ORDER' => [
           'title' => 'Sort Order',
           'value' => '40',
           'desc' => 'Sort order of display.',

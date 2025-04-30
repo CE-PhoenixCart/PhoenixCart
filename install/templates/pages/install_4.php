@@ -168,9 +168,9 @@ EOPHP;
 <div class="row">
   <div class="col-12 col-sm-9">
     <div class="row">
-      <div class="col d-grid"><?= new Button(TEXT_ADMIN, 'fas fa-lock me-2', 'btn-info btn-block', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
-      <div class="col d-grid"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart me-2', 'btn-success btn-block', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
-      <div class="col d-grid"><?= new Button('<img alt="Phoenix" src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
+      <div class="col d-grid"><?= new Button(TEXT_ADMIN, 'fas fa-lock me-2', 'btn-info', ['newwindow' => 1], "$http_server$http_catalog$admin_folder/index.php") ?></div>
+      <div class="col d-grid"><?= new Button(TEXT_STORE, 'fas fa-shopping-cart me-2', 'btn-success', ['newwindow' => 1], "$http_server{$http_catalog}index.php") ?></div>
+      <div class="col d-grid"><?= new Button('<img alt="Phoenix" src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></div>
     </div>
   </div>
 
@@ -180,7 +180,7 @@ EOPHP;
     <div class="card mb-2">
       <div class="card-body">
         <?= TEXT_STEP_4_EXPLANATION ?>
-        <p><?= new Button('<img src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark btn-block', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></p>
+        <p class="d-grid"><?= new Button('<img src="images/icon_phoenix.png" class="me-2">' . TEXT_FORUM, '', 'btn-dark', ['newwindow' => 1], 'https://phoenixcart.org/forum/') ?></p>
       </div>
       <div class="card-footer">
         - <a class="card-link" href="https://phoenixcart.org/forum/" target="_blank" rel="noreferrer"><?= TEXT_TEAM ?></a>
