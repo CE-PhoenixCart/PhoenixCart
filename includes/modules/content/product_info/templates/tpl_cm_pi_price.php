@@ -1,5 +1,5 @@
 <div class="<?= MODULE_CONTENT_PI_PRICE_CONTENT_WIDTH ?> cm-pi-price">
-  <h2 class="display-4 text-start text-sm-end"><?= $price ?></h2>
+  <h2 class="display-4"><?= $price ?></h2>
 </div>
 
 <?php
