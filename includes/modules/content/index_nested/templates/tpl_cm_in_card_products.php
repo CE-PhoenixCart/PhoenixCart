@@ -1,5 +1,5 @@
 <div class="<?= MODULE_CONTENT_IN_CARD_PRODUCTS_CONTENT_WIDTH ?> cm-in-card-products">
-  <p class="fs-4 fw-semibold mb-1"<?= MODULE_CONTENT_IN_CARD_PRODUCTS_HEADING ?></p>
+  <p class="fs-4 fw-semibold mb-1"><?= MODULE_CONTENT_IN_CARD_PRODUCTS_HEADING ?></p>
 
   <div class="<?= IS_PRODUCT_PRODUCTS_DISPLAY_ROW ?>">
     <?php
