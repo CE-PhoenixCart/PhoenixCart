@@ -20,10 +20,7 @@
 
  const MODULE_CONTENT_ACCOUNT_GDPR_NUKE_HEADING_TITLE = 'Delete My Profile';
 
- const MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TEXT = '
-  <p class="lead">Deleting your profile cannot be reversed!</p>
-  <p>Please be sure that you wish to do this.</p>
-  ';
+ const MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TEXT = '<p class="lead">Deleting your profile cannot be reversed.  Please be sure that you wish to do this.</p>';
 
  const MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TICKBOX = 'Tick this Box:';
 
@@ -33,3 +30,4 @@
   ';
 
  const MODULE_CONTENT_GDPR_NUKE_MESSAGESTACK_NUKED = 'Your Profile has been deleted!';
+ const MODULE_CONTENT_GDPR_NUKE_MESSAGESTACK_PASSWORD_INCORRECT = 'Incorrect Password.  Your profile has not been deleted.';

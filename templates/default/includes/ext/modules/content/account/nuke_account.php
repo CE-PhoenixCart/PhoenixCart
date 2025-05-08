@@ -18,6 +18,14 @@
 
 <h1 class="display-4"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_HEADING_TITLE ?></h1>
 
+<?php
+if ($messageStack->size('nuke') > 0) {
+  echo $messageStack->output('nuke');
+}
+?>
+
+<div class="col-sm-6 offset-sm-3">
+
 <?= (new Form('account_destroy', $Linker->build('ext/modules/content/account/nuke_account.php'), 'post', ['class' => 'was-validated']))->hide('action', 'process') ?>
 
   <div class="alert alert-danger"><?= MODULE_CONTENT_ACCOUNT_GDPR_NUKE_TEXT ?></div>
@@ -33,10 +41,27 @@
     </div>
   </div>
   
+  <?php
+  $input_id = 'inputCurrent';
+  $label_text = ENTRY_PASSWORD_CURRENT;
+  $input = (new Input('password', [
+    'autocapitalize' => 'none',
+    'id' => $input_id,
+    'autocomplete' => 'current-password',
+    'placeholder' => ENTRY_PASSWORD_CURRENT_TEXT,
+  ], 'password'))->require() . FORM_REQUIRED_INPUT;
+
+  include $Template->map('includes/modules/customer_data/cd_whole_row_input.php');
+
+  $customer_data->display_input($input);
+  ?>
+
   <div class="d-grid mb-2"><?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-trash', 'btn-danger btn-lg') ?></div>
   <p><?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('account.php')) ?></p>
 
 </form>
+
+</div>
 
 <?php
   require $Template->map('template_bottom.php', 'component');
