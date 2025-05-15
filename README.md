@@ -44,7 +44,7 @@ Phoenix can now be installed with just `one click` via [Softaculous](http://www.
 
 Software | Minimum | Maximum (tested)
 -------- | ------- | ----------------
-PHP | 7.0 | 8.3
+PHP | 7.3 | 8.3
 MariaDB | 10.2.2 | 10.5
 MySQL | 5.7.7 | 8.0
 
