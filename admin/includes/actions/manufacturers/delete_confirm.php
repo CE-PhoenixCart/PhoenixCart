@@ -30,7 +30,7 @@
       Products::remove($products['products_id']);
     }
   } else {
-    $db->query("UPDATE products SET manufacturers_id = '' WHERE manufacturers_id = " . (int)$manufacturers_id);
+    $db->query("UPDATE products SET manufacturers_id = NULL WHERE manufacturers_id = " . (int)$manufacturers_id);
   }
 
   return $link;
