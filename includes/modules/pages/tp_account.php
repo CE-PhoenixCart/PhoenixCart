@@ -5,7 +5,7 @@
   CE Phoenix, E-Commerce made Easy
   https://phoenixcart.org
 
-  Copyright (c) 2021 Phoenix Cart
+  Copyright (c) 2024 Phoenix Cart
 
   Released under the GNU General Public License
 */
@@ -87,33 +87,30 @@
         return $a['sort_order'] <=> $b['sort_order'];
       });
 
-      $output = '<div class="col-sm-12">';
+      $output = null;
 
       foreach ( $Template->_data[$this->group] as $group ) {
-        $output .= '<h4>' . $group['title'] . '</h4>';
-        $output .= '<div class="list-group list-group-horizontal-sm">';
+        $output .= '<h2 class="fs-4">' . $group['title'] . '</h2>';
+        $output .= '<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4">';
 
         foreach ( $group['links'] as $entry ) {
-          if (empty($entry['link'])) {
-            $output .= '<span class="text-center col-sm-4 col-lg-3 list-group-item list-group-item-action">';
-            $close = '</span>';
-          } else {
-            $output .= '<a class="text-center col-sm-4 col-lg-3 list-group-item list-group-item-action" href="' . $entry['link'] . '">';
-            $close = '</a>';
-          }
-
-          $output .= '<i title="' . $entry['title'] . '" class="d-none d-sm-block ' . $entry['icon'] . '"></i>';
-          $output .= $entry['title'];
-
-          if ('' !== $close) {
-            $output .= $close;
-          }
+          $output .= '<div class="col">';
+          
+            $output .= '<div class="card text-center pt-4">';
+              if (!empty($entry['link'])) $output .= '<a class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" href="' . $entry['link'] . '">';
+                $output .= '<i aria-hidden="true" title="' . $entry['title'] . '" class="' . $entry['icon'] . '"></i>';
+                $output .= '<div class="card-body">';
+                  $output .= '<p class="card-text">';
+                    $output .= $entry['title'];
+                  $output .= '</p>';
+                $output .= '</div>';
+              if (!empty($entry['link'])) $output .= '</a>';
+            $output .= '</div>';
+          $output .= '</div>';
         }
 
         $output .= '</div>';
       }
-
-      $output .= '</div>';
 
       $Template->add_content($output, $this->group);
     }
