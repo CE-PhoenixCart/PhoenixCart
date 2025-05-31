@@ -17,8 +17,8 @@
     public static function execute() {
       self::load_lang();
 
-      $nickname = \Text::prepare($_POST['nickname']);
-      $text = \Text::prepare($_POST['text']);
+      $nickname = \Text::input($_POST['nickname']);
+      $text = \Text::input($_POST['text']);
 
       $GLOBALS['db']->query("INSERT INTO testimonials (customers_id, customers_name, date_added, testimonials_status) VALUES (" . (int)$_SESSION['customer_id'] . ", '" . $GLOBALS['db']->escape($nickname) . "', NOW(), '0')");
 

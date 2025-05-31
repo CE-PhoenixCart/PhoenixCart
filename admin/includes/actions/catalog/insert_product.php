@@ -11,6 +11,8 @@
 */
 
   $products_date_available = Text::input($_POST['products_date_available']);
+  $manufacturers_id = Text::input($_POST['manufacturers_id']);
+  $importers_id = Text::input($_POST['importers_id']);
 
   $sql_data = [
     'products_quantity' => (int)Text::input($_POST['products_quantity']),
@@ -20,12 +22,12 @@
     'products_weight' => (float)Text::input($_POST['products_weight']),
     'products_status' => Text::input($_POST['products_status']),
     'products_tax_class_id' => Text::input($_POST['products_tax_class_id']),
-    'manufacturers_id' => (int)Text::input($_POST['manufacturers_id']),
+    'manufacturers_id' => (0 < $manufacturers_id) ? (int)$manufacturers_id : 'NULL',
     'products_date_added' => 'NOW()',
     'products_gtin' => (Text::is_empty($_POST['products_gtin']))
                      ? 'NULL'
                      : str_pad(Text::prepare($_POST['products_gtin']), 14, '0', STR_PAD_LEFT),
-    'importers_id' => (int)Text::input($_POST['importers_id']),
+    'importers_id' => (0 < $importers_id) ? (int)$importers_id : 'NULL',
   ];
 
   $products_image = new upload('products_image');

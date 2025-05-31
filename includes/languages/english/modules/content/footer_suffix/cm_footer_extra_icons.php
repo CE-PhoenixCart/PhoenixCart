@@ -12,7 +12,8 @@
 
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TITLE = 'Footer Icons';
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_DESCRIPTION = <<<'EOT'
-Adds FontAwesome Icons to the Footer Area of your site.<div class="alert alert-info">Available Icons are shown here: https://fontawesome.com/v5/search?o=r&ic=free&c=payments-shopping</div>
+Add FontAwesome Icons to the Footer Area of your site.<div class="alert alert-info">Icon Search: https://fontawesome.com/v6/search</div>
 EOT;
 
+  // alternatively you can override Fontawesome using;
   const MODULE_CONTENT_FOOTER_EXTRA_ICONS_TEXT = '';
