@@ -64,7 +64,7 @@
     public static function draw_breadcrumbs($ids) {
       $tree =& Guarantor::ensure_global('category_tree');
 
-      return implode('<br />', array_map(function ($c) use ($tree) {
+      return implode('<br>', array_map(function ($c) use ($tree) {
         return implode('&nbsp;&gt;&nbsp;', array_map(function ($id) use ($tree) {
           return $tree->get($id, 'name');
         }, array_merge(array_reverse($tree->get_ancestors($c)), [$c])));
@@ -74,7 +74,7 @@
     public static function build_paths($ids) {
       $display = new tree_display(Guarantor::ensure_global('category_tree'));
 
-      return implode('<br />', array_map(function ($id) use ($display) {
+      return implode('<br>', array_map(function ($id) use ($display) {
         return $display->buildBreadcrumb($id);
       }, $ids)) ?: TEXT_TOP;
     }

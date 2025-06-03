@@ -34,10 +34,10 @@ const HTPASSWD_INFO = <<<'EOT'
 <p>Enabling the htaccess/htpasswd security layer will automatically store administrator username and passwords in an htpasswd file when updating administrator password records.</p>
 <p><strong>Please note</strong>, if this additional security layer is enabled and you can no longer access the Administration Tool,
  please make the following changes and consult your hosting provider to enable htaccess/htpasswd protection:</p>
-<p><u><strong>1. Edit this file:</strong></u><br /><br />%s</p>
+<p><u><strong>1. Edit this file:</strong></u><br><br>%s</p>
 <p>Remove the following lines if they exist:</p>
 <p><i>%s</i></p>
-<p><u><strong>2. Delete this file:</strong></u><br /><br />%s</p>
+<p><u><strong>2. Delete this file:</strong></u><br><br>%s</p>
 EOT;
 const HTPASSWD_SECURED = <<<'EOT'
 <strong>Additional Protection With htaccess/htpasswd</strong>
