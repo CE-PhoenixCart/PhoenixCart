@@ -9,7 +9,8 @@ $form = new Form('quick_find', $GLOBALS['Linker']->build('advanced_search_result
 $form->hide_session_id()->hide('search_in_description', '0');
 
 $search_text = TEXT_SEARCH_PLACEHOLDER;
-$search_label = MODULE_NAVBAR_SEARCH_PUBLIC_TEXT;
+$search_label = MODULE_NAVBAR_SEARCH_ARIA_LABEL;
+$search_button = MODULE_NAVBAR_SEARCH_SEARCH_TEXT;
 
 $input = new Input('keywords', ['autocomplete' => 'off', 'id' => 'keywords', 'placeholder' => $search_text, 'aria-label' => $search_label], 'search');
 $input->require();
@@ -22,7 +23,7 @@ $searchModal = <<<SM
         {$form}
           <div class="input-group input-group-lg">
             {$input}
-            <button type="submit" class="btn btn-secondary btn-search"><i class="fas fa-magnifying-glass"></i><label for="keywords" class="sr-only">{$search_label}</label></button>
+            <button type="submit" aria-label="{$search_label}" class="btn btn-secondary btn-search">{$search_button}</button>
           </div>
         </form>
       </div>
