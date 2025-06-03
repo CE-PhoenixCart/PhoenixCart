@@ -3,7 +3,7 @@
   
   <address class="mb-1">
     <strong><?= STORE_NAME ?></strong><br>
-    <?= nl2br(STORE_ADDRESS) ?><br>
+    <?= nl2br(STORE_ADDRESS, false) ?><br>
     <?= MODULE_CONTENT_FOOTER_CONTACT_US_PHONE . STORE_PHONE ?><br>
     <?= MODULE_CONTENT_FOOTER_CONTACT_US_EMAIL . STORE_OWNER_EMAIL_ADDRESS ?>
   </address>
