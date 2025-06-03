@@ -41,7 +41,7 @@
       }
 
       if (is_string($chain['description']) && !Text::is_empty($chain['description'])) {
-        $Template->add_block('<meta name="description" content="' . Text::output($chain['description']) . '" />' . "\n", $this->group);
+        $Template->add_block('<meta name="description" content="' . Text::output($chain['description']) . '">' . "\n", $this->group);
       }
     }
 

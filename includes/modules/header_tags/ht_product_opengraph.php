@@ -44,7 +44,7 @@
 
         $result = '';
         foreach ( $data as $property => $content ) {
-          $result .= '<meta property="' . htmlspecialchars($property) . '" content="' . htmlspecialchars($content) . '" />' . PHP_EOL;
+          $result .= '<meta property="' . htmlspecialchars($property) . '" content="' . htmlspecialchars($content) . '">' . PHP_EOL;
         }
 
         $GLOBALS['Template']->add_block($result, $this->group);

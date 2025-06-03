@@ -23,7 +23,7 @@
         $category_seo_description = $GLOBALS['category_tree']->get($GLOBALS['current_category_id'], 'seo_description');
 
         if (!Text::is_empty($category_seo_description)) {
-          $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($category_seo_description) . '" />' . PHP_EOL, $this->group);
+          $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($category_seo_description) . '">' . PHP_EOL, $this->group);
         }
       }
     }

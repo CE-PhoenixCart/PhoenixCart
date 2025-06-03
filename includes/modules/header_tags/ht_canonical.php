@@ -54,7 +54,7 @@
     }
 
     public function execute() {
-      $GLOBALS['Template']->add_block('<link rel="canonical" href="' . $this->build_link() . '" />' . PHP_EOL, $this->group);
+      $GLOBALS['Template']->add_block('<link rel="canonical" href="' . $this->build_link() . '">' . PHP_EOL, $this->group);
     }
 
     protected function get_parameters() {

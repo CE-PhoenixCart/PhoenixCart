@@ -183,7 +183,7 @@
         $this->set('title', $this->parameters['alt'] ?? '');
       }
 
-      return '<img' . $this->stringify_parameters() . ' />';
+      return '<img' . $this->stringify_parameters() . '>';
     }
 
   }

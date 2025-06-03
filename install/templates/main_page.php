@@ -17,17 +17,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= TITLE ?></title>
-    <meta name="robots" content="noindex,nofollow" />
-    <link rel="icon" type="image/png" href="images/icon_phoenix.png" />
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" type="image/png" href="images/icon_phoenix.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
   </head>
   <body>
     <div class="container-fluid bg-light border-bottom mb-2">
       <div class="row align-items-center">
         <div class="col-md-6 text-center text-md-start py-3">
           <a href="index.php">
-            <img src="images/phoenix.png" title="<?= TEXT_SOFTWARE_NAME ?>" />
+            <img src="images/phoenix.png" title="<?= TEXT_SOFTWARE_NAME ?>">
           </a>
         </div>
         <div class="col-md-6 text-center text-md-end">
