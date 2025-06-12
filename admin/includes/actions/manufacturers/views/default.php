@@ -10,6 +10,19 @@
   Released under the GNU General Public License
 */
 
+  $keywords = null; $search_sql = '';
+  if (!Text::is_empty($_GET['search'] ?? '')) {
+    $keywords = Text::input($_GET['search']);
+    
+    $search_sql = "WHERE manufacturers_name LIKE '%" . $keywords. "%'";
+    
+    $admin_hooks->set('brandsListButtons', 'reset_keywords', function () {
+      return $GLOBALS['Admin']->button(IMAGE_RESET, 'fas fa-angle-left', 'btn-light', $GLOBALS['Admin']->link('manufacturers.php'));
+    });
+  }
+  
+  $manufacturers_sql = "SELECT * FROM manufacturers $search_sql ORDER BY manufacturers_name";
+
   $table_definition = [
     'columns' => [
       [
@@ -30,11 +43,14 @@
       ],
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS,
+    'hooks' => [
+      'button' => 'brandsListButtons',
+    ],
     'page' => $_GET['page'] ?? null,
     'web_id' => 'mID',
     'db_id' => 'manufacturers_id',
     'rows_per_page' => MAX_DISPLAY_SEARCH_RESULTS,
-    'sql' => "SELECT * FROM manufacturers ORDER BY manufacturers_name",
+    'sql' => $manufacturers_sql,
   ];
 
   $table_definition['function'] = function (&$row) use (&$table_definition) {

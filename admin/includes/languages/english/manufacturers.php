@@ -58,3 +58,5 @@ const TEXT_MANUFACTURERS_EMAIL = 'Email: %s';
 const TEXT_NA = 'N/A';
 
 const GET_HELP_LINK = 'https://phoenixcart.org/phoenixcartwiki/index.php?title=Manufacturers';
+
+const HEADING_TITLE_SEARCH = 'Search';
