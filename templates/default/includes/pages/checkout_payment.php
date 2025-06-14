@@ -23,7 +23,7 @@
 <h1 class="display-4 mb-4"><?= HEADING_TITLE ?></h1>
 
 <?php
-  echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['class' => 'was-validated', 'onsubmit' => 'return check_form();'], true);
+  echo new Form('checkout_payment', $Linker->build('checkout_confirmation.php'), 'post', ['class' => 'was-validated', 'id' => 'check_form'], true);
 
   if (isset($_GET['payment_error']) && is_object(${$_GET['payment_error']}) && ($error = ${$_GET['payment_error']}->get_error())) {
     echo '<div class="alert alert-danger">' . "\n";
