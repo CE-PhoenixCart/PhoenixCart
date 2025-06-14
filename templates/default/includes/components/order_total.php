@@ -13,5 +13,5 @@
 
 <tr>
   <td colspan="<?= $colspan ?? 1 ?>"><?= $output['title'] ?>
-  <span class="float-end"><?= $output['text'] ?></span>
+  <td class="text-end"><?= $output['text'] ?></td>
 </tr>
