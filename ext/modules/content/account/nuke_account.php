@@ -63,7 +63,7 @@
         Href::redirect($Linker->build('index.php'));
       }
       else {
-        $GLOBALS['messageStack']->add_session(
+        $GLOBALS['messageStack']->add(
               'nuke',
               MODULE_CONTENT_GDPR_NUKE_MESSAGESTACK_PASSWORD_INCORRECT,
               'info');
