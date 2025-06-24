@@ -37,7 +37,6 @@ EOSQL;
     public static function build_data_attributes($product, $data = []) {
       $data['data-is-special'] = $product->get('is_special');
       $data['data-product-price'] = $product->format_raw();
-      $data['data-product-manufacturer'] = $product->get('manufacturers_id');
       $data['data-in-stock'] = $product->get('in_stock');
       $data['data-product-id'] = $product->get('id');
       $data['data-has-attributes'] = $product->get('has_attributes');
