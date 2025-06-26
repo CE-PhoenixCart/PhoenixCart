@@ -424,7 +424,8 @@ CREATE TABLE orders_status (
    public_flag int DEFAULT '1',
    downloads_flag int DEFAULT '0',
    PRIMARY KEY (orders_status_id, language_id),
-   KEY idx_orders_status_name (orders_status_name)
+   KEY idx_orders_status_name (orders_status_name),
+   KEY idx_orders_orders_status ON orders (orders_status)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_status_history;
@@ -474,7 +475,8 @@ CREATE TABLE orders_total (
   class varchar(32) NOT NULL,
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
-  KEY idx_orders_total_orders_id (orders_id)
+  KEY idx_orders_total_orders_id (orders_id),
+  KEY idx_orders_total_orders_id_class (orders_id, class)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS pages;

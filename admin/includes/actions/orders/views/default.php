@@ -12,16 +12,21 @@
 
   $orders_sql = sprintf(<<<'EOSQL'
 SELECT o.*, s.orders_status_name, ot.text AS order_total
- FROM orders o INNER JOIN orders_total ot ON o.orders_id = ot.orders_id
+ FROM orders o INNER JOIN orders_total ot ON o.orders_id = ot.orders_id AND ot.class = 'ot_total'
    LEFT JOIN orders_status s ON o.orders_status = s.orders_status_id AND s.language_id = %d
- WHERE ot.class = 'ot_total'
 EOSQL
     , (int)$_SESSION['languages_id']);
+
+  $where_clauses = [];
+
   if (isset($_GET['cID'])) {
-    $orders_sql .= ' AND o.customers_id = ' . (int)Text::input($_GET['cID']);
+    $where_clauses[] = 'o.customers_id = ' . (int)Text::input($_GET['cID']);
   }
   if (!empty($_GET['status']) && is_numeric($_GET['status'])) {
-    $orders_sql .= ' AND o.orders_status = ' . (int)Text::input($_GET['status']);
+    $where_clauses[] = 'o.orders_status = ' . (int)Text::input($_GET['status']);
+  }
+  if (!empty($where_clauses)) {
+    $orders_sql .= ' WHERE ' . implode(' AND ', $where_clauses);
   }
   $listing_order = ' ORDER BY o.orders_id DESC';
 
