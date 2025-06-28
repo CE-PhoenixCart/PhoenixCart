@@ -5,8 +5,8 @@
         <th colspan="2"><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_PUBLIC_TITLE ?></th>
       </tr>
       <tr>
-        <td><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_ACTION ?></td>
-        <td><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_DATE ?></td>
+        <td class="bg-white text-dark"><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_ACTION ?></td>
+        <td class="bg-white text-dark"><?= MODULE_CONTENT_GDPR_SITE_ACTIONS_DATE ?></td>
       </tr>
     </thead>
     <tbody>
