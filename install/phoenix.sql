@@ -397,7 +397,8 @@ CREATE TABLE orders (
   currency char(3),
   currency_value decimal(14,6),
   PRIMARY KEY (orders_id),
-  KEY idx_orders_customers_id (customers_id)
+  KEY idx_orders_customers_id (customers_id),
+  KEY idx_orders_orders_status (orders_status)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_products;
@@ -424,8 +425,7 @@ CREATE TABLE orders_status (
    public_flag int DEFAULT '1',
    downloads_flag int DEFAULT '0',
    PRIMARY KEY (orders_status_id, language_id),
-   KEY idx_orders_status_name (orders_status_name),
-   KEY idx_orders_orders_status ON orders (orders_status)
+   KEY idx_orders_status_name (orders_status_name)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_status_history;
