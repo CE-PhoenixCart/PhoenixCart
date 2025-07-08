@@ -194,13 +194,13 @@ EOSQL
       
       if (MODULE_PAYMENT_STRIPE_SCA_CARD_DATA_ONE_LINE == 'True') {
         $content .= '<div id="stripe_table_new_card">';
-          $content .= '<div class="form-group mb-3">';
+          $content .= '<div class="mb-3 align-items-center">';
             $content .= '<label for="cardholder-name" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
             $content .= '<div class="col-sm-6">';
               $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
             $content .= '</div>';
           $content .= '</div>';
-          $content .= '<div class="form-group mb-3">';
+          $content .= '<div class="mb-3 align-items-center">';
             $content .= '<label for="card-element" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_TYPE . '</label>';
             $content .= '<div id="card-element" class="col-sm-6"></div>';
           $content .= '</div>';
@@ -213,21 +213,21 @@ EOSQL
         }
       } else {
         $content .= '<div id="stripe_table_new_card">';
-          $content .= '<div class="form-group row mb-3">';
+          $content .= '<div class="row mb-3 align-items-center">';
             $content .= '<label for="cardholder-name" class="col-form-label col-sm-4 ms-4 ms-sm-0 pe-0 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
             $content .= '<div class="col-sm-8 ms-3 ms-sm-0 cardholder">';
               $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
             $content .= '</div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-number" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>';
             $content .= '<div id="card-number" class="col-sm-8 card-details"></div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-expiry" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>';
             $content .= '<div id="card-expiry" class="col-sm-8 card-details"></div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-cvc" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>';
             $content .= '<div id="card-cvc" class="col-sm-8 card-details"></div>';
           $content .= '</div>';

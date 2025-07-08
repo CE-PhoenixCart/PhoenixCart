@@ -131,12 +131,12 @@
 
     if (isset($confirmation['fields'])) {
       echo '<div class="col">';
-        echo '<div class="form-group row">';
-        foreach ($confirmation['fields'] as $field) {
-          echo '<div class="col-form-label col-sm-3 text-start text-sm-end">' . $field['title'] . '</div>';
+      foreach ($confirmation['fields'] as $field) {
+        echo '<div class="row mb-3 align-items-center">'; 
+          echo '<label class="col-sm-3 col-form-label text-start text-sm-end">' . $field['title'] . '</label>';
           echo '<div class="col-sm-9">' . $field['field'] . '</div>';
-        }
         echo '</div>';
+      }
       echo '</div>';
     }
     ?>
