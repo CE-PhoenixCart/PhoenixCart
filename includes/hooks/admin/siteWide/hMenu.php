@@ -46,6 +46,18 @@ class hook_admin_siteWide_hMenu {
       }
 
       usort($cl_box_groups, function ($a, $b) {
+        $hasSortA = isset($a['sort']);
+        $hasSortB = isset($b['sort']);
+        
+        if ($hasSortA && $hasSortB) {
+          return $a['sort'] <=> $b['sort'];
+        }
+        if ($hasSortA) {
+          return -1;
+        }
+        if ($hasSortB) {
+          return 1;
+        }
         return strcasecmp(strip_tags($a['heading']), strip_tags($b['heading']));
       });
 

@@ -11,6 +11,7 @@
 */
 
   $cl_box_groups[] = [
+    'sort' => 25, 
     'heading' => BOX_HEADING_MODULES,
     'apps' => array_map(function ($m) {
       return [

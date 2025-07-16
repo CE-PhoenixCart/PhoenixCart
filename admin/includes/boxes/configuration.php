@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $cl_box_groups[] = ['heading' => BOX_HEADING_CONFIGURATION, 'apps' => []];
+  $cl_box_groups[] = ['sort' => 10, 'heading' => BOX_HEADING_CONFIGURATION, 'apps' => []];
 
   $configuration_groups_query = $GLOBALS['db']->query("SELECT configuration_group_id AS cgID, configuration_group_title AS cgTitle FROM configuration_group WHERE visible = '1' ORDER BY sort_order");
   while ($configuration_groups = $configuration_groups_query->fetch_assoc()) {
