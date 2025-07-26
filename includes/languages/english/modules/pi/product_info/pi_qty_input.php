@@ -14,3 +14,6 @@
   const PI_QTY_INPUT_DESCRIPTION = 'Shows a Quantity Input box on the product_info Page.<div class="alert alert-info">This is a child module for use with the &pi; system.</div>';
 
   const PI_QTY_INPUT_BUTTON_TEXT = 'Qty: ';
+  
+  const PI_QTY_INPUT_INCREASE = 'Increase Quantity';
+  const PI_QTY_INPUT_DECREASE = 'Decrease Quantity';

@@ -35,7 +35,23 @@
 
       if (PI_QTY_INPUT_BUTTONS == 'True') {
         $pi_qty_input_js = <<<EOJS
-<script>document.addEventListener('DOMContentLoaded', function() { let pi_qty = parseInt(document.getElementById('pi-qty-spin').value, 10) || 1; document.querySelectorAll('.spinner').forEach(function(spinner) { spinner.addEventListener('click', function() { const pi_action = this.getAttribute('data-spin'); if (pi_action === 'plus') { pi_qty++; } else { pi_qty--; } if (pi_qty < 1) pi_qty = 1; document.getElementById('pi-qty-spin').value = pi_qty; return false; }); }); });
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const qtyInput = document.getElementById('pi-qty-spin');
+  let pi_qty = parseInt(qtyInput.value, 10) || 1;
+
+  document.querySelectorAll('.spinner').forEach(spinner => {
+    spinner.addEventListener('click', () => {
+      const action = spinner.dataset.spin;
+      if (action === 'plus') {
+        pi_qty++;
+      } else {
+        pi_qty = Math.max(1, pi_qty - 1);
+      }
+      qtyInput.value = pi_qty;
+    });
+  });
+});
 </script>
 EOJS;
 
