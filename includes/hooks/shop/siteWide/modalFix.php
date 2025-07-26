@@ -15,11 +15,8 @@ class hook_shop_siteWide_modalFix {
   function listen_injectBodyEnd() {
     $modalfix = <<<EOD
 <script>
-window.addEventListener('hide.bs.modal', () => {
-  if (document.activeElement instanceof HTMLElement) {
-    document.activeElement.blur();
-  }
-});
+document.addEventListener('show.bs.modal', e => e.target.inert = false);
+document.addEventListener('hide.bs.modal', e => e.target.inert = true);
 </script>
 EOD;
 
