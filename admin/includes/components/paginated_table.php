@@ -14,7 +14,7 @@
   <div class="row g-0">
     <div class="col-12 col-sm-<?= $table_definition['width'] ?? 8 ?>">
       <div class="table-responsive"><?= $table_definition['form'] ?? '' ?>
-        <table class="table table-striped table-hover">
+        <table class="table <?= $table_definition['style'] ?? 'table-striped table-hover' ?>">
           <thead class="table-dark">
             <tr>
 <?php
@@ -61,6 +61,22 @@ EOJS;
   }
 ?>
           </tbody>
+          <?php
+          if (!empty($table_definition['tfoot']) && is_array($table_definition['tfoot'])) {
+            echo '<tfoot>';
+            foreach ($table_definition['tfoot'] as $footer_row) {
+              echo '<tr>';
+                foreach ($footer_row as $cell) {
+                  $tag = $cell['tag'] ?? 'td';
+                  $attrs = $cell['attributes'] ?? '';
+                  $content = $cell['content'] ?? '';
+                  echo "<{$tag} {$attrs}>{$content}</{$tag}>";
+                }
+              echo '</tr>';
+            }
+            echo '</tfoot>';
+          }
+          ?>
         </table>
       <?=
         $table_definition['submit'] ?? '',

@@ -106,7 +106,7 @@
 
     $output = '';
     foreach (i_get_manufacturers() as $brand) {
-      $output .= '<br />'
+      $output .= '<br>'
                . (new Tickable('i_selected_brands[]', ['value' => $brand['id']], 'checkbox'))->tick(in_array($brand['id'], $values_array))
                . '&nbsp;' . Text::output($brand['text']);
     }

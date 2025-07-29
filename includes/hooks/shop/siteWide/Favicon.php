@@ -19,12 +19,12 @@ class hook_shop_siteWide_Favicon {
       $favicon_image = HTTP_SERVER . DIR_WS_CATALOG . 'images/favicon/' . $size . '_' . FAVICON_LOGO;
       
       $favicon .= <<<favicon
-<link rel="icon" href="{$favicon_image}" sizes="{$size}x{$size}" />
+<link rel="icon" href="{$favicon_image}" sizes="{$size}x{$size}">
 
 favicon;
     }
     
-    $favicon .= '<link rel="apple-touch-icon" href="' . HTTP_SERVER . DIR_WS_CATALOG . 'images/favicon/192_' . FAVICON_LOGO . '" />' . PHP_EOL; 
+    $favicon .= '<link rel="apple-touch-icon" href="' . HTTP_SERVER . DIR_WS_CATALOG . 'images/favicon/192_' . FAVICON_LOGO . '">' . PHP_EOL; 
     
     echo $favicon;
   }

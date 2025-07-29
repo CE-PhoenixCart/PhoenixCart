@@ -21,7 +21,7 @@
   const MODULE_CONTENT_GDPR_REVIEWS_ANONYMIZE = '<i class="fas fa-user-secret text-white"></i>';
   const MODULE_CONTENT_GDPR_REVIEWS_DELETE = '<i class="fas fa-trash"></i>';
 
-  const MODULE_CONTENT_GDPR_REVIEWS_ANONYMIZED = ' <label class="badge badge-secondary">Anonymized!</label>';
+  const MODULE_CONTENT_GDPR_REVIEWS_ANONYMIZED = ' <label class="badge bg-secondary">Anonymized!</label>';
   const MODULE_CONTENT_GDPR_REVIEWS_ANONYMIZED_NAME = 'Anonymous [Verified Customer]';
 
   const MODULE_CONTENT_GDPR_REVIEWS_ANON = '<small>You can Anonymize your Reviews if you wish, by clicking the blue button.</small>';

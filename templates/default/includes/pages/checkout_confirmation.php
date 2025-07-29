@@ -34,34 +34,34 @@
     <div class="col-sm-7">
       <p class="fs-5 fw-semibold mb-1"><?= LIST_PRODUCTS . sprintf(LINK_TEXT_EDIT, 'fw-lighter ms-2', $Linker->build('shopping_cart.php')) ?></p>
       
-      <div class="border">
-        <ul class="list-group list-group-flush">
+      <table class="table table-hover border">
+        <tbody>
           <?php
           foreach ($order->products as $product) {
-            echo '<li class="list-group-item">';
-            echo '<span class="float-end">' . $currencies->display_price($product['final_price'], $product['tax'], $product['qty']) . '</span>';
-            echo '<p class="fs-5 fw-semibold mb-0">' . $product['name'] . '<small> x ' . $product['qty'] . '</small></p>';
-
-            if ( (isset($product['attributes'])) && (count($product['attributes']) > 0) ) {
-              echo '<p class="w-100 mb-1">';
-              foreach ($product['attributes'] as $attribute) {
-                echo '- ' . $attribute['option'] . ': ' . $attribute['value'] . '<br>';
-              }
-              echo '</p>';
-            }
-
-            echo '</li>';
+            echo '<tr>';
+              echo '<th class="fs-5 fw-semibold">';
+                echo $product['name'] . ' x ' . $product['qty'];
+                if ( (isset($product['attributes'])) && (count($product['attributes']) > 0) ) {
+                  foreach ($product['attributes'] as $attribute) {
+                    echo '<br><small>- ' . $attribute['option'] . ': ' . $attribute['value'] . '</small>';
+                  }
+                }
+              echo '</th>';
+              echo '<td class="text-end">';
+                echo $currencies->display_price($product['final_price'], $product['tax'], $product['qty']);
+              echo '</td>';
+            echo '</tr>';
           }
           ?>
-        </ul>
-        <table class="table table-group-divider mb-0">
-          <?php
-          if (MODULE_ORDER_TOTAL_INSTALLED) {
+        </tbody>
+        <?php        
+        if (MODULE_ORDER_TOTAL_INSTALLED) {
+          echo '<tfoot class="table-group-divider">';
             echo $order_total_modules->output();
-          }
-          ?>
-        </table>
-      </div>
+          echo '</tfoot>';
+        }
+        ?>
+      </table>
     </div>
     <div class="col-sm-5">
       <p class="fs-5 fw-semibold mb-1"><?= ORDER_DETAILS ?></p>
@@ -131,12 +131,12 @@
 
     if (isset($confirmation['fields'])) {
       echo '<div class="col">';
-        echo '<div class="form-group row">';
-        foreach ($confirmation['fields'] as $field) {
-          echo '<div class="col-form-label col-sm-3 text-start text-sm-end">' . $field['title'] . '</div>';
+      foreach ($confirmation['fields'] as $field) {
+        echo '<div class="row mb-3 align-items-center">'; 
+          echo '<label class="col-sm-3 col-form-label text-start text-sm-end">' . $field['title'] . '</label>';
           echo '<div class="col-sm-9">' . $field['field'] . '</div>';
-        }
         echo '</div>';
+      }
       echo '</div>';
     }
     ?>

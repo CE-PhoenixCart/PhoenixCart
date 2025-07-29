@@ -16,6 +16,9 @@
       $action = basename($action);
 
       if ( $action && class_exists($class = "\\Phoenix\\Actions\\$action") ) {
+        $hook_action = lcfirst(implode('', array_map('ucfirst', explode('_', $action))))  . 'Action';
+        $GLOBALS['hooks']->cat($hook_action);
+        
         call_user_func([$class, 'execute']);
       }
     }

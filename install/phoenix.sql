@@ -397,7 +397,8 @@ CREATE TABLE orders (
   currency char(3),
   currency_value decimal(14,6),
   PRIMARY KEY (orders_id),
-  KEY idx_orders_customers_id (customers_id)
+  KEY idx_orders_customers_id (customers_id),
+  KEY idx_orders_orders_status (orders_status)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS orders_products;
@@ -474,7 +475,8 @@ CREATE TABLE orders_total (
   class varchar(32) NOT NULL,
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
-  KEY idx_orders_total_orders_id (orders_id)
+  KEY idx_orders_total_orders_id (orders_id),
+  KEY idx_orders_total_orders_id_class (orders_id, class)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 DROP TABLE IF EXISTS pages;

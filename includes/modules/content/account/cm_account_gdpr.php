@@ -68,5 +68,5 @@
   function gdpr_show_countries($text) {
     return Text::is_empty($text)
          ? TEXT_ALL
-         : implode("<br />\n", array_map('Country::fetch_name', explode(';', $text)));
+         : implode("<br>\n", array_map('Country::fetch_name', explode(';', $text)));
   }

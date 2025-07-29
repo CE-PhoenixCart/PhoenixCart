@@ -1,39 +1,58 @@
 <div class="<?= MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_CONTENT_WIDTH ?> cm-gdpr-acceptance-data">
 
   <?php
-  foreach ($agreed_pages as $k => $v) {
+  foreach ($agreed_pages as $slug) {
+    $key = strtoupper($slug);
+    if (!isset($port_my_data['YOU']['ACCEPTED']['DOCUMENT'][$key])) {
+      continue;
+    }
+
+    $doc = $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][$key];
     ?>
     <table class="table table-striped">
       <thead class="table-dark">
         <tr>
-          <th colspan="2"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_PUBLIC_TITLE, $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE']) ?></th>
+          <th colspan="2"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_PUBLIC_TITLE, $doc['TITLE']) ?></th>
         </tr>
         <tr>
-          <td colspan="2" class="bg-white text-dark"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_EXPLANATION, $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE'], $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['ACCEPTED']) ?></td>
+          <td colspan="2" class="bg-white text-dark"><?= sprintf(MODULE_CONTENT_GDPR_ACCEPTANCE_DATA_EXPLANATION, $doc['TITLE'], $doc['ACCEPTED']) ?></td>
         </tr>
       </thead>
       <tbody>
         <tr>
           <th class="w-50"><?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS ?></th>
-          <td><button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#<?= $v ?>Modal"><?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS_VIEW_BUTTON ?></button></td>
+          <td>
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#<?= $slug ?>Modal">
+              <?= MODULE_CONTENT_GDPR_ACCEPTANCE_TERMS_VIEW_BUTTON ?>
+            </button>
+          </td>
         </tr>
         <tr>
           <th><?= MODULE_CONTENT_GDPR_ACCEPTANCE_LANGUAGE ?></th>
-          <td><?= ucfirst($port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['LANGUAGE']) ?></td>
+          <td><?= ucfirst($doc['LANGUAGE']) ?></td>
         </tr>
       </tbody>
     </table>
     <?php
   }
   ?>
+
 </div>
 
 <?php
-foreach ($agreed_pages as $k => $v) {
+foreach ($agreed_pages as $slug) {
+  $key = strtoupper($slug);
+
+  if (!isset($port_my_data['YOU']['ACCEPTED']['DOCUMENT'][$key])) {
+    continue; 
+  }
+
+  $doc = $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][$key];
+
   $modal = [
-    'name' => $v . 'Modal',
-    'title' => $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE'],
-    'text' => $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TEXT'],
+    'name' => $slug . 'Modal',
+    'title' => $doc['TITLE'],
+    'text' => $doc['TEXT'],
     'close_button' => MATC_BUTTON_CLOSE,
   ];
 

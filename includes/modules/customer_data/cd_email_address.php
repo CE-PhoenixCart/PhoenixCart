@@ -80,7 +80,7 @@
 
       $input = new Input('email_address', [
         'id' => $input_id,
-        'autocomplete' => 'username email',
+        'autocomplete' => 'email',
         'placeholder' => ENTRY_EMAIL_ADDRESS_TEXT,
         'minlength' => ENTRY_EMAIL_ADDRESS_MIN_LENGTH,
       ], 'email');

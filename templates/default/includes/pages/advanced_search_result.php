@@ -22,6 +22,10 @@
   require 'includes/system/segments/sortable_product_listing.php';
 ?>
 
+  <div class="row">
+    <?= $Template->get_content('advanced_search_result') ?>
+  </div>
+  
   <div class="mt-3">
     <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('advanced_search.php')->retain_query_except(['sort', 'page'])) ?>
   </div>

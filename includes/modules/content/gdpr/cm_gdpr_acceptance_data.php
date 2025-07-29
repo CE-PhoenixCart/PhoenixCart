@@ -21,28 +21,49 @@
     public function execute() {
       global $port_my_data;
       
+      $customer_id = (int)$_SESSION['customer_id'];
       $agreed_pages = ['privacy', 'conditions'];
-      
-      $acceptance_query = $GLOBALS['db']->fetch_all(sprintf(<<<'EOSQL'
-SELECT * FROM customers_gdpr WHERE customers_id = %s ORDER BY gdpr_id DESC
-EOSQL
-          , (int)$_SESSION['customer_id']));
 
-      $agreed = []; 
-      foreach ($acceptance_query as $k => $v) {
-        $agreed[$v['slug']][] = $v;
+      $escaped_slugs = array_map([$GLOBALS['db'], 'escape'], $agreed_pages);
+      $slug_list = "'" . implode("','", $escaped_slugs) . "'";
+
+      $acceptance_query = $GLOBALS['db']->fetch_all("
+        SELECT *
+        FROM customers_gdpr
+        WHERE customers_id = {$customer_id}
+          AND slug IN ({$slug_list})
+        ORDER BY slug, gdpr_id DESC
+      ");
+
+      $agreed = [];
+      foreach ($acceptance_query as $entry) {
+        $slug = $entry['slug'];
+        if (!isset($agreed[$slug])) {
+          $agreed[$slug] = $entry;
+        }
+      }
+
+      foreach ($agreed_pages as $slug) {
+        if (!isset($agreed[$slug])) {
+          continue;
+        }
+
+        $entry = $agreed[$slug];
+        $key = strtoupper($slug);
+
+        $GLOBALS['port_my_data']['YOU']['ACCEPTED']['DOCUMENT'][$key] = [
+          'TEXT'     => $entry['pages_text'],
+          'TITLE'    => $entry['pages_title'],
+          'WRITTEN'  => $entry['timestamp'],
+          'LANGUAGE' => $entry['language'],
+          'ACCEPTED' => $entry['date_added'],
+        ];
       }
       
-      foreach ($agreed_pages as $k => $v) {
-        $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TEXT'] = $agreed[$v][0]['pages_text'];
-        $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['TITLE'] = $agreed[$v][0]['pages_title'];
-        $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['WRITTEN'] = $agreed[$v][0]['timestamp'];
-        $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['LANGUAGE'] = $agreed[$v][0]['language'];
-        $port_my_data['YOU']['ACCEPTED']['DOCUMENT'][strtoupper($v)]['ACCEPTED'] = $agreed[$v][0]['date_added'];
+      if (!empty($agreed)) {
+        $tpl_data = ['group' => $this->group, 'file' => __FILE__];
+        include 'includes/modules/content/cm_template.php';
       }
-      
-      $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
-      include 'includes/modules/content/cm_template.php';
     }
 
     protected function get_parameters() {

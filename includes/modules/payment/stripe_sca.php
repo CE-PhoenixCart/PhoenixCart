@@ -171,7 +171,7 @@ EOSQL
             // default to charging first saved card, changed by client directly calling payment_intent.php hook as selection changed
             $content .= '<tr class="moduleRow" id="stripe_card_' . (int) $tokens['id'] . '">';
               $content .= '<td width="40" valign="top">';
-                $content .= '<input type="radio" name="stripe_card" value="' . (int) $tokens['id'] . '" />';
+                $content .= '<input type="radio" name="stripe_card" value="' . (int) $tokens['id'] . '">';
               $content .= '</td>';
               $content .= '<td valign="top">';
                 $content .= '<strong>' . htmlspecialchars($tokens['card_type']) . '</strong>&nbsp;&nbsp;****' . htmlspecialchars($tokens['number_filtered']) . '&nbsp;&nbsp;' . htmlspecialchars(substr($tokens['expiry_date'], 0, 2) . '/' . substr($tokens['expiry_date'], 2));
@@ -181,7 +181,7 @@ EOSQL
 
           $content .= '<tr class="moduleRow" id="stripe_card_0">';
             $content .= '<td width="40" valign="top">';
-              $content .= '<input type="radio" name="stripe_card" value="0" />';
+              $content .= '<input type="radio" name="stripe_card" value="0">';
             $content .= '</td>';
             $content .= '<td valign="top">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NEW . '</td>';
           $content .= '</tr>';
@@ -194,13 +194,13 @@ EOSQL
       
       if (MODULE_PAYMENT_STRIPE_SCA_CARD_DATA_ONE_LINE == 'True') {
         $content .= '<div id="stripe_table_new_card">';
-          $content .= '<div class="form-group mb-3">';
+          $content .= '<div class="mb-3 align-items-center">';
             $content .= '<label for="cardholder-name" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
             $content .= '<div class="col-sm-6">';
               $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
             $content .= '</div>';
           $content .= '</div>';
-          $content .= '<div class="form-group mb-3">';
+          $content .= '<div class="mb-3 align-items-center">';
             $content .= '<label for="card-element" class="control-label">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_TYPE . '</label>';
             $content .= '<div id="card-element" class="col-sm-6"></div>';
           $content .= '</div>';
@@ -213,21 +213,21 @@ EOSQL
         }
       } else {
         $content .= '<div id="stripe_table_new_card">';
-          $content .= '<div class="form-group row mb-3">';
+          $content .= '<div class="row mb-3 align-items-center">';
             $content .= '<label for="cardholder-name" class="col-form-label col-sm-4 ms-4 ms-sm-0 pe-0 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_OWNER . '</label>';
             $content .= '<div class="col-sm-8 ms-3 ms-sm-0 cardholder">';
               $content .= '<input type="text" id="cardholder-name" class="form-control" value="' . Text::output($order->billing['name']) . '" required>';
             $content .= '</div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-number" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_NUMBER . '</label>';
             $content .= '<div id="card-number" class="col-sm-8 card-details"></div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-expiry" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_EXPIRY . '</label>';
             $content .= '<div id="card-expiry" class="col-sm-8 card-details"></div>';
           $content .= '</div>';
-          $content .= '<div class="form-group row ms-3 me-1 mb-3">';
+          $content .= '<div class="row ms-3 me-1 mb-3 align-items-center">';
             $content .= '<label for="card-cvc" class="col-form-label col-sm-4 text-start text-sm-end">' . MODULE_PAYMENT_STRIPE_SCA_CREDITCARD_CVC . '</label>';
             $content .= '<div id="card-cvc" class="col-sm-8 card-details"></div>';
           $content .= '</div>';
@@ -250,10 +250,10 @@ EOSQL
       ];
 
       foreach ($address as $k => $v) {
-          $content .= '<input type="hidden" id="' . Text::output($k) . '" value="' . Text::output($v ?? '') . '" />';
+          $content .= '<input type="hidden" id="' . Text::output($k) . '" value="' . Text::output($v ?? '') . '">';
       }
-      $content .= '<input type="hidden" id="email_address" value="' . Text::output($GLOBALS['customer_data']->get('email_address', $order->customer)) . '" />';
-      $content .= '<input type="hidden" id="customer_id" value="' . Text::output($_SESSION['customer_id']) . '" />';
+      $content .= '<input type="hidden" id="email_address" value="' . Text::output($GLOBALS['customer_data']->get('email_address', $order->customer)) . '">';
+      $content .= '<input type="hidden" id="customer_id" value="' . Text::output($_SESSION['customer_id']) . '">';
 
       if (MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_METHOD == 'Capture') {
           $capture_method = 'automatic';
@@ -290,8 +290,8 @@ EOSQL
         $this->event_log($_SESSION['customer_id'], 'page create intent', json_encode($params), $this->intent);
         $_SESSION['stripe_payment_intent_id'] = $this->intent->id;
       }
-      $content .= '<input type="hidden" id="intent_id" value="' . Text::output($_SESSION['stripe_payment_intent_id']) . '" />' .
-              '<input type="hidden" id="secret" value="' . Text::output($this->intent->client_secret) . '" />';
+      $content .= '<input type="hidden" id="intent_id" value="' . Text::output($_SESSION['stripe_payment_intent_id']) . '">' .
+              '<input type="hidden" id="secret" value="' . Text::output($this->intent->client_secret) . '">';
 
       $confirmation = ['title' => $content];
 
@@ -698,7 +698,7 @@ EOD;
 
 
       $info = '<p><i class="fas fa-lock"></i>&nbsp;<a href="javascript:openTestConnectionDialog();" style="text-decoration: underline; font-weight: bold;">' . MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_LINK_TITLE . '</a></p>' .
-              '<div id="testConnectionDialog" style="display: none;"><p>Server:<br />https://api.stripe.com/v1/balance</p><div id="testConnectionDialogProgress"><p>' . MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_GENERAL_TEXT . '</p><div id="tcdprogressbar"></div></div></div>' .
+              '<div id="testConnectionDialog" style="display: none;"><p>Server:<br>https://api.stripe.com/v1/balance</p><div id="testConnectionDialogProgress"><p>' . MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_GENERAL_TEXT . '</p><div id="tcdprogressbar"></div></div></div>' .
               $js;
       return $info;
     }

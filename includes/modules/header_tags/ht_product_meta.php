@@ -20,7 +20,7 @@
       global $product;
 
       if (isset($_GET['products_id'], $product) && !Text::is_empty($product->get('seo_description'))) {
-        $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($product->get('seo_description')) . '" />' . PHP_EOL, $this->group);
+        $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($product->get('seo_description')) . '">' . PHP_EOL, $this->group);
       }
     }
 

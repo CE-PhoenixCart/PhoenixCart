@@ -63,7 +63,7 @@
         unset($this->parameters['value']);
       }
 
-      return '<input' . $this->stringify_parameters() . ' />';
+      return '<input' . $this->stringify_parameters() . '>';
     }
 
   }

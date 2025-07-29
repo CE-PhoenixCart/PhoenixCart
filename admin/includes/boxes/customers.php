@@ -10,4 +10,4 @@
   Released under the GNU General Public License
 */
 
-  $cl_box_groups[] = ['heading' => BOX_HEADING_CUSTOMERS, 'apps' => []];
+  $cl_box_groups[] = ['sort' => 15, 'heading' => BOX_HEADING_CUSTOMERS, 'apps' => []];

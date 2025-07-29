@@ -21,7 +21,7 @@
     public function execute() {
       if (!Text::is_empty(MODULE_HEADER_TAGS_ROBOT_NOINDEX_PAGES)) {
         if (in_array(basename(Request::get_page()), page_selection::_get_pages($this->base_constant('PAGES')))) {
-          $GLOBALS['Template']->add_block('<meta name="robots" content="noindex,follow" />', $this->group);
+          $GLOBALS['Template']->add_block('<meta name="robots" content="noindex,follow">', $this->group);
         }
       }
     }

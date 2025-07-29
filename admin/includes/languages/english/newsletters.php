@@ -29,7 +29,7 @@ const TEXT_NEWSLETTER_DATE_SENT = 'Date Sent: %s';
 
 const TEXT_INFO_DELETE_INTRO = 'Are you sure you want to delete this newsletter?';
 
-const TEXT_PLEASE_WAIT = 'Please wait .. sending emails ..<br /><br />Please do not interrupt this process!';
+const TEXT_PLEASE_WAIT = 'Please wait .. sending emails ..<br><br>Please do not interrupt this process!';
 const TEXT_FINISHED_SENDING_EMAILS = 'Finished sending e-mails!';
 
 const ERROR_NEWSLETTER_TITLE = '<strong>Error:</strong> Newsletter title required';

@@ -35,10 +35,6 @@
         }
       }
 
-      if (!isset($parameters['border'])) {
-        $parameters['border'] = 0;
-      }
-
       if (defined('DEFAULT_IMAGE') && !Text::is_empty(DEFAULT_IMAGE)) {
         $this->default = DEFAULT_IMAGE;
       }
@@ -183,7 +179,7 @@
         $this->set('title', $this->parameters['alt'] ?? '');
       }
 
-      return '<img' . $this->stringify_parameters() . ' />';
+      return '<img' . $this->stringify_parameters() . '>';
     }
 
   }

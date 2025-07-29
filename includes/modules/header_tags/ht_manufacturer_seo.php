@@ -21,7 +21,7 @@
         $brand_seo_description = $GLOBALS['brand']->getData('manufacturers_seo_description');
 
         if (!Text::is_empty($brand_seo_description)) {
-          $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($brand_seo_description) . '" />' . PHP_EOL, $this->group);
+          $GLOBALS['Template']->add_block('<meta name="description" content="' . Text::output($brand_seo_description) . '">' . PHP_EOL, $this->group);
         }
       }
     }

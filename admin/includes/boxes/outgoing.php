@@ -10,6 +10,6 @@
   Released under the GNU General Public License
 */
 
-  $cl_box_groups[] = ['heading' => BOX_HEADING_OUTGOING_EMAIL,
+  $cl_box_groups[] = ['sort' => 35, 'heading' => BOX_HEADING_OUTGOING_EMAIL,
                       'apps' => []];
                       
