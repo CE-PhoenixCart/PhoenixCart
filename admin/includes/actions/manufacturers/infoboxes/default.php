@@ -26,7 +26,7 @@
     }
     $contents[] = ['text' => $GLOBALS['Admin']->catalog_image("images/{$mInfo->manufacturers_image}", [], $mInfo->manufacturers_name)];
     
-    $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_ADDRESS, nl2br($mInfo->manufacturers_address) ?? TEXT_NA)];
+    $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_ADDRESS, nl2br($mInfo->manufacturers_address ?? TEXT_NA))];
     $contents[] = ['text' => sprintf(TEXT_MANUFACTURERS_EMAIL, $mInfo->manufacturers_email ?? TEXT_NA)];
     
     $contents[] = ['text' => sprintf(TEXT_PRODUCTS, $mInfo->products_count)];
