@@ -345,43 +345,47 @@ class paypal_standard extends abstract_payment_module {
       span.classList.remove('fa-check-circle', 'fa-exclamation-triangle');
       span.classList.add('fa-spinner', 'fa-spin');
       const comments = (null != commentsField) ? commentsField.value : 'nofield';
-      const data = {
-        cartid: '{$_SESSION['cartID']}',
-        orderid: {$GLOBALS['order']->get_id()},
-        comments: comments
-      };
-      fetch('ext/modules/payment/paypal/checkout_confirmation.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.text())
-      .then(text => {
-        try {
-          const data = JSON.parse(text);
-          if (data.error) {
-            throw new Error(data.error);
-          } else if (data.orderid) {
-            console.log(data.result);
-            confirmForm.submit();
-          } else {
-            throw new Error(JSON.stringify(data));
-            hiterror = true;
+      if (comments === 'nofield' || comments.trim() === '') {
+        confirmForm.submit();
+      } else {
+        const data = {
+          cartid: '{$_SESSION['cartID']}',
+          orderid: {$GLOBALS['order']->get_id()},
+          comments: comments
+        };
+        fetch('ext/modules/payment/paypal/checkout_confirmation.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(text => {
+          try {
+            const data = JSON.parse(text);
+            if (data.error) {
+              throw new Error(data.error);
+            } else if (data.orderid) {
+              console.log(data.result);
+              confirmForm.submit();
+            } else {
+              throw new Error(JSON.stringify(data));
+              hiterror = true;
+            }
+          } catch (e) {
+            console.error(e);
+            throw new Error('invalid response: ' + text);
           }
-        } catch (e) {
-          console.error(e);
-          throw new Error('invalid response: ' + text);
-        }
-      })
-      .catch(function(err) {
-        console.error(err);
-        confirmButton.disabled = false;
-        span.classList.remove('fa-spinner', 'fa-spin');
-        span.classList.add('fa-exclamation-triangle');
-        alert(commentError);
-      });
+        })
+        .catch(function(err) {
+          console.error(err);
+          confirmButton.disabled = false;
+          span.classList.remove('fa-spinner', 'fa-spin');
+          span.classList.add('fa-exclamation-triangle');
+          alert(commentError);
+        });
+      }
     });
   } else {
     alert(configError);
