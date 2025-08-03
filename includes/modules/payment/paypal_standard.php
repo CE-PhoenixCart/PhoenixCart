@@ -9,6 +9,7 @@
   Basic Paypal Payment Module for Phoenix Cart
   More sophisticated Paypal integration available at https://phoenixcart.org/forum/addons/
 
+  Version 1.5 2025-08-03 Ajax comment - only save if there is one, include http return code in error message
   Version 1.4 2025-03-15 Phoenix 1.1.0.0 compatibility. Add invoice prefix to avoid duplicate invoice numbers
   Version 1.3 2025-02-25 Phoenix 1.0.9.9+ compatibility & store comments on order record
   Version 1.2 2024-09-24 Phoenix 1.0.9.6 and php 8.3 compatibility and update common code
@@ -31,7 +32,7 @@ class paypal_standard extends abstract_payment_module {
 
   const ADDON = 'PPSTANDARD';
   const VARIANT = 'CORE';
-  const VERSION = '1.4';
+  const VERSION = '1.5';
 
   public function __construct() {
     parent::__construct();
@@ -353,6 +354,7 @@ class paypal_standard extends abstract_payment_module {
           orderid: {$GLOBALS['order']->get_id()},
           comments: comments
         };
+        let status;
         fetch('ext/modules/payment/paypal/checkout_confirmation.php', {
           method: 'POST',
           headers: {
@@ -360,7 +362,10 @@ class paypal_standard extends abstract_payment_module {
           },
           body: JSON.stringify(data)
         })
-        .then(response => response.text())
+        .then(response => {
+          status = response.status;
+          return response.text();
+        })
         .then(text => {
           try {
             const data = JSON.parse(text);
@@ -383,7 +388,7 @@ class paypal_standard extends abstract_payment_module {
           confirmButton.disabled = false;
           span.classList.remove('fa-spinner', 'fa-spin');
           span.classList.add('fa-exclamation-triangle');
-          alert(commentError);
+          alert("[" + status + "] " + commentError);
         });
       }
     });
