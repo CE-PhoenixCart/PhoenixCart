@@ -13,11 +13,19 @@
   $id = (int)$_GET['oID'];
   
   $sql_data = [
-    'title' => Text::prepare($_POST['title']),
-    'text' => Text::prepare($_POST['text']),
     'last_modified' => 'NOW()',
   ];
 
-  $db->perform('outgoing_tpl', $sql_data, 'update', "id = " . (int)$id);
+  $db->perform('outgoing_tpl', $sql_data, 'update', "id = " . $id);
 
-  return $link->set_parameter('oID', (int)$id);
+  foreach (array_column(language::load_all(), 'id') as $language_id) {
+    $sql_data = [
+      'title' => Text::prepare($_POST['title'][$language_id]),
+      'text' => Text::prepare($_POST['text'][$language_id]),
+      'languages_id' => $language_id,
+    ];
+
+    $db->perform('outgoing_tpl_info', $sql_data, 'update', "id = " . $id . " AND languages_id = " . (int)$language_id);
+  }
+
+  return $link->set_parameter('oID', $id);

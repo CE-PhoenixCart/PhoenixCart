@@ -29,6 +29,7 @@
   $db->query("INSERT INTO manufacturers_info (manufacturers_id, languages_id, manufacturers_url) SELECT manufacturers_id, " . (int)$lID . ", manufacturers_url FROM manufacturers_info WHERE languages_id = " . (int)$_SESSION['languages_id']);
   $db->query("INSERT INTO orders_status (orders_status_id, language_id, orders_status_name) SELECT orders_status_id, " . (int)$lID . ", orders_status_name FROM orders_status WHERE language_id = " . (int)$_SESSION['languages_id']);
   $db->query("INSERT INTO customer_data_groups (customer_data_groups_id, language_id, customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width) SELECT customer_data_groups_id, " . (int)$lID . ", customer_data_groups_name, cdg_vertical_sort_order, customer_data_groups_width FROM customer_data_groups WHERE language_id = " . (int)$_SESSION['languages_id']);
+  $db->query("INSERT INTO outgoing_tpl_info (id, languages_id, text, title) SELECT id, " . (int)$lID . ", text, title FROM outgoing_tpl_info WHERE languages_id = " . (int)$_SESSION['languages_id']);
 
   if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
     $db->query("UPDATE configuration SET configuration_value = '" . $db->escape($sql_data['code']) . "' WHERE configuration_key = 'DEFAULT_LANGUAGE'");

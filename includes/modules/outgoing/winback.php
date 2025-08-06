@@ -19,6 +19,7 @@
           $customer = new customer($_SESSION['customer_id']);
 
           $_data_array = ['customer_id'   => (int)$_SESSION['customer_id'],
+                          'languages_id'  => (int)$_SESSION['languages_id'],
                           'fname'         => Text::prepare($customer->get('firstname')),
                           'lname'         => Text::prepare($customer->get('lastname')),
                           'email_address' => Text::prepare($customer->get('email_address')),

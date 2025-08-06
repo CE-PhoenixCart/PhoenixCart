@@ -13,6 +13,7 @@
   $id = (int)$_GET['oID'];
 
   $db->query("DELETE FROM outgoing_tpl WHERE id = " . $id);
+  $db->query("DELETE FROM outgoing_tpl_info WHERE id = " . $id);
   
   if (isset($_POST['delete_queued']) && ($_POST['delete_queued'] == 'on')) {
     $del = $_POST['slugworth'];

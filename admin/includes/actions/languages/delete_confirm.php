@@ -29,5 +29,7 @@
   $db->query("DELETE FROM orders_status WHERE language_id = " . (int)$lID);
   $db->query("DELETE FROM customer_data_groups WHERE language_id = " . (int)$lID);
   $db->query("DELETE FROM languages WHERE languages_id = " . (int)$lID);
+  $db->query("DELETE FROM outgoing WHERE languages_id = " . (int)$lID);
+  $db->query("DELETE FROM outgoing_tpl_info WHERE languages_id = " . (int)$lID);
 
   return $link;
