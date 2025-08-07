@@ -2119,9 +2119,9 @@ INSERT INTO configuration (configuration_id, configuration_title, configuration_
 # bootstrap5
 INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, set_function, date_added) VALUES ('Bootstrap Theme', 'BOOTSTRAP_THEME', 'auto', 'What theme (colour mode) should your site default to? See <a target="_blank" rel="noreferrer" href="https://getbootstrap.com/docs/5.3/customize/color-modes/"><u>/customize/color-modes/</u></a>.  <div class="alert alert-danger">This is an option for Bootstrap 5 only.</div>', 16, 3, 'Config::select_one([\'dark\', \'light\', \'auto\'], ', NOW());
 
-INSERT INTO outgoing_tpl (id, languages_id, slug, date_added) VALUES ('1', 1, 'no_checkout', NOW());
-INSERT INTO outgoing_tpl (id, languages_id, slug, date_added) VALUES ('2', 1, 'order_thanks', NOW());
-INSERT INTO outgoing_tpl (id, languages_id, slug, date_added) VALUES ('3', 1, 'winback', NOW());
+INSERT INTO outgoing_tpl (id, slug, date_added) VALUES ('1', 'no_checkout', NOW());
+INSERT INTO outgoing_tpl (id, slug, date_added) VALUES ('2', 'order_thanks', NOW());
+INSERT INTO outgoing_tpl (id, slug, date_added) VALUES ('3', 'winback', NOW());
 
 INSERT INTO outgoing_tpl_info (id, languages_id, title, text) VALUES (1, 1, '{{FNAME}}, no checkout?', 'Hi {{FNAME}}\r\n\r\nWe noticed you registered on our site back on the {{SIGN_UP_DAY}} of {{SIGN_UP_MONTH}} but you did not checkout.\r\n\r\nIf you had a problem with our site, please do not hesitate to contact us.');
 INSERT INTO outgoing_tpl_info (id, languages_id, title, text) VALUES (2, 1, '{{FNAME}} thank you for Order #{{ORDER_ID}}', 'Hi {{FNAME}}\r\n\r\nThank you for Order #{{ORDER_ID}} made on {{ORDER_DATE}}.  We are working to pick and pack your Order and will update you at each stage of the process.\r\n\r\nYou ordered:\r\n{{ORDER_PRODUCTS}}\r\n\r\nIf you have any questions about this Order or our site, please do not hesitate to contact us.');
