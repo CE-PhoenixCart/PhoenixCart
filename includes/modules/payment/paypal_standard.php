@@ -9,6 +9,7 @@
   Basic Paypal Payment Module for Phoenix Cart
   More sophisticated Paypal integration available at https://phoenixcart.org/forum/addons/
 
+  Version 1.5 2025-08-03 Ajax comment - only save if there is one, include http return code in error message
   Version 1.4 2025-03-15 Phoenix 1.1.0.0 compatibility. Add invoice prefix to avoid duplicate invoice numbers
   Version 1.3 2025-02-25 Phoenix 1.0.9.9+ compatibility & store comments on order record
   Version 1.2 2024-09-24 Phoenix 1.0.9.6 and php 8.3 compatibility and update common code
@@ -31,7 +32,7 @@ class paypal_standard extends abstract_payment_module {
 
   const ADDON = 'PPSTANDARD';
   const VARIANT = 'CORE';
-  const VERSION = '1.4';
+  const VERSION = '1.5';
 
   public function __construct() {
     parent::__construct();
@@ -345,43 +346,51 @@ class paypal_standard extends abstract_payment_module {
       span.classList.remove('fa-check-circle', 'fa-exclamation-triangle');
       span.classList.add('fa-spinner', 'fa-spin');
       const comments = (null != commentsField) ? commentsField.value : 'nofield';
-      const data = {
-        cartid: '{$_SESSION['cartID']}',
-        orderid: {$GLOBALS['order']->get_id()},
-        comments: comments
-      };
-      fetch('ext/modules/payment/paypal/checkout_confirmation.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.text())
-      .then(text => {
-        try {
-          const data = JSON.parse(text);
-          if (data.error) {
-            throw new Error(data.error);
-          } else if (data.orderid) {
-            console.log(data.result);
-            confirmForm.submit();
-          } else {
-            throw new Error(JSON.stringify(data));
-            hiterror = true;
+      if (comments === 'nofield' || comments.trim() === '') {
+        confirmForm.submit();
+      } else {
+        const data = {
+          cartid: '{$_SESSION['cartID']}',
+          orderid: {$GLOBALS['order']->get_id()},
+          comments: comments
+        };
+        let status;
+        fetch('ext/modules/payment/paypal/checkout_confirmation.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => {
+          status = response.status;
+          return response.text();
+        })
+        .then(text => {
+          try {
+            const data = JSON.parse(text);
+            if (data.error) {
+              throw new Error(data.error);
+            } else if (data.orderid) {
+              console.log(data.result);
+              confirmForm.submit();
+            } else {
+              throw new Error(JSON.stringify(data));
+              hiterror = true;
+            }
+          } catch (e) {
+            console.error(e);
+            throw new Error('invalid response: ' + text);
           }
-        } catch (e) {
-          console.error(e);
-          throw new Error('invalid response: ' + text);
-        }
-      })
-      .catch(function(err) {
-        console.error(err);
-        confirmButton.disabled = false;
-        span.classList.remove('fa-spinner', 'fa-spin');
-        span.classList.add('fa-exclamation-triangle');
-        alert(commentError);
-      });
+        })
+        .catch(function(err) {
+          console.error(err);
+          confirmButton.disabled = false;
+          span.classList.remove('fa-spinner', 'fa-spin');
+          span.classList.add('fa-exclamation-triangle');
+          alert("[" + status + "] " + commentError);
+        });
+      }
     });
   } else {
     alert(configError);
@@ -529,7 +538,7 @@ EOSQL
     }
 
     $notify_url = $GLOBALS['Linker']->build('ext/modules/payment/paypal/standard_ipn.php', [], false);
-    if (isset($ipn_language)) {
+    if (! is_null($ipn_language)) {
       $notify_url->set_parameter('language', $ipn_language);
     }
     $amount = ($GLOBALS['order']->info['total'] - $GLOBALS['order']->info['shipping_cost'] - $total_tax);
@@ -548,7 +557,7 @@ EOSQL
       'invoice' => $this->base_constant('INVOICE_PREFIX') . $order_id,
       'custom' => $_SESSION['customer_id'],
       'no_note' => '1',
-      'notify_url' => $GLOBALS['Linker']->build('ext/modules/payment/paypal/standard_ipn.php'),
+      'notify_url' => $notify_url,
       'rm' => '2',
       'return' => $GLOBALS['Linker']->build(static::RETURN_URL),
       'cancel_return' => $GLOBALS['Linker']->build('checkout_payment.php'),
