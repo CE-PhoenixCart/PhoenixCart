@@ -98,6 +98,7 @@ try {
         }
 
         $_POST['comments'] = $order->info['comments'] = $check['customer_comments'];
+        $order =& $GLOBALS['order']; // needed for insert history segment
         $hooks->register_pipeline('after');
         include 'includes/system/segments/checkout/insert_history.php';
 

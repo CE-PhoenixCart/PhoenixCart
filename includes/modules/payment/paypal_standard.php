@@ -538,7 +538,7 @@ EOSQL
     }
 
     $notify_url = $GLOBALS['Linker']->build('ext/modules/payment/paypal/standard_ipn.php', [], false);
-    if (isset($ipn_language)) {
+    if (! is_null($ipn_language)) {
       $notify_url->set_parameter('language', $ipn_language);
     }
     $amount = ($GLOBALS['order']->info['total'] - $GLOBALS['order']->info['shipping_cost'] - $total_tax);
@@ -557,7 +557,7 @@ EOSQL
       'invoice' => $this->base_constant('INVOICE_PREFIX') . $order_id,
       'custom' => $_SESSION['customer_id'],
       'no_note' => '1',
-      'notify_url' => $GLOBALS['Linker']->build('ext/modules/payment/paypal/standard_ipn.php'),
+      'notify_url' => $notify_url,
       'rm' => '2',
       'return' => $GLOBALS['Linker']->build(static::RETURN_URL),
       'cancel_return' => $GLOBALS['Linker']->build('checkout_payment.php'),
