@@ -75,10 +75,11 @@
       return $merge_tags;
     }
 
-    public static function admin_add($customer_id, $send_at) {
+    public static function admin_add($customer_id, $send_at, $language_id) {
       $customer = new customer($customer_id);
 
       $_data_array = ['customer_id'   => (int)$customer_id,
+                      'languages_id'   => (int)$language_id,
                       'fname'         => Text::prepare($customer->get('firstname')),
                       'lname'         => Text::prepare($customer->get('lastname')),
                       'email_address' => Text::prepare($customer->get('email_address')),

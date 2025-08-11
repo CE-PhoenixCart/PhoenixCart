@@ -22,6 +22,13 @@
   $contents[] = ['text' => TEXT_OUTGOING_DATE . '<br>' . new Input('send_at', ['value' => $send_at_date], 'date')];
   $contents[] = ['text' => TEXT_OUTGOING_SLUG . '<br>' . new Input('slug', ['value' => $oInfo->slug])];
   $contents[] = ['text' => TEXT_OUTGOING_EMAIL . '<br>' . new Input('email_address', ['value' => $oInfo->email_address])];
+  
+  $languages = [];
+  foreach (language::load_all() as $l) {
+    $languages[] = ['id' => $l['id'], 'text' => $l['name']];
+  }
+  $contents[] = ['text' => TEXT_OUTGOING_i18n . '<br>' . (new Select('language_id', $languages, ['class' => 'form-select']))->set_selection($oInfo->languages_id)];
+  
   $contents[] = ['text' => TEXT_OUTGOING_MERGE_TAGS . (new Textarea('text', ['cols' => '80', 'rows' => '10']))->set_text($oInfo->merge_tags)];
 
   $contents[] = [
