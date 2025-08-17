@@ -71,9 +71,7 @@
           $module_width = $module->content_width;
 
           echo '<div class="' . $module_width . '">';
-            echo '<div class="h-100 card p-1">';
-              echo $module->getOutput();
-            echo '</div>';
+            echo $module->getOutput();
           echo '</div>' . PHP_EOL;
         }
       }

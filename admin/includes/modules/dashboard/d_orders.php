@@ -34,7 +34,8 @@ SELECT o.orders_id, o.customers_name, COALESCE(o.last_modified, o.date_purchased
 EOSQL
         , (int)$_SESSION['languages_id'], (int)MODULE_ADMIN_DASHBOARD_ORDERS_DISPLAY));
 
-      $output = '<div class="table-responsive">';
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-2">';
           $output .= '<thead class="table-dark">';
             $output .= '<tr>';
@@ -57,6 +58,7 @@ EOSQL
 
           $output .= '</tbody>';
         $output .= '</table>';
+      $output .= '</div>';
       $output .= '</div>';
 
       return $output;

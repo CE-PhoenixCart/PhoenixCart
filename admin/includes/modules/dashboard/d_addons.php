@@ -28,7 +28,8 @@
       $feed = Web::load_xml('https://phoenixcart.org/forum/app.php/addons/feed');
       $Admin = Guarantor::ensure_global('Admin');
 
-      $output = '<div class="table-responsive">';
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-0">';
           $output .= '<thead class="table-dark">';
             $output .= '<tr>';
@@ -61,6 +62,7 @@
       
       $output .= '<div class="d-grid mt-2">';
         $output .= $Admin->button(MODULE_ADMIN_DASHBOARD_ADDONS_VIEW_ALL, 'fas fa-external-link-alt', 'btn btn-success', 'https://phoenixcart.org/forum/addons/', ['newwindow' => true]);
+      $output .= '</div>';
       $output .= '</div>';
 
       return $output;

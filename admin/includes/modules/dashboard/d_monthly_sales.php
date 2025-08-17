@@ -118,6 +118,7 @@ EOD;
       }
 
       return <<<"EOD"
+<div class="h-100 card p-1">
 <ul class="nav nav-pills bg-dark mb-1">
   <li class="nav-item m-2">
     <span class="nav-link text-white fw-bold">{$table_header}</span>
@@ -126,6 +127,7 @@ EOD;
 </ul>
 <div class="tab-content" style="min-height: 350px;">
   {$tc}
+</div>
 </div>
 
 <script>
