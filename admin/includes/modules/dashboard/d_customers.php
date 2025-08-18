@@ -64,7 +64,7 @@ EOTEXT
       }
 
       $output .= "  </tbody>\n</table>";
-      $outout .= '</div>';
+      $output .= '</div>';
 
       return $output;
     }
