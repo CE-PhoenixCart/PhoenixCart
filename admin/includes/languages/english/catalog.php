@@ -90,7 +90,7 @@ const TEXT_PRODUCTS_LARGE_IMAGE_FILE = 'File';
 const TEXT_PRODUCTS_LARGE_IMAGE_SORT = 'Sort';
 const TEXT_PRODUCTS_LARGE_IMAGE_ACTION = 'Action';
 const TEXT_PRODUCTS_ADD_LARGE_IMAGE = '<i class="fas fa-plus me-2"></i>Add New Gallery Image';
-const TEXT_PRODUCTS_DELETE_LARGE_IMAGES = '<i class="fas fa-trash me-2"></i>Delete All</a>';
+const TEXT_PRODUCTS_DELETE_LARGE_IMAGES = '<i class="fas fa-trash me-2"></i>Delete All';
 const TEXT_PRODUCTS_URL = 'Products URL';
 const TEXT_PRODUCTS_URL_WITHOUT_HTTP = 'Make sure to include http:// or https://';
 const TEXT_PRODUCTS_PRICE_NET = 'Products Price (Net)';
