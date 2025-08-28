@@ -46,6 +46,8 @@
       Notifications::mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, sprintf(EMAIL_SUBJECT, STORE_NAME), $enquiry, $name, $email_address);
 
       $actionRecorder->record();
+      
+      $hooks->cat('validContact');
 
       Href::redirect($Linker->build('contact_us.php', ['action' => 'success']));
     }
