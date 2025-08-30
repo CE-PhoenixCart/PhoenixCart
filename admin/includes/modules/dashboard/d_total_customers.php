@@ -48,6 +48,7 @@ EOSQL
       $table_header = MODULE_ADMIN_DASHBOARD_TOTAL_CUSTOMERS_CHART_LINK;
 
       return <<<"EOHTML"
+<div class="h-100 card p-1">
 <div class="table-responsive">
   <table class="table mb-2">
     <thead class="table-dark">
@@ -61,6 +62,7 @@ EOSQL
       </tr>
     </tbody>
   </table>
+</div>
 </div>
 
 <script>

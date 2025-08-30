@@ -32,7 +32,8 @@
       $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
       $compared_version = preg_replace('/[^0-9.]/', '', $feed->channel->item[0]->title);
 
-      $output = '<table class="table table-striped mb-2">';
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<table class="table table-striped mb-2">';
         $output .= '<thead class="table-dark">';
           $output .= '<tr>';
             $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version") . '</th>';
@@ -52,6 +53,7 @@
         }
         $output .= '</tbody>';
       $output .= '</table>';
+      $output .= '</div>';
 
       return $output;
     }

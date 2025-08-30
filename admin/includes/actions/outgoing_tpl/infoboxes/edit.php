@@ -17,9 +17,26 @@
   $contents = ['form' => new Form('outgoing_tpl', (clone $link)->set_parameter('action', 'save'), 'post', ['enctype' => 'multipart/form-data'])];
   $contents[] = ['text' => TEXT_EDIT_INTRO];
 
-  $contents[] = ['text' => TEXT_OUTGOING_SLUG . '<br>' . new Input('slug', ['value' => $oInfo->slug, 'readonly' => 'readonly'])];
-  $contents[] = ['text' => TEXT_OUTGOING_SLUG_TITLE . '<br>' . new Input('title', ['value' => $oInfo->title])];
-  $contents[] = ['text' => TEXT_OUTGOING_SLUG_TEXT . (new Textarea('text', ['cols' => '80', 'rows' => '10']))->set_text($oInfo->text)];
+  $contents[] = ['text' => TEXT_OUTGOING_SLUG . '<br>' . new Input('slug', ['value' => $oInfo->slug, 'readonly' => 'readonly', 'disabled' => 'disabled'])];
+  
+  
+  $slug_title_string = $slug_text_string = '';
+  foreach (language::load_all() as $l) {
+    $outgoing_data = $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT *
+ FROM outgoing_tpl_info
+ WHERE id = %d AND languages_id = %d
+EOSQL
+      , (int)$oInfo->id, (int)$l['id']))->fetch_assoc();
+      
+    $flag_image = $GLOBALS['Admin']->catalog_image("includes/languages/{$l['directory']}/images/{$l['image']}", [], $l['name']);
+    
+    $slug_title_string .= '<div class="input-group mb-1"><span class="input-group-text">' . $flag_image . '</span>' . new Input("title[{$l['id']}]", ['id' => "oTitle-{$l['code']}", 'value' => $outgoing_data['title']]) . '</div>';
+    $slug_text_string .= '<div class="input-group mb-1"><span class="input-group-text">' . $flag_image . '</span>' . (new Textarea("text[{$l['id']}]", ['cols' => '80', 'rows' => '10', 'id' => "oText-{$l['code']}"]))->set_text($outgoing_data['text'] ?? '') . '</div>';
+  }
+  
+  $contents[] = ['text' => TEXT_OUTGOING_SLUG_TITLE . $slug_title_string];
+  $contents[] = ['text' => TEXT_OUTGOING_SLUG_TEXT . $slug_text_string];
   
   $merged_tags = $GLOBALS['available_merge_tags'];
      

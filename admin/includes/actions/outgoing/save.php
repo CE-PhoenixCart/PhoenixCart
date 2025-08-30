@@ -17,6 +17,7 @@
     'slug' => Text::input($_POST['slug']),
     'email_address' => Text::input($_POST['email_address']),
     'merge_tags' => Text::prepare($_POST['text']),
+    'languages_id' => (int)$_POST['language_id'],
     'last_modified' => 'NOW()',
   ];
 

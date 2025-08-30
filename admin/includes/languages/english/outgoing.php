@@ -23,6 +23,7 @@ const TEXT_HEADING_EDIT_OUTGOING_EMAIL = 'Edit Queued E-mail';
 const TEXT_OUTGOING_DATE = 'Send At:';
 const TEXT_OUTGOING_SLUG = 'Slug:';
 const TEXT_OUTGOING_EMAIL = 'Email Address:';
+const TEXT_OUTGOING_i18n = 'Language:';
 
 const TEXT_HEADING_NEW_OUTGOING_EMAIL = 'Add E-mail to Queue';
 const TEXT_OUTGOING_CUSTOMER = 'Customer:';

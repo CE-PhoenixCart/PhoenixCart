@@ -28,7 +28,8 @@
       $feed = Web::load_xml('https://feeds.feedburner.com/PhoenixAddons');
       $Admin = Guarantor::ensure_global('Admin');
 
-      $output = '<div class="table-responsive">';
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-0">';
           $output .= '<thead class="table-dark">';
             $output .= '<tr>';
@@ -52,6 +53,7 @@
       
       $output .= '<div class="d-grid mt-2">';
         $output .= '<a class="btn btn-success" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22"><i class="far fa-list-alt me-1"></i>'. MODULE_ADMIN_DASHBOARD_PHOENIX_VIEW_ALL .'</a>';
+      $output .= '</div>';
       $output .= '</div>';
 
       return $output;

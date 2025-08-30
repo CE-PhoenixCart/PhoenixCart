@@ -23,6 +23,7 @@
         $identifier = ["order:$order_id"];
 
         $_data_array = ['customer_id'   => (int)$_SESSION['customer_id'],
+                        'languages_id'  => (int)$_SESSION['languages_id'],
                         'identifier'    => implode(',', $identifier),
                         'fname'         => Text::prepare($customer->get('firstname')),
                         'lname'         => Text::prepare($customer->get('lastname')),

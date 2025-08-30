@@ -20,6 +20,12 @@
   $contents[] = ['text' => TEXT_OUTGOING_DATE . '<br>' . (new Input('send_at', ['id' => 'sendAtDate'], 'date'))->require()];
   $contents[] = ['text' => TEXT_OUTGOING_SLUG . '<br>' . (new Select('slug', $slug_array))->require()];
   $contents[] = ['text' => TEXT_OUTGOING_CUSTOMER . '<br>' . Customers::select('customer_id')->require()];
+  
+  $languages = [];
+  foreach (language::load_all() as $l) {
+    $languages[] = ['id' => $l['id'], 'text' => $l['name']];
+  }
+  $contents[] = ['text' => TEXT_OUTGOING_i18n . '<br>' . new Select('language_id', $languages, ['class' => 'form-select'])];
 
   $contents[] = [
     'class' => 'text-center',

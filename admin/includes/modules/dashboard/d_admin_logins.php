@@ -25,7 +25,9 @@
     }
 
     function getOutput() {
-      $output = '<table class="table table-striped table-hover mb-2">';
+      
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<table class="table table-striped table-hover mb-2">';
         $output .= '<thead class="table-dark">';
           $output .= '<tr>';
             $output .= '<th>' . MODULE_ADMIN_DASHBOARD_ADMIN_LOGINS_TITLE . '</th>';
@@ -52,6 +54,7 @@ EOSQL
 
         $output .= '</tbody>';
       $output .= '</table>';
+      $output .= '</div>';
 
       return $output;
     }

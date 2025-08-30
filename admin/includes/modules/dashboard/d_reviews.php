@@ -34,7 +34,8 @@ SELECT r.reviews_id, r.date_added, pd.products_name, r.customers_name, r.reviews
 EOSQL
         , (int)$_SESSION['languages_id'], (int)MODULE_ADMIN_DASHBOARD_REVIEWS_DISPLAY));
 
-      $output = '<div class="table-responsive">';
+      $output = '<div class="h-100 card p-1">';
+      $output .= '<div class="table-responsive">';
         $output .= '<table class="table table-striped table-hover mb-2">';
           $output .= '<thead class="table-dark">';
             $output .= '<tr>';
@@ -60,6 +61,7 @@ EOSQL
 
           $output .= '</tbody>';
         $output .= '</table>';
+      $output .= '</div>';
       $output .= '</div>';
 
       return $output;

@@ -13,9 +13,10 @@
   $slug        = Text::input($_POST['slug']);
   $customer_id = (int)$_POST['customer_id'];
   $send_at     = Text::input($_POST['send_at']);
+  $language_id = (int)$_POST['language_id'];
 
-  include_once(DIR_FS_CATALOG . 'includes/modules/outgoing/' . $slug . '.php');
-  call_user_func_array(['Outgoing_' . $slug, 'admin_add'], [$customer_id, $send_at]);
+  include_once(DIR_FS_CATALOG . "includes/modules/outgoing/$slug.php");
+  call_user_func_array(["Outgoing_$slug", 'admin_add'], [$customer_id, $send_at, $language_id]);
   
   return $link;
   

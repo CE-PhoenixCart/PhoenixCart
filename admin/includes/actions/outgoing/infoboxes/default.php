@@ -15,7 +15,7 @@
     $link = $GLOBALS['link']->set_parameter('oID', (int)$oInfo->id);
     $heading = $oInfo->email_address;
     
-    $email_query = \Outgoing::getEmail(['slug' => $oInfo->slug, 'id' => $oInfo->id]);
+    $email_query = \Outgoing::getEmail(['slug' => $oInfo->slug, 'id' => $oInfo->id, 'languages_id' => $oInfo->languages_id]);
     $email = json_decode($email_query, true);
 
     $modal_title = $email[$oInfo->id]['email']['title'];

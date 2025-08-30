@@ -20,14 +20,8 @@
         },
       ],
       [
-        'name' => TABLE_HEADING_TITLE,
-        'is_heading' => false,
-        'function' => function ($row) {
-          return $row['title'];
-        },
-      ],
-      [
         'name' => TABLE_HEADING_DATE_ADDED,
+        'class' => 'text-end',
         'is_heading' => false,
         'function' => function ($row) {
           return $row['date_added'];
@@ -59,6 +53,15 @@
       && (!isset($_GET['oID']) || ($_GET['oID'] == $row['id']))
       && !Text::is_prefixed_by($GLOBALS['action'], 'new'))
     {
+      $row = array_merge($row, $GLOBALS['db']->query(sprintf(<<<'EOSQL'
+SELECT *
+ FROM outgoing_tpl_info
+ WHERE id = %d
+ ORDER BY languages_id = %d DESC
+ LIMIT 1
+EOSQL
+        , (int)$row['id'], (int)$_SESSION['languages_id']))->fetch_assoc() ?? []);
+        
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
 

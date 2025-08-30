@@ -10,6 +10,8 @@
   Released under the GNU General Public License
 */
 
+  $l = language::load_all();
+
   $table_definition = [
     'columns' => [
       [
@@ -48,6 +50,16 @@
         'is_heading' => false,
         'function' => function ($row) {
           return $row['slug'];
+        },
+      ],
+      [
+        'name' => 'i18n',
+        'is_heading' => false,
+        'function' => function ($row) use ($l) {
+          foreach ($l as $data) {
+            if ($data['id'] == $row['languages_id']) return $data['name'];
+          }
+          return null;
         },
       ],
       [

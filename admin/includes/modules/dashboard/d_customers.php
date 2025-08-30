@@ -34,6 +34,7 @@
       global $customer_data;
 
       $output = sprintf(<<<'EOTEXT'
+<div class="h-100 card p-1">
 <table class="table table-striped table-hover mb-2">
  <thead>
     <tr class="table-dark">
@@ -63,6 +64,7 @@ EOTEXT
       }
 
       $output .= "  </tbody>\n</table>";
+      $output .= '</div>';
 
       return $output;
     }
