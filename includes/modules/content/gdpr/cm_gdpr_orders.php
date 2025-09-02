@@ -37,7 +37,7 @@
           $port_my_data['YOU']['ORDER']['LIST'][$o]['STATUS'] = $order->info['orders_status'];
           $port_my_data['YOU']['ORDER']['LIST'][$o]['CURRENCY'] = $order->info['currency'];
           $port_my_data['YOU']['ORDER']['LIST'][$o]['PAYMENT'] = $order->info['payment_method'];
-          $port_my_data['YOU']['ORDER']['LIST'][$o]['SHIPPING'] = $order->info['shipping_method'];
+          $port_my_data['YOU']['ORDER']['LIST'][$o]['SHIPPING'] = $order->info['shipping_method'] ?? 'N/A';
           $port_my_data['YOU']['ORDER']['LIST'][$o]['TOTAL'] = $order->info['total'];
           $port_my_data['YOU']['ORDER']['LIST'][$o]['PRODUCTS'] = [];
           $port_my_data['YOU']['ORDER']['LIST'][$o]['TOTALS'] = [];
