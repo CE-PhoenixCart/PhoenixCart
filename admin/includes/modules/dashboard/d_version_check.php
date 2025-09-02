@@ -32,28 +32,24 @@
       $feed = Web::load_xml('https://feeds.feedburner.com/phoenixCartUpdate');
       $compared_version = preg_replace('/[^0-9.]/', '', $feed->channel->item[0]->title);
 
-      $output = '<div class="h-100 card p-1">';
-      $output .= '<table class="table table-striped mb-2">';
-        $output .= '<thead class="table-dark">';
-          $output .= '<tr>';
-            $output .= '<th colspan="2">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version") . '</th>';
-          $output .= '</tr>';
-        $output .= '</thead>';
-        $output .= '<tbody>';
-        if (version_compare($current_version, $compared_version, '<')) {
-          $link = Guarantor::ensure_global('Admin')->link('version_check.php');
-          $output .= '<tr>';
-            $output .= '<td class="bg-danger text-white">' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE, "$compared_version") . '</td>';
-            $output .= '<td class="bg-danger text-end"><a class="btn btn-info btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a></td>';
-          $output .= '</tr>';
-        } else {
-          $output .= '<tr>';
-            $output .= '<td class="table-success" colspan="2">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_IS_LATEST . '</td>';
-          $output .= '</tr>';
-        }
-        $output .= '</tbody>';
-      $output .= '</table>';
-      $output .= '</div>';
+      $output = '';      
+      if (version_compare($current_version, $compared_version, '<')) {
+        $link = Guarantor::ensure_global('Admin')->link('version_check.php');
+        
+        $output .= '<div class="alert alert-danger">';
+          $output .= '<div class="d-flex justify-content-between align-items-center">';
+            $output .= '<span>' . sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_UPDATE_AVAILABLE, "$compared_version") . '</span>';
+            $output .= '<a class="btn btn-danger btn-sm" href="' . $link . '">' . MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CHECK_NOW . '</a>';
+          $output .= '</div>';
+          $output .= '<hr>';
+          $output .= sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_CURRENT, "$current_version");
+        $output .= '</div>';
+      }
+      else {
+        $output .= '<div class="alert alert-success">';
+          $output .= sprintf(MODULE_ADMIN_DASHBOARD_VERSION_CHECK_IS_LATEST, $current_version);
+        $output .= '</div>';
+      }
 
       return $output;
     }
