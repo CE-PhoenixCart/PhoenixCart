@@ -46,7 +46,6 @@
           'products_name' => null,
           'products_description' => null,
           'products_url' => null,
-          'products_viewed' => 0,
           'products_seo_title' => null,
           'products_seo_description' => null,
           'products_seo_keywords' => null,

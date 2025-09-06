@@ -551,7 +551,6 @@ CREATE TABLE products_description (
   products_name varchar(255) NOT NULL default '',
   products_description text,
   products_url varchar(255) default NULL,
-  products_viewed int(5) default '0',
   products_seo_description text NULL,
   products_seo_keywords varchar(255) NULL,
   products_seo_title varchar(255) NULL,
