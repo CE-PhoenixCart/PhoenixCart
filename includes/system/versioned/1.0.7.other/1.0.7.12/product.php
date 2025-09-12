@@ -79,10 +79,6 @@
       return $GLOBALS['currencies']->display_raw($this->get($price), $this->get('tax_rate'), $quantity);
     }
 
-    public function increment_view_count() {
-      $GLOBALS['db']->query("UPDATE products_description SET products_viewed = products_viewed+1 WHERE products_id = " . (int)$this->get('id') . " AND language_id = " . (int)$_SESSION['languages_id']);
-    }
-
     public function find_path() {
       return (($categories = $this->get('categories')) && isset($categories[0]))
            ? Guarantor::ensure_global('category_tree')->find_path($categories[0])
