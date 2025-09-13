@@ -31,6 +31,7 @@
         $schema_product = [
           '@context'    => 'https://schema.org',
           '@type'       => 'Product',
+          'sku'         => (int)$product->get('id');
           'name'        => htmlspecialchars($product->get('name')),
           'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false),
           'url'         => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$product->get('id')], false),
@@ -58,6 +59,10 @@
 
         $availability = ( $product->get('in_stock') > 0 ) ? MODULE_HEADER_TAGS_PRODUCT_SCHEMA_TEXT_IN_STOCK : MODULE_HEADER_TAGS_PRODUCT_SCHEMA_TEXT_OUT_OF_STOCK;
         $schema_product['offers']['availability'] = $availability;
+        
+        if ($product->get('has_attributes') == 0) {
+          $schema_product['offers']['checkoutPageURLTemplate'] = htmlspecialchars_decode($GLOBALS['Linker']->build('shopping_cart.php', ['products_id' => (int)$product->get('id'), 'action' => 'buy_now']));
+        }
 
         $schema_product['offers']['seller'] = [
           '@type' => 'Organization',
@@ -67,6 +72,10 @@
         if (($product->get('manufacturers_id') ?? 0) > 0) {
           $schema_product['manufacturer'] = [
             '@type' => 'Organization',
+            'name'  => htmlspecialchars($product->get('brand')->getData('manufacturers_name')),
+          ];
+          $schema_product['brand'] = [
+            '@type' => 'Brand',
             'name'  => htmlspecialchars($product->get('brand')->getData('manufacturers_name')),
           ];
         }
