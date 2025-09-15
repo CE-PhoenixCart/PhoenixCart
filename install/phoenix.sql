@@ -1205,6 +1205,7 @@ INSERT INTO countries VALUES (252, 'Isle of Man', 'IM', 'IMN', '1', '1');
 
 INSERT INTO currencies VALUES (1,'U.S. Dollar','USD','$','','.',',','2','1.0000', now());
 INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','0.8522', now());
+INSERT INTO currencies VALUES (3,'Pounds Sterling','GBP','£','','.',',','2','0.738', now());
 
 INSERT INTO customer_data_groups_sequence (customer_data_groups_id) VALUES (1), (2), (3), (4), (5), (6);
 
