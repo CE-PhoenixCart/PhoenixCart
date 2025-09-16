@@ -31,7 +31,7 @@
         $schema_product = [
           '@context'    => 'https://schema.org',
           '@type'       => 'Product',
-          'sku'         => (int)$product->get('id');
+          'sku'         => (int)$product->get('id'),
           'name'        => htmlspecialchars($product->get('name')),
           'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false),
           'url'         => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$product->get('id')], false),
