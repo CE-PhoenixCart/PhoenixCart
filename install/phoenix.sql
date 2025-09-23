@@ -201,6 +201,7 @@ CREATE TABLE customers (
    customers_fax varchar(255),
    customers_password varchar(255) NOT NULL,
    customers_newsletter char(1),
+   status INT NOT NULL DEFAULT '1',
    PRIMARY KEY (customers_id),
    UNIQUE KEY uq_customers_email_address (customers_email_address)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

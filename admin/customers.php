@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-  $always_valid_actions = ['edit'];
+  $always_valid_actions = ['edit', 'set_flag'];
   require 'includes/application_top.php';
 
   if (!$customer_data->has([ 'sortable_name', 'name', 'email_address', 'country_id', 'id' ])) {

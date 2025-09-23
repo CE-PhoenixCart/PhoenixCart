@@ -25,14 +25,24 @@
 
       $email_address = Text::input($_POST['email_address']);
 
-      $customer_query = $GLOBALS['db']->query($customer_data->build_read(['id', 'password'], 'customers', ['email_address' => $email_address]) . ' LIMIT 1');
+      $customer_query = $GLOBALS['db']->query($customer_data->build_read(['id', 'password', 'status'], 'customers', ['email_address' => $email_address]) . ' LIMIT 1');
       $customer_details = $customer_query->fetch_assoc();
       if (!$customer_details) {
+        $GLOBALS['messageStack']->add('login', sprintf(MODULE_CONTENT_LOGIN_TEXT_LOGIN_NO_MATCH, Guarantor::ensure_global('Linker')->build('contact_us.php')));
+        
+        return false;
+      }
+      
+      if ($customer_data->get('status', $customer_details) == 0) {
+        $GLOBALS['messageStack']->add('login', sprintf(MODULE_CONTENT_LOGIN_TEXT_LOGIN_SUSPENDED, Guarantor::ensure_global('Linker')->build('contact_us.php')));
+        
         return false;
       }
 
       $password = Text::input($_POST['password']);
       if (!Password::validate($password, $customer_data->get('password', $customer_details))) {
+        $GLOBALS['messageStack']->add('login', sprintf(MODULE_CONTENT_LOGIN_TEXT_LOGIN_ERROR, Guarantor::ensure_global('Linker')->build('contact_us.php')));
+        
         return false;
       }
 
@@ -49,7 +59,7 @@
 
     public function execute() {
       if ((Form::validate_action_is('process')) && (!$this->login())) {
-        $GLOBALS['messageStack']->add('login', MODULE_CONTENT_LOGIN_TEXT_LOGIN_ERROR);
+        //$GLOBALS['messageStack']->add('login', MODULE_CONTENT_LOGIN_TEXT_LOGIN_ERROR);
       }
 
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
