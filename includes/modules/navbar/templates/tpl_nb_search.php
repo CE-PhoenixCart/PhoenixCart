@@ -12,20 +12,26 @@ $search_text = TEXT_SEARCH_PLACEHOLDER;
 $search_label = MODULE_NAVBAR_SEARCH_ARIA_LABEL;
 $search_button = MODULE_NAVBAR_SEARCH_SEARCH_TEXT;
 
+$advanced_search_link = $GLOBALS['Linker']->build('advanced_search.php');
+$advanced_search_text = MODULE_NAVBAR_SEARCH_ADVANCED;
+
 $input = new Input('keywords', ['autocomplete' => 'off', 'id' => 'keywords', 'placeholder' => $search_text, 'aria-label' => $search_label], 'search');
 $input->require();
 
 $searchModal = <<<SM
 <div class="modal fade" id="searchModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content rounded-0">
-      <div class="modal-body p-5">
+    <div class="modal-content rounded">
+      <div class="modal-body p-5 pb-3">
         {$form}
           <div class="input-group input-group-lg">
             {$input}
             <button type="submit" aria-label="{$search_label}" class="btn btn-secondary btn-search">{$search_button}</button>
           </div>
         </form>
+        <div class="mt-4 lead">
+          <a href="{$advanced_search_link}">{$advanced_search_text}</a>
+        </div>
       </div>
     </div>
   </div>
