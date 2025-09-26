@@ -62,6 +62,27 @@ CREATE TABLE administrators (
   UNIQUE KEY uq_administrator_user_name (user_name)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+DROP TABLE IF EXISTS analytics_events;
+CREATE TABLE analytics_events (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT UNSIGNED DEFAULT NULL,
+  merchant_id INT UNSIGNED NOT NULL DEFAULT 0,
+  event_type VARCHAR(255) NOT NULL,
+  product_id INT UNSIGNED DEFAULT NULL,
+  payload LONGTEXT NOT NULL,
+  page_url TEXT DEFAULT NULL,
+  referrer TEXT DEFAULT NULL,
+  domain VARCHAR(255) DEFAULT NULL,
+  user_agent TEXT DEFAULT NULL,
+  ip_address VARCHAR(255) DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_event_type (event_type),
+  INDEX idx_product (product_id),
+  INDEX idx_merchant (merchant_id),
+  INDEX idx_created_at (created_at),
+  INDEX idx_customer_id (customer_id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
 DROP TABLE IF EXISTS advert;
 CREATE TABLE advert (
   advert_id int NOT NULL auto_increment,
@@ -180,6 +201,7 @@ CREATE TABLE customers (
    customers_fax varchar(255),
    customers_password varchar(255) NOT NULL,
    customers_newsletter char(1),
+   status INT NOT NULL DEFAULT '1',
    PRIMARY KEY (customers_id),
    UNIQUE KEY uq_customers_email_address (customers_email_address)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -551,7 +573,6 @@ CREATE TABLE products_description (
   products_name varchar(255) NOT NULL default '',
   products_description text,
   products_url varchar(255) default NULL,
-  products_viewed int(5) default '0',
   products_seo_description text NULL,
   products_seo_keywords varchar(255) NULL,
   products_seo_title varchar(255) NULL,
@@ -1184,7 +1205,8 @@ INSERT INTO countries VALUES (251, 'Jersey', 'JE', 'JEY', '1', '1');
 INSERT INTO countries VALUES (252, 'Isle of Man', 'IM', 'IMN', '1', '1');
 
 INSERT INTO currencies VALUES (1,'U.S. Dollar','USD','$','','.',',','2','1.0000', now());
-INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','1.0000', now());
+INSERT INTO currencies VALUES (2,'Euro','EUR','','€','.',',','2','0.8522', now());
+INSERT INTO currencies VALUES (3,'Pounds Sterling','GBP','£','','.',',','2','0.738', now());
 
 INSERT INTO customer_data_groups_sequence (customer_data_groups_id) VALUES (1), (2), (3), (4), (5), (6);
 

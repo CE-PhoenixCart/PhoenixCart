@@ -56,6 +56,16 @@
         },
       ],
       [
+        'name' => TABLE_HEADING_STATUS,
+        'class' => 'text-end',
+        'function' => function (&$row) {
+          $href = (clone $row['onclick'])->set_parameter('action', 'set_flag');
+          return ($row['status'] == '1')
+               ? '<i class="fas fa-check-circle text-success"></i> <a href="' . $href->set_parameter('flag', '0')  . '"><i class="fas fa-times-circle text-muted"></i></a>'
+               : '<a href="' . $href->set_parameter('flag', '1') . '"><i class="fas fa-check-circle text-muted"></i></a> <i class="fas fa-times-circle text-danger"></i>';
+        },
+      ],
+      [
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-end',
         'function' => function ($row) use ($customer_data) {
