@@ -27,7 +27,7 @@
      * @param numeric $height
      */
     public function __construct(string $src, array $parameters = [],
-      string $alt = null, $width = null, $height = null)
+      ?string $alt = null, $width = null, $height = null)
     {
       foreach (['src', 'alt', 'width', 'height'] as $key) {
         if (isset($$key)) {
@@ -121,7 +121,7 @@
      * @param string $file_path
      * @return boolean
      */
-    public function size(string $file_path = null) {
+    public function size(?string $file_path = null) {
       if (is_null($file_path)) {
         $this->normalize_paths();
         $file_path = "{$this->path_prefix}{$this->relative_path}";

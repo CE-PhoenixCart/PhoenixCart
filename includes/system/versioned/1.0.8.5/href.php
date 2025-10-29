@@ -159,7 +159,7 @@
       return new static(...$arguments);
     }
 
-    protected static function _build_prefixed_key(string $key, string $prefix = null) {
+    protected static function _build_prefixed_key(string $key, ?string $prefix = null) {
       return is_null($prefix)
            ? $key
            : sprintf('%s[%s]', $prefix, rawurlencode($key));
@@ -168,7 +168,7 @@
     protected static function _flatten(
       array $data,
       array &$results,
-      string $prefix = null
+      ?string $prefix = null
     ) {
       foreach ($data as $key => $value) {
         $key = static::_build_prefixed_key($key, $prefix);
