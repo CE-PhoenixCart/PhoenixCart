@@ -46,13 +46,13 @@ unset($payload_array['product_id']);
 // Escape and prepare data
 $customer_id = $_SESSION['customer_id'] ?? "NULL";
 $merchant_id = 0;
-$event_type = Text::input($data['event']);
-$payload_json = Text::input(json_encode($payload_array, JSON_UNESCAPED_UNICODE));
-$page_url = Text::input($data['page_url'] ?? '');
-$referrer = Text::input($data['referrer'] ?? '');
-$domain = Text::input($data['domain'] ?? '');
-$user_agent = Text::input($_SERVER['HTTP_USER_AGENT'] ?? '');
-$ip_address = Text::input(Request::get_ip());
+$event_type = $GLOBALS['db']->escape($data['event']);
+$payload_json = $GLOBALS['db']->escape(json_encode($payload_array, JSON_UNESCAPED_UNICODE));
+$page_url = $GLOBALS['db']->escape($data['page_url'] ?? '');
+$referrer = $GLOBALS['db']->escape($data['referrer'] ?? '');
+$domain = $GLOBALS['db']->escape($data['domain'] ?? '');
+$user_agent = $GLOBALS['db']->escape($_SERVER['HTTP_USER_AGENT'] ?? '');
+$ip_address = $GLOBALS['db']->escape(Request::get_ip());
 
 // Convert ISO8601 or other timestamp to MySQL datetime, fallback to current time
 $timestamp = $data['timestamp'] ?? '';
