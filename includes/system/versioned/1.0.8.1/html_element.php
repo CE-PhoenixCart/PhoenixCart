@@ -60,7 +60,7 @@
      * @param string $name
      * @param string $value
      */
-    public function set(string $name, string $value = null) {
+    public function set(string $name, ?string $value = null) {
       $this->parameters[$name] = $value;
       return $this;
     }

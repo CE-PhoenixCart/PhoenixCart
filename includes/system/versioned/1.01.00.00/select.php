@@ -146,7 +146,7 @@
      * @param string $selection
      * @return Select
      */
-    public function set_selection(string $selection = null) {
+    public function set_selection(?string $selection = null) {
       $this->selection = $selection;
       return $this;
     }
@@ -156,7 +156,7 @@
      * @param string $default
      * @return Select
      */
-    public function set_default_selection(string $default = null) {
+    public function set_default_selection(?string $default = null) {
       if (!isset($this->selection)) {
         $this->selection = $default;
       }

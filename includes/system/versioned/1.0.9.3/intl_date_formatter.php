@@ -139,7 +139,7 @@ class IntlDateFormatter {
      * @see https://php.net/intldateformatter.create
      * @see http://userguide.icu-project.org/formatparse/datetime
      */
-    public function __construct(string $locale = null, int $datetype = null, int $timetype = null, $timezone = null, int $calendar = null, string $pattern = null) {
+    public function __construct(?string $locale = null, ?int $datetype = null, ?int $timetype = null, $timezone = null, ?int $calendar = null, ?string $pattern = null) {
         if ('en' !== $locale && null !== $locale) {
             trigger_error("The [$locale] locale will be treated as en", E_USER_WARNING);
         }
@@ -175,7 +175,7 @@ class IntlDateFormatter {
      * @see https://php.net/intldateformatter.create
      * @see http://userguide.icu-project.org/formatparse/datetime
      */
-    public static function create(string $locale = null, int $datetype = null, int $timetype = null, $timezone = null, int $calendar = self::GREGORIAN, string $pattern = null) {
+    public static function create(?string $locale = null, ?int $datetype = null, ?int $timetype = null, $timezone = null, ?int $calendar = self::GREGORIAN, ?string $pattern = null) {
         return new static($locale, $datetype, $timetype, $timezone, $calendar, $pattern);
     }
 
@@ -286,7 +286,7 @@ class IntlDateFormatter {
      *
      * @see https://php.net/intldateformatter.getlocale
      */
-    public function getLocale(int $ignored = null) {
+    public function getLocale(?int $ignored = null) {
         return 'en';
     }
 
@@ -351,7 +351,7 @@ class IntlDateFormatter {
      *
      * @throws InvalidArgumentException When $position different than null, behavior not implemented
      */
-    public function parse(string $value, int &$position = null) {
+    public function parse(string $value, ?int &$position = null) {
         // We don't calculate the position when parsing the value
         if (null !== $position) {
             throw new InvalidArgumentException(__METHOD__ . ' position');
@@ -404,7 +404,7 @@ class IntlDateFormatter {
      * @see https://php.net/intldateformatter.setpattern
      * @see http://userguide.icu-project.org/formatparse/datetime
      */
-    public function setPattern(string $pattern = null){
+    public function setPattern(?string $pattern = null){
         $this->pattern = (string) $pattern;
 
         return true;
@@ -421,7 +421,7 @@ class IntlDateFormatter {
      *
      * @see https://php.net/intldateformatter.settimezoneid
      */
-    public function setTimeZoneId(string $timeZoneId = null) {
+    public function setTimeZoneId(?string $timeZoneId = null) {
         if (null === $timeZoneId) {
             $timeZoneId = date_default_timezone_get();
 
@@ -434,7 +434,7 @@ class IntlDateFormatter {
         // Get an Etc/GMT time zone that is accepted for DateTimeZone
         if ('GMT' !== $timeZoneId && Text::is_prefixed_by($timeZoneId, 'GMT')) {
             try {
-                $timeZoneId = DateFormat\TimezoneTransformer::getEtcTimeZoneId($timeZoneId);
+                $timeZoneId = TimezoneTransformer::getEtcTimeZoneId($timeZoneId);
             } catch (InvalidArgumentException $e) {
                 // Does nothing, will fallback to UTC
             }

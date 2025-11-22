@@ -113,7 +113,7 @@ EOSQL
      * @param string $key
      * @return bool
      */
-    public function has(string $section, string $key = null) {
+    public function has(string $section, ?string $key = null) {
       if (is_null($key)) {
         return isset($this->data[$section]);
       }

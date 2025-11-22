@@ -32,7 +32,7 @@
       return $this->catalog_linker;
     }
 
-    public function set_processor(string $processor = null) {
+    public function set_processor(?string $processor = null) {
       $this->processor = $processor;
       $this->action_directory = rtrim(
         Path::normalize(DIR_FS_ADMIN . "includes/actions/{$this->processor}"),
