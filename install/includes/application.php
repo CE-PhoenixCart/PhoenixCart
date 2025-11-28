@@ -39,5 +39,5 @@
     include "includes/translations/$locale/$page_contents";
   }
 
-  const PHP_VERSION_MIN = '7.1';
+  const PHP_VERSION_MIN = '7.3';
   const PHP_VERSION_MAX = '8.5';
