@@ -55,9 +55,9 @@
         <li class="list-group-item border-0">
           <?php
           if (!Text::is_empty($customer_data->get('telephone', $order->customer))) {
-            echo '<i class="fas fa-phone fa-fw"></i>', $customer_data->get('telephone', $order->customer), '<br>';
+            echo '<i class="fas fa-phone fa-fw me-1"></i>', $customer_data->get('telephone', $order->customer), '<br>';
           }
-          echo '<i class="fas fa-at fa-fw"></i>', $customer_data->get('email_address', $order->customer);
+          echo '<i class="fas fa-at fa-fw me-1"></i>', $customer_data->get('email_address', $order->customer);
           ?>
         </li>
      </ul>
@@ -67,6 +67,7 @@
         <li class="list-group-item border-0"><h6 class="lead m-0"><?= sprintf(ENTRY_INVOICE_NUMBER, (int)$_GET['oID']) ?></h6></li>
         <li class="list-group-item border-0"><?= sprintf(ENTRY_INVOICE_DATE, Date::abridge($order->info['date_purchased'])) ?></li>
         <li class="list-group-item border-0"><?= sprintf(ENTRY_PAYMENT_METHOD, $order->info['payment_method']) ?></li>
+        <?= $admin_hooks->cat('invoiceData') ?>
       </ul>
     </div>
   </div>
