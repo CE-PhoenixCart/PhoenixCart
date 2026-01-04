@@ -85,7 +85,7 @@ Please be aware that most language packs are maintained by volunteers so may not
 
 ## How to Support the Phoenix Project
 
-Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
+Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to sponsor forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
@@ -100,7 +100,7 @@ If you are looking for a developer for a paid-for project, please consider one o
 
 ### Join the Phoenix Forum
 
-If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider [sponsoring](https://phoenixcart.org/phoenix_gopro.php) Phoenix.
+If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider sponsoring Phoenix.
 
 ## Helpful Links
 
@@ -108,7 +108,6 @@ Channel | URL
 ------------ | -------------
 Phoenix (Forum) | https://phoenixcart.org/forum/
 Phoenix (Youtube) | https://www.youtube.com/@PhoenixCart/
-Zipurman Coding (Youtube) | https://www.youtube.com/user/zipurman/videos
 User Guide (Phoenix Cart) | https://phoenixcart.org/phoenixcartwiki/index.php
 Add-ons Library (Phoenix Cart) | https://phoenixcart.org/forum/addons/
 
