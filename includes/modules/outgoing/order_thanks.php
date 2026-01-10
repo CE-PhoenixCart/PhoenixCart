@@ -25,9 +25,9 @@
         $_data_array = ['customer_id'   => (int)$_SESSION['customer_id'],
                         'languages_id'  => (int)$_SESSION['languages_id'],
                         'identifier'    => implode(',', $identifier),
-                        'fname'         => Text::prepare($customer->get('firstname')),
-                        'lname'         => Text::prepare($customer->get('lastname')),
-                        'email_address' => Text::prepare($customer->get('email_address')),
+                        'fname'         => Text::input($customer->get('firstname')),
+                        'lname'         => Text::input($customer->get('lastname')),
+                        'email_address' => Text::input($customer->get('email_address')),
                         'date_added'    => 'now()'];
 
         $_data_array['slug'] = basename(__FILE__, '.php');
@@ -36,7 +36,7 @@
         $ot->add(new DateInterval(self::INTERVAL));
 
         $send_at_date = $ot->format('Y-m-d H:i:s');
-        $_data_array['send_at'] = Text::prepare($send_at_date);
+        $_data_array['send_at'] = Text::input($send_at_date);
 
 // extra merge tags for this module
         $ordered = new DateTime();
@@ -59,7 +59,7 @@
           $list .= $product['name'] . PHP_EOL;
         }
 
-        $_mt['order_products'] = Text::prepare($list);
+        $_mt['order_products'] = Text::input($list);
         $_mt['order_id'] = Text::input($order_id);
 
         $_data_array['merge_tags'] = json_encode($_mt, JSON_PRETTY_PRINT);
