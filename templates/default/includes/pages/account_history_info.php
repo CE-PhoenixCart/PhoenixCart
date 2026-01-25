@@ -109,7 +109,7 @@
   $statuses_query = $db->query(sprintf(<<<'EOSQL'
 SELECT os.orders_status_name, osh.date_added, osh.comments
  FROM orders_status os INNER JOIN orders_status_history osh ON osh.orders_status_id = os.orders_status_id
- WHERE os.public_flag = 1 AND osh.orders_id = %d AND os.language_id = %d
+ WHERE os.public_flag = 1 AND customer_notified = 1 AND osh.orders_id = %d AND os.language_id = %d
  ORDER BY osh.date_added
 EOSQL
     , (int)$_GET['order_id'], (int)$_SESSION['languages_id']));
