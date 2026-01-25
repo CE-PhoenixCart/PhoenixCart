@@ -28,7 +28,7 @@
     <?= $GLOBALS['hooks']->cat('injectFormDisplay') ?>
 
     <div class="d-grid">
-      <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
+      <?= new Button(IMAGE_BUTTON_CONTACT_US, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
     </div>
     
     </form>
