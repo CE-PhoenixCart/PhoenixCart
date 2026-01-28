@@ -71,8 +71,6 @@
     Href::redirect($Linker->build('advanced_search.php')->retain_query_except());
   }
 
-  $listing_sql = (new product_searcher([], []))->find();
-
   require $Template->map(__FILE__, 'page');
 
   require 'includes/application_bottom.php';
