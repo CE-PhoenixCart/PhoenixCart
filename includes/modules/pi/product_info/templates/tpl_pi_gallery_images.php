@@ -5,7 +5,7 @@
     foreach ($other_images as $k => $v) {
       $pi_thumbnails .= '<div class="' . PI_GALLERY_IMAGES_CONTENT_WIDTH_EACH . '">';
         $pi_thumbnails .= '<a role="button" data-bs-target="#lightbox" data-bs-toggle="modal" data-bs-slide="' . ($k+1) . '">';
-          $pi_thumbnails .= new Image('images/' . $v['image'], ['alt' => htmlspecialchars($GLOBALS['product']->get('name')), 'loading' => 'lazy']);
+          $pi_thumbnails .= new Image('images/' . $v['image'], ['alt' => htmlspecialchars($GLOBALS['product']->get('name')), 'class' => 'img-thumbnail rounded-0', 'loading' => 'lazy']);
         $pi_thumbnails .= '</a>';
       $pi_thumbnails .= '</div>';
     }
