@@ -64,4 +64,4 @@
   }
 
 // set SID once, even if empty
-  $SID = (defined('SID') ? SID : '');
+  $SID = (! empty(session_id()) ? session_name() . '=' . session_id() : '');
