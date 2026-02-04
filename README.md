@@ -120,6 +120,7 @@ Image | Owner | Usage
 Phoenix Logos | Phoenix Cart | https://phoenixcart.org/marketing_media.php
 Oranges | [Peggychoucair](https://pixabay.com/users/peggychoucair-1130890/) from Pixabay | https://pixabay.com/service/license/
 Lemons | [JillWellington](https://pixabay.com/users/jillwellington-334088/) from Pixabay | https://pixabay.com/service/license/
+Lemons | [zuzi99](https://pixabay.com/users/zuzi99-7340598/) from Pixabay | https://pixabay.com/service/license/
 Pears | [JillWellington](https://pixabay.com/users/jillwellington-334088/) from Pixabay | https://pixabay.com/service/license/
 Red Apples | [manja18081988](https://pixabay.com/users/manja18081988-52314215/) from Pixabay | https://pixabay.com/service/license/
 Red Tomatoes | [RitaE](https://pixabay.com/users/ritae-19628/) from Pixabay | https://pixabay.com/service/license/
