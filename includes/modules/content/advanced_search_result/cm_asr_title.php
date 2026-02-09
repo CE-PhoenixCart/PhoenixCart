@@ -19,8 +19,8 @@
     }
 
     function execute() {
-      global $keywords;
-      
+      global $keywords, $listing_sql;  
+    
       $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
       include 'includes/modules/content/cm_template.php';
     }

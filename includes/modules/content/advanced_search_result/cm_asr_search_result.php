@@ -19,8 +19,7 @@
     }
 
     function execute() {
-      
-      $listing_sql = (new product_searcher([], []))->find();
+      global $keywords, $listing_sql;
 
       require 'includes/system/segments/sortable_product_columns.php';
       
