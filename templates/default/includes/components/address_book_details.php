@@ -11,8 +11,6 @@
 */
 ?>
 
-  <div class="contentText">
-
 <?php
   if (!isset($customer_details)) {
     if (is_numeric($_GET['edit'] ?? null)) {
@@ -39,4 +37,3 @@
 <?php
   }
 ?>
-  </div>
