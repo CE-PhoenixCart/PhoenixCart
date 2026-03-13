@@ -11,10 +11,10 @@
 */
 
   const MODULE_CONTENT_CAS_MESSAGE_TITLE        = 'Thank You Message';
-  const MODULE_CONTENT_CAS_MESSAGE_DESCRIPTION  = 'Shows a message to the customer thanking them for creating their profile.';
+  const MODULE_CONTENT_CAS_MESSAGE_DESCRIPTION  = 'Shows a message to the customer thanking them for creating their Account.';
 
   const MODULE_CONTENT_CAS_MESSAGE_PUBLIC_TITLE = <<<'EOT'
-<p class="lead">Congratulations! Your profile has been successfully created!</p>
-<p>You can now take advantage of member privileges to enhance your online shopping experience with us.  If you have any questions about the operation of this online shop, please <a class="alert-link" href="%1$s">contact us</a> or view your <a class="alert-link" href="%2$s">profile</a>.</p>
-<p>A confirmation has been sent to your e-mail address.</p>
+<p class="lead">Welcome! Your account is ready.</p>
+<p>You can now <a class="alert-link" href="%2$s">manage your account</a> for faster checkout. If you have any questions, please <a class="alert-link" href="%1$s">contact us</a>.</p>
+<p>We've sent a confirmation email to your inbox.</p>
 EOT;

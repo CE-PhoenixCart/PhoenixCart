@@ -37,7 +37,7 @@ const CHARSET = 'utf-8';
 const TITLE = STORE_NAME;
 
 // text in includes/modules/downloads.php
-const HEADER_TITLE_MY_ACCOUNT = 'My Profile';
+const HEADER_TITLE_MY_ACCOUNT = 'Account';
 
 // checkout procedure text
 const CHECKOUT_BAR_DELIVERY = 'Delivery Information';

@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Profile';
+const NAVBAR_TITLE_1 = 'Account';
 const NAVBAR_TITLE_2 = 'Address Book';
 
 const NAVBAR_TITLE_ADD_ENTRY = 'New Entry';
@@ -22,7 +22,7 @@ const HEADING_TITLE_MODIFY_ENTRY = 'Update Address Book Entry';
 const HEADING_TITLE_DELETE_ENTRY = 'Delete Address Book Entry';
 
 const DELETE_ADDRESS_TITLE = 'Delete Address';
-const DELETE_ADDRESS_DESCRIPTION = 'Are you sure you would like to delete the selected address from your address book?';
+const DELETE_ADDRESS_DESCRIPTION = 'Are you sure you would like to delete this address?';
 
 const NEW_ADDRESS_TITLE = 'New Address Book Entry';
 
