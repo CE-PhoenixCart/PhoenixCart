@@ -30,7 +30,7 @@ const IMAGE_BUTTON_ADD_REVIEW = 'Send your Review to the store owner';
 
 const TEXT_REVIEW_RECEIVED = 'Thank you for your review %s! It has been sent to the store owner for approval and should appear on site shortly.';
 
-const TEXT_REVIEW_WRITING = '<p class="lead">%s, please let us know your thoughts and rating on %s - thank you!</p><p>After you press the "Send" button, it will go to the store owner and should appear on site shortly.</p>';
+const TEXT_REVIEW_WRITING = '<p class="lead">%s, please let us know your thoughts and rating on %s - thank you!</p><p>After you press the "Send" button, your review should appear on site shortly.</p>';
 
-const TEXT_NOT_PURCHASED = '%s there appears to be a conflict!  You have not purchased this product!';
-const TEXT_ALREADY_REVIEWED = '%s there appears to be a conflict!  You have already reviewed this product!';
+const TEXT_NOT_PURCHASED = '%s thanks for your interest! Reviews are currently limited to verified purchasers to ensure authenticity.<br>If you\'ve recently purchased this item, please allow 24-48 hours for your order to sync.';
+const TEXT_ALREADY_REVIEWED = '%s we see you\'ve already left a review for this product.<br>Thank you for taking the time to share your experience!';
