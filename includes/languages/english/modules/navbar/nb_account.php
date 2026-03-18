@@ -14,7 +14,7 @@
   const MODULE_NAVBAR_ACCOUNT_DESCRIPTION = 'Show Customer Account Actions in Navbar.';
 
   const MODULE_NAVBAR_ACCOUNT_LOGGED_OUT = <<<'LI'
-  <i title="Account" class="far fa-user fa-fw fa-xl"></i><span class="d-inline d-sm-none"> Account</span>
+  <i title="Account" class="far fa-user fa-fw fa-xl me-2"></i>Account
 LI;
   
   const MODULE_NAVBAR_ACCOUNT_LOGGED_IN = <<<'LI'

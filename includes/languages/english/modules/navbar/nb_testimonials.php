@@ -13,4 +13,4 @@
   const MODULE_NAVBAR_TESTIMONIALS_TITLE = 'Testimonials';
   const MODULE_NAVBAR_TESTIMONIALS_DESCRIPTION = 'Show Testimonials Link in Navbar.';
 
-  const MODULE_NAVBAR_TESTIMONIALS_PUBLIC_TEXT = '<i title="Testimonials" class="fas fa-pen-to-square fa-fw fa-xl"></i><span class="d-inline d-sm-none d-md-inline"> Testimonials</span>';
+  const MODULE_NAVBAR_TESTIMONIALS_PUBLIC_TEXT = '<i title="Testimonials" class="fas fa-pen-to-square fa-fw fa-xl me-2"></i>Testimonials';

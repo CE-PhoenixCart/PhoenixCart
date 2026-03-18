@@ -13,4 +13,4 @@
   const MODULE_NAVBAR_SPECIAL_OFFERS_TITLE = 'Special Offers';
   const MODULE_NAVBAR_SPECIAL_OFFERS_DESCRIPTION = 'Show Special Offers Link in Navbar.';
 
-  const MODULE_NAVBAR_SPECIAL_OFFERS_PUBLIC_TEXT = '<i title="Special Offers" class="fas fa-fire fa-fw fa-xl"></i><span class="d-inline d-sm-none d-md-inline"> Special Offers</span>';
+  const MODULE_NAVBAR_SPECIAL_OFFERS_PUBLIC_TEXT = '<i title="Special Offers" class="fas fa-fire fa-fw fa-xl me-2"></i>Specials';
