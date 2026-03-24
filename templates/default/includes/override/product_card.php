@@ -31,7 +31,7 @@
             '',
             'btn-outline-success btn-product-listing',
             [],
-            $GLOBALS['Linker']->build()->retain_query_except()->set_parameter('products_id', (int)$parameters['product']->get('id')));
+            $GLOBALS['Linker']->build('product_info.php')->retain_query_except()->set_parameter('products_id', (int)$parameters['product']->get('id')));
         }
       }
     }
