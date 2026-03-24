@@ -17,3 +17,6 @@ const IS_PRODUCT_BUTTON_VIEW = '<i class="fas fa-eye" title="View Product"></i>'
 
 const IS_PRODUCT_BUTTON_OPTIONS = '<i class="fas fa-cogs me-2" title="Choose Options"></i>Options';
 const IS_PRODUCT_PRICE_FROM = '<span class="fw-normal">From </span>';
+
+const IS_PRODUCT_OOS = '<span class="text-secondary">Out Of Stock</span>';
+const IS_PRODUCT_IIS = '<span class="fw-semibold text-success">In Stock</span>';
