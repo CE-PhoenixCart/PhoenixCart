@@ -16,3 +16,4 @@ const IS_PRODUCT_BUTTON_BUY = '<i class="fas fa-shopping-cart" title="Add To Car
 const IS_PRODUCT_BUTTON_VIEW = '<i class="fas fa-eye" title="View Product"></i>';
 
 const IS_PRODUCT_BUTTON_OPTIONS = '<i class="fas fa-cogs me-2" title="Choose Options"></i>Options';
+const IS_PRODUCT_PRICE_FROM = '<span class="fw-normal">From </span>';
