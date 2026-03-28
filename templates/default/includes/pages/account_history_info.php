@@ -57,7 +57,7 @@
 
               if (count($order->info['tax_groups']) > 1) {
                 echo '<td valign="top" class="text-end">';
-                  echo Tax::display($product['tax']) . '%';
+                  echo Tax::Format($product['tax']) . '%';
                 echo '</td>';
               }
 
