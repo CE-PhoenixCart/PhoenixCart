@@ -62,6 +62,12 @@
           $field .= $selector;
           $selector = '';
         }
+        
+        if (isset($option['parameters']) && is_array($option['parameters'])) {
+          foreach ($option['parameters'] as $name => $value) {
+            $field .= sprintf(' %s="%s"', $name, Text::output($value, static::ESCAPES));
+          }
+        }
 
         $field .= '>' . Text::output($option['text'], static::ESCAPES) . '</option>';
       }
