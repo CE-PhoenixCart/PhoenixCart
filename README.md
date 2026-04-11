@@ -131,3 +131,4 @@ Lime | [Congerdesign](https://pixabay.com/users/congerdesign-509903/) from Pixab
 Tractor | [The_Northern_Photographer](https://pixabay.com/users/the_northern_photographer-49449853/) from Pixabay | https://pixabay.com/service/license/
 Strawberries | [MariyaKas](https://pixabay.com/users/mariyakas-16732382/) from Pixabay | https://pixabay.com/service/license/
 Fruit, Laptop | [Ylanite Koppens](https://pixabay.com/users/nietjuhart-30460544/) from Pixabay | https://pixabay.com/service/license/
+Index Carousels | [congerdesign](https://pixabay.com/users/congerdesign-509903/">congerdesign</a> from Pixabay | https://pixabay.com/service/license/
