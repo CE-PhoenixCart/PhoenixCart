@@ -20,8 +20,6 @@ INSERT INTO advert_info VALUES ('2', '1', '<h2 class=\"fs-1 lead mb-1\">Strawber
 
 UPDATE configuration SET configuration_value = 'carousel' WHERE configuration_key = 'MODULE_CONTENT_I_SLIDER_GRP';
 
-UPDATE configuration SET configuration_value = '1;2' WHERE configuration_key = 'I_BRAND_ICONS_CSV';
-
 INSERT INTO categories VALUES (1, 'sample/fruit.webp', 0, 10, NOW(), NULL);
 INSERT INTO categories VALUES (2, 'sample/vegetables-1.webp', 0, 20, NOW(), NULL);
 INSERT INTO categories VALUES (3, 'sample/apples-pears.webp', 1, 10, NOW(), NULL);
