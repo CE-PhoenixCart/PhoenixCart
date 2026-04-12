@@ -24,10 +24,6 @@
 
   <?= $page['pages_text'] ?>
 
-  <div class="d-grid">
-    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-light btn-lg', [], $Linker->build('index.php')) ?>
-  </div>
-
 <?php
   require $Template->map('template_bottom.php', 'component');
 ?>
