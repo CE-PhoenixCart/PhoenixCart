@@ -10,4 +10,9 @@
   Released under the GNU General Public License
 */
 
-  $cl_box_groups[] = ['sort' => 45, 'heading' => BOX_HEADING_LOCATION_AND_TAXES, 'apps' => []];
+  $cl_box_groups[] = [
+    'nav' => 'end',  // start | center | end
+    'sort' => 45, 
+    'heading' => BOX_HEADING_LOCATION_AND_TAXES, 
+    'apps' => []
+  ];

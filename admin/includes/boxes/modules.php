@@ -11,6 +11,7 @@
 */
 
   $cl_box_groups[] = [
+    'nav' => 'end',  // start | center | end
     'sort' => 25, 
     'heading' => BOX_HEADING_MODULES,
     'apps' => array_map(function ($m) {
