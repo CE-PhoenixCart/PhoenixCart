@@ -15,7 +15,7 @@
   $fp = fopen(DIR_FS_BACKUP . $backup_file, 'w');
 
   fputs($fp, sprintf(<<<'EOSQL'
-# CE Phoenix, E-Commerce made Easy
+# Phoenix, E-Commerce made Easy
 # https://phoenixcart.org
 #
 # Database Backup For %s

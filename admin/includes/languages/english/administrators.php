@@ -30,7 +30,7 @@ const ERROR_ADMINISTRATOR_EXISTS = '<strong>Error:</strong> Administrator alread
 
 const HTPASSWD_INFO = <<<'EOT'
 <strong>Additional Protection With htaccess/htpasswd</strong>
-<p>This CE Phoenix Administration Tool installation is not additionally secured through htaccess/htpasswd means.</p>
+<p>This Phoenix Administration Tool installation is not additionally secured through htaccess/htpasswd means.</p>
 <p>Enabling the htaccess/htpasswd security layer will automatically store administrator username and passwords in an htpasswd file when updating administrator password records.</p>
 <p><strong>Please note</strong>, if this additional security layer is enabled and you can no longer access the Administration Tool,
  please make the following changes and consult your hosting provider to enable htaccess/htpasswd protection:</p>
@@ -41,11 +41,11 @@ const HTPASSWD_INFO = <<<'EOT'
 EOT;
 const HTPASSWD_SECURED = <<<'EOT'
 <strong>Additional Protection With htaccess/htpasswd</strong>
-<p>This CE Phoenix Administration Tool installation is additionally secured through htaccess/htpasswd means.</p>
+<p>This Phoenix Administration Tool installation is additionally secured through htaccess/htpasswd means.</p>
 EOT;
 const HTPASSWD_PERMISSIONS = <<<'EOT'
 <strong>Additional Protection With htaccess/htpasswd</strong>
-<p>This CE Phoenix Administration Tool installation is not additionally secured through htaccess/htpasswd means.</p>
+<p>This Phoenix Administration Tool installation is not additionally secured through htaccess/htpasswd means.</p>
 <p>The following files need to be writable by the web server to enable the htaccess/htpasswd security layer:</p>
 <ul>
 <li>%s</li>

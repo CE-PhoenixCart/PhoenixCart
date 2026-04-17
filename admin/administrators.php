@@ -20,7 +20,7 @@
   $authuserfile_lines = [
     '##### Phoenix ADMIN PROTECTION - BEGIN #####',
     'AuthType Basic',
-    'AuthName "CE Phoenix Administration Tool"',
+    'AuthName "Phoenix Administration Tool"',
     "AuthUserFile $htpasswd_path",
     'Require valid-user',
     '##### Phoenix ADMIN PROTECTION - END #####',

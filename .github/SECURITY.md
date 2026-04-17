@@ -16,5 +16,5 @@ are made in the latest release.
 To report a security vulnerability, please do one of the following:
 
 1.  Report the vulnerability using [Github Security Advisories](https://github.com/CE-PhoenixCart/PhoenixCart/security/advisories/new).  This is our preferred method.
-2.  Join the [CE Phoenix Cart Forum](https://phoenixcart.org/forum/) and send a PM to ecartz and burt.  
+2.  Join the [Phoenix Cart Forum](https://phoenixcart.org/forum/) and send a PM to ecartz and burt.  
 3.  Email ecartz and gburton, using the commit email addresses.
