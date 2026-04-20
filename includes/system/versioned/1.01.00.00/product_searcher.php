@@ -110,19 +110,19 @@
 EOSQL
           , (int)$country_id, (int)$zone_id);
 
-          if ($GLOBALS['pfrom'] > 0) {
-            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1.0 + (tax.tax_rate / 100) ) >= " . (double)$GLOBALS['pfrom'] . ")";
+          if (is_numeric($GLOBALS['pfrom']) && $GLOBALS['pfrom'] > 0) {
+            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tax.tax_rate / 100)) >= " . $GLOBALS['pfrom'] . ")";
           }
-          if ($GLOBALS['pto'] > 0) {
-            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1.0 + (tax.tax_rate / 100) ) <= " . (double)$GLOBALS['pto'] . ")";
+          if (is_numeric($GLOBALS['pto']) && $GLOBALS['pto'] > 0) {
+            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tax.tax_rate / 100)) <= " . $GLOBALS['pto'] . ")";
           }
         }
       } else {
-        if ($GLOBALS['pfrom'] > 0) {
-          $custom['where'] .= " AND IF(s.status, s.specials_new_products_price, p.products_price) >= " . (double)$GLOBALS['pfrom'];
+        if (is_numeric($GLOBALS['pfrom']) && $GLOBALS['pfrom'] > 0) {
+          $custom['where'] .= " AND IF(s.status, s.specials_new_products_price, p.products_price) >= " . $GLOBALS['pfrom'];
         }
-        if ($GLOBALS['pto'] > 0) {
-          $custom['where'] .= " AND IF(s.status, s.specials_new_products_price, p.products_price) <= " . (double)$GLOBALS['pto'];
+        if (is_numeric($GLOBALS['pto']) && $GLOBALS['pto'] > 0) {
+          $custom['where'] .= " AND IF(s.status, s.specials_new_products_price, p.products_price) <= " . $GLOBALS['pto'];
         }
       }
 
