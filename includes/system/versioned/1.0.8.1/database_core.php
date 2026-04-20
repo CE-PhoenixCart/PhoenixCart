@@ -44,11 +44,7 @@
         trigger_error($line, E_USER_WARNING);
       }
 
-      if (ini_get('display_errors')) {
-        die('<font color="#000000"><strong>' . $this->errno . ' - ' . $this->error . '<br><br>' . $sql . '<br><br><small><font color="#ff0000">[PHOENIX FATAL]</font></small><br><br></strong></font>');
-      } else {
-        die('<br><small><font color="#ff0000">[PHOENIX FATAL]</font></small><br>');
-      }
+      die('[PHOENIX FATAL]');
     }
 
     /**
