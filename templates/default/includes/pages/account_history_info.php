@@ -12,7 +12,7 @@
 
   $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
   $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('account_history.php'));
-  $breadcrumb->add(sprintf(NAVBAR_TITLE_3, $_GET['order_id']), $Linker->build('account_history_info.php', ['order_id' => $_GET['order_id']]));
+  $breadcrumb->add(sprintf(NAVBAR_TITLE_3, (int)$_GET['order_id']), $Linker->build('account_history_info.php', ['order_id' => (int)$_GET['order_id']]));
 
   require $Template->map('template_top.php', 'component');
 ?>
@@ -20,7 +20,7 @@
 <div class="row mb-4">
   <div class="col-7"><h1 class="display-4"><?= HEADING_TITLE ?></h1></div>
   <div class="col text-end">
-    <p class="fs-4"><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></p>
+    <p class="fs-4"><?= sprintf(HEADING_ORDER_NUMBER, (int)$_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></p>
     <p><?= '<strong>' . HEADING_ORDER_DATE . '</strong> ' . Date::expound($order->info['date_purchased']) ?></p>
   </div>
 </div>

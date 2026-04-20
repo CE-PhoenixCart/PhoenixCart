@@ -25,7 +25,7 @@ SELECT o.customers_id
 EOSQL
     , (int)$_GET['order_id'], (int)$_SESSION['languages_id']));
   $customer_info = $customer_info_query->fetch_assoc();
-  if ($customer_info['customers_id'] != $_SESSION['customer_id']) {
+  if ((int)$customer_info['customers_id'] !== (int)$_SESSION['customer_id']) {
     Href::redirect($Linker->build('account_history.php'));
   }
 
