@@ -41,7 +41,7 @@ const TEXT_OUTGOING_EMAIL = 'Email Address:';
 
 const TEXT_NEW_INTRO = 'Please fill out the following information for the new E-mail';
 const TEXT_EDIT_INTRO = 'Please make any necessary changes';
-const TEXT_DELETE_INTRO = 'Are you certain you wish to delete this E-mail?';
+const TEXT_DELETE_INTRO = 'Are you certain you wish to delete this Template <i>and all associated Queued Emails.</i>';
 
 const TEXT_DATE_ADDED = 'Date Added: %s';
 const TEXT_LAST_MODIFIED = 'Last Modified: %s';
