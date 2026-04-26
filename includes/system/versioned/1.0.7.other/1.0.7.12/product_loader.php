@@ -149,6 +149,7 @@ EOSQL
         number_format(count($reviews) ? (20 * $sum / count($reviews)) : 0, 2));
       $product->set('review_rating',
         number_format(count($reviews) ? ($sum / count($reviews)) : 0, 2));
+      $product->set('review_count', count($reviews));
       $product->set('reviews', $reviews);
 
       return $reviews;
