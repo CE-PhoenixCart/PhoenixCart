@@ -81,7 +81,7 @@ EOSQL;
         foreach ($breadcrumb->_trail as $i => $v) {
           $schema_breadcrumb['itemListElement'][] = [
             '@type' => 'ListItem',
-            'position' => "$i",
+            'position' => $i + 1,
             'item' => [
               '@id' => "{$v['link']}",
               'name' => strip_tags($v['title'] ?? ''),
