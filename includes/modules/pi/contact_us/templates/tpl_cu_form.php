@@ -6,8 +6,6 @@
   }
   else {
     echo new Form('contact_us', $GLOBALS['Linker']->build('contact_us.php', ['action' => 'send']), 'post', ['class' => 'was-validated'], true);
-
-    echo FORM_CONTACT_US;
     ?>
 
     <div class="form-floating mb-2">
@@ -28,7 +26,7 @@
     <?= $GLOBALS['hooks']->cat('injectFormDisplay') ?>
 
     <div class="d-grid">
-      <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
+      <?= new Button(FORM_CONTACT_US, 'fas fa-paper-plane', 'btn-success btn-lg') ?>
     </div>
     
     </form>

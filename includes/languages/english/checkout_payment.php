@@ -21,4 +21,4 @@ const TABLE_HEADING_PAYMENT_METHOD = 'Payment Method';
 
 const TEXT_ENTER_PAYMENT_INFORMATION = 'This is currently the only payment method available to use on this order.';
 
-const BUTTON_CONTINUE_CHECKOUT_PROCEDURE = 'Continue Checkout';
+const BUTTON_CONTINUE_CHECKOUT_PROCEDURE = 'Continue to Review Your Order';

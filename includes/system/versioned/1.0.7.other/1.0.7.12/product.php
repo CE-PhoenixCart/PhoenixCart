@@ -67,8 +67,10 @@
           $this->format('price'),
           $this->format());
       }
+      
+      $prefix = ($this->get('has_attributes') == 1) ? IS_PRODUCT_PRICE_FROM : '';
 
-      return sprintf(IS_PRODUCT_SHOW_PRICE, $this->format());
+      return $prefix . sprintf(IS_PRODUCT_SHOW_PRICE, $this->format());
     }
 
     public function format($price = 'final_price', $quantity = 1) {

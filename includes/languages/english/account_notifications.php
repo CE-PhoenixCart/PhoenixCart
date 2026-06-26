@@ -10,12 +10,12 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Profile';
+const NAVBAR_TITLE_1 = 'Account';
 const NAVBAR_TITLE_2 = 'Product Notifications';
 
 const HEADING_TITLE = 'Product Notifications';
 
-const MY_NOTIFICATIONS_TITLE = 'My Product Notifications';
+const MY_NOTIFICATIONS_TITLE = 'Product Notifications';
 const MY_NOTIFICATIONS_DESCRIPTION = <<<'EOT'
 The product notification list allows you to stay up to date on products you find of interest.<br><br>
 To be up to date on all product changes, select <strong>Global Product Notifications</strong> and click 'Update Preferences'.

@@ -85,7 +85,7 @@ Please be aware that most language packs are maintained by volunteers so may not
 
 ## How to Support the Phoenix Project
 
-Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to [sponsor](https://phoenixcart.org/phoenix_gopro.php) forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
+Help Phoenix fly high...if you or your employer is commercially dependent on Phoenix (or a previous incarnation), please help to sponsor forward movement in the code-base. Phoenix needs you as much as you need Phoenix.
 
 Thank you to all shopowners, developers, consultants and business owners who are supporting the Project by volunteering their time and/or by supporting the project financially.
 
@@ -100,7 +100,7 @@ If you are looking for a developer for a paid-for project, please consider one o
 
 ### Join the Phoenix Forum
 
-If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider [sponsoring](https://phoenixcart.org/phoenix_gopro.php) Phoenix.
+If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider sponsoring Phoenix.
 
 ## Helpful Links
 
@@ -108,7 +108,6 @@ Channel | URL
 ------------ | -------------
 Phoenix (Forum) | https://phoenixcart.org/forum/
 Phoenix (Youtube) | https://www.youtube.com/@PhoenixCart/
-Zipurman Coding (Youtube) | https://www.youtube.com/user/zipurman/videos
 User Guide (Phoenix Cart) | https://phoenixcart.org/phoenixcartwiki/index.php
 Add-ons Library (Phoenix Cart) | https://phoenixcart.org/forum/addons/
 
@@ -118,12 +117,18 @@ Images in the default installation are copyright their respective owners;
 
 Image | Owner | Usage
 ------------ | ------------- | -------------
-Phoenix Logos | Phoenix Cart | https://phoenixcart.org Phoenix Logos may not be used without prior written permission from the copyright owner.
-Oranges, Lemons, Pears, Apples | [Eelffica](https://pixabay.com/users/eelffica-52436/) from Pixabay | https://pixabay.com/service/license/
-Tomatoes | [Rocky_H](https://pixabay.com/users/rocky_h-11790006/) from Pixabay | https://pixabay.com/service/license/
-Glasses | [Alexander Lesnitsky](https://pixabay.com/users/alles-2597842/) from Pixabay | https://pixabay.com/service/license/
-Farm | [OpenClipart-Vectors](https://pixabay.com/users/openclipart-vectors-30363/) from Pixabay | https://pixabay.com/service/license/
-Strawberries | [Gerd Altman](https://pixabay.com/users/geralt-9301/) from Pixabay | https://pixabay.com/service/license/
+Phoenix Logos | Phoenix Cart | https://phoenixcart.org/marketing_media.php
+Oranges | [Peggychoucair](https://pixabay.com/users/peggychoucair-1130890/) from Pixabay | https://pixabay.com/service/license/
+Lemons | [JillWellington](https://pixabay.com/users/jillwellington-334088/) from Pixabay | https://pixabay.com/service/license/
+Lemons | [zuzi99](https://pixabay.com/users/zuzi99-7340598/) from Pixabay | https://pixabay.com/service/license/
+Pears | [JillWellington](https://pixabay.com/users/jillwellington-334088/) from Pixabay | https://pixabay.com/service/license/
+Red Apples | [manja18081988](https://pixabay.com/users/manja18081988-52314215/) from Pixabay | https://pixabay.com/service/license/
+Red Tomatoes | [RitaE](https://pixabay.com/users/ritae-19628/) from Pixabay | https://pixabay.com/service/license/
+Green Tomatoes | [HBH-MEDIA-photography](https://pixabay.com/users/hbh-media-photography-193359/) from Pixabay | https://pixabay.com/service/license/
+Green Apples | [Daria-Yakovleva](https://pixabay.com/users/daria-yakovleva-3938704/) from Pixabay | https://pixabay.com/service/license/
+Grapefruit | [blandinejoannic](https://pixabay.com/users/blandinejoannic-15617008/) from Pixabay | https://pixabay.com/service/license/
+Lime | [Congerdesign](https://pixabay.com/users/congerdesign-509903/) from Pixabay | https://pixabay.com/service/license/
+Tractor | [The_Northern_Photographer](https://pixabay.com/users/the_northern_photographer-49449853/) from Pixabay | https://pixabay.com/service/license/
+Strawberries | [MariyaKas](https://pixabay.com/users/mariyakas-16732382/) from Pixabay | https://pixabay.com/service/license/
 Fruit, Laptop | [Ylanite Koppens](https://pixabay.com/users/nietjuhart-30460544/) from Pixabay | https://pixabay.com/service/license/
-
-Other fruit images are based on modified images from the named owners.
+Index Carousels | [congerdesign](https://pixabay.com/users/congerdesign-509903/">congerdesign</a> from Pixabay | https://pixabay.com/service/license/

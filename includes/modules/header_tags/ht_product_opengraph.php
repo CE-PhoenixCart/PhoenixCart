@@ -26,8 +26,8 @@
           'og:site_name' => STORE_NAME,
         ];
 
-        $product_description = substr(trim(preg_replace('/\s\s+/', ' ', strip_tags($product->get('description')))), 0, 197) . '...';
-        $data['og:description'] = $product_description;
+        $product_description = trim(preg_replace('/\s+/', ' ', strip_tags(html_entity_decode($product->get('description'), ENT_QUOTES, 'UTF-8'))));
+        $data['og:description'] = mb_substr($product_description, 0, 200);
 
         $products_image = $product->get('image');
         $data['og:image'] = $GLOBALS['Linker']->build("images/$products_image", [], false);

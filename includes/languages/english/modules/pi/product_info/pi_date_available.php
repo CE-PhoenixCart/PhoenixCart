@@ -13,4 +13,4 @@
   const PI_DATE_AVAILABLE_TITLE       = 'Date Available';
   const PI_DATE_AVAILABLE_DESCRIPTION = 'Shows the future Date Available (if set) on the Product Info Page.';
 
-  const PI_DATE_AVAILABLE_TEXT        = 'Available from:<span class="badge bg-primary rounded-pill text-bg-info">%s</span>';
+  const PI_DATE_AVAILABLE_TEXT        = '<i class="fa-regular fa-calendar-days text-primary me-2"></i>Available from <strong class="text-reset">%s</strong>';

@@ -11,7 +11,7 @@
 */
 
   const MODULE_CONTENT_ACCOUNT_GDPR_TITLE = 'GDPR Data Overview';
-  const MODULE_CONTENT_ACCOUNT_GDPR_DESCRIPTION = 'Adds a Link to the Profile Data Overview Page.';
+  const MODULE_CONTENT_ACCOUNT_GDPR_DESCRIPTION = 'Adds a Link to the Account > Data Overview Page.';
   
-  const MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE = 'Profile Data Overview';
+  const MODULE_CONTENT_ACCOUNT_GDPR_LINK_TITLE = 'Data Overview';
   const MODULE_CONTENT_ACCOUNT_GDPR_SUB_TITLE = 'View All Data';

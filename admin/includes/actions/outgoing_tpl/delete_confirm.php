@@ -11,14 +11,11 @@
 */
 
   $id = (int)$_GET['oID'];
+  $slug = $_GET['slug'] ?? '';
 
   $db->query("DELETE FROM outgoing_tpl WHERE id = " . $id);
   $db->query("DELETE FROM outgoing_tpl_info WHERE id = " . $id);
-  
-  if (isset($_POST['delete_queued']) && ($_POST['delete_queued'] == 'on')) {
-    $del = $_POST['slugworth'];
-    
-    $db->query("delete from outgoing where slug = '" . $del . "'");
-  }
+
+  $db->query("DELETE FROM outgoing WHERE slug = " . $db->normalize_value($slug));
 
   return $link;

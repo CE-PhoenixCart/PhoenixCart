@@ -15,9 +15,9 @@ const NAVBAR_TITLE_2 = 'Password Reset';
 
 const HEADING_TITLE = 'Password Reset';
 
-const TEXT_MAIN = 'Please enter a new password for your profile.';
+const TEXT_MAIN = 'Please enter a new password';
 
 const TEXT_NO_RESET_LINK_FOUND = 'Error: The password reset link was not found in our records, please try again by generating a new link.';
-const TEXT_NO_EMAIL_ADDRESS_FOUND = 'Error: The E-mail Address was not found in our records, please try again.';
+const TEXT_NO_EMAIL_ADDRESS_FOUND = 'If this email is in our records, we\'ve sent you a reset link. Please check your inbox.';
 
 const SUCCESS_PASSWORD_RESET = 'Your password has been successfully updated. Please sign in with your new password.';

@@ -14,7 +14,7 @@
   $heading = HEADING_DELETE_SLUG;
   $link = $GLOBALS['link']->set_parameter('oID', (int)$oInfo->id);
 
-  $contents = ['form' => new Form('outgoing_tpl', (clone $link)->set_parameter('action', 'delete_confirm'))];
+  $contents = ['form' => new Form('outgoing_tpl', (clone $link)->set_parameter('action', 'delete_confirm')->set_parameter('slug', $oInfo->slug))];
   $contents[] = ['text' => TEXT_DELETE_INTRO];
   $contents[] = ['text' => '<strong>' . $oInfo->title . '</strong>'];
   

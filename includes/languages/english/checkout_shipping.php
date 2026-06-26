@@ -21,4 +21,4 @@ const TABLE_HEADING_SHIPPING_METHOD = 'Delivery Method';
 const TEXT_ENTER_SHIPPING_INFORMATION = 'This is currently the only delivery method available to use on this order.';
 const ERROR_NO_SHIPPING_AVAILABLE_TO_SHIPPING_ADDRESS = 'Delivery is currently not available for the selected address. Please select or create a different address to use with your purchase.';
 
-const BUTTON_CONTINUE_CHECKOUT_PROCEDURE = 'Continue Checkout';
+const BUTTON_CONTINUE_CHECKOUT_PROCEDURE = 'Continue to Payment Information';

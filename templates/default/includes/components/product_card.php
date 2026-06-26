@@ -27,9 +27,16 @@
 ?>
 <a href="<?= $product->get('link') ?>"><?= (new Image('images/' . $product->get('image'), [], htmlspecialchars($product->get('name'))))->append_css('card-img-top') ?></a>
   <div class="card-body d-flex flex-column" style="transform: rotate(0);">
-    <p class="card-title flex-grow-1 fs-5 fw-semibold mb-3"><a class="stretched-link" href="<?= $product->get('link') ?>"><?= $product->get('name') ?></a></p>
-    <p class="card-subtitle mb-2 fs-6 fw-semibold text-body-secondary"><?= $product->hype_price() ?></p>
-    <?= implode('<br>', $card['extra'] ?? []) ?>
+    <p class="card-title fs-5 fw-semibold mb-3"><a class="stretched-link" href="<?= $product->get('link') ?>"><?= $product->get('name') ?></a></p>
+    
+    <div>
+      <div class="d-flex align-items-center gap-2 text-body-secondary">
+        <span class="fw-semibold"><?= $product->hype_price() ?></span>
+        <span>·</span>
+        <span><?= ($product->get('in_stock') <= 0 ? IS_PRODUCT_OOS : IS_PRODUCT_IIS); ?></span>
+      </div>
+      <?= implode('<br>', $card['extra'] ?? []) ?>
+    </div>
   </div>
 
 <?php

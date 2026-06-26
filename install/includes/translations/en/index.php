@@ -16,13 +16,13 @@ const TEXT_MAXIMUM_VERSION = 'Performance on versions <strong>%s and higher has 
 const TEXT_FOPEN_WRAPPERS_REQUIRED = 'Fopen Wrappers should be turned on.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
 const TEXT_CURL_REQUIRED = 'cURL should be turned on.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
 const TEXT_INTL_PREFERRED = 'intl should be turned on, as internationalization of date names may not work properly without intl enabled.  This is a <em>hosting</em> setting which you or your host may be able to turn on.';
-const TEXT_WELCOME_TO = 'Welcome to CE Phoenix Cart';
+const TEXT_WELCOME_TO = 'Welcome to Phoenix Cart';
 const TEXT_HELPS_YOU_SELL = <<<'EOT'
-<p>CE Phoenix Cart helps you sell products worldwide with your own online store.
+<p>Phoenix Cart helps you sell products worldwide with your own online store.
 Its Administration Tool manages products, customers, orders, specials, and more to successfully build your online business.</p>
 <p>Phoenix has attracted a community of store owners and developers who support each other and have provided many free and paid-for add-ons that will extend the features and potential of your online store.</p>
 EOT;
-const TEXT_NEW_INSTALLATION_OF = 'New CE Phoenix Cart v%s Installation';
+const TEXT_NEW_INSTALLATION_OF = 'New Phoenix Cart v%s Installation';
 const TEXT_CONFIGURATION_NOT_WRITABLE = <<<'EOT'
 <p>The webserver is not able to save the installation parameters to its configuration files.</p>
 <p>The following files need to have their file permissions set to writeable (chmod 777 will always work):</p>

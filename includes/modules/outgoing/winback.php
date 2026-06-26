@@ -20,9 +20,9 @@
 
           $_data_array = ['customer_id'   => (int)$_SESSION['customer_id'],
                           'languages_id'  => (int)$_SESSION['languages_id'],
-                          'fname'         => Text::prepare($customer->get('firstname')),
-                          'lname'         => Text::prepare($customer->get('lastname')),
-                          'email_address' => Text::prepare($customer->get('email_address')),
+                          'fname'         => Text::input($customer->get('firstname')),
+                          'lname'         => Text::input($customer->get('lastname')),
+                          'email_address' => Text::input($customer->get('email_address')),
                           'date_added'    => 'now()'];
 
           $_data_array['slug'] = basename(__FILE__, '.php');
@@ -31,7 +31,7 @@
           $winback->add(new DateInterval(self::INTERVAL));
 
           $send_at_date = $winback->format('Y-m-d H:i:s');
-          $_data_array['send_at'] = Text::prepare($send_at_date);
+          $_data_array['send_at'] = Text::input($send_at_date);
 
 // extra merge tags for this module
           $ordered = new DateTime();
@@ -80,9 +80,9 @@
 
       $_data_array = ['customer_id'   => (int)$customer_id,
                       'languages_id'   => (int)$language_id,
-                      'fname'         => Text::prepare($customer->get('firstname')),
-                      'lname'         => Text::prepare($customer->get('lastname')),
-                      'email_address' => Text::prepare($customer->get('email_address')),
+                      'fname'         => Text::input($customer->get('firstname')),
+                      'lname'         => Text::input($customer->get('lastname')),
+                      'email_address' => Text::input($customer->get('email_address')),
                       'date_added'    => 'now()'];
 
       $_data_array['slug'] = basename(__FILE__, '.php');
@@ -105,7 +105,7 @@ EOSQL
         $winback->add(new DateInterval(self::INTERVAL));
 
         $send_at_date = $winback->format('Y-m-d H:i:s');
-        $_data_array['send_at'] = Text::prepare($send_at_date);
+        $_data_array['send_at'] = Text::input($send_at_date);
 
         $order_id = $order['orders_id'];
         $identifier = ["order:$order_id"];

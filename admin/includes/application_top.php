@@ -47,7 +47,7 @@
   }
 
 // Define the project version --- obsolete, now retrieved with Versions::get('Phoenix')
-  define('PROJECT_VERSION', 'CE Phoenix');
+  define('PROJECT_VERSION', 'Phoenix');
 
 // set the type of request (secure or not)
   $request_type = (getenv('HTTPS') === 'on') ? 'SSL' : 'NONSSL';

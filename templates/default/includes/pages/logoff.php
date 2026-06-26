@@ -21,10 +21,6 @@
     <?= TEXT_MAIN ?>
   </div>
 
-  <div class="d-grid">
-    <?= new Button(IMAGE_BUTTON_CONTINUE, 'fas fa-angle-right', 'btn-danger btn-lg', [], $Linker->build('index.php')) ?>
-  </div>
-
 <?php
   require $Template->map('template_bottom.php', 'component');
 ?>

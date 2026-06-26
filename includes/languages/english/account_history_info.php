@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Profile';
+const NAVBAR_TITLE_1 = 'Account';
 const NAVBAR_TITLE_2 = 'History';
 const NAVBAR_TITLE_3 = 'Order #%s';
 

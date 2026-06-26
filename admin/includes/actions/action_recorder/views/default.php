@@ -27,6 +27,10 @@
   $action_recorder_sql = "SELECT * FROM action_recorder";
   if (count($filter) > 0) {
     $action_recorder_sql .= " WHERE " . implode(" AND ", $filter);
+    
+    $admin_hooks->set('actionRecorderButtons', 'reset_search', function () {
+      return $GLOBALS['Admin']->button(IMAGE_RESET, 'fas fa-angle-left', 'btn-light', $GLOBALS['Admin']->link('action_recorder.php'));
+    });
   }
   $action_recorder_sql .= " ORDER BY date_added DESC";
 
@@ -45,7 +49,14 @@
         },
       ],
       [
+        'name' => TABLE_HEADING_IDENTIFIER,
+        'function' => function (&$row) {
+          return $row['identifier'] ?? '';
+        },
+      ],
+      [
         'name' => TABLE_HEADING_SUCCESS,
+        'class' => 'text-center',
         'function' => function (&$row) {
           return ($row['success'] == '1')
                ? '<i class="fas fa-check-circle text-success"></i>'
@@ -59,19 +70,14 @@
           return $GLOBALS['date_time_formatter']->format((new Date($row['date_added']))->get_timestamp());
         },
       ],
-      [
-        'name' => TABLE_HEADING_ACTION,
-        'class' => 'text-end',
-        'function' => function ($row) {
-          return (isset($row['info']->id) && ($row['info']->id === $row['id']))
-               ? '<i class="fas fa-chevron-circle-right text-info"></i>'
-               : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>';
-        },
-      ],
     ],
     'count_text' => TEXT_DISPLAY_NUMBER_OF_ENTRIES,
+    'hooks' => [
+      'button' => 'actionRecorderButtons',
+    ],
     'page' => $_GET['page'] ?? null,
     'sql' => $action_recorder_sql,
+    'width' => 12,
   ];
   $table_definition['split'] = new Paginator($table_definition);
   $table_definition['function'] = function (&$row) use (&$table_definition) {
@@ -84,10 +90,8 @@
       $table_definition['info'] = new objectInfo($row);
       $row['info'] = &$table_definition['info'];
 
-      $row['onclick'] = $link->set_parameter('action', 'edit');
       $row['css'] = ' class="table-active"';
     } else {
-      $row['onclick'] = $link;
       $row['css'] = '';
     }
   };

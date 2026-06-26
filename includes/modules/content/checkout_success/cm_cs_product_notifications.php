@@ -51,15 +51,23 @@
         if ( $global['global_product_notifications'] != '1' ) {
           $products_displayed = [];
 
+          $subscribed_query = $GLOBALS['db']->query("SELECT products_id FROM products_notifications WHERE customers_id = " . (int)$_SESSION['customer_id']);
+          $subscribed_products = [];
+          while ($subscribed = $subscribed_query->fetch_assoc()) {
+            $subscribed_products[] = $subscribed['products_id'];
+          }
+
           $products_query = $GLOBALS['db']->query("SELECT DISTINCT products_id, products_name FROM orders_products WHERE orders_id = " . (int)$GLOBALS['order_id'] . " ORDER BY products_name");
           while ($products = $products_query->fetch_assoc()) {
-            if ( !isset($products_displayed[$products['products_id']]) ) {
+            if ( !isset($products_displayed[$products['products_id']]) && !in_array($products['products_id'], $subscribed_products) ) {
               $products_displayed[$products['products_id']] = $products['products_name'];
             }
           }
 
-          $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
-          include 'includes/modules/content/cm_template.php';
+          if (!empty($products_displayed)) {
+            $tpl_data = [ 'group' => $this->group, 'file' => __FILE__ ];
+            include 'includes/modules/content/cm_template.php';
+          }
         }
       }
     }

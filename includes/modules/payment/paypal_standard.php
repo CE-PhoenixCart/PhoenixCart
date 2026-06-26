@@ -9,6 +9,7 @@
   Basic Paypal Payment Module for Phoenix Cart
   More sophisticated Paypal integration available at https://phoenixcart.org/forum/addons/
 
+  Version 1.6 2026-03-01 Bugfix IPN URL
   Version 1.5 2025-08-03 Ajax comment - only save if there is one, include http return code in error message
   Version 1.4 2025-03-15 Phoenix 1.1.0.0 compatibility. Add invoice prefix to avoid duplicate invoice numbers
   Version 1.3 2025-02-25 Phoenix 1.0.9.9+ compatibility & store comments on order record
@@ -32,12 +33,12 @@ class paypal_standard extends abstract_payment_module {
 
   const ADDON = 'PPSTANDARD';
   const VARIANT = 'CORE';
-  const VERSION = '1.5';
+  const VERSION = '1.6';
 
   public function __construct() {
     parent::__construct();
 
-    $this->description = sprintf($this->description, Guarantor::ensure_global('Linker')->build(static::RETURN_URL), Guarantor::ensure_global('Linker')->build('ext/modules/payment/paypal_standard_ipn.php'));
+    $this->description = sprintf($this->description, Guarantor::ensure_global('Linker')->build(static::RETURN_URL), Guarantor::ensure_global('Linker')->build('ext/modules/payment/paypal/standard_ipn.php'));
     if ( null !== $this->base_constant('STATUS') ) {
       if ( $this->base_constant('GATEWAY') == 'Sandbox' ) {
         $this->title .= ' [Sandbox]';

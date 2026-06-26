@@ -62,27 +62,76 @@ class hook_admin_siteWide_hMenu {
       });
 
       foreach ( $cl_box_groups as &$group ) {
-        usort($group['apps'], 'hook_admin_siteWide_hMenu::sort_box_links');
+        if (!empty($group['apps']) && is_array($group['apps'])) {
+          usort($group['apps'], 'hook_admin_siteWide_hMenu::sort_box_links');
+        }
       }
 
       $n = 1;
-      $mr = '';
+      $start = $center = $end = '';
 
       foreach ($cl_box_groups as $groups) {
-        $mr .= '<li class="nav-item dropdown">';
-          $mr .= '<a class="nav-link dropdown-toggle" href="#" id="navbar_' . $n . '" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $groups['heading'] . '</a>';
-          $al = ($n > 6) ? ' dropdown-menu-end' : '';
-          $mr .= '<ul class="dropdown-menu' . $al . '" aria-labelledby="navbar_' . $n . '">';
-          foreach ($groups['apps'] as $app) {
-            $mr .= '<li><a class="dropdown-item" href="' . $app['link'] . '">' . $app['title'] . '</a></li>';
+        $item = '';
+        
+        $area = $groups['nav'] ?? 'start';
+        $type = $groups['type'] ?? 'dropdown';
+
+        switch ($type) {
+          case 'link':
+            $app = $groups['apps'][0] ?? null;
+
+            if (!empty($app['link'])) {
+              $class = $app['class'] ?? 'dropdown-item';
+              $attrs = '';
+
+              if (!empty($app['data']) && is_array($app['data'])) {
+                foreach ($app['data'] as $k => $v) {
+                  $attrs .= ' ' . $k . '="' . htmlspecialchars($v) . '"';
+                }
+              }
+
+              $item .= '<li class="nav-item d-flex align-items-center">';
+                $item .= '<a class="' . $class . '" href="' . $app['link'] . '"' . $attrs . '>'
+                  . $app['title'] .
+                '</a>';
+              $item .= '</li>';
+            }
+            break;
+          case 'dropdown':
+            $item .= '<li class="nav-item dropdown">';
+              $item .= '<a class="nav-link dropdown-toggle" href="#" id="navbar_' . $n . '" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                $item .= $groups['heading'];
+              $item .= '</a>';
+
+              $align = ($area === 'end') ? ' dropdown-menu-end' : '';
+              $item .= '<ul class="dropdown-menu' . $align . '" aria-labelledby="navbar_' . $n . '">';
+
+              foreach ($groups['apps'] as $app) {
+                $item .= '<li><a class="dropdown-item" href="' . $app['link'] . '">' . $app['title'] . '</a></li>';
+              }
+
+              $item .= '</ul>';
+            $item .= '</li>' . PHP_EOL;
+            break;
+
+          default:
+            break;
+        }
+
+        if (!empty($item)) {
+          if ($area === 'start') {
+            $start .= $item;
+          } elseif ($area === 'center') {
+            $center .= $item;
+          } else {
+            $end .= $item;
           }
-          $mr .= '</ul>';
-        $mr .= '</li>' . PHP_EOL;
+        }
 
         $n++;
       }
 
-      $icon = $GLOBALS['Admin']->image('images/CE-Phoenix-30-30.png', [], 'CE Phoenix v' . Versions::get('Phoenix'), 30, 30);
+      $icon = $GLOBALS['Admin']->image('images/CE-Phoenix-30-30.png', [], 'Phoenix v' . Versions::get('Phoenix'), 30, 30);
       
       $output = '';
       
@@ -96,9 +145,21 @@ class hook_admin_siteWide_hMenu {
               $output .= '<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>';
             $output .= '</div>';
             $output .= '<div class="offcanvas-body">';
-              $output .= '<ul class="navbar-nav justify-content-start flex-grow-1 pe-3">';
-                $output .= $mr;
-              $output .= '</ul>';
+              if ($start !== '') {
+                $output .= '<ul class="navbar-nav me-auto pe-3">';
+                  $output .= $start;
+                $output .= '</ul>';
+              }
+              if ($center !== '') {
+                $output .= '<ul class="navbar-nav mx-auto pe-3">';
+                  $output .= $center;
+                $output .= '</ul>';
+              }
+              if ($end !== '') {
+                $output .= '<ul class="navbar-nav ms-auto pe-3">';
+                  $output .= $end;
+                $output .= '</ul>';
+              }
             $output .= '</div>';
           $output .= '</div>';
         $output .= '</div>';

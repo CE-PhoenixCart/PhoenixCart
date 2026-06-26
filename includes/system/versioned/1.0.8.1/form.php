@@ -25,7 +25,7 @@
      * @param boolean $tokenize
      */
     public function __construct(string $name, string $action,
-      string $method = 'post', array $parameters = [], bool $tokenize = null)
+      string $method = 'post', array $parameters = [], ?bool $tokenize = null)
     {
       parent::__construct($name, [
         'action' => $action,

@@ -35,7 +35,7 @@
   }
 ?>
 
-  <div id="contentText" class="col">
+  <div class="col">
 
     <?php
     if ($messageStack->size > 0) {

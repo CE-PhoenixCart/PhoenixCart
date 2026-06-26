@@ -10,5 +10,5 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'Create your Profile';
+const NAVBAR_TITLE_1 = 'Create your Account';
 const NAVBAR_TITLE_2 = 'Success';

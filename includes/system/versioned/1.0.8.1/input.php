@@ -19,7 +19,7 @@
      * @param array $parameters
      * @param string $css
      */
-    public function __construct(string $name, array $parameters = [], string $type = null) {
+    public function __construct(string $name, array $parameters = [], ?string $type = null) {
       if (isset($type)) {
         $parameters = ['type' => $type] + $parameters;
       }

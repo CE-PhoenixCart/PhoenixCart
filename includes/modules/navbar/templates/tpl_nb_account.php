@@ -4,7 +4,7 @@
   </a>
   <div class="dropdown-menu<?= (('Right' === MODULE_NAVBAR_ACCOUNT_CONTENT_PLACEMENT) ? ' dropdown-menu-end' : '') ?>" aria-labelledby="navDropdownAccount">
     <?= isset($_SESSION['customer_id'])
-      ? '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('logoff.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGOFF . '</a>' . PHP_EOL
+      ? '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('logoff.php') . '">' . sprintf(MODULE_NAVBAR_ACCOUNT_LOGOFF, $GLOBALS['customer']->get('short_name')) . '</a>' . PHP_EOL
       : ('<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('login.php') . '">' . MODULE_NAVBAR_ACCOUNT_LOGIN . '</a>' . PHP_EOL
        . '<a class="dropdown-item" href="' . $GLOBALS['Linker']->build('create_account.php') . '">' . MODULE_NAVBAR_ACCOUNT_REGISTER . '</a>' . PHP_EOL)
     ?>

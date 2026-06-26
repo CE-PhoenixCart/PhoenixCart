@@ -11,4 +11,4 @@
 */
 
 // define the project version --- obsolete, now retrieved with Versions::get()
-  const PROJECT_VERSION = 'CE Phoenix Cart';
+  const PROJECT_VERSION = 'Phoenix Cart';

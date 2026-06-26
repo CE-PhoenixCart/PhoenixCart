@@ -19,7 +19,15 @@
     }
 
     public function build_link() {
-      switch (basename(Request::get_page())) {
+      $page = basename(Request::get_page());
+
+      $canonical = $GLOBALS['hooks']->cat('buildLink', ['page' => $page]);
+
+      if (!empty($canonical)) {
+        return $canonical;
+      }
+
+      switch ($page) {
         case 'index.php':
           if (isset($GLOBALS['cPath']) && !Text::is_empty($GLOBALS['cPath'])
             && ($GLOBALS['current_category_id'] > 0)
@@ -54,7 +62,13 @@
     }
 
     public function execute() {
-      $GLOBALS['Template']->add_block('<link rel="canonical" href="' . $this->build_link() . '">' . PHP_EOL, $this->group);
+      $canonical = $this->build_link();
+
+      if ($canonical === '__DISABLE__') {
+        return;
+      }
+    
+      $GLOBALS['Template']->add_block('<link rel="canonical" href="' . $canonical . '">' . PHP_EOL, $this->group);
     }
 
     protected function get_parameters() {

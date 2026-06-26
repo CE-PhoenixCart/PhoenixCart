@@ -12,7 +12,7 @@
 
   $breadcrumb->add(NAVBAR_TITLE_1, $Linker->build('account.php'));
   $breadcrumb->add(NAVBAR_TITLE_2, $Linker->build('account_history.php'));
-  $breadcrumb->add(sprintf(NAVBAR_TITLE_3, $_GET['order_id']), $Linker->build('account_history_info.php', ['order_id' => $_GET['order_id']]));
+  $breadcrumb->add(sprintf(NAVBAR_TITLE_3, (int)$_GET['order_id']), $Linker->build('account_history_info.php', ['order_id' => (int)$_GET['order_id']]));
 
   require $Template->map('template_top.php', 'component');
 ?>
@@ -20,7 +20,7 @@
 <div class="row mb-4">
   <div class="col-7"><h1 class="display-4"><?= HEADING_TITLE ?></h1></div>
   <div class="col text-end">
-    <p class="fs-4"><?= sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></p>
+    <p class="fs-4"><?= sprintf(HEADING_ORDER_NUMBER, (int)$_GET['order_id']) . ' <span class="badge text-bg-primary">' . $order->info['orders_status'] . '</span>' ?></p>
     <p><?= '<strong>' . HEADING_ORDER_DATE . '</strong> ' . Date::expound($order->info['date_purchased']) ?></p>
   </div>
 </div>
@@ -57,7 +57,7 @@
 
               if (count($order->info['tax_groups']) > 1) {
                 echo '<td valign="top" class="text-end">';
-                  echo Tax::display($product['tax']) . '%';
+                  echo Tax::Format($product['tax']) . '%';
                 echo '</td>';
               }
 
@@ -109,7 +109,7 @@
   $statuses_query = $db->query(sprintf(<<<'EOSQL'
 SELECT os.orders_status_name, osh.date_added, osh.comments
  FROM orders_status os INNER JOIN orders_status_history osh ON osh.orders_status_id = os.orders_status_id
- WHERE os.public_flag = 1 AND osh.orders_id = %d AND os.language_id = %d
+ WHERE os.public_flag = 1 AND customer_notified = 1 AND osh.orders_id = %d AND os.language_id = %d
  ORDER BY osh.date_added
 EOSQL
     , (int)$_GET['order_id'], (int)$_SESSION['languages_id']));

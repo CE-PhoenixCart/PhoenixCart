@@ -17,7 +17,7 @@
     protected $icon;
     protected $title;
 
-    public function __construct(string $title = '', string $icon = null, string $style = null, array $parameters = [], $link = null) {
+    public function __construct(string $title = '', ?string $icon = null, ?string $style = null, array $parameters = [], $link = null) {
       parent::__construct($parameters);
       $this->append_css('btn ' . ($style ?? 'btn-outline-secondary'));
       $this->icon = $icon;

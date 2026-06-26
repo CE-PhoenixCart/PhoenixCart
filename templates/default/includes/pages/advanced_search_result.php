@@ -16,18 +16,8 @@
   require $Template->map('template_top.php', 'component');
 ?>
 
-<h1 class="display-4 mb-4"><?= HEADING_TITLE_2 ?></h1>
-
-<?php
-  require 'includes/system/segments/sortable_product_listing.php';
-?>
-
   <div class="row">
     <?= $Template->get_content('advanced_search_result') ?>
-  </div>
-  
-  <div class="mt-3">
-    <?= new Button(IMAGE_BUTTON_BACK, 'fas fa-angle-left', 'btn-light', [], $Linker->build('advanced_search.php')->retain_query_except(['sort', 'page'])) ?>
   </div>
 
 <?php

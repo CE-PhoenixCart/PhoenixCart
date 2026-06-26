@@ -16,7 +16,7 @@ const TEXT_STORE = 'Store (Frontend)';
 const TEXT_FORUM = 'Phoenix Forum';
 const TEXT_STEP_4 = 'Step 4';
 const TEXT_STEP_4_EXPLANATION = <<<'EOT'
-<p>Congratulations on installing and configuring CE Phoenix as your online store solution!</p>
+<p>Congratulations on installing and configuring Phoenix as your online store solution!</p>
 <p>We wish you all the best with the success of your online store.  Please join and participate in our community.</p>
 EOT;
 const TEXT_TEAM = 'The Phoenix Team';

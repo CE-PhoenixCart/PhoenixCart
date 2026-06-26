@@ -16,11 +16,7 @@
   if ($GLOBALS['messageStack']->size('product_action') > 0) {
     echo $GLOBALS['messageStack']->output('product_action');
   }
-?>
 
-<div class="contentText">
-
-<?php
   if ($listing_split->number_of_rows > 0) {
     if ( (PREV_NEXT_BAR_LOCATION == '1') || (PREV_NEXT_BAR_LOCATION == '3') ) {
 ?>
@@ -101,5 +97,3 @@
     echo '<div class="alert alert-info" role="alert">' . TEXT_NO_PRODUCTS . '</div>';
   }
 ?>
-
-</div>

@@ -25,9 +25,9 @@
         $_data_array = ['customer_id'   => (int)$_SESSION['customer_id'],
                         'languages_id'  => (int)$_SESSION['languages_id'],
                         'identifier'    => implode(',', $identifier),
-                        'fname'         => Text::prepare($customer->get('firstname')),
-                        'lname'         => Text::prepare($customer->get('lastname')),
-                        'email_address' => Text::prepare($customer->get('email_address')),
+                        'fname'         => Text::input($customer->get('firstname')),
+                        'lname'         => Text::input($customer->get('lastname')),
+                        'email_address' => Text::input($customer->get('email_address')),
                         'date_added'    => 'now()'];
 
         $_data_array['slug'] = basename(__FILE__, '.php');
@@ -36,7 +36,7 @@
         $ot->add(new DateInterval(self::INTERVAL));
 
         $send_at_date = $ot->format('Y-m-d H:i:s');
-        $_data_array['send_at'] = Text::prepare($send_at_date);
+        $_data_array['send_at'] = Text::input($send_at_date);
 
 // extra merge tags for this module
         $ordered = new DateTime();
@@ -47,12 +47,19 @@
         $_mt['order_year']  = Text::input($ordered->format('Y'));
         
         // make the list of products
-        $list = '';
+        $list = ''; 
+        $_mt['list_products'] = [];
         foreach ($thanks->products as $product) {
+          $_mt['list_products'][] = [
+            'qty' => $product['qty'],
+            'name' => $product['name'],
+            'final_price' => $GLOBALS['currencies']->format(Tax::price($product['final_price'], $product['tax']) * $product['qty'], true, $thanks->info['currency'], $thanks->info['currency_value']),
+          ];
+          
           $list .= $product['name'] . PHP_EOL;
         }
 
-        $_mt['order_products'] = Text::prepare($list);
+        $_mt['order_products'] = Text::input($list);
         $_mt['order_id'] = Text::input($order_id);
 
         $_data_array['merge_tags'] = json_encode($_mt, JSON_PRETTY_PRINT);
@@ -86,6 +93,7 @@
       $merge_tags[$f]['{{ORDER_DAY}}']   = 'Day (eg 20th)';
       $merge_tags[$f]['{{ORDER_MONTH}}'] = 'Month (eg January)';
       $merge_tags[$f]['{{ORDER_YEAR}}']  = 'Year (eg 2024)';
+      $merge_tags[$f]['{{LIST_PRODUCTS}}'] = 'List of Ordered Products (using #EACH loop)';
       
       return $merge_tags;
     }

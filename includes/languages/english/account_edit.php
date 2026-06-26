@@ -10,9 +10,9 @@
   Released under the GNU General Public License
 */
 
-const NAVBAR_TITLE_1 = 'My Profile';
-const NAVBAR_TITLE_2 = 'Edit Profile';
+const NAVBAR_TITLE_1 = 'Account';
+const NAVBAR_TITLE_2 = 'Edit Account';
 
-const HEADING_TITLE = 'My Profile Information';
+const HEADING_TITLE = 'Account';
 
-const SUCCESS_ACCOUNT_UPDATED = 'Your profile has been successfully updated.';
+const SUCCESS_ACCOUNT_UPDATED = 'Your Account has been successfully updated.';

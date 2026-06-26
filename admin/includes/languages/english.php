@@ -29,7 +29,7 @@ const HTML_PARAMS = 'dir="ltr" lang="en"';
 const CHARSET = 'utf-8';
 
 // page title
-const TITLE = 'CE Phoenix Cart Administration Tool';
+const TITLE = 'Phoenix Cart Administration Tool';
 
 // header text in includes/hooks/admin/siteWide/hMenu.php
 const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart me-1 text-primary" aria-hidden="true" title="Your Shop"></i><span class="border-bottom border-primary">Your Shop</span>';

@@ -35,7 +35,7 @@
           'name'        => htmlspecialchars($product->get('name')),
           'image'       => $GLOBALS['Linker']->build("images/$products_image", [], false),
           'url'         => $GLOBALS['Linker']->build('product_info.php', ['products_id' => (int)$product->get('id')], false),
-          'description' => substr(trim(preg_replace('/\s\s+/', ' ', strip_tags($product->get('description')))), 0, 197) . '...',
+          'description' => trim(preg_replace('/\s+/', ' ', strip_tags(html_entity_decode($product->get('description'), ENT_QUOTES, 'UTF-8')))),
         ];
 
         if (!Text::is_empty($product->get('model') ?? '')) {

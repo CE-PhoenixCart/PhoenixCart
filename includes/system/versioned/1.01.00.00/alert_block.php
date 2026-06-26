@@ -26,7 +26,7 @@
         }
 
         $alertBox_string .= '>' . PHP_EOL;
-          $alertBox_string .= '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' . PHP_EOL;
+          $alertBox_string .= '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' . IMAGE_BUTTON_CLOSE . '"></button>' . PHP_EOL;
           $alertBox_string .= $alert['text'];
         $alertBox_string .= '</div>' . PHP_EOL;
       }

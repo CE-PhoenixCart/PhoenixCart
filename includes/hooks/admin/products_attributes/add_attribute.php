@@ -14,26 +14,112 @@ class hook_admin_products_attributes_add_attribute {
 
   public function listen_injectBodyEnd() {
     global $action;
-    
-    $helper = <<<accordion
-<script>document.addEventListener('DOMContentLoaded', function () { var active = sessionStorage.getItem('activeTab'); if (active) { var element = document.getElementById(active); if (element) { element.classList.add('show'); var nearestButton = document.querySelector('button[aria-controls="' + active + '"]'); if (nearestButton) { nearestButton.classList.remove('collapsed'); nearestButton.setAttribute('aria-expanded', 'true'); } } } document.getElementById('accordionAttributes').addEventListener('shown.bs.collapse', function (e) { sessionStorage.setItem('activeTab', e.target.id); }); });</script>
 
+    $helper = <<<accordion
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var active = sessionStorage.getItem('activeTab');
+  if (active) {
+    var element = document.getElementById(active);
+    if (element) {
+      element.classList.add('show');
+      var nearestButton = document.querySelector('button[aria-controls="' + active + '"]');
+      if (nearestButton) {
+        nearestButton.classList.remove('collapsed');
+        nearestButton.setAttribute('aria-expanded', 'true');
+      }
+    }
+  }
+  document.getElementById('accordionAttributes').addEventListener('shown.bs.collapse', function (e) {
+    sessionStorage.setItem('activeTab', e.target.id);
+  });
+});
+</script>
 accordion;
 
     if ($action != 'update_attribute') {
-      $helper .= <<<addat
-<script>document.querySelectorAll('select[name="products_id"], select[name="options_id"], select[name="values_id"], input[name="price_prefix"], input[name="value_price"]').forEach(function (element) { element.required = true; }); document.querySelectorAll('select[name="options_id"], select[name="values_id"], input[name="price_prefix"], input[name="value_price"]').forEach(function (element) { element.disabled = true; }); document.querySelector('select[name="products_id"]').addEventListener('change', function () { document.querySelector('select[name="options_id"]').disabled = false; }); document.querySelector('select[name="options_id"]').addEventListener('change', function () { var valuesSelect = document.querySelector('select[name="values_id"]'); var selectedOptionId = this.value; valuesSelect.selectedIndex = 0; valuesSelect.disabled = false; valuesSelect.querySelectorAll('option').forEach(function (option) { if (option.dataset.id && !option.dataset.id.includes(selectedOptionId)) { option.style.display = 'none'; } else { option.style.display = ''; } }); }); document.querySelector('select[name="values_id"]').addEventListener('change', function () { document.querySelectorAll('input[name="value_price"], input[name="price_prefix"]').forEach(function (element) { element.disabled = false; }); });</script>
+        // New attribute form
+        $helper .= <<<addat
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const productsSelect = document.querySelector('select[name="products_id"]');
+  const optionsSelect = document.querySelector('select[name="options_id"]');
+  const valuesSelect = document.querySelector('select[name="values_id"]');
+  const priceInputs = document.querySelectorAll('input[name="value_price"], input[name="price_prefix"]');
 
+  function resetSelect(select) {
+    select.selectedIndex = 0;
+    select.disabled = true;
+    select.querySelectorAll('option').forEach(option => option.hidden = false);
+  }
+
+  function disableInputs(inputs) {
+    inputs.forEach(el => el.disabled = true);
+  }
+
+  document.querySelectorAll('select[name="products_id"], select[name="options_id"], select[name="values_id"], input[name="price_prefix"], input[name="value_price"]').forEach(el => el.required = true);
+
+  resetSelect(optionsSelect);
+  resetSelect(valuesSelect);
+  disableInputs(priceInputs);
+
+  productsSelect.addEventListener('change', function() {
+    resetSelect(optionsSelect);
+    resetSelect(valuesSelect);
+    disableInputs(priceInputs);
+    if (this.value) optionsSelect.disabled = false;
+  });
+
+  optionsSelect.addEventListener('change', function() {
+    resetSelect(valuesSelect);
+    disableInputs(priceInputs);
+    if (!this.value) return;
+    valuesSelect.disabled = false;
+    valuesSelect.querySelectorAll('option').forEach(option => {
+      if (option.dataset.id) {
+        option.hidden = !option.dataset.id.split(',').includes(this.value);
+      }
+    });
+  });
+
+  valuesSelect.addEventListener('change', function() {
+    disableInputs(priceInputs);
+    if (this.value) priceInputs.forEach(el => el.disabled = false);
+  });
+});
+</script>
+addat;
+    } else {
+        // Update attribute form
+        $helper .= <<<addat
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const optionsSelect = document.querySelector('select[name="options_id"]');
+  const valuesSelect = document.querySelector('select[name="values_id"]');
+
+  function resetValues() {
+    valuesSelect.selectedIndex = 0;
+    valuesSelect.querySelectorAll('option[data-id]').forEach(option => option.hidden = false);
+  }
+
+  const selectedOption = optionsSelect.value;
+  valuesSelect.querySelectorAll('option[data-id]').forEach(option => {
+    if (selectedOption && !option.dataset.id.split(',').includes(selectedOption)) option.hidden = true;
+  });
+
+  optionsSelect.addEventListener('change', function() {
+    resetValues();
+    const id = this.value;
+    if (!id) return;
+    valuesSelect.querySelectorAll('option[data-id]').forEach(option => {
+      option.hidden = !option.dataset.id.split(',').includes(id);
+    });
+  });
+});
+</script>
 addat;
     }
-    elseif ($action == 'update_attribute') {
-      $helper .= <<<addat
-<script>var selectedOption = document.querySelector('select[name="options_id"]').value; document.querySelectorAll('select[name="values_id"] option[data-id]').forEach(function (option) { if (!option.dataset.id.includes(selectedOption)) { option.style.display = 'none'; } }); document.querySelector('select[name="options_id"]').addEventListener('change', function () { var id = this.value; var valuesSelect = document.querySelector('select[name="values_id"]'); valuesSelect.selectedIndex = 0; valuesSelect.querySelectorAll('option[data-id]').forEach(function (option) { if (!option.dataset.id.includes(id)) { option.style.display = 'none'; } else { option.style.display = ''; } }); }); </script>
 
-addat;
-    }
-    
     return $helper;
-  } 
-
+  }
 }

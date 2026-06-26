@@ -37,12 +37,12 @@ const CHARSET = 'utf-8';
 const TITLE = STORE_NAME;
 
 // text in includes/modules/downloads.php
-const HEADER_TITLE_MY_ACCOUNT = 'My Profile';
+const HEADER_TITLE_MY_ACCOUNT = 'Account';
 
 // checkout procedure text
-const CHECKOUT_BAR_DELIVERY = 'Delivery Information';
-const CHECKOUT_BAR_PAYMENT = 'Payment Information';
-const CHECKOUT_BAR_CONFIRMATION = 'Confirmation';
+const CHECKOUT_BAR_DELIVERY = 'Delivery Information<br><small class="text-muted">You\'ll choose your payment method next.</small>';
+const CHECKOUT_BAR_PAYMENT = 'Payment Information<br><small class="text-muted">Review this Order next - no charge yet.</small>';
+const CHECKOUT_BAR_CONFIRMATION = 'Review Your Order<br><small class="text-muted">Next you will complete your purchase securely.</small>';
 
 // pull down default text
 const PULL_DOWN_DEFAULT = 'Please Select';

@@ -21,9 +21,9 @@
         }
       }
 
-      $cm_i_slider_output .= '<div class="carousel-item' . $carousel_active . '">' . PHP_EOL;
+      $cm_i_slider_output .= '<div class="carousel-item' . $carousel_active . ' pt-2">' . PHP_EOL;
         $cm_i_slider_output .= $s_link;
-          $cm_i_slider_output .= (new Image('images/' . $a['advert_image'], [], htmlspecialchars($a['advert_title'])))->append_css('d-block w-100');
+          $cm_i_slider_output .= (new Image('images/' . $a['advert_image'], ['class' => 'img-fluid rounded-4'], htmlspecialchars($a['advert_title'])))->append_css('d-block w-100');
           if (!Text::is_empty($a['advert_html_text'])) {
             $cm_i_slider_output .= '<div class="carousel-caption">';
               $cm_i_slider_output .= $a['advert_html_text'];
