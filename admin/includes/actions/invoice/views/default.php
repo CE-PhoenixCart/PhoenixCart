@@ -129,7 +129,7 @@
     'style' => 'table-striped mt-3',
   ];
   
-  $table = new Table($table_definition);
+  $table = new tableLayout($table_definition);
 
   $total_columns = count($table->table_definition['columns']);
   $left_colspan = $total_columns - 1;

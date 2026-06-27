@@ -10,7 +10,7 @@
   Released under the GNU General Public License
 */
 
-class Table {
+class tableLayout {
   public $table_definition;
 
   public function __construct(&$table_definition) {
