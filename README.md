@@ -91,7 +91,7 @@ Thank you to all shopowners, developers, consultants and business owners who are
 
 ### Certified Partners
 
-[Certified Partners](https://phoenixcart.org/forum/viewforum.php?f=22) are those who are known to produce modern code, adhering as much as possible to the Phoenix core principle of `no core changes`. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
+[Certified Partners](https://phoenixcart.org/forum/app.php/developers) are those who are known to produce modern code, adhering as much as possible to the Phoenix core principle of `no core changes`. They also provide services such as SEO, [hosting](https://phoenixcart.org/forum/app.php/hosting), theme design and more.
 
 * These partners are certified by the Core Team
 * These partners support Phoenix by giving their time, code and financial support
