@@ -1,0 +1,23 @@
+{
+  "name": "Over Ride",
+  "code": "override",
+  "author": {
+    "name": "Phoenix Cart",
+    "support": "https://phoenixcart.org/forum/viewforum.php?f=10",
+    "home": "https://phoenixcart.org/",
+    "donation": ""
+  },
+  "version": "1.0.0",
+  "framework": "Bootstrap 5",
+  "image": "override.png",
+  "compatibility": {
+    "phoenix": {
+      "min": "1.0.7.14",
+      "max": null
+    },
+    "php": {
+      "min": "7.4",
+      "max": null
+    }
+  }
+}
