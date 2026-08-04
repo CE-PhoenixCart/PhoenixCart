@@ -16,7 +16,7 @@
     const DIRECTORY = DIR_FS_CATALOG . 'includes/modules/pi/';
     const KEY = 'MODULE_LAYOUT_INSTALLED';
     const TITLE = MODULE_CFG_MODULE_LAYOUT_TITLE;
-    const GROUP_KEYS = [
+    public static $GROUP_KEYS = [
       'contact_us' => 'MODULE_CONTENT_CU_INSTALLED',
       'index' => 'MODULE_CONTENT_I_INSTALLED',
       'product_info' => 'MODULE_CONTENT_PI_INSTALLED',
@@ -39,7 +39,7 @@
     public static function fix_installed_constant(&$installed_modules) {
       if (empty($_GET['page'])) {
         if (empty($_GET['module'])) {
-          foreach (static::GROUP_KEYS as $key) {
+          foreach (static::$GROUP_KEYS as $key) {
             if (defined($key)) {
               $GLOBALS['modules_installed'] = array_merge(
                 $GLOBALS['modules_installed'],
@@ -59,7 +59,7 @@
         $page = $_GET['page'];
       }
 
-      $key = static::GROUP_KEYS[pathinfo($page, PATHINFO_FILENAME)] ?? null;
+      $key = static::$GROUP_KEYS[pathinfo($page, PATHINFO_FILENAME)] ?? null;
 
       if (is_null($key)) {
         error_log("No key found for '$page'");
@@ -91,7 +91,7 @@
           yield from static::generate_modules_for($page);
         }
       } else {
-        $key = static::GROUP_KEYS[pathinfo($_GET['page'], PATHINFO_FILENAME)]
+        $key = static::$GROUP_KEYS[pathinfo($_GET['page'], PATHINFO_FILENAME)]
             ?? null;
         $GLOBALS['cfg_modules']->set(static::CODE, 'key', $key);
         $GLOBALS['module_key'] = $key;
@@ -102,7 +102,7 @@
 
     public static function list_modules() {
       if (!empty($_GET['page'])) {
-        $key = static::GROUP_KEYS[pathinfo($_GET['page'], PATHINFO_FILENAME)]
+        $key = static::$GROUP_KEYS[pathinfo($_GET['page'], PATHINFO_FILENAME)]
             ?? null;
         $GLOBALS['cfg_modules']->set(static::CODE, 'key', $key);
       }
