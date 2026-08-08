@@ -142,3 +142,10 @@ const GET_ADDONS = '<img alt="" src="images/icon_phoenix.png" class="me-2">Addon
 const ADDONS_FREE = 'Free';
 const ADDONS_COMMERCIAL = 'Paid';
 const ADDONS_PRO = 'PRO';
+
+// command palette
+const CP_AVAILABLE_VERBS = 'Available Commands';
+const CP_VERB_SUBJECTS = 'Commands: %s';
+const CP_VERB_SUBJECT_NOT_FOUND = 'Command Not Found: %s %s';
+const CP_INCOMPLETE_COMMAND = 'Incomplete Command: %s';
+const CP_INVALID_COMMAND = 'Invalid Command Format';
