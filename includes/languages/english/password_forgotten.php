@@ -21,9 +21,6 @@ const TEXT_PASSWORD_RESET_INITIATED = 'Check your email for a password reset lin
 
 const TEXT_NO_EMAIL_ADDRESS_FOUND = 'If this email is in our records, we\'ve sent you a reset link. Please check your inbox.';
 
-const EMAIL_PASSWORD_RESET_SUBJECT = STORE_NAME . ' - Password Reset';
-const EMAIL_PASSWORD_RESET_BODY = 'We received a request to reset your password for your account at ' . STORE_NAME . '.' . "\n\n" . 'Click the link below to choose a new password:' . "\n\n%s\n\n" . 'This link expires in 24 hours.' . "\n\n" . 'Need help? Contact us at: ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n\n";
-
 const ERROR_ACTION_RECORDER = 'Error: A password reset link has already been sent. Please try again in %s minutes.';
 
 const IMAGE_BUTTON_RESET_PASSWORD = 'Reset my Password';
