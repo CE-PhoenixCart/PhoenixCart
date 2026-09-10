@@ -40,13 +40,11 @@
           $reset_key_url = str_replace('&amp;', '&', $reset_key_url);
         }
 
-        Notifications::mail(
-          $customer_data->get('name', $check_customer),
-          $email_address,
-          EMAIL_PASSWORD_RESET_SUBJECT,
-          sprintf(EMAIL_PASSWORD_RESET_BODY, $reset_key_url),
-          STORE_OWNER,
-          STORE_OWNER_EMAIL_ADDRESS);
+        Notifications::notify('password_forgotten', [
+            'name'          => $customer_data->get('name', $check_customer),
+            'email_address' => $email_address,
+            'reset_url'     => $reset_key_url
+        ]);
 
         $password_reset_initiated = true;
       } else {

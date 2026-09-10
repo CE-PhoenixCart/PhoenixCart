@@ -25,15 +25,7 @@
       </p>
       <p class="my-1 p-0"><i class="fas fa-home fa-fw me-1"></i><?= $GLOBALS['Admin']->catalog('') ?></p>
     </div>
-    <div class="col text-end">
-      <?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?>
-      <h6 class="lead fw-bold m-0"><?= ENTRY_INVOICE ?></h6>
-      <?php
-      if (!Text::is_empty(STORE_TAX_ID)) {
-        echo '<p class="mt-1 mb-2 p-0">' . sprintf(ENTRY_INVOICE_TAX_ID, STORE_TAX_ID) . '</p>';
-      }
-      ?>
-    </div>
+    <div class="col text-end"><?= $Admin->catalog_image('images/' . STORE_LOGO, ['alt' => STORE_NAME]) ?></div>
   </div>
 
   <hr>
@@ -98,62 +90,13 @@
         'name' => TABLE_HEADING_PRODUCTS_MODEL,
         'function' => fn($row) =>  htmlspecialchars($row['model'], ENT_QUOTES | ENT_HTML5),
       ],
-      [
-        'name' => TABLE_HEADING_TAX,
-        'class' => 'text-end',
-        'function' => fn($row) => Tax::format($row['tax']) . '%',
-      ],
-      [
-        'name' => TABLE_HEADING_PRICE_EXCLUDING_TAX,
-        'class' => 'text-end',
-        'function' => fn($row) => $currencies->format($row['final_price'], true, $order->info['currency'], $order->info['currency_value']),
-      ],
-      [
-        'name' => TABLE_HEADING_PRICE_INCLUDING_TAX,
-        'class' => 'text-end',
-        'function' => fn($row) => $currencies->format(
-          Tax::add($row['final_price'], $row['tax']), true, $order->info['currency'], $order->info['currency_value']),
-      ],
-      [
-        'name' => TABLE_HEADING_TOTAL_EXCLUDING_TAX,
-        'class' => 'text-end',
-        'function' => fn($row) => $currencies->format($row['final_price'] * $row['qty'], true, $order->info['currency'], $order->info['currency_value']),
-      ],
-      [
-        'name' => TABLE_HEADING_TOTAL_INCLUDING_TAX,
-        'class' => 'text-end fw-bold',
-        'function' => fn($row) => $currencies->format(
-          Tax::add($row['final_price'], $row['tax']) * $row['qty'], true, $order->info['currency'], $order->info['currency_value']),
-      ],
     ],
     'style' => 'table-striped mt-3',
   ];
   
   $table = new tableLayout($table_definition);
 
-  $total_columns = count($table->table_definition['columns']);
-  $left_colspan = $total_columns - 1;
-
-  $footer_rows = [];
-  foreach ($order->totals as $order_total) {
-    $footer_rows[] = [
-      [
-        'tag' => 'th', 
-        'attributes' => "colspan=\"$left_colspan\" class=\"text-end border-0\"", 
-        'content' =>  htmlspecialchars($order_total['title'], ENT_QUOTES | ENT_HTML5)
-      ],
-      [
-        'tag' => 'th', 
-        'attributes' => "class=\"text-end border-0\"", 
-        'content' => strip_tags($order_total['text'])
-      ],
-    ];
-  }
-
-  $table->table_definition['tfoot'] = $footer_rows;
-
   $table->display_table();
   ?>
-
-  <?= $admin_hooks->cat('extraComments') ?>
   
+  <?= $admin_hooks->cat('extraComments') ?>

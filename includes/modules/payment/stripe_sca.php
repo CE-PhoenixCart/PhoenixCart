@@ -356,7 +356,7 @@ EOSQL
 INSERT into stripe_event_log (customer_id, action, request, response, date_added)
   VALUES ('%s', '%s', '%s', '%s', now())
 EOSQL
-        , (int)$customer_id, $action, $db->escape($request), $db->escape($response)));
+        , (int)$customer_id, $db->escape($action), $db->escape($request), $db->escape($response)));
 
       }
     }
@@ -593,8 +593,16 @@ EOD;
       return $result;
     }
 
+    // Fix applied: the previous version of this method sent the live/test
+    // Stripe secret key straight into client-side JavaScript so the
+    // browser could call api.stripe.com/v1/balance directly. That key was
+    // then visible in page source, browser dev tools, browser extensions,
+    // or via any XSS on the admin panel. This version never sends the
+    // secret key to the client - it calls the existing server-side test
+    // endpoint ($test_url, handled by getTestConnectionResult() through
+    // the action=install&subaction=conntest branch in __construct()) and
+    // only reads back its plain "1" (connected) / "-1" (failed) response.
     function getTestLinkInfo() {
-      $dialog_title = MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_TITLE;
       $dialog_button_close = MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_BUTTON_CLOSE;
       $dialog_success = MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_SUCCESS;
       $dialog_failed = MODULE_PAYMENT_STRIPE_SCA_DIALOG_CONNECTION_FAILED;
@@ -607,12 +615,6 @@ EOD;
         $test_url = $GLOBALS['Linker']->build('modules.php', 'set=payment&module=' . $this->code . '&action=install&subaction=conntest');
       }
 
-      if (MODULE_PAYMENT_STRIPE_SCA_TRANSACTION_SERVER == 'Live') {
-        $secret_key = MODULE_PAYMENT_STRIPE_SCA_LIVE_SECRET_KEY;
-      } else {
-        $secret_key = MODULE_PAYMENT_STRIPE_SCA_TEST_SECRET_KEY;
-      }
-      
       $js = <<<EOD
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -662,28 +664,28 @@ function openTestConnectionDialog() {
   });
 
   var timeStart = new Date().getTime();
-  var testUrl = 'https://api.stripe.com/v1/balance';
-  
-  fetch(testUrl, { 
-    method: 'GET',
-    headers: {
-      "Authorization": "Bearer {$secret_key}", // Replace with your real key
-      "Content-Type": "application/json"
-    }
-  })
+  // Server-side test endpoint - never exposes the Stripe secret key to
+  // the browser. It returns the plain text "1" (connected) or "-1" (failed).
+  var testUrl = "{$test_url}";
+
+  fetch(testUrl, { method: 'GET' })
   .then(response => {
     if (!response.ok) {
       throw new Error("HTTP error " + response.status);
     }
-    return response.json();
+    return response.text();
   })
   .then(data => {
     var progressDiv = dialogContainer.querySelector('#testConnectionDialogProgress');
-    progressDiv.innerHTML = '<p style="font-weight: bold; color: green;">{$dialog_success}</p>';
+    if (data.trim() === '1') {
+      progressDiv.innerHTML = '<p style="font-weight: bold; color: green;">{$dialog_success}</p>';
+    } else {
+      progressDiv.innerHTML = '<p style="font-weight: bold; color: red;">{$dialog_failed}</p>';
+    }
   })
   .catch(error => {
     var progressDiv = dialogContainer.querySelector('#testConnectionDialogProgress');
-    progressDiv.innerHTML = '<p style="font-weight: bold; color: red;">{$dialog_failed}: ' + error.message + '</p>';
+    progressDiv.innerHTML = '<p style="font-weight: bold; color: red;">{$dialog_error}: ' + error.message + '</p>';
   })
   .finally(() => {
     var timeEnd = new Date().getTime();

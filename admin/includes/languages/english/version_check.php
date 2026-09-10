@@ -22,7 +22,7 @@ const VERSION_SERVER_FAILURE = 'Failed to load the available versions from the s
 const VERSION_RUNNING_LATEST = 'You are running the latest version of Phoenix.';
 const VERSION_UPGRADES_AVAILABLE = <<<'EOT'
 <strong>Phoenix %s</strong> is the latest version available.<hr>
-<a class="alert-link" target="_blank" href="https://phoenixcart.org/forum/viewforum.php?f=22">Certified Partners</a>
+<a class="alert-link" target="_blank" href="https://phoenixcart.org/forum/app.php/developers">Certified Developers</a>
  and detailed "<a class="alert-link" target="_blank" href="https://phoenixcart.org/forum/app.php/tag/phoenix-update">Do It Yourself</a>"
  instructions are available in the Phoenix Forum.
 EOT;

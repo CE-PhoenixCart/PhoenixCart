@@ -165,12 +165,16 @@ class hook_admin_siteWide_hMenu {
         $output .= '</div>';
       $output .= '</nav>';
       
-      $output .= '<div class="col bg-light mb-1 border-bottom d-print-none">';
-        $output .= '<ul class="nav justify-content-end">';
+      $output .= '<div class="col bg-light mb-1 border-bottom d-print-none d-flex align-items-center gap-2 py-1 px-3">';
+        $output .= '<div class="input-group flex-grow-0" style="max-width:250px;">';
+          $output .= '<span class="input-group-text"><i class="fas fa-keyboard text-secondary"></i></span>';
+          $output .= '<input data-command-launcher type="text" class="form-control form-control-sm shadow-none" placeholder="Ctrl+K">';
+        $output .= '</div>';
+        $output .= '<ul class="nav ms-auto">';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/">' . HEADER_TITLE_PHOENIX_CLUB . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/phoenixcartwiki/index.php">' . HEADER_TITLE_PHOENIX_WIKI . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/addons/">' . HEADER_TITLE_CERTIFIED_ADDONS . '</a></li>';
-          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/viewforum.php?f=22">' . HEADER_TITLE_CERTIFIED_DEVELOPERS . '</a></li>';
+          $output .= '<li class="nav-item"><a class="nav-link" target="_blank" rel="noreferrer" href="https://phoenixcart.org/forum/app.php/developers">' . HEADER_TITLE_CERTIFIED_DEVELOPERS . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link" href="' . $GLOBALS['Admin']->catalog('') . '">' . HEADER_TITLE_ONLINE_CATALOG . '</a></li>';
           $output .= '<li class="nav-item"><a class="nav-link text-danger" href="' . $GLOBALS['Admin']->link('login.php', ['action' => 'logoff']) . '">'
                    . sprintf(HEADER_TITLE_LOGOFF, $_SESSION['admin']['username'])
