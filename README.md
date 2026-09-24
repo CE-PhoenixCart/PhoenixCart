@@ -1,20 +1,24 @@
 # CE-PhoenixCart
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/CE-PhoenixCart/PhoenixCart/master/.github/ce-phoenix.png">
+  <img alt="Phoenix Cart logo" src="https://raw.githubusercontent.com/CE-PhoenixCart/PhoenixCart/master/.github/ce-phoenix.png">
 </p>
+
+**Phoenix Cart** is a free, open-source, self-hosted PHP e-commerce platform with a hook system for customisation without core changes.
 
 ## Table of Contents
 
 * [What is Phoenix](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#description)
-  - [Demo Site](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#demo-sites)
+  - [Demo Sites](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#demo-sites)
+* [Why Phoenix?](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#why-phoenix)
+  - [Is Phoenix right for you?](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#is-phoenix-right-for-you)
 * [Installation](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#installation)
-  - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#requirements)
   - [One-click](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#one-click)
+  - [Requirements](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#requirements)
   - [User Checklist](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#user-checklist)  
   - [Language Packs](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#language-packs)
-* [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#certified-partners)
 * [Supporting the Project](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#how-to-support-the-phoenix-project)
+  - [Certified Partners](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#certified-partners)
   - [Join the Phoenix Forum](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#join-the-phoenix-forum)
 * [Links](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#helpful-links)
 * [Credits](https://github.com/CE-PhoenixCart/PhoenixCart?tab=readme-ov-file#credits)
@@ -29,14 +33,50 @@ Phoenix is packed with many first class utilities as standard but its modular so
 
 Version | URL
 ------- | ---
-Core|https://phoenixcart.org/demo/  
-Admin|https://phoenixcart.org/demo_admin/admin/
+Shop side, using IGNIS Template|https://phoenixcart.org/demo/  
+Admin side|https://phoenixcart.org/demo_admin/admin/
+
+## Why Phoenix?
+
+Phoenix Cart is a free, open-source, self-hosted e-commerce platform written in PHP. It is an alternative to hosted SaaS platforms such as Shopify and to plugin-based stacks such as WooCommerce, for merchants and developers who want to own their store, their code and their data.
+
+**A self-hosted alternative to Shopify**
+- No monthly platform fee. You host it, you own it.
+- Your store data lives in your own MySQL/MariaDB database.
+- Payment providers still charge their own processing fees, but the platform takes no cut.
+
+**A standalone alternative to WooCommerce**
+- A complete shopping cart in its own right, with no CMS or plugin stack required underneath it.
+- Sell in any currency or language, with Bootstrap 5 and vanilla JavaScript on the frontend.
+
+**The modern, maintained successor to osCommerce**
+- Phoenix began as a fork of osCommerce 2.3.x and has been developed as its own platform since.
+- Runs on current PHP versions (7.4 to 8.3 tested), with a responsive Bootstrap 5 frontend & backend.
+- The hook system and the `no core changes` principle mean you customise without editing core files.
+- A maintained platform for existing osCommerce store owners to move to.
+
+**Open source and community driven**
+- Actively developed and maintained by an open-source community.
+
+**Built for customisation without core changes**
+- A hook system lets you extend and modify behaviour without editing core files.
+- Following the `no core changes` principle keeps your customisations separate from the core code.
+
+### Is Phoenix right for you?
+
+Phoenix is a good fit if you:
+- want a self-hosted online store with no monthly subscription
+- want to be online in a few minutes, including one-click installs through Softaculous or Installatron
+- are a PHP developer who wants to customise a store without forking it
+- are running an older osCommerce store and want a maintained successor
+
+Phoenix may not be the best fit if you want a fully managed, hosted service where someone else looks after servers, updates and security for you.
 
 ## Installation
 
 Installation of Phoenix takes no more than a few minutes - you will need a hosting account that supports PHP (programming language) and has at least one SQL database.  Phoenix can even be installed on your home computer for testing purposes.
 
-## One-click
+### One-click
 
 Phoenix can now be installed with just `one click` via [Softaculous](http://www.softaculous.com/apps/ecommerce/CE_Phoenix) or [Installatron](https://installatron.com/cephoenixcart/)
 
@@ -63,7 +103,6 @@ Internationalization of date names will not work properly without intl enabled.
 
 ### User Checklist
 
-- [x] read this README document
 - [ ] download Phoenix & perform installation
 - [ ] check security page in administrative area;  
       admin > tools > security checks
@@ -71,6 +110,7 @@ Internationalization of date names will not work properly without intl enabled.
 - [ ] install modules;  
       admin > modules > navbar<br>
       admin > modules > content<br>
+      admin > modules > layout<br>
       admin > modules > boxes<br>
       admin > modules > shipping<br>
       admin > modules > payment
@@ -100,7 +140,13 @@ If you are looking for a developer for a paid-for project, please consider one o
 
 ### Join the Phoenix Forum
 
-If you wish to help steer the future direction of the software, join the [Forum](https://phoenixcart.org/forum/) and consider sponsoring Phoenix.
+The [Phoenix Forum](https://phoenixcart.org/forum/) is the place to get help and advice. Ask questions, share what you're building, and learn from other Phoenix users. It's free to join.
+
+### Take the Next Step: Join the Code Co-op
+
+Once your store is live and earning, Phoenix becomes part of your business. The [Code Co-op](https://phoenixcart.org/code_coop.php) is where shop owners, developers and consultants who depend on Phoenix back its development and help steer where it goes next.
+
+If your business relies on Phoenix, joining is the natural way to invest in the software it runs on. [Join the Code Co-op](https://phoenixcart.org/code_coop.php).
 
 ## Helpful Links
 
