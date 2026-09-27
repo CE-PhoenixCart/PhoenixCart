@@ -86,7 +86,7 @@
         case 'NULL':
           return 'NULL';
         default:
-          return "'" . $this->real_escape_string($value) . "'";
+          return "'" . $this->real_escape_string("$value") . "'";
       }
     }
 
