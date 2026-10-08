@@ -96,7 +96,7 @@ EOSQL
     fputs($fp, $schema);
 
 // dump the data
-    if ( ($table !== 'sessions' ) && ($table !== 'whos_online') ) {
+    if ( ($table !== 'analytics_events' ) && ($table !== 'sessions' ) && ($table !== 'whos_online') ) {
       $rows_query = $db->query("SELECT " . implode(',', $table_list) . " FROM " . $table);
       while ($row = $rows_query->fetch_assoc()) {
         $schema = 'INSERT INTO ' . $table . ' (' . implode(', ', $table_list) . ') VALUES (';
