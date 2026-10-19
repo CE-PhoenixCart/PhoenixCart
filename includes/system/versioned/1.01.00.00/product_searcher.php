@@ -87,7 +87,7 @@
 
       if (DISPLAY_PRICE_WITH_TAX === 'true') {
         if (!Text::is_empty($GLOBALS['pfrom']) || !Text::is_empty($GLOBALS['pto'])) {
-          $chain['columns'] .= ", tax.tax_rate";
+          $chain['columns'] .= ", s_tax.tax_rate";
 
           if (isset($customer) && ($customer instanceof customer)) {
             $country_id = $customer->get('country_id');
@@ -98,7 +98,7 @@
           }
 
           $custom['from'] .= sprintf(<<<'EOSQL'
-            LEFT JOIN (SELECT tlog.tax_class_id, COALESCE((EXP(SUM(tlog.log_tax_rate)), 1.0) - 1.0) * 100 AS tax_rate FROM (
+            LEFT JOIN (SELECT tlog.tax_class_id, (COALESCE(EXP(SUM(tlog.log_tax_rate)), 1.0) - 1.0) * 100 AS tax_rate FROM (
                 SELECT tr.tax_class_id, LOG(1.0 + SUM(tr.tax_rate) / 100) AS log_tax_rate FROM tax_rates tr
                 LEFT JOIN zones_to_geo_zones gz ON tr.tax_zone_id = gz.geo_zone_id
                         AND (gz.zone_country_id IS NULL OR gz.zone_country_id IN (0, %d))
@@ -106,15 +106,15 @@
                 GROUP BY tr.tax_class_id, tr.tax_priority
               ) tlog
               GROUP BY tlog.tax_class_id
-            ) tax ON p.products_tax_class_id = tax.tax_class_id
+            ) s_tax ON p.products_tax_class_id = s_tax.tax_class_id
 EOSQL
           , (int)$country_id, (int)$zone_id);
 
           if (is_numeric($GLOBALS['pfrom']) && $GLOBALS['pfrom'] > 0) {
-            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tax.tax_rate / 100)) >= " . $GLOBALS['pfrom'] . ")";
+            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (COALESCE(s_tax.tax_rate, 0) / 100)) >= " . $GLOBALS['pfrom'] . ")";
           }
           if (is_numeric($GLOBALS['pto']) && $GLOBALS['pto'] > 0) {
-            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (tax.tax_rate / 100)) <= " . $GLOBALS['pto'] . ")";
+            $custom['where'] .= " AND (IF(s.status, s.specials_new_products_price, p.products_price) * (1 + (COALESCE(s_tax.tax_rate, 0) / 100)) <= " . $GLOBALS['pto'] . ")";
           }
         }
       } else {
