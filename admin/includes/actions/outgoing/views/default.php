@@ -26,7 +26,7 @@
         'class' => 'text-center',
         'is_heading' => false,
         'function' => function ($row) {
-          return ($row['send_at'] < date('Y-m-d h:i:s') )
+          return ($row['send_at'] < date('Y-m-d H:i:s') )
                ? '<i class="fas fa-circle-check text-success"></i>'
                : '<i class="fas fa-circle-xmark text-danger"></i>';
         },
