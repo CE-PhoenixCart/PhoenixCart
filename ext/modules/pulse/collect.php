@@ -27,13 +27,40 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   exit;
 }
 
+$content_type = strtolower(trim(explode(';', $_SERVER['CONTENT_TYPE'] ?? '')[0]));
+
+if ($content_type !== 'application/json') {
+  http_response_code(415);
+  echo json_encode(['error' => 'Unsupported Media Type']);
+  exit;
+}
+
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true);
 
-if (!is_array($data) || empty($data['event'])) {
+if (
+  !is_array($data)
+  || empty($data['event'])
+  || !is_string($data['event'])
+  || !preg_match('/^[A-Za-z0-9_.:\-]{1,64}$/', $data['event'])
+) {  
   http_response_code(400);
   echo json_encode(['error' => 'Invalid event']);
   exit;
+}
+
+if (isset($data['payload']) && !is_array($data['payload'])) {
+  http_response_code(400);
+  echo json_encode(['error' => 'Invalid payload']);
+  exit;
+}
+
+foreach (['page_url', 'referrer', 'domain', 'timestamp'] as $field) {
+  if (isset($data[$field]) && !is_string($data[$field])) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Invalid ' . $field]);
+    exit;
+  }
 }
 
 // Extract product_id from payload if present
@@ -44,7 +71,7 @@ $product_id = isset($payload_array['product_id']) ? (int)$payload_array['product
 unset($payload_array['product_id']);
 
 // Escape and prepare data
-$customer_id = $_SESSION['customer_id'] ?? "NULL";
+$customer_id = isset($_SESSION['customer_id']) ? (int)$_SESSION['customer_id'] : "NULL";
 $merchant_id = 0;
 $event_type = $GLOBALS['db']->escape($data['event']);
 $payload_json = $GLOBALS['db']->escape(json_encode($payload_array, JSON_UNESCAPED_UNICODE));

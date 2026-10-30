@@ -15,7 +15,7 @@
   $link = $GLOBALS['Admin']->link('pulse_analytics.php')->retain_query_except(['action']);
   $contents = ['form' => new Form('pulse_analytics', (clone $link)->set_parameter('action', 'delete_confirm'))];
   $contents[] = ['text' => TEXT_INFO_DELETE_INTRO];
-  $contents[] = ['text' => '<strong>' . $table_definition['info']->event_type . '</strong>'];
+  $contents[] = ['text' => '<strong>' . htmlspecialchars($table_definition['info']->event_type, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '</strong>'];
   $contents[] = [
     'class' => 'text-center',
     'text' => new Button(IMAGE_DELETE, 'fas fa-trash', 'btn-danger me-2')

@@ -12,8 +12,8 @@
 
   if (is_object($table_definition['info'] ?? null)) {
     $aInfo = $table_definition['info'];
-    $heading = $aInfo->event_type;
-
+    $heading = htmlspecialchars($aInfo->event_type, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    
     $link = $GLOBALS['Admin']->link('pulse_analytics.php')->retain_query_except()->set_parameter('aID', $aInfo->id);
     
     function render_payload($payload) {

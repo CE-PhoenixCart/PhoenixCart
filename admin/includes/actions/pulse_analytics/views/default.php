@@ -48,7 +48,7 @@ EOSQL;
       [
         'name' => TABLE_HEADING_EVENT_TYPE,
         'function' => function (&$row) {
-          return $row['event_type'];
+          return htmlspecialchars($row['event_type'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         },
       ],
       [
