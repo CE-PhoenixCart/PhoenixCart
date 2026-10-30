@@ -80,7 +80,7 @@
     }
 
     public function process(&$customer_details) {
-      $customer_details['newsletter'] = isset($_POST['newsletter']) ? Text::input($_POST['newsletter']) : false;
+      $customer_details['newsletter'] = isset($_POST['newsletter']) ? Text::input($_POST['newsletter']) : 0;
 
       if ( ( ('1' !== $customer_details['newsletter']) )
         && (!empty($customer_details['newsletter']) || $this->is_required())
