@@ -38,9 +38,9 @@
     }
 ?>
         <table class="table table-striped table-hover">
-          <thead class="table-light">
+          <thead style="--bs-table-bg: var(--bs-secondary-bg);">
             <tr>
-              <th><?= $heading ?></th>
+              <th class="text-center"><?= $heading ?></th>
             </tr>
           </thead>
           <tbody>
