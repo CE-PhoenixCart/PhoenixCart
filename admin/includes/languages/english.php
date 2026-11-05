@@ -23,7 +23,7 @@ $short_date_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, In
 $date_time_formatter = new IntlDateFormatter('en', IntlDateFormatter::SHORT, IntlDateFormatter::LONG);
 
 // Global entries for the <html> tag
-const HTML_PARAMS = 'dir="ltr" lang="en"';
+const HTML_PARAMS = 'dir="ltr" lang="en" data-bs-theme="system"';
 
 // charset for web pages and emails
 const CHARSET = 'utf-8';
