@@ -13,16 +13,16 @@
 
   </div>
 
-  <?php
-  if (isset($_SESSION['admin'])) {
-    require 'includes/footer.php';
-  }
-
-  echo $admin_hooks->cat('injectSiteEnd');
-  ?>
-
   </div>
 </div>
+
+<?php
+if (isset($_SESSION['admin'])) {
+  require 'includes/footer.php';
+}
+
+echo $admin_hooks->cat('injectSiteEnd');
+?>
 
 <?= $admin_hooks->cat('injectBodyEnd') ?>
 
