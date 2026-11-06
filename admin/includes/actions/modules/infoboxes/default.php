@@ -23,7 +23,7 @@
       ];
 
       if (isset($mInfo->api_version)) {
-        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark-emphasis me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
       }
 
       $contents[] = ['text' => $mInfo->description];
@@ -66,7 +66,7 @@
       ];
 
       if (isset($mInfo->api_version)) {
-        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
+        $contents[] = ['text' => '<i class="fas fa-info-circle text-dark-emphasis me-2"></i><strong>' . TEXT_INFO_API_VERSION . '</strong> ' . $mInfo->api_version];
       }
 
       $contents[] = ['text' => $mInfo->description];

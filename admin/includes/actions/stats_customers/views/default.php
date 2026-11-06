@@ -53,8 +53,8 @@
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-end',
         'function' => function ($row) use ($Admin) {
-          return '<a class="text-dark" href="' . $GLOBALS['link']->set_parameter('cID', $row['customers_id']) . '"><i class="fas fa-file-csv me-2"></i></a>'
-               . '<a class="text-dark" href="' . $Admin->link('orders.php', ['cID' => $row['customers_id']]) . '"><i class="fas fa-eye"></i></a>';
+          return '<a class="text-dark-emphasis" href="' . $GLOBALS['link']->set_parameter('cID', $row['customers_id']) . '"><i class="fas fa-file-csv me-2"></i></a>'
+               . '<a class="text-dark-emphasis" href="' . $Admin->link('orders.php', ['cID' => $row['customers_id']]) . '"><i class="fas fa-eye"></i></a>';
         },
       ],
     ],

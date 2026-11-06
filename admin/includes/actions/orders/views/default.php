@@ -74,7 +74,7 @@ EOSQL
         'name' => TABLE_HEADING_ACTION,
         'class' => 'text-end',
         'function' => function ($row) {
-          return '<a href="' . $row['onclick'] . '"><i class="fas fa-cogs me-2 text-dark"></i></a>'
+          return '<a href="' . $row['onclick'] . '"><i class="fas fa-cogs me-2 text-dark-emphasis"></i></a>'
                . ((isset($row['info']->orders_id))
                 ? '<i class="fas fa-chevron-circle-right text-info"></i>'
                 : '<a href="' . $row['onclick'] . '"><i class="fas fa-info-circle text-muted"></i></a>');
