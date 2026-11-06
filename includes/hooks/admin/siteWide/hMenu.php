@@ -165,7 +165,7 @@ class hook_admin_siteWide_hMenu {
         $output .= '</div>';
       $output .= '</nav>';
       
-      $output .= '<div class="col bg-light mb-1 border-bottom d-print-none d-flex align-items-center gap-2 py-1 px-3">';
+      $output .= '<div class="col mb-1 border-bottom d-print-none d-flex align-items-center gap-2 py-1 px-3">';
         $output .= '<div class="input-group flex-grow-0" style="max-width:250px;">';
           $output .= '<span class="input-group-text"><i class="fas fa-keyboard text-secondary"></i></span>';
           $output .= '<input data-command-launcher type="text" class="form-control form-control-sm shadow-none" placeholder="Ctrl+K">';

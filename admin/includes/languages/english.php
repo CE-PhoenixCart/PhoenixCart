@@ -32,11 +32,11 @@ const CHARSET = 'utf-8';
 const TITLE = 'Phoenix Cart Administration Tool';
 
 // header text in includes/hooks/admin/siteWide/hMenu.php
-const HEADER_TITLE_ONLINE_CATALOG = '<i class="fas fa-shopping-cart me-1 text-primary" aria-hidden="true" title="Your Shop"></i><span class="border-bottom border-primary">Your Shop</span>';
-const HEADER_TITLE_PHOENIX_CLUB = '<i class="fas fa-question-circle me-1 text-primary" aria-hidden="true" title="Phoenix Forum"></i><span class="border-bottom border-primary d-none d-md-inline">Phoenix Forum</span>';
-const HEADER_TITLE_PHOENIX_WIKI = '<i class="fas fa-school me-1 text-primary" aria-hidden="true" title="User Guide"></i><span class="border-bottom border-primary d-none d-md-inline">User Guide</span>';
-const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<i class="fas fa-laptop-code me-1 text-primary" aria-hidden="true" title="Partners"></i><span class="border-bottom border-primary d-none d-md-inline">Certified Partners</span>';
-const HEADER_TITLE_CERTIFIED_ADDONS = '<i class="fas fa-folder-plus me-1 text-primary" aria-hidden="true" title="Add-ons"></i><span class="border-bottom border-primary d-none d-md-inline">Add-ons</span>';
+const HEADER_TITLE_ONLINE_CATALOG = '<span class="text-dark-emphasis"><i class="fas fa-shopping-cart me-1" aria-hidden="true" title="Your Shop"></i>Your Shop</span>';
+const HEADER_TITLE_PHOENIX_CLUB = '<span class="text-dark-emphasis"><i class="fas fa-question-circle me-1" aria-hidden="true" title="Phoenix Forum"></i><span class="d-none d-md-inline">Phoenix Forum</span></span>';
+const HEADER_TITLE_PHOENIX_WIKI = '<span class="text-dark-emphasis"><i class="fas fa-school me-1" aria-hidden="true" title="User Guide"></i><span class="d-none d-md-inline">User Guide</span></span>';
+const HEADER_TITLE_CERTIFIED_DEVELOPERS = '<span class="text-dark-emphasis"><i class="fas fa-laptop-code me-1" aria-hidden="true" title="Partners"></i><span class="d-none d-md-inline">Certified Partners</span></span>';
+const HEADER_TITLE_CERTIFIED_ADDONS = '<span class="text-dark-emphasis"><i class="fas fa-folder-plus me-1" aria-hidden="true" title="Add-ons"></i><span class="d-none d-md-inline">Add-ons</span></span>';
 const HEADER_TITLE_LOGOFF = '<i class="fas fa-lock me-1" aria-hidden="true" title="Log off"></i><span class="border-bottom border-danger">%s, securely log off</span>';
 
 // images
