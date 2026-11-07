@@ -77,52 +77,94 @@
         </table>
       </div>
       <div class="tab-pane fade" id="section_products_content" role="tabpanel">
-        <table class="table table-striped">
-          <thead class="table-dark">
-            <tr>
-              <th><?= TABLE_HEADING_PRODUCTS ?></th>
-              <th><?= TABLE_HEADING_PRODUCTS_MODEL ?></th>
-              <th class="text-end"><?= TABLE_HEADING_TAX ?></th>
-              <th class="text-end"><?= TABLE_HEADING_PRICE_EXCLUDING_TAX ?></th>
-              <th class="text-end"><?= TABLE_HEADING_PRICE_INCLUDING_TAX ?></th>
-              <th class="text-end"><?= TABLE_HEADING_TOTAL_EXCLUDING_TAX ?></th>
-              <th class="text-end"><?= TABLE_HEADING_TOTAL_INCLUDING_TAX ?></th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            Guarantor::ensure_global('currencies');
-            foreach ($order->products as $product) {
-              echo '<tr>';
-                echo '<td>' . $product['qty'] . ' x ' . $product['name'];
-                if (!empty($product['attributes'])) {
-                  foreach ($product['attributes'] as $attribute) {
-                    echo '<br><small> - ' . $attribute['option'] . ': ' . $attribute['value'];
-                    if ($attribute['price'] != '0') {
-                      echo ' (' . $attribute['prefix'] . $currencies->format($attribute['price'] * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
-                    }
-                    echo '</small>';
-                  }
-                }
-                echo '</td>';
-                echo '<td>' . $product['model'] . '&nbsp;</td>';
-                echo '<td class="text-end">' . Tax::format($product['tax']) . '%</td>';
-                echo '<td class="text-end">' . $currencies->format($product['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-                echo '<td class="text-end">' . $currencies->format(Tax::add($product['final_price'], $product['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-                echo '<td class="text-end">' . $currencies->format($product['final_price'] * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>';
-                echo '<th class="text-end">' . $currencies->format(Tax::add($product['final_price'], $product['tax']) * $product['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</th>';
-              echo '</tr>';
-            }
-            foreach ($order->totals as $ot) {
-              echo '<tr>';
-                echo '<td colspan="6" class="text-end bg-white">' . $ot['title'] . '</td>';
-                echo '<th class="text-end bg-white">' . $ot['text'] . '</th>';
-              echo '</tr>';
-            }
-            ?>
-          </tbody>
-        </table>
 
+        <?php
+        Guarantor::ensure_global('currencies');
+            
+        $table_definition = [
+          'data' => $order->products,
+          'columns' => [
+            [
+              'name' => TABLE_HEADING_QTY,
+              'function' => fn($row) => $row['qty'],
+            ],
+            [
+              'name' => TABLE_HEADING_PRODUCTS,
+              'class' => 'fw-bold',
+              'function' => function ($row) use ($currencies, $order) {
+                $output = htmlspecialchars($row['name'], ENT_QUOTES | ENT_HTML5);
+                foreach (($row['attributes'] ?? []) as $attribute) {
+                  $output .= '<br><small><i> - ' .  htmlspecialchars($attribute['option'], ENT_QUOTES | ENT_HTML5) . ': ' .  htmlspecialchars($attribute['value'], ENT_QUOTES | ENT_HTML5);
+                  if ($attribute['price'] != '0') {
+                    $output .= ' (' . $attribute['prefix']
+                            . $currencies->format($attribute['price'] * $row['qty'], true, $order->info['currency'], $order->info['currency_value'])
+                            . ')';
+                  }
+                  $output .= '</i></small>';
+                }
+                return $output;
+              },
+            ],
+            [
+              'name' => TABLE_HEADING_PRODUCTS_MODEL,
+              'function' => fn($row) =>  htmlspecialchars($row['model'], ENT_QUOTES | ENT_HTML5),
+            ],
+            [
+              'name' => TABLE_HEADING_TAX,
+              'class' => 'text-end',
+              'function' => fn($row) => Tax::format($row['tax']) . '%',
+            ],
+            [
+              'name' => TABLE_HEADING_PRICE_EXCLUDING_TAX,
+              'class' => 'text-end',
+              'function' => fn($row) => $currencies->format($row['final_price'], true, $order->info['currency'], $order->info['currency_value']),
+            ],
+            [
+              'name' => TABLE_HEADING_PRICE_INCLUDING_TAX,
+              'class' => 'text-end',
+              'function' => fn($row) => $currencies->format(
+                Tax::add($row['final_price'], $row['tax']), true, $order->info['currency'], $order->info['currency_value']),
+            ],
+            [
+              'name' => TABLE_HEADING_TOTAL_EXCLUDING_TAX,
+              'class' => 'text-end',
+              'function' => fn($row) => $currencies->format($row['final_price'] * $row['qty'], true, $order->info['currency'], $order->info['currency_value']),
+            ],
+            [
+              'name' => TABLE_HEADING_TOTAL_INCLUDING_TAX,
+              'class' => 'text-end fw-bold',
+              'function' => fn($row) => $currencies->format(
+                Tax::add($row['final_price'], $row['tax']) * $row['qty'], true, $order->info['currency'], $order->info['currency_value']),
+            ],
+          ],
+          'style' => 'table-striped mt-3',
+        ];
+  
+        $table = new tableLayout($table_definition);
+
+        $total_columns = count($table->table_definition['columns']);
+        $left_colspan = $total_columns - 1;
+
+        $footer_rows = [];
+        foreach ($order->totals as $order_total) {
+          $footer_rows[] = [
+            [
+              'tag' => 'th', 
+              'attributes' => "colspan=\"$left_colspan\" class=\"text-end border-0\"", 
+              'content' =>  htmlspecialchars($order_total['title'], ENT_QUOTES | ENT_HTML5)
+            ],
+            [
+              'tag' => 'th', 
+              'attributes' => "class=\"text-end border-0\"", 
+              'content' => strip_tags($order_total['text'])
+            ],
+          ];
+        }
+
+        $table->table_definition['tfoot'] = $footer_rows;
+
+        $table->display_table();
+        ?>
       </div>
       <div class="tab-pane fade" id="section_status_history_content" role="tabpanel">
         <?= new Form('status', $Admin->link('orders.php')->retain_query_except()->set_parameter('action', 'update_order')) ?>

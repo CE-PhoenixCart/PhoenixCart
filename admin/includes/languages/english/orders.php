@@ -35,6 +35,7 @@ const TABLE_HEADING_PRICE_EXCLUDING_TAX = 'Price (ex)';
 const TABLE_HEADING_PRICE_INCLUDING_TAX = 'Price (inc)';
 const TABLE_HEADING_TOTAL_EXCLUDING_TAX = 'Total (ex)';
 const TABLE_HEADING_TOTAL_INCLUDING_TAX = 'Total (inc)';
+const TABLE_HEADING_QTY = 'Qty';
 
 const TABLE_HEADING_CUSTOMER_NOTIFIED = 'Customer Notified';
 const TABLE_HEADING_DATE_ADDED = 'Date Added';
