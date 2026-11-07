@@ -1,0 +1,27 @@
+[data-bs-theme="dark"] .btn-dark {
+  --bs-btn-color: var(--bs-btn-color);
+  --bs-btn-bg: var(--bs-secondary);
+  --bs-btn-border-color: var(--bs-secondary);
+  --bs-btn-hover-color: var(--bs-btn-hover-color);
+  --bs-btn-hover-bg: var(--bs-secondary-border-subtle); /* Adjust hover shade if desired */
+  --bs-btn-hover-border-color: var(--bs-secondary-border-subtle);
+  --bs-btn-focus-shadow-rgb: var(--bs-secondary-rgb);
+  --bs-btn-active-color: var(--bs-btn-active-color);
+  --bs-btn-active-bg: var(--bs-secondary-border-subtle);
+  --bs-btn-active-border-color: var(--bs-secondary-border-subtle);
+  --bs-btn-disabled-color: var(--bs-btn-disabled-color);
+  --bs-btn-disabled-bg: var(--bs-secondary);
+  --bs-btn-disabled-border-color: var(--bs-secondary);
+}
+
+[data-bs-theme="dark"] .btn-light {
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-bg: var(--bs-tertiary-bg);
+  --bs-btn-border-color: var(--bs-border-color-translucent);
+  --bs-btn-hover-color: var(--bs-body-color);
+  --bs-btn-hover-bg: var(--bs-secondary-bg);
+  --bs-btn-hover-border-color: var(--bs-border-color);
+  --bs-btn-active-color: var(--bs-body-color);
+  --bs-btn-active-bg: var(--bs-secondary-bg);
+  --bs-btn-active-border-color: var(--bs-border-color);
+}
