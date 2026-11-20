@@ -11,7 +11,7 @@
 */
 
   $containers = info_pages::getContainer([
-    'pd.pages_id' => (int)$_GET['pages_id'],
+    'pd.pages_id' => (int)($_GET['pages_id'] ?? 0),
     'pd.languages_id' => (int)$_SESSION['languages_id'],
     'p.pages_status' => 1,
   ]);
